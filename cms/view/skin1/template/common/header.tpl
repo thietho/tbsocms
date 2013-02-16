@@ -29,7 +29,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     
     <div class="right text-center" id="logo">
         <a href="http://ben-solution.com/">
-            <img class="png" src="<?php echo DIR_IMAGE?>ben_logo.gif" alt="" /><br />
+            <img class="png" src="<?php echo DIR_IMAGE?>logo.png"/><br />
         </a>  
     </div>
     

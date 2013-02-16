@@ -1,7 +1,7 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'http://localhost:81/bencms/cms/');
-define('HTTP_IMAGE', 'http://localhost:81/bencms/file/');
+define('HTTP_SERVER', 'http://localhost:81/tbsocms/cms/');
+define('HTTP_IMAGE', 'http://localhost:81/tbsocms/file/');
 
 // HTTPS
 define('HTTPS_SERVER', '');

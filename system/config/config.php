@@ -7,6 +7,6 @@ define('DB_DRIVER', 'mysql');
 define('DB_HOSTNAME', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
-define('DB_DATABASE', 'db_bencms');
+define('DB_DATABASE', 'db_tbsocms');
 define('DB_PREFIX', '');
 ?>
