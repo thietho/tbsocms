@@ -5,15 +5,25 @@ class ControllerAddonCheckoutcomplete extends Controller
 	public function index()
 	{
 		$this->document->breadcrumb .= "Hoàn tất thanh toán";
-		$this->getList();
+		$orderid = $this->request->get['id'];
+		$this->getOrder($orderid);
 		$this->id="content";
 		$this->template="addon/checkoutcomplete.tpl";
 		$this->render();
 	}
 	
-	public function getList()
+	public function viewOrder($orderid)
 	{
-		$orderid = $this->request->get['id'];
+		$this->document->breadcrumb .= "Hoàn tất thanh toán";
+		$this->getOrder($orderid);
+		$this->id="content";
+		$this->template="addon/checkoutcomplete.tpl";
+		$this->render();
+	}
+	
+	public function getOrder($orderid)
+	{
+		
 		$this->load->model("addon/order");
 		$this->load->model("core/media");
 		$this->load->helper('image');

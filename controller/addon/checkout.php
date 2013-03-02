@@ -4,7 +4,7 @@ class ControllerAddonCheckout extends Controller
 	private $error = array();
 	public function index()
 	{
-		$this->document->breadcrumb .= $this->data['text_orderinformation'];
+		$this->document->breadcrumb .= "Thông tin đơn hàng";
 		$this->getList();
 		$this->getMemberInfor();
 		$this->id="content";
@@ -49,6 +49,29 @@ class ControllerAddonCheckout extends Controller
 				$this->model_addon_order->saveOrderProduct($detail);
 			}
 			unset($_SESSION['cart']);
+			//Gui don hang den nguoi nhan lien he
+			$arr = array($orderid);
+			$description = $this->loadModule('addon/checkoutcomplete','viewOrder',$arr);
+			$email = $this->model_core_media->getInformation("setting", 'EmailContact');
+			$mail['from'] = $data['email'];
+			$mail['FromName'] = $data['customername'];
+			$mail['to'] = $email;
+			$mail['name'] = "";
+			$mail['subject'] =  "Thông tin đặt hàng";
+			$arr = array($description);
+			$mail['body'] = $this->loadModule('module/contact','createEmailTemplate',$arr);
+			$this->mailsmtp->sendMail($mail);
+			//Gui don hang den khach hang
+			$email = $this->model_core_media->getInformation("setting", 'EmailContact');
+			$mail['from'] = "sales@mylanbeauty.net";
+			$mail['FromName'] = "Bộ phận bán hàng - mylanbeauty.net";
+			$mail['to'] = $data['email'];
+			$mail['name'] = $data['customername'];
+			$mail['subject'] =  "Thông tin đặt hàng";
+			$arr = array($description);
+			$mail['body'] = $this->loadModule('module/contact','createEmailTemplate',$arr);
+			$this->mailsmtp->sendMail($mail);
+			
 			$this->data['output'] = "true-".$orderid;
 		}
 		else
@@ -68,18 +91,18 @@ class ControllerAddonCheckout extends Controller
 		
 		if(trim($data['customername']) =="")
 		{
-      		$this->error['customername'] = $this->data['war_fullnamenotnull'];
+      		$this->error['customername'] = "Bạn chưa nhập họ tên";
     	}
 		
 		if ($data['email'] == "") 
 		{
-      		$this->error['email'] = $this->data['war_emailnotnull'];
+      		$this->error['email'] = "Bạn chưa nhập email";
     	}
 		else
 		{
 			if(!$this->validation->_checkEmail($data['email']))
 			{
-				$this->error['email'] = $this->data['war_emailnotformate'];
+				$this->error['email'] = "Email không đúng định dạng";
 			}
 		}
 
