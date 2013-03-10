@@ -2,7 +2,7 @@
                                 	<thead>
                                     	<tr>
                                         	<th><?php echo $lbl_title ?></th>
-                                           	<!-- <th>Code</th>-->
+                                           	<th>Code</th>
                                             <th><?php echo $lbl_standardprice ?></th>
                                             <th><?php echo $lbl_sale ?></th>
                                             <th><?php echo $lbl_price ?></th>

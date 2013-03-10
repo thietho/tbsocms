@@ -23,7 +23,7 @@ class ModelCoreMedia extends ModelCoreFile
 		
 		$sql = "Select `media`.* 
 									from `media` 
-									where status not like 'delete' AND mediaid like '%".$this->member->getSiteId()."%' " . $where .$order ;
+									where status like 'active' AND mediaid like '%".$this->member->getSiteId()."%' " . $where .$order ;
 		if($order == "")
 			$order = " Order by position, statusdate DESC";
 		if($to > 0)

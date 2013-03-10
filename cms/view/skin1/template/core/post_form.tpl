@@ -18,7 +18,7 @@
         	<input class="button" type="button" value="<?php echo $button_preview?>" onclick="preview()"/>
         	<input class="button" type="button" value="<?php echo $button_save?>" onclick="save()"/>
             <a class="button" href="<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"><?php echo $button_cancel?></a>
-             <input type="hidden" id="status" name="status" value="<?php echo $status?>" />
+             
              <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $mediaid?>" />
              <input type="hidden" id="mediatype" name="mediatype" value="<?php echo $mediatype?>" />
              <input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $refersitemap?>" />
@@ -123,6 +123,17 @@ $('#title').change(function(e) {
                             <input class="text number" type="text" name="price" value="<?php echo $price?>" size="60" />
                         </p>
                         <?php } ?>
+                        <p>
+                        	<label>Trang thái:</label>
+                            
+                            <select id="status" name="status">
+                            	<option value="active">Hiện</option>
+                                <option value="hide">Ẩn</option>
+                            </select>
+                            <script language="javascript">
+								$('#status').val('<?php echo $status?>')
+							</script>
+                        </p>
                     </div>
                     <?php if($hasFile) {?>
                     <div class="col2 right">
@@ -393,10 +404,10 @@ $(document).ready(function() {
                         <?php echo $lbl_title ?><br />
                         <input class="text" type="text" name="price_title" id="price_title" value="" size="40" />
                     </p>
-                    <!--<p>
+                    <p>
                         Code sản phẩm:<br />
-                        <input class="text" type="text" name="price_code" id="price_code" value="" size="40" onchange="price.loadPrice(this.value)"/> <input type="button" class="button" value="Lấy giá" onclick="price.loadPrice($('#price_code').val())" />
-                    </p>-->
+                        <input class="text" type="text" name="price_code" id="price_code" value="" size="40" onchange="price.loadPrice(this.value)"/> <!--<input type="button" class="button" value="Lấy giá" onclick="price.loadPrice($('#price_code').val())" />-->
+                    </p>
                     <p>
                         <?php echo $lbl_standardprice ?><br />
                         <input class="text number" type="text" name="price_thitruong" id="price_thitruong" value="" size="40" />
