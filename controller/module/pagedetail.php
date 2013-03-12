@@ -15,17 +15,21 @@ class ControllerModulePagedetail extends Controller
 		
 		$this->data['post'] = $this->model_core_media->getByAlias($mediaid);
 		$this->document->title .= " - ".$this->data['post']['title'];
+		
 		if(count($this->data['post']) == 0)
 		{
 			$this->data['post']['description'] = "Updating...";
 		}
 		$this->data['post']['summary'] = html_entity_decode($this->data['post']['summary']);
 		$this->data['post']['description'] = html_entity_decode($this->data['post']['description']);
+		$this->document->meta_description = strip_tags($this->data['post']['summary']);
+		$this->document->meta_keyword = strip_tags($this->data['post']['description']);
 		
 		if($this->data['post']['imagepath'] != "")
 		{
 			$this->data['post']['imagethumbnail'] = HelperImage::resizePNG($this->data['post']['imagepath'], $template['width'], $template['height']);
 		}
+		$this->document->meta_image = $this->data['post']['imagethumbnail'];
 		$this->data['post']['startdate'] = $this->model_core_media->getInformation($mediaid,"startdate");
 		$this->data['post']['enddate'] = $this->model_core_media->getInformation($mediaid,"enddate");
 		
@@ -106,11 +110,17 @@ class ControllerModulePagedetail extends Controller
 		if($sitemapid == "")
 			$sitemapid = $this->document->sitemapid;
 		$id = $this->request->get['id'];
-		
+		if(count($media))
+		{
+			$id = $media['alias'];	
+		}
 		$mediaid = $id;
 		$siteid = $this->member->getSiteId();
 		
 		$this->data['post'] = $this->model_core_media->getByAlias($mediaid);
+		$arr = $this->string->referSiteMapToArray($this->data['post']['refersitemap']);
+		$sid = $arr[0];
+		$this->data['post']['link'] = $this->document->createLink($sid,$this->data['post']['alias']);
 		$mediaid = $this->data['post']['mediaid'];
 		$this->document->title .= " - ".$this->data['post']['title'];
 		if(count($this->data['post']) == 0)
@@ -119,6 +129,8 @@ class ControllerModulePagedetail extends Controller
 		}
 		$this->data['post']['summary'] = html_entity_decode($this->data['post']['summary']);
 		$this->data['post']['description'] = html_entity_decode($this->data['post']['description']);
+		$this->document->meta_description = strip_tags($this->data['post']['summary']);
+		$this->document->meta_keyword = strip_tags($this->data['post']['description']);
 		
 		$loaisp= $this->string->referSiteMapToArray($this->data['post']['refersitemap']);
 		
@@ -132,6 +144,7 @@ class ControllerModulePagedetail extends Controller
 			$this->data['post']['imagethumbnail'] = HelperImage::resizePNG($this->data['post']['imagepath'], $template['width'], $template['height']);
 			$this->data['post']['imagepreview'] = HelperImage::resizePNG($this->data['post']['imagepath'],  800, 800);
 		}
+		$this->document->meta_image = $this->data['post']['imagethumbnail'];
 		$this->data['properties'] = $this->string->referSiteMapToArray($this->data['post']['groupkeys']);
 		
 		//Get sub attachment

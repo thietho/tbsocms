@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="<?php echo $direction; ?>" lang="<?php echo $language; ?>" xml:lang="<?php echo $language; ?>">
 <head>
-<link type="image/x-icon" href="<?php echo HTTP_SERVER.DIR_IMAGE?>logo-small.gif" rel="icon">
-<link type="image/x-icon" href="<?php echo HTTP_SERVER.DIR_IMAGE?>logo-small.gif" rel="shortcut icon">
+<link type="image/x-icon" href="<?php echo HTTP_SERVER.DIR_IMAGE?>logo.png" rel="icon">
+<link type="image/x-icon" href="<?php echo HTTP_SERVER.DIR_IMAGE?>logo.png" rel="shortcut icon">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="robots" content="INDEX,FOLLOW" />
 <meta http-equiv="REFRESH" content="5400" />
@@ -10,6 +10,7 @@
 <meta name="keywords" content="<?php echo $meta_keyword?>" />		
 <title><?php echo $title?></title>
 
+<meta content="<?php echo $meta_image?>" property="og:image">
 </head>
 
 <!--[if lt IE 7]>
@@ -74,16 +75,7 @@ var HTTP_SERVER = '<?php echo HTTP_SERVER?>';
 		
 	});
 </script>
-<script language="javascript">
-$(function() {
-	$(".ben-datepicker").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'dd-mm-yy',
-			
-			});
-	});
-</script>
+
 <body>
 <div id="ben-main">
     

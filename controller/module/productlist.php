@@ -128,6 +128,7 @@ class ControllerModuleProductlist extends Controller
 			
 			
 		}
+		$this->data['showicon'] = $template['showicon'];
 		$this->data['status'] = $template['status'];
 		$this->data['paging'] = $template['paging'];
 		$this->data['sorting'] = $template['sorting'];

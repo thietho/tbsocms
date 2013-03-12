@@ -287,8 +287,11 @@ class ControllerModuleBlock extends Controller
 		
 		$this->data['media'] = $this->model_core_media->getItem($mediaid);
 		$this->data['media']['imagethumbnail'] = HelperImage::fixsize($this->data['media']['imagepath'], $template['width'], $template['height']);
+		$this->data['media']['summary'] = html_entity_decode($this->data['media']['summary']);
 		$this->data['media']['description'] = html_entity_decode($this->data['media']['description']);
-		$this->data['media']['link'] = $this->document->createLink(str_replace($this->member->getSiteId(),"",$mediaid));
+		$arr = $this->string->referSiteMapToArray($this->data['media']['refersitemap']);
+		$sitemapid = $arr[0];
+		$this->data['media']['link'] = $this->document->createLink($sitemapid,$this->data['media']['alias']);
 		
 		$this->id="news";
 		$this->template=$template['template'];
@@ -314,5 +317,25 @@ class ControllerModuleBlock extends Controller
 		$this->render();
 	}
 	
+	public function showProductQV()
+	{
+		$mediaid = $this->request->get['mediaid'];
+		$this->load->model("core/media");
+		
+		$media = $this->model_core_media->getItem($mediaid);
+		
+		$template = array(
+						  'template' => "module/product_qview.tpl",
+						  'width' => 250,
+						  'height' =>250,
+						  );
+		//$arr = array($mediaid,$template);
+		$arr = array($this->document->sitemapid,0,$template,$media);
+		$this->data['output'] = $this->loadModule('module/pagedetail','getFormProduct',$arr);
+		
+		$this->id="news";
+		$this->template = "common/output.tpl";
+		$this->render();
+	}
 }
 ?>
