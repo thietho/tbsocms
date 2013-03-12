@@ -19,7 +19,8 @@ class ControllerAddonBrandinfor extends Controller
 		$this->data['media']['link'] = $this->document->createLink(str_replace($this->member->getSiteId(),"",$mediaid));
 		
 		$where = "";
-		$arr = array($where,$nhanhieuid);
+		$arr = array($where,$id);
+		
 		$this->data['saphamcungnhanhieu'] = $this->loadModule('addon/brand','getList',$arr);
 		
 		$this->id="content";

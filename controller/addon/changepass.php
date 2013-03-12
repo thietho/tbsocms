@@ -4,7 +4,7 @@ class ControllerAddonChangepass extends Controller
 	private $error = array();
 	public function index()
 	{
-		$this->document->breadcrumb .= "Đổi mật khẩu";
+		$this->document->breadcrumb .= '<a href="'.$this->document->createLink('member').'">Thông tin thành viên </a> » '."Đổi mật khẩu";
 		$this->id="content";
 		$this->template="addon/changepass.tpl";
 		$this->render();
@@ -41,7 +41,7 @@ class ControllerAddonChangepass extends Controller
 		$member = $this->model_core_user->getItem($this->member->getId());
     	if(trim($data['oldpassword']) == "")
 		{
-      		$this->error['oldpassword'] = $this->data['war_passwordnotnull'];
+      		$this->error['oldpassword'] = "Bạn chưa nhập mật khẩu";
     	}
 		else
 		{

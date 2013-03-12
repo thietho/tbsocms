@@ -24,6 +24,10 @@ new AjaxUpload(jQuery('#btnAddImage'), {
 			$('#preview').attr("src", response.files.imagethumbnail);
 			$('#errorupload').hide();
 			
+			if(window.callbackfunc)
+			{
+				callbackfunc(response.files);
+			}
 		}
 		else
 		{

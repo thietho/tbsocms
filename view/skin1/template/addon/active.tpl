@@ -1,4 +1,4 @@
-<div class="ben-post">
+<div>
 	<form id="frmActive" method="post">
     	<div id="error" class="ben-error" style="display:none"></div>
     	<table>

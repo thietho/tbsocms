@@ -10,10 +10,10 @@
 	cursor:pointer;
 }
 </style>
-<div class="ben-post">
+<div>
 	<form id="frmRegister" method="post">
     	<div id="error" class="ben-error" style="display:none"></div>
-    	<table>
+    	<table class="ben-form">
         	<tr>
             	<td><label>Tên đăng nhập</label></td>
                 <td><?php echo $member['username']?></td>
@@ -25,7 +25,7 @@
             </tr>
             <tr>
             	<td><label>Email</label></td>
-                <td><?php echo $member['email']?></td>
+                <td id="email" class="text"><?php echo $member['email']?></td>
             </tr>
             <tr>
             	<td><label>Địa chỉ</label></td>
@@ -54,6 +54,7 @@
                 	<p id="pnImage">
                         
                         <input id="btnAddImage" type="button" class="ben-button" value="Select photo"><br />
+                        
                         <img id="preview" src="<?php echo $member['imagethumbnail']?>" />
                         <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $member['imagepath']?>" />
                         <input type="hidden" id="imageid" name="imageid" value="<?php echo $member['imageid']?>" />
@@ -80,7 +81,7 @@ function editText(eid)
 	if(isedit)
 	{
 		var text = $("#"+eid).html();
-		var html = '<input type="text" class="ben-textbox" id="text-'+eid+'" value="'+text+'">';
+		var html = '<input type="text" class="ben-textbox" size="50" id="text-'+eid+'" value="'+text+'">';
 		html+=' <input id="btnSaveInfor" type="button" class="ben-button" value="Save" onclick="saveInfor(\''+eid+'\')">';
 		
 						
@@ -157,6 +158,7 @@ function saveDate(eid)
 		 isedit = true;
 	});
 }
+
 function callbackfunc(objfile)
 {
 	$.post("<?php echo HTTP_SERVER?>?route=addon/memberinfor/saveAvatar", { userid: "<?php echo $member['username']?>", imageid: objfile.imageid , imagepath: objfile.imagepath},
@@ -169,6 +171,7 @@ function callbackfunc(objfile)
 		}
 	);
 }
+
 </script>
 
 <script src="<?php echo HTTP_SERVER.DIR_JS?>uploadpreview.js" type="text/javascript"></script>

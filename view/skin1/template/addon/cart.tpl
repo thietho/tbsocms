@@ -5,7 +5,7 @@
 	padding:5px;
 }
 </style>
-<div id="addoncartlist" class="ben-post">
+<div id="addoncartlist">
 
 </div>
 <div align="center">

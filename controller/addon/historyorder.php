@@ -4,7 +4,7 @@ class ControllerAddonHistoryorder extends Controller
 	private $error = array();
 	public function index()
 	{
-		$this->document->breadcrumb .= "Lịch sử mua hàng";
+		$this->document->breadcrumb .= '<a href="'.$this->document->createLink('member').'">Thông tin thành viên </a> » '."Lịch sử mua hàng";
 		$this->getList();
 		$this->id="content";
 		$this->template="addon/historyorder.tpl";

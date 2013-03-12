@@ -5,7 +5,7 @@ class ControllerAddonProduct extends Controller
 	public function index()
 	{
 		
-		//$this->document->breadcrumb .= "Tìm kiếm sản phẩm";
+		$this->document->breadcrumb .= "Tìm kiếm sản phẩm";
 		$this->getList();
 		$this->id="content";
 		$this->template="common/output.tpl";
@@ -19,7 +19,6 @@ class ControllerAddonProduct extends Controller
 		$this->load->helper('image');
 		$donvi = 1000;
 		$para = $this->string->referSiteMapToArray($_GET['search']);
-		
 		if(count($para))
 		{
 			foreach($para as $val)
@@ -27,10 +26,8 @@ class ControllerAddonProduct extends Controller
 				$ar = split("=",$val);
 				$datasearch[$ar[0]] = $ar[1];	
 			}
-			$_GET = array_merge($_GET,$datasearch);
-
 			
-			
+			$_GET = $datasearch;
 			$arr = array();
 			
 			foreach($datasearch as $key => $item)
@@ -53,29 +50,6 @@ class ControllerAddonProduct extends Controller
 			}
 		}
 		
-		if($_GET['nhanhieu'] != "")
-			$this->document->breadcrumb .= $this->document->getCategory($_GET['nhanhieu']);
-			
-		if($_GET['nhomhuong'] != "")
-			$this->document->breadcrumb .= $this->document->getCategory($_GET['nhomhuong']);
-		if($_GET['gia'] != "")
-		{
-			$gia = split("-",$_GET['gia']);
-			 $baogia = "Sản phẩm giá từ ".$this->string->numberFormate($gia[0]*$donvi)." đ đến ".$this->string->numberFormate($gia[1]*$donvi)." đ";
-			if($gia[0]==0)
-				$baogia = "Sản phẩm giá dưới ".$this->string->numberFormate($gia[1]*$donvi)." đ";
-			if($gia[1]==0)
-				$baogia = "Sản phẩm giá từ ".$this->string->numberFormate($gia[0]*$donvi)." đ trở lên";
-			
-			$this->document->breadcrumb .= $baogia;
-		}
-		if($_GET['keyword'] != "")
-		{
-			$ch = "";
-			if(count($_GET)>1)
-				$ch = " » ";
-			$this->document->breadcrumb .= $ch."Tìm kiếm sản phẩm với từ khóa: " . $_GET['keyword'];
-		}
 		$siteid = $this->member->getSiteId();
 		
 		$arrsitemap = $this->model_core_sitemap->getListByModule('module/product', $siteid);
@@ -105,22 +79,7 @@ class ControllerAddonProduct extends Controller
 		
 		$where .= "AND (". implode($arr," OR ").")";
 		
-		$order = $_GET['order'];
-		$orderby = "";
-		switch($order)
-		{
-			case "az":
-				$orderby = " ORDER BY `title` ASC";
-				break;
-			case "gt":
-				$orderby = " ORDER BY `price` ASC";
-				break;
-			case "gg":
-				$orderby = " ORDER BY `price` DESC";
-				break;
-		}
-		
-		$medias = $this->model_core_media->getList($where.$orderby);
+		$medias = $this->model_core_media->getList($where);
 		
 		if(count($listparent))
 		{
@@ -146,12 +105,12 @@ class ControllerAddonProduct extends Controller
 		
 		$template = array(
 							  'template' => "module/product_list.tpl",
-							  'width' => 108,
-							  'height' =>108,
+							  'width' => 170,
+							  'height' =>170,
 							  'widthpreview' => 450,
-						 	  'heightpreview' =>450
+						  	  'heightpreview' =>450
 							  );
-		$arr = array("",16,"Kết quả tìm kiếm",$template,$medias);
+		$arr = array("",12,"Kết quả tìm kiếm",$template,$medias);
 		$this->data['output'] = $this->loadModule('module/productlist','index',$arr);
 			
 			

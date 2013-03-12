@@ -1,4 +1,3 @@
-<?php if(count($medias)){ ?>
 <table class="ben-table">
 	<thead>
         <tr>
@@ -42,6 +41,3 @@ $(document).ready(function(){
 	numberMod()		   
 });
 </script>
-<?php }else{ ?>
-Chưa có sản phẩm trong giỏ hàng
-<?php }?>
