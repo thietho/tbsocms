@@ -8,9 +8,11 @@
 <meta http-equiv="REFRESH" content="5400" />
 <meta name="description" content="<?php echo $meta_description?>" />
 <meta name="keywords" content="<?php echo $meta_keyword?>" />		
+<?php echo $meta_image?>
 <title><?php echo $title?></title>
 
-<meta content="<?php echo $meta_image?>" property="og:image">
+
+
 </head>
 
 <!--[if lt IE 7]>
