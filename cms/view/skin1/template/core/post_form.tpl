@@ -122,6 +122,10 @@ $('#title').change(function(e) {
                             <label><?php echo $text_price?></label><br>
                             <input class="text number" type="text" name="price" value="<?php echo $price?>" size="60" />
                         </p>
+                        <p>
+                            <label>Giá khuyến mãi</label><br>
+                            <input class="text number" type="text" name="pricepromotion" value="<?php echo $pricepromotion?>" size="60" />
+                        </p>
                         <?php } ?>
                         <p>
                         	<label>Trang thái:</label>
@@ -210,10 +214,19 @@ $(document).ready(function(e) {
                 </div>
                 
             </div>
+            <?php if($hasProperties) {?>
             <div id="fragment-properties">
             	<div>
                 	
-                	
+                	<p>
+                    	<label>Nhãn hiệu</label><br />
+                        <select name="nhanhieu">
+                        	<option value=""></option>
+                        	<?php foreach($nhanhieu as $it){ ?>
+                        	<option value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'selected="selected"':''; ?>><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                        	<?php } ?>
+                        </select>
+                    </p>
                     <p>
                     	<label><?php echo $text_status?></label>
                         <?php foreach($statuspro as $it){ ?>
@@ -227,6 +240,7 @@ $(document).ready(function(e) {
                     </p>
                 </div>
             </div>
+            <?php } ?>
             <div id="fragment-detail">
             	<a class="button" onclick="browserFileEditor()"><?php echo $entry_photo ?></a>
                 <input type="hidden" id="listselectfile" name="listselectfile" />
@@ -464,8 +478,8 @@ function Price()
 	this.save = function()
 	{
 		var price = $("#price_gia").val().replace(/,/g,"");
-		if($("#price_khuyenmai").val()!= 0)
-			price = $("#price_khuyenmai").val().replace(/,/g,"")
+		
+		var	pricepromotion = $("#price_khuyenmai").val().replace(/,/g,"")
 		$.post("?route=core/postcontent/savepost", 
 					{
 						mediaid : $("#price_mediaid").val(), 
@@ -473,7 +487,8 @@ function Price()
 						title : $("#price_title").val(), 
 						mediatype : 'price',
 						summary : "[code="+ $('#price_code').val() +"][thitruong="+ $("#price_thitruong").val().replace(/,/g,"") +"][gia="+ $("#price_gia").val().replace(/,/g,"") +"][khuyenmai="+ $("#price_khuyenmai").val().replace(/,/g,"") +"][makhuyenmai="+ $('#machuongtrinh').val() +"]",
-						price : price
+						price : price,
+						pricepromotion : pricepromotion
 					},
 			function(data){
 				if(data=="true")
@@ -624,7 +639,7 @@ $(document).ready(function(e) {
 </div>
 
 <script src='<?php echo DIR_JS?>ajaxupload.js' type='text/javascript' language='javascript'> </script>
-<script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
+
 
 <script type="text/javascript" charset="utf-8">
 function save()
@@ -681,7 +696,7 @@ function preview()
 					
 					obj = jQuery.parseJSON(data);
 					alias = "/" + obj.alias;
-					url = "<?php echo str_replace('/cms/',"/".$_GET['sitemapid'],HTTP_SERVER); ?>" + alias + '.html';
+					url = "<?php echo str_replace('/cms/',"/".$_GET['sitemapid'],HTTP_SERVER); ?>" + alias + '_preview'+'.html';
 					window.open(url,'_blank');
 				}
 				else

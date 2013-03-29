@@ -14,16 +14,58 @@ class ControllerAddonOrder extends Controller
 		$this->getList();
 	}
 	
-	public function view()
+	public function edit()
 	{
 		$this->load->language('addon/order');
-		
-		$this->data = array_merge($this->data, $this->language->getData());
-		$this->load->model("addon/order");
+		$this->load->model('addon/order');
 		$this->load->model('core/media');
 		$orderid = $this->request->get['orderid'];
 		$this->load->helper('image');
 		$this->data = $this->model_addon_order->getItem($orderid);
+		
+		foreach($this->data['detail'] as $key => $item)
+		{
+			$parent = $this->model_core_media->getItem($item['mediaparent']);
+			if(count($parent)==0)
+			{
+				$imagepreview = "<img width=100 src='".HelperImage::resizePNG($item['imagepath'], 180, 180)."' >";
+				$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+				$this->data['detail'][$key]['title'] = $item['title'];
+			}
+			else
+			{
+				$imagepreview = "<img width=100 src='".HelperImage::resizePNG($parent['imagepath'], 180, 180)."' >";
+				$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+				$this->data['detail'][$key]['title'] = $parent['title'] ." - ". $item['title'];
+			}
+		}
+		
+		$this->id='content';
+		$this->template="addon/order_edit.tpl";
+		$this->layout="layout/center";
+		$this->render();
+	}
+	
+	public function view()
+	{
+		$this->load->language('addon/order');
+		$this->load->model('addon/order');
+		$this->load->model('core/media');
+		$orderid = $this->request->get['orderid'];
+		$this->load->helper('image');
+		$this->data = $this->model_addon_order->getItem($orderid);
+		//Neu don hang moi thi cap nha thanh dang xu ly
+		if($this->data['order']['status']=='new')
+		{
+			$data['orderid'] = $orderid;
+			$data['status'] = 'wait';
+			$this->model_addon_order->updateStatus($data);
+			$this->data = $this->model_addon_order->getItem($orderid);
+		}
+		$this->data = array_merge($this->data, $this->language->getData());
+		
+		
+		
 		if($this->data['order']['status']=='')
 			$this->data['order']['text_active'] = "New";
 		else
@@ -102,6 +144,119 @@ class ControllerAddonOrder extends Controller
 		$this->layout="layout/center";
 		$this->render();
 	}
+	public function viewHistory()
+	{
+		$this->load->language('addon/order');
+		$this->load->model('addon/order');
+		$orderid = $this->request->get['orderid'];
+		$this->data = $this->model_addon_order->getItem($orderid);
+		
+		$where = " AND orderid = '".$orderid."'";
+		$this->data['historys'] = $this->model_addon_order->getOrderHistoryList($where);
+		
+		$this->id="content";
+		$this->template="addon/order_history.tpl";
+		$this->render();
+		
+		
+	}
+	public function editDelivery()
+	{
+		$this->id="content";
+		$this->template="addon/order_form_delivery.tpl";
+		$this->render();
+	}
+	public function printBill()
+	{
+		$this->load->language('addon/order');
+		$this->load->model('addon/order');
+		$this->load->model('core/media');
+		$orderid = $this->request->get['orderid'];
+		$this->load->helper('image');
+		$this->data = $this->model_addon_order->getItem($orderid);
+		
+		foreach($this->data['detail'] as $key => $item)
+		{
+			$parent = $this->model_core_media->getItem($item['mediaparent']);
+			if(count($parent)==0)
+			{
+				$imagepreview = "<img width=100 src='".HelperImage::resizePNG($item['imagepath'], 180, 180)."' >";
+				$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+				$this->data['detail'][$key]['title'] = $item['title'];
+			}
+			else
+			{
+				$imagepreview = "<img width=100 src='".HelperImage::resizePNG($parent['imagepath'], 180, 180)."' >";
+				$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+				$this->data['detail'][$key]['title'] = $parent['title'] ." - ". $item['title'];
+			}
+		}
+		
+		$this->id="content";
+		$this->template="addon/order_bill.tpl";
+		$this->layout="layout/print";
+		$this->render();
+	}
+	public function save()
+	{
+		$this->load->model("addon/order");
+		$data = $this->request->post;
+		
+		$this->model_addon_order->updateCol($data['orderid'],'customername',$data['customername']);
+		$this->model_addon_order->updateCol($data['orderid'],'address',$data['address']);
+		$this->model_addon_order->updateCol($data['orderid'],'email',$data['email']);
+		$this->model_addon_order->updateCol($data['orderid'],'phone',$data['phone']);
+		$this->model_addon_order->updateCol($data['orderid'],'receiver',$data['receiver']);
+		$this->model_addon_order->updateCol($data['orderid'],'receiverphone',$data['receiverphone']);
+		$this->model_addon_order->updateCol($data['orderid'],'shipperat',$data['shipperat']);
+		$this->model_addon_order->updateCol($data['orderid'],'paymenttype',$data['paymenttype']);
+		
+		//Xoa nhung id can xoa
+		$arrdelid = split(',',$data['delid']);
+		foreach($arrdelid as $id)
+		{
+			if($id)
+			{
+				$this->model_addon_order->deleteOrderProduct($id);
+			}
+		}
+		
+		$arr_id = $data['id'];
+		$arr_mediaid = $data['mediaid'];
+		$arr_quantity = $data['quantity'];
+		$arr_price = $data['price'];
+		
+		foreach($arr_mediaid as $key => $mediaid)
+		{
+			$orderpro['id'] = $arr_id[$key];
+			$orderpro['orderid'] = $data['orderid'];
+			$orderpro['mediaid'] = $arr_mediaid[$key];
+			$orderpro['quantity'] = $arr_quantity[$key];
+			$orderpro['price'] = $arr_price[$key];
+			$orderpro['discount'] = 0;
+			
+			$this->model_addon_order->saveOrderProduct($orderpro);
+		}
+		
+		$this->data['output'] = "true";
+		$this->id="content";
+		$this->template="common/output.tpl";
+		$this->render();
+	}
+	
+	public function saveDelivery()
+	{
+		$this->load->model("addon/order");
+		$data = $this->request->post;
+		foreach($data as $col =>$val)
+		{
+			$this->model_addon_order-> updateCol($data['orderid'],$col,$val);
+		}
+		$this->data['output'] = "true";
+		$this->id="content";
+		$this->template="common/output.tpl";
+		$this->render();
+	}
 	
 	public function updatestatus()
 	{
@@ -112,6 +267,7 @@ class ControllerAddonOrder extends Controller
 		$data['orderid'] = $orderid;
 		$data['status'] = $status;
 		$this->model_addon_order->updateStatus($data);
+		
 		$this->id="content";
 		$this->template="common/output.tpl";
 		$this->render();
@@ -132,6 +288,75 @@ class ControllerAddonOrder extends Controller
 		}
 		$this->id="content";
 		$this->template="common/output.tpl";
+		$this->render();
+	}
+	
+	public function browseProduct()
+	{
+
+		$this->id="content";
+		$this->template="addon/browseproduct.tpl";
+		$this->render();
+	}
+	
+	public function listProduct()
+	{
+		$this->load->model("core/user");
+		$this->load->model("core/media");
+		$this->load->model("core/sitemap");
+		$this->load->helper('image');
+		
+		$keyword = urldecode($this->request->get['keyword']);
+		$arrkey = split(' ', $keyword);
+		$where = "";
+		if($keyword !="")
+		{
+			$arr = array();
+			foreach($arrkey as $key)
+			{
+				$arr[] = "title like '%".$key."%'";
+			}
+			$where .= " AND (". implode(" AND ",$arr). ")";
+			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
+		}
+		$siteid = $this->member->getSiteId();
+		$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
+		$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
+		
+		foreach($arrsitemapid as $item)
+		{
+			$arr[] = " refersitemap like '%[".$item."]%'";
+		}
+		
+		$where .= "AND (". implode($arr," OR ").")";
+		
+		$where .= "  Order by position, statusdate DESC";
+		$this->data['medias'] = $this->model_core_media->getList($where);
+		foreach($this->data['medias'] as $i => $media)
+		{
+			if($this->data['medias'][$i]['imagepath'] != "")
+			{
+				$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
+				
+			}
+			
+			$data_price = $this->model_core_media->getListByParent($media['mediaid']," AND mediatype = 'price' Order by position");
+			foreach($data_price as $key => $item)
+			{
+				$para = $this->string->referSiteMapToArray($item['summary']);
+				foreach($para as $val)
+				{
+					$ar = split("=",$val);
+					$data_price[$key][$ar[0]] = $ar[1];	
+				}
+				$khuyenmai = $this->model_core_media->getItem($data_price[$key]['makhuyenmai']);
+				$data_price[$key]['tenkhuyenmai'] = $khuyenmai['title'];
+			}
+			$this->data['medias'][$i]['productprice'] = $data_price;
+		}
+		
+		$this->id="content";
+		$this->template="addon/listproduct.tpl";
 		$this->render();
 	}
 	

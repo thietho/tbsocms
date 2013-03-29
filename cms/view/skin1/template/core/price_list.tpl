@@ -36,7 +36,7 @@
                                             
                                             <td>
                                                 
-                                                <a class="button" onclick="price.edit('<?php echo $item['mediaid']?>')"><?php echo $button_edit ?></a>&nbsp;<a class="button" onclick="price.remove('<?php echo $item['mediaid']?>')"><?php echo $button_delete ?></a>
+                                                <a class="button editprice" rel="<?php echo $item['mediaid']?>"><?php echo $button_edit ?></a>&nbsp;<a class="button delprice" rel="<?php echo $item['mediaid']?>"><?php echo $button_delete ?></a>
                                             </td>
                                             
                                         </tr>
@@ -79,5 +79,13 @@ $("#btnUpdatePrice").click(function(){
 			}
 		});
 	})
+});
+$('.editprice').click(function(e) {
+	var mediaid = $(this).attr('rel');
+    price.edit(mediaid);
+});
+$('.delprice').click(function(e) {
+    var mediaid = $(this).attr('rel');
+    price.remove(mediaid);
 });
 </script>

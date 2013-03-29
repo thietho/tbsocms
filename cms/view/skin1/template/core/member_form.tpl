@@ -31,6 +31,11 @@
                     
             	</p>
                 <p>
+            		<label>Birthday of kids</label><br />
+					<?php echo $this->date->formatMySQLDate($user['birthdaykids'])?>
+                    
+            	</p>
+                <p>
             		<label>Email</label><br />
 					<?php echo $user['email']?>
                     

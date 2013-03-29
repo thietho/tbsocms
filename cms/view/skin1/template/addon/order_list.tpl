@@ -1,4 +1,4 @@
-<script src='<?php echo DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
+
 <div class="section">
 
 	<div class="section-title"><?php echo $heading_title?></div>
@@ -84,13 +84,13 @@
                         <td><?php echo $order['address']?></td>
                 		<td><?php echo $order['email']?></td>
                         <td><?php echo $this->date->formatMySQLDate($order['orderdate'])?> <?php echo $this->date->getTime($order['orderdate'])?></td>
-                        <td class="link-control">
+                        <td class="link-control order-<?php echo $order['status']?>">
                             <!--<select id="status<?php echo $order['orderid']?>" onchange="order.updateStatus('<?php echo $order['orderid']?>',this.value)">
                             	<?php foreach($this->document->status as $key => $val) { ?>
                                 <option value="<?php echo $key?>" <?php echo ($order['status'] == $key)?'selected="selected"':''?>><?php echo $val?></option>
                                 <?php } ?>
                             </select>-->
-                            <?php echo $this->document->status[$order['status']]?>
+                            <a onclick="order.viewHistory('<?php echo $order['orderid']?>')"><?php echo $this->document->status[$order['status']]?></a>
                         </td>
                     </tr>
         <?php

@@ -18,7 +18,9 @@ class ControllerCommonSitemapmenu extends Controller
 										"core/category" => $this->data['category'],
 										"core/media" => $this->data['menu_media'],
 										"core/file" => $this->data['menu_file'],
-								 		"addon/sitemap" => $this->data['menu_sitemap'],
+								 		"core/sitemap" => $this->data['menu_sitemap'],
+										"addon/order" => "Order management <span id='orderwarring'></span>",
+								 		"core/member" => "Member management",
 										"core/message" => $this->data['message'],
 										"core/user" => $this->data['user_management'],
 									);

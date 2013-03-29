@@ -28,7 +28,7 @@
     <script src="<?php echo DIR_JS?>jquery.cookie.js" type="text/javascript"></script>
 	<script src="<?php echo DIR_JS?>jquery.ui.dialog.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
-    <script src='<?php echo DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
+    
     <script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script>
 	<script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script>
 	<script type='text/javascript' language='javascript' src='<?php echo DIR_COMPONENT?>ckeditor/ckeditor.js'></script>

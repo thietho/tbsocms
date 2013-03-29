@@ -288,6 +288,7 @@ class ControllerCorePostcontent extends Controller
 		$this->data['title'] = $this->data['post']['title'];
 		$this->data['summary'] = $this->data['post']['summary'];
 		$this->data['price'] = $this->data['post']['price'];
+		$this->data['pricepromotion'] = $this->data['post']['pricepromotion'];
 		$this->data['description'] = $this->data['post']['description'];
 		$this->data['alias'] = $this->data['post']['alias'];
 		$this->data['keyword'] = $this->data['post']['keyword'];

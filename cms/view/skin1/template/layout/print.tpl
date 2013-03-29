@@ -16,7 +16,7 @@ body
 }
 p
 {
-	margin:0;	
+	margin:3px 0;	
 }
 table
 {
@@ -76,7 +76,4 @@ label
 </html>
 <script>
 window.print();
-$(document).ready(function(e) {
-    
-});
 </script>

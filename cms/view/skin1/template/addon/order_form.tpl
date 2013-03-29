@@ -13,7 +13,8 @@
             </div>
             <div class="clearer">^&nbsp;</div>
         
-        	<div>
+        	<div class="left" style="width:50%;">
+            	<h3>Thông tin khách hàng</h3>
             	<p>
             		<label>Order id</label><br />
 					<?php echo $order['orderid']?>
@@ -37,6 +38,69 @@
             		<label><?php echo $entry_orderdate?></label><br />
 					<?php echo $this->date->formatMySQLDate($order['orderdate'])?>
             	</p>
+			</div>
+            <div class="left">
+                <h3>Thông tin giao hàng</h3>
+                <p>
+            		<label>Người nhận hàng</label><br />
+					<?php echo $order['receiver']?>
+            	</p>
+                <p>
+            		<label>Số điện thoại</label><br />
+					<?php echo $order['receiverphone']?>
+            	</p>
+               	<p>
+            		<label>Địa chỉ nhận</label><br />
+					<?php echo $order['shipperat']?>
+            	</p>
+                <p>
+            		<label>Phương thức thanh toán</label><br />
+					<?php echo $this->document->paymenttype[$order['paymenttype']]?>
+            	</p>
+                <p>
+            		<label>Ghi chú</label><br />
+					<?php echo $order['comment']?>
+            	</p>
+                <?php if($order['status'] != 'completed' && $order['status'] != 'cancel'){ ?>
+                <p>
+                	<input type="button" class="button" onclick="order.edit('<?php echo $order['orderid']?>')" value="Chỉnh sửa đơn hàng"/>
+                </p>
+                <?php } ?>
+                <?php if($order['status'] == 'wait' || $order['status'] == 'pending'){ ?>
+                <p>
+                	<!--<input type="button" class="button" onclick="order.editDelivery('<?php echo $order['orderid']?>')" value="Chỉnh sửa thông tin giao hàng"/>-->
+                	
+                    <input type="button" class="button" onclick="order.confirmOder('<?php echo $order['orderid']?>')" value="Xác nhận đơn hàng với khách hàng"/>
+                    <input type="button" class="button" onclick="order.cancel('<?php echo $order['orderid']?>')" value="Hủy"/>
+                	
+                    
+                </p>
+                <?php } ?>
+                <?php if($order['status'] == 'wait'){ ?>
+                <p>
+                	
+                    
+                    <input type="button" class="button" onclick="order.pending('<?php echo $order['orderid']?>')" value="Xác với khách hàng không được"/>
+                	
+                    
+                </p>
+                <?php } ?>
+                <?php if($order['status'] == 'confirmed'){ ?>
+                <p>
+                	<input type="button" class="button" onclick="order.completed('<?php echo $order['orderid']?>')" value="Đã giao hàng"/>
+                    <input type="button" class="button" onclick="order.printBill('<?php echo $order['orderid']?>')" value="In hóa đơn"/>
+                    <input type="button" class="button" onclick="order.cancel('<?php echo $order['orderid']?>')" value="Hủy"/>
+                </p>
+                <?php } ?>
+                <?php if($order['status'] == 'cancel'){ ?>
+                	<p>
+                    	<input type="button" class="button" onclick="order.reActive('<?php echo $order['orderid']?>')" value="Kích hoạt lại đơn hàng"/>
+                    </p>
+                <?php } ?>
+                <p>
+                	<label onclick="order.viewHistory('<?php echo $order['orderid']?>')">Tình trạng: <?php echo $this->document->status[$order['status']]?></label>
+                </p>
+                <!--
                 <p>
             		<label><?php echo $entry_status?></label><br />
 					<select id="status<?php echo $order['orderid']?>" onchange="order.updateStatus('<?php echo $order['orderid']?>',this.value)">
@@ -48,8 +112,9 @@
                 <p>
             		<label><?php echo $entry_message?></label><br />
 					<?php echo $order['comment']?>
-            	</p>
+            	</p>-->
             </div>
+            <div class="clearer">^&nbsp;</div>
             <div>
             	<table>
                 	<thead>

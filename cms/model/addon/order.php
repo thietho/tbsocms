@@ -16,7 +16,7 @@ class ModelAddonOrder extends Model
 		return $data;
 	}
 	
-	public function getList($where="", $from=0, $to=5)
+	public function getList($where="", $from=0, $to=0)
 	{
 		
 		$sql = "Select `order`.* 
@@ -38,40 +38,59 @@ class ModelAddonOrder extends Model
 	
 	public function insert($data)
 	{
-		$orderid= $this->nextID("order".time());
+		
+		$orderid= $this->nextID($this->date->now['year'].$this->date->numberFormate($this->date->now['mon']));
 		$orderdate=$this->date->getToday();
 		$userid=$this->db->escape(@$data['userid']);
 		$customername=$this->db->escape(@$data['customername']);
 		$address=$this->db->escape(@$data['address']);
 		$email=$this->db->escape(@$data['email']);
 		$phone=$this->db->escape(@$data['phone']);
-		$status="";
+		$status="new";
+		$paymenttype=$this->db->escape(@$data['paymenttype']);
 		$comment=$this->db->escape(@$data['comment']);
-		
+		$receiver=$this->db->escape(@$data['receiver']);
+		$receiverphone=$this->db->escape(@$data['receiverphone']);
+		$shipper=$this->db->escape(@$data['shipper']);
+		$shippername=$this->db->escape(@$data['shippername']);
+		$shipperat=$this->db->escape(@$data['shipperat']);
+		$notes=$this->db->escape(@$data['notes']);
 		
 		$field=array(
 						'orderid',
 						'orderdate',
 						'userid',
-						'customername',
-						
+						'customername',					
 						'address',
 						'email',
 						'phone',
 						'status',
-						'comment'
+						'comment',
+						'paymenttype',
+						'receiver',
+						'receiverphone',
+						'shipper',
+						'shippername',
+						'shipperat',
+						'notes'
 					);
 		$value=array(
 						$orderid,
 						$orderdate,
 						$userid,
 						$customername,
-						
 						$address,
 						$email,
 						$phone,
 						$status,
-						$comment
+						$comment,
+						$paymenttype,
+						$receiver,
+						$receiverphone,
+						$shipper,
+						$shippername,
+						$shipperat,
+						$notes
 					);
 		$this->db->insertData("order",$field,$value);
 		return $orderid;
@@ -115,7 +134,21 @@ class ModelAddonOrder extends Model
 		$this->db->updateData('order',$field,$value,$where);
 		return true;
 	}
-	
+	public function updateCol($orderid,$col,$val)
+	{
+		$orderid = $this->db->escape(@$orderid);
+		$col=$this->db->escape(@$col);
+		$val=$this->db->escape(@$val);
+		$field=array(
+						$col	
+					);
+		$value=array(
+						$val
+					);
+		
+		$where="orderid = '".$orderid."'";
+		$this->db->updateData('order',$field,$value,$where);
+	}
 	public function updateStatus($data)
 	{
 		$orderid = $this->db->escape(@$data['orderid']);
@@ -132,6 +165,12 @@ class ModelAddonOrder extends Model
 		
 		$where="orderid = '".$orderid."'";
 		$this->db->updateData('order',$field,$value,$where);
+		
+		$his['orderid'] = $orderid;
+		$his['userid'] = $this->user->getId();
+		$his['status'] = $status;
+		$this->model_addon_order->saveOrderHistory($his);
+		
 		return true;
 	}
 	
@@ -164,9 +203,9 @@ class ModelAddonOrder extends Model
 	{
 		$orderid=$this->db->escape(@$data['orderid']);
 		$mediaid=$this->db->escape(@$data['mediaid']);
-		$quantity=$this->db->escape(@$data['quantity']);
-		$price=$this->db->escape(@$data['price']);
-		$discount=$this->db->escape(@$data['discount']);
+		$quantity=$this->db->escape(@$this->string->toNumber($data['quantity']));
+		$price=$this->db->escape(@$this->string->toNumber($data['price']));
+		$discount=$this->db->escape(@$this->string->toNumber($data['discount']));
 		$subtotal=$quantity*$price*(1 - $discount/100);
 		$field=array(
 						'orderid',
@@ -194,6 +233,78 @@ class ModelAddonOrder extends Model
 			$where="orderid = '".$orderid."' And mediaid='".$mediaid."'";
 			$this->db->updateData('order_product',$field,$value,$where);
 		}
+	}
+	
+	public function deleteOrderProduct($id)
+	{
+		$id = @(int)$id;
+		$where="id = '".$id."'";
+		$this->db->deleteData("order_product",$where);
+	}
+	
+	//order history
+	public function getOrderHistory($id)
+	{
+		$id=$this->db->escape(@$id);
+		
+		$sql = "Select `order_history`.* 
+									from `order_history` 
+									where id = '".$id."'";
+		$query = $this->db->query($sql);
+		return $query->row;
+	}
+	
+	public function getOrderHistoryList($where)
+	{
+		
+		$sql = "Select `order_history`.* 
+									from `order_history` 
+									where 1=1 ".$where;
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
+	
+	public function saveOrderHistory($data)
+	{
+		$id=$this->db->escape(@$data['id']);
+		$orderid=$this->db->escape(@$data['orderid']);
+		$userid=$this->db->escape(@$data['userid']);
+		$status=$this->db->escape(@$data['status']);
+		$actiondate=$this->date->getToday();
+		$field=array(
+						'id',
+						'orderid',
+						'userid',
+						'status',
+						'actiondate'
+						
+					);
+		$value=array(
+						$id,
+						$orderid,
+						$userid,
+						$status,
+						$actiondate
+						
+					);
+		$arr=$this->getOrderHistory($id);
+		if(count($arr)==0)
+		{
+			$value[0] = $this->db->getNextId("order_history","id");
+			$this->db->insertData("order_history",$field,$value);
+		}
+		else
+		{
+			$where="id = '".$id."'";
+			$this->db->updateData('order_product',$field,$value,$where);
+		}
+	}
+	
+	public function deleteOrderHistory($id)
+	{
+		$id = @(int)$id;
+		$where="id = '".$id."'";
+		$this->db->deleteData("order_history",$where);
 	}
 }
 ?>
