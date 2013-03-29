@@ -41,7 +41,7 @@
 					<?php echo $this->date->formatMySQLDate($order['orderdate'])?>
             	</p>
 			</div>
-            <div class="left">
+            <div class="left" style="width:50%;">
                 <h3>Thông tin giao hàng</h3>
                 <p>
             		<label>Người nhận hàng</label><br />
