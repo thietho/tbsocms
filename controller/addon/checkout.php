@@ -63,13 +63,14 @@ class ControllerAddonCheckout extends Controller
 			$this->mailsmtp->sendMail($mail);
 			//Gui don hang den khach hang
 			$email = $this->model_core_media->getInformation("setting", 'EmailContact');
-			$mail['from'] = "sales@mylanbeauty.net";
-			$mail['FromName'] = "Bộ phận bán hàng - mylanbeauty.net";
+			$mail['from'] = "sales@kidscolorblock.com";
+			$mail['FromName'] = "Bộ phận bán hàng - ".$this->document->setup['Title'];
 			$mail['to'] = $data['email'];
 			$mail['name'] = $data['customername'];
 			$mail['subject'] =  "Thông tin đặt hàng";
 			$arr = array($description);
-			$mail['body'] = $this->loadModule('module/contact','createEmailTemplate',$arr);
+			$mail['body'] = "<p>".$this->document->setup['Title']." đã nhận được đơn hàng của bạn. Chúng tôi sẻ liên hệ với bạn trong vòng 24h</p>"; 
+			$mail['body'] .= $this->loadModule('module/contact','createEmailTemplate',$arr);
 			$this->mailsmtp->sendMail($mail);
 			
 			$this->data['output'] = "true-".$orderid;

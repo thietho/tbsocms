@@ -257,8 +257,8 @@ final class Image {
 		  }
 		}
 	
-		@imagecopyresampled($this->image , $image_old, 0, 0, 0, 0, $final_width, $final_height, $this->info['width'], $this->info['height']);
-		@imagedestroy($image_old);
+		imagecopyresampled($this->image , $image_old, 0, 0, 0, 0, $final_width, $final_height, $this->info['width'], $this->info['height']);
+		imagedestroy($image_old);
 		
 		$this->info['width']  = $width;
         $this->info['height'] = $height;

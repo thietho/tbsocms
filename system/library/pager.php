@@ -102,26 +102,26 @@ class Pager
 		$data_paginations=array();
 		if($pager->numPages > 1 && $page >1)
 		{
-			array_push($data_paginations,'<a class="button pager" onclick="moveto(\''.$this->getURLQueryString('page', '1').'\',\''.$eid.'\')">|<</a>');
-			array_push($data_paginations,'<a class="button pager" onclick="moveto(\''.$this->getURLQueryString('page', $page - 1).'\',\''.$eid.'\')"><</a>');	
+			array_push($data_paginations,'<a class="button" onclick="moveto(\''.$this->getURLQueryString('page', '1').'\',\''.$eid.'\')">|<</a>');
+			array_push($data_paginations,'<a class="button" onclick="moveto(\''.$this->getURLQueryString('page', $page - 1).'\',\''.$eid.'\')"><</a>');	
 		}
 		
 		for ($j = $start; $j <= $end; $j++) 
 		{
 			if($j==$page)
 			{
-				array_push($data_paginations,'<b>'.$j.'</b>');
+				array_push($data_paginations,'<a class="button"><b>'.$j.'</b></a>');
 				
 			}
 			else
 			{
-				array_push($data_paginations, '<a class="button pager" onclick="moveto(\''.$this->getURLQueryString('page', $j).'\',\''.$eid.'\')">'.$j.'</a>');
+				array_push($data_paginations, '<a class="button" onclick="moveto(\''.$this->getURLQueryString('page', $j).'\',\''.$eid.'\')">'.$j.'</a>');
 			}
 		}
 		if($pager->numPages > 1 && $page<$pager->numPages )
 		{
-			array_push($data_paginations, '<a class="button pager" onclick="moveto(\''.$this->getURLQueryString('page', ($page+1)).'\',\''.$eid.'\')">></a>');
-			array_push($data_paginations, '<a class="button pager" onclick="moveto(\''.$this->getURLQueryString('page', $pager->numPages).'\',\''.$eid.'\')">>|</a>');
+			array_push($data_paginations, '<a class="button" onclick="moveto(\''.$this->getURLQueryString('page', ($page+1)).'\',\''.$eid.'\')">></a>');
+			array_push($data_paginations, '<a class="button" onclick="moveto(\''.$this->getURLQueryString('page', $pager->numPages).'\',\''.$eid.'\')">>|</a>');
 		}
 		$data_pagenumber=$page."/".$pager->numPages;
 		$playout=" <div class='links'>";

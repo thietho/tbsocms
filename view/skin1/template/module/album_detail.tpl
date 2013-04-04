@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" type="text/css" href="<?php echo HTTP_SERVER.DIR_VIEW?>css/jquery.ad-gallery.css" media="screen" />
 <script type="text/javascript" src="<?php echo HTTP_SERVER.DIR_VIEW?>js/jquery.ad-gallery.js"></script>
 <script type="text/javascript">
@@ -54,26 +53,23 @@
         display: block;
       }
   </style>
-<div class="bb"><?php echo $this->document->getSiteMap($this->document->sitemapid,$this->member->getSiteId() )?></div>
-<div class="ben-post">
-    <h2><?php echo $post['title']?></h2>
-    <div id="gallery" class="ad-gallery">
-        <div class="ad-image-wrapper"></div>
-        
-        <div class="ad-nav">
-            <div class="ad-thumbs">
-                <ul class="ad-thumb-list">
-                    <?php 
-                    if(count($subimage))
-                    foreach($subimage as $key => $val){ ?>
-                    <li>
-                        <a href="<?php echo $val['imagepreview']?>">
-                            <img src="<?php echo $val['imagethumbnail']?>" height="60px">
-                        </a>
-                    </li>
-                   <?php } ?>
-                </ul>
-            </div>
+<h2><?php echo $post['title']?></h2>
+<div id="gallery" class="ad-gallery">
+    <div class="ad-image-wrapper"></div>
+    
+    <div class="ad-nav">
+        <div class="ad-thumbs">
+            <ul class="ad-thumb-list">
+            	<?php 
+                if(count($subimage))
+                foreach($subimage as $key => $val){ ?>
+                <li>
+                    <a href="<?php echo $val['imagepreview']?>">
+                    	<img src="<?php echo $val['imagethumbnail']?>" height="60px">
+                    </a>
+                </li>
+               <?php } ?>
+            </ul>
         </div>
     </div>
 </div>

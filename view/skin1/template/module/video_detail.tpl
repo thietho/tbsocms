@@ -6,20 +6,9 @@
     </div>
     <div class="clearer">&nbsp;</div>
 </div>
-<div id="mediaplayer"></div>
-<script type="text/javascript" src="<?php echo HTTP_SERVER.DIR_COMPONENT?>player/jwplayer.js"></script>
-<script type="text/javascript">
-	jwplayer("mediaplayer").setup({
-		autostart: true,
-		width:520,
-		height:360,
-		flashplayer: "<?php echo HTTP_SERVER.DIR_COMPONENT?>player/player.swf",
-		file: "<?php echo HTTP_SERVER.DIR_FILE.$post['filepath']?>",
-		image: "<?php echo $post['imagethumbnail']?>"
-		
-	});
-</script>
-
+<div id="ben-player">
+    <embed id="player2" width="520" height="360" wmode="transparent" flashvars="file=<?php echo HTTP_SERVER.DIR_FILE.$post['filepath']?>&image=<?php echo $post['imagethumbnail']?>&provider=video" allowfullscreen="true" allowscriptaccess="always" src="<?php echo HTTP_SERVER.DIR_COMPONENT?>player/mediaplayer.swf" name="player2" type="application/x-shockwave-flash">    
+</div>
 <div class="ben-hline"></div>
 <p>
     <?php echo $post['description']?>

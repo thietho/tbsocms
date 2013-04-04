@@ -40,11 +40,12 @@
 <div>
 	<form id="frmCheckOut" method="post">
     	<div id="error" class="ben-error" style="display:none"></div>
+        <h2>Thông tin khách hàng</h2>
     	<table class="ben-form">
         	
             <input type="hidden" id="userid" name="userid" value="<?php echo $member['username']?>" size="40">
             <tr>
-            	<td><label>Họ và tên</label></td>
+            	<td width="200px"><label>Họ và tên</label></td>
                 <td><input type="text" id="customername" name="customername" value="<?php echo $member['fullname']?>" class="ben-textbox" size="40" <?php echo $readonly?>></td>
             </tr>
             <tr>
@@ -60,10 +61,37 @@
                 <td><input type="text" id="phone" name="phone" value="<?php echo $member['phone']?>" class="ben-textbox" size="40" <?php echo $readonly?>></td>
             </tr>
             
+		</table>
+        <input id="chk_fillnhanhang" type="checkbox" /> Thông tin nhận hàng như trên
+        <h2>Thông tin giao hàng</h2>
+        <table class="ben-form">
+        	<tr>
+            	<td width="200px">Người nhận hàng</td>
+                <td><input type="text" id="receiver" name="receiver" class="ben-textbox" size="40" ></td>
+            </tr>
+            <tr>
+            	<td>Số điện thoại</td>
+                <td><input type="text" id="receiverphone" name="receiverphone" class="ben-textbox" size="40" <?php echo $readonly?>></td>
+            </tr>
+            <tr>
+            	<td>Địa chỉ giao hàng</td>
+                <td><input type="text" id="shipperat" name="shipperat" class="ben-textbox" size="40" ></td>
+            </tr>
+            <tr>
+            	<td>Phương thức thanh toán</td>
+                <td>
+                	<?php foreach($this->document->paymenttype as $key => $val){ ?>
+                    <input type="radio" name="paymenttype" value="<?php echo $key?>" /> <?php echo $val?><br />
+                    <?php } ?>
+                	
+                </td>
+            </tr>
             <tr>
             	<td>Ghi chú</td>
-                <td><textarea name="comment"></textarea></td>
+                <td><textarea id="comment" name="comment"></textarea></td>
             </tr>
+        </table>
+        <table>
             
             <tr>
             	<td ></td>
@@ -72,6 +100,7 @@
                 </td>
             </tr>
         </table>
+        
     </form>
 </div>
 <div class="clearer">&nbsp;</div>
@@ -96,5 +125,10 @@ $("#btnCheckout").click(function(){
 			$.unblockUI();
 		}
 	);					   
+});
+$("#chk_fillnhanhang").click(function(e) {
+    $('#receiver').val($('#customername').val());
+	$('#receiverphone').val($('#phone').val());
+	$('#shipperat').val($('#address').val());
 });
 </script>

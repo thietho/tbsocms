@@ -3,7 +3,7 @@ final class Cachehtml {
 	private $expire = 30;
 
   	public function __construct() {
-		$files = glob(DIR_CACHEHTML . 'cachehtml.*');
+		/*$files = glob(DIR_CACHEHTML . 'cachehtml.*');
     	if(count($files))
 		{
 			foreach ($files as $file) 
@@ -16,7 +16,7 @@ final class Cachehtml {
 				}
 				
 			}
-		}
+		}*/
   	}
 	
 	public function iscacht($key)

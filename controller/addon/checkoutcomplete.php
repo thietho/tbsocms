@@ -30,6 +30,7 @@ class ControllerAddonCheckoutcomplete extends Controller
 		$this->data['medias'] =array();
 		$data = $this->model_addon_order->getItem($orderid);
 		$this->data['order'] = $data['order'];
+		
 		foreach($data['detail'] as $item)
 		{
 			$parent = $this->model_core_media->getItem($item['mediaparent']);

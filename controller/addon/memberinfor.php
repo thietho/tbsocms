@@ -18,6 +18,7 @@ class ControllerAddonMemberinfor extends Controller
 		$this->load->helper('image');
 		$this->data['member'] = $this->model_core_user->getItem($this->member->getId());
 		$this->data['member']['imagethumbnail']=HelperImage::resizePNG($this->data['member']['imagepath'], 200, 200);
+		$this->data['member']['birthdaykids']=$this->model_core_user->getInformation($this->member->getId(),'birthdaykids');
 	}
 	
 	public function saveAvatar()
@@ -49,7 +50,22 @@ class ControllerAddonMemberinfor extends Controller
 		$data = $this->request->post;
 		$this->load->model("core/user");
 		$data['value'] = $this->date->formatViewDate($data['value']);
-		$this->model_core_user->updatecol($data['userid'],$data['colname'],$data['value']);
+		if($data['colname'] !='birthdaykids')
+			$this->model_core_user->updatecol($data['userid'],$data['colname'],$data['value']);
+		else
+			$this->model_core_user->saveInformation($data['userid'], $data['colname'], $data['value']);
+		$this->data['output'] = "true";
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
+	public function saveDat()
+	{
+		$data = $this->request->post;
+		$this->load->model("core/user");
+		$data['value'] = $this->date->formatViewDate($data['value']);
+		
 		
 		$this->data['output'] = "true";
 		$this->id='content';

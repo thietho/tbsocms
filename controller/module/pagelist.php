@@ -1,7 +1,7 @@
 <?php
 class ControllerModulePagelist extends Controller
 {
-	public function getList($sitemapid="", $count = 0,$headername ="", $template = array(),$medias=array())
+	public function getList($sitemapid="", $count = 10,$headername ="", $template = array(),$medias=array())
 	{
 		$this->load->model("core/media");
 		$this->load->model("core/sitemap");
@@ -15,27 +15,18 @@ class ControllerModulePagelist extends Controller
 		$to = $count;
 		
 		//Get list
-		$child = array();
-		$this->model_core_sitemap->getTreeSitemap($sitemapid,$child,$this->member->getSiteId());
-		$listsitemap = array();
-		if(count($child))
-		{
-			foreach($child as $item)
-				$listsitemap[] = $item['sitemapid'];
-		}
-		
 		$queryoptions = array();
 		$queryoptions['mediaparent'] = '%';
 		$queryoptions['mediatype'] = '%';
-		$queryoptions['refersitemap'] = $listsitemap;
+		$queryoptions['refersitemap'] = $sitemapid;
 		
 		if($mediaid == "")
 		{
+			$medias = $this->model_core_media->getPaginationList($queryoptions, $step, $to);
 			
-			
-			if(count($medias) == 0)
+			if(count($medias) == 1)
 			{
-				$medias = $this->model_core_media->getPaginationList($queryoptions, $step, $to);
+				
 			}
 			
 			$this->data['medias'] = array();
@@ -45,26 +36,20 @@ class ControllerModulePagelist extends Controller
 			foreach($medias as $media)
 			{
 				$index += 1;
-				$arr = $this->string->referSiteMapToArray($media['refersitemap']);
-				$sitemapid = $arr[0];
+				
 				$link = $this->document->createLink($sitemapid,$media['alias']);
 				
 				$imagethumbnail = "";
-				//if($media['imagepath'] != "" && $template['width'] >0 )
+				if($media['imagepath'] != "" && $template['width'] >0 )
 				{
-					$imagethumbnailpng = HelperImage::resizePNG($media['imagepath'], $template['width'], $template['height']);
-					@$imagethumbnail = HelperImage::fixsize($media['imagepath'], $template['width'], $template['height']);
+					$imagethumbnail = HelperImage::resizePNG($media['imagepath'], $template['width'], $template['height']);
 				}
 	
-				$startdate = $this->model_core_media->getInformation($media['mediaid'],"startdate");
+				
 				$this->data['medias'][] = array(
 					'mediaid' => $media['mediaid'],
 					'title' => $media['title'],
-					'summary' => html_entity_decode($media['summary']),
-					'startdate' => $this->date->formatMySQLDate($startdate),
-					'eventdate' => $this->date->formatMySQLDate($media['eventdate']),
-					'eventtime' => $media['eventtime'],
-					'imagethumbnailpng' => $imagethumbnailpng,
+					'summary' => $media['summary'],
 					'imagethumbnail' => $imagethumbnail,
 					'statusdate' => $this->date->formatMySQLDate($media['statusdate'], 'longdate', "/"),
 					'link' => $link

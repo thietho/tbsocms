@@ -35,8 +35,9 @@ function sendMessage()
 	);
 }
 </script>
-<div class="bb"><?php echo $this->document->getSiteMap($this->document->sitemapid,$this->member->getSiteId() )?></div>
+
 <div class="ben-post">
+<h3>Thông tin liên hệ</h3>
 <p>
     <?php echo $post['description']?>
 </p>

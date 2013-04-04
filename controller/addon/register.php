@@ -5,32 +5,52 @@ class ControllerAddonRegister extends Controller
 	public function index()
 	{
 		$this->document->breadcrumb .= "Đăng ký thành viên";
+		$arr = array("dieu-khoan-dang-ky");
+		$this->data['dieukhoan'] = $this->loadModule('module/information','index',$arr);
 		$this->id="content";
 		$this->template="addon/register.tpl";
 		$this->render();
 	}
 	
+	public function emailActive($data,$activecode)
+	{
+		$this->data['member'] = $data;
+		$this->data['member']['activecode'] = $activecode;
+		
+		$this->id="content";
+		$this->template="addon/emailactive.tpl";
+		$this->render();
+	}
 	public function save()
 	{
 		$data = $this->request->post;
 		if($this->validateForm($data))
 		{
 			$this->load->model("core/user");
+			$this->load->model("core/media");
 			$data['birthday'] = $this->date->formatViewDate($data['birthday']);
+			$data['birthdaykids'] = $this->date->formatViewDate($data['birthdaykids']);
 			$data['usertypeid'] = "member";
 			$this->model_core_user->insertUser($data);
-			
+			$this->model_core_user->saveInformation($data['username'], "birthdaykids", $data['birthdaykids']);
 			//Gui ma kich hoat vo email cua member
 			$activecode = $this->string->generateRandStr(10);
 			
-			$mail['from'] = "support@bensolution.com";
-			$mail['FromName'] = "Ben Solutions";
+			$arr = array($data,$activecode);
+			$description = $this->loadModule('addon/register','emailActive',$arr);
+			
+			$mail['from'] = $this->model_core_media->getInformation("setting", 'EmailContact');
+			$mail['FromName'] = $this->model_core_media->getInformation("setting", 'Title');
 			$mail['to'] = $data['email'];
 			$mail['name'] = $data['fullname'];
-			$mail['subject'] =  "Kich hoat tai khoang";
-			$mail['body'] = "Ma kich hoat: ".$activecode;
+			$mail['subject'] =  "Kích hoạt tài khoản";
+			//$mail['body'] = "Mã kích hoạt: ".$activecode;
+			//$mail['body'].= "<br>Hoặc bạn click vào <a href='".$this->document->createLink('activelink')."?user=".$data['username']."&code=".md5($activecode)."'>link để kích hoạt tài khoản</a>";
+			$arr = array($description);
+			$mail['body'] = $this->loadModule('module/contact','createEmailTemplate',$arr);
 			
 			$this->model_core_user->saveInformation($data['username'], "activecode", $activecode);
+			
 			$this->mailsmtp->sendMail($mail);
 			$this->data['output'] = "true";
 		}

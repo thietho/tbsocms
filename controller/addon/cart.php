@@ -35,7 +35,10 @@ class ControllerAddonCart extends Controller
 		}
 		$mediaid = $data['mediaid'];
 		$media = $this->model_core_media->getItem($mediaid);
+		
 		$price = $media['price'];
+		if($media['pricepromotion'])
+			$price = $media['pricepromotion'];
 		$parent = $this->model_core_media->getItem($media['mediaparent']);
 		if(count($parent))
 		{
@@ -49,6 +52,9 @@ class ControllerAddonCart extends Controller
 			$media['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 100, 100);
 			$title = $media['title'];
 			$price = $media['price'];
+			$price = $media['price'];
+			if($media['pricepromotion'])
+				$price = $media['pricepromotion'];
 		}
 		$qty =(int)$_SESSION['cart'][$mediaid]['qty'];
 		

@@ -1,8 +1,9 @@
 <script src='<?php echo HTTP_SERVER.DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
 <div>
 	<h3>Đăng ký thành viên</h3>
+    <div id="error" class="ben-error" style="display:none"></div>
 	<form id="frmRegister" method="post">
-    	<div id="error" class="ben-error" style="display:none"></div>
+    	
     	<table class="ben-form">
         	<tr>
             	<td><label>Tên đăng nhập</label></td>
@@ -46,14 +47,31 @@
                 <td><input type="text" id="birthday" name="birthday" class="ben-textbox" size="40"></td>
             </tr>
             <tr>
+            	<td><label>Ngày sinh của bé</label></td>
+                <script language="javascript">
+					$(function() {
+						$("#birthdaykids").datepicker({
+								changeMonth: true,
+								changeYear: true,
+								dateFormat: 'dd-mm-yy'
+								});
+						});
+				 </script>
+                <td><input type="text" id="birthdaykids" name="birthdaykids" class="ben-textbox" size="40"></td>
+            </tr>
+            <tr>
             	<td></td>
-                <td><textarea></textarea></td>
+                <td>
+                	<div class="ben-dieukhoan">
+                    	<?php echo $dieukhoan?>
+                	</div>
+                </td>
             </tr>
             <tr>
             	<td></td>
                 <td>
                 	<input type="checkbox" id="chkaccept" name="chkaccept" value="accept" class="ben-textbox">
-                    Tôi đồng ý với điều khoảng trên
+                    Tôi đồng ý với điều khoản trên
                 </td>
             </tr>
             <tr>
@@ -75,7 +93,7 @@ $("#btnRegister").click(function(){
 			if(data == "true")
 			{
 				$('#error').html("Bạn đã đăng ký thành công! Mã kích hoạt tài khoảng đã đươc gửi tới email của bạn! <a href='<?php echo $this->document->createLink('active')?>'>Kích hoạt tài khoảng click vào đây</a>").show('slow');
-				//$("#frmRegister").hide();
+				$("#frmRegister").hide();
 			}
 			else
 			{

@@ -9,8 +9,6 @@ class ControllerModulePagedetail extends Controller
 		if($sitemapid == "")
 			$sitemapid = $this->document->sitemapid;
 		$mediaid = $this->request->get['id'];
-		if(count($media))
-			$mediaid = $media['mediaid'];
 		$id = $this->request->get['id'];
 		$mediaid = $id;
 		$siteid = $this->member->getSiteId();
@@ -122,7 +120,7 @@ class ControllerModulePagedetail extends Controller
 		$this->data['post'] = $this->model_core_media->getByAlias($mediaid);
 		$arr = $this->string->referSiteMapToArray($this->data['post']['refersitemap']);
 		$sid = $arr[0];
-		$this->data['post']['link'] = $this->document->createLink($sid,$this->data['post']['alias']);
+		$this->data['post']['link'] = $this->document->createLinkShare($sid,$this->data['post']['alias']);
 		$mediaid = $this->data['post']['mediaid'];
 		$this->document->title .= " - ".$this->data['post']['title'];
 		if(count($this->data['post']) == 0)
@@ -146,7 +144,7 @@ class ControllerModulePagedetail extends Controller
 			$this->data['post']['imagethumbnail'] = HelperImage::resizePNG($this->data['post']['imagepath'], $template['width'], $template['height']);
 			$this->data['post']['imagepreview'] = HelperImage::resizePNG($this->data['post']['imagepath'],  800, 800);
 		}
-		//$this->document->meta_image = $this->data['post']['imagethumbnail'];
+		$this->document->meta_image = $this->data['post']['imagethumbnail'];
 		$this->data['properties'] = $this->string->referSiteMapToArray($this->data['post']['groupkeys']);
 		
 		//Get sub attachment
@@ -159,7 +157,7 @@ class ControllerModulePagedetail extends Controller
 		
 		$this->data['subimage']=array();
 		$this->data['attachment']=array();
-		$this->document->meta_image = "";
+		
 		foreach($listfileid as $key => $item)
 		{
 			$file = $this->model_core_file->getFile($item);
@@ -169,7 +167,6 @@ class ControllerModulePagedetail extends Controller
 				$this->data['subimage'][$key]['imagethumbnail'] = HelperImage::resizePNG($file['filepath'], $template['width'], $template['height']);
 				$this->data['subimage'][$key]['icon'] = HelperImage::resizePNG($file['filepath'], 60, 60);	
 				$this->data['subimage'][$key]['imagepreview'] = HelperImage::resizePNG($file['filepath'],  800, 800);
-				$this->document->meta_image .= $this->data['subimage'][$key]['imagethumbnail'].",";
 			}
 			
 			if(!$this->string->isImage($file['extension']))
@@ -185,9 +182,8 @@ class ControllerModulePagedetail extends Controller
 		foreach($this->data['child'] as $key => $item)
 		{
 			$this->data['child'][$key]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG($item['imagepath'], $template['width'], $template['height'])."' >";
-			
 		}
-		//echo $this->document->meta_image;
+		
 		$this->data['priceproduct'] = $this->model_core_media->getListByParent($mediaid," AND mediatype = 'price' Order by position");
 		foreach($this->data['priceproduct'] as $key => $item)
 		{

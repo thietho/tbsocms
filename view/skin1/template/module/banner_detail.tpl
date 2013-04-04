@@ -1,4 +1,3 @@
-<div class="bb"><?php echo $this->document->getSiteMap($this->document->sitemapid,$this->member->getSiteId() )?></div>
 <div class="ben-post">
 	<?php if($post['imagethumbnail'] !=""){ ?>
 	<img src='<?php echo $post['imagethumbnail']?>' class='ben-alignleft' />

@@ -115,5 +115,41 @@ class ControllerAddonProduct extends Controller
 			
 			
 	}
+	
+	public function getViewList()
+	{
+		$this->data['medias'] =array();
+		if(isset($_SESSION['proviews']))
+		{
+			$this->data['medias'] = $_SESSION['proviews'];
+		}
+		
+		$this->id="content";
+		$this->template="sitebar/productview_list.tpl";
+		$this->render();
+	}
+	
+	public function addViewlist()
+	{
+		$this->load->model("core/media");
+		$this->load->helper('image');
+		$data = $this->request->get;
+		if(!isset($_SESSION['proviews']))
+		{
+			$_SESSION['proviews'] = array();	
+		}
+		$mediaid = $data['mediaid'];
+		$media = $this->model_core_media->getItem($mediaid);
+		$media['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 100, 100);
+		$arr = $this->string->referSiteMapToArray($media['refersitemap']);
+		$sitemapid = $arr[0];
+		$media['link'] = $this->document->createLink($sitemapid,$media['alias']);
+		$_SESSION['proviews'][$mediaid] = $media;
+		
+		$this->data['output'] = "true";
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>

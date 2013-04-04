@@ -49,6 +49,19 @@
                 <td id="birthday" class="date"><?php echo $this->date->formatMySQLDate($member['birthday'])?></td>
             </tr>
             <tr>
+            	<td><label>Ngày sinh của bé</label></td>
+                <script language="javascript">
+					$(function() {
+						$("#birthdaykids").datepicker({
+								changeMonth: true,
+								changeYear: true,
+								dateFormat: 'dd-mm-yy'
+								});
+						});
+				 </script>
+                <td id="birthdaykids" class="date"><?php echo $this->date->formatMySQLDate($member['birthdaykids'])?></td>
+            </tr>
+            <tr>
             	<td><label>Ảnh đại diện</label></td>
                 <td>
                 	<p id="pnImage">

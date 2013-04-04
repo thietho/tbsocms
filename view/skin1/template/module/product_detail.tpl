@@ -162,19 +162,19 @@ $("#ben-next").click(function(){
                             <?php } ?>
                         </td>
                     </tr>
+                    <?php if(count($priceproduct) == 0){ ?>
                     <tr>
-                    	<td><strong>Nhóm hương:</strong></td>
+                    	<td><strong>Giá:</strong></td>
                         <td>
-                        	<?php foreach($nhomhuong as $it){ ?>
-                            <?php echo in_array($it['categoryid'],$properties)?$it['categoryname'].'<br />':''; ?>
-                            <?php } ?>
+                        	<?php echo $this->string->numberFormate($post['price'])?> <?php echo $this->document->setup['Currency']?> <input type="button" class="ben-button" onclick="cart.add('<?php echo $post['mediaid']?>')" value="Đặt hàng">
                         </td>
                     </tr>
+                    <?php } ?>
                 </table>
             	
                 
             </p>
-            <p>
+            <p class="short_intro">
             	<?php echo $post['summary']?>
                 
             </p>

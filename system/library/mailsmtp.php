@@ -14,12 +14,18 @@ final class MailSMTP {
 		$mail->Password = "9501424ho"; // your SMTP password or your gmail password
 		
 		$from = $data['from']; // Reply to this email
-		$to=$data['to']; // Recipients email ID
+		$arremail = split(',',$data['to']);
+		$to=$arremail[0]; // Recipients email ID
 		$name= $data['name']; // Recipient's name
 		$mail->From = $from;
 		$mail->FromName = $data['FromName']; // Name to indicate where the email came from when the recepient received
 		$mail->AddAddress($to,$name);
 		$mail->AddReplyTo($from,$data['FromName']);
+		//Add CC
+		for($i=1;$i<count($arremail);$i++)
+		{
+			$mail->AddCC($arremail[$i]);
+		}
 		$mail->WordWrap = 50; // set word wrap
 		$mail->IsHTML(true); // send as HTML
 		$mail->Subject = $data['subject'];

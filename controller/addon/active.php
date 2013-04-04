@@ -4,6 +4,8 @@ class ControllerAddonActive extends Controller
 	private $error = array();
 	public function index()
 	{
+		if($this->member->isLogged())
+			$this->response->redirect($this->document->createLink('member'));
 		$this->document->breadcrumb .= "Kích hoạt tài khoảng";
 		$this->id="content";
 		$this->template="addon/active.tpl";

@@ -67,14 +67,7 @@ final class String
 	
 	public function numberFormate($num,$n = 0)
 	{
-		$str = number_format($num, $n, '.', ',');
-		$arr = split('\.',$str);
-		if((int)$arr[1])
-		{
-			return number_format($num, $n, '.', ',');
-		}
-		else
-			return $arr[0];
+		return number_format($num, $n, '.', ',');
 	}
 	
 	public function toNumber($str)
