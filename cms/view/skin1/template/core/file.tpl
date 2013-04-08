@@ -33,12 +33,7 @@
         <td id="result" style="vertical-align:top !important">
         	Loading...
         </td>
-        <td width="26%" style="vertical-align:top !important" class="td-selected">
-        	<div id="selected">
-            </div><br />
-
-            <input type="button" class="button" name="btnSelect" value="OK" onclick="saveSelect()"/>
-        </td>
+        
     </tr>
 </table>
 </form>
@@ -50,8 +45,7 @@
 <script language="javascript">
 //alert(parent.opener.document.InsertContent.title.value);
 $(document).ready(function() {
-  	$("#result").load("?route=core/file/getList");
-	
+	showResult("?route=core/file/getList")
 	$(".checkbox").click(function(index){
 		//alert($(this).val());
 		//alert(this.checked);
@@ -74,38 +68,9 @@ $("#btnfilter").click(function(){
 
 function moveto(url)
 {
-	$("#result").html("Loading...")
-	$("#result").load(url);	
-}
-function removeFile(fileid)
-{
-	$("#rowimage"+fileid).html("");	
-	//arr.splice(arr.indexOf(fileid),1,arr);
-}
-var arr = new Array();
-function selectFile(fileid)
-{
-	if(arr.indexOf(fileid)==-1)
-	{
-		arr.push(fileid);
+	$("#result").html("Loading...");
+	showResult(url)
 	
-		input = '<input type="hidden" class="rows" id="seletediamge'+fileid+'" name="seletediamge'+fileid+'" value="'+fileid+'" />';
-		remove = '<a class="button" onClick="removeFile('+ fileid +')">Remove</a>'
-		$("#selected").append("<div id='rowimage"+fileid+"'>"+$("#image"+fileid).html()+input+"</div>"+remove+"<br/>");
-	}
-}
-
-function saveSelect()
-{
-	//parent.opener.document.InsertContent.listselectfile.value ="";
-	$("#listselectfile").val('');
-	$(".rows").each(function(index){
-		//parent.opener.document.InsertContent.listselectfile.value+=$(this).val()+",";
-		$("#listselectfile").val($("#listselectfile").val()+$(this).val()+",")
-	})
-	//window.close();
-	$.unblockUI();
-	addImageTo();
 }
 
 function callbackUploadFile()
@@ -131,7 +96,8 @@ function callbackUploadFile()
 			//alert(response);
 			
 			$('#errorupload').hide();
-			$("#result").load("?route=core/file/getList");
+			showResult("?route=core/file/getList")
+			
 			
 				
 			
@@ -144,5 +110,12 @@ function callbackUploadFile()
 
 	
 }
+function showResult(url)
+{
+	$("#result").load(url,function(){
+		intSeleteFile("<?php echo $_GET['type']?>");
+	});
+}
 callbackUploadFile();
+
 </script>

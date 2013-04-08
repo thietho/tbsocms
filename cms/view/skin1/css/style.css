@@ -573,7 +573,7 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 
 
 /* Columns */
-.col2 {width: 46%;}
+.col2 {width: 30%;}
 .col3, .col3-mid {width: 31%;}
 .col3-mid {margin-left: 3%;}
 
@@ -852,4 +852,37 @@ height:100px;
 .order-cancel
 {
 	background:#666 !important;
+}
+#popup-content
+{
+	
+}
+#popup-selete
+{
+	position:absolute ;
+	background:#fff;
+	width:250px;
+	height:400px;
+	overflow:auto;
+	display:none;
+	border:thin solid #999;
+}
+.selectitem
+{
+	padding:10px;
+	width:209px;
+}
+.filelist
+{
+	width:145px;	
+	height:150px;
+}
+.filename
+{
+	display:none;	
+}
+#popup-seletetion .filelist
+{
+	height:auto;
+	padding:5px;
 }

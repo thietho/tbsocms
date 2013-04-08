@@ -2,11 +2,13 @@
 
 <?php echo $pager?>
 <div class="clearer">^&nbsp;</div>
+<?php if($_GET['edit']=='true'){ ?>
 <div>
 	<input type="checkbox" id="chkAll"/> Seleted all
 </div>
+<?php } ?>
 <?php foreach($files as $file){ ?>
-<div class="filelist left text-center" id="image<?php echo $file['fileid']?>" ondblclick="selectFile('<?php echo $file['fileid']?>')">
+<div class="filelist left text-center" id="<?php echo $file['fileid']?>" imagethumbnail="<?php echo $file['imagethumbnail']?>" filename="<?php echo $file['filename']?>" filepath="<?php echo $file['filepath']?>">
 	<img src="<?php echo $file['imagethumbnail']?>" />
 	<p class="filename"><?php echo $file['filename']?></p>
     <?php if($_GET['edit']=='true'){ ?>
@@ -52,10 +54,12 @@ $('.chkfile').click(function(e) {
 $('.filelist').hover(
 	function(){
 		$(this).css('background-color','#ccc');
-		$(this).children('.filename').css('overflow','visible');
+		
 	},
 	function(){
 		$(this).css('background-color','transparent');
 		$(this).children('.filename').css('overflow','hidden');
 	});
+	
+
 </script>
