@@ -21,13 +21,14 @@ $file = $file_url;
 # 
 // Kiểm tra xem file có tồn tại không. 
 # 
-if(!file_exists($file)) die("I'm sorry, the file doesn't seem to exist."); 
+//if(!file_exists($file)) die("I'm sorry, the file doesn't seem to exist."); 
 # 
   
 # 
 // Lấy ra dạng file (đuôi file) 
 # 
-$type = filetype($file); 
+$fileinfo = pathinfo($file_url);
+$type = $fileinfo['extension']; 
 # 
   
 # 
@@ -37,8 +38,8 @@ $today = date("F j, Y, g:i a");
 # 
 $time = time(); 
 # 
-$fileinfo = pathinfo($file_url);
-$filename = $fileinfo['filename'].".".$fileinfo['extension'];
+
+$filename =str_replace(" ","-", $fileinfo['filename'].".".$fileinfo['extension']);
 # 
 // gởi yêu cầu download tới browser 
 # 
