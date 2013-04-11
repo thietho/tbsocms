@@ -73,7 +73,20 @@ class ControllerCoreFile extends Controller
 		$this->render();
 	}
 	
-	
+	public function detail()
+	{
+		$this->load->model("core/file");
+		$this->load->helper('image');
+		$fileid = $this->request->get['fileid'];
+		
+		$this->data['item']=$this->model_core_file->getFile($fileid);
+		//print_r($this->data['file']);
+		//$info = pathinfo(HTTP_IMAGE.$this->data['item']['filepath']);
+		//print_r($info);
+		$this->id='file';
+		$this->template = "core/file_detail.tpl";
+		$this->render();
+	}
 	
 	function getFile()
 	{

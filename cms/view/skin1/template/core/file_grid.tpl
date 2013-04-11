@@ -19,6 +19,41 @@
 
 <div class="clearer">^&nbsp;</div>
 <?php } ?>
+<?php if($_GET['edit']=='true'){ ?>
+<script language="javascript">
+$('.filelist').click(function(e) {
+	var fileid = this.id;
+    $("#popup").attr('title','Chọn hình');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 600,
+			modal: true,
+			buttons: {
+				
+				
+				
+				'Tải về':function()
+				{
+					window.location = "<?php echo HTTP_SERVER?>download.php?url="+ encodeURI($('#filepath').val());
+				},
+				'Đóng': function() 
+				{
+					
+					$( this ).dialog( "close" );
+				},
+			}
+		});
+	
+		
+		$("#popup-content").load("?route=core/file/detail&fileid="+fileid+"&dialog=true",function(){
+			$("#popup").dialog("open");	
+		});
+});
+</script>
+<?php } ?>
 <script language="javascript">
 $(document).ready(function(e) {
     $('.chkfile').each(function(index, element) {
