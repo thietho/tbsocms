@@ -1,10 +1,10 @@
 <div>
 	<center>
-		<p style="font-size:1.5em;font-weight:bold">Kidscolorblock</p>
-        Địa chỉ: 782 Lạc Long Quân, P.9, Q. Tân Bình<br />
-        ĐT: 0945 711 800, 0909 711 800 or 0906 444 111<br />
-        Email: shoppingbaby711@hotmail.com<br />
-        Website: www.kidscolorblock.com
+		<p style="font-size:1.5em;font-weight:bold">Mylanbeauty.net</p>
+        Địa chỉ: 193 Tuy Lý Vương, P.12, Q.8, Tp.HCM<br />
+        ĐT: 0903 767 589<br />
+        Email: cosmetics@mylanbeauty.net<br />
+        Website: www.mylanbeauty.net
         <h2>PHIẾU GIAO HÀNG</h2>
         Số: <?php echo $order['orderid']?>
     </center>
