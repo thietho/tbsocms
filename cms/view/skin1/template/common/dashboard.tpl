@@ -43,11 +43,19 @@
                 
                  <p>
                     <label><?php echo $lbl_image ?></label><br />
-                    <div id="brochure">
-                        <?php echo $item['brochure']?>
+                    <!--<div id="logowebsite">
+                        <?php echo $item['logowebsite']?>
                     </div>
-                    <input type="hidden" id="brochure_filepath" name="brochure" value="<?php echo $item['brochure']?>"/>
-                    <input type="button" class="button" value="<?php echo $entry_photo ?>" onclick="browserFile('brochure','any')"/>
+                    <input type="hidden" id="logowebsite_filepath" name="logowebsite" value="<?php echo $item['logowebsite']?>"/>
+                    <input type="button" class="button" value="<?php echo $entry_photo ?>" onclick="browserFile('logowebsite','any')"/>-->
+                    <div id="logowebsite">
+                        <?php echo $item['logowebsite']?>
+                    </div>
+                    <a  class="button" onclick="browserFileImage()">Chọn hình</a><br />
+                    <img id="imagepreview" src="<?php echo $imagethumbnail?>" />
+                    <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $imagepath?>" />
+                    <input type="hidden" id="imageid" name="logowebsite" value="<?php echo $imageid?>" />
+                    <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $imagethumbnail?>" />
                 </p>
             </div>
         </form>
@@ -57,55 +65,42 @@
 </div>
 
 <script language="javascript">
-function browserFile(eid,type)
+function browserFileImage()
 {
-    $('#handler').val(eid);
-	$('#outputtype').val(type);
-	showPopup("#popup", 800, 500);
-	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
-	$("#popup").load("?route=core/file&dialog=true")
+	
+	$("#popup").attr('title','Chọn hình');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 600,
+			modal: true,
+			
+		});
+	
+		
+		$("#popup-content").load("?route=core/file&dialog=true&type=single",function(){
+			$("#popup").dialog("open");	
+		});
 		
 }
-
-function addImageTo()
+function intSeleteFile(type)
 {
-	var str= trim($("#listselectfile").val(),",");
-	var arr = str.split(",");
 	
-	if(str!="")
+	switch(type)
 	{
-		for (i=0;i<arr.length;i++)
-		{
-			$.getJSON("?route=core/file/getFile&fileid="+arr[i], 
-				function(data) 
-				{
-					switch($('#outputtype').val())
-					{
-						case 'image':
-							if(isImage(data.file.extension))
-							{
-								width = "";
-								
-								width = 'width="200px"'
-								var value = "<img src='<?php echo HTTP_IMAGE?>"+data.file.filepath+"' " + width +"/>";
-								
-								$('#'+ $('#handler').val()).html(value)
-								$('#'+ $('#handler').val()+'_filepath').val(data.file.filepath);
-							}
-							else
-							{
-								alert('Bạn phải chọn file hình');	
-							}						
-							break;
-						default:
-							var value = data.file.filepath;
-								
-							$('#'+ $('#handler').val()).html(value)
-							$('#'+ $('#handler').val()+'_filepath').val(data.file.filepath);
-					}
-					
-				});
-		}
+		case "single":
+			$('.filelist').click(function(e) {
+				$('#imagepreview').attr('src',$(this).attr('imagethumbnail'));
+				$('#imageid').val(this.id);
+				$('#imagepath').val($(this).attr('filepath'));
+				$('#imagethumbnail').val($(this).attr('imagethumbnail'));
+				$("#popup").dialog( "close" );
+			});			
+			break;
+			
+		
 	}
 }
 function save()
@@ -126,4 +121,3 @@ function save()
 }
 
 </script>
-<script src='<?php echo DIR_JS?>ajaxupload.js' type='text/javascript' language='javascript'> </script>

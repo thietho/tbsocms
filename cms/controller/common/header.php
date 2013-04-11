@@ -8,11 +8,13 @@
 			$this->data['username'] = $this->session->data['username'];
 			$this->data['sitename'] = $this->session->data['sitename'];
 			$this->data['language'] = $this->getLanguageCBX();
-			$imagepath = $this->model_core_media->getInformation("setting","brochure");
+			$fileid = $this->model_core_media->getInformation("setting","logowebsite");
+			$file = $this->model_core_file->getFile($fileid);
+			$file['thumsnail'] = HelperImage::resizePNG($file['filepath'], 150, 70);
 			
-			if($imagepath != "")
+			if($fileid)
 			{
-				$this->data['imagepreview'] = "<img class='png' src='".HelperImage::resizePNG($imagepath, 150, 70)."' >";
+				$this->data['imagepreview'] = "<img class='png' src='".$file['thumsnail']."' >";
 			}
 						
 			$this->id="header";
