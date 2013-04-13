@@ -3,30 +3,6 @@ class ControllerCorePostcontent extends Controller
 {
 	function __construct() 
 	{
-		$this->data['permissionAccess'] = true;
-		$this->data['permissionAdd'] = true;
-		$this->data['permissionEdit'] = true;
-		$this->data['permissionDelete'] = true;
-		
-		$sitemapid = $this->request->get['sitemapid'];
-		
-		if(!$this->user->hasPermission($sitemapid, "access"))
-		{
-			$this->data['permissionAccess'] = false;
-		}
-		if(!$this->user->hasPermission($sitemapid, "add"))
-		{
-			$this->data['permissionAdd'] = false;
-		}
-		if(!$this->user->hasPermission($sitemapid, "edit"))
-		{
-			$this->data['permissionEdit'] = false;
-		}
-		if(!$this->user->hasPermission($sitemapid, "delete"))
-		{
-			$this->data['permissionDelete'] = false;
-		}
-		
 	 	$this->load->model("core/user");
 		$this->load->model("core/media");
 		$this->load->model("core/sitemap");
@@ -37,11 +13,6 @@ class ControllerCorePostcontent extends Controller
 	
 	function index()
 	{	
-		if(!$this->data['permissionAccess'])
-			$this->response->redirect("?route=common/permission");
-		
-		
-		
 		if (!$this->user->isLogged()) {
 			$this->redirect($this->url->https('page/index'));
 		}
@@ -57,16 +28,7 @@ class ControllerCorePostcontent extends Controller
 	{
 		$this->load->model("core/media");
 		$mediaid = $this->request->get['mediaid'];
-		if($mediaid)
-		{
-			if(!$this->data['permissionEdit'])
-				$this->response->redirect("?route=common/permission");
-		}
-		else
-		{
-			if(!$this->data['permissionAdd'])
-				$this->response->redirect("?route=common/permission");
-		}
+		
 		$route = $this->getRoute();
 		$sitemapid = $this->request->get['sitemapid'];
 		
@@ -283,7 +245,7 @@ class ControllerCorePostcontent extends Controller
 			$this->data['imagethumbnail'] = HelperImage::resizePNG($this->data['post']['imagepath'], 200, 200);
 		}
 		
-		$this->data['mediaid'] = $this->data['post']['mediaid'];
+		/*$this->data['mediaid'] = $this->data['post']['mediaid'];
 		$this->data['mediatype'] = $this->data['post']['mediatype'];
 		$this->data['title'] = $this->data['post']['title'];
 		$this->data['summary'] = $this->data['post']['summary'];
@@ -307,7 +269,7 @@ class ControllerCorePostcontent extends Controller
 		$this->data['status'] = $this->data['post']['status'];
 		$this->data['statusdate'] = $this->data['post']['statusdate'];
 		$this->data['statusby'] = $this->data['post']['statusby'];
-		$this->data['updateddate'] = $this->data['post']['updateddate'];
+		$this->data['updateddate'] = $this->data['post']['updateddate'];*/
 		$listfile = $this->model_core_media->getInformation($this->data['mediaid'], "attachment");
 		$listfileid=array();
 		if($listfile)

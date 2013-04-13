@@ -19,12 +19,10 @@
         	<input class="button" type="button" value="<?php echo $button_save?>" onclick="save()"/>
             <a class="button" href="<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"><?php echo $button_cancel?></a>
              
-             <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $mediaid?>" />
-             <input type="hidden" id="mediatype" name="mediatype" value="<?php echo $mediatype?>" />
-             <input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $refersitemap?>" />
+             <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $post['mediaid']?>" />
+             <input type="hidden" id="mediatype" name="mediatype" value="<?php echo $post['mediatype']?>" />
+             <input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $post['refersitemap']?>" />
              
-             <input type="hidden" id="handler" />
-             <input type="hidden" id="outputtype" />
         </div>
         <div class="clearer">&nbsp;</div>
         
@@ -78,15 +76,26 @@
                     <div class="col2 left">
                     	
                         <?php if($hasTitle) {?>
-                        <br />
-                        <br />
+                        <p>
+                        	<label>Code</label><br>
+                            <input class="text" type="text" id="code" name="code" value="<?php echo $post['code']?>" size="60" />
+                        </p>
+                        <p>
+                        	<label>Qui cách</label><br>
+                            <textarea id="sizes" name="sizes"><?php $post['sizes']?></textarea>
+                        </p>
+                        <p>
+                        	<label>Đơn vị</label><br>
+                            <select id="unit" name="unit">
+                            </select>
+                        </p>
                         <p>
                             <label><?php echo $entry_title?></label><br>
-                            <input class="text" type="text" id="title" name="title" value="<?php echo $title?>" size="60" />
+                            <input class="text" type="text" id="title" name="title" value="<?php echo $post['title']?>" size="60" />
                         </p>
                         <p>
                             <label><?php echo $text_alias?></label><br>
-                            <input class="text" type="text" id="alias" name="alias" value="<?php echo $alias?>" size="60" />
+                            <input class="text" type="text" id="alias" name="alias" value="<?php echo $post['alias']?>" size="60" />
                         </p>
 <script>
 $('#title').change(function(e) {
@@ -107,24 +116,15 @@ $('#title').change(function(e) {
                         </p>-->
                         <?php } ?>
                         
-                       	<?php if($hasEvent) {?>
-                        <p>
-                            <label><?php echo $lbl_date ?></label><br>
-                            <input class="text ben-datepicker" type="text" name="eventdate" value="<?php echo $this->date->formatMySQLDate($eventdate)?>" />
-                        </p>
-                        <p>
-                            <label><?php echo $lbl_time ?></label><br>
-                            <input class="text" type="text" name="eventtime" value="<?php echo $eventtime?>" />
-                        </p>
-                        <?php } ?>
+                       	
                     	<?php if($hasPrice) {?>
                         <p>
                             <label><?php echo $text_price?></label><br>
-                            <input class="text number" type="text" name="price" value="<?php echo $price?>" size="60" />
+                            <input class="text number" type="text" name="price" value="<?php echo $post['price']?>" size="60" />
                         </p>
                         <p>
                             <label>Giá khuyến mãi</label><br>
-                            <input class="text number" type="text" name="pricepromotion" value="<?php echo $pricepromotion?>" size="60" />
+                            <input class="text number" type="text" name="pricepromotion" value="<?php echo $post['pricepromotion']?>" size="60" />
                         </p>
                         <?php } ?>
                         <p>
@@ -135,7 +135,7 @@ $('#title').change(function(e) {
                                 <option value="hide">Ẩn</option>
                             </select>
                             <script language="javascript">
-								$('#status').val('<?php echo $status?>')
+								$('#status').val("<?php echo $post['status']?>")
 							</script>
                         </p>
                     </div>
@@ -146,9 +146,9 @@ $('#title').change(function(e) {
                             <label for="image"><?php echo $entry_image?></label><br />
                             <a  class="button" onclick="browserFileImage()"><?php echo $entry_selectphoto?></a><br />
                             <img id="imagepreview" src="<?php echo $imagethumbnail?>" />
-                            <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $imagepath?>" />
-                            <input type="hidden" id="imageid" name="imageid" value="<?php echo $imageid?>" />
-                            <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $imagethumbnail?>" />
+                            <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $post['imagepath']?>" />
+                            <input type="hidden" id="imageid" name="imageid" value="<?php echo $post['imageid']?>" />
+                            <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $post['imagethumbnail']?>" />
                         </p>
                         
                         
@@ -196,7 +196,7 @@ $('#title').change(function(e) {
               		<?php if($hasSummary) {?>
                     <p>
                         <label><?php echo $entry_summary?></label><br>
-                        <textarea class="text" rows="3" cols="70" id="summary" name="summary"><?php echo $summary?></textarea>
+                        <textarea class="text" rows="3" cols="70" id="summary" name="summary"><?php echo $post['summary']?></textarea>
 <script language="javascript">
 $(document).ready(function(e) {
     setCKEditorType('summary',2);
@@ -207,7 +207,7 @@ $(document).ready(function(e) {
                     <?php if($hasSource) {?>
                     <p>
                         <label><?php echo $entry_source?></label><br>
-                        <input class="text" type="text" name="source" value="<?php echo $source?>" size="40" />
+                        <input class="text" type="text" name="source" value="<?php echo $post['source']?>" size="40" />
                     </p>
                     <?php } ?>
                 
@@ -246,7 +246,7 @@ $(document).ready(function(e) {
                 <input type="hidden" id="listselectfile" name="listselectfile" />
             	<div>
                 	<p>
-                        <textarea name="description" id="editor1" cols="80" rows="10"><?php echo $description?></textarea>
+                        <textarea name="description" id="editor1" cols="80" rows="10"><?php echo $post['description']?></textarea>
                     </p>
                 </div>
             </div>
@@ -255,9 +255,9 @@ $(document).ready(function(e) {
                     <p id="pnVideo">
                         <label for="file"><?php echo $lbl_file ?></label><br />
                         <a id="btnAddVideo" class="button"><?php echo $entry_file ?></a><br />
-                        <span id="filename"><?php echo $filepath?></span>
-                        <input type="hidden" id="filepath" name="filepath" value="<?php echo $filepath?>" />
-                        <input type="hidden" id="fileid" name="fileid" value="<?php echo $fileid?>" />
+                        <span id="filename"><?php echo $post['filepath']?></span>
+                        <input type="hidden" id="filepath" name="filepath" value="<?php echo $post['filepath']?>" />
+                        <input type="hidden" id="fileid" name="fileid" value="<?php echo $post['fileid']?>" />
                         <div id="sub_errorupload" class="error" style="display:none"></div>
                         
                         
@@ -276,8 +276,8 @@ $(document).ready(function(e) {
                         <label for="file"><?php echo $lbl_file ?></label><br />
                         <a id="btnAddAudio" class="button"><?php echo $entry_file ?></a><br />
                         <span id="filename"><?php echo $filepath?></span>
-                        <input type="hidden" id="filepath1" name="filepath" value="<?php echo $filepath?>" />
-                        <input type="hidden" id="fileid1" name="fileid" value="<?php echo $fileid?>" />
+                        <input type="hidden" id="filepath1" name="filepath" value="<?php echo $post['filepath']?>" />
+                        <input type="hidden" id="fileid1" name="fileid" value="<?php echo $post['fileid']?>" />
                         <div id="sub_errorupload" class="error" style="display:none"></div>
                         
                         
@@ -620,11 +620,11 @@ function Comment()
 }
 function callbackLoadCommnet()
 {
-	objComment.loadComment('<?php echo $mediaid?>');
+	objComment.loadComment('<?php echo $post['mediaid']?>');
 }
 var objComment = new Comment();
 $(document).ready(function(e) {
-    objComment.loadComment('<?php echo $mediaid?>');
+    objComment.loadComment('<?php echo $post['mediaid']?>');
 });
 </script>
             <?php } ?>

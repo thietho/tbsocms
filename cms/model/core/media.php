@@ -414,6 +414,9 @@ class ModelCoreMedia extends ModelCoreFile
 	{
 		
 		$mediaid = $this->db->escape(@$data['mediaid']);
+		$code = $this->db->escape(@$data['code']);
+		$sizes = $this->db->escape(@$data['sizes']);
+		$unit = $this->db->escape(@$data['unit']);
 		$mediaparent=$this->db->escape(@$data['mediaparent']);
 		$mediatype=$this->db->escape(@$data['mediatype']);
 		$refersitemap=$this->db->escape(@$data['refersitemap']);
@@ -444,6 +447,9 @@ class ModelCoreMedia extends ModelCoreFile
 		$updateddate = $this->date->getToday();
 		
 		$field=array(
+						'code',
+						'sizes',
+						'unit',
 						'mediaparent',
 						'mediatype',
 						'refersitemap',
@@ -466,6 +472,9 @@ class ModelCoreMedia extends ModelCoreFile
 						'updateddate'
 					);
 		$value=array(
+						$code,
+						$sizes,
+						$unit,
 						$mediaparent,
 						$mediatype,
 						$refersitemap,
@@ -490,9 +499,6 @@ class ModelCoreMedia extends ModelCoreFile
 		
 		$where="mediaid = '".$mediaid."'";
 		$this->db->updateData('media',$field,$value,$where);
-		
-		$this->updateFileTemp($imageid);
-		$this->updateFileTemp($fileid);
 		return true;
 	}
 	
