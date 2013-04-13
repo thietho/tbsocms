@@ -28,9 +28,12 @@ final class Document {
 						   'cancel' => "Hủy đơn hàng"
 						   );
 	public $paymenttype = array(
-							'cash'=>'Giao hàng bàng tiền mặt',
-							'bank' =>'Thanh toán chuyển khoản trước khi giao hàng',
-							'cashbank80' =>'Đặt cọc 80% trước khi giao hàng(tiền mặt hoặc chuyển khoản)'
+							'cash'=>'Tiền mặt',
+							'bank' =>'Chuyển khoản'
+							);
+	public $gioitinh = array(
+							'male' => "Nam",
+							'female' => "Nữ"
 							);
 	public $status_comment = array(
 						   'new' => "Chưa duyệt",
@@ -44,6 +47,10 @@ final class Document {
 	public $tiente = array(
 						"VND" => "VNĐ",
 						"USD" => "USD"
+						);
+	public $tientechu = array(
+						"VND" => "đồng",
+						"USD" => "usd"
 						);
 	public function toVND($value,$donvi)
 	{
@@ -144,13 +151,89 @@ final class Document {
 									where mediaid ='".$mediaid."' ");
 		return $query->row[$name];	
 	}
-	public function getUser($userid,$name="fullname")
+	public function getNhanVien($id,$name = 'hoten')
 	{
-		$query = $this->db->query("Select `user`.* 
+		$sql = "Select `qlknhanvien`.* 
+									from `qlknhanvien` 
+									where id ='".$id."' ";
+		$query = $this->db->query($sql);
+		return $query->row[$name];
+	}
+	
+	
+	public function getUserType($usertypeid,$name = 'usertypename')
+	{
+		$sql = "Select `usertype`.* 
+									from `usertype` 
+									where usertypeid ='".$usertypeid."' ";
+		$query = $this->db->query($sql);
+		return $query->row[$name];
+	}
+	
+	public function getUser($userid,$name = 'fullname')
+	{
+		$sql = "Select `user`.* 
 									from `user` 
-									where userid ='".$userid."' ");
+									where userid ='".$userid."' ";
+		$query = $this->db->query($sql);
+		return $query->row[$name];
+	}
+	
+	public function getModule($id,$name = 'modulename')
+	{
+		$query = $this->db->query("Select `module`.* 
+									from `module` 
+									where id ='".$id."' ");
 		return $query->row[$name];	
 	}
+	public function getModuleId($moduleid,$name = 'modulename')
+	{
+		$query = $this->db->query("Select `module`.* 
+									from `module` 
+									where moduleid ='".$moduleid."' ");
+		return $query->row[$name];	
+	}
+	public function getTenDonVi($madonvi)
+	{
+		$query = $this->db->query("Select `qlkdonvitinh`.* 
+									from `qlkdonvitinh` 
+									where madonvi ='".$madonvi."' ");
+		return $query->row['tendonvitinh'];	
+	}
+	
+	public function getDonViTinh($madonvi,$name="tendonvitinh")
+	{
+		$query = $this->db->query("Select `qlkdonvitinh`.* 
+									from `qlkdonvitinh` 
+									where madonvi ='".$madonvi."' ");
+		return $query->row[$name];	
+	}
+	
+	public function getNguyenLieu($id,$name = 'tennguyenlieu')
+	{
+		$sql = "Select `qlknguyenlieu`.* 
+									from `qlknguyenlieu` 
+									where id ='".$id."' ";
+		$query = $this->db->query($sql);
+		return $query->row[$name];
+	}
+	public function getNhaCungCap($id,$name = 'tennhacungcap')
+	{
+		$sql = "Select `qlknhacungcap`.* 
+									from `qlknhacungcap` 
+									where id ='".$id."' ";
+		$query = $this->db->query($sql);
+		return $query->row[$name];
+	}
+	public function getSanPham($id,$name = 'tensanpham')
+	{
+		$sql = "Select `qlksanpham`.* 
+									from `qlksanpham` 
+									where id ='".$id."' ";
+		$query = $this->db->query($sql);
+		return $query->row[$name];
+	}
+	
 	public function createLink($sitemap="",$id="",$key = "",$val = "")
 	{
 		$link = HTTP_SERVER;

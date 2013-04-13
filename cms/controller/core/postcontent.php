@@ -9,6 +9,9 @@ class ControllerCorePostcontent extends Controller
 		$this->load->model("core/file");
 		$this->load->model("core/category");
 		$this->load->helper('image');
+		
+		$this->load->model("quanlykho/donvitinh");
+		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
    	}
 	
 	function index()
@@ -135,6 +138,7 @@ class ControllerCorePostcontent extends Controller
 		$this->data['hasTabComment'] = false;
 		
 		//Define product
+		$this->data['hasCode'] = false;
 		$this->data['hasPrice'] = false;
 		$this->data['hasSubInfor'] = false;
 		//Video
@@ -161,6 +165,7 @@ class ControllerCorePostcontent extends Controller
 		
 		if($route == "module/product")
 		{
+			$this->data['hasCode'] = true;
 			$this->data['hasProperties'] = true;
 			$this->data['hasPrice'] = true;
 			$this->data['hasSubInfor'] = false;

@@ -28,7 +28,9 @@
     <title>Content Management System</title>
     <script src="<?php echo DIR_JS?>menu-collapsed.js" type="text/javascript"></script>
     
-    
+<script language="javascript">
+var loading = '<center><img src="<?php echo DIR_IMAGE?>loading.gif"></center>';
+</script>    
 </head>
 <!--[if lt IE 7]>
 	<link rel='stylesheet' type='text/css' href='<?php echo DIR_CSS?>jquery.tabs-ie.css'>

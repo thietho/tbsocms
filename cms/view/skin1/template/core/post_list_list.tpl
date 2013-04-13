@@ -3,6 +3,9 @@
             
             	<thead>
                 	<th width="10%"><?php echo $column_position?></th>
+                    <th width="20%">Code</th>
+                    <th width="20%">Quy cách</th>
+                    <th width="20%"><?php echo $column_title?></th>
                     <th width="20%"><?php echo $column_title?></th>
                     <th width="40%"><?php echo $column_summary?></th>
                     <th width="20%"><?php echo $column_image?></th>
@@ -16,6 +19,8 @@
                         	<input type="checkbox" value="<?php echo $media['mediaid']?>" name="delete[<?php echo $media['mediaid']?>]" class="inputchk">
                             <input type="text" class="text number" name="position[<?php echo $media['mediaid']?>]" value="<?php echo $key+1?>" size="3"/>
                         </td>
+                        <td><b><?php echo $media['code']?></b>&nbsp;</td>
+                        <td><b><?php echo $media['sizes']?></b>&nbsp;</td>
                         <td><b><?php echo $media['title']?></b>&nbsp;</td>
                         <td><?php echo html_entity_decode($media['summary'])?>&nbsp;</td>
                         <td><?php echo $media['imagepreview']?>&nbsp;</td>

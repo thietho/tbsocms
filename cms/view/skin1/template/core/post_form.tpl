@@ -76,23 +76,13 @@
                     <div class="col2 left">
                     	
                         <?php if($hasTitle) {?>
-                        <p>
-                        	<label>Code</label><br>
-                            <input class="text" type="text" id="code" name="code" value="<?php echo $post['code']?>" size="60" />
-                        </p>
-                        <p>
-                        	<label>Qui cách</label><br>
-                            <textarea id="sizes" name="sizes"><?php $post['sizes']?></textarea>
-                        </p>
-                        <p>
-                        	<label>Đơn vị</label><br>
-                            <select id="unit" name="unit">
-                            </select>
-                        </p>
+                        
+                       
                         <p>
                             <label><?php echo $entry_title?></label><br>
                             <input class="text" type="text" id="title" name="title" value="<?php echo $post['title']?>" size="60" />
                         </p>
+                        
                         <p>
                             <label><?php echo $text_alias?></label><br>
                             <input class="text" type="text" id="alias" name="alias" value="<?php echo $post['alias']?>" size="60" />
@@ -115,8 +105,30 @@ $('#title').change(function(e) {
                             <textarea class="text" rows="3" cols="70" name="keyword"><?php echo $keyword?></textarea>
                         </p>-->
                         <?php } ?>
-                        
-                       	
+                        <?php if($hasCode){?>
+                       	<p>
+                        	<label>Code</label><br>
+                            <input class="text" type="text" id="code" name="code" value="<?php echo $post['code']?>" size="60" />
+                        </p>
+                        <p>
+                        	<label>Qui cách</label><br>
+                            <textarea cols="50" rows="4" class="text" id="sizes" name="sizes"><?php echo $post['sizes']?></textarea>
+                        </p>
+                        <p>
+                        	<label>Đơn vị</label><br>
+                            <select id="unit" name="unit">
+                            	
+                                <option value=""></option>
+                                <?php foreach($donvitinh as $val){ ?>
+                                <option value="<?php echo $val['madonvi']?>"><?php echo $val['tendonvitinh']?></option>
+                                <?php } ?>
+                                
+                            </select>
+                            <script language="javascript">
+								$('#unit').val("<?php echo $post['unit']?>");
+							</script>
+                        </p>
+                        <?php } ?>
                     	<?php if($hasPrice) {?>
                         <p>
                             <label><?php echo $text_price?></label><br>

@@ -13,7 +13,7 @@ final class User {
 		$this->session  = Registry::get('session');
 		$this->json  = Registry::get('json');
 		$this->string  = Registry::get('string');
-		
+		$this->date  = Registry::get('date');
 		if($this->request->get['lang'])
 		{
 			$this->session->set('siteid',$this->request->get['lang']);
@@ -108,6 +108,8 @@ final class User {
 			if($query->row['usertypeid'] > 1)
 			{
 				return FALSE;
+
+
 			}
 				
       		return TRUE;
@@ -261,7 +263,92 @@ final class User {
 		return $this->permission;
 	}
 	
+	public function getLayout()
+	{
+		
+		switch($this->getUserTypeId())
+		{
+			case 'user':
+				$layout="layout/user";
+				break;
+			case 'admin':
+				$layout="layout/center";
+		}
+		return $layout;
+	}
+	public function writeLog($detail)
+	{
+		$logdate = $this->date->getToday();
+		$field=array(
+
+						'logdate',
+						'detail',
+						'userid'
+						
+						);
+						$value=array(
+
+						$logdate,
+						$detail,
+						$this->userid
+						);
+						$this->db->insertData("log",$field,$value);
+
+	}
+
+	public function getNhanVien()
+	{
+		$sql = "Select *
+									from `qlknhanvien` 
+									where username = '".$this->username."' ";
+
+		$query = $this->db->query($sql);
+		return $query->rows[0];
+	}
 	
+	private function getAllModule()
+	{
+		$sql = "Select *
+									from `module`";
+
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
+	
+	public function checkPermission($moduleid)
+	{
+		if($this->getUserTypeId() == 'admin')
+			return true;
+		//Nhung module ko co khai bao thi ko can kiem tra
+		$data_module = $this->getAllModule();
+		$arr_allmodule = $this->string->matrixToArray($data_module,'moduleid');
+		if(!in_array($moduleid,$arr_allmodule))
+			return true;
+		
+		$nhanvien = $this->getNhanVien();
+		$arr_allowmodule = $this->string->referSiteMapToArray($nhanvien['permission']);
+		if(in_array($moduleid,$arr_allowmodule))
+			return true;
+		else
+			return false;
+	}
+	
+	public function getAllowModule()
+	{
+		$nhanvien = $this->getNhanVien();
+		$arr_allowmodule = $this->string->referSiteMapToArray($nhanvien['permission']);
+		return $arr_allowmodule;
+	}
+	
+	public function getLogs($where)
+	{
+		$sql = "Select `log`.*
+									from `log` 
+									where 1=1 " . $where;
+
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
 	
 //BENGIN PERMISSION JSON
 	

@@ -130,12 +130,20 @@ class ControllerCorePostlist extends Controller
 		$siteid = $this->user->getSiteId();
 		$page = $this->request->get['page'];
 		
+		$code = $this->request->get['code'];
+		$sizes = $this->request->get['sizes'];
+		$title = $this->request->get['title'];
+		
 		$this->load->language($moduleid);
 		$this->data = array_merge($this->data, $this->language->getData());
 		//Get list
-		
-		
 		$where = " AND refersitemap like '%".$sitemapid."%'";
+		if($code)
+			$where .= " AND code like '".$code."%'";
+		if($sizes)
+			$where .= " AND sizes like '%".$sizes."%'";
+		if($title)
+			$where .= " AND title like '%".$title."%'";
 		$where .= " Order by position, statusdate DESC";
 		$rows = $this->model_core_media->getList($where);
 		
