@@ -30,7 +30,7 @@ final class Member {
 				$this->siteid = SITEID;
 				break;
 		}*/
-		if($this->request->get['lang'])
+		if(@$this->request->get['lang'])
 		{
 			
 			$this->siteid = $this->request->get['lang'];
@@ -40,18 +40,18 @@ final class Member {
 			$this->siteid = SITEID;
 		}
 		
-		if($this->request->get['contry'])
+		if(@$this->request->get['contry'])
 		{
 			$this->go_country = $this->request->get['contry'];
 			$this->session->set('country',$this->go_country);
 		}
 		else
 		{
-			$this->go_country = $this->session->data['country'];
+			@$this->go_country = $this->session->data['country'];
 		}
-		if($_COOKIE['username'] != "")
+		if(@$_COOKIE['username'] != "")
 		{
-			$this->login($_COOKIE['username'],$_COOKIE['password']);	
+			@$this->login($_COOKIE['username'],$_COOKIE['password']);	
 		}
     	if (isset($this->session->data['memberid'])) {
 			$query = $this->db->query("SELECT * FROM user WHERE userid = '" . $this->db->escape($this->session->data['memberid']) . "'");
@@ -155,14 +155,14 @@ final class Member {
 	}
   
   	public function isLogged() {
-    	if($this->session->data['memberid']){
+    	if(@$this->session->data['memberid']){
 			$this->usertypeid = $this->session->data['membertypeid'];
 			$this->userid = $this->session->data['memberid'];
 			$this->username = $this->session->data['membername'];	
 			$this->siteid = $this->session->data['siteid'];		
 			return true;
 		}
-		elseif($this->session->data['safemode']){
+		elseif(@$this->session->data['safemode']){
 			$this->usertypeid = $this->session->data['membertypeid'];
 			$this->userid = $this->session->data['memberid'];
 			$this->username = $this->session->data['membername'];	

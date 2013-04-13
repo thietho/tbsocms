@@ -46,8 +46,8 @@ final class HelperImage {
 		
 		$old_image = $filepath;
 		
-		$new_image = eregi_replace('[/]', '_', $filepath);
-		$new_image = eregi_replace('\.([a-z]{3,4})', '_' . $width . 'x' . $height . '.png', $new_image);
+		@$new_image = eregi_replace('[/]', '_', $filepath);
+		@$new_image = eregi_replace('\.([a-z]{3,4})', '_' . $width . 'x' . $height . '.png', $new_image);
 		$new_image = 'cache/' . $new_image;
 
 		if (!file_exists(DIR_FILE . $new_image) || (filemtime(DIR_FILE . $old_image) > filemtime(DIR_FILE . $new_image))) {
@@ -79,8 +79,8 @@ final class HelperImage {
 		
 		$old_image = $filepath;
 		
-		$new_image = eregi_replace('[/]', '_', $filepath);
-		$new_image = eregi_replace('\.([a-z]{3,4})', '.png' , $new_image);
+		@$new_image = eregi_replace('[/]', '_', $filepath);
+		@$new_image = eregi_replace('\.([a-z]{3,4})', '.png' , $new_image);
 		$new_image = 'cache/' . $new_image;
 
 		if (!file_exists(DIR_FILE . $new_image) || (filemtime(DIR_FILE . $old_image) > filemtime(DIR_FILE . $new_image))) {

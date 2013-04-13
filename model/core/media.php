@@ -56,14 +56,14 @@ class ModelCoreMedia extends ModelCoreFile
 		$from = (int)$step * (int)$to;
 		
 		//All Options
-		$keyword = $options['keyword'];
-		$mediaparent = $options['mediaparent'];
+		@$keyword = $options['keyword'];
+		@$mediaparent = $options['mediaparent'];
 		$mediatype = $options['mediatype'];
-		$day = $options['day'];
-		$month = $options['month'];
-		$year = $options['year'];
-		$refersitemap = $options['refersitemap'];
-		$groupkeys = $options['groupkeys'];
+		@$day = $options['day'];
+		@$month = $options['month'];
+		@$year = $options['year'];
+		@$refersitemap = $options['refersitemap'];
+		@$groupkeys = $options['groupkeys'];
 		
 		//Where Command
 		$where = "";

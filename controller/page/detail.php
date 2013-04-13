@@ -18,7 +18,7 @@ class ControllerPageDetail extends Controller
 			$siteid = $this->member->getSiteId();
 			
 			
-			$id = $this->request->get['id'];
+			@	$id = $this->request->get['id'];
 			
 			$this->document->breadcrumb = $this->model_core_sitemap->getBreadcrumb($this->document->sitemapid, $siteid, -1);
 			

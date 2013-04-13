@@ -112,7 +112,7 @@ abstract class Controller {
 				
 				$controller->name = $class;
 				
-				$controller->module = $module;
+				@$controller->module = $module;
 				
 				$controller->data[$this->id] = $this->output;
 				

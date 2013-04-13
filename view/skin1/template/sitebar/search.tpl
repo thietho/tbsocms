@@ -3,7 +3,7 @@
 	<div class="ben-section-title">Tìm kiếm</div>
     
     <div class="ben-section-content">
-    	<input type="text" class="ben-textbox" id="txt_search" name="txt_search" value="<?php echo $_GET['keyword']?>">
+    	<input type="text" class="ben-textbox" id="txt_search" name="txt_search" value="<?php echo @$_GET['keyword']?>">
         <input type="button" class="ben-button" id="btnSearch" value="Tìm">
     </div>
 </div>

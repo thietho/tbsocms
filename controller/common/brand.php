@@ -20,7 +20,7 @@ class ControllerCommonBrand extends Controller
 		foreach($this->data['nhanhieu'] as $key => $item)
 		{
 			$media = $this->model_core_media->getItem($this->member->getSiteId().'cat'.$item['categoryid']);
-			if($media['imagepath'] != "")
+			if(isset($media['imagepath']))
 				$this->data['nhanhieu'][$key]['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 0,50);
 			
 		}
