@@ -19,11 +19,11 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 		$this->load->model("core/category");
 		
 		$this->load->model("quanlykho/donvitinh");
-		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
+		$this->load->model("quanlykho/phieunhapxuat");
 		$this->data['loainguyenlieu'] = array();
 		$this->model_core_category->getTree("nguyenlieu",$this->data['loainguyenlieu']);
 		unset($this->data['loainguyenlieu'][0]);
-		
+		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
 		
    	}
 	public function index()
@@ -554,7 +554,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 		$this->data['item'] = $this->model_quanlykho_nguyenlieu->getItem($id);
 		$this->data['item']['soluongton'] = $this->model_quanlykho_nguyenlieu->getTonKho($id);
 		$where = " AND 	nguyenlieuid = '".$id."'";
-		$this->data['datact'] = $this->model_quanlykho_nguyenlieu->getNguyeLieuXuatNhapList($where);
+		$this->data['datact'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
 		
 		$this->id='content';
 		$this->template="quanlykho/nguyenlieu_tonkho.tpl";
@@ -580,7 +580,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 		
 		if($this->validateImport($data))
 		{
-			$data['ngaynhap'] = $this->date->getToday();
+			$data['ngaylap'] = $this->date->getToday();
 			$data['nguoinhap'] = $this->user->getUserName();
 			$this->model_quanlykho_nguyenlieu->saveNguyeLieuXuatNhap($data);
 			$this->data['output'] = "true";
@@ -628,7 +628,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 		
 		if($this->validateExport($data))
 		{
-			$data['ngaynhap'] = $this->date->getToday();
+			$data['ngaylap'] = $this->date->getToday();
 			$data['nguoinhap'] = $this->user->getUserName();
 			$data['soluong'] = $data['soluong']*-1;
 			$this->model_quanlykho_nguyenlieu->saveNguyeLieuXuatNhap($data);

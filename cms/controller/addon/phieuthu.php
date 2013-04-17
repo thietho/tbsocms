@@ -85,6 +85,10 @@ class ControllerAddonPhieuthu extends Controller
 		{
 			$where .= " AND tenkhachhang like '%".$data['tenkhachhang']."%'";
 		}
+		if(trim($data['nguoithuchien']))
+		{
+			$where .= " AND nguoithuchien like '%".$data['nguoithuchien']."%'";
+		}
 		
 		if(trim($data['sotientu']))
 		{
@@ -228,6 +232,10 @@ class ControllerAddonPhieuthu extends Controller
 		{
       		if ($this->validation->_checkEmail($data['email']) == false )
 				$this->error["email"] = "Email không đúng định dạng";
+    	}
+		if (trim($data['nguoithuchien']) == '') 
+		{
+      		$this->error['nguoithuchien'] = "Bạn chưa nhập người thu";
     	}
 		if (trim($data['sotien']) == "") 
 		{

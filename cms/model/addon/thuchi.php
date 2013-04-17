@@ -26,7 +26,8 @@ class ModelAddonThuchi extends Model
 								'quidoi',
 								'hinhthucthanhtoan',
 								'lydo',
-								'nguongoc'
+								'nguongoc',
+								'nguoithuchien'
 							);
 	public function getList($where = "")
 	{

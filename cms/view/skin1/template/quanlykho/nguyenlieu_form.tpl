@@ -41,14 +41,14 @@
             		<label>Tồn tối thiểu</label><br />
 					<input type="text" id="tontoithieu" name="tontoithieu" value="<?php echo $item['tontoithieu']?>" class="text number" size=60 />
             	</p>
-                <p>
+                <!--<p>
             		<label>Tồn tối đa</label><br />
 					<input type="text" id="tontoida" name="tontoida" value="<?php echo $item['tontoida']?>" class="text number" size=60 />
             	</p>
                 <p>
             		<label>Số lượng 1 lần đăt hàng</label><br />
 					<input type="text" id="soluongmoilandathang" name="soluongmoilandathang" value="<?php echo $item['soluongmoilandathang']?>" class="text number" size=60 />
-            	</p>
+            	</p>-->
                 <p>
             		<label>Đơn vị tính</label><br />
 					<select id="madonvi" name="madonvi">
@@ -59,10 +59,10 @@
                     </select>
             	</p>
                 
-                <p>
+                <!--<p>
             		<label>Mục đích sử dụng</label><br />
 					<textarea id="mucdichsudung" name="mucdichsudung"><?php echo $item['mucdichsudung']?></textarea>
-            	</p>
+            	</p>-->
                 <p>
             		<label>Ghi chú</label><br />
 					<textarea id="ghichu" name="ghichu"><?php echo $item['ghichu']?></textarea>

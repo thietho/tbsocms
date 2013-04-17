@@ -65,6 +65,10 @@
                     </select>
                 </p>
                 <p>
+                    <label>Người chi</label><br />
+                    <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 />
+                </p>
+                <p>
                     <label>Lý do chi</label><br />
                     <textarea name="lydo" class="ghichu"><?php echo $item['lydo']?></textarea>
                 </p>

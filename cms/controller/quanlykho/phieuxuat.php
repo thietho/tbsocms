@@ -1,8 +1,8 @@
 <?php
-class ControllerQuanlykhoPhieunhap extends Controller
+class ControllerQuanlykhoPhieuxuat extends Controller
 {
 	private $error = array();
-	private $loaiphieu = "NK";
+	private $loaiphieu = "XK";
 	function __construct() 
 	{
 		
@@ -30,12 +30,12 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	public function index()
 	{
 		
-		$this->data['insertlist'] = $this->url->http('quanlykho/phieunhap/insertlist');
-		$this->data['insert'] = $this->url->http('quanlykho/phieunhap/insert');
-		$this->data['delete'] = $this->url->http('quanlykho/phieunhap/delete');
+		$this->data['insertlist'] = $this->url->http('quanlykho/phieuxuat/insertlist');
+		$this->data['insert'] = $this->url->http('quanlykho/phieuxuat/insert');
+		$this->data['delete'] = $this->url->http('quanlykho/phieuxuat/delete');
 		
 		$this->id='content';
-		$this->template="quanlykho/phieunhap_list.tpl";
+		$this->template="quanlykho/phieuxuat_list.tpl";
 		$this->layout="layout/center";
 		
 		if($this->request->get['opendialog']=='true')
@@ -50,13 +50,6 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	public function insert()
 	{
     	$this->getForm();
-	}
-	public function insertlist()
-	{		
-    	$this->id='content';
-		$this->template='quanlykho/phieunhap_form_list.tpl';
-		$this->layout="layout/center";
-		$this->render();
 	}
 	
 	public function update()
@@ -127,14 +120,14 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		//for($i=0; $i <= count($this->data['datas'])-1 ; $i++)
 		{
 			$this->data['datas'][$i] = $rows[$i];
-			$this->data['datas'][$i]['link_edit'] = $this->url->http('quanlykho/phieunhap/update&id='.$this->data['datas'][$i]['id']);
+			$this->data['datas'][$i]['link_edit'] = $this->url->http('quanlykho/phieuxuat/update&id='.$this->data['datas'][$i]['id']);
 			$this->data['datas'][$i]['text_edit'] = "Sửa";
 			;
 			
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
-		$this->template="quanlykho/phieunhap_table.tpl";
+		$this->template="quanlykho/phieuxuat_table.tpl";
 		
 		if($this->request->get['opendialog']=='true')
 		{
@@ -150,7 +143,6 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		if($id) 
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
-			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
 			$where = " AND phieuid = '".$id."'";
 			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
 			
@@ -158,7 +150,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
     	}
 		
 		$this->id='content';
-		$this->template='quanlykho/phieunhap_view.tpl';
+		$this->template='quanlykho/phieuxuat_view.tpl';
 		if($_GET['opendialog'] == 'print')
 			$this->layout="layout/print";
 		$this->render();
@@ -178,7 +170,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
     	}
 		
 		$this->id='content';
-		$this->template='quanlykho/phieunhap_form.tpl';
+		$this->template='quanlykho/phieuxuat_form.tpl';
 		$this->layout="layout/center";
 		
 		$this->render();
@@ -252,10 +244,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
       		$this->error['nguoithuchien'] = "Bạn chưa nhập người nhập";
     	}
 		
-		if ($data['nguoigiao'] == "") 
-		{
-      		$this->error['nguoigiao'] = "Bạn chưa nhập tên người giao";
-    	}
+		
 		if ($data['nguoinhan'] == "") 
 		{
       		$this->error['nguoinhan'] = "Bạn chưa nhập tên người nhận";

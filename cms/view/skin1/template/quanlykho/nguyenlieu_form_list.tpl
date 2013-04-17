@@ -23,8 +23,8 @@
                             
                             <th>Đơn vị</th>
                             <th>Tồn tối thiểu</th>
-                            <th>Tồn tối đa</th>
-                            <th>Mục đích sử dụng</th>
+                            <!--<th>Tồn tối đa</th>
+                            <th>Mục đích sử dụng</th>-->
                             <th>Ghi chú</th>
                         </tr>
                     </thead>
@@ -53,8 +53,8 @@
                                 </select>
                             </td>
                             <td><input type="text" class="text number" name="tontoithieu" size="5"></td>
-                            <td><input type="text" class="text number" name="tontoida" size="5"></td>
-                            <td><input type="text" class="text" name="mucdichsudung"></td>
+                            <!--<td><input type="text" class="text number" name="tontoida" size="5"></td>
+                            <td><input type="text" class="text" name="mucdichsudung"></td>-->
                             <td><input type="text" class="text" name="ghichu"></td>
                         </tr>
                         </form>

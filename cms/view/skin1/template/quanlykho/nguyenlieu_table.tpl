@@ -9,7 +9,7 @@
                            
                         </th>
                         <?php } ?>
-                        <th>STT</th>
+                        <th width="50px">STT</th>
                         <th>Mã nguyên vật liệu</th>
                         <th>
                         	Tên nguyên vật liệu
@@ -20,12 +20,12 @@
                         
                         <th>Số lượng tồn</th>
                         <th>Tồn tối thiểu</th>
-                        <th>Tồn tối đa</th>
+                        
                         
                         <?php } ?>
                         <th>Đơn vị tính</th>
                         
-                        <th>Mục đích sử dụng</th>
+                        
                         <th>Ghi chú</th>
                         <th>Hình</th>
                         <?php if($dialog!=true){ ?>
@@ -40,7 +40,7 @@
             foreach($datas as $key => $item)
             {
         ?>
-                    <tr class="item" id="<?php echo $item['id']?>" manguyenlieu="<?php echo $item['manguyenlieu']?>" tennguyenlieu="<?php echo $item['tennguyenlieu']?>" madonvi="<?php echo $item['madonvi']?>">
+                    <tr class="item<?php echo ($item['soluongton'] <= $item['tontoithieu'])?' needimport':'' ?>" id="<?php echo $item['id']?>" manguyenlieu="<?php echo $item['manguyenlieu']?>" tennguyenlieu="<?php echo $item['tennguyenlieu']?>" madonvi="<?php echo $item['madonvi']?>">
                     	<?php if($dialog!=true){ ?>
                         <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['id']?>]" value="<?php echo $item['id']?>" ></td>
                         <?php } ?>
@@ -54,17 +54,17 @@
                 		<td class="number">
                         	
                             <a onclick="viewTonKho(<?php echo $item['id']?>)"><?php echo $this->string->numberFormate($item['soluongton'],2)?></a>
-                            <br />
-                            <?php echo $this->string->numberFormate($item['soluongton']/$item['tontoida']*100,2)?>%
+                            
+                            
                             
                         </td>
                         <td class="number"><?php echo $this->string->numberFormate($item['tontoithieu'],0)?></td>
-                        <td class="number"><?php echo $this->string->numberFormate($item['tontoida'],0)?></td>
+                       
                         
                         <?php } ?>
                         <td><?php echo $this->document->getDonViTinh($item['madonvi'])?></td>
                         
-                        <td><?php echo $item['mucdichsudung']?></td>
+                        
                         <td><?php echo $item['ghichu']?></td>
                         <td><img src="<?php echo $item['imagethumbnail']?>" /></td>
                         <?php if($dialog!=true){ ?>
@@ -72,8 +72,8 @@
                             <?php if($this->user->checkPermission("quanlykho/nguyenlieu/update")==true){ ?>
                             <input type="button" class="button" name="btnEdit" value="<?php echo $item['text_edit']?>" onclick="window.location='<?php echo $item['link_edit']?>'"/>
                             <?php } ?>
-                           	<input type="button" class="button" value="Nhập kho" onclick="importNguyenLieu(<?php echo $item['id']?>)"/>
-                            <input type="button" class="button" value="Xuất kho" onclick="exportNguyenLieu(<?php echo $item['id']?>)"/>
+                           	<!--<input type="button" class="button" value="Nhập kho" onclick="importNguyenLieu(<?php echo $item['id']?>)"/>
+                            <input type="button" class="button" value="Xuất kho" onclick="exportNguyenLieu(<?php echo $item['id']?>)"/>-->
                         </td>
                         <?php } ?>
                     </tr>

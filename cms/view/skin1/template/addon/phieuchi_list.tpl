@@ -29,6 +29,8 @@
                     
                 </p>
                 <p>
+                	<label>Người chi</label>
+                    <input type="text" id="nguoithuchien" name="nguoithuchien" class="text"/>
                     <label>Số tiền</label>
                     từ
                     <input type="text" id="sotientu" name="sotientu" class="text number" />
@@ -56,6 +58,7 @@
                         <th>Số phiếu</th>
                         <th>Ngày lập</th>
                         <th>Số chứng từ</th>
+                        <th>Người chi</th>
                         <th>Người nhận tiền</th>
                         <th>Tài khoản chi</th>
                         
@@ -73,6 +76,7 @@
                         <td><a onclick="view('<?php echo $item['maphieu']?>')"><?php echo $item['sophieu']?></a></td>
                         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
                         <td><?php echo $item['chungtulienquan']?></td>
+                        <td><?php echo $item['nguoithuchien']?></td>
                         <td><?php echo $item['tenkhachhang']?></td>
                         <td><?php echo $this->document->getCategory($item['taikhoanthuchi'])?></td>
                         
@@ -156,6 +160,8 @@ function searchForm()
 		url += "&denngay="+ $("#denngay").val();
 	if($("#tenkhachhang").val() != "")
 		url += "&tenkhachhang="+ $("#tenkhachhang").val();
+	if($("#nguoithuchien").val() != "")
+		url += "&nguoithuchien="+ $("#nguoithuchien").val();
 	if($("#taikhoanthuchi").val() != "")
 		url += "&taikhoanthuchi="+ $("#taikhoanthuchi").val();
 	if(parseFloat($("#sotientu").val()) != 0)
@@ -170,6 +176,7 @@ $("#sophieu").val("<?php echo $_GET['sophieu']?>");
 $("#tungay").val("<?php echo $_GET['tungay']?>");
 $("#denngay").val("<?php echo $_GET['denngay']?>");
 $("#tenkhachhang").val("<?php echo $_GET['tenkhachhang']?>");
+$("#nguoithuchien").val("<?php echo $_GET['nguoithuchien']?>");
 $("#taikhoanthuchi").val("<?php echo $_GET['taikhoanthuchi']?>");
 $("#sotientu").val("<?php echo $_GET['sotientu']?>");
 $("#sotienden").val("<?php echo $_GET['sotienden']?>");

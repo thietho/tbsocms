@@ -250,7 +250,7 @@ class ModelQuanlykhoNguyenlieu extends ModelCoreFile
 
 		$sql = "Select `qlknguyenlieu_nhapxuat`.*
 									from `qlknguyenlieu_nhapxuat` 
-									where 1=1 " . $where . " ORDER BY `ngaynhap` DESC";
+									where 1=1 " . $where . " ORDER BY `ngaylap` DESC";
 		if($to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
@@ -263,7 +263,7 @@ class ModelQuanlykhoNguyenlieu extends ModelCoreFile
 	public function saveNguyeLieuXuatNhap($data)
 	{
 		$id=(int)@$data['id'];
-		$ngaynhap=$this->db->escape(@$data['ngaynhap']);
+		$ngaylap=$this->db->escape(@$data['ngaylap']);
 		$nguyenlieuid=$this->db->escape(@$data['nguyenlieuid']);
 		$gianhap=$this->string->toNumber($this->db->escape(@$data['gianhap']));
 		$soluong=$this->string->toNumber($this->db->escape(@$data['soluong']));
@@ -272,7 +272,7 @@ class ModelQuanlykhoNguyenlieu extends ModelCoreFile
 		$nhacungcapid=$this->string->toNumber($this->db->escape(@$data['nhacungcapid']));
 		
 		$field=array(
-					 	'ngaynhap',
+					 	'ngaylap',
 						'nguyenlieuid',
 						'gianhap',
 						'soluong',
@@ -281,7 +281,7 @@ class ModelQuanlykhoNguyenlieu extends ModelCoreFile
 						'nhacungcapid'
 						);
 		$value=array(
-						$ngaynhap,
+						$ngaylap,
 						$nguyenlieuid,
 						$gianhap,
 						$soluong,
@@ -313,12 +313,19 @@ class ModelQuanlykhoNguyenlieu extends ModelCoreFile
 	//
 	public function getTonKho($nguyenlieuid)
 	{
-		$sql = "SELECT sum(soluong ) as soluongton
-				FROM  `qlknguyenlieu_nhapxuat` 
-				WHERE nguyenlieuid = '".$nguyenlieuid."'";
+		$sql = "SELECT sum(soluong ) as soluongnhap
+				FROM  `qlkphieunhapxuat_nguyenlieu` 
+				WHERE nguyenlieuid = '".$nguyenlieuid."' AND loaiphieu='NK'";
 		$query = $this->db->query($sql);
-		return $query->row['soluongton'];
+		$nhap = $query->row['soluongnhap'];
 		
+		$sql = "SELECT sum(soluong ) as soluongxuat
+				FROM  `qlkphieunhapxuat_nguyenlieu` 
+				WHERE nguyenlieuid = '".$nguyenlieuid."' AND loaiphieu='XK'";
+		$query = $this->db->query($sql);
+		$xuat = $query->row['soluongxuat'];
+		
+		return $nhap - $xuat;
 	}
 }
 ?>

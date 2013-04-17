@@ -71,7 +71,7 @@ class ControllerAddonPhieuchi extends Controller
 		$_GET = $data;
 		if(trim($data['sophieu']))
 		{
-			$where .= " AND sophieu like '%".$data['sophieu']."%'";
+			$where .= " AND sophieu like '".$data['sophieu']."%'";
 		}
 		
 		if(trim($data['tungay']))
@@ -87,6 +87,11 @@ class ControllerAddonPhieuchi extends Controller
 		if(trim($data['tenkhachhang']))
 		{
 			$where .= " AND tenkhachhang like '%".$data['tenkhachhang']."%'";
+		}
+		
+		if(trim($data['nguoithuchien']))
+		{
+			$where .= " AND nguoithuchien like '%".$data['nguoithuchien']."%'";
 		}
 		
 		if(trim($data['sotientu']))
@@ -216,7 +221,6 @@ class ControllerAddonPhieuchi extends Controller
 	
 	private function validateForm($data)
 	{
-		
 		if (trim($data['tenkhachhang']) == "") 
 		{
       		$this->error['tenkhachhang'] = "Bạn chưa nhập tên người nhận tiền";
@@ -230,6 +234,10 @@ class ControllerAddonPhieuchi extends Controller
 		if ((int)trim($data['sotien']) == 0) 
 		{
       		$this->error['sotien'] = "Bạn chưa nhập số tiền chi";
+    	}
+		if (trim($data['nguoithuchien']) == '') 
+		{
+      		$this->error['nguoithuchien'] = "Bạn chưa nhập người chi";
     	}
 		if (count($this->error)==0) {
 	  		return TRUE;

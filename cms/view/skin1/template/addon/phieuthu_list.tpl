@@ -24,20 +24,22 @@
                     <input type="text" id="tungay" name="tungay" class="text ben-datepicker" />
                     đến
                     <input type="text" id="denngay" name="denngay" class="text ben-datepicker" />
-                    <label>Tên khách hàng</label>
+                    <label>Tên nộp tiền</label>
                     <input type="text" id="tenkhachhang" name="tenkhachhang" class="text"/>
                     <label>Số diện thoai</label>
                     <input type="text" id="dienthoai" name="dienthoai" class="text"/>
                 </p>
                 <p>
-                <label>Số tiền</label>
-                từ
-                <input type="text" id="sotientu" name="sotientu" class="text number" />
-                đến
-                <input type="text" id="sotienden" name="sotienden" class="text number" />
-                
-                
-                
+                	<label>Người thu</label>
+                    <input type="text" id="nguoithuchien" name="nguoithuchien" class="text"/>
+                    <label>Số tiền</label>
+                    từ
+                    <input type="text" id="sotientu" name="sotientu" class="text number" />
+                    đến
+                    <input type="text" id="sotienden" name="sotienden" class="text number" />
+                    
+                    
+                    
                 </p>
                 <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
                 <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=addon/phieuthu'"/>
@@ -51,10 +53,11 @@
                         <th>Số phiếu</th>
                         <th>Ngày lập</th>
                         <th>Số chứng từ</th>
-                        <th>Tên khách hàng</th>
+                        <th>Tên nộp tiền</th>
                         <th>Số điện thoại</th>
                         <th>Địa chỉ</th>
                         <th>Email</th>
+                        <th>Người thu</th>
                         <th>Số tiền</th>
                         <th></th>                                  
                     </tr>
@@ -73,6 +76,7 @@
                         <td><?php echo $item['dienthoai']?></td>
                         <td><?php echo $item['diachi']?></td>
                         <td><?php echo $item['email']?></td>
+                        <td><?php echo $item['nguoithuchien']?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['sotien'])?></td>
                         <td class="link-control">
                         	<?php if($this->user->checkPermission("addon/phieuthu/update")==true){ ?>
@@ -152,6 +156,8 @@ function searchForm()
 		url += "&denngay="+ $("#denngay").val();
 	if($("#tenkhachhang").val() != "")
 		url += "&tenkhachhang="+ $("#tenkhachhang").val();
+	if($("#nguoithuchien").val() != "")
+		url += "&nguoithuchien="+ $("#nguoithuchien").val();
 	if($("#dienthoai").val() != "")
 		url += "&dienthoai="+ $("#dienthoai").val();
 	if(parseFloat($("#sotientu").val()) != 0)
@@ -166,6 +172,7 @@ $("#sophieu").val("<?php echo $_GET['sophieu']?>");
 $("#tungay").val("<?php echo $_GET['tungay']?>");
 $("#denngay").val("<?php echo $_GET['denngay']?>");
 $("#tenkhachhang").val("<?php echo $_GET['tenkhachhang']?>");
+$("#nguoithuchien").val("<?php echo $_GET['nguoithuchien']?>");
 $("#dienthoai").val("<?php echo $_GET['dienthoai']?>");
 $("#sotientu").val("<?php echo $_GET['sotientu']?>");
 $("#sotienden").val("<?php echo $_GET['sotienden']?>");
