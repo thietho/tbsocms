@@ -18,7 +18,7 @@
             <div id="container">
                 <ul class="tabs-nav">
                     <li class="tabs-selected"><a href="#fragment-thongtin"><span>Thông tin phiếu nhập</span></a></li>
-                    <li class="tabs"><a href="#fragment-nguyenlieu"><span>Nguyên liệu</span></a></li>
+                    <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
                     <p>
@@ -54,7 +54,7 @@
                 <div id="fragment-nguyenlieu">
                 	<table>
                     	<tr>
-                            <th>Nguyên liệu</th>
+                            <th>Sản phẩm</th>
                             <th>Số lượng</th>
                             <th>Đơn vị tính</th>
                             <th>Đơn giá</th>
@@ -77,7 +77,7 @@
 	<?php foreach($data_nhapkho as $dl){ ?>
 <script language="javascript">
 $(document).ready(function(e) {
-	objdl.addRow("<?php echo $dl['id']?>","<?php echo $dl['nguyenlieuid']?>","<?php echo $dl['tennguyenlieu']?>","<?php echo $dl['soluong']?>","<?php echo $dl['madonvi']?>","<?php echo $dl['giatien']?>");
+	objdl.addRow("<?php echo $dl['id']?>","<?php echo $dl['meidaid']?>","<?php echo $dl['code']?>","<?php echo $dl['title']?>","<?php echo $dl['soluong']?>","<?php echo $dl['madonvi']?>","<?php echo $dl['giatien']?>");
 });
 </script>
 	<?php } ?>
@@ -89,18 +89,18 @@ $(document).ready(function(e) {
 function DinhLuong()
 {
 	this.index = 0;
-	this.addRow = function(id,nguyenlieuid,tennguyenlieu,soluong,madonvi,giatien)
+	this.addRow = function(id,meidaid,code,title,soluong,madonvi,giatien)
 	{
 		var row = '<tr id="row'+ this.index +'">';
-		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="nguyenlieuid-'+ this.index +'" name="nguyenlieuid['+ this.index +']" value="'+ nguyenlieuid +'" />'+ tennguyenlieu +'</td>';
+		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="meidaid-'+ this.index +'" name="meidaid['+ this.index +']" value="'+ meidaid +'" />'+ code +' - '+ title +'</td>';
 		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number" /></td>';
-		row +='<td class="number"><select nguyenlieuid="'+nguyenlieuid+'" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
+		row +='<td class="number"><select meidaid="'+meidaid+'" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
 		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number" /></td>';
 		row +='<td><input type="button" class="button" value="Xóa" onclick="objdl.removeRow('+ this.index +')"/></td>';
 		row+='</tr>'
 		$('#nhapkhonguyenlieu').append(row);
 		var str = '#madonvi-'+ this.index;
-		$.getJSON("?route=quanlykho/nguyenlieu/getListDonVi&nguyenlieuid="+ nguyenlieuid,
+		$.getJSON("?route=core/media/getListDonVi&meidaid="+ meidaid,
 			function(data){
 				html = "";
 				for(i in data)
@@ -150,71 +150,43 @@ function intSelectNhaCungCap()
     });
 }
 $('#btnAddRow').click(function(e) {
-    $("#popup").attr('title','Chọn nguyên liệu');
+	$("#popup").attr('title','Chọn sản phẩm');
 		$( "#popup" ).dialog({
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 900,
-			height: 600,
+			width: 800,
+			height: 500,
 			modal: true,
 			buttons: {
 				
 				
-				
-				'Xem danh sach':function()
-				{
-					$( "#popup-selete" ).show('fast',function(){
-						$( "#popup-selete" ).position({
-							my: "center",
-							at: "center",
-							of: "#popup"
-						});
-						$( "#popup-selete" ).draggable();
-					});
-					$('.closeselect').click(function(e) {
-                        $( "#popup-selete" ).hide('fast');
-                    });
-				},
 				'Chọn': function() 
 				{
-					$('.selectitem').each(function(index, element) {
+					$('#productselect .listid').each(function(index, element) {
+                        //alert($(this).val());
 						var id = 0;
-						var nguyenlieuid = this.id;
-						var tennguyenlieu = $(this).attr('tennguyenlieu');
-						var soluong = 0;
-						var madonvi = $(this).attr('madonvi');
-						objdl.addRow(id,nguyenlieuid,tennguyenlieu,soluong,madonvi,0);
+						var mediaid = $(this).val();
 						
+						
+						var code = $(this).attr('code');
+						var unit = $(this).attr('unit');
+						var title = $(this).attr('title');
+						alert(unit)
+						objdl.addRow(id,mediaid,code,title,0,unit,0);
                     });
-					$('#popup-seletetion').html("");
-					$( this ).dialog( "close" );
-					
+					$(this).dialog("close");
 				},
+				
 			}
 		});
 	
 		
-		$("#popup-content").load("?route=quanlykho/nguyenlieu&opendialog=true",function(){
-			$("#popup").dialog("open");
+		$("#popup-content").load("?route=addon/order/browseProduct",function(){
+			$("#popup").dialog("open");	
 		});
 });
-function intSelectNguyenLieu()
-{
-	$('.item').click(function(e) {
-	
-		if($('#popup-seletetion #'+this.id).html() == undefined)
-		{
-			var html = "<div><div class='selectitem left' id='"+ this.id +"' manguyenlieu="+$(this).attr('manguyenlieu')+" tennguyenlieu="+$(this).attr('tennguyenlieu')+" madonvi='"+$(this).attr('madonvi')+"'>"+$(this).attr('manguyenlieu')+":"+ $(this).attr('tennguyenlieu') +"   </div><a class='removeitem button right'>X</a><div class='clearer'>^&nbsp;</div></div>";
-			$('#popup-seletetion').append(html);
-			
-			$('.removeitem').click(function(e) {
-				$(this).parent().remove();
-			});
-		}
-		
-	});	
-}
+
 
 function save(type)
 {

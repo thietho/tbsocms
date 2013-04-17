@@ -424,44 +424,17 @@ $(document).ready(function() {
             <?php } ?>
             <?php if($hasProductPrice) {?>
             <div id="fragment-productprice">
-            	<input type="hidden" name="price_mediaid" id="price_mediaid" />
-            	<div>
-                	<p>
-                        <?php echo $lbl_title ?><br />
-                        <input class="text" type="text" name="price_title" id="price_title" value="" size="40" />
-                    </p>
-                    <p>
-                        Code sản phẩm:<br />
-                        <input class="text" type="text" name="price_code" id="price_code" value="" size="40" onchange="price.loadPrice(this.value)"/> <!--<input type="button" class="button" value="Lấy giá" onclick="price.loadPrice($('#price_code').val())" />-->
-                    </p>
-                    <p>
-                        <?php echo $lbl_standardprice ?><br />
-                        <input class="text number" type="text" name="price_thitruong" id="price_thitruong" value="" size="40" />
-                    </p>
-                      <p>
-                        <?php echo $lbl_sale ?><br />
-                        <input class="text number" type="text" name="price_khuyenmai" id="price_khuyenmai" value="" size="40" />
-                    </p>
-                    <p>
-                        <?php echo $lbl_price ?><br />
-                        <input class="text number" type="text" name="price_gia" id="price_gia" value="" size="40" />
-                    </p>
-<!--                    <p>
-                    	Chương trình khuyến mãi:
-                        <input type="hidden" name="machuongtrinh" id="machuongtrinh"/>
-                        <span id="tenchuongtrinh"></span>
-                        <input type="button" class="button" id="btnSelectKhuyenMai" value="Chọn chương trình khuyến mãi" />
-                    </p>-->
-                    <p>
-                    	<input type="button" class="button" id="btnSavePrice" value="<?php echo $button_save?>"/>
-                        <input type="button" class="button" value="<?php echo $button_cancel?>"/>
-                    </p>
-                </div>
+            	<input type="button" id="btnAddPrice" class="button" value="Thêm giá sản phẩm"/>
+            	
                 <div id="pricelist">
                 </div>
 <script language="javascript">
+var price = new Price();
 $(document).ready(function(e) {
    $("#pricelist").load("?route=core/postcontent/loadPrice&mediaid="+$("#mediaid").val());
+});
+$('#btnAddPrice').click(function(e) {
+   price.showFormPrice('');
 });
 $("#btnSavePrice").click(function(){
 	 price.save();
@@ -470,7 +443,7 @@ $("#btnSavePrice").click(function(){
 $('#btnSelectKhuyenMai').click(function(e) {
     price.selectChuongTrinh();
 });
-var price = new Price();
+
 function Price()
 {
 	this.loadPrice = function(code)
@@ -498,7 +471,10 @@ function Price()
 						mediaparent : $("#mediaid").val(),
 						title : $("#price_title").val(), 
 						mediatype : 'price',
-						summary : "[code="+ $('#price_code').val() +"][thitruong="+ $("#price_thitruong").val().replace(/,/g,"") +"][gia="+ $("#price_gia").val().replace(/,/g,"") +"][khuyenmai="+ $("#price_khuyenmai").val().replace(/,/g,"") +"][makhuyenmai="+ $('#machuongtrinh').val() +"]",
+						code:$('#price_code').val(),
+						sizes:$('#price_sizes').val(),
+						unit:$('#price_unit').val(),
+						summary : "",
 						price : price,
 						pricepromotion : pricepromotion
 					},
@@ -524,6 +500,35 @@ function Price()
 				
 			});
 	}
+	
+	this.showFormPrice = function(mediaid)
+	{
+		$("#popup").attr('title','Giá sản phẩm');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 500,
+			modal: true,
+			buttons: {
+				
+				
+				'Lưu': function() 
+				{
+					price.save();
+					$(this).dialog("close");
+				},
+				
+			}
+		});
+	
+		
+		$("#popup-content").load("?route=core/postcontent/getPriceFrom&mediaid="+mediaid,function(){
+			$("#popup").dialog("open");	
+		});
+	}
+	
 	this.edit = function(mediaid)
 	{
 		$.getJSON("?route=core/postcontent/getPrice&mediaid="+mediaid, 

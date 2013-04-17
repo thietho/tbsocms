@@ -10,7 +10,7 @@
                 <th>Khuyến mãi</th>
             </tr>
             <?php if($media['price']){ ?>
-            <tr class="price-item" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" title="<?php echo $media['title']?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>">
+            <tr class="price-item" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $media['title']?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>">
             	<td>
             		<?php echo $media['title']?>
             	</td>
@@ -23,7 +23,7 @@
             </tr>
             <?php } ?>
         	<?php foreach($media['productprice'] as $item){ ?>
-            <tr class="price-item" ref="<?php echo $item['mediaid']?>" image="<?php echo $media['imagepreview']?>" title="<?php echo $media['title']?> <?php echo $item['title']?>" price="<?php echo $item['gia']?>" pricepromotion="<?php echo $item['khuyenmai']?>">
+            <tr class="price-item" ref="<?php echo $item['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $media['title']?> <?php echo $item['title']?>" price="<?php echo $item['gia']?>" pricepromotion="<?php echo $item['khuyenmai']?>">
             	<td>
             		<?php echo $media['title']?> <?php echo $item['title']?>
             	</td>
@@ -71,12 +71,14 @@ $('.price-item').click(function(e) {
     obj.mediaid = $(this).attr('ref');
 	obj.imagepath = $(this).attr('image');
 	obj.title = $(this).attr('title');
+	obj.code = $(this).attr('code');
+	obj.unit = $(this).attr('unit');
 	if($(this).attr('pricepromotion') == 0)
 		obj.price = $(this).attr('price');
 	else
 		obj.price = $(this).attr('pricepromotion');
 	
-	var html = '<div><input type="button" class="button removeselect" value="X"><br><input type="hidden" class="listid" value="'+obj.mediaid+'" image="'+ obj.imagepath +'" title="'+ obj.title +'">';
+	var html = '<div><input type="button" class="button removeselect" value="X"><br><input type="hidden" class="listid" value="'+obj.mediaid+'" image="'+ obj.imagepath +'" code="'+ obj.code +'" unit="'+ obj.unit +'" title="'+ obj.title +'">';
 	html+='<img src="'+ obj.imagepath +'"><br>'
 	html+= obj.title+'<br>'+ formateNumber(obj.price) +'</div>';
 	$('#productselect').append(html);

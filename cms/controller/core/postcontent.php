@@ -547,23 +547,25 @@ class ControllerCorePostcontent extends Controller
 		$this->load->helper('image');
 		$mediaid = $this->request->get['mediaid'];
 		$this->data['child']=$this->model_core_media->getListByParent($mediaid," AND mediatype = 'price' Order by position");
-		foreach($this->data['child'] as $key => $item)
-		{
-			$para = $this->string->referSiteMapToArray($item['summary']);
-			foreach($para as $val)
-			{
-				$ar = split("=",$val);
-				$this->data['child'][$key][$ar[0]] = $ar[1];	
-			}
-			$media = $this->model_core_media->getItem($this->data['child'][$key]['makhuyenmai']);
-			$this->data['child'][$key]['tenkhuyenmai'] = $media['title'];
-			$this->data['child'][$key]['mainprice'] = ($this->data['child'][$key]['khuyenmai']!=0)?$this->data['child'][$key]['khuyenmai']:$this->data['child'][$key]['gia'];
-		}
+		
 		$this->id='post';
 		$this->template='core/price_list.tpl';	
 		$this->render();
 	}
 	
+	public function getPriceFrom()
+	{
+		$this->load->model("core/media");
+		$this->load->helper('image');
+		$mediaid = $this->request->get['mediaid'];
+		$media=$this->model_core_media->getItem($mediaid);
+		
+		$this->data['media'] = $media;
+		
+		$this->id='post';
+		$this->template="core/post_form_price.tpl";
+		$this->render();
+	}
 	public function getPrice()
 	{
 		$this->load->model("core/media");

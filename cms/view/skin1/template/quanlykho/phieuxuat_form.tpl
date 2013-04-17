@@ -72,7 +72,7 @@
 	<?php foreach($data_nhapkho as $dl){ ?>
 <script language="javascript">
 $(document).ready(function(e) {
-	objdl.addRow("<?php echo $dl['id']?>","<?php echo $dl['nguyenlieuid']?>","<?php echo $dl['tennguyenlieu']?>","<?php echo $dl['soluong']?>","<?php echo $dl['madonvi']?>","<?php echo $dl['giatien']?>");
+	objdl.addRow("<?php echo $dl['id']?>","<?php echo $dl['meidaid']?>","<?php echo $dl['code']?>","<?php echo $dl['title']?>","<?php echo $dl['soluong']?>","<?php echo $dl['madonvi']?>","<?php echo $dl['giatien']?>");
 });
 </script>
 	<?php } ?>
@@ -84,18 +84,18 @@ $(document).ready(function(e) {
 function DinhLuong()
 {
 	this.index = 0;
-	this.addRow = function(id,nguyenlieuid,tennguyenlieu,soluong,madonvi,giatien)
+	this.addRow = function(id,meidaid,code,title,soluong,madonvi,giatien)
 	{
 		var row = '<tr id="row'+ this.index +'">';
-		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="nguyenlieuid-'+ this.index +'" name="nguyenlieuid['+ this.index +']" value="'+ nguyenlieuid +'" />'+ tennguyenlieu +'</td>';
+		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="meidaid-'+ this.index +'" name="meidaid['+ this.index +']" value="'+ meidaid +'" />'+ code +' - '+ title +'</td>';
 		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number" /></td>';
-		row +='<td class="number"><select nguyenlieuid="'+nguyenlieuid+'" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
+		row +='<td class="number"><select meidaid="'+meidaid+'" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
 		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number" /></td>';
 		row +='<td><input type="button" class="button" value="Xóa" onclick="objdl.removeRow('+ this.index +')"/></td>';
 		row+='</tr>'
 		$('#nhapkhonguyenlieu').append(row);
 		var str = '#madonvi-'+ this.index;
-		$.getJSON("?route=quanlykho/nguyenlieu/getListDonVi&nguyenlieuid="+ nguyenlieuid,
+		$.getJSON("?route=quanlykho/nguyenlieu/getListDonVi&meidaid="+ meidaid,
 			function(data){
 				html = "";
 				for(i in data)
@@ -175,11 +175,12 @@ $('#btnAddRow').click(function(e) {
 				{
 					$('.selectitem').each(function(index, element) {
 						var id = 0;
-						var nguyenlieuid = this.id;
-						var tennguyenlieu = $(this).attr('tennguyenlieu');
+						var meidaid = this.id;
+						var code = $(this).attr('code');
+						var title = $(this).attr('title');
 						var soluong = 0;
 						var madonvi = $(this).attr('madonvi');
-						objdl.addRow(id,nguyenlieuid,tennguyenlieu,soluong,madonvi,0);
+						objdl.addRow(id,meidaid,code,soluong,madonvi,0);
 						
                     });
 					$('#popup-seletetion').html("");
@@ -200,7 +201,7 @@ function intSelectNguyenLieu()
 	
 		if($('#popup-seletetion #'+this.id).html() == undefined)
 		{
-			var html = "<div><div class='selectitem left' id='"+ this.id +"' manguyenlieu="+$(this).attr('manguyenlieu')+" tennguyenlieu="+$(this).attr('tennguyenlieu')+" madonvi='"+$(this).attr('madonvi')+"'>"+$(this).attr('manguyenlieu')+":"+ $(this).attr('tennguyenlieu') +"   </div><a class='removeitem button right'>X</a><div class='clearer'>^&nbsp;</div></div>";
+			var html = "<div><div class='selectitem left' id='"+ this.id +"' manguyenlieu="+$(this).attr('manguyenlieu')+" code="+$(this).attr('code')+" madonvi='"+$(this).attr('madonvi')+"'>"+$(this).attr('manguyenlieu')+":"+ $(this).attr('code') +"   </div><a class='removeitem button right'>X</a><div class='clearer'>^&nbsp;</div></div>";
 			$('#popup-seletetion').append(html);
 			
 			$('.removeitem').click(function(e) {

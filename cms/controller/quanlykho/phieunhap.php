@@ -150,7 +150,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		if($id) 
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
-			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
+			
 			$where = " AND phieuid = '".$id."'";
 			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
 			
@@ -209,17 +209,17 @@ class ControllerQuanlykhoPhieunhap extends Controller
 			$tongtien = 0;
 			$nhapkhoid = $data['nhapkhoid'];
 			$phieuid = $data['id'];
-			$arr_nguyenlieuid = $data['nguyenlieuid'];
+			$arr_meidaid = $data['meidaid'];
 			$arr_soluong = $data['soluong'];
 			$arr_madonvi = $data['dlmadonvi'];
 			$arr_giatien = $data['giatien'];
-			foreach($arr_nguyenlieuid as $i => $nguyenlieuid)
+			foreach($arr_meidaid as $i => $meidaid)
 			{
 				$dl['id'] = $nhapkhoid[$i];
 				$dl['phieuid'] = $phieuid;
-				$dl['nguyenlieuid'] = $nguyenlieuid;
-				$dl['manguyenlieu'] = $this->document->getNguyenLieu($nguyenlieuid,"manguyenlieu");
-				$dl['tennguyenlieu'] = $this->document->getNguyenLieu($nguyenlieuid);
+				$dl['meidaid'] = $meidaid;
+				$dl['code'] = $this->document->getMedia($meidaid,"code");
+				$dl['title'] = $this->document->getNguyenLieu($meidaid);
 				$dl['soluong'] = $arr_soluong[$i];
 				$dl['madonvi'] = $arr_madonvi[$i];
 				$dl['giatien'] = $arr_giatien[$i];

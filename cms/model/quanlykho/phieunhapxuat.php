@@ -153,9 +153,9 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		
 		$id=(int)@$data['id'];
 		$phieuid=$this->db->escape(@$data['phieuid']);
-		$nguyenlieuid=$this->db->escape(@$data['nguyenlieuid']);
-		$manguyenlieu=$this->db->escape(@$data['manguyenlieu']);
-		$tennguyenlieu=$this->db->escape(@$data['tennguyenlieu']);
+		$meidaid=$this->db->escape(@$data['meidaid']);
+		$code=$this->db->escape(@$data['code']);
+		$title=$this->db->escape(@$data['title']);
 		$soluong=$this->string->toNumber($this->db->escape(@$data['soluong']));
 		$madonvi=$this->db->escape(@$data['madonvi']);
 		$giatien=$this->string->toNumber($this->db->escape(@$data['giatien']));
@@ -165,9 +165,9 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		
 		$field=array(
 						'phieuid',
-						'nguyenlieuid',
-						'manguyenlieu',
-						'tennguyenlieu',
+						'meidaid',
+						'code',
+						'title',
 						'soluong',
 						'madonvi',
 						'giatien',
@@ -177,9 +177,9 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						);
 		$value=array(
 						$phieuid,
-						$nguyenlieuid,
-						$manguyenlieu,
-						$tennguyenlieu,
+						$meidaid,
+						$code,
+						$title,
 						$soluong,
 						$madonvi,
 						$giatien,
