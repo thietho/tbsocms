@@ -1,5 +1,5 @@
 <?php
-class ControllerQuanlykhoPhieuxuat extends Controller
+class ControllerQuanlykhoPhieunhap extends Controller
 {
 	private $error = array();
 	private $loaiphieu = "XK";
@@ -14,7 +14,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$this->response->redirect('?route=page/home');
 		}
 		
-		$this->load->model("quanlykho/nguyenlieu");
+		
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->helper('image');
 		$this->load->model("core/category");
@@ -50,6 +50,13 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	public function insert()
 	{
     	$this->getForm();
+	}
+	public function insertlist()
+	{		
+    	$this->id='content';
+		$this->template='quanlykho/phieuxuat_form_list.tpl';
+		$this->layout="layout/center";
+		$this->render();
 	}
 	
 	public function update()
@@ -143,8 +150,9 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		if($id) 
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
+			
 			$where = " AND phieuid = '".$id."'";
-			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
+			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 			
 			
     	}
@@ -164,7 +172,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
 			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
 			$where = " AND phieuid = '".$id."'";
-			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
+			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 			
 			
     	}
@@ -194,7 +202,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 				if(count($arr_nhapkhoid))
 				{
 					foreach($arr_nhapkhoid as $nhapkhoid)
-						$this->model_quanlykho_phieunhapxuat->deletePhieuNhapXuatNguyenLieu($nhapkhoid);
+						$this->model_quanlykho_phieunhapxuat->deletePhieuNhapXuatMedia($nhapkhoid);
 				}
 			}
 			//Save chi tiet phieu nhap
@@ -202,6 +210,8 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$nhapkhoid = $data['nhapkhoid'];
 			$phieuid = $data['id'];
 			$arr_meidaid = $data['meidaid'];
+			$arr_code = $data['code'];
+			$arr_title = $data['title'];
 			$arr_soluong = $data['soluong'];
 			$arr_madonvi = $data['dlmadonvi'];
 			$arr_giatien = $data['giatien'];
@@ -210,13 +220,13 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 				$dl['id'] = $nhapkhoid[$i];
 				$dl['phieuid'] = $phieuid;
 				$dl['meidaid'] = $meidaid;
-				$dl['manguyenlieu'] = $this->document->getNguyenLieu($meidaid,"manguyenlieu");
-				$dl['title'] = $this->document->getNguyenLieu($meidaid);
+				$dl['code'] = $arr_code[$i];
+				$dl['title'] = $arr_title[$i];
 				$dl['soluong'] = $arr_soluong[$i];
 				$dl['madonvi'] = $arr_madonvi[$i];
 				$dl['giatien'] = $arr_giatien[$i];
 				$dl['loaiphieu'] = $this->loaiphieu;
-				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatNguyenLieu($dl);
+				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
 				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
 				
 			}
@@ -244,7 +254,10 @@ class ControllerQuanlykhoPhieuxuat extends Controller
       		$this->error['nguoithuchien'] = "Bạn chưa nhập người nhập";
     	}
 		
-		
+		if ($data['nguoigiao'] == "") 
+		{
+      		$this->error['nguoigiao'] = "Bạn chưa nhập tên người giao";
+    	}
 		if ($data['nguoinhan'] == "") 
 		{
       		$this->error['nguoinhan'] = "Bạn chưa nhập tên người nhận";

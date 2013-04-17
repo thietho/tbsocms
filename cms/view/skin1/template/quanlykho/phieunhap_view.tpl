@@ -43,6 +43,7 @@
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
             <td class="number">Tổng tiền</td>
             <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
         </tr>
@@ -52,8 +53,8 @@
 	<tr>
     	
         <th width="20%">Người lập phiếu</th>
-        <th width="20%">Người nhận</th>
-        <th width="20%">Thủ quỷ</th>
+        <th width="20%">Người nhập</th>
+        <th width="20%">Thủ kho</th>
     </tr>
     <tr>
     	
