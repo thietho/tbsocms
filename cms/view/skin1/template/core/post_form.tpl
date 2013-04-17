@@ -512,14 +512,16 @@ function Price()
 			height: 500,
 			modal: true,
 			buttons: {
-				
-				
 				'Lưu': function() 
 				{
 					price.save();
 					$(this).dialog("close");
 				},
-				
+				'Đóng': function() 
+				{
+					
+					$(this).dialog("close");
+				},
 			}
 		});
 	

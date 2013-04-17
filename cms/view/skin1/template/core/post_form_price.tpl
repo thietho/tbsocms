@@ -35,16 +35,8 @@
         <?php echo $lbl_price ?><br />
         <input class="text number" type="text" name="price_gia" id="price_gia" value="<?php echo $media['price']?>" size="40" />
     </p>
-<!--                    <p>
-        Chương trình khuyến mãi:
-        <input type="hidden" name="machuongtrinh" id="machuongtrinh"/>
-        <span id="tenchuongtrinh"></span>
-        <input type="button" class="button" id="btnSelectKhuyenMai" value="Chọn chương trình khuyến mãi" />
-    </p>-->
-    <p>
-        <input type="button" class="button" id="btnSavePrice" value="<?php echo $button_save?>"/>
-        <input type="button" class="button" value="<?php echo $button_cancel?>"/>
-    </p>
+
+    
 </div>
 <script language="javascript">
 numberReady();

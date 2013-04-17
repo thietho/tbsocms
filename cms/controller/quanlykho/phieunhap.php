@@ -152,7 +152,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
 			
 			$where = " AND phieuid = '".$id."'";
-			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
+			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 			
 			
     	}
@@ -172,7 +172,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
 			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
 			$where = " AND phieuid = '".$id."'";
-			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
+			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 			
 			
     	}
@@ -202,7 +202,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 				if(count($arr_nhapkhoid))
 				{
 					foreach($arr_nhapkhoid as $nhapkhoid)
-						$this->model_quanlykho_phieunhapxuat->deletePhieuNhapXuatNguyenLieu($nhapkhoid);
+						$this->model_quanlykho_phieunhapxuat->deletePhieuNhapXuatMedia($nhapkhoid);
 				}
 			}
 			//Save chi tiet phieu nhap
@@ -210,6 +210,8 @@ class ControllerQuanlykhoPhieunhap extends Controller
 			$nhapkhoid = $data['nhapkhoid'];
 			$phieuid = $data['id'];
 			$arr_meidaid = $data['meidaid'];
+			$arr_code = $data['code'];
+			$arr_title = $data['title'];
 			$arr_soluong = $data['soluong'];
 			$arr_madonvi = $data['dlmadonvi'];
 			$arr_giatien = $data['giatien'];
@@ -218,13 +220,13 @@ class ControllerQuanlykhoPhieunhap extends Controller
 				$dl['id'] = $nhapkhoid[$i];
 				$dl['phieuid'] = $phieuid;
 				$dl['meidaid'] = $meidaid;
-				$dl['code'] = $this->document->getMedia($meidaid,"code");
-				$dl['title'] = $this->document->getNguyenLieu($meidaid);
+				$dl['code'] = $arr_code[$i];
+				$dl['title'] = $arr_title[$i];
 				$dl['soluong'] = $arr_soluong[$i];
 				$dl['madonvi'] = $arr_madonvi[$i];
 				$dl['giatien'] = $arr_giatien[$i];
 				$dl['loaiphieu'] = $this->loaiphieu;
-				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatNguyenLieu($dl);
+				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
 				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
 				
 			}

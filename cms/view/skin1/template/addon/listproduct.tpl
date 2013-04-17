@@ -23,15 +23,15 @@
             </tr>
             <?php } ?>
         	<?php foreach($media['productprice'] as $item){ ?>
-            <tr class="price-item" ref="<?php echo $item['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $media['title']?> <?php echo $item['title']?>" price="<?php echo $item['gia']?>" pricepromotion="<?php echo $item['khuyenmai']?>">
+            <tr class="price-item" ref="<?php echo $item['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $item['code']?>" unit="<?php echo $item['unit']?>" title="<?php echo $media['title']?> - <?php echo $item['title']?>" price="<?php echo $item['price']?>" pricepromotion="<?php echo $item['pricepromotion']?>">
             	<td>
             		<?php echo $media['title']?> <?php echo $item['title']?>
             	</td>
                 <td class="number">
-            		<?php echo $this->string->numberFormate($item['gia'])?>
+            		<?php echo $this->string->numberFormate($item['price'])?>
             	</td>
                 <td class="number">
-            		<?php echo $this->string->numberFormate($item['khuyenmai'])?>
+            		<?php echo $this->string->numberFormate($item['pricepromotion'])?>
             	</td>
             </tr>
             <?php } ?>

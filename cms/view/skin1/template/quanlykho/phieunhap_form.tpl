@@ -46,7 +46,7 @@
                     </p>
                     <p>
                         <label>Ghi chú</label><br />
-                        <textarea id="ghichu" name="ghichu"></textarea>
+                        <textarea id="ghichu" name="ghichu"><?php echo $item['ghichu']?></textarea>
                         
                     </p>
                    
@@ -54,6 +54,7 @@
                 <div id="fragment-nguyenlieu">
                 	<table>
                     	<tr>
+                        	<th>Code</th>
                             <th>Sản phẩm</th>
                             <th>Số lượng</th>
                             <th>Đơn vị tính</th>
@@ -92,7 +93,8 @@ function DinhLuong()
 	this.addRow = function(id,meidaid,code,title,soluong,madonvi,giatien)
 	{
 		var row = '<tr id="row'+ this.index +'">';
-		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="meidaid-'+ this.index +'" name="meidaid['+ this.index +']" value="'+ meidaid +'" />'+ code +' - '+ title +'</td>';
+		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="meidaid-'+ this.index +'" name="meidaid['+ this.index +']" value="'+ meidaid +'" /><input type="hidden" id="code-'+ this.index +'" name="code['+ this.index +']" value="'+ code +'" />'+ code +'</td>';
+		row +='<td><input type="hidden" id="title-'+ this.index +'" name="title['+ this.index +']" value="'+ title +'" />'+ title +'</td>';
 		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number" /></td>';
 		row +='<td class="number"><select meidaid="'+meidaid+'" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
 		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number" /></td>';
@@ -172,7 +174,7 @@ $('#btnAddRow').click(function(e) {
 						var code = $(this).attr('code');
 						var unit = $(this).attr('unit');
 						var title = $(this).attr('title');
-						alert(unit)
+						
 						objdl.addRow(id,mediaid,code,title,0,unit,0);
                     });
 					$(this).dialog("close");

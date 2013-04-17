@@ -331,6 +331,9 @@ class ModelCoreMedia extends ModelCoreFile
 	public function insert($data)
 	{
 		$mediaid = $this->nextID($this->user->getSiteId().time());
+		$code = $this->db->escape(@$data['code']);
+		$sizes = $this->db->escape(@$data['sizes']);
+		$unit = $this->db->escape(@$data['unit']);
 		$mediaparent=$this->db->escape(@$data['mediaparent']);
 		$mediatype=$this->db->escape(@$data['mediatype']);
 		$refersitemap=$this->db->escape(@$data['refersitemap']);
@@ -339,6 +342,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$title=$this->db->escape(@$data['title']);
 		$summary=$this->db->escape(@$data['summary']);
 		$price=$this->db->escape(@$data['price']);
+		$pricepromotion=$this->db->escape(@$this->string->toNumber($data['pricepromotion']));
 		$description=(@$data['description']);
 		$author=$this->db->escape(@$data['author']);
 		$source=$this->db->escape(@$data['source']);
@@ -358,6 +362,9 @@ class ModelCoreMedia extends ModelCoreFile
 		
 		$field=array(
 						'mediaid',
+						'code',
+						'sizes',
+						'unit',
 						'mediaparent',
 						'mediatype',
 						'refersitemap',
@@ -365,6 +372,7 @@ class ModelCoreMedia extends ModelCoreFile
 						'title',
 						'summary',
 						'price',
+						'pricepromotion',
 						'description',
 						'author',
 						'source',
@@ -382,6 +390,9 @@ class ModelCoreMedia extends ModelCoreFile
 					);
 		$value=array(
 						$mediaid,
+						$code,
+						$sizes,
+						$unit,
 						$mediaparent,
 						$mediatype,
 						$refersitemap,
@@ -389,6 +400,7 @@ class ModelCoreMedia extends ModelCoreFile
 						$title,
 						$summary,
 						$price,
+						$pricepromotion,
 						$description,
 						$author,
 						$source,

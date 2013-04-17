@@ -128,27 +128,27 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$where="id = '".$id."'";
 		$this->db->deleteData("qlkphieunhapxuat",$where);
 		$where="phieuid = '".$id."'";
-		$this->db->deleteData("qlkphieunhapxuat_nguyenlieu",$where);
+		$this->db->deleteData("qlkphieunhapxuat_media",$where);
 	}
 	//Chi tiet phieu nhap
-	public function getPhieuNhapXuatNguyenLieu($id)
+	public function getPhieuNhapXuatMedia($id)
 	{
-		$sql = "Select `qlkphieunhapxuat_nguyenlieu`.*
-									from `qlkphieunhapxuat_nguyenlieu` 
+		$sql = "Select `qlkphieunhapxuat_media`.*
+									from `qlkphieunhapxuat_media` 
 									where id ='".$id."' ".$where;
 		$query = $this->db->query($sql);
 		return $query->row;
 	}
-	public function getPhieuNhapXuatNguyenLieuList($where)
+	public function getPhieuNhapXuatMediaList($where)
 	{
-		$sql = "Select `qlkphieunhapxuat_nguyenlieu`.*
-									from `qlkphieunhapxuat_nguyenlieu` 
+		$sql = "Select `qlkphieunhapxuat_media`.*
+									from `qlkphieunhapxuat_media` 
 									where trangthai <> 'deleted' " . $where;
 		
 		$query = $this->db->query($sql);
 		return $query->rows;
 	}
-	public function savePhieuNhapXuatNguyenLieu($data)
+	public function savePhieuNhapXuatMedia($data)
 	{
 		
 		$id=(int)@$data['id'];
@@ -191,19 +191,19 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		if((int)@$data['id'] == 0 )
 		{
 				
-			$this->db->insertData("qlkphieunhapxuat_nguyenlieu",$field,$value);
+			$this->db->insertData("qlkphieunhapxuat_media",$field,$value);
 				
 		}
 		else
 		{
 			$where="id = '".$id."'";
-			$this->db->updateData("qlkphieunhapxuat_nguyenlieu",$field,$value,$where);
+			$this->db->updateData("qlkphieunhapxuat_media",$field,$value,$where);
 		}
 		return $id;
 	}
-	public function deletePhieuNhapXuatNguyenLieu($id)
+	public function deletePhieuNhapXuatMedia($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("qlkphieunhapxuat_nguyenlieu",$where);
+		$this->db->deleteData("qlkphieunhapxuat_media",$where);
 	}
 }
