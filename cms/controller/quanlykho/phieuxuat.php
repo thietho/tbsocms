@@ -1,5 +1,5 @@
 <?php
-class ControllerQuanlykhoPhieunhap extends Controller
+class ControllerQuanlykhoPhieuxuat extends Controller
 {
 	private $error = array();
 	private $loaiphieu = "XK";
