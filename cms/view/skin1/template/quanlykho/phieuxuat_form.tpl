@@ -22,7 +22,7 @@
                 </ul>
                 <div id="fragment-thongtin">
                     <p>
-                        <label>Người nhập</label><br />
+                        <label>Người xuất</label><br />
                         <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 <?php echo $readonly?>/>
                         
                     </p>
@@ -34,11 +34,7 @@
                         <input type="button" class="button" id="btnSeleteNhaCungCap" value="Chọn nhà cung cấp">
                         
                     </p>
-                    <p>
-                        <label>Người giao</label><br />
-                        <input type="text" id="nguoigiao" name="nguoigiao" value="<?php echo $item['nguoigiao']?>" class="text" size=60 />
-                        
-                    </p>
+                    
                     <p>
                         <label>Người nhận</label><br />
                         <input type="text" id="nguoinhan" name="nguoinhan" value="<?php echo $item['nguoinhan']?>" class="text" size=60 />
