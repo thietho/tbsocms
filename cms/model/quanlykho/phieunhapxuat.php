@@ -44,6 +44,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$nguoilap=$this->user->getUserName();
 		$ngaylap=$this->date->getToday();
 		$loaiphieu=$this->db->escape(@$data['loaiphieu']);
+		$nguoithuchienid=$this->db->escape(@$data['nguoithuchienid']);
 		$nguoithuchien=$this->db->escape(@$data['nguoithuchien']);
 		$nhacungcapid=$this->db->escape(@$data['nhacungcapid']);
 		$tennhacungcap=$this->db->escape(@$data['tennhacungcap']);
@@ -58,6 +59,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'nguoilap',
 						'ngaylap',
 						'loaiphieu',
+						'nguoithuchienid',
 						'nguoithuchien',
 						'nhacungcapid',
 						'tennhacungcap',
@@ -73,6 +75,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$nguoilap,
 						$ngaylap,
 						$loaiphieu,
+						$nguoithuchienid,
 						$nguoithuchien,
 						$nhacungcapid,
 						$tennhacungcap,

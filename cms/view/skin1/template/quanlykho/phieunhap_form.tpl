@@ -23,6 +23,7 @@
                 <div id="fragment-thongtin">
                     <p>
                         <label>Người nhập</label><br />
+                        <input type="hidden" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
                         <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 <?php echo $readonly?>/>
                         
                     </p>

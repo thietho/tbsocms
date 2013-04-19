@@ -25,7 +25,7 @@ class ControllerCommonSitemapmenu extends Controller
 										"quanlykho/nhanvien" => "Nhân viên",
 										"quanlykho/nhacungcap" => "Nhà cung cấp",
 										"quanlykho/phieunhap" => "Phiếu nhập",
-										"quanlykho/phieuxuat" => "Phiếu xuất",
+										"quanlykho/phieuxuat" => "Phiếu bán hàng",
 										"addon/order" => "Order management <span id='orderwarring'></span>",
 								 		"core/member" => "Member management",
 										"core/message" => $this->data['message'],

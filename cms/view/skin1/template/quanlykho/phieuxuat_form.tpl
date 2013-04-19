@@ -22,9 +22,10 @@
                 </ul>
                 <div id="fragment-thongtin">
                     <p>
-                        <label>Người xuất</label><br />
+                        <label>Người bán</label><br />
+                        <input type="hidden" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
                         <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 <?php echo $readonly?>/>
-                        
+                        <input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên" />
                     </p>
                     <p>
                         <label>Nhà cung cấp</label><br />

@@ -11,9 +11,9 @@
                         <?php } ?>
                         <th width="10px">STT</th>
                         <th>Mã phiếu</th>
-                        <th>Ngày xuất</th>
-                        <th>Người xuất</th>
-                        <th>Người nhận</th>
+                        <th>Ngày bán</th>
+                        <th>Người bán</th>
+                        <th>Khách hàng</th>
                         <?php if($dialog!=true){ ?>
                         <th>Control</th>     
                         <?php } ?>

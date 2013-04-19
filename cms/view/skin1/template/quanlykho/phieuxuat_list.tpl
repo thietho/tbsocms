@@ -8,7 +8,7 @@
         	<div id="ben-search">
             	<label>Mã phiếu</label>
                 <input type="text" id="maphieu" name="maphieu" class="text" value="" />
-                <label>Người nhập</label>
+                <label>Người bán</label>
                 <input type="text" id="nguoithuchien" name="nguoithuchien" class="text" value="" />
                 <label>Từ ngày</label>
                 <input type="text" class="text date" id="tungay" />
