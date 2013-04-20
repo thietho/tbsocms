@@ -59,12 +59,11 @@ class ModelCoreSitemap extends Model
 		return $query->row;
 	}
 	
-	public function getList($siteid, $where = "")
+	public function getList($siteid, $where = "",$order = " ORDER BY position, siteid, id")
 	{
 		$query = $this->db->query("Select `sitemap`.* 
 									from `sitemap`
-									where `sitemap`.status not like 'Delete' AND siteid = '".$siteid."' ".$where.
-									" ORDER BY position, siteid, id"
+									where `sitemap`.status not like 'Delete' AND siteid = '".$siteid."' ".$where.$order						
 									);
 		return $query->rows;
 	}

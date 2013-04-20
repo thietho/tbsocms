@@ -293,7 +293,10 @@ class ControllerAddonOrder extends Controller
 	
 	public function browseProduct()
 	{
-
+		$this->load->model("core/sitemap");
+		$where = "AND moduleid = 'module/product'";
+		$this->data['data_danhmuc'] = $this->model_core_sitemap->getList($this->user->getSiteId(),$where," ORDER BY sitemapname");
+		
 		$this->id="content";
 		$this->template="addon/browseproduct.tpl";
 		$this->render();
@@ -306,7 +309,11 @@ class ControllerAddonOrder extends Controller
 		$this->load->model("core/sitemap");
 		$this->load->helper('image');
 		
+		
+		
+		
 		$keyword = urldecode($this->request->get['keyword']);
+		$sitemapid = urldecode($this->request->get['sitemapid']);
 		$arrkey = split(' ', $keyword);
 		$where = "";
 		if($keyword !="")
@@ -319,16 +326,23 @@ class ControllerAddonOrder extends Controller
 			$where .= " AND (". implode(" AND ",$arr). ")";
 			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
 		}
-		$siteid = $this->member->getSiteId();
-		$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
-		$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
-		
-		foreach($arrsitemapid as $item)
+		if($sitemapid)
 		{
-			$arr[] = " refersitemap like '%[".$item."]%'";
+			$where.=" AND refersitemap like '%[".$sitemapid."]%'";
+		}
+		else
+		{
+			$siteid = $this->member->getSiteId();
+			$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
+			$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
+			
+			foreach($arrsitemapid as $item)
+			{
+				$arr[] = " refersitemap like '%[".$item."]%'";
+			}
+			$where .= "AND (". implode($arr," OR ").")";
 		}
 		
-		$where .= "AND (". implode($arr," OR ").")";
 		
 		$where .= "  Order by position, statusdate DESC";
 		$this->data['medias'] = $this->model_core_media->getList($where);
