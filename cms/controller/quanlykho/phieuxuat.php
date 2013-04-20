@@ -2,7 +2,7 @@
 class ControllerQuanlykhoPhieuxuat extends Controller
 {
 	private $error = array();
-	private $loaiphieu = "XK";
+	private $loaiphieu = "PBH";
 	function __construct() 
 	{
 		
@@ -190,6 +190,9 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		
 		if($this->validateForm($data))
 		{
+			$nhanvien = $this->user->getNhanVien();
+			$data['nguoithuchienid'] = $nhanvien['id'];
+			$data['nguoithuchien'] = $nhanvien['hoten'];
 			
 			$data['loaiphieu'] = $this->loaiphieu;
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
@@ -249,15 +252,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	{
 		
 		
-    	if($data['nguoithuchien'] == "")
-		{
-      		$this->error['nguoithuchien'] = "Bạn chưa nhập người nhập";
-    	}
-		
-		if ($data['nguoigiao'] == "") 
-		{
-      		$this->error['nguoigiao'] = "Bạn chưa nhập tên người giao";
-    	}
+    	
 		if ($data['nguoinhan'] == "") 
 		{
       		$this->error['nguoinhan'] = "Bạn chưa nhập tên người nhận";

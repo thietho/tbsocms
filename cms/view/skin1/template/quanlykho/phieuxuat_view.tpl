@@ -1,16 +1,14 @@
-<h3 style="text-align:center">Phiếu xuất kho</h3>
+<h3 style="text-align:center">Phiếu bán hàng</h3>
 <p style="text-align:center">Ngày <?php echo $this->date->getDay($item['ngaylap'])?> tháng <?php echo $this->date->getMonth($item['ngaylap'])?> năm <?php echo $this->date->getYear($item['ngaylap'])?></p>
 <p style="text-align:center">
 	<label>Số:</label> <?php echo $item['maphieu']?>
 </p>
 <p>
-	<label>Người nhập:</label> <?php echo $item['nguoithuchien']?>
+	<label>Người bán:</label> <?php echo $item['nguoithuchien']?>
 </p>
 <p>
-	<?php if($item['tennhacungcap']){?>
-	<label>Nhà cung cấp:</label> <?php echo $item['tennhacungcap']?>
-	<?php } ?>
-	<label>Người nhận:</label> <?php echo $item['nguoinhan']?>
+	
+	<label>Khách hàng:</label> <?php echo $item['nguoinhan']?>
 </p>
 <p>
 	<label>Ghi chú:</label> <?php echo $item['ghichu']?>
@@ -19,19 +17,22 @@
 	<thead>
         <tr>
             <th>STT</th>
-            <th>Nguyên liệu</th>
+            <th>Sản phẩm</th>
             <th>Số lượng</th>
+            <th>Đơn vị</th>
             <th>Giá nhập</th>
             <th>Thành tiên</th>
         </tr>
     </thead>
     <tbody>
+    	
         <?php foreach($data_nhapkho as $key =>$val){ ?>
             
         <tr>
             <td><center><?php echo $key+1?></center></td>
-            <td><?php echo $val['tennguyenlieu']?>(<?php echo $this->document->getDonViTinh($val['madonvi'])?>)</td>
+            <td><?php echo $val['title']?></td>
             <td class="number"><?php echo $this->string->numberFormate($val['soluong'])?></td>
+            <td><?php echo $this->document->getDonViTinh($val['madonvi'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($val['giatien'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($val['thanhtien'])?></td>
             
@@ -50,7 +51,7 @@
 	<tr>
     	
         <th width="20%">Người lập phiếu</th>
-        <th width="20%">Người nhận</th>
+        <th width="20%">Khách hàng</th>
         <th width="20%">Thủ quỷ</th>
     </tr>
     <tr>

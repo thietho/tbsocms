@@ -30,23 +30,23 @@ class ModelBenThuchi extends Model
 							);
 	public function getList($where = "")
 	{
-		$sql = "Select `ben_thuchi`.* from `ben_thuchi` where 1=1 ".$where;
+		$sql = "Select `thuchi`.* from `thuchi` where 1=1 ".$where;
 		$query = $this->db->query($sql);
 		return $query->rows;
 	}
 
 	public function getItem($maphieu)
 	{
-		$sql = "Select * from `ben_thuchi` where maphieu = '".$maphieu."'";
+		$sql = "Select * from `thuchi` where maphieu = '".$maphieu."'";
 		$query = $this->db->query($sql);
 		return $query->row;
 	}
 	
 	private function createSoPhieu($prefix)
 	{
-		//return $this->db->getNextIdVarChar("ben_thuchi","sophieu",$prefix);	
+		//return $this->db->getNextIdVarChar("thuchi","sophieu",$prefix);	
 		
-		$mun = $this->db->getNextIdVarCharNumber("ben_thuchi","sophieu",$prefix);
+		$mun = $this->db->getNextIdVarCharNumber("thuchi","sophieu",$prefix);
 		return $this->string->numberToString($mun,3).$prefix;
 	}
 	
@@ -69,7 +69,7 @@ class ModelBenThuchi extends Model
 			}
 		}
 		
-		$getLastId = $this->db->insertData("ben_thuchi",$field,$value);
+		$getLastId = $this->db->insertData("thuchi",$field,$value);
 				
 		return $getLastId;
 	}
@@ -88,7 +88,7 @@ class ModelBenThuchi extends Model
 		}
 		
 		$where="maphieu = '".$data['maphieu']."'";
-		$this->db->updateData("ben_thuchi",$field,$value,$where);
+		$this->db->updateData("thuchi",$field,$value,$where);
 	}	
 		
 	public function updateCol($maphieu,$col,$val)
@@ -104,7 +104,7 @@ class ModelBenThuchi extends Model
 					);
 					
 		$where="maphieu = '".$maphieu."'";
-		$this->db->updateData("ben_thuchi",$field,$value,$where);
+		$this->db->updateData("thuchi",$field,$value,$where);
 	}
 	
 	//Xóa dich vu
@@ -113,7 +113,7 @@ class ModelBenThuchi extends Model
 		$maphieu = $this->db->escape(@$maphieu);		
 		
 		$where="maphieu = '".$maphieu."'";
-		$this->db->deleteData('ben_thuchi',$where);
+		$this->db->deleteData('thuchi',$where);
 		
 	}
 

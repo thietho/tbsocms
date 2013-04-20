@@ -1,4 +1,5 @@
-			<table class="data-table" cellpadding="0" cellspacing="0">
+			<?php echo $pager?>
+            <table class="data-table" cellpadding="0" cellspacing="0">
                 <tbody>
                     <tr class="tr-head">
                         <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
@@ -8,9 +9,9 @@
                         <th>Số điện thoại</th>
                         <th>Địa chỉ</th>
                         <th>Email</th>
-                        
+                        <th>Công nợ</th>
                         <th>Trang thái</th>
-                        <?php if($_GET['dialog'] != 'true'){ ?>                 
+                        <?php if($dialog!=true){ ?>
                         <th width="10%">Control</th>                                  
                         <?php } ?>
                     </tr>
@@ -21,7 +22,7 @@
             foreach($users as $user)
             {
         ?>
-                    <tr>
+                    <tr class="item" id="<?php echo $user['id']?>" username="<?php echo $user['username']?>" fullname="<?php echo $user['fullname']?>" phone="<?php echo $user['phone']?>" address="<?php echo $user['address']?>" email="<?php echo $user['email']?>">
                         <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $user['id']?>]" value="<?php echo $user['id']?>" ></td>
                         
                         <td><?php echo $user['username']?></td>
@@ -29,9 +30,9 @@
                         <td><?php echo $user['phone']?></td>
                         <td><?php echo $user['address']?></td>
                         <td><?php echo $user['email']?></td>
-                       
+                        <td><a onclick="viewCongNo(<?php echo $user['id']?>)"><?php echo $this->string->numberFormate($user['congno'])?></a></td>
                 		<td><?php echo $this->document->userstatus[$user['status']]?></td>
-                        <?php if($_GET['dialog'] != 'true'){ ?>
+                        <?php if($dialog!=true){ ?>
                         <td class="link-control">
                             <input type="button" class="button" value="<?php echo $user['text_edit']?>" onclick="window.location='<?php echo $user['link_edit']?>'"/>
                             <input type="button" class="button" value="<?php echo $user['text_active']?>" onclick="activeUser('<?php echo $user['id']?>')"/>
@@ -47,3 +48,8 @@
                 </tbody>
 			</table>
             <?php echo $pager?>
+<?php if($dialog){ ?>
+<script language="javascript">
+	intSelectMember()
+</script>
+<?php } ?>

@@ -22,6 +22,7 @@
             <th>Code</th>
             <th>Sản phẩm</th>
             <th>Số lượng</th>
+            <th>Đơn vị</th>
             <th>Giá nhập</th>
             <th>Thành tiên</th>
         </tr>
@@ -32,8 +33,9 @@
         <tr>
             <td><center><?php echo $key+1?></center></td>
             <td><?php echo $val['code']?></td>
-            <td><?php echo $val['title']?>(<?php echo $this->document->getDonViTinh($val['madonvi'])?>)</td>
+            <td><?php echo $val['title']?></td>
             <td class="number"><?php echo $this->string->numberFormate($val['soluong'])?></td>
+            <td><?php echo $this->document->getDonViTinh($val['madonvi'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($val['giatien'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($val['thanhtien'])?></td>
             

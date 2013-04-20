@@ -39,7 +39,7 @@ class ControllerBenPhieuchi extends Controller
 		{
 			foreach($listmaphieu as $maphieu)
 			{
-				$this->model_ben_thuchi->delete($maphieu);	
+				$this->model_addon_thuchi->delete($maphieu);	
 			}
 			$this->data['output'] = "true";
 		}
@@ -97,7 +97,7 @@ class ControllerBenPhieuchi extends Controller
 		}
 		
 		$where .= " Order by ngaylap DESC";
-		$rows = $this->model_ben_thuchi->getList($where);
+		$rows = $this->model_addon_thuchi->getList($where);
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;
@@ -135,7 +135,7 @@ class ControllerBenPhieuchi extends Controller
 		
 		if ((isset($this->request->get['maphieu'])) ) 
 		{
-      		$this->data['item'] = $this->model_ben_thuchi->getItem($this->request->get['maphieu']);
+      		$this->data['item'] = $this->model_addon_thuchi->getItem($this->request->get['maphieu']);
 			
     	}
 		else
@@ -151,7 +151,7 @@ class ControllerBenPhieuchi extends Controller
 	
 	public function view()
 	{
-		$this->data['item'] = $this->model_ben_thuchi->getItem($this->request->get['maphieu']);
+		$this->data['item'] = $this->model_addon_thuchi->getItem($this->request->get['maphieu']);
 		
 		$this->id='content';
 		$this->template='ben/phieuchi_view.tpl';
@@ -165,7 +165,7 @@ class ControllerBenPhieuchi extends Controller
 	public function updateTinhTrang()
 	{
 		$data = $this->request->post;
-		$this->model_ben_thuchi->updateCol($data['maphieu'],'tinhtrang',$data['tinhtrang']);
+		$this->model_addon_thuchi->updateCol($data['maphieu'],'tinhtrang',$data['tinhtrang']);
 		$this->data['output'] = "true";
 		$this->id='content';
 		$this->template='common/output.tpl';
@@ -184,11 +184,11 @@ class ControllerBenPhieuchi extends Controller
 			$data['quidoi'] = $this->document->toVND($this->string->toNumber($data['sotien']),$data['donvi']);
 			if($data['maphieu']=="")
 			{
-				$data['maphieu'] = $this->model_ben_thuchi->insert($data);	
+				$data['maphieu'] = $this->model_addon_thuchi->insert($data);	
 			}
 			else
 			{
-				$this->model_ben_thuchi->update($data);	
+				$this->model_addon_thuchi->update($data);	
 			}
 			
 			$this->data['output'] = "true-".$data['maphieu'];

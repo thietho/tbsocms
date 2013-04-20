@@ -21,25 +21,19 @@
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
-                    <p>
+                    <!--<p>
                         <label>Người bán</label><br />
                         <input type="hidden" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
                         <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 <?php echo $readonly?>/>
                         <input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên" />
-                    </p>
-                    <p>
-                        <label>Nhà cung cấp</label><br />
-                        <span id="nhacungcapview"></span>
-                        <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
-                        <input type="hidden" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>">
-                        <input type="button" class="button" id="btnSeleteNhaCungCap" value="Chọn nhà cung cấp">
-                        
-                    </p>
+                    </p>-->
+                    
                     
                     <p>
-                        <label>Người nhận</label><br />
+                        <label>Khách hàng</label><br />
+                        <input type="hidden" name="nguoinhanid" value="<?php echo $item['nguoinhanid']?>" value="<?php echo $item['nguoinhanid']?>">
                         <input type="text" id="nguoinhan" name="nguoinhan" value="<?php echo $item['nguoinhan']?>" class="text" size=60 />
-                        
+                        <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
                     </p>
                     <p>
                         <label>Ghi chú</label><br />
@@ -123,8 +117,8 @@ function DinhLuong()
 }
 
 var objdl = new DinhLuong();
-$('#btnSeleteNhaCungCap').click(function(e) {
-    $("#popup").attr('title','Chọn nhà cung cấp');
+$('#btnSelectKhachHang').click(function(e) {
+    $("#popup").attr('title','Chọn khách hàng');
 		$( "#popup" ).dialog({
 			autoOpen: false,
 			show: "blind",
@@ -135,16 +129,15 @@ $('#btnSeleteNhaCungCap').click(function(e) {
 		});
 	
 		
-		$("#popup-content").load("?route=quanlykho/nhacungcap&opendialog=true",function(){
+		$("#popup-content").load("?route=core/member&opendialog=true",function(){
 			$("#popup").dialog("open");
 		});
 });
-function intSelectNhaCungCap()
+function intSelectMember()
 {
 	$('.item').click(function(e) {
-        $('#nhacungcapid').val($(this).attr('id'));
-		$('#tennhacungcap').val($(this).attr('tennhacungcap'));
-		$('#nhacungcapview').html($(this).attr('tennhacungcap'));
+        $('#nguoinhanid').val($(this).attr('username'));
+		$('#nguoinhan').val($(this).attr('fullname'));
 		$("#popup").dialog( "close" );
     });
 }
