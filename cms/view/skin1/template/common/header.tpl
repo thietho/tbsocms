@@ -2,7 +2,7 @@
 <div id="top">
 
 <div class="left text-center" id="weblogo"><a href="?route=page/home"> 
-	<img class="png" src="<?php echo DIR_IMAGE?>logo.png" height="70px" alt="" /><br />
+	<?php echo $imagepreview ?>
 </a></div>
 
 <div class="left">
