@@ -3,9 +3,15 @@
 	<div class="section-title"><?php echo $this->document->title?></div>
     
     <div class="section-content padding1">
-    	<a>Thống kê bán hàng</a>
-    	<a>Thống kê tồn kho</a>
-        <a>Thống kê thu chi</a>
+    	<ul>
+        	<li><a href="?route=thongke/banhang">Thống kê bán hàng</a></li>
+            <li><a>Thống kê nhập hàng</a></li>
+            <li><a>Thống kê tồn kho</a></li>
+            <li><a>Thống kê thu chi</a></li>
+        </ul>
+    	
+    	
+        
         
     </div>
     
