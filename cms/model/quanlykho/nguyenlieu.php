@@ -311,21 +311,52 @@ class ModelQuanlykhoNguyenlieu extends ModelCoreFile
 	}
 	
 	//
+	public function getSoLuong($nguyenlieuid,$loaiphieu)
+	{
+		$sql = "SELECT sum(soluong ) as soluong, madonvi
+				FROM  `qlkphieunhapxuat_nguyenlieu` 
+				WHERE nguyenlieuid = '".$nguyenlieuid."' AND loaiphieu='".$loaiphieu."'
+				Group by madonvi
+				";
+		$query = $this->db->query($sql);
+		$query->rows;
+		
+		return $query->rows;
+	}
+	
+	public function getTongKho($nguyenlieuid,$loaiphieu)
+	{
+		$nguyenlieu = $this->getItem($nguyenlieuid);
+		$arr_soluong = $this->getSoLuong($nguyenlieuid,$loaiphieu);
+		$soluong = $this->model_quanlykho_donvitinh->toDonViTinh($arr_soluong,$nguyenlieu['madonvi']);
+		$intsoluong = $this->model_quanlykho_donvitinh->toInt($soluong);
+		$data_soluong = $this->model_quanlykho_donvitinh->toDonVi($intsoluong,$nguyenlieu['madonvi']);
+		return $this->model_quanlykho_donvitinh->toText($data_soluong);
+	}
+	
 	public function getTonKho($nguyenlieuid)
 	{
-		$sql = "SELECT sum(soluong ) as soluongnhap
-				FROM  `qlkphieunhapxuat_nguyenlieu` 
-				WHERE nguyenlieuid = '".$nguyenlieuid."' AND loaiphieu='NK'";
-		$query = $this->db->query($sql);
-		$nhap = $query->row['soluongnhap'];
+		$nguyenlieu = $this->getItem($nguyenlieuid);
 		
-		$sql = "SELECT sum(soluong ) as soluongxuat
-				FROM  `qlkphieunhapxuat_nguyenlieu` 
-				WHERE nguyenlieuid = '".$nguyenlieuid."' AND loaiphieu='XK'";
-		$query = $this->db->query($sql);
-		$xuat = $query->row['soluongxuat'];
+		$arrnhap = $this->getSoLuong($nguyenlieuid,'NK');
 		
-		return $nhap - $xuat;
+		$soluongnhap = $this->model_quanlykho_donvitinh->toDonViTinh($arrnhap,$nguyenlieu['madonvi']);
+		
+		//print_r($soluongnhap);
+		$int_nhap = $this->model_quanlykho_donvitinh->toInt($soluongnhap);
+		//$arr_nhap = $this->model_quanlykho_donvitinh->toDonVi($int_nhap,$nguyenlieu['madonvi']);
+		
+		//Xuat kho
+		
+		$arrxuat = $this->getSoLuong($nguyenlieuid,'XK');
+		$soluongxuat = $this->model_quanlykho_donvitinh->toDonViTinh($arrxuat,$nguyenlieu['madonvi']);
+		
+		
+		$int_xuat = $this->model_quanlykho_donvitinh->toInt($soluongxuat);
+		//$arr_xuat = $this->model_quanlykho_donvitinh->toDonVi($int_xuat,$nguyenlieu['madonvi']);
+		$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap - $int_xuat,$nguyenlieu['madonvi']);
+		
+		return $this->model_quanlykho_donvitinh->toText($arr_ton);
 	}
 }
 ?>

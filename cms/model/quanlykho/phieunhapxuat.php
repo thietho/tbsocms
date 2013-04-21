@@ -159,7 +159,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		
 		$id=(int)@$data['id'];
 		$phieuid=$this->db->escape(@$data['phieuid']);
-		$meidaid=$this->db->escape(@$data['meidaid']);
+		$mediaid=$this->db->escape(@$data['mediaid']);
 		$code=$this->db->escape(@$data['code']);
 		$title=$this->db->escape(@$data['title']);
 		$soluong=$this->string->toNumber($this->db->escape(@$data['soluong']));
@@ -171,7 +171,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		
 		$field=array(
 						'phieuid',
-						'meidaid',
+						'mediaid',
 						'code',
 						'title',
 						'soluong',
@@ -183,7 +183,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						);
 		$value=array(
 						$phieuid,
-						$meidaid,
+						$mediaid,
 						$code,
 						$title,
 						$soluong,

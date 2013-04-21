@@ -1,4 +1,5 @@
 <?php
+$this->load->model("quanlykho/donvitinh");
 $this->load->model("core/file");
 class ModelCoreMedia extends ModelCoreFile 
 { 
@@ -643,6 +644,52 @@ class ModelCoreMedia extends ModelCoreFile
 		return $result;
 	}
 	
+	public function getSoLuong($mediaid,$loaiphieu)
+	{
+		$sql = "SELECT sum(soluong) as soluong, madonvi
+				FROM  `qlkphieunhapxuat_media` 
+				WHERE mediaid = '".$mediaid."' AND loaiphieu='".$loaiphieu."'
+				Group by madonvi
+				";
+		$query = $this->db->query($sql);
+		$query->rows;
+		
+		return $query->rows;
+	}
 	
+	public function getTongKho($mediaid,$loaiphieu)
+	{
+		$media = $this->getItem($mediaid);
+		$arr_soluong = $this->getSoLuong($mediaid,$loaiphieu);
+		$soluong = $this->model_quanlykho_donvitinh->toDonViTinh($arr_soluong,$media['unit']);
+		$intsoluong = $this->model_quanlykho_donvitinh->toInt($soluong);
+		$data_soluong = $this->model_quanlykho_donvitinh->toDonVi($intsoluong,$media['unit']);
+		return $this->model_quanlykho_donvitinh->toText($data_soluong);
+	}
+	
+	public function getTonKho($mediaid)
+	{
+		$media = $this->getItem($mediaid);
+		
+		$arrnhap = $this->getSoLuong($mediaid,'NK');
+		
+		$soluongnhap = $this->model_quanlykho_donvitinh->toDonViTinh($arrnhap,$media['unit']);
+		
+		//print_r($soluongnhap);
+		$int_nhap = $this->model_quanlykho_donvitinh->toInt($soluongnhap);
+		//$arr_nhap = $this->model_quanlykho_donvitinh->toDonVi($int_nhap,$media['unit']);
+		
+		//Xuat kho
+		
+		$arrxuat = $this->getSoLuong($mediaid,'PBH');
+		$soluongxuat = $this->model_quanlykho_donvitinh->toDonViTinh($arrxuat,$media['unit']);
+		
+		
+		$int_xuat = $this->model_quanlykho_donvitinh->toInt($soluongxuat);
+		//$arr_xuat = $this->model_quanlykho_donvitinh->toDonVi($int_xuat,$media['unit']);
+		$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap - $int_xuat,$media['unit']);
+		
+		return $this->model_quanlykho_donvitinh->toText($arr_ton);
+	}
 }
 ?>

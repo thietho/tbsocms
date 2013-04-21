@@ -69,7 +69,7 @@
 	<?php foreach($data_nhapkho as $dl){ ?>
 <script language="javascript">
 $(document).ready(function(e) {
-	objdl.addRow("<?php echo $dl['id']?>","<?php echo $dl['meidaid']?>","<?php echo $dl['code']?>","<?php echo $dl['title']?>","<?php echo $dl['soluong']?>","<?php echo $dl['madonvi']?>","<?php echo $dl['giatien']?>");
+	objdl.addRow("<?php echo $dl['id']?>","<?php echo $dl['mediaid']?>","<?php echo $dl['code']?>","<?php echo $dl['title']?>","<?php echo $dl['soluong']?>","<?php echo $dl['madonvi']?>","<?php echo $dl['giatien']?>");
 });
 </script>
 	<?php } ?>
@@ -81,19 +81,19 @@ $(document).ready(function(e) {
 function DinhLuong()
 {
 	this.index = 0;
-	this.addRow = function(id,meidaid,code,title,soluong,madonvi,giatien)
+	this.addRow = function(id,mediaid,code,title,soluong,madonvi,giatien)
 	{
 		var row = '<tr id="row'+ this.index +'">';
-		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="meidaid-'+ this.index +'" name="meidaid['+ this.index +']" value="'+ meidaid +'" /><input type="hidden" id="code-'+ this.index +'" name="code['+ this.index +']" value="'+ code +'" />'+ code +'</td>';
+		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="mediaid-'+ this.index +'" name="mediaid['+ this.index +']" value="'+ mediaid +'" /><input type="hidden" id="code-'+ this.index +'" name="code['+ this.index +']" value="'+ code +'" />'+ code +'</td>';
 		row +='<td><input type="hidden" id="title-'+ this.index +'" name="title['+ this.index +']" value="'+ title +'" />'+ title +'</td>';
 		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number" /></td>';
-		row +='<td class="number"><select meidaid="'+meidaid+'" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
+		row +='<td class="number"><select mediaid="'+mediaid+'" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
 		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number" /></td>';
 		row +='<td><input type="button" class="button" value="Xóa" onclick="objdl.removeRow('+ this.index +')"/></td>';
 		row+='</tr>'
 		$('#nhapkhonguyenlieu').append(row);
 		var str = '#madonvi-'+ this.index;
-		$.getJSON("?route=core/media/getListDonVi&meidaid="+ meidaid,
+		$.getJSON("?route=core/media/getListDonVi&mediaid="+ mediaid,
 			function(data){
 				html = "";
 				for(i in data)

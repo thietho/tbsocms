@@ -209,17 +209,17 @@ class ControllerQuanlykhoPhieunhap extends Controller
 			$tongtien = 0;
 			$nhapkhoid = $data['nhapkhoid'];
 			$phieuid = $data['id'];
-			$arr_meidaid = $data['meidaid'];
+			$arr_mediaid = $data['mediaid'];
 			$arr_code = $data['code'];
 			$arr_title = $data['title'];
 			$arr_soluong = $data['soluong'];
 			$arr_madonvi = $data['dlmadonvi'];
 			$arr_giatien = $data['giatien'];
-			foreach($arr_meidaid as $i => $meidaid)
+			foreach($arr_mediaid as $i => $mediaid)
 			{
 				$dl['id'] = $nhapkhoid[$i];
 				$dl['phieuid'] = $phieuid;
-				$dl['meidaid'] = $meidaid;
+				$dl['mediaid'] = $mediaid;
 				$dl['code'] = $arr_code[$i];
 				$dl['title'] = $arr_title[$i];
 				$dl['soluong'] = $arr_soluong[$i];

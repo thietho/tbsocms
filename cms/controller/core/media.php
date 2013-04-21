@@ -286,8 +286,8 @@ class ControllerCoreMedia extends Controller
 	}
 	public function getListDonVi()
 	{
-		$meidaid = $this->request->get['meidaid'];
-		$media = $this->model_core_media->getItem($meidaid);
+		$mediaid = $this->request->get['mediaid'];
+		$media = $this->model_core_media->getItem($mediaid);
 		$data_donvi = $this->model_quanlykho_donvitinh->getDonViQuyDoi($media['unit']);
 		$this->data['output'] = json_encode($data_donvi);
 		
