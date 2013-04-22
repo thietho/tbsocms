@@ -29,7 +29,11 @@ class ControllerThongkeBanhang extends Controller
 		$where = "";
 		if($tungay != "")
 		{
-			$where .= " AND ";
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap <= '".$denngay." 24:00:00'";
 		}
 		$this->id='content';
 		$this->template="thongke/banhang_thongke.tpl";
