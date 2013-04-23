@@ -7,7 +7,7 @@
         	<li><a href="?route=thongke/banhang">Thống kê bán hàng</a></li>
             <li><a href="?route=thongke/nhaphang">Thống kê nhập hàng</a></li>
             <li><a href="?route=thongke/tonkho">Thống kê tồn kho</a></li>
-            <li><a>Thống kê thu chi</a></li>
+            <li><a href="?route=thongke/thuchi">Thống kê thu chi</a></li>
         </ul>
     	
     	

@@ -3,6 +3,7 @@
 	<div class="section-title"><?php echo $this->document->title?></div>
     
     <div class="section-content">
+    	<h3>Số lượng sản phẩm đang tồn kho tính đến ngày <?php echo $this->date->formatMySQLDate($this->date->getTodayNoTime())?></h3>
 		<table class="data-table">
             <thead>
                 <tr>
@@ -31,7 +32,7 @@
                     </td>
                 </tr>   
                 		<?php foreach($media['tonkho']['prices'] as $price){?> 
-                <tr>
+                <tr class="subprice">
                 	<td><?php echo $price['code']?></td>
                     <td><?php echo $media['title']?> - <?php echo $price['title']?></td>
                     <td>
