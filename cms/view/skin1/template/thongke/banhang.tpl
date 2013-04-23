@@ -28,8 +28,7 @@
                             });
                     });
                 </script>
-                <br />
-                Chọn tháng:
+                
                 <br />
                 <input type="button" class="button" id="btnThongKe" name="btnThongKe" value="Xem"/>
                 
