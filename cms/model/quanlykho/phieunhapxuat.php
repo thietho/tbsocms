@@ -212,4 +212,17 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$where="id = '".$id."'";
 		$this->db->deleteData("qlkphieunhapxuat_media",$where);
 	}
+	
+	public function thongke($where)
+	{
+		$sql = "Select `qlkphieunhapxuat`.nguoilap,
+						`qlkphieunhapxuat`.ngaylap,
+						`qlkphieunhapxuat`.maphieu,
+						`qlkphieunhapxuat_media`.*
+									from `qlkphieunhapxuat_media`,`qlkphieunhapxuat` 
+									where `qlkphieunhapxuat`.id = `qlkphieunhapxuat_media`.phieuid " . $where;
+		
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
 }
