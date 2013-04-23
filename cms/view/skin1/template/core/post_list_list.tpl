@@ -29,17 +29,11 @@
                         <td class="number"><b><?php echo $this->string->numberFormate($media['price'])?></b>&nbsp;</td>
                         <td class="number"><b><?php echo $this->string->numberFormate($media['pricepromotion'])?></b>&nbsp;</td>
                         <td class="number">
-                        	<p><?php echo $media['tonkho']?></p>
-                            <?php if(count($media['prices']))
-                            {
-                            	foreach($media['prices'] as $price)
-                                {
-                                ?>
-                                <p><?php echo $price['title']?>(<?php echo $price['code']?>): <?php echo $price['tonkho']?></p>
-                                <?php
-                                }
-                            }
-                            ?>
+                        	<?php echo $media['tonkho']['main']['tonkho']?>
+                            <?php foreach($media['tonkho']['prices'] as $price){ ?>
+                            <br />
+                            <?php echo $price['title']?>: <?php echo $price['tonkho']?>
+                            <?php } ?>
                         </td>
                         <?php } ?>
                         <td><b><?php echo $media['title']?></b>&nbsp;</td>

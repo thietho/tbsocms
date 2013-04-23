@@ -137,7 +137,7 @@ class ControllerCorePostlist extends Controller
 		$this->load->language($moduleid);
 		$this->data = array_merge($this->data, $this->language->getData());
 		//Get list
-		$where = " AND refersitemap like '%".$sitemapid."%'";
+		$where = " AND refersitemap like '%[".$sitemapid."]%'";
 		if($code)
 			$where .= " AND code like '".$code."%'";
 		if($sizes)
@@ -177,7 +177,9 @@ class ControllerCorePostlist extends Controller
 			}
 			
 			$mediaid = $this->data['medias'][$i]['mediaid'];
-			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
+			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->viewTonKho($mediaid);
+			//print_r($this->data['medias'][$i]['tonkho']);
+			/*$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
 			$data_price =$this->model_core_media->getListByParent($mediaid," AND mediatype = 'price' Order by position");
 			if(count($data_price))
 			{
@@ -186,7 +188,7 @@ class ControllerCorePostlist extends Controller
 					$data_price[$key]['tonkho'] = $this->model_core_media->getTonKho($price['mediaid']);
 				}
 				$this->data['medias'][$i]['prices'] = $data_price;
-			}
+			}*/
 			$this->data['medias'][$i]['link_edit'] = $this->url->http($sitemap['moduleid'].'&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$this->data['medias'][$i]['mediaid']);
 			$this->data['medias'][$i]['text_edit'] = "Edit";	
 			
