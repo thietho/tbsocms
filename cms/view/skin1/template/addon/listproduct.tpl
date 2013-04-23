@@ -78,7 +78,7 @@ $('.price-item').click(function(e) {
 	else
 		obj.price = $(this).attr('pricepromotion');
 	
-	var html = '<div><input type="button" class="button removeselect" value="X"><br><input type="hidden" class="listid" value="'+obj.mediaid+'" image="'+ obj.imagepath +'" code="'+ obj.code +'" unit="'+ obj.unit +'" title="'+ obj.title +'">';
+	var html = '<div><input type="button" class="button removeselect" value="X"><br><input type="hidden" class="listid" value="'+obj.mediaid+'" image="'+ obj.imagepath +'" code="'+ obj.code +'" unit="'+ obj.unit +'" title="'+ obj.title +'" price="'+obj.price+'">';
 	html+='<img src="'+ obj.imagepath +'"><br>'
 	html+= obj.title+'<br>'+ formateNumber(obj.price) +'</div>';
 	$('#productselect').append(html);

@@ -164,8 +164,9 @@ $('#btnAddRow').click(function(e) {
 						var code = $(this).attr('code');
 						var unit = $(this).attr('unit');
 						var title = $(this).attr('title');
+						var price = $(this).attr('price');
 						
-						objdl.addRow(id,mediaid,code,title,0,unit,0);
+						objdl.addRow(id,mediaid,code,title,0,unit,price);
                     });
 					$(this).dialog("close");
 				},
