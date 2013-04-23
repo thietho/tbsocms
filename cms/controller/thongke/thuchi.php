@@ -49,12 +49,49 @@ class ControllerThongkeThuchi extends Controller
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
 		$data_thu = $this->model_addon_thuchi->getList($where);
+		echo "<br>";
 		print_r($data_thu);
 		//Thong ke phieu ban hang
+		$where = " AND loaiphieu = 'PBH'";
+		if($tungay != "")
+		{
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
+		}
+		$data_banhang = $this->model_quanlykho_phieunhapxuat->getList($where);
+		echo "<br>";
+		print_r($data_banhang);
 		//End thu
 		//Chi
 		//Thong ke phieu chi
+		$where = " AND loaithuchi = 'chi'";
+		if($tungay != "")
+		{
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
+		}
+		$data_chi = $this->model_addon_thuchi->getList($where);
+		echo "<br>";
+		print_r($data_chi);
 		//Thong ke pheu nhap hang
+		$where = " AND loaiphieu = 'NK'";
+		if($tungay != "")
+		{
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
+		}
+		$data_nhaphang = $this->model_quanlykho_phieunhapxuat->getList($where);
+		echo "<br>";
+		print_r($data_banhang);
 		//End chi
 		
 		
