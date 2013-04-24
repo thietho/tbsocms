@@ -27,6 +27,7 @@ class ModelAddonThuchi extends Model
 								'hinhthucthanhtoan',
 								'lydo',
 								'nguongoc',
+								'nguoithuchienid',
 								'nguoithuchien'
 							);
 	public function getList($where = "")
@@ -59,6 +60,9 @@ class ModelAddonThuchi extends Model
 			$data['sophieu']=$this->createSoPhieu($data['prefix']);
 			
 		$data['ngaylap'] = $this->date->getToday();
+		$nhanvien = $this->user->getNhanVien();
+		$data['manguoilapphieu'] = $nhanvien['username'];
+		$data['tennguoilapphieu'] = $nhanvien['hoten'];
 		$data['sotien']=$this->string->toNumber($data['sotien']);
 		
 		foreach($this->columns as $val)

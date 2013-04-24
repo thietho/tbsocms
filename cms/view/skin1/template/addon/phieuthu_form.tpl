@@ -17,6 +17,7 @@
         	<div id="error" class="error" style="display:none"></div>
         	<div>   
             	<input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên"/>
+                <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng"/>
                 <div class="clearer">&nbsp;</div>
                 <p class="left">
                     <label>Người nộp tiền</label><br />
@@ -58,7 +59,9 @@
                 </p>
                 <p>
                     <label>Người thu</label><br />
+                    <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>"/>
                     <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 />
+                    <input type="button" class="button" id="btnSelectNguoiChi" value="Chọn người thu"/>
                 </p>
                 <p>
                     <label>Lý do</label><br />
@@ -74,7 +77,62 @@
 </div>
 
 <script language="javascript">
+var handle = "";
+$('#btnSelectKhachHang').click(function(e) {
+	handle = "khachhang";
+    $("#popup").attr('title','Chọn khách hàng');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 900,
+			height: 600,
+			modal: true,
+		});
+	
+		
+		$("#popup-content").load("?route=core/member&opendialog=true",function(){
+			$("#popup").dialog("open");
+		});
+});
+function intSelectMember()
+{
+	switch(handle)
+	{
+		case "khachhang":
+			$('.item').click(function(e) {
+				$("#makhachhang").val("KH-"+$(this).attr('username'));
+				$("#tenkhachhang").val($(this).attr('fullname'));
+				$("#dienthoai").val($(this).attr('phone'));
+				$("#email").val($(this).attr('email'));
+				$("#diachi").val($(this).attr('address'));
+				
+				$("#popup").dialog( "close" );
+			});
+			break;
+	}
+			
+}
 $('#btnSelectNhanVien').click(function(e) {
+	handle = "khachhang";
+    $("#popup").attr('title','Chọn nhân viên');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 600,
+			modal: true,
+			
+		});
+	
+		
+		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
+			$("#popup").dialog("open");	
+		});
+});
+$('#btnSelectNguoiChi').click(function(e) {
+	handle = "nguoithuchien";
     $("#popup").attr('title','Chọn nhân viên');
 		$( "#popup" ).dialog({
 			autoOpen: false,
@@ -93,14 +151,28 @@ $('#btnSelectNhanVien').click(function(e) {
 });
 function intSelectNhanVien()
 {
-	$('.item').click(function(e) {
-        $("#makhachhang").val($(this).attr('manhanvien'));
-		$("#tenkhachhang").val($(this).attr('hoten'));
-		$("#dienthoai").val($(this).attr('sodienthoai'));
-		$("#email").val($(this).attr('email'));
-		$("#diachi").val($(this).attr('diachitamtru'));
-		$("#popup").dialog( "close" );
-    });
+	switch(handle)
+	{
+		case "khachhang":
+			$('.item').click(function(e) {
+				$("#makhachhang").val("NV-"+$(this).attr('manhanvien'));
+				$("#tenkhachhang").val($(this).attr('hoten'));
+				$("#dienthoai").val($(this).attr('sodienthoai'));
+				$("#email").val($(this).attr('email'));
+				$("#diachi").val($(this).attr('diachitamtru'));
+				$("#popup").dialog( "close" );
+			});
+			break;
+		case "nguoithuchien":
+			$('.item').click(function(e) {
+				$("#nguoithuchienid").val($(this).attr('id'));
+				$("#nguoithuchien").val($(this).attr('hoten'));
+				
+				$("#popup").dialog( "close" );
+			});
+			break;	
+	}
+			
 }
 function save(action)
 {

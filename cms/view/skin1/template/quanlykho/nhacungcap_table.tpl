@@ -30,7 +30,7 @@
             foreach($datas as $key => $item)
             {
         ?>
-                    <tr class="item" id="<?php echo $item['id']?>" tennhacungcap="<?php echo $item['tennhacungcap']?>">
+                    <tr class="item" id="<?php echo $item['id']?>" tennhacungcap="<?php echo $item['tennhacungcap']?>" sodienthoai="<?php echo $item['sodienthoai']?>" diachi="<?php echo $item['diachi']?>" email="<?php echo $item['email']?>">
                     	<?php if($dialog!=true){ ?>
                         <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['id']?>]" value="<?php echo $item['id']?>" ></td>
                         <?php } ?>

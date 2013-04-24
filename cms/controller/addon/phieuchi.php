@@ -192,8 +192,10 @@ class ControllerAddonPhieuchi extends Controller
 		if($this->validateForm($data))
 		{
 			$data['loaithuchi'] = "chi";
-			$data['taikhoanthuchi'] = $data['taikhoanthuchi'];
+			//$data['taikhoanthuchi'] = $data['taikhoanthuchi'];
 			$data['prefix'] = "PC";
+
+			
 			$data['quidoi'] = $this->document->toVND($this->string->toNumber($data['sotien']),$data['donvi']);
 			if($data['maphieu']=="")
 			{
