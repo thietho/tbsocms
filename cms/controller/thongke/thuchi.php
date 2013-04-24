@@ -29,7 +29,7 @@ class ControllerThongkeThuchi extends Controller
 		$denngay = $this->date->formatViewDate($data['denngay']);
 		if($tungay)
 		{
-			$data_kytruoc = $this->xuly("",$tungay);
+			$data_kytruoc = $this->xuly("",$this->date->addday($tungay, -1));
 			$this->data['tonkytruoc'] = $data_kytruoc['tontrongky'];
 		}
 		else
@@ -160,7 +160,7 @@ class ControllerThongkeThuchi extends Controller
 				{
 					$arr = array(
 								'maphieu' => $item['sophieu'],
-								'loai' => "Phiếu thu",
+								'loai' => "Phiếu thu - " . $this->document->getCategory($item['taikhoanthuchi'])." - ". $item['tenkhachhang'] ." - ".$item['lydo'],
 								'sotien' => $item['sotien']
 								);
 					$tongthu += $item['sotien'];
@@ -191,7 +191,7 @@ class ControllerThongkeThuchi extends Controller
 				{
 					$arr = array(
 								'maphieu' => $item['sophieu'],
-								'loai' => "Phiếu chi",
+								'loai' => "Phiếu chi - ". $this->document->getCategory($item['taikhoanthuchi'])." - ". $item['tenkhachhang']." - ".$item['lydo'],
 								'sotien' => $item['sotien']
 								);
 					$tongchi += $item['sotien'];

@@ -13,7 +13,10 @@ class ControllerAddonPhieuthu extends Controller
 		}
 		
 	 	$this->load->model("addon/thuchi");
-		
+		$this->load->model("core/category");
+		$this->data['tkthu'] = array();
+		$this->model_core_category->getTree("tkthu",$this->data['tkthu']);
+		unset($this->data['tkthu'][0]);
    	}
 	
 	public function index()
@@ -188,7 +191,7 @@ class ControllerAddonPhieuthu extends Controller
 		if($this->validateForm($data))
 		{
 			$data['loaithuchi'] = "thu";
-			$data['taikhoanthuchi'] = "thutienkhachhang";
+			
 			$data['prefix'] = "PT";
 			$data['quidoi'] = $this->document->toVND($this->string->toNumber($data['sotien']),$data['donvi']);
 			if($data['maphieu']=="")
@@ -223,10 +226,7 @@ class ControllerAddonPhieuthu extends Controller
       		$this->error['tenkhachhang'] = "Bạn chưa nhập tên khách hàng";
     	}
 		
-		if (trim($data['dienthoai']) == "") 
-		{
-      		$this->error['dienthoai'] = "Bạn chưa nhập số điện thoại khách hàng";
-    	}
+		
 		
 		if (trim($data['email']) != "") 
 		{

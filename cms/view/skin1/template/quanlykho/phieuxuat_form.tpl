@@ -43,6 +43,8 @@
                    
                 </div>
                 <div id="fragment-nguyenlieu">
+                	<input type="hidden" id="delnhapkho" name="delnhapkho" />
+                    <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
                 	<table>
                     	<tr>
                         	<th>Code</th>
@@ -50,13 +52,13 @@
                             <th>Số lượng</th>
                             <th>Đơn vị tính</th>
                             <th>Đơn giá</th>
+                            <th>Thành tiền</th>
                             <th></th>
                         </tr>
                         <tbody id="nhapkhonguyenlieu">
                         </tbody>
                     </table>
-                    <input type="hidden" id="delnhapkho" name="delnhapkho" />
-                    <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
+                    
                 </div>
            </div>
             
@@ -86,9 +88,10 @@ function DinhLuong()
 		var row = '<tr id="row'+ this.index +'">';
 		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="mediaid-'+ this.index +'" name="mediaid['+ this.index +']" value="'+ mediaid +'" /><input type="hidden" id="code-'+ this.index +'" name="code['+ this.index +']" value="'+ code +'" />'+ code +'</td>';
 		row +='<td><input type="hidden" id="title-'+ this.index +'" name="title['+ this.index +']" value="'+ title +'" />'+ title +'</td>';
-		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number" /></td>';
+		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number soluong" /></td>';
 		row +='<td class="number"><select mediaid="'+mediaid+'" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
-		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number" /></td>';
+		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number giatien" /></td>';
+		row += '<td class="number" id="thanhtien-'+ this.index +'">'+ formateNumber(soluong * giatien) +'</td>';
 		row +='<td><input type="button" class="button" value="Xóa" onclick="objdl.removeRow('+ this.index +')"/></td>';
 		row+='</tr>'
 		$('#nhapkhonguyenlieu').append(row);

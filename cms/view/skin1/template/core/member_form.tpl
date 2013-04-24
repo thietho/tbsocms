@@ -1,4 +1,4 @@
-<script src='<?php echo DIR_JS?>ui.datepicker.js' type='text/javascript' language='javascript'> </script>
+
 <div class="section" id="sitemaplist">
 
 	<div class="section-title"><?php echo $heading_title?>User</div>
@@ -16,22 +16,7 @@
             <div class="clearer">^&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
         	<div>
-            	<p>
-            		<label>User name</label><br />
-					<input type="text" name="username" value="<?php echo $user['username']?>" class="text" size=60 <?php echo $usernamereadonly?>/>
-                    <i class="error"><?php echo $error['username']?></i>
-            	</p>
-              	
-                <p>
-            		<label>Password</label><br />
-					<input type="password" name="password"  class="text" size=60 />
-                    
-            	</p>
-                <p>
-            		<label>Confrim password</label><br />
-					<input type="password" name="confrimpassword" class="text" size=60 />
-                    
-            	</p>
+            	
                 
                 
                 <p>

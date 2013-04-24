@@ -86,6 +86,7 @@
 
 <script language="javascript">
 $('#taikhoanthuchi').val("<?php echo $item['taikhoanthuchi']?>");
+$('#hinhthucthanhtoan').val("<?php echo $item['hinhthucthanhtoan']?>");
 var handle = "";
 
 $('#btnSelectNhaCungCap').click(function(e) {
