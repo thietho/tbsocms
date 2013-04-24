@@ -63,7 +63,7 @@ class ControllerAddonOrder extends Controller
 		$data['nguoigiao'] = $order['order']['shippername'];
 		$data['nguoinhanid'] = "KH-".$order['order']['userid'];
 		$data['nguoinhan'] = $order['order']['customername'];
-		if($order['order']['receiver'])
+		if($order['order']['receiver']!="" && $order['order']['customername'] != $order['order']['receiver'])
 			$data['nguoinhan'] .= " - người nhận: ".$order['order']['receiver'];
 		$data['tongtien'] = $tongtien;
 		$data['ghichu'] = $order['order']['comment'] ;

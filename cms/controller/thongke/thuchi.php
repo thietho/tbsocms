@@ -27,10 +27,15 @@ class ControllerThongkeThuchi extends Controller
 		
 		$tungay = $this->date->formatViewDate($data['tungay']);
 		$denngay = $this->date->formatViewDate($data['denngay']);
-		
-		$data_kytruoc = $this->xuly("",$tungay);
-		$this->data['tonkytruoc'] = $data_kytruoc['tontrongky'];
-		
+		if($tungay)
+		{
+			$data_kytruoc = $this->xuly("",$tungay);
+			$this->data['tonkytruoc'] = $data_kytruoc['tontrongky'];
+		}
+		else
+		{
+			$this->data['tonkytruoc'] = 0;
+		}
 		$data_trongky = $this->xuly($tungay,$denngay);
 		$this->data['data_thuchi'] = $data_trongky['data_thuchi'];
 		$this->data['tongthu'] = $data_trongky['tongthu'];
