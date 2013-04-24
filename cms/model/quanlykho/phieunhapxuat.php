@@ -52,6 +52,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$nguoinhanid=$this->db->escape(@$data['nguoinhanid']);
 		$nguoinhan=$this->db->escape(@$data['nguoinhan']);
 		$tongtien=$this->string->toNumber($this->db->escape(@$data['tongtien']));
+		$thanhtoan=$this->string->toNumber($this->db->escape(@$data['thanhtoan']));
+		$congno = $tongtien - $thanhtoan;
 		$ghichu=$this->db->escape(@$data['ghichu']);
 		$trangthai = "active";
 		$field=array(
@@ -68,6 +70,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'nguoinhanid',
 						'nguoinhan',
 						'tongtien',
+						'thanhtoan',
+						'congno',
 						'ghichu',
 						'trangthai'
 					);
@@ -85,6 +89,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$nguoinhanid,
 						$nguoinhan,
 						$tongtien,
+						$thanhtoan,
+						$congno,
 						$ghichu,
 						$trangthai
 						);

@@ -179,7 +179,12 @@ function toMonth(month)
 	else
 		return month;
 }
-
+function stringtoNumber(str)
+{
+	str = (""+str).replace(/,/g,"");
+	var num = str*1;
+	return num;
+}
 function formateNumber(num)
 {
 	if(num =="")
@@ -274,7 +279,7 @@ function getFileExt(filepath)
 
 function numberReady()
 {
-	$(".number").keyup(function (e)
+	$(".number").change(function (e)
 	{
 		num = formateNumber($(this).val().replace(/,/g,""));
 		$(this).val(num)

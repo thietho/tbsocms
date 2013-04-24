@@ -233,7 +233,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
 				
 			}
-			$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
+			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
 			$this->data['output'] = "true-".$data['id'];
 		}
 		else

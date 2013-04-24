@@ -46,17 +46,51 @@
                 	<input type="hidden" id="delnhapkho" name="delnhapkho" />
                     <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
                 	<table>
-                    	<tr>
-                        	<th>Code</th>
-                            <th>Sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Đơn vị tính</th>
-                            <th>Đơn giá</th>
-                            <th>Thành tiền</th>
-                            <th></th>
-                        </tr>
+                    	<thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Đơn vị tính</th>
+                                <th>Đơn giá</th>
+                                <th>Thành tiền</th>
+                                <th></th>
+                            </tr>
+                        </thead>
                         <tbody id="nhapkhonguyenlieu">
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">
+                                	Tổng cộng
+                                    <input type="hidden" id="tongtien" name="tongtien" value="<?php echo $item['tongtien']?>"/>
+                                </td>
+                                <td class="number" id="tongcong"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">Thanh toán</td>
+                                <td class="number"><input type="number" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo $this->string->numberFormate($item['thanhtoan'])?>"/></td>
+                                <td><input type="button" class="button" id="btnTrahet" value="Trả hết"/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">Công nợ</td>
+                                <td class="number" id="congno"><?php echo $this->string->numberFormate($item['congno'])?></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
                     </table>
                     
                 </div>
@@ -73,12 +107,23 @@
 $(document).ready(function(e) {
 	objdl.addRow("<?php echo $dl['id']?>","<?php echo $dl['mediaid']?>","<?php echo $dl['code']?>","<?php echo $dl['title']?>","<?php echo $dl['soluong']?>","<?php echo $dl['madonvi']?>","<?php echo $dl['giatien']?>");
 });
+	//objdl.tinhtong(0);
 </script>
 	<?php } ?>
 <?php } ?>
 <script language="javascript">
 $(document).ready(function(e) {
     $('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
+});
+$('#btnTrahet').click(function(e) {
+    $('#thanhtoan').val($('#tongcong').html());
+	$('#thanhtoan').keyup();
+});
+$('#thanhtoan').keyup(function(e) {
+    var tongcong = Number(stringtoNumber($('#tongcong').html()));
+	var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
+	var congno = tongcong - thanhtoan;
+	$('#congno').html(formateNumber(congno));
 });
 function DinhLuong()
 {
@@ -88,10 +133,10 @@ function DinhLuong()
 		var row = '<tr id="row'+ this.index +'">';
 		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="mediaid-'+ this.index +'" name="mediaid['+ this.index +']" value="'+ mediaid +'" /><input type="hidden" id="code-'+ this.index +'" name="code['+ this.index +']" value="'+ code +'" />'+ code +'</td>';
 		row +='<td><input type="hidden" id="title-'+ this.index +'" name="title['+ this.index +']" value="'+ title +'" />'+ title +'</td>';
-		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number soluong" /></td>';
+		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number soluong" ref="'+ this.index +'"/></td>';
 		row +='<td class="number"><select mediaid="'+mediaid+'" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
-		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number giatien" /></td>';
-		row += '<td class="number" id="thanhtien-'+ this.index +'">'+ formateNumber(soluong * giatien) +'</td>';
+		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number giatien" ref="'+ this.index +'"/></td>';
+		row += '<td class="number thanhtien" id="thanhtien-'+ this.index +'">'+ formateNumber(soluong * giatien) +'</td>';
 		row +='<td><input type="button" class="button" value="Xóa" onclick="objdl.removeRow('+ this.index +')"/></td>';
 		row+='</tr>'
 		$('#nhapkhonguyenlieu').append(row);
@@ -109,6 +154,11 @@ function DinhLuong()
 			});
 		
 		this.index++;
+		$('.soluong').keyup(function(e) {
+            var pos = $(this).attr('ref');
+			objdl.tinhtong(pos);
+        });
+		
 		numberReady();
 	}
 	this.removeRow = function(pos)
@@ -116,6 +166,19 @@ function DinhLuong()
 		var nhapkhoid = $('#nhapkhoid-'+pos).val();
 		$('#delnhapkho').val(nhapkhoid+ "," +$('#delnhapkho').val());
 		$('#row'+pos).remove();
+	}
+	this.tinhtong = function(pos)
+	{
+		var soluong = Number(stringtoNumber($('#soluong-'+pos).val()));
+		var giatien = Number(stringtoNumber($('#giatien-'+pos).val()));
+		var thanhtien = soluong*giatien;
+		$('#thanhtien-'+pos).html(formateNumber(thanhtien));
+		var sum = 0;
+		$('.thanhtien').each(function(index, element) {
+            sum += Number(stringtoNumber($(this).html()));
+        });
+		$('#tongcong').html(formateNumber(sum));
+		$('#tongtien').html(sum);
 	}
 }
 
