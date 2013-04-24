@@ -17,7 +17,7 @@
         	<div>
             	<p>
             		<label>Tên nhà cung cấp</label><br />
-					<input type="text" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>" class="text" size=60 <?php echo $readonly?>/>
+					<input type="text" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>" class="text" size=60/>
                     
             	</p>
                 <p>

@@ -61,6 +61,18 @@
             		<label>Ghi chú</label><br />
 					<?php echo $order['comment']?>
             	</p>
+                <p>
+            		<label>Người giao</label><br />
+					<?php echo $order['shippername']?>
+            	</p>
+                <p>
+            		<label>Ngày giao</label><br />
+					<?php echo $this->date->formatMySQLDate($order['shippdate'])?>
+            	</p>
+                <p>
+            		<label>Ghi nhớ</label><br />
+					<?php echo $order['notes']?>
+            	</p>
                 <?php if($order['status'] != 'completed' && $order['status'] != 'cancel'){ ?>
                 <p>
                 	<input type="button" class="button" onclick="order.edit('<?php echo $order['orderid']?>')" value="Chỉnh sửa đơn hàng"/>

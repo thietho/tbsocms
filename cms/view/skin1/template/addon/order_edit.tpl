@@ -63,8 +63,30 @@
                         <?php } ?>
                     </select>
             	</p>
-               
-                
+               	<p>
+            		<label>Người giao hàng</label><br />
+					<input type="text" class="text" id="shippername" name="shippername" value="<?php echo $order['shippername']?>" size="40">
+                    <input type="hidden" id="shipper" name="shipper" value="<?php echo $order['shipper']?>">
+                    <input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên"/>
+            	</p>
+                <p>
+            		<label>Ngày giao</label><br />
+					<input type="text" class="text" id="shippdate" name="shippdate" value="<?php echo $this->date->formatMySQLDate($order['shippdate'])?>" size="40">
+                    <script language="javascript">
+						$(function() {
+							$("#shippdate").datepicker({
+									changeMonth: true,
+									changeYear: true,
+									dateFormat: 'dd-mm-yy'
+									});
+							});
+					 </script>
+                    
+            	</p>
+                <p>
+                	<label>Ghi nhớ</label><br />
+                    <textarea id="notes" name="notes"><?php echo $order['notes']?></textarea>
+                </p>
                 <!--
                 <p>
             		<label><?php echo $entry_status?></label><br />
@@ -115,6 +137,38 @@ $(document).ready(function(e) {
 	numberReady();
 	$('#paymenttype').val("<?php echo $order['paymenttype']?>");
 });
+
+$('#btnSelectNhanVien').click(function(e) {
+	handle = "nguoithuchien";
+    $("#popup").attr('title','Chọn nhân viên');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 600,
+			modal: true,
+			
+		});
+	
+		
+		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
+			$("#popup").dialog("open");	
+		});
+});
+function intSelectNhanVien()
+{
+	
+	$('.item').click(function(e) {
+		$("#shipper").val("NV-"+$(this).attr('id'));
+		$("#shippername").val($(this).attr('hoten'));
+		
+		$("#popup").dialog( "close" );
+	});
+	
+	
+			
+}
 function save()
 {
 	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 

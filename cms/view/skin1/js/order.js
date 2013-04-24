@@ -106,7 +106,16 @@ function Order()
 			success: function(html)
 			{
 				alert("Đơn hàng đã hoàn tất");
-				window.location = "?route=addon/order";
+				//Xuat phieu ban hang
+				$.ajax({
+					url: "?route=addon/order/createphieuxuat&orderid="+orderid,
+					cache: false,
+					success: function(html)
+					{
+						window.location = "?route=addon/order";
+					}
+				});
+				
 			}
 		});
 		

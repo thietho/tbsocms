@@ -45,7 +45,65 @@ class ControllerAddonOrder extends Controller
 		$this->layout="layout/center";
 		$this->render();
 	}
-	
+	public function createphieuxuat()
+	{
+		$this->load->model('addon/order');
+		$this->load->model('core/media');
+		$this->load->model('quanlykho/phieunhapxuat');
+		$orderid = $this->request->get['orderid'];
+		$order = $this->model_addon_order->getItem($orderid);
+		$nhanvien = $this->user->getNhanVien();
+		$tongtien = 0;
+		
+		$data['loaiphieu'] = "PBH";
+		$data['nguoithuchienid'] = $nhanvien['id'];
+		$data['nguoithuchien'] = $nhanvien['hoten'];
+		$data['nhacungcapid'] = "";
+		$data['tennhacungcap'] = "";
+		$data['nguoigiao'] = $order['order']['shippername'];
+		$data['nguoinhanid'] = "KH-".$order['order']['userid'];
+		$data['nguoinhan'] = $order['order']['customername'];
+		if($order['order']['receiver'])
+			$data['nguoinhan'] .= " - người nhận: ".$order['order']['receiver'];
+		$data['tongtien'] = $tongtien;
+		$data['ghichu'] = $order['order']['comment'] ;
+		if($order['order']['notes'])
+			$data['ghichu'] .= " - ". $order['order']['notes'];
+		$phieuid = $this->model_quanlykho_phieunhapxuat->save($data);
+		$data_ct = array();
+		foreach($order['detail'] as $item)
+		{
+			$tongtien += $item['subtotal'];
+			$ct['phieuid'] = $phieuid;
+			$ct['mediaid'] = $item['mediaid'];
+			$media =  $this->model_core_media->getItem($item['mediaid']);
+			
+			$ct['code'] = $media['code'];
+			$parent = $this->model_core_media->getItem($media['mediaparent']);
+			if(count($parent)==0)
+				$ct['title'] = $media['title'];
+			else
+				$ct['title'] = $parent['title'] ." - ". $media['title'];
+			
+			$ct['soluong'] = $item['quantity'];
+			$ct['madonvi'] = $media['unit'];
+			$ct['giatien'] = $item['price'];
+			$ct['thanhtien'] = $item['subtotal'];
+			$ct['loaiphieu'] = $data['loaiphieu'];
+			
+			$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($ct);
+			
+		}
+		$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
+		
+		
+		
+		
+		$this->id="content";
+		$this->template="common/output.tpl";
+		$this->render();
+		
+	}
 	public function view()
 	{
 		$this->load->language('addon/order');
@@ -209,7 +267,11 @@ class ControllerAddonOrder extends Controller
 		$this->model_addon_order->updateCol($data['orderid'],'receiver',$data['receiver']);
 		$this->model_addon_order->updateCol($data['orderid'],'receiverphone',$data['receiverphone']);
 		$this->model_addon_order->updateCol($data['orderid'],'shipperat',$data['shipperat']);
+		$this->model_addon_order->updateCol($data['orderid'],'shippdate',$this->date->formatViewDate($data['shippdate']));
+		$this->model_addon_order->updateCol($data['orderid'],'shipper',$data['shipper']);
+		$this->model_addon_order->updateCol($data['orderid'],'shippername',$data['shippername']);
 		$this->model_addon_order->updateCol($data['orderid'],'paymenttype',$data['paymenttype']);
+		$this->model_addon_order->updateCol($data['orderid'],'notes',$data['notes']);
 		
 		//Xoa nhung id can xoa
 		$arrdelid = split(',',$data['delid']);

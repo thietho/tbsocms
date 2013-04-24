@@ -1,20 +1,25 @@
-<h3 style="text-align:center">Phiếu nhập kho</h3>
-<p style="text-align:center">Ngày <?php echo $this->date->getDay($item['ngaylap'])?> tháng <?php echo $this->date->getMonth($item['ngaylap'])?> năm <?php echo $this->date->getYear($item['ngaylap'])?></p>
-<p style="text-align:center">
-	<label>Số:</label> <?php echo $item['maphieu']?>
-</p>
-<p>
-	<label>Người nhập:</label> <?php echo $item['nguoithuchien']?>
-</p>
-<p>
-	<?php if($item['tennhacungcap']){?>
-	<label>Nhà cung cấp:</label> <?php echo $item['tennhacungcap']?>
-	<?php } ?>
-	<label>Người giao:</label> <?php echo $item['nguoigiao']?>
-</p>
-<p>
-	<label>Ghi chú:</label> <?php echo $item['ghichu']?>
-</p>
+<center>
+    <h2>Phiếu nhập kho</h2>
+    Ngày <?php echo $this->date->getDay($item['ngaylap'])?> tháng <?php echo $this->date->getMonth($item['ngaylap'])?> năm <?php echo $this->date->getYear($item['ngaylap'])?><br />
+    
+        <label>Số:</label> <?php echo $item['maphieu']?>
+</center>
+<table>
+	<tr>
+    	<td width="50%"><label>Người nhập:</label> <?php echo $item['nguoithuchien']?></td>
+        <td>
+        	<?php if($item['tennhacungcap']){?>
+            <label>Nhà cung cấp:</label> <?php echo $item['tennhacungcap']?>
+            <?php } ?>
+            <label>Người giao:</label> <?php echo $item['nguoigiao']?>
+        </td>
+    </tr>
+    
+    <tr>
+    	<td colspan="2"><label>Ghi chú:</label> <?php echo $item['ghichu']?></td>
+    </tr>
+</table>
+
 <table class="table-data">
 	<thead>
         <tr>
@@ -42,6 +47,7 @@
         </tr>
         <?php } ?>
         <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>

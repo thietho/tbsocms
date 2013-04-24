@@ -1,11 +1,6 @@
 <div>
 	<center>
-		<p style="font-size:1.5em;font-weight:bold">Mylanbeauty.net</p>
-        Địa chỉ: 193 Tuy Lý Vương, P.12, Q.8, Tp.HCM<br />
-        ĐT: 0903 767 589<br />
-        Email: cosmetics@mylanbeauty.net<br />
-        Website: www.mylanbeauty.net
-        <h2>PHIẾU GIAO HÀNG</h2>
+		<h2>PHIẾU GIAO HÀNG</h2>
         Số: <?php echo $order['orderid']?>
     </center>
     <p>
