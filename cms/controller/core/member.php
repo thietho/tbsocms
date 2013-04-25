@@ -192,7 +192,7 @@ class ControllerCoreMember extends Controller
 		
 		$this->data['user'] = $this->model_core_user->getId($id);
 		//Lay tat ca phieu thu cong no
-		$where = " AND makhachhang = '".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'thuno'";
+		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'thuno'";
 		$this->data['data_phieuthu'] = $this->model_addon_thuchi->getList($where);
 		$tongthu = 0;
 		

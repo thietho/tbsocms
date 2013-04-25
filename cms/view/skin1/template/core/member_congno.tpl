@@ -71,9 +71,26 @@ $('#btnTraHet').click(function(e) {
 });
 $('#btnThanhToan').click(function(e) {
     $.post("?route=addon/phieuthu/save",
-		{},
+		{
+			chungtulienquan:"<?php echo $item['maphieu']?>",
+			makhachhang:"KH-<?php echo $user['id']?>",
+			tenkhachhang:"<?php echo $user['fullname']?>",
+			dienthoai:"<?php echo $user['phone']?>",
+			email:"<?php echo $user['email']?>",
+			diachi:"<?php echo $user['address']?>",
+			sotien:$('#thanhtoan').val(),
+			donvi:"VND",
+			taikhoanthuchi:"thuno",
+			hinhthucthanhtoan:"cash",
+			nguoithuchienid:"<?php echo $this->user->nhanvien['id']?>",
+			nguoithuchien:"<?php echo $this->user->nhanvien['hoten']?>",
+			lydo:"Thanh toán nợ"
+		},
 		function(data)
 		{
+			var arr = data.split("-");
+			if(arr[0] == "true")
+				alert("Thanh toán thành công")
 		}
 	);
 });

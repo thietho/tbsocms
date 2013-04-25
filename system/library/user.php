@@ -4,6 +4,7 @@ final class User {
 	private $username;
 	private $siteid;
 	private $usertypeid;
+	public $nhanvien = array();
   	private $permission = array();
 	private $Control = array();
 
@@ -39,6 +40,8 @@ final class User {
 				$sql = "SELECT permission FROM usertype where usertypeid = (Select usertypeid from user where userid = '" . $this->db->escape($this->session->data['userid']) . "')";
       			$query = $this->db->query($sql);
 				$this->setPermission($query->row['permission']);
+				$this->nhanvien = $this->getNhanVien();
+				
 			}elseif(isset($this->session->data['safemode'])){
 				$this->userid = $this->session->data['userid'];
 				$this->username = $this->session->data['username'];
