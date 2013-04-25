@@ -197,7 +197,7 @@ $("#ben-next").click(function(){
             <thead>
                 <tr>
                     <th>Sẩn phẩm</th>
-                    <th>Giá thị trường</th>
+                    
                     <th>Giá bán</th>
                     <th>Khuyến mãi</th>
                     <th></th>
@@ -214,19 +214,15 @@ $("#ben-next").click(function(){
                         <p class="ben-khuyenmai"><a  onclick="xemkhuyenmai('<?php echo $val['makhuyenmai']?>')"><?php echo $val['tenkhuyenmai']?></a></p>
                         <?php } ?>
                     </td>
+                    
                     <td class="number">
-                        <?php if($val['thitruong']!=0){ ?>
-                        <?php echo $this->string->numberFormate($val['thitruong'])?> <?php echo $this->document->setup['Currency']?>
+                        <?php if($val['price']!=0){ ?>
+                        <?php echo $this->string->numberFormate($val['price'])?> <?php echo $this->document->setup['Currency']?>
                         <?php } ?>
                     </td>
                     <td class="number">
-                        <?php if($val['gia']!=0){ ?>
-                        <?php echo $this->string->numberFormate($val['gia'])?> <?php echo $this->document->setup['Currency']?>
-                        <?php } ?>
-                    </td>
-                    <td class="number">
-                        <?php if($val['khuyenmai']!=0){ ?>
-                        <?php echo $this->string->numberFormate($val['khuyenmai'])?><?php echo $this->document->setup['Currency']?>
+                        <?php if($val['pricepromotion']!=0){ ?>
+                        <?php echo $this->string->numberFormate($val['pricepromotion'])?><?php echo $this->document->setup['Currency']?>
                         <?php } ?>
                     </td>
                     <td><input type="button" class="ben-button ben-center" onclick="cart.add('<?php echo $val['mediaid']?>')" value="Đặt hàng"></td>

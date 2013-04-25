@@ -14,6 +14,11 @@ class ControllerAddonOrder extends Controller
 		$this->getList();
 	}
 	
+	public function insert()
+	{
+		$this->edit();
+	}
+	
 	public function edit()
 	{
 		$this->load->language('addon/order');
@@ -156,8 +161,8 @@ class ControllerAddonOrder extends Controller
 	
 	private function getList() 
 	{
-		$this->data['insert'] = $this->url->http('core/user/insert');
-		$this->data['delete'] = $this->url->http('core/user/delete');		
+		$this->data['insert'] = $this->url->http('addon/order/insert');
+		$this->data['delete'] = $this->url->http('addon/order/delete');		
 
 		$this->data['orders'] = array();
 		$where = "";
@@ -262,20 +267,27 @@ class ControllerAddonOrder extends Controller
 	{
 		$this->load->model("addon/order");
 		$data = $this->request->post;
-		
-		$this->model_addon_order->updateCol($data['orderid'],'customername',$data['customername']);
-		$this->model_addon_order->updateCol($data['orderid'],'address',$data['address']);
-		$this->model_addon_order->updateCol($data['orderid'],'email',$data['email']);
-		$this->model_addon_order->updateCol($data['orderid'],'phone',$data['phone']);
-		$this->model_addon_order->updateCol($data['orderid'],'receiver',$data['receiver']);
-		$this->model_addon_order->updateCol($data['orderid'],'receiverphone',$data['receiverphone']);
-		$this->model_addon_order->updateCol($data['orderid'],'shipperat',$data['shipperat']);
-		$this->model_addon_order->updateCol($data['orderid'],'shippdate',$this->date->formatViewDate($data['shippdate']));
-		$this->model_addon_order->updateCol($data['orderid'],'shipper',$data['shipper']);
-		$this->model_addon_order->updateCol($data['orderid'],'shippername',$data['shippername']);
-		$this->model_addon_order->updateCol($data['orderid'],'paymenttype',$data['paymenttype']);
-		$this->model_addon_order->updateCol($data['orderid'],'notes',$data['notes']);
-		
+		print_r($data);
+		if($data['orderid'])
+		{
+			$this->model_addon_order->updateCol($data['orderid'],'userid',$data['userid']);
+			$this->model_addon_order->updateCol($data['orderid'],'customername',$data['customername']);
+			$this->model_addon_order->updateCol($data['orderid'],'address',$data['address']);
+			$this->model_addon_order->updateCol($data['orderid'],'email',$data['email']);
+			$this->model_addon_order->updateCol($data['orderid'],'phone',$data['phone']);
+			$this->model_addon_order->updateCol($data['orderid'],'receiver',$data['receiver']);
+			$this->model_addon_order->updateCol($data['orderid'],'receiverphone',$data['receiverphone']);
+			$this->model_addon_order->updateCol($data['orderid'],'shipperat',$data['shipperat']);
+			$this->model_addon_order->updateCol($data['orderid'],'shippdate',$this->date->formatViewDate($data['shippdate']));
+			$this->model_addon_order->updateCol($data['orderid'],'shipper',$data['shipper']);
+			$this->model_addon_order->updateCol($data['orderid'],'shippername',$data['shippername']);
+			$this->model_addon_order->updateCol($data['orderid'],'paymenttype',$data['paymenttype']);
+			$this->model_addon_order->updateCol($data['orderid'],'notes',$data['notes']);
+		}
+		else
+		{
+			$data['orderid'] = $this->model_addon_order->insert($data);
+		}
 		//Xoa nhung id can xoa
 		$arrdelid = split(',',$data['delid']);
 		foreach($arrdelid as $id)
@@ -303,7 +315,7 @@ class ControllerAddonOrder extends Controller
 			$this->model_addon_order->saveOrderProduct($orderpro);
 		}
 		
-		$this->data['output'] = "true";
+		$this->data['output'] = "true-".$data['orderid'];
 		$this->id="content";
 		$this->template="common/output.tpl";
 		$this->render();

@@ -185,14 +185,11 @@ class ControllerModulePagedetail extends Controller
 		}
 		
 		$this->data['priceproduct'] = $this->model_core_media->getListByParent($mediaid," AND mediatype = 'price' Order by position");
+		
 		foreach($this->data['priceproduct'] as $key => $item)
 		{
-			$para = $this->string->referSiteMapToArray($item['summary']);
-			foreach($para as $val)
-			{
-				$ar = split("=",$val);
-				$this->data['priceproduct'][$key][$ar[0]] = $ar[1];	
-			}
+			
+			
 			$khuyenmai = $this->model_core_media->getItem($this->data['priceproduct'][$key]['makhuyenmai']);
 			$this->data['priceproduct'][$key]['tenkhuyenmai'] = $khuyenmai['title'];
 		}

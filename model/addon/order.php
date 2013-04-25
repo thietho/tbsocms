@@ -38,7 +38,8 @@ class ModelAddonOrder extends Model
 	
 	public function insert($data)
 	{
-		$orderid= $this->nextID("order".time());
+		
+		$orderid= $this->nextID($this->date->now['year'].$this->date->numberFormate($this->date->now['mon']));
 		$orderdate=$this->date->getToday();
 		$userid=$this->db->escape(@$data['userid']);
 		$customername=$this->db->escape(@$data['customername']);
@@ -46,32 +47,50 @@ class ModelAddonOrder extends Model
 		$email=$this->db->escape(@$data['email']);
 		$phone=$this->db->escape(@$data['phone']);
 		$status="new";
+		$paymenttype=$this->db->escape(@$data['paymenttype']);
 		$comment=$this->db->escape(@$data['comment']);
-		
+		$receiver=$this->db->escape(@$data['receiver']);
+		$receiverphone=$this->db->escape(@$data['receiverphone']);
+		$shipper=$this->db->escape(@$data['shipper']);
+		$shippername=$this->db->escape(@$data['shippername']);
+		$shipperat=$this->db->escape(@$data['shipperat']);
+		$notes=$this->db->escape(@$data['notes']);
 		
 		$field=array(
 						'orderid',
 						'orderdate',
 						'userid',
-						'customername',
-						
+						'customername',					
 						'address',
 						'email',
 						'phone',
 						'status',
-						'comment'
+						'paymenttype',
+						'comment',
+						'receiver',
+						'receiverphone',
+						'shipper',
+						'shippername',
+						'shipperat',
+						'notes'
 					);
 		$value=array(
 						$orderid,
 						$orderdate,
 						$userid,
 						$customername,
-						
 						$address,
 						$email,
 						$phone,
 						$status,
-						$comment
+						$paymenttype,
+						$comment,
+						$receiver,
+						$receiverphone,
+						$shipper,
+						$shippername,
+						$shipperat,
+						$notes
 					);
 		$this->db->insertData("order",$field,$value);
 		return $orderid;
@@ -194,6 +213,67 @@ class ModelAddonOrder extends Model
 			$where="orderid = '".$orderid."' And mediaid='".$mediaid."'";
 			$this->db->updateData('order_product',$field,$value,$where);
 		}
+	}
+	public function deleteOrderProduct($id)
+	{
+		$id = @(int)$id;
+		$where="id = '".$id."'";
+		$this->db->deleteData("order_product",$where);
+	}
+	
+	//order history
+	public function getOrderHistory($id)
+	{
+		$id=$this->db->escape(@$id);
+		
+		$sql = "Select `order_history`.* 
+									from `order_history` 
+									where id = '".$id."'";
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
+	
+	public function saveOrderHistory($data)
+	{
+		$id=$this->db->escape(@$data['id']);
+		$orderid=$this->db->escape(@$data['orderid']);
+		$userid=$this->db->escape(@$data['userid']);
+		$status=$this->db->escape(@$data['status']);
+		$actiondate=$this->date->getToday();
+		$field=array(
+						'id',
+						'orderid',
+						'userid',
+						'status',
+						'actiondate'
+						
+					);
+		$value=array(
+						$id,
+						$orderid,
+						$userid,
+						$status,
+						$actiondate
+						
+					);
+		$arr=$this->getOrderHistory($id);
+		if(count($arr)==0)
+		{
+			$value[0] = $this->db->getNextId("order_history","id");
+			$this->db->insertData("order_history",$field,$value);
+		}
+		else
+		{
+			$where="id = '".$id."'";
+			$this->db->updateData('order_product',$field,$value,$where);
+		}
+	}
+	
+	public function deleteOrderHistory($id)
+	{
+		$id = @(int)$id;
+		$where="id = '".$id."'";
+		$this->db->deleteData("order_history",$where);
 	}
 }
 ?>

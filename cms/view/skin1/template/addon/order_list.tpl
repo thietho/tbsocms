@@ -55,6 +55,9 @@
                 <input type="button" class="button" name="btnSearch" value="View all" onclick="window.location = '?route=addon/order'"/>
             </div>
         	<div class="button right">
+            	<?php if($this->user->checkPermission("addon/order/insert")==true){ ?>
+                <input class="button" type="button" name="btnAdd" value="Thêm" onclick="window.location='<?php echo $insert?>'"/>  
+                <?php } ?>
             	<input class="button" type="button" name="delete_all" value="<?php echo $button_delete ?>" onclick="deleteorder()"/>  
             </div>
             <div class="clearer">&nbsp;</div>
