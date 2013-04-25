@@ -44,6 +44,7 @@ class ControllerAddonCheckout extends Controller
 				$detail['orderid'] = $orderid;
 				$detail['mediaid'] = $item['mediaid'];
 				$detail['quantity'] = $item['qty'];
+				$detail['unit'] = $this->document->getMedia($item['mediaid'],'unit');
 				$detail['price'] = $item['price'];
 				$detail['discount'] = 0;
 				$this->model_addon_order->saveOrderProduct($detail);

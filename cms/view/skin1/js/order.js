@@ -144,17 +144,12 @@ function Order()
 						var mediaid = $(this).val();
 						var imagepath = '<img src="'+$(this).attr('image')+'">';
 						var title = $(this).attr('title');
-						$.getJSON("?route=core/media/getMedia&col=mediaid&val="+mediaid,
-							function(data)
-							{
-								//alert(data.medias[0].title);
-								price = data.medias[0].price;
-								if(data.medias[0].pricepromotion != 0)
-									price = data.medias[0].pricepromotion;
-								var row = order.addRow(0,data.medias[0].mediaid,title,imagepath,1,price);
-								$('#listproduct').append(row);
-								numberReady();
-							});
+						var price = $(this).attr('price');
+						var unit = $(this).attr('unit');
+						
+						order.addRow(0,mediaid,title,imagepath,1,unit,price);
+						
+						numberReady();
                     });
 					$(this).dialog("close");
 				},
@@ -168,16 +163,31 @@ function Order()
 		});
 	}
 	this.index = 0;
-	this.addRow = function(id,mediaid,title,image,quantity,price)
+	this.addRow = function(id,mediaid,title,image,quantity,madonvi,price)
 	{
 		var row = "";
 		row += "<td><input type='hidden' id='id-"+this.index+"' name=id["+this.index+"] value='"+id+"'><input type='hidden' name=mediaid["+this.index+"] value='"+mediaid+"'>" +title+"</td>";
 		row += "<td>"+image+"</td>";
 		row += "<td class='number'><input type='text' class='text number' id='quantity-"+this.index+"' name='quantity["+this.index+"]' value='"+quantity+"'></td>";
+		row +='<td class="number"><select mediaid="'+mediaid+'" id="madonvi-'+ this.index +'" name="madonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
 		row += "<td class='number'><input type='text' class='text number' id='price-"+this.index+"' name='price["+this.index+"]' value='"+price+"'></td>";
 		
 		row += "<td><input type='button' class='button' value='X' onclick='order.delRow("+this.index+")'></td>";
 		var html = "<tr id='row-"+this.index+"'>"+row+"</tr>";
+		$('#listproduct').append(html);
+		var str = '#madonvi-'+ this.index;
+		$.getJSON("?route=core/media/getListDonVi&mediaid="+ mediaid,
+			function(data){
+				html = "";
+				for(i in data)
+				{
+					//alert(data[i].madonvi)
+					html += '<option value="'+data[i].madonvi+'">'+data[i].tendonvitinh+'</option>';
+				}
+				$(str).html(html);
+				$(str).val(madonvi);
+			});
+		
 		this.index++;
 		return html;
 		

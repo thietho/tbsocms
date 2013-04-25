@@ -33,6 +33,7 @@
                     <th>STT</th>
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
+                    <th>Đơn vị</th>
                     <th>Đơn giá</th>
                     <th>Thành tiền</th>
                 </tr>
@@ -48,6 +49,7 @@
                     <td align="center"><?php echo $key +1 ?></td>
                     <td><?php echo $item['title']?></td>
                     <td class="number"><?php echo $this->string->numberFormate($item['quantity'])?></td>
+                    <td><?php echo $this->document->getDonViTinh($item['unit'])?></td>
                     <td class="number"><?php echo $this->string->numberFormate($item['price'])?></td>
                     <td class="number"><?php echo $this->string->numberFormate($item['subtotal'])?></td>
                 </tr>
@@ -55,10 +57,8 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Tổng cộng:</td>
+                    
+                    <td colspan="5" class="number">Tổng cộng:</td>
                     <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
                 </tr>
             </tfoot>

@@ -198,6 +198,7 @@ class ModelAddonOrder extends Model
 		$orderid=$this->db->escape(@$data['orderid']);
 		$mediaid=$this->db->escape(@$data['mediaid']);
 		$quantity=$this->string->toNumber($this->db->escape(@$data['quantity']));
+		$unit=$this->db->escape(@$data['unit']);
 		$price=$this->string->toNumber($this->db->escape(@$data['price']));
 		$discount=$this->string->toNumber($this->db->escape(@$data['discount']));
 		$subtotal=$quantity*$price*(1 - $discount/100);
@@ -205,6 +206,7 @@ class ModelAddonOrder extends Model
 						'orderid',
 						'mediaid',
 						'quantity',
+						'unit',
 						'price',
 						'discount',
 						'subtotal'
@@ -213,6 +215,7 @@ class ModelAddonOrder extends Model
 						$orderid,
 						$mediaid,
 						$quantity,
+						$unit,
 						$price,
 						$discount,
 						$subtotal
@@ -246,7 +249,15 @@ class ModelAddonOrder extends Model
 		$query = $this->db->query($sql);
 		return $query->rows;
 	}
-	
+	public function getOrderHistoryList($where)
+	{
+		
+		$sql = "Select `order_history`.* 
+									from `order_history` 
+									where 1=1 ".$where;
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
 	public function saveOrderHistory($data)
 	{
 		$id=$this->db->escape(@$data['id']);

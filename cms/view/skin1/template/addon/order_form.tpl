@@ -134,8 +134,9 @@
                             <th><?php echo $column_productname?></th>
                             <th><?php echo $column_productimage?></th>
                             <th><?php echo $column_productqty?></th>
-                            <th>Price</th>
-                            <th>Sub total</th>
+                            <th>Đơn vị</th>
+                            <th>Giá</th>
+                            <th>Thành tiền</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -149,6 +150,7 @@
                             <td><?php echo $item['title']?></td>
                             <td><?php echo $item['imagepreview']?></td>
                             <td class="number"><?php echo $this->string->numberFormate($item['quantity'])?></td>
+                            <td><?php echo $this->document->getDonViTinh($item['unit'])?></td>
                             <td class="number"><?php echo $this->string->numberFormate($item['price'])?></td>
                             <td class="number"><?php echo $this->string->numberFormate($item['subtotal'])?></td>
                         </tr>
@@ -157,6 +159,7 @@
                     <tfoot>
                     	<tr>
                         	<td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

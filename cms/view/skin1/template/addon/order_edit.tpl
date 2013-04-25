@@ -127,8 +127,8 @@
                                 <th><?php echo $column_productname?></th>
                                 <th><?php echo $column_productimage?></th>
                                 <th><?php echo $column_productqty?></th>
-                                <th>Price</th>
-                                
+                                <th>Đơn vị</th>
+                                <th>Giá</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -151,8 +151,8 @@
 $(document).ready(function(e) {
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
     <?php foreach($detail as $item){?>
-	var row = order.addRow("<?php echo $item['id']?>","<?php echo $item['mediaid']?>","<?php echo $item['title']?>","<?php echo $item['imagepreview']?>","<?php echo $item['quantity']?>","<?php echo $item['price']?>");
-	$('#listproduct').append(row);
+	var row = order.addRow("<?php echo $item['id']?>","<?php echo $item['mediaid']?>","<?php echo $item['title']?>","<?php echo $item['imagepreview']?>","<?php echo $item['quantity']?>","<?php echo $item['quantity']?>","<?php echo $item['price']?>");
+	
 	<?php } ?>
 	numberReady();
 	$('#paymenttype').val("<?php echo $order['paymenttype']?>");

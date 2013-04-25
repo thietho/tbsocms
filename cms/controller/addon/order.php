@@ -11,6 +11,7 @@ class ControllerAddonOrder extends Controller
 		$this->document->title = $this->language->get('heading_title');
 		
 		$this->load->model("addon/order");
+		$this->load->model("quanlykho/donvitinh");
 		$this->getList();
 	}
 	
@@ -267,7 +268,7 @@ class ControllerAddonOrder extends Controller
 	{
 		$this->load->model("addon/order");
 		$data = $this->request->post;
-		print_r($data);
+		
 		if($data['orderid'])
 		{
 			$this->model_addon_order->updateCol($data['orderid'],'userid',$data['userid']);
@@ -300,6 +301,7 @@ class ControllerAddonOrder extends Controller
 		
 		$arr_id = $data['id'];
 		$arr_mediaid = $data['mediaid'];
+		$arr_madonvi = $data['madonvi'];
 		$arr_quantity = $data['quantity'];
 		$arr_price = $data['price'];
 		
@@ -308,6 +310,7 @@ class ControllerAddonOrder extends Controller
 			$orderpro['id'] = $arr_id[$key];
 			$orderpro['orderid'] = $data['orderid'];
 			$orderpro['mediaid'] = $arr_mediaid[$key];
+			$orderpro['unit'] = $arr_madonvi[$key];
 			$orderpro['quantity'] = $arr_quantity[$key];
 			$orderpro['price'] = $arr_price[$key];
 			$orderpro['discount'] = 0;
