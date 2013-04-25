@@ -165,6 +165,12 @@ class ModelAddonOrder extends Model
 		
 		$where="orderid = '".$orderid."'";
 		$this->db->updateData('order',$field,$value,$where);
+		
+		$his['orderid'] = $orderid;
+		$his['userid'] = $this->user->getId();
+		$his['status'] = $status;
+		$this->model_addon_order->saveOrderHistory($his);
+		
 		return true;
 	}
 	

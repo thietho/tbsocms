@@ -287,6 +287,7 @@ class ControllerAddonOrder extends Controller
 		}
 		else
 		{
+			$data['shippdate'] = $this->date->formatViewDate($data['shippdate']);
 			$data['orderid'] = $this->model_addon_order->insert($data);
 		}
 		//Xoa nhung id can xoa
