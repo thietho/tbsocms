@@ -31,7 +31,7 @@
                     
                     <p>
                         <label>Khách hàng</label><br />
-                        <input type="hidden" name="nguoinhanid" value="<?php echo $item['nguoinhanid']?>" value="<?php echo $item['nguoinhanid']?>">
+                        <input type="hidden" id="nguoinhanid" name="nguoinhanid" value="<?php echo $item['nguoinhanid']?>" value="<?php echo $item['nguoinhanid']?>">
                         <input type="text" id="nguoinhan" name="nguoinhan" value="<?php echo $item['nguoinhan']?>" class="text" size=60 />
                         <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
                     </p>
@@ -202,8 +202,10 @@ $('#btnSelectKhachHang').click(function(e) {
 function intSelectMember()
 {
 	$('.item').click(function(e) {
-        $('#nguoinhanid').val($(this).attr('username'));
+		
+        $('#nguoinhanid').val($(this).attr('id'));
 		$('#nguoinhan').val($(this).attr('fullname'));
+		
 		$("#popup").dialog( "close" );
     });
 }

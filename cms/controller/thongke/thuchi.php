@@ -176,7 +176,7 @@ class ControllerThongkeThuchi extends Controller
 					$arr = array(
 								'maphieu' => $item['maphieu'],
 								'loai' => "Phiếu bán hàng",
-								'sotien' => $item['tongtien']
+								'sotien' => $item['thanhtoan']
 								);
 					$tongthu += $item['tongtien'];
 					$data_thuchi[$date]['thu'][] = $arr;
@@ -207,7 +207,7 @@ class ControllerThongkeThuchi extends Controller
 					$arr = array(
 								'maphieu' => $item['maphieu'],
 								'loai' => "Phiếu phập hàng",
-								'sotien' => $item['tongtien']
+								'sotien' => $item['thanhtoan']
 								);
 					$tongchi += $item['tongtien'];
 					$data_thuchi[$date]['chi'][] = $arr;

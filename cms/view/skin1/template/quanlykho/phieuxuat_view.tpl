@@ -43,12 +43,23 @@
         </tr>
         <?php } ?>
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="number">Tổng tiền</td>
+            
+           
+            <td colspan="5" class="number">Tổng tiền</td>
             <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
         </tr>
+        <tr>
+          
+            <td colspan="5" class="number">Thanh toán</td>
+            <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
+        </tr>
+        <?php if($item['congno']){ ?>
+        <tr>
+            
+            <td colspan="5" class="number">Công nợ</td>
+            <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>
+        </tr>
+        <?php }?>
     </tbody>
 </table>
 <table style="margin:15px 0">

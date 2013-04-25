@@ -5,7 +5,7 @@ class ControllerCoreMember extends Controller
 	function __construct() 
 	{
 	 	$this->load->model("core/user");
-		//$this->load->model("addon/biennhan");
+		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->model("addon/thuchi");
 		
    	}
@@ -187,12 +187,12 @@ class ControllerCoreMember extends Controller
 	
 	public function getCongNo($id='')
 	{
-		/*if($id=="")
+		if($id=="")
 			$id=$this->request->get['khachhangid'];
-			
-		$this->data['user'] = $this->model_core_user->getItem($id);
-		//Lay tat ca phieu thu
-		$where = " AND makhachhang = '".$id."' AND loaithuchi = 'thu'";
+		
+		$this->data['user'] = $this->model_core_user->getId($id);
+		//Lay tat ca phieu thu cong no
+		$where = " AND makhachhang = '".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'thuno'";
 		$this->data['data_phieuthu'] = $this->model_addon_thuchi->getList($where);
 		$tongthu = 0;
 		
@@ -200,20 +200,21 @@ class ControllerCoreMember extends Controller
 		{
 			$tongthu += $item['quidoi'];	
 		}
-		//Lay tat ca bien nhan
-		$where = " AND khachhangid = '".$id."'";
-		$this->data['data_biennhan'] = $this->model_addon_biennhan->getList($where);
-		$tongbiennhan = 0;
-		foreach($this->data['data_biennhan'] as $item)
+		//Lay tat ca phieu ban hang
+		$where = " AND loaiphieu = 'PBH' AND nguoinhanid = '".$id."'";
+		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
+		$tongno = 0;
+		foreach($this->data['data_phieubanhang'] as $item)
 		{
-			$tongbiennhan += $item['tongtien'];	
+			$tongno += $item['congno'];	
 		}
-		$congno = $tongbiennhan - $tongthu;
+		
+		$congno = $tongno - $tongthu;
 		
 		if($this->request->get['khachhangid'])
 		{
 			$this->data['tongphieuthu'] = $tongthu;
-			$this->data['tongbiennhan'] = $tongbiennhan;
+			$this->data['tongno'] = $tongno;
 			$this->data['congno'] = $congno;
 			$this->id='content';
 			$this->template="core/member_congno.tpl";
@@ -226,7 +227,7 @@ class ControllerCoreMember extends Controller
 		else
 		{
 			return $congno;
-		}*/
+		}
 	}
 	
 	private function getForm()

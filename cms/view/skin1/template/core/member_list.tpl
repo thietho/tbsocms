@@ -156,6 +156,9 @@ function viewCongNo(id)
 							$( this ).dialog( "close" );
 							
 						},
+						'Thanh toán công nợ':function(){
+							
+						},
 						'In': function(){
 							openDialog("?route=core/member/getCongNo&khachhangid="+id+"&dialog=print",800,500)
 							

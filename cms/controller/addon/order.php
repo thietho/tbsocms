@@ -49,10 +49,13 @@ class ControllerAddonOrder extends Controller
 	{
 		$this->load->model('addon/order');
 		$this->load->model('core/media');
+		$this->load->model('core/user');
 		$this->load->model('quanlykho/phieunhapxuat');
 		$orderid = $this->request->get['orderid'];
 		$order = $this->model_addon_order->getItem($orderid);
 		$nhanvien = $this->user->getNhanVien();
+		if($order['order']['userid'] != "")
+			$member = $this->model_core_user->getItem($order['order']['userid']);
 		$tongtien = 0;
 		
 		$data['loaiphieu'] = "PBH";
@@ -61,7 +64,7 @@ class ControllerAddonOrder extends Controller
 		$data['nhacungcapid'] = "";
 		$data['tennhacungcap'] = "";
 		$data['nguoigiao'] = $order['order']['shippername'];
-		$data['nguoinhanid'] = "KH-".$order['order']['userid'];
+		$data['nguoinhanid'] = $member['id'];
 		$data['nguoinhan'] = $order['order']['customername'];
 		if($order['order']['receiver']!="" && $order['order']['customername'] != $order['order']['receiver'])
 			$data['nguoinhan'] .= " - người nhận: ".$order['order']['receiver'];

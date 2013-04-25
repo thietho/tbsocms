@@ -7,27 +7,41 @@
     <label>Địa chỉ:</label> <?php echo $user['address']?>
     <label>Email:</label> <?php echo $user['email']?>
 </p>
+<form id="frm_thanhtoancongno">
+	<p>
+    	<label>Số tiền:</label> <input type="text" class="text number" id="thanhtoan" name="thanhtoan"/>
+        <input type="button" class="button" id="btnTraHet" value="Trả hết"/>
+        <input type="button" class="button" id="btnThanhToan" value="Thanh toán"/>
+        
+    </p>
+</form>
 <h3>Dach sách biên nhận</h3>
 <table>
 	<tr>
-    	<th width="30%">Số biên nhận</th>
+    	<th width="30%">Số phieu bán hàng</th>
         <th width="30%">Ngày lập</th>
-        <th>Tổng số tiền</th>
+        <th>Tổng tiền</th>
+        <th>Thanh toán</th>
+        <th>Công nợ</th>
     </tr>
-    <?php foreach($data_biennhan as $item){ ?>
+    <?php foreach($data_phieubanhang as $item){ ?>
     <tr>
-    	<td><a onclick="viewBienNhan(<?php echo $item['biennhanid']?>)"><?php echo $item['sobiennhan']?></a></td>
+    	<td><a onclick="viewPhieuBanHang(<?php echo $item['id']?>)"><?php echo $item['maphieu']?></a></td>
         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
         <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+        <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
+        <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>
     </tr>
     <?php } ?>
     <tr>
     	<td></td>
-        <td class="text-right">Tổng phải trả:</td>
-        <td class="number"><?php echo $this->string->numberFormate($tongbiennhan)?></td>
+        <td></td>
+        <td></td>
+        <td class="text-right">Tổng công nợ:</td>
+        <td class="number"><?php echo $this->string->numberFormate($tongno)?></td>
     </tr>
 </table>
-<h3>Dach sách phiếu thu</h3>
+<h3>Dach sách phiếu thu công nợ</h3>
 <table>
 	<tr>
     	<th width="30%">Số phiếu</th>
@@ -49,12 +63,26 @@
 </table>
 <h3>Tổng công nợ: <?php echo $this->string->numberFormate($congno)?></h3>
 <script language="javascript">
-function viewBienNhan(biennhanid)
+$(document).ready(function(e) {
+    numberReady();
+});
+$('#btnTraHet').click(function(e) {
+    $('#thanhtoan').val("<?php echo $this->string->numberFormate($congno)?>");
+});
+$('#btnThanhToan').click(function(e) {
+    $.post("?route=addon/phieuthu/save",
+		{},
+		function(data)
+		{
+		}
+	);
+});
+function viewPhieuBanHang(id)
 {
-	openDialog("?route=addon/biennhan/view&biennhanid="+biennhanid+"&dialog=print",800,500);
+	openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print",800,500);
 }
 function viewPhieuThu(maphieu)
 {
-	openDialog("?route=ben/phieuthu/view&maphieu="+maphieu+"&dialog=print",800,500);
+	openDialog("?route=addon/phieuthu/view&maphieu="+maphieu+"&dialog=print",800,500);
 }
 </script>
