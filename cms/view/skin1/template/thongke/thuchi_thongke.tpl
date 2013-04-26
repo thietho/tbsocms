@@ -50,9 +50,9 @@
 <table class="data-table">
 	<thead>
         <tr>
-            <th>Danh mục thu</th>
-            <th>Tổng thu</th>
-            <th>Tỷ lệ</th>
+            <th width="40%">Danh mục thu</th>
+            <th width="30%">Tổng thu</th>
+            <th width="30%">Tỷ lệ</th>
         </tr>
     </thead>
     <tbody>
@@ -69,15 +69,15 @@
 <table class="data-table">
 	<thead>
         <tr>
-            <th>Danh mục thu</th>
-            <th>Tổng thu</th>
-            <th>Tỷ lệ</th>
+            <th width="40%">Danh mục chi</th>
+            <th width="30%">Tổng chi</th>
+            <th width="30%">Tỷ lệ</th>
         </tr>
     </thead>
     <tbody>
 	<?php foreach($taikhoanchi as $tk => $sotien){ ?>
     	<tr>
-        	<td><?php echo $this->document->getCategory($tk)?></td>
+        	<td ><?php echo $this->document->getCategory($tk)?></td>
             <td class="number"><?php echo $this->string->numberFormate($sotien)?></td>
             <td class="number"><?php echo $this->string->numberFormate($sotien/$tongchi*100,2)?>%</td>
         </tr>

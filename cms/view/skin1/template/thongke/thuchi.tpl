@@ -48,10 +48,12 @@
 </div>
 <script language="javascript">
 $('#btnThongKe').click(function(e) {
+	$('#showresult').html(loading);
     $.post("?route=thongke/thuchi/thongke", 
 		$("#frm_thongke").serialize(), 
 		function(html)
 		{
+			
 			$('#showresult').html(html);
 		}
 	);
