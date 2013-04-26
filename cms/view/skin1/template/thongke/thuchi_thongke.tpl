@@ -46,3 +46,41 @@
 
 <h3>Số dư trong kỳ: <?php echo $this->string->numberFormate($tontrongky)?></h3>
 <h3>Số dư cuối kỳ: <?php echo $this->string->numberFormate($tontrongky + $tonkytruoc)?></h3>
+<h2>Tổng kết thu</h2>
+<table class="data-table">
+	<thead>
+        <tr>
+            <th>Danh mục thu</th>
+            <th>Tổng thu</th>
+            <th>Tỷ lệ</th>
+        </tr>
+    </thead>
+    <tbody>
+	<?php foreach($taikhoanthu as $tk => $sotien){ ?>
+    	<tr>
+        	<td><?php echo $this->document->getCategory($tk)?></td>
+            <td class="number"><?php echo $this->string->numberFormate($sotien)?></td>
+            <td class="number"><?php echo $this->string->numberFormate($sotien/$tongthu*100,2)?>%</td>
+        </tr>
+    <?php }?>
+    </tbody>
+</table>
+<h2>Tổng kết chi</h2>
+<table class="data-table">
+	<thead>
+        <tr>
+            <th>Danh mục thu</th>
+            <th>Tổng thu</th>
+            <th>Tỷ lệ</th>
+        </tr>
+    </thead>
+    <tbody>
+	<?php foreach($taikhoanchi as $tk => $sotien){ ?>
+    	<tr>
+        	<td><?php echo $this->document->getCategory($tk)?></td>
+            <td class="number"><?php echo $this->string->numberFormate($sotien)?></td>
+            <td class="number"><?php echo $this->string->numberFormate($sotien/$tongchi*100,2)?>%</td>
+        </tr>
+    <?php }?>
+    </tbody>
+</table>
