@@ -58,6 +58,7 @@ class ControllerAddonOrder extends Controller
 		$this->load->model('core/user');
 		$this->load->model('quanlykho/phieunhapxuat');
 		$orderid = $this->request->get['orderid'];
+		$thanhtoan = $this->request->get['thanhtoan'];
 		$order = $this->model_addon_order->getItem($orderid);
 		$nhanvien = $this->user->getNhanVien();
 		if($order['order']['userid'] != "")
@@ -75,10 +76,12 @@ class ControllerAddonOrder extends Controller
 		if($order['order']['receiver']!="" && $order['order']['customername'] != $order['order']['receiver'])
 			$data['nguoinhan'] .= " - người nhận: ".$order['order']['receiver'];
 		$data['tongtien'] = $tongtien;
-		$data['ghichu'] = $order['order']['comment'] ;
+		$data['thanhtoan'] = $thanhtoan;
+		
 		if($order['order']['notes'])
 			$data['ghichu'] .= " - ". $order['order']['notes'];
 		$phieuid = $this->model_quanlykho_phieunhapxuat->save($data);
+		print_r($data);
 		$data_ct = array();
 		foreach($order['detail'] as $item)
 		{
@@ -105,7 +108,8 @@ class ControllerAddonOrder extends Controller
 		}
 		$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
 		
-		
+		$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien - $thanhtoan);
+		$this->data['output'] = "true";
 		
 		
 		$this->id="content";

@@ -97,7 +97,8 @@ function Order()
 		});
 		
 	}
-	this.completed = function(orderid)
+	
+	this.completed = function(orderid,thanhtoan)
 	{
 		
 		$.ajax({
@@ -108,11 +109,12 @@ function Order()
 				alert("Đơn hàng đã hoàn tất");
 				//Xuat phieu ban hang
 				$.ajax({
-					url: "?route=addon/order/createphieuxuat&orderid="+orderid,
+					url: "?route=addon/order/createphieuxuat&orderid="+orderid+"&thanhtoan="+thanhtoan,
 					cache: false,
 					success: function(html)
 					{
-						window.location = "?route=addon/order";
+						if(html == "true")
+							window.location = "?route=addon/order";
 					}
 				});
 				
