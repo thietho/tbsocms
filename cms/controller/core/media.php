@@ -5,26 +5,6 @@ class ControllerCoreMedia extends Controller
 	private $route;
 	public function __construct() 
 	{
-		if(!$this->user->hasPermission($this->getRoute(), "access"))
-		{
-			$this->response->redirect("?route=common/permission");
-		}
-		$this->data['permissionAdd'] = true;
-		$this->data['permissionEdit'] = true;
-		$this->data['permissionDelete'] = true;
-		if(!$this->user->hasPermission($this->getRoute(), "add"))
-		{
-			$this->data['permissionAdd'] = false;
-		}
-		if(!$this->user->hasPermission($this->getRoute(), "edit"))
-		{
-			$this->data['permissionEdit'] = false;
-		}
-		if(!$this->user->hasPermission($this->getRoute(), "delete"))
-		{
-			$this->data['permissionDelete'] = false;
-		}
-		
 		$this->load->model("core/media");
 		$this->load->model("quanlykho/donvitinh");
 		$this->load->model("core/sitemap");
@@ -53,32 +33,51 @@ class ControllerCoreMedia extends Controller
 	public function index()
 	{
 		$this->document->title = $this->language->get('heading_title');
-		$this->getList();
+		
+		
+		$this->id='content';
+		$this->template="core/media_list.tpl";
+		$this->layout="layout/center";
+		
+		$this->render();
 	}
 	
-	private function getList()
+	public function getList()
 	{
 		
 		$where = " AND mediaparent = '' AND mediatype = ''";
 		
-		$keyword = $this->request->get['keyword'];
-		$type = $this->request->get['type'];
-		$sitemapid = $this->request->get['sitemapid'];
-		$userid = $this->request->get['userid'];
-		$tungay = $this->request->get['tungay'];
-		$denngay = $this->request->get['denngay'];
+		$keyword = urldecode($this->request->get['keyword']);
+		$type = urldecode($this->request->get['type']);
+		$sitemapid = urldecode($this->request->get['sitemapid']);
+		$userid = urldecode($this->request->get['userid']);
+		$tungay = urldecode($this->request->get['tungay']);
+		$denngay = urldecode($this->request->get['denngay']);
 		
-		if($keyword != '')
+		/*if($keyword != '')
 		{
 			$where .= "AND ( 
 							title like '%".$keyword."%' 
 							OR summary like '%".$keyword."%' 
 							OR description like '%".$keyword."%' 
 							)";	
+		}*/
+		$arrkey = split(' ', $keyword);
+		$where = "";
+		if($keyword !="")
+		{
+			$arr = array();
+			foreach($arrkey as $key)
+			{
+				$arr[] = "title like '%".$key."%'";
+			}
+			$where .= " AND (". implode(" AND ",$arr). ")";
+			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
 		}
 		
 		if($type!="")
 		{
+			$arr = array();
 			$sitemaps = $this->model_core_sitemap->getListByModule($type,$this->user->getSiteId());
 			foreach($sitemaps as $item)
 			{
@@ -102,6 +101,7 @@ class ControllerCoreMedia extends Controller
 		{
 			$where .= " AND statusdate < '".$this->date->formatViewDate($denngay)." 24:00:00'";	
 		}
+		
 		$rows = $this->model_core_media->getList($where);
 		//Page
 		$page = $this->request->get['page'];		
@@ -109,7 +109,7 @@ class ControllerCoreMedia extends Controller
 		$limit = 20;
 		$total = count($rows); 
 		// work out the pager values 
-		$this->data['pager']  = $this->pager->pageLayout($total, $limit, $page); 
+		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page,"#listmedia");
 		
 		$pager  = $this->pager->getPagerData($total, $limit, $page); 
 		$offset = $pager->offset; 
@@ -163,8 +163,8 @@ class ControllerCoreMedia extends Controller
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
-		$this->template="core/media_list.tpl";
-		$this->layout="layout/center";
+		$this->template="core/media_table.tpl";
+		
 		
 		$this->render();
 	}

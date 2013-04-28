@@ -31,10 +31,11 @@ foreach($listsitemapid as $val)
 ?>
 
 $('#mapmodule').change(function(e) {
-	$('#listsitemap').html('');
+	
     $.getJSON("?route=core/media/getListSiteMap&module="+this.value, 
 	function(data) 
 	{
+		$('#listsitemap').html('');
 		for(i in data.sitemaps)
 		{
 			var chk = "";
@@ -57,7 +58,8 @@ function save()
 		function(data){
 			if(data == "true")
 			{
-				window.location.reload();
+				searchForm();
+				$.unblockUI();
 			}
 			
 			

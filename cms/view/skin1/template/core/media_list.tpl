@@ -9,7 +9,7 @@
         	<div id="ben-search">
             	<label><?php echo $lbl_key ?></label>
                 <input type="text" id="keyword" name="keyword" class="text" value="" />
-               <!-- <label>Loại</label>
+               	<label>Loại</label>
                 <select id="type" name="type">
                     <option value=""></option>
                     <?php foreach($module as $key => $val){ ?>
@@ -27,7 +27,7 @@
                     <?php foreach($users as $key => $val){ ?>
                     <option value="<?php echo $val['userid']?>"><?php echo $val['fullname']?></option>
                     <?php } ?>
-                </select>-->
+                </select>
                 <label><?php echo $lbl_fromdate ?></label>
                 <script language="javascript">
 					$(function() {
@@ -52,7 +52,7 @@
                 <input id="denngay" name="denngay" type="text" class="text" />
                
                 <input type="button" class="button" name="btnSearch" value="<?php echo $button_search ?>" onclick="searchForm()"/>
-                <input type="button" class="button" name="btnSearch" value="<?php echo $button_viewall ?>" onclick="window.location = '?route=core/media'"/>
+                <input type="button" class="button" name="btnSearch" value="<?php echo $button_viewall ?>" onclick="viewAll()"/>
             </div>
         	<div class="button right">
                
@@ -60,50 +60,10 @@
             </div>
             <div class="clearer">^&nbsp;</div>
             
-            <div class="sitemap treeindex">
-                <table class="data-table" cellpadding="0" cellspacing="0">
-                <tbody>
-                    <tr class="tr-head">
-                        <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
-                        
-                        <th><?php echo $lbl_title ?></th>
-<!--                    <th>Tắc giả</th>
-                        <th>Loại</th>-->                        
-                        <th><?php echo $lbl_category ?></th>
-                        <th><?php echo $lbl_date ?></th>
-                        <th><?php echo $lbl_image ?></th>                 
-                        <th width='150px'><?php echo $text_control ?></th>                                  
-                    </tr>
-        
-        
-        <?php
-            foreach($medias as $item)
-            {
-        ?>
-                    <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['mediaid']?>]" value="<?php echo $item['mediaid']?>" ></td>
-                        
-                        <td><?php echo $item['title']?></td>
-                        
-                        <!--<td><?php echo $item['fullname']?></td>
-                        <td><?php echo $item['typename']?></td>-->
-                		<td><?php echo $item['sitemapnames']?></td>
-                        <td><?php echo $this->date->formatMySQLDate($item['statusdate'],'longdate')?></td>
-                        <td><?php echo $item['imagepreview']?></td>
-                        <td class="link-control">
-                            <a class="button" href="<?php echo $item['link_edit']?>" title="<?php echo $item['text_edit']?>"><?php echo $button_edit?></a>
-                            <?php echo $item['btnMap']?>
-                        </td>
-                    </tr>
-        <?php
-            }
-        ?>
-                        
-                                                    
-                </tbody>
-                </table>
+            <div id="listmedia" class="sitemap treeindex">
+                
             </div>
-        	<?php echo $pager?>
+        	
         
         </form>
         
@@ -141,30 +101,48 @@ function selectSiteMap(mediaid,moduleid)
 				//numberReady();
 			});		
 }
-
+$(document).ready(function(e) {
+    viewAll()
+});
+$('.text').keyup(function(e) {
+    searchForm();
+});
+$('select').change(function(e) {
+    searchForm();
+});
+function loadData(url)
+{
+	$('#listmedia').html(loading);
+	$('#listmedia').load(url);
+}
+function viewAll()
+{
+	var url =  "?route=core/media/getList";
+	loadData(url);
+}
 function searchForm()
 {
-	var url =  "?route=core/media";
+	var url =  "?route=core/media/getList";
 	
 	
 	if($("#keyword").val() != "")
-		url += "&keyword="+ $("#keyword").val();
-/*	if($("#type").val() != "")
-		url += "&type=" + $("#type").val();
+		url += "&keyword="+ encodeURI($("#keyword").val());
+	if($("#type").val() != "")
+		url += "&type=" + encodeURI($("#type").val());
 	if($("#sitemapid").val() != "")
-		url += "&sitemapid=" + $("#sitemapid").val();
+		url += "&sitemapid=" + encodeURI($("#sitemapid").val());
 	if($("#userid").val() != "")
-		url += "&userid=" + $("#userid").val();
-*/	if($("#tungay").val() != "")
-		url += "&tungay=" + $("#tungay").val();
+		url += "&userid=" + encodeURI($("#userid").val());
+	if($("#tungay").val() != "")
+		url += "&tungay=" + encodeURI($("#tungay").val());
 	if($("#denngay").val() != "")
-		url += "&denngay=" + $("#denngay").val();
+		url += "&denngay=" + encodeURI($("#denngay").val());
 	if("<?php echo $_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
 	
-	window.location = url;
+	loadData(url);
 }
 
 
@@ -194,4 +172,9 @@ $(document).ready(function(e) {
     $('#type').change();
 	
 });
+function moveto(url,eid)
+{
+	$(eid).html(loading);
+	$(eid).load(url);	
+}
 </script>
