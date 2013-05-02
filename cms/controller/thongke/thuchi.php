@@ -31,7 +31,6 @@ class ControllerThongkeThuchi extends Controller
 		if($tungay)
 		{
 			$data_kytruoc = $this->xuly("",$this->date->addday($tungay, -1));
-			print_r($data_kytruoc);
 			$this->data['tonkytruoc'] = $data_kytruoc['tontrongky'];
 		}
 		else
