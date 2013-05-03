@@ -23,7 +23,7 @@
         </tr>
         	<?php $max = max(count($item['thu']),count($item['chi']))?>
         	<?php for($i=0;$i < $max;$i++){ ?>
-        <tr>
+        <tr class="item">
         	<td><?php echo $item['thu'][$i]['maphieu']?></td>
             <td><?php echo $item['thu'][$i]['loai']?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['thu'][$i]['sotien'])?></td>
@@ -33,12 +33,10 @@
         </tr>
             <?php } ?>
         <?php } ?>
-        <tr>
-        	<td></td>
-            <td></td>
+        <tr class="item">
+        	<td colspan="2" align="right">Tổng thu</td>
             <td class="number"><?php echo $this->string->numberFormate($tongthu)?></td>
-            <td></td>
-            <td></td>
+            <td colspan="2" align="right">Tổng chi</td>
             <td class="number"><?php echo $this->string->numberFormate($tongchi)?></td>
         </tr>
     </tbody>
@@ -57,7 +55,7 @@
     </thead>
     <tbody>
 	<?php foreach($taikhoanthu as $tk => $sotien){ ?>
-    	<tr>
+    	<tr class="item">
         	<td><?php echo $this->document->getCategory($tk)?></td>
             <td class="number"><?php echo $this->string->numberFormate($sotien)?></td>
             <td class="number"><?php echo $this->string->numberFormate($sotien/$tongthu*100,2)?>%</td>
@@ -76,8 +74,8 @@
     </thead>
     <tbody>
 	<?php foreach($taikhoanchi as $tk => $sotien){ ?>
-    	<tr>
-        	<td ><?php echo $this->document->getCategory($tk)?></td>
+    	<tr class="item">
+        	<td><?php echo $this->document->getCategory($tk)?></td>
             <td class="number"><?php echo $this->string->numberFormate($sotien)?></td>
             <td class="number"><?php echo $this->string->numberFormate($sotien/$tongchi*100,2)?>%</td>
         </tr>

@@ -102,7 +102,7 @@ class ControllerCoreMember extends Controller
 		{
 			foreach($listuserid as $id)
 			{
-				$this->model_core_user->deletemember($id);
+				$this->model_core_user->destroy($id);
 			}
 			$this->data['output'] = "Xóa thành công";
 		}

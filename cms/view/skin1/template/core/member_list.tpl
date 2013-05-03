@@ -88,7 +88,7 @@ function deleteUser()
 					if(data!="")
 					{
 						alert(data)
-						linkto("?<?php echo $refres?>")
+						window.location.reload();
 					}
 				}
 		);
