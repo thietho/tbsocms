@@ -92,7 +92,7 @@
                 </tbody>
                 </table>
             </div>
-        
+        	<?php echo $pager?>
         
         </form>
         
