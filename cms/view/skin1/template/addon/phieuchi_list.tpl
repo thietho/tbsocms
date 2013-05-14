@@ -106,16 +106,16 @@
 <script language="javascript">
 function deleteorder()
 {
-	var answer = confirm("Are you sure delete?")
+	var answer = confirm("Bạn có muốn xóa không?")
 	if (answer)
 	{
-		$.post("?route=addon/order/delete", 
+		$.post("?route=addon/phieuchi/delete", 
 				$("#listitem").serialize(), 
 				function(data)
 				{
-					if(data!="")
+					if(data=="true")
 					{
-						alert(data)
+						alert("Xóa thành công")
 						window.location.reload();
 					}
 				}
