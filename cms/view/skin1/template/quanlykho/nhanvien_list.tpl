@@ -80,10 +80,10 @@ $(document).ready(function(e) {
     viewAll();
 });
 
-$('.text').keyup(function(e) {
+$('#frm_nhanvien .text').keyup(function(e) {
     searchForm();
 });
-$('select').change(function(e) {
+$('#frm_nhanvien select').change(function(e) {
     searchForm();
 });
 function viewAll()

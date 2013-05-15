@@ -4,7 +4,7 @@
     
     <div class="section-content">
     	
-        <form action="" method="post" id="listuser" name="listuser">
+        <form action="" method="post" id="listmember" name="listmember">
         
         	<div class="button right">
                	<?php if($dialog!=true){ ?>
@@ -57,10 +57,10 @@ $(document).ready(function(e) {
     viewAll();
 	
 });
-$('.text').keyup(function(e) {
+$('#listmember .text').keyup(function(e) {
     searchForm();
 });
-$('select').change(function(e) {
+$('#listmember select').change(function(e) {
     searchForm();
 });
 
@@ -82,7 +82,7 @@ function deleteUser()
 	if (answer)
 	{
 		$.post("?route=core/member/delete", 
-				$("#listuser").serialize(), 
+				$("#listmember").serialize(), 
 				function(data)
 				{
 					if(data!="")
