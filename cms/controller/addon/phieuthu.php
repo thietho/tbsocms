@@ -191,8 +191,10 @@ class ControllerAddonPhieuthu extends Controller
 		if($this->validateForm($data))
 		{
 			$data['loaithuchi'] = "thu";
-			
-			$data['prefix'] = "PT";
+			$now = $this->date->getToday();
+			$year = $this->date->getYear($now);
+			$month = $this->date->getMonth($now);
+			$data['prefix'] = $month.$year."PT";
 			$data['quidoi'] = $this->document->toVND($this->string->toNumber($data['sotien']),$data['donvi']);
 			if($data['maphieu']=="")
 			{

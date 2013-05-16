@@ -193,7 +193,10 @@ class ControllerAddonPhieuchi extends Controller
 		{
 			$data['loaithuchi'] = "chi";
 			//$data['taikhoanthuchi'] = $data['taikhoanthuchi'];
-			$data['prefix'] = "PC";
+			$now = $this->date->getToday();
+			$year = $this->date->getYear($now);
+			$month = $this->date->getMonth($now);
+			$data['prefix'] = $month.$year."PC";
 
 			
 			$data['quidoi'] = $this->document->toVND($this->string->toNumber($data['sotien']),$data['donvi']);
