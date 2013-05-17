@@ -56,7 +56,7 @@ class ControllerAddonLogin extends Controller
 			$this->load->model('core/user');
 			$activecode = $this->model_core_user->getInformation(trim($data['username']),"activecode");
 			if($activecode != "")
-				$this->error['username'] = "Tài khoảng của bạn chưa được kích hoạt! <a href='".$this->document->createLink('active')."'>Kích hoạt tài khoảng click vào đây</a>";
+				$this->error['username'] = "tài khoản của bạn chưa được kích hoạt! <a href='".$this->document->createLink('active')."'>Kích hoạt tài khoản click vào đây</a>";
 		}
 		if(trim($data['password']) =="")
 		{

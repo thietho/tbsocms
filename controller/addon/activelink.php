@@ -6,7 +6,7 @@ class ControllerAddonActivelink extends Controller
 	{
 		if($this->member->isLogged())
 			$this->response->redirect($this->document->createLink('member'));
-		$this->document->breadcrumb .= "Kích hoạt tài khoảng";
+		$this->document->breadcrumb .= "Kích hoạt tài khoản";
 		$this->data['active']=$this->active();
 		
 		$this->id="content";

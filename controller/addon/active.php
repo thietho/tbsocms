@@ -6,7 +6,7 @@ class ControllerAddonActive extends Controller
 	{
 		if($this->member->isLogged())
 			$this->response->redirect($this->document->createLink('member'));
-		$this->document->breadcrumb .= "Kích hoạt tài khoảng";
+		$this->document->breadcrumb .= "Kích hoạt tài khoản";
 		$this->id="content";
 		$this->template="addon/active.tpl";
 		$this->render();
@@ -64,7 +64,7 @@ class ControllerAddonActive extends Controller
 			$this->load->model("core/user");
 			$activecode = $this->model_core_user->getInformation($data['username'], "activecode");
 			if($activecode == "")
-				$this->error['activecode'] = "Tài khoảng của bạn đã kích hoạt rồi";
+				$this->error['activecode'] = "tài khoản của bạn đã kích hoạt rồi";
 		}
 		
 		if (count($this->error)==0) {
