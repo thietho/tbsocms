@@ -81,66 +81,75 @@ function save()
 
 function browserFileImage()
 {
-    //var re = openDialog("?route=core/file",800,500);
-	$('#handler').val('image');
+    //var re = openDialog("?route=core/file&dialog=true",800,500);
+	/*$('#handler').val('image');
 	$('#outputtype').val('image');
 	showPopup("#popup", 800, 500);
 	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
-	$("#popup").load("?route=core/file&dialog=true")
+	$("#popup").load("?route=core/file&dialog=true");*/
+	
+	$("#popup").attr('title','Chọn hình');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 600,
+			modal: true,
+			
+		});
+	
+		
+		$("#popup-content").load("?route=core/file&dialog=true&type=single",function(){
+			$("#popup").dialog("open");	
+		});
 		
 }
-
-function addImageTo()
+function intSeleteFile(type)
 {
-	var str= trim($("#listselectfile").val(),",");
-	var arr = str.split(",");
 	
-	if(str!="")
+	switch(type)
 	{
-		for (i=0;i<arr.length;i++)
-		{
-			$.getJSON("?route=core/file/getFile&fileid="+arr[i], 
-				function(data) 
+		case "single":
+			$('.filelist').click(function(e) {
+				$('#imagepreview').attr('src',$(this).attr('imagethumbnail'));
+				$('#imageid').val(this.id);
+				$('#imagepath').val($(this).attr('filepath'));
+				$('#imagethumbnail').val($(this).attr('imagethumbnail'));
+				$("#popup").dialog( "close" );
+			});			
+			break;
+			
+		case "editor":
+			$('.filelist').click(function(e) {
+
+				
+				width = "";
+							
+				var value = "<img src='<?php echo HTTP_IMAGE?>"+$(this).attr('filepath')+"'/>";
+				
+				var oEditor = CKEDITOR.instances['editor1'] ;
+				
+				
+				// Check the active editing mode.
+				if (oEditor.mode == 'wysiwyg' )
 				{
-					switch($('#outputtype').val())
-					{
-						case 'editor':
-							width = "";
-							
-							var value = "<img src='<?php echo HTTP_IMAGE?>"+data.file.filepath+"'/>";
-							
-							var oEditor = CKEDITOR.instances[$('#handler').val()] ;
-							
-							
-							// Check the active editing mode.
-							if (oEditor.mode == 'wysiwyg' )
-							{
-								// Insert the desired HTML.
-								oEditor.insertHtml( value ) ;
-								$("#listselectfile").val('');
-								var temp = oEditor.getData()
-								oEditor.setData( temp );
-							}
-							else
-								alert( 'You must be on WYSIWYG mode!' ) ;
-							break;
-						case 'image':
-							var handler = $('#handler').val();
-							$('#'+handler+'id').val(data.file.fileid)
-							$('#'+handler+'path').val(data.file.filepath)
-							$.getJSON("?route=core/file/getFile&fileid="+data.file.fileid+"&width=200", 
-							function(file) 
-							{
-								$('#'+handler+'thumbnail').val(file.file.imagepreview)
-								$('#'+handler+'preview').attr('src',file.file.imagepreview)
-							});
-							
-							
-							break;
-						
-					}
-				});
-		}
+					// Insert the desired HTML.
+					oEditor.insertHtml( value ) ;
+					
+					var temp = oEditor.getData()
+					oEditor.setData( temp );
+				}
+				else
+					alert( 'You must be on WYSIWYG mode!' ) ;
+				$("#popup").dialog( "close" );
+			});			
+			break;
+		case "multi":
+			$('.filelist').click(function(e) {
+                $('#popup-seletetion').append($(this))
+            });
+			break;
 	}
 }
 </script>
