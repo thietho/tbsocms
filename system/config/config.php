@@ -9,4 +9,6 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
 define('DB_DATABASE', 'db_tbsocms');
 define('DB_PREFIX', '');
+//Time
+define('TIMEZONE', 7);
 ?>
