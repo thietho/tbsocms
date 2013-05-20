@@ -6,6 +6,7 @@ class ControllerCommonHeader extends Controller
 		$sitemapid = "hotroonline";
 		$siteid = $this->member->getSiteId();
 		$this->load->model("core/media");
+		$this->load->model("core/sitemap");
 		$this->data['sitemap'] = $this->model_core_sitemap->getItem($sitemapid, $siteid);
 		$this->data['media'] = $this->model_core_media->getItem($siteid.$sitemapid);
 		$this->data['brand'] = $this->loadModule('common/brand');
@@ -19,7 +20,7 @@ class ControllerCommonHeader extends Controller
 	
 	public function getMenu($parentid)
 	{
-		$this->load->model("core/sitemap");
+		
 		
 		$siteid = $this->member->getSiteId();
 		
