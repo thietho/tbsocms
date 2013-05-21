@@ -78,7 +78,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="number">Thanh toán</td>
-                                <td class="number"><input type="number" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo $this->string->numberFormate($item['thanhtoan'])?>"/></td>
+                                <td class="number"><input type="text" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo $this->string->numberFormate($item['thanhtoan'])?>"/></td>
                                 <td><input type="button" class="button" id="btnTrahet" value="Trả hết"/></td>
                             </tr>
                             <tr>
