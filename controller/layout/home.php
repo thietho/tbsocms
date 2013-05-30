@@ -4,8 +4,14 @@ class ControllerLayoutHome extends Controller
 	public function index()
 	{
 		$this->data['title'] = $this->document->title;
-		$this->data['meta_description'] = $this->document->meta_description;
-		$this->data['meta_keyword'] = $this->document->meta_keyword;
+		if($this->document->meta_description == "")
+			$this->data['meta_description'] = $this->document->setup['Description'];
+		else
+			$this->data['meta_description'] = $this->document->meta_description;
+		if($this->document->meta_keyword == "")
+			$this->data['meta_keyword'] = $this->document->setup['Keyword'];
+		else
+			$this->data['meta_keyword'] = $this->document->meta_keyword;
 		//
 		@$arr = split(',',$this->document->meta_image);
 		$this->data['meta_image'] = "";

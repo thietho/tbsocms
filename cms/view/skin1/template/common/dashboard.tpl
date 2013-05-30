@@ -33,6 +33,14 @@
             		<label><?php echo $dash_email ?></label><br />
 					<input type="text" name="EmailContact" value="<?php echo $item['EmailContact']?>" class="text" size=60 />
             	</p>
+                <p>
+            		<label>Keyword</label><br />
+					<textarea name="Keyword"><?php echo $item['Keyword']?></textarea>
+            	</p>
+                <p>
+            		<label>Description</label><br />
+					<textarea name="Description"><?php echo $item['Description']?></textarea>
+            	</p>
             </div>
             <div>
             	<!--<h3>Trang chủ</h3>-->

@@ -3,7 +3,7 @@ class ControllerPageHome extends Controller
 {
 	function __construct() 
 	{
-		$this->iscache = true;
+		//$this->iscache = true;
 	 	$arr=array();
 		foreach($_GET as $key => $val)
 			$arr[] = $key."=".$val;
@@ -39,8 +39,10 @@ class ControllerPageHome extends Controller
 			/*$arr = array("gioithieu");
 			$this->data['producthome'] = $this->loadModule('module/information','index',$arr);*/
 			//
+			
 			$this->loadSiteBar();
 			$this->document->title = $this->document->setup['Title'] ." - ". $this->document->setup['Slogan'];
+			//print_r($this->data['leftsitebar']);
 		}
 		
 		$this->id="content";
