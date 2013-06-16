@@ -71,7 +71,7 @@ final class Member {
 				$this->logout();
 			}
     	}
-		$this->updatelistonline();
+		//$this->updatelistonline();
 		$this->writelog();
   	}
 		
@@ -284,10 +284,36 @@ final class Member {
 		
 	}
 	
+	public function getHitCounter()
+	{
+				
+		$sql = "Select `user_stats`.* 
+									from `user_stats`";
+		$query = $this->db->query($sql);
+		return count($query->rows);
+	}
+	
 	public function getOnline()
 	{
+		$current_time = $this->date->getToday();
+		$session_timelimit = 20; 
+		$session_timout = $this->date->addMinutes($current_time,-$session_timelimit) ;
+		
 		$sql = "Select `user_stats`.* 
-									from `user_stats` ";
+									from `user_stats` WHERE `user_stats`.`starttime` >= '".$session_timout."'";
+		$query = $this->db->query($sql);
+		return count($query->rows);
+	}
+	
+	public function getOnlineInMonth()
+	{
+		$current_time = $this->date->getToday();
+		$year = $this->date->getYear($current_time);
+		$mon = $this->date->getMonth($current_time);
+		$sql = "SELECT  `user_stats` . * 
+						FROM  `user_stats` 
+						WHERE YEAR(`starttime`) =".$year."
+						AND MONTH(`starttime`) =".$mon;
 		$query = $this->db->query($sql);
 		return count($query->rows);
 	}
@@ -297,8 +323,8 @@ final class Member {
 		$current_time = $this->date->getToday();
 		$session_timelimit = 20; 
 		$session_timout = $this->date->addMinutes($current_time,-$session_timelimit) ;
-		$sql="DELETE FROM `user_stats` WHERE `user_stats`.`starttime` <= '".$session_timout."'";
-		$this->db->query($sql);
+		//$sql="DELETE FROM `user_stats` WHERE `user_stats`.`starttime` <= '".$session_timout."'";
+		//$this->db->query($sql);
 	}
 	
 	//return array
