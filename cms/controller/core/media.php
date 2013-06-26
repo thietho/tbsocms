@@ -217,12 +217,55 @@ class ControllerCoreMedia extends Controller
 	{
 		$module = $this->request->get['module'];
 		
-		$datas = $this->model_core_sitemap->getListByModule($module,$this->user->getSiteId());
+		//$datas = $this->model_core_sitemap->getListByModule($module,$this->user->getSiteId());
 		
-		$this->data['output'] = json_encode(array('sitemaps' => $datas));
+		//$this->data['output'] = json_encode(array('sitemaps' => $datas));
+		$this->data['output'] = $this->showTreeSiteMap('',$module);
 		$this->id="sitemap";
 		$this->template="common/output.tpl";
 		$this->render();
+	}
+	
+	private function showTreeSiteMap($parentid,$moduleid)
+	{
+		$siteid = $this->user->getSiteId();
+		$str = "";
+		
+		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid);
+		
+		foreach($sitemaps as $item)
+		{
+			if($item['moduleid'] == $moduleid)
+			{
+				$childs = $this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid);
+				$link = '<input type="checkbox" name="sitemaplist['.$item['sitemapid'].']" value="'.$item['sitemapid'].'">';
+				$link .= "<a ref='".$item['sitemapid']."'>".$item['sitemapname']."</a> ";
+				
+				$str .= "<li>";
+				
+				$str .= $link;
+				
+				if(count($childs) > 0)
+				{
+					
+					
+					
+					$str .= "<ul>";
+					$str .= $this->showTreeSiteMap($item['sitemapid'],$moduleid);
+					$str .= "</ul>";
+				}
+				else
+				{
+					
+					
+					
+				}
+				$str .= "</li>";
+				
+			}
+		}
+		
+		return $str;
 	}
 	
 	public function savemap()

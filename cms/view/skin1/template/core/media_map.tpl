@@ -32,20 +32,11 @@ foreach($listsitemapid as $val)
 
 $('#mapmodule').change(function(e) {
 	
-    $.getJSON("?route=core/media/getListSiteMap&module="+this.value, 
+    $.get("?route=core/media/getListSiteMap&module="+this.value, 
 	function(data) 
 	{
-		$('#listsitemap').html('');
-		for(i in data.sitemaps)
-		{
-			var chk = "";
-			if(listsitemapid.indexOf(data.sitemaps[i].sitemapid)!= -1)
-				chk = 'checked="checked"';
-			var str = '<input type="checkbox" name="sitemaplist['+data.sitemaps[i].sitemapid+']" value="'+data.sitemaps[i].sitemapid+'" '+ chk +'> ';
-			str += data.sitemaps[i].sitemapname
-			$('#listsitemap').append('<div class="left map-sitemap-item">'+str+'</div>');
-		}
-		$('#listsitemap').append('<div class="clearer">^&nbsp;</div>');
+		
+		$('#listsitemap').html(data);
 	});
 });
 $(document).ready(function(e) {
