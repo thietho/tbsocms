@@ -680,7 +680,10 @@ function save()
 				{
 					var sitemapid = $('#refersitemap').val().replace('[',"");
 					sitemapid = sitemapid.replace("]","");
-					window.location = "?route=<?php echo $this->getRoute()?>&sitemapid=<?php echo $_GET['sitemapid']?>&page=<?php echo $_GET['page'] ?>";	
+					if(strurl)
+						window.location.reload();
+					else
+						window.location = "?route=<?php echo $this->getRoute()?>&sitemapid=<?php echo $_GET['sitemapid']?>&page=<?php echo $_GET['page'] ?>";	
 				}
 				else
 					window.location = "?route=core/media";	

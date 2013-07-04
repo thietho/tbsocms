@@ -39,6 +39,10 @@ function getPosOfNode(idparent,eid)
 
 function setCKEditorType(strID, intType)
 {
+	//obj = CKEDITOR.instances[strID]
+	if (CKEDITOR.instances[strID]) {
+		window.location.reload();
+	}
 	switch (intType)
 	{
 		case 0: // giao dien full

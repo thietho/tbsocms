@@ -189,7 +189,7 @@ class ControllerCorePostlist extends Controller
 				}
 				$this->data['medias'][$i]['prices'] = $data_price;
 			}*/
-			$this->data['medias'][$i]['link_edit'] = $this->url->http($sitemap['moduleid'].'&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$this->data['medias'][$i]['mediaid']);
+			$this->data['medias'][$i]['link_edit'] = $this->url->http($sitemap['moduleid'].'/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$this->data['medias'][$i]['mediaid']);
 			$this->data['medias'][$i]['text_edit'] = "Edit";	
 			
 			$this->data['medias'][$i]['type'] = $sitemap['moduleid'];

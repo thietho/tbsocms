@@ -23,7 +23,7 @@ class ControllerCorePostcontent extends Controller
 		$this->getForm();
 		
 		$this->id='post';
-		$this->template='core/post_form.tpl';	
+		$this->template='core/post_form.tpl';
 		$this->render();
 	}
 	

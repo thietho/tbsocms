@@ -46,6 +46,7 @@ function Control()
 		  }
 		});*/
 		$(eid).load(url,function(){
+			
 			$(eid).hide().fadeIn("slow")					 
 		});
 		

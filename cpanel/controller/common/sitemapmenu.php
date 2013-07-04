@@ -42,21 +42,27 @@ class ControllerCommonSitemapmenu extends Controller
 			
 			$link = "<a class='left'>".$item['sitemapname']."</a>";
 			
-			if(substr($item['moduleid'],0,6) == "group/")
-			{
-				$item['moduleid'] = "module/information";
-			}
 			
+			switch($item['moduleid'])
+			{
+				case 'module/information':
+				case 'module/contact':
+				
+					$link='<a class="left sitebar" href="#?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'" ref="?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'" title="[Detail]">'.$item['sitemapname'].'</a>';
+					break;
+				case 'module/product':
+				case 'module/news':
+				case 'module/gallery':
+					$link='<a class="left" href="?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'">'.$item['sitemapname'].'</a>';
+					break;
+			}
 			
 			if($item['moduleid'] != "group" && $item['moduleid'] != "homepage")
 			{
-				$link='<a class="left" href="?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'" title="[Detail]">'.$item['sitemapname'].'</a>';
+				
 			}
 			
-			if($item['moduleid'] == 'homepage')
-			{
-				$link='<a class="left" href="?route=common/dashboard">'.$item['sitemapname'].'</a>';	
-			}
+			
 			
 			$str .= "<li>";
 			$str .= "<div class='collape'>";
