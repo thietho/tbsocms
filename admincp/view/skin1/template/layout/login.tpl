@@ -7,7 +7,7 @@
 	<meta name="keywords" content="" />
 	<meta name="author" content="" />
 	<link rel="stylesheet" type="text/css" href="<?php echo DIR_CSS?>style.css" media="screen" />
-	<title>Ben Solution Content Management System</title>
+	<title>HL Solutions Content Management System</title>
 </head>
 <!--[if lt IE 7]>
 	<link href="<?php echo DIR_VIEW?>css/ie_style.css" rel="stylesheet" type="text/css" />

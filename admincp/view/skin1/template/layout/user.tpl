@@ -34,7 +34,7 @@
 	<script type='text/javascript' language='javascript' src='<?php echo DIR_COMPONENT?>ckeditor/ckeditor.js'></script>
     <script src="<?php echo DIR_JS?>common.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>order.js" type="text/javascript"></script>
-    <title>Ben Solution Content Management System</title>
+    <title>HL Solutions Content Management System</title>
     <script src="<?php echo DIR_JS?>menu-collapsed.js" type="text/javascript"></script>
     
     

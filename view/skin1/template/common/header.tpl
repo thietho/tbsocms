@@ -1,7 +1,7 @@
 <div id="ben-header">
     <div id="ben-top">
         <div class="ben-left" id="ben-logo">
-            <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>logo.gif" alt="" />
+            <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>logo.png" alt="" />
         </div>
     
         <div class="ben-left" id="ben-site-title">

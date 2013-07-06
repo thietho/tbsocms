@@ -73,7 +73,7 @@ class ControllerModuleProduct extends Controller
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;		
-		$limit = 3;
+		$limit = 20;
 		$total = count($rows); 
 		// work out the pager values 
 		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page,"showsanpham");

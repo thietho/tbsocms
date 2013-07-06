@@ -29,7 +29,7 @@
     <script src="<?php echo DIR_JS?>menu-collapsed.js" type="text/javascript"></script>
 
 	
-	<title>Ben Solution Content Management System</title>
+	<title>HL Solutions Content Management System</title>
 
 
 </head>

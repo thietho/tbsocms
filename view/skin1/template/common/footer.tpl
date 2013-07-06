@@ -2,7 +2,7 @@
 
     <div class="ben-left" id="ben-footer-left">
         
-        <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>logo-small.gif" alt="" class="ben-left" />
+        
         
         <p>&copy; 2010 Customer Name. All rights Reserved</p>
 
