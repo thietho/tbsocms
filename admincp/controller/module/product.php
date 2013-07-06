@@ -73,10 +73,10 @@ class ControllerModuleProduct extends Controller
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;		
-		$limit = 20;
+		$limit = 3;
 		$total = count($rows); 
 		// work out the pager values 
-		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page,"#listmedia");
+		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page,"showsanpham");
 		
 		$pager  = $this->pager->getPagerData($total, $limit, $page); 
 		$offset = $pager->offset; 
@@ -99,8 +99,12 @@ class ControllerModuleProduct extends Controller
 			
 			$mediaid = $this->data['medias'][$i]['mediaid'];
 			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->viewTonKho($mediaid);
-			
-			$this->data['medias'][$i]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$this->data['medias'][$i]['mediaid']);
+			$parapage = "";
+			if($page)
+				$parapage = "&page=".$page;
+			if($page)
+				
+			$this->data['medias'][$i]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$this->data['medias'][$i]['mediaid'].$parapage);
 			$this->data['medias'][$i]['text_edit'] = "Edit";	
 			
 			$this->data['medias'][$i]['type'] = $sitemap['moduleid'];

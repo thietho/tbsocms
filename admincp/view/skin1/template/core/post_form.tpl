@@ -15,7 +15,7 @@
         </div>
         
     	<div class="right">
-        	<input class="button" type="button" value="<?php echo $button_preview?>" onclick="preview()"/>
+        	
         	<input class="button" type="button" value="<?php echo $button_save?>" onclick="save()"/>
             <a class="button" href="<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"><?php echo $button_cancel?></a>
              
@@ -680,10 +680,11 @@ function save()
 				{
 					var sitemapid = $('#refersitemap').val().replace('[',"");
 					sitemapid = sitemapid.replace("]","");
-					if(strurl)
-						window.location.reload();
-					else
+					//alert(strurl)
+					if(strurl=="")
 						window.location = "?route=<?php echo $this->getRoute()?>&sitemapid=<?php echo $_GET['sitemapid']?>&page=<?php echo $_GET['page'] ?>";	
+					
+						
 				}
 				else
 					window.location = "?route=core/media";	
@@ -696,38 +697,7 @@ function save()
 		});
 }
 
-function preview()
-{
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
-	var oEditor = CKEDITOR.instances['editor1'] ;
-	var pageValue = oEditor.getData();
-	$('textarea#editor1').val(pageValue);
-	<?php if($hasSummary) {?>
-	var oEditor = CKEDITOR.instances['summary'] ;
-	var pageValue = oEditor.getData();
-	$('textarea#summary').val(pageValue);
-	<?php } ?>
-	$.post("?route=core/postcontent/savepreview",$('#frmPost').serialize(),
-		function(data){
-			if(data)
-			{
-				if("<?php echo $_GET['sitemapid']?>"!= "")
-				{
-					var sitemapid = $('#refersitemap').val().replace('[',"");
-					sitemapid = sitemapid.replace("]","");
-					
-					obj = jQuery.parseJSON(data);
-					alias = "/" + obj.alias;
-					url = "<?php echo str_replace('/cms/',"/".$_GET['sitemapid'],HTTP_SERVER); ?>" + alias + '_preview'+'.html';
-					window.open(url,'_blank');
-				}
-				else
-					window.location = "?route=core/media";
-					
-				$.unblockUI();
-			}
-		});
-}
+
 
 var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
 var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";

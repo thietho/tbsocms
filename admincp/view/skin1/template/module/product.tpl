@@ -35,7 +35,7 @@
 <script language="javascript">
 $(document).ready(function(e) {
     $('#showdanhmuc').load('?route=module/product/productCat');
-	pro.loadProduct(pro.url);
+	pro.loadProduct(pro.url+"&page=<?php echo $_GET['page']?>");
 	$('#keyword').keyup(function(e) {
 		pro.searchForm();
 	});

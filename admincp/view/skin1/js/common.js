@@ -12,6 +12,7 @@ function linkto(url)
 }
 function moveto(url,eid)
 {
+	$("#"+eid).html(loading);
 	$("#"+eid).load(url);	
 }
 function searchMatrix(matrix,col,need)
