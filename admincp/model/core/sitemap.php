@@ -168,13 +168,16 @@ class ModelCoreSitemap extends Model
 	public function getBreadcrumb($id, $siteid, $end=0)
 	{
 		$data = $this->getPath($id, $siteid);
-		$strBreadcrumb = "<a href='?route=common/dashboard'>Trang chủ</a>";
+		$strBreadcrumb = "";
 		for($i=count($data)-1;$i>$end;$i--)
 		{
-			$link = "".$data[$i]['sitemapname']."";
-			if($data[$i]['modulepath'] != "")
-				$link='<a target="_blank" href="'.$data[$i]['modulepath']."&sitemapid=".$data[$i]['sitemapid'].'" title="[Detail]">'.$data[$i]['sitemapname'].'</a>';
-			$strBreadcrumb .= " >> ".$link; 
+			
+			
+				$link='<a href="?route='.$data[$i]['moduleid']."&sitemapid=".$data[$i]['sitemapid'].'" title="[Detail]">'.$data[$i]['sitemapname'].'</a>';
+			if($i<count($data)-1)
+				$strBreadcrumb .= " >> ".$link; 
+			else
+				$strBreadcrumb .= $link;
 		}
 		return $strBreadcrumb;
 	}

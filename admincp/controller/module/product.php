@@ -21,7 +21,9 @@ class ControllerModuleProduct extends Controller
 	
 	function index()
 	{	
+		$siteid = $this->user->getSiteId();
 		$this->data['sitemapid'] = $this->request->get['sitemapid'];
+		$this->data['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($this->data['sitemapid'], $siteid);
 		$this->id='content';
 		$this->template='module/product.tpl';
 		$this->layout='layout/center';

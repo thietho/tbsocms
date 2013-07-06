@@ -7,6 +7,7 @@
         	
         </div>
         <div  class="left" style="width:80%">
+        	<h2><?php echo $breadcrumb?></h2>
         	<div id="search">
             	<label>Từ khóa:</label>
                 <input type="text" class="text" id="keyword"/>
