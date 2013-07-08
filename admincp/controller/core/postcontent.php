@@ -329,8 +329,11 @@ class ControllerCorePostcontent extends Controller
 		
 		
 		$data['userid'] = $this->user->getId();
-		
-		
+		foreach($data['saleprice'] as $key => $val)
+		{
+			$data['saleprice'][$key] = $this->string->toNumber($val);
+		}
+		$data['saleprice'] = json_encode($this->data['post']['saleprice']);
 		
 		
 		if($data['price'] == "")

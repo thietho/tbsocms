@@ -53,23 +53,11 @@ class ControllerQuanlykhoDonvitinh extends Controller
 		$this->data['delete'] = $this->url->http('quanlykho/donvitinh/delete');
 
 		$this->data['datas'] = array();
-		$rows = $this->model_quanlykho_donvitinh->getList();
-		//Page
-		$page = $this->request->get['page'];
-		$x=$page;
-		$limit = 20;
-		$total = count($rows);
-		// work out the pager values
-		$this->data['pager']  = $this->pager->pageLayout($total, $limit, $page);
-
-		$pager  = $this->pager->getPagerData($total, $limit, $page);
-		$offset = $pager->offset;
-		$limit  = $pager->limit;
-		$page   = $pager->page;
-		for($i=$offset;$i < $offset + $limit && count($rows[$i])>0;$i++)
-		//for($i=0; $i <= count($this->data['datas'])-1 ; $i++)
+		$this->data['datas'] = $this->model_quanlykho_donvitinh->getList();
+		
+		for($i=0; $i <= count($this->data['datas'])-1 ; $i++)
 		{
-			$this->data['datas'][$i] = $rows[$i];
+			//$this->data['datas'][$i] = $rows[$i];
 			$this->data['datas'][$i]['link_edit'] = $this->url->http('quanlykho/donvitinh/update&madonvi='.$this->data['datas'][$i]['madonvi']);
 			$this->data['datas'][$i]['text_edit'] = "Sửa";
 				

@@ -439,6 +439,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$summary=$this->db->escape(@$data['summary']);
 		$price=$this->db->escape(@$this->string->toNumber($data['price']));
 		$pricepromotion=$this->db->escape(@$this->string->toNumber($data['pricepromotion']));
+		$saleprice = $this->db->escape(@$data['saleprice']);
 		$description=(@$data['description']);
 		$alias=$this->db->escape(@$data['alias']);
 		$keyword=$this->db->escape(@$data['keyword']);
@@ -471,6 +472,7 @@ class ModelCoreMedia extends ModelCoreFile
 						'summary',
 						'price',
 						'pricepromotion',
+						'saleprice',
 						'description',
 						'alias',
 						'keyword',
@@ -496,6 +498,7 @@ class ModelCoreMedia extends ModelCoreFile
 						$summary,
 						$price,
 						$pricepromotion,
+						$saleprice,
 						$description,
 						$alias,
 						$keyword,

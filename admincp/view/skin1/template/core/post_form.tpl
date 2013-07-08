@@ -54,9 +54,7 @@
                 <?php if($hasTabDocuments){ ?>
                 <li><a href="#fragment-documents"><span><?php echo $lbl_document ?></span></a></li>
                 <?php } ?>
-                <?php if($hasProductPrice) {?>
-                <li><a href="#fragment-productprice"><span><?php echo $lbl_price?></span></a></li>
-                <?php }?>
+                
                 <?php if($hasTabMap) {?>
                 <li><a href="#fragment-map"><span><?php echo $tab_map?></span></a></li>
                 <?php } ?>
@@ -125,11 +123,32 @@ $('#title').change(function(e) {
                                 
                             </select>
                             <script language="javascript">
-								$('#unit').val("<?php echo $post['unit']?>");
+								$('#unit').change(function(e) {
+									$('#giaban').html('');
+                                    $.getJSON("?route=quanlykho/donvitinh/getListDonVi&madonvi="+ this.value,function(data){
+										for(i in data)
+										{
+											var str = "";
+											str+='<input type="text" name="saleprice['+data[i].madonvi+']" class="text number">/'+data[i].tendonvitinh+'<br>'
+											$('#giaban').append(str);
+											numberReady();
+										}
+									})
+                                });
+								$(document).ready(function(e) {
+                                	$('#unit').val("<?php echo $post['unit']?>").change();    
+                                });
+								
+								
 							</script>
                         </p>
                         <?php } ?>
                     	<?php if($hasPrice) {?>
+                        <p>
+                        	<label>Giá bán</label>
+                            <div id="giaban"></div>
+                        </p>
+                        
                         <p>
                             <label><?php echo $text_price?></label><br>
                             <input class="text number" type="text" name="price" value="<?php echo $post['price']?>" size="60" />
@@ -422,191 +441,7 @@ $(document).ready(function() {
             <div id="fragment-documents">
             </div>
             <?php } ?>
-            <?php if($hasProductPrice) {?>
-            <div id="fragment-productprice">
-            	<input type="button" id="btnAddPrice" class="button" value="Thêm giá sản phẩm"/>
-            	
-                <div id="pricelist">
-                </div>
-<script language="javascript">
-var price = new Price();
-$(document).ready(function(e) {
-   $("#pricelist").load("?route=core/postcontent/loadPrice&mediaid="+$("#mediaid").val());
-});
-$('#btnAddPrice').click(function(e) {
-   price.showFormPrice('');
-});
-$("#btnSavePrice").click(function(){
-	 price.save();
-});
-
-$('#btnSelectKhuyenMai').click(function(e) {
-    price.selectChuongTrinh();
-});
-
-function Price()
-{
-	this.loadPrice = function(code)
-	{
-		$.getJSON("<?php echo HTTP_SERVER?>ric/getSanPham.php?masanpham="+code, 
-			function(data) 
-			{
-				if(data.sanpham == false)
-					alert('Không tồn tại code sản phẩm này');
-				else
-					$('#price_gia').val(formateNumber(data.sanpham.HH_GiaBan+""));
-				
-				
-			});
-	}
-	
-	this.save = function()
-	{
-		var price = $("#price_gia").val().replace(/,/g,"");
-		
-		var	pricepromotion = $("#price_khuyenmai").val().replace(/,/g,"")
-		$.post("?route=core/postcontent/savepost", 
-					{
-						mediaid : $("#price_mediaid").val(), 
-						mediaparent : $("#mediaid").val(),
-						title : $("#price_title").val(), 
-						mediatype : 'price',
-						code:$('#price_code').val(),
-						sizes:$('#price_sizes').val(),
-						unit:$('#price_unit').val(),
-						summary : "",
-						price : price,
-						pricepromotion : pricepromotion
-					},
-			function(data){
-				if(data=="true")
-				{
-					$("#pricelist").load("?route=core/postcontent/loadPrice&mediaid="+$("#mediaid").val());
-					$("#price_mediaid").val("");
-					$("#price_code").val("");
-					$("#price_title").val("");
-					$("#price_thitruong").val(0);
-					$("#price_gia").val(0);
-					$("#price_khuyenmai").val(0);
-					$('#machuongtrinh').val('');
-					$('#tenchuongtrinh').html('');
-					
-				}
-				else
-				{
-					$("#subimageerror").html(data);
-					$("#subimageerror").show('slow');
-				}
-				
-			});
-	}
-	
-	this.showFormPrice = function(mediaid)
-	{
-		$("#popup").attr('title','Giá sản phẩm');
-		$( "#popup" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-			width: 800,
-			height: 500,
-			modal: true,
-			buttons: {
-				'Lưu': function() 
-				{
-					price.save();
-					$(this).dialog("close");
-				},
-				'Đóng': function() 
-				{
-					
-					$(this).dialog("close");
-				},
-			}
-		});
-	
-		
-		$("#popup-content").load("?route=core/postcontent/getPriceFrom&mediaid="+mediaid,function(){
-			$("#popup").dialog("open");	
-		});
-	}
-	
-	this.edit = function(mediaid)
-	{
-		$.getJSON("?route=core/postcontent/getPrice&mediaid="+mediaid, 
-			function(data) 
-			{
-				
-				$("#price_mediaid").val(data.price.mediaid);
-				$("#price_title").val(data.price.title);
-				$("#price_code").val(data.price.code);
-				$("#price_thitruong").val(formateNumber(formateNumber(data.price.thitruong)));
-				$("#price_gia").val(formateNumber(formateNumber(data.price.gia)));
-				$("#price_khuyenmai").val(formateNumber(data.price.khuyenmai));
-				
-				price.loadKhuyenMai(data.price.makhuyenmai);
-				numberReady();
-				
-			});
-	}
-	this.remove = function(mediaid)
-	{
-		//$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" });
-		$.ajax({
-			url: "?route=core/postcontent/removeSubImage&mediaid="+mediaid, 
-			cache: false,
-			success: function(html)
-			{
-				$("#pricelist").load("?route=core/postcontent/loadPrice&mediaid="+$("#mediaid").val());
-			}
-		});
-	}
-	this.selectChuongTrinh = function()
-	{
-		$('#popup-content').load('?route=core/mediapopup&sitemapid=tinkhuyenmai',
-			function()
-			{
-				showPopup('#popup', 350, 500, true );
-			});
-	}
-	
-	this.loadKhuyenMai = function(makhuyenmai)
-	{
-		if(makhuyenmai != '')
-		{
-			$.getJSON("?route=core/media/getMedia&col=mediaid&val=" + makhuyenmai, 
-			function(data) 
-			{
-				$('#machuongtrinh').val(data.medias[0].mediaid);
-				$('#tenchuongtrinh').html(data.medias[0].title);
-				$.unblockUI();
-			});
-		}
-		
-			
-	}
-}
-
-
-
-function selectCallBack()
-{
-	var arr = new Array();
-	$('.selectmedia').each(function(index, element) {
-		if(this.checked == true)
-		{
-			arr.push(this.value);	
-		}
-		
-    });	
-	
-	price.loadKhuyenMai(arr[0]);
-
-}
-</script>
-            </div>
-
-            <?php }?>
+            
             <?php if($hasTabMap) {?>
             <div id="fragment-map">
                 <div>
