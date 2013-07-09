@@ -333,7 +333,7 @@ class ControllerCorePostcontent extends Controller
 		{
 			$data['saleprice'][$key] = $this->string->toNumber($val);
 		}
-		$data['saleprice'] = json_encode($this->data['post']['saleprice']);
+		$data['saleprice'] = json_encode($data['saleprice']);
 		
 		
 		if($data['price'] == "")

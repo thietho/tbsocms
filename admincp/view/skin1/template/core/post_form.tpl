@@ -123,16 +123,30 @@ $('#title').change(function(e) {
                                 
                             </select>
                             <script language="javascript">
+								
+								
 								$('#unit').change(function(e) {
 									$('#giaban').html('');
                                     $.getJSON("?route=quanlykho/donvitinh/getListDonVi&madonvi="+ this.value,function(data){
 										for(i in data)
 										{
 											var str = "";
-											str+='<input type="text" name="saleprice['+data[i].madonvi+']" class="text number">/'+data[i].tendonvitinh+'<br>'
+											str+='<input type="text" id="saleprice-'+data[i].madonvi+'" name="saleprice['+data[i].madonvi+']" class="text number">/'+data[i].tendonvitinh+'<br>'
 											$('#giaban').append(str);
 											numberReady();
 										}
+										
+										<?php if($post["saleprice"]!=""){ ?>
+											
+										var saleprice = $.parseJSON('<?php echo $post["saleprice"]?>');
+										for(i in saleprice)
+										{
+											//alert(saleprice[i])
+											$('#saleprice-'+i).val(saleprice[i]);
+										}
+										
+										<?php } ?>
+										numberReady();
 									})
                                 });
 								$(document).ready(function(e) {
@@ -141,6 +155,7 @@ $('#title').change(function(e) {
 								
 								
 							</script>
+                           
                         </p>
                         <?php } ?>
                     	<?php if($hasPrice) {?>
