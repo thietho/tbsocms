@@ -29,7 +29,8 @@ $(document).ready(function(e) {
 	$('#keyword').keyup(function(e) {
 		pro.searchForm();
 	});
-	
+	//alert($('#showsanpham').position().top)
+	$('#showsanpham').height($('body').height() - $('#showsanpham').position().top);
 	
 });
 function Product()

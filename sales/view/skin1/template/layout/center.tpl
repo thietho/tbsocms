@@ -44,20 +44,16 @@
 
 <script language="javascript">
 var loading = '<center><img src="<?php echo DIR_IMAGE?>loading.gif"></center>';
+$(document).ready(function(e) {
+    $("#main-content").height($('body').height()- $('#header').height())
+});
 </script>
 <body>
 <div id="header"><?php echo $header?></div>
-<div id="site-wrapper">
-
-
-
-<div class="main" >
-	<div id="main-content"><?php echo $content?></div>
+<div id="main-content" >
+	<?php echo $content?>
 </div>
 
-<div id="footer"><?php echo $footer?></div>
-
-</div>
 
 </body>
 	<div id="popup" style="display:none">

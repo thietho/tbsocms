@@ -55,6 +55,8 @@ body {
 	color: #444;
 	font: normal 75% sans-serif;
 	line-height: 1.5;
+	height:100%;
+	overflow:hidden;
 }
 
 /* 
@@ -930,15 +932,8 @@ img.alignright,img.right {
 }
 
 /* Main */
-.main {
-	
-}
-
-.main#main-two-columns {
-	
-}
-
-.main#main-two-columns-left {
+#main-content
+{
 	
 }
 
@@ -1300,7 +1295,7 @@ ul.autocomplete {
 }
 #productlist
 {
-	width:600px;
+	
 	
 }
 #productselect
@@ -1399,4 +1394,19 @@ ul.autocomplete {
 .subprice
 {
 	background:#CCC;	
+}
+.pro-item
+{
+	width:150px;	
+	min-height:200px;
+}
+.pro-item td
+{
+	padding:0;
+	vertical-align:top;
+	text-align:center;	
+}
+#showsanpham
+{
+	overflow:auto;	
 }

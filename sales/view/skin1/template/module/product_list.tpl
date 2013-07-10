@@ -1,5 +1,29 @@
 			<h2><?php echo $breadcrumb?></h2>
-			<?php echo $pager?>
+			<div id="productlist">
+            	<?php foreach($medias as $key => $media) {?>
+            	<div class="pro-item left">
+                	<table>
+                    	<tr>
+                        	<td>
+                            	<?php echo $media['code']?><br />
+                                <?php echo $media['title']?>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td>
+                            	<?php echo $media['imagepreview']?>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td>
+                            	<?php echo $media['tonkho']['main']['tonkho']?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <?php } ?>
+                <div class="clearer">^&nbsp;</div>
+            </div>
 			<table class="data-table" width="100%">
             
             	<thead>
@@ -51,5 +75,5 @@
                 </tbody>
             
             </table>
-            <?php echo $pager?>
+            
             <div class="clearer">&nbsp;</div>
