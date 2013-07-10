@@ -36,6 +36,7 @@ class ControllerPageHome extends Controller
 	{
 		$sitemapid = $this->request->get['sitemapid'];
 		$siteid = $this->user->getSiteId();
+		$this->data['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($this->data['sitemapid'], $siteid);
 		if($sitemapid == "")
 		{
 			$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
@@ -147,7 +148,7 @@ class ControllerPageHome extends Controller
 			{
 				$childs = $this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid);
 				
-				$link = "<a href='?route=module/product&sitemapid=".$item['sitemapid']."'>".$item['sitemapname']."</a> ";
+				$link = "<a href='#".$item['sitemapid']."'>".$item['sitemapname']."</a> ";
 				//if($this->user->checkPermission("module/product/addcat")==true)
 					//$link .= "<a class='addcat' cparent='".$item['sitemapid']."'><img src='".DIR_IMAGE."icon/add.png' width='19px'></a>";
 				//if($this->user->checkPermission("module/product/editcat")==true)
