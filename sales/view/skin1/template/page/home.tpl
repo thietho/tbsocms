@@ -8,7 +8,7 @@
         	
         </div>
         <div  class="left" style="width:80%">
-        	<h2><?php echo $breadcrumb?></h2>
+        	
         	<div id="search">
             	<label>Từ khóa:</label>
                 <input type="text" class="text" id="keyword"/>
@@ -25,14 +25,16 @@
 <script language="javascript">
 $(document).ready(function(e) {
     $('#showdanhmuc').load('?route=page/home/productCat');
-	pro.loadProduct(pro.url+"&page=<?php echo $_GET['page']?>");
+	pro.loadProduct(pro.url+"&"+strurl);
 	$('#keyword').keyup(function(e) {
 		pro.searchForm();
 	});
+	
+	
 });
 function Product()
 {
-	this.url = "?route=page/home/getList&sitemapid=<?php echo $sitemapid?>";
+	this.url = "?route=page/home/getList";
 	this.loadProduct = function(url)
 	{
 		$('#showsanpham').html(loading);

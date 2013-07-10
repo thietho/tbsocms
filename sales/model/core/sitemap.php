@@ -169,11 +169,11 @@ class ModelCoreSitemap extends Model
 	{
 		$data = $this->getPath($id, $siteid);
 		$strBreadcrumb = "";
-		for($i=count($data)-1;$i>$end;$i--)
+		for($i=count($data)-1;$i>=$end;$i--)
 		{
 			
 			
-				$link='<a href="?route='.$data[$i]['moduleid']."&sitemapid=".$data[$i]['sitemapid'].'" title="[Detail]">'.$data[$i]['sitemapname'].'</a>';
+				$link='<a href="#sitemapid='.$data[$i]['sitemapid'].'" class="procat" ref="'.$data[$i]['sitemapid'].'" title="[Detail]">'.$data[$i]['sitemapname'].'</a>';
 			if($i<count($data)-1)
 				$strBreadcrumb .= " >> ".$link; 
 			else

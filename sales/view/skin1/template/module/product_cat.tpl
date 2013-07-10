@@ -133,4 +133,8 @@ $('.delcat').click(function(e) {
 			$('#showdanhmuc').load('?route=module/product/productCat');
 		});
 });
+$('.procat').click(function(e) {
+	//alert($(this).attr('ref'))
+	pro.loadProduct(pro.url+"&sitemapid="+$(this).attr('ref'));
+});
 </script>

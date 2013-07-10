@@ -1,3 +1,4 @@
+			<h2><?php echo $breadcrumb?></h2>
 			<?php echo $pager?>
 			<table class="data-table" width="100%">
             
