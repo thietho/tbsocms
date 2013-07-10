@@ -938,7 +938,7 @@ img.alignright,img.right {
 }
 
 .main#main-two-columns #main-content,.main#main-two-columns-left #main-content
-	{
+{
 	
 	border: 1px solid #F2F2F2;
 	width:77%;
@@ -1406,7 +1406,7 @@ ul.autocomplete {
 	vertical-align:top;
 	text-align:center;	
 }
-#showsanpham
+.sales-scr
 {
 	overflow:auto;	
 }

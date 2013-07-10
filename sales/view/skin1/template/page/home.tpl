@@ -4,10 +4,10 @@
 	<div class="section-title">Bán hàng</div>
     
     <div class="section-content">
-    	<div id="showdanhmuc" class="left" style="width:20%">
+    	<div id="showdanhmuc" class="left sales-scr" style="width:20%">
         	
         </div>
-        <div  class="left" style="width:80%">
+        <div class="left sales-scr" style="width:60%">
         	
         	<div id="search">
             	<label>Từ khóa:</label>
@@ -16,8 +16,11 @@
             
             <div class="clearer">^&nbsp;</div>
             <form id="postlist" name="postlist" method="post" action="">
-        		<div id="showsanpham"></div>
+        		<div id="showsanpham" class="sales-scr"></div>
             </form>
+        </div>
+        <div id="orderview" class="left sales-scr" style="width:20%">
+        	<h3><center>Đơn hàng</center></h3>
         </div>
         <div class="clearer">^&nbsp;</div>
     </div>
@@ -29,8 +32,11 @@ $(document).ready(function(e) {
 	$('#keyword').keyup(function(e) {
 		pro.searchForm();
 	});
-	//alert($('#showsanpham').position().top)
-	$('#showsanpham').height($('body').height() - $('#showsanpham').position().top);
+	pro.fixSize();
+	
+});
+$(window).resize(function(e) {
+    pro.fixSize();
 	
 });
 function Product()
@@ -49,6 +55,13 @@ function Product()
 			url += "&keyword="+encodeURI($('#keyword').val());
 		}
 		this.loadProduct(url);
+	}
+	this.fixSize = function()
+	{
+		$('#showdanhmuc').height($('body').height() - $('#showdanhmuc').position().top);
+		$('#showsanpham').height($('body').height() - $('#showsanpham').position().top);
+		$('#orderview').height($('body').height() - $('#orderview').position().top);
+		
 	}
 	this.deleteProduct = function()
 	{
