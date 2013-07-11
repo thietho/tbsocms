@@ -13,7 +13,6 @@ class ControllerPageHome extends Controller
 		$this->load->model("quanlykho/donvitinh");
 		$this->load->model("core/sitemap");
 		$this->load->model("core/media");
-		$this->load->model("core/media");
 		$this->load->model("core/user");
 		$this->load->helper('image');
 		$this->load->model("core/category");
@@ -82,7 +81,7 @@ class ControllerPageHome extends Controller
 			
 			if($this->data['medias'][$i]['imagepath'] != "")
 			{
-				$this->data['medias'][$i]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100)."' >";
+				$this->data['medias'][$i]['imagepreview'] = "<img src='".HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 130, 130)."' >";
 				
 			}
 			
@@ -101,23 +100,6 @@ class ControllerPageHome extends Controller
 		$this->render();
 	}
 	
-	public function insert()
-	{
-		$this->data['output'] = $this->loadModule('core/postcontent');
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->layout='layout/center';
-		$this->render();
-	}
-	
-	public function update()
-	{
-		$this->data['output'] = $this->loadModule('core/postcontent');
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->layout='layout/center';
-		$this->render();
-	}
 	public function productCat()
 	{
 		$siteid = $this->user->getSiteId();
@@ -185,32 +167,13 @@ class ControllerPageHome extends Controller
 		return $str;
 	}
 	
-	public function addcat()
+	public function viewProduct()
 	{
-		$this->data['item']['sitemapparent'] = $this->request->get['parent'];
-		
+		$mediaid = $this->request->get['mediaid'];
+		$this->data['media'] = $this->model_core_media->getItem($mediaid);
+		$this->data['media']['saleprice'] = json_decode($this->data['media']['saleprice']);
 		$this->id='content';
-		$this->template='module/product_cat_form.tpl';
-		$this->render();
-	}
-	
-	public function editcat()
-	{
-		$siteid = $this->user->getSiteId();
-		$sitemapid = $this->request->get['sitemapid'];
-		$this->data['item'] = $this->model_core_sitemap->getItem($sitemapid, $siteid);
-		$this->id='content';
-		$this->template='module/product_cat_form.tpl';
-		$this->render();
-	}
-	
-	public function delcat()
-	{
-		echo $id = $this->request->get['id'];
-		$this->model_core_sitemap->deleteSitemap($id, $this->user->getSiteId());	
-		
-		$this->data['output'] = "true";
-		$this->template='common/output.tpl';
+		$this->template='module/product_view.tpl';
 		$this->render();
 	}
 }

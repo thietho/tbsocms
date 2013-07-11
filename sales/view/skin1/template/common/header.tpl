@@ -1,19 +1,20 @@
 
 <div id="top">
 
-    <div class="left text-center" id="weblogo">
-        <a href="http://ben-solution.com/">		
-			<?php echo $imagepreview ?>
-		</a>  
-    </div>
-
+    
     <div class="left">
         
         
-        
+        <div class="main-action">
+        	<input type="button" class="button" value="Đóng phiên làm việc"/>
+            <input type="button" class="button" value="Khóa màng hình"/>
+            <input type="button" class="button" value="Kiểm tra doanh thu"/>
+            <input type="button" class="button" value="Quản trị hệ thống"/>
+            
+        </div>
         <h2><?php echo $title_system?></h2>
         
-
+		
         <div class="clearer">&nbsp;</div>
 
     </div>

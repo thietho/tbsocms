@@ -21,6 +21,20 @@
         </div>
         <div id="orderview" class="left sales-scr" style="width:20%">
         	<h3><center>Đơn hàng</center></h3>
+            <table>
+            	<thead>
+                	<tr>
+                    	<th>
+                        	<th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>ĐVT</th>
+                            <th>Giá bán</th>
+                            <th>Thành tiền</th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="orderlist"></tbody>
+            </table>
         </div>
         <div class="clearer">^&nbsp;</div>
     </div>
@@ -45,7 +59,13 @@ function Product()
 	this.loadProduct = function(url)
 	{
 		$('#showsanpham').html(loading);
-		$('#showsanpham').load(url);
+		$('#showsanpham').load(url,function()
+		{
+			$('.pro-item').click(function(e) {
+                
+				pro.view($(this).attr('mediaid'));
+            });
+		});
 	}
 	this.searchForm = function()
 	{
@@ -63,30 +83,34 @@ function Product()
 		$('#orderview').height($('body').height() - $('#orderview').position().top);
 		
 	}
-	this.deleteProduct = function()
+	this.view = function(mediaid)
 	{
-		var answer = confirm("Bạn có chắc xóa không?")
-		if (answer)
-		{
-			$.post("?route=core/media/delete", 
-					$("#postlist").serialize(), 
-					function(data)
-					{
-						if(data!="")
-						{
-							alert(data)
-							
-						}
-					}
-			);
-		}
-	}
-	this.updatePosition = function()
-	{
-		$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
-		$.post("?route=core/postlist/updatePosition", $("#postlist").serialize(), function(data){
-			pro.loadProduct(pro.url);
-			$.unblockUI();
+		$("#popup").attr('title','Giá sản phẩm');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 500,
+			modal: true,
+			buttons: {
+				
+				
+				'Đóng': function() 
+				{
+					
+					$(this).dialog("close");
+				},
+				
+			}
+		});
+	
+		
+		$("#popup-content").load("?route=page/home/viewProduct&mediaid="+mediaid,function(){
+			$("#popup").dialog("open");
+			$('.orderpro').click(function(e) {
+                alert($(this).attr('mediaid'))
+            });
 		});	
 	}
 }

@@ -1398,15 +1398,30 @@ ul.autocomplete {
 .pro-item
 {
 	width:150px;	
-	min-height:200px;
+	
+	border:#999 thin solid;
+	border-radius:10px;
+	margin:4px;
+}
+.pro-item:hover
+{
+	
+	box-shadow:5px 5px 5px #333;
 }
 .pro-item td
 {
 	padding:0;
-	vertical-align:top;
+	
 	text-align:center;	
 }
 .sales-scr
 {
 	overflow:auto;	
+}
+.main-action
+{
+	position:absolute;
+	margin-top:80px;
+	margin-left:30%;
+	
 }
