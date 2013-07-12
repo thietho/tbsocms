@@ -113,6 +113,20 @@ function Product()
             });
 		});	
 	}
+	this.addOrder = function(mediaid,soluong,madonvi,giaban)
+	{
+		$.post("?route=page/home/addOrder",
+			{
+				mediaid:mediaid,
+				soluong:soluong,
+				madonvi:madonvi,
+				giaban:giaban
+			},
+			function(data)
+			{
+				
+			});	
+	}
 }
 var pro = new Product();
 

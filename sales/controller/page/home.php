@@ -176,5 +176,23 @@ class ControllerPageHome extends Controller
 		$this->template='module/product_view.tpl';
 		$this->render();
 	}
+	
+	public function addOrder()
+	{
+		$data = $this->request->post;
+		/*$mediaid = $data['mediaid'];
+		$soluong = $data['soluong'];
+		$madonvi = $data['madonvi'];
+		$giaban = $data['giaban'];*/
+		if(!isset($_SESSION['order']))
+		{
+			$_SESSION['order'] = array();
+		}
+		$_SESSION['order'][$mediaid] = $data;
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>
