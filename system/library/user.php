@@ -7,6 +7,7 @@ final class User {
 	public $nhanvien = array();
   	private $permission = array();
 	private $Control = array();
+	
 
   	public function __construct() {
 		$this->db = Registry::get('db');
@@ -244,7 +245,15 @@ final class User {
 		} 
 		return false;
   	}
-  
+  	
+	public function setSessionId($sessionid)
+	{
+		$this->session->set('sessionid',$sessionid);
+	}
+	public function getSessionId()
+	{
+		return $this->session->data['sessionid'];
+	}
   	public function getId() {
     	return $this->userid;
   	}

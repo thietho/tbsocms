@@ -21,6 +21,7 @@
         </div>
         <div id="orderview" class="left sales-scr" style="width:20%">
         	<h3><center>Đơn hàng</center></h3>
+            <input type="hidden" id="orderid" name="orderid" />
             <table>
             	<thead>
                 	<tr>
@@ -109,18 +110,20 @@ function Product()
 		$("#popup-content").load("?route=page/home/viewProduct&mediaid="+mediaid,function(){
 			$("#popup").dialog("open");
 			$('.orderpro').click(function(e) {
-                alert($(this).attr('mediaid'))
+                pro.addOrder($(this).attr('mediaid'),$(this).attr('code'),$(this).attr('title'),$(this).attr('unit'),1,$(this).attr('price'));
             });
 		});	
 	}
-	this.addOrder = function(mediaid,soluong,madonvi,giaban)
+	this.addOrder = function(mediaid,code,title,unit,quantity,price)
 	{
 		$.post("?route=page/home/addOrder",
 			{
 				mediaid:mediaid,
-				soluong:soluong,
-				madonvi:madonvi,
-				giaban:giaban
+				code:code,
+				title:title,
+				unit:unit,
+				quantity:quantity,
+				price:price
 			},
 			function(data)
 			{

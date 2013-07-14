@@ -184,11 +184,7 @@ class ControllerPageHome extends Controller
 		$soluong = $data['soluong'];
 		$madonvi = $data['madonvi'];
 		$giaban = $data['giaban'];*/
-		if(!isset($_SESSION['order']))
-		{
-			$_SESSION['order'] = array();
-		}
-		$_SESSION['order'][$mediaid] = $data;
+		
 		
 		$this->id='content';
 		$this->template='common/output.tpl';

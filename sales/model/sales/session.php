@@ -21,7 +21,7 @@ class ModelSalesSession extends Model
 		return $query->row;
 	}
 	
-	public function insert($data)
+	public function createSession()
 	{
 		$curtime = $this->date->getToday();
 		$data['starttime'] = $curtime;
@@ -36,6 +36,11 @@ class ModelSalesSession extends Model
 		$getLastId = $this->db->insertData("session",$field,$value);
 		return $getLastId;
 	}
+	public function closeSession()
+	{
+		
+	}
+	
 		
 	public function updateCol($id,$col,$val)
 	{
