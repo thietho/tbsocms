@@ -1425,3 +1425,11 @@ ul.autocomplete {
 	margin-left:30%;
 	
 }
+.orderrow
+{
+	cursor:pointer;	
+}
+.selectRow
+{
+	background:#F00;
+}

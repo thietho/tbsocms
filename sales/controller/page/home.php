@@ -220,7 +220,8 @@ class ControllerPageHome extends Controller
 		{
 			$ct = $data_ct[0];
 			$ct['quantity'] += $data['quantity'];
-			$this->model_sales_order->saveOrderDetail($ct);
+			if($ct['quantity'] >0)
+				$this->model_sales_order->saveOrderDetail($ct);
 		}
 		
 		$data['error'] ="";
@@ -250,7 +251,7 @@ class ControllerPageHome extends Controller
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
-		
 	}
+	
 }
 ?>
