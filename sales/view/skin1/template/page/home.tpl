@@ -37,6 +37,7 @@ $(document).ready(function(e) {
 		pro.searchForm();
 	});
 	pro.fixSize();
+	pro.getListOrder();
 	
 });
 $(window).resize(function(e) {
@@ -118,11 +119,19 @@ function Product()
 			function(data)
 			{
 				var obj = $.parseJSON(data);
-				$('#orderid').val(obj.orderid);
-				$('#orderdetail').load("?route=page/home/orderView&orderid="+obj.orderid);
+				pro.loadOrder(obj.orderid);
+				
 			});	
 	}
-	
+	this.loadOrder = function(orderid)
+	{
+		$('#orderid').val(orderid);
+		$('#orderdetail').load("?route=page/home/orderView&orderid="+orderid);
+	}
+	this.getListOrder = function()
+	{
+		$('#listorder').load("?route=page/home/getOrder");
+	}
 }
 var pro = new Product();
 

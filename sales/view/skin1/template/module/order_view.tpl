@@ -1,10 +1,11 @@
 <h4>Mã đơn hàng: <?php echo $order['code']?></h4>
+<input type="button" class="button" id="btnToPending" value="Chờ tính tiền">
 <table>
     <thead>
         <tr>      
         	   
             <th>Sản phẩm</th>
-            <th width="100px">Số lượng</th>
+            <th>Số lượng</th>
             <th>ĐVT</th>
             <th>Giá bán</th>
             <th>Thành tiền</th>
@@ -18,9 +19,16 @@
         	
         	<td><?php echo $ct['title']?></td>
             <td class="number">
-            	<?php echo $this->string->numberFormate($ct['quantity'])?>
-                <input type="button" class="button btnaddOrder" value="+" mediaid="<?php echo $ct['mediaid']?>" code="<?php echo $ct['code']?>" title="<?php echo $ct['title']?>" price="<?php echo $ct['price']?>" unit="<?php echo $ct['unit']?>">
-                <input type="button" class="button btnDecOrder" value="-" mediaid="<?php echo $ct['mediaid']?>" code="<?php echo $ct['code']?>" title="<?php echo $ct['title']?>" price="<?php echo $ct['price']?>" unit="<?php echo $ct['unit']?>">
+            	<table>
+                	<tr>
+                    	<td><?php echo $this->string->numberFormate($ct['quantity'])?></td>
+                        <td><input type="button" class="button btnaddOrder" value="+" mediaid="<?php echo $ct['mediaid']?>" code="<?php echo $ct['code']?>" title="<?php echo $ct['title']?>" price="<?php echo $ct['price']?>" unit="<?php echo $ct['unit']?>"></td>
+                        <td><input type="button" class="button btnDecOrder" value="-" mediaid="<?php echo $ct['mediaid']?>" code="<?php echo $ct['code']?>" title="<?php echo $ct['title']?>" price="<?php echo $ct['price']?>" unit="<?php echo $ct['unit']?>"></td>
+                    </tr>
+                </table>
+            	
+                
+                
             </td>
             <td><?php echo $this->document->getDonViTinh($ct['unit'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($ct['price'])?></td>
@@ -53,6 +61,7 @@ Khách hàng: <span id="customernametext"><?php echo $order['customername']?></s
     <input type="button" class="button" id="btnRemove" value="Xóa hàng">
     <input type="button" class="button" id="btnPayment" value="Tính tiền">
     <input type="button" class="button" id="btnPrintOrder" value="In hóa đơn">
+    
 </div>
 <script language="javascript">
 numberReady();
@@ -92,6 +101,10 @@ $('.orderrow').click(function(e) {
 	else
 		$(this).addClass('selectRow');
 	
+});
+$('#btnToPending').click(function(e) {
+    pro.getListOrder();
+	$('#orderdetail').html('');
 });
 $('#btnRemove').click(function(e) {
     $('.selectRow').each(function(index, element) {

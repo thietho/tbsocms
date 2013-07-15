@@ -240,6 +240,8 @@ class ControllerPageHome extends Controller
 		$this->template='module/order_view.tpl';
 		$this->render();
 	}
+	
+	
 	public function updateOrder()
 	{
 		$data = $this->request->post;
@@ -259,6 +261,15 @@ class ControllerPageHome extends Controller
 		
 		$this->id='content';
 		$this->template='common/output.tpl';
+		$this->render();
+	}
+	public function getOrder()
+	{
+		$where = " AND status = 'new'";
+		$this->data['data_order'] = $this->model_sales_order->getList($where);
+		
+		$this->id='content';
+		$this->template='module/order_list.tpl';
 		$this->render();
 	}
 }
