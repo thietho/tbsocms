@@ -154,6 +154,8 @@ final class User {
   	public function logout() {
 		unset($_SESSION['safemode']);
 		unset($_SESSION['userid']);
+		unset($_SESSION['sessionid']);
+		unset($this->session->data['sessionid']);
 		unset($this->session->data['userid']);	
 		$this->userid = '';
 		$this->username = '';

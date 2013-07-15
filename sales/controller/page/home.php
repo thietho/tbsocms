@@ -16,6 +16,28 @@ class ControllerPageHome extends Controller
 		$this->load->model("core/user");
 		$this->load->helper('image');
 		$this->load->model("core/category");
+		
+		$this->load->model("sales/session");
+		$this->load->model("sales/order");
+		//Kiem tra nhan vien do co dang mo phien lam viec chua
+		$nhanvien = $this->user->getNhanVien();
+		$staffid = $nhanvien['id'];
+		$where = " AND staffid = '".$staffid."' AND endtime = '0000-00-00 00:00:00'";
+		$data_session = $this->model_sales_session->getList($where);
+		
+		if(count($data_session))
+		{
+			//Dang co phien lam viec chua dong
+			//Lay phien lam viec chua dong cua nhan vien do
+			$this->user->setSessionId($data_session[0]['id']);
+		}
+		else
+		{
+			//Neu chua mo thi tao phien lam viec
+			$sessionid = $this->model_sales_session->createSession();
+			$this->user->setSessionId($sessionid);
+		}
+		//echo $this->user->getSessionId();
 	}
 	
 	function index()
@@ -184,11 +206,51 @@ class ControllerPageHome extends Controller
 		$soluong = $data['soluong'];
 		$madonvi = $data['madonvi'];
 		$giaban = $data['giaban'];*/
+		if($data['orderid']=="")
+		{
+			//Tao don hang moi
+			$data['orderid'] = $this->model_sales_order->insert();
+		}
+		//Kiem tra mediaid va uint co trong chua
+		$where = " AND orderid = '".$data['orderid']."' AND mediaid = '".$data['mediaid']."' AND unit = '".$data['unit']."'";
+		$data_ct = $this->model_sales_order->getOrderDetailList($where);
+		if(count($data_ct)==0)
+			$this->model_sales_order->saveOrderDetail($data);
+		else
+		{
+			$ct = $data_ct[0];
+			$ct['quantity'] += $data['quantity'];
+			$this->model_sales_order->saveOrderDetail($ct);
+		}
 		
+		$data['error'] ="";
+		$this->data['output'] = json_encode($data);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	public function orderView()
+	{
+		$orderid = $this->request->get['orderid'];
+		$this->data['order'] = $this->model_sales_order->getItem($orderid);
+		$where = " AND orderid = '".$orderid."'";
+		$this->data['data_ct'] = $this->model_sales_order->getOrderDetailList($where);
+		$this->id='content';
+		$this->template='module/order_view.tpl';
+		$this->render();
+	}
+	public function updateOrder()
+	{
+		$data = $this->request->post;
+		$orderid = $data['orderid'];
+		$col = $data['col'];
+		$val = $data['val'];
+		$this->model_sales_order->updateCol($orderid,$col,$val);
 		
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
+		
 	}
 }
 ?>

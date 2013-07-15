@@ -22,20 +22,8 @@
         <div id="orderview" class="left sales-scr" style="width:20%">
         	<h3><center>Đơn hàng</center></h3>
             <input type="hidden" id="orderid" name="orderid" />
-            <table>
-            	<thead>
-                	<tr>
-                    	<th>
-                        	<th>Sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>ĐVT</th>
-                            <th>Giá bán</th>
-                            <th>Thành tiền</th>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="orderlist"></tbody>
-            </table>
+            <div id="orderdetail">
+            </div>
         </div>
         <div class="clearer">^&nbsp;</div>
     </div>
@@ -110,14 +98,15 @@ function Product()
 		$("#popup-content").load("?route=page/home/viewProduct&mediaid="+mediaid,function(){
 			$("#popup").dialog("open");
 			$('.orderpro').click(function(e) {
-                pro.addOrder($(this).attr('mediaid'),$(this).attr('code'),$(this).attr('title'),$(this).attr('unit'),1,$(this).attr('price'));
+                pro.addOrder($('#orderid').val(),$(this).attr('mediaid'),$(this).attr('code'),$(this).attr('title'),$(this).attr('unit'),1,$(this).attr('price'));
             });
 		});	
 	}
-	this.addOrder = function(mediaid,code,title,unit,quantity,price)
+	this.addOrder = function(orderid,mediaid,code,title,unit,quantity,price)
 	{
 		$.post("?route=page/home/addOrder",
 			{
+				orderid:orderid,
 				mediaid:mediaid,
 				code:code,
 				title:title,
@@ -127,9 +116,12 @@ function Product()
 			},
 			function(data)
 			{
-				
+				var obj = $.parseJSON(data);
+				$('#orderid').val(obj.orderid);
+				$('#orderdetail').load("?route=page/home/orderView&orderid="+obj.orderid);
 			});	
 	}
+	
 }
 var pro = new Product();
 

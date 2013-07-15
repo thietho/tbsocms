@@ -16,28 +16,13 @@ class ControllerCommonLogin extends Controller
 		
 		if ($this->user->isLogged()) 
 		{
-			$this->load->model("sales/session");
-			//Kiem tra nhan vien do co dang mo phien lam viec chua
-			$nhanvien = $this->user->getNhanVien();
-			$staffid = $nhanvien['id'];
-			$where = " AND staffid = '".$staffid."'";
-			$data_session = $this->model_sales_session->getList($where);
-			if(count($data_session))
-			{
-				//Dang co phien lam viec chua dong
-				//Lay phien lam viec chua dong cua nhan vien do
-			}
-			else
-			{
-				//Neu chua mo thi tao phien lam viec
-				$sessionid = $this->model_sales_session->createSession();
-				$this->user->setSessionId($sessionid);
-			}
+			
 			
 			$this->redirect($this->url->https('page/home'));
 		}
 
 		if (($this->request->post) && ($this->validate())) {
+			
 	  		$this->redirect($this->url->https('page/home'));
 			return;
 		}

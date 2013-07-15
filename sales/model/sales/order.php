@@ -34,17 +34,18 @@ class ModelSalesOrder extends Model
 	private function creatCode($prefix)
 	{
 		$mun = $this->db->getNextIdVarCharNumber('salesorder','code',$prefix);
-		return $mun.$prefix;
+		return $prefix.$mun;
 	}
 	
-	public function insert($data)
+	public function insert()
 	{
 		$curtime = $this->date->getToday();
-		
+		$data['sessionid'] = $this->user->getSessionId();
 		$data['code'] = $this->creatCode($this->date->getYear($curtime).$this->date->getMonth($curtime).$this->date->getDay($curtime));
 		$data['createtime'] = $curtime;
 		$nhanvien = $this->user->getNhanVien();
 		$data['createby'] = $nhanvien['id'];
+		$data['status'] = "new";
 		foreach($this->columns as $val)
 		{			
 			$field[] = $val;
@@ -56,7 +57,7 @@ class ModelSalesOrder extends Model
 	}
 	
 	
-	public function update($data)
+	/*public function update($data)
 	{	
 		$data['createtime']=$this->db->escape(@$this->date->formatViewDate($data['createtime']));
 		$data['paymenttime']=$this->db->escape(@$this->date->formatViewDate($data['paymenttime']));
@@ -72,7 +73,7 @@ class ModelSalesOrder extends Model
 					
 		$where="id = '".$data['id']."'";
 		$this->db->updateData("salesorder",$field,$value,$where);
-	}	
+	}*/	
 		
 	public function updateCol($id,$col,$val)
 	{
@@ -96,14 +97,14 @@ class ModelSalesOrder extends Model
 		$where="id = '".$id."'";
 		$this->db->deleteData('salesorder',$where);
 		$where="salesorderid = '".$id."'";
-		$this->db->updateData('salesorder_chitiet',$field,$value,$where);
+		$this->db->updateData('salesorder_detail',$field,$value,$where);
 		
 	}
 	//chi tiet phieu
 	public function getOrderDetail($id)
 	{
 		$sql = "Select * 
-						from `salesorder_chitiet` 
+						from `salesorder_detail` 
 						where id ='".$id."'";
 		$query = $this->db->query($sql);
 		return $query->row;	
@@ -111,8 +112,8 @@ class ModelSalesOrder extends Model
 	
 	public function getOrderDetailList($where)
 	{
-		$sql = "Select `salesorder_chitiet`.* 
-									from `salesorder_chitiet` 
+		$sql = "Select `salesorder_detail`.* 
+									from `salesorder_detail` 
 									where 1=1 " . $where ;
 		
 		$query = $this->db->query($sql);
@@ -130,9 +131,9 @@ class ModelSalesOrder extends Model
 		$obj['unit'] = $this->db->escape(@$data['unit']);
 		$obj['quantity']=$this->db->escape(@$this->string->toNumber($data['quantity']));
 		$obj['price']=$this->db->escape(@$this->string->toNumber($data['price']));
-		$obj['subtotal']=$this->db->escape(@$this->string->toNumber($data['subtotal']));
+		$obj['subtotal']=$obj['quantity']*$obj['price'];
 		
-		foreach($data as $key => $val)
+		foreach($obj as $key => $val)
 		{
 			if(isset($val))
 			{
@@ -144,13 +145,13 @@ class ModelSalesOrder extends Model
 		if((int)$data['id']==0)
 		{
 			
-			$this->db->insertData("salesorder_chitiet",$field,$value);
+			$this->db->insertData("salesorder_detail",$field,$value);
 			$id = $this->db->getLastId();
 		}
 		else
 		{			
 			$where="id = '".$data['id']."'";
-			$this->db->updateData('salesorder_chitiet',$field,$value,$where);
+			$this->db->updateData('salesorder_detail',$field,$value,$where);
 		}
 		return $id;
 	}
@@ -170,14 +171,14 @@ class ModelSalesOrder extends Model
 					);
 		
 		$where="id = '".$id."'";
-		$this->db->updateData('salesorder_chitiet',$field,$value,$where);
+		$this->db->updateData('salesorder_detail',$field,$value,$where);
 	}
 		
 	public function deleteOrderDetail($id)
 	{
 		$id = $this->db->escape(@$id);		
 		$where="id = '".$id."'";
-		$this->db->deleteData('salesorder_chitiet',$where);
+		$this->db->deleteData('salesorder_detail',$where);
 	}
 }
 ?>
