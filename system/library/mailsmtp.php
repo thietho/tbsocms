@@ -11,7 +11,7 @@ final class MailSMTP {
 		$mail->SMTPAuth = true; // turn on SMTP authentication
 		$mail->SMTPSecure = 'ssl';
 		$mail->Username = "thietho1982@gmail.com"; // your SMTP username or your gmail username
-		$mail->Password = "9501424ho"; // your SMTP password or your gmail password
+		$mail->Password = "Ho9501424"; // your SMTP password or your gmail password
 		
 		$from = $data['from']; // Reply to this email
 		$arremail = split(',',$data['to']);
