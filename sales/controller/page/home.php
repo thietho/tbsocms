@@ -252,6 +252,14 @@ class ControllerPageHome extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
-	
+	public function delOrderDetail()
+	{
+		$id = $this->request->get['id'];
+		$this->model_sales_order->deleteOrderDetail($id);
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>

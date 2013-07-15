@@ -24,6 +24,7 @@
             <input type="hidden" id="orderid" name="orderid" />
             <div id="orderdetail">
             </div>
+            <div id="listorder"></div>
         </div>
         <div class="clearer">^&nbsp;</div>
     </div>
