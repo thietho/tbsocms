@@ -57,6 +57,7 @@ body {
 	line-height: 1.5;
 	height:100%;
 	overflow:hidden;
+	min-width:850px;
 }
 
 /* 

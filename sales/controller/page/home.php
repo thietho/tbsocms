@@ -265,7 +265,7 @@ class ControllerPageHome extends Controller
 	}
 	public function getOrder()
 	{
-		$where = " AND status = 'new'";
+		$where = " AND status = 'new' Order by id desc";
 		$this->data['data_order'] = $this->model_sales_order->getList($where);
 		
 		$this->id='content';

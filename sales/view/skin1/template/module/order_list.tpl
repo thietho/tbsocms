@@ -1,12 +1,11 @@
-<table>
-	<tr>
-    	<th>Mã đơn hàng</th>
-        <th></th>
-    </tr>
+
     <?php foreach($data_order as $order){ ?>
-    <tr>
-    	<td><?php echo $order['code']?></td>
-        <td><input type="button" class="button" class="btnSeleteOrder" value="Chọn" onClick="pro.loadOrder(<?php echo $order['id']?>)"></td>
-    </tr>
+    	<input type="button" class="button btnSeleteOrder" orderid="<?php echo $order['id']?>"value="<?php echo $order['code']?>">
     <?php }?>
-</table>
+<script language="javascript">
+$('.btnSeleteOrder').click(function(e) {
+    pro.loadOrder($(this).attr('orderid'));
+});
+</script>
+    
+

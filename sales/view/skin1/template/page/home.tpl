@@ -4,10 +4,10 @@
 	<div class="section-title">Bán hàng</div>
     
     <div class="section-content">
-    	<div id="showdanhmuc" class="left sales-scr" style="width:20%">
+    	<div id="showdanhmuc" class="left sales-scr" style="width:250px">
         	
         </div>
-        <div class="left sales-scr" style="width:60%">
+        <div class="left sales-scr">
         	
         	<div id="search">
             	<label>Từ khóa:</label>
@@ -19,7 +19,7 @@
         		<div id="showsanpham" class="sales-scr"></div>
             </form>
         </div>
-        <div id="orderview" class="left sales-scr" style="width:20%">
+        <div id="orderview" class="left sales-scr" style="width:320px">
         	<h3><center>Đơn hàng</center></h3>
             <input type="hidden" id="orderid" name="orderid" />
             <div id="orderdetail">
@@ -72,6 +72,7 @@ function Product()
 		$('#showdanhmuc').height($('body').height() - $('#showdanhmuc').position().top);
 		$('#showsanpham').height($('body').height() - $('#showsanpham').position().top);
 		$('#orderview').height($('body').height() - $('#orderview').position().top);
+		$('#showsanpham').width($('body').width()- $('#showdanhmuc').width() - $('#orderview').width());
 		
 	}
 	this.view = function(mediaid)
@@ -126,6 +127,7 @@ function Product()
 	this.loadOrder = function(orderid)
 	{
 		$('#orderid').val(orderid);
+		$('#orderdetail').html(loading);
 		$('#orderdetail').load("?route=page/home/orderView&orderid="+orderid);
 	}
 	this.getListOrder = function()
