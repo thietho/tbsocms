@@ -1434,3 +1434,12 @@ ul.autocomplete {
 {
 	background:#F00;
 }
+.numpad
+{
+	width:100%;
+	text-align:center;	
+}
+#numpadtext
+{
+	text-align:right;	
+}

@@ -359,3 +359,28 @@ function logout()
 		}
 	);	
 }
+function showNumPad()
+{
+	$("#popup").attr('title','Nhập số');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 150,
+			height: 260,
+			modal: true,
+			buttons: {
+				'Đồng ý': function() 
+				{
+					
+					$(this).dialog("close");
+				},
+				
+			}
+		});
+	
+		
+		$("#popup-content").load("?route=common/control/numPad",function(){
+			$("#popup").dialog("open");	
+		});
+}

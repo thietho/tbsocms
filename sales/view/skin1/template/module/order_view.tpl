@@ -1,3 +1,4 @@
+<h3><center>Đơn hàng</center></h3>
 <h4>Mã đơn hàng: <?php echo $order['code']?></h4>
 <input type="button" class="button" id="btnToPending" value="Chờ tính tiền">
 <table>
@@ -17,13 +18,21 @@
         <?php $sum += $ct['subtotal']?>
         <tr class="orderrow" ctid="<?php echo $ct['id']?>">
         	
-        	<td><?php echo $ct['title']?></td>
+        	<td>
+            	<table style="width:auto">
+                	<tr>
+                    	<td><input type="checkbox" class="chklist" value="<?php echo $ct['id']?>"/></td>
+                        <td><?php echo $ct['title']?></td>
+                    </tr>
+                </table>
+            	
+            </td>
             <td class="number">
-            	<table>
+            	<table style="width:auto">
                 	<tr>
                     	<td><?php echo $this->string->numberFormate($ct['quantity'])?></td>
-                        <td><input type="button" class="button btnaddOrder" value="+" mediaid="<?php echo $ct['mediaid']?>" code="<?php echo $ct['code']?>" title="<?php echo $ct['title']?>" price="<?php echo $ct['price']?>" unit="<?php echo $ct['unit']?>"></td>
-                        <td><input type="button" class="button btnDecOrder" value="-" mediaid="<?php echo $ct['mediaid']?>" code="<?php echo $ct['code']?>" title="<?php echo $ct['title']?>" price="<?php echo $ct['price']?>" unit="<?php echo $ct['unit']?>"></td>
+                        <td><input type="button" class="button btnEditQty" value="..." mediaid="<?php echo $ct['mediaid']?>" code="<?php echo $ct['code']?>" title="<?php echo $ct['title']?>" price="<?php echo $ct['price']?>" unit="<?php echo $ct['unit']?>"></td>
+                        
                     </tr>
                 </table>
             	
@@ -89,31 +98,45 @@ $('#discountpercent').keyup(function(e) {
 		
 		});
 });
-$('.btnaddOrder').click(function(e) {
+/*$('.btnaddOrder').click(function(e) {
      pro.addOrder($('#orderid').val(),$(this).attr('mediaid'),$(this).attr('code'),$(this).attr('title'),$(this).attr('unit'),1,$(this).attr('price'));
 });
 $('.btnDecOrder').click(function(e) {
     pro.addOrder($('#orderid').val(),$(this).attr('mediaid'),$(this).attr('code'),$(this).attr('title'),$(this).attr('unit'),-1,$(this).attr('price'));
+});*/
+$('.btnEditQty').click(function(e) {
+    showNumPad();
 });
-$('.orderrow').click(function(e) {
+/*$('.orderrow').click(function(e) {
 	if($(this).hasClass('selectRow'))
 	    $(this).removeClass('selectRow');
 	else
 		$(this).addClass('selectRow');
 	
-});
+});*/
 $('#btnToPending').click(function(e) {
     pro.getListOrder();
 	$('#orderdetail').html('');
 });
 $('#btnRemove').click(function(e) {
-    $('.selectRow').each(function(index, element) {
+    /*$('.selectRow').each(function(index, element) {
 		$.get("?route=page/home/delOrderDetail&id="+ $(this).attr('ctid'),
 		function()
 		{
 			$('#orderdetail').load("?route=page/home/orderView&orderid="+$('#orderid').val());	
 		});
         
+    });*/
+	$('.chklist').each(function(index, element) {
+        if(this.checked == true)
+		{
+			
+			$.get("?route=page/home/delOrderDetail&id="+ this.value,
+			function()
+			{
+				$('#orderdetail').load("?route=page/home/orderView&orderid="+$('#orderid').val());	
+			});	
+		}
     });
 });
 

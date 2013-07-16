@@ -20,10 +20,11 @@
             </form>
         </div>
         <div id="orderview" class="left sales-scr" style="width:320px">
-        	<h3><center>Đơn hàng</center></h3>
+        	
             <input type="hidden" id="orderid" name="orderid" />
             <div id="orderdetail">
             </div>
+            <h3><center>Các đơn hàng chờ thanh toán</center></h3>
             <div id="listorder"></div>
         </div>
         <div class="clearer">^&nbsp;</div>
