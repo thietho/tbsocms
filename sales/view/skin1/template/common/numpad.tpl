@@ -3,6 +3,11 @@
     	<td colspan="3"><div id="numpadtext">0</div></td>
     </tr>
     <tr>
+    	<td><input type="button" class="button numpad" id="btnNPAdd" value="+"></td>
+        <td><input type="button" class="button numpad" id="btnNPDec" value="-"></td>
+        <td><input type="button" class="button numpad" id="btnClear" value="C"></td>
+    </tr>
+    <tr>
     	<td><input type="button" class="button numpad" value="1"></td>
         <td><input type="button" class="button numpad" value="2"></td>
         <td><input type="button" class="button numpad" value="3"></td>
@@ -25,17 +30,22 @@
 </table>
 <script language="javascript">
 $('.numpad').click(function(e) {
-	if(this.id=="btnBackSpace")
+	switch(this.id)
 	{
-		$('#numpadtext').html($('#numpadtext').html().substr(0,$('#numpadtext').html().length-1));
+		case "btnNPAdd":
+			var num = Number($('#numpadtext').html());
+			$('#numpadtext').html(num++);
+			break;
+		case "btnBackSpace":
+			$('#numpadtext').html($('#numpadtext').html().substr(0,$('#numpadtext').html().length-1));
+			break;
+		default:
+			if($('#numpadtext').html()=="0")
+				$('#numpadtext').html('');
+			var chr = this.value;
+			$('#numpadtext').html($('#numpadtext').html()+chr);
 	}
-	else
-	{
-		if($('#numpadtext').html()=="0")
-			$('#numpadtext').html('');
-		var chr = this.value;
-		$('#numpadtext').html($('#numpadtext').html()+chr);
-	}
+	
 	if($('#numpadtext').html()=="")
 		$('#numpadtext').html("0");
 });

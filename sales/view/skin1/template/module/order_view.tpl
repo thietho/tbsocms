@@ -31,7 +31,7 @@
             	<table style="width:auto">
                 	<tr>
                     	<td><?php echo $this->string->numberFormate($ct['quantity'])?></td>
-                        <td><input type="button" class="button btnEditQty" value="..." mediaid="<?php echo $ct['mediaid']?>" code="<?php echo $ct['code']?>" title="<?php echo $ct['title']?>" price="<?php echo $ct['price']?>" unit="<?php echo $ct['unit']?>"></td>
+                        <td><input type="button" class="button btnEditQty" value="..." mediaid="<?php echo $ct['mediaid']?>" code="<?php echo $ct['code']?>" title="<?php echo $ct['title']?>" price="<?php echo $ct['price']?>" unit="<?php echo $ct['unit']?>" quantity="<?php echo $ct['quantity']?>"></td>
                         
                     </tr>
                 </table>
@@ -104,8 +104,14 @@ $('#discountpercent').keyup(function(e) {
 $('.btnDecOrder').click(function(e) {
     pro.addOrder($('#orderid').val(),$(this).attr('mediaid'),$(this).attr('code'),$(this).attr('title'),$(this).attr('unit'),-1,$(this).attr('price'));
 });*/
+
 $('.btnEditQty').click(function(e) {
-    showNumPad();
+	
+	function updateOrdreDetail()
+	{
+		alert(np.text);
+	}
+    np.show(updateOrdreDetail,$(this).attr('quantity'));
 });
 /*$('.orderrow').click(function(e) {
 	if($(this).hasClass('selectRow'))
@@ -119,14 +125,6 @@ $('#btnToPending').click(function(e) {
 	$('#orderdetail').html('');
 });
 $('#btnRemove').click(function(e) {
-    /*$('.selectRow').each(function(index, element) {
-		$.get("?route=page/home/delOrderDetail&id="+ $(this).attr('ctid'),
-		function()
-		{
-			$('#orderdetail').load("?route=page/home/orderView&orderid="+$('#orderid').val());	
-		});
-        
-    });*/
 	$('.chklist').each(function(index, element) {
         if(this.checked == true)
 		{

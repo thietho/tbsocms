@@ -359,9 +359,13 @@ function logout()
 		}
 	);	
 }
-function showNumPad()
+function NumPad()
 {
-	$("#popup").attr('title','Nhập số');
+	this.text = "";
+	this.show = function(callbackfunc,value)
+	{
+		this.text = "";
+		$("#popup").attr('title','Nhập số');
 		$( "#popup" ).dialog({
 			autoOpen: false,
 			show: "blind",
@@ -372,7 +376,8 @@ function showNumPad()
 			buttons: {
 				'Đồng ý': function() 
 				{
-					
+					np.text = $('#numpadtext').html();
+					callbackfunc()
 					$(this).dialog("close");
 				},
 				
@@ -382,5 +387,8 @@ function showNumPad()
 		
 		$("#popup-content").load("?route=common/control/numPad",function(){
 			$("#popup").dialog("open");	
+			$('#numpadtext').html(value)
 		});
+	}
 }
+var np = new NumPad()
