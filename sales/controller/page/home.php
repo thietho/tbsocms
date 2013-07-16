@@ -53,13 +53,6 @@ class ControllerPageHome extends Controller
 		
 	}
 	
-	public function payment()
-	{
-		$this->id='content';
-		$this->template='module/payment.tpl';
-		$this->layout='layout/center';
-		$this->render();
-	}
 	public function getList()
 	{
 		$sitemapid = $this->request->get['sitemapid'];
@@ -288,9 +281,26 @@ class ControllerPageHome extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
+	public function payment()
+	{
+		$data = $this->request->post;
+		$orderid = $data['orderid'];
+		
+		$this->model_sales_order->updateCol($orderid,"total",$data['total']);
+		$this->model_sales_order->updateCol($orderid,"payment",$data['payment']);
+		$this->model_sales_order->updateCol($orderid,"remain",$data['remain']);
+		$this->model_sales_order->updateCol($orderid,"discount",$data['discount']);
+		$this->model_sales_order->updateCol($orderid,"discountpercent",$data['discountpercent']);
+		$data['error'] ="";
+		$this->data['output'] = json_encode($data);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 	public function delOrderDetail()
 	{
 		$id = $this->request->get['id'];
+		$data['error'] ="";
 		$this->model_sales_order->deleteOrderDetail($id);
 		
 		$this->id='content';

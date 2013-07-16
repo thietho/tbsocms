@@ -49,12 +49,15 @@
             <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
         </tr>
         <tr>
-        	<td colspan="4" align="right">Giảm giá%</td>
-            <td class="number"><input type="text" class="text short number" id="discountpercent" value="<?php echo $order['discountpercent']?>"></td>
+        	<td colspan="4" align="right">
+            	Giảm giá%
+                <input type="hidden" id="discountpercent" value="<?php echo $order['discountpercent']?>">
+            </td>
+            <td class="number" id="discountpercentshow"><?php echo $this->string->numberFormate($order['discountpercent'])?></td>
         </tr>
         <tr>
         	<td colspan="4" align="right">Số tiền giảm</td>
-            <td class="number" id="discount"></td>
+            <td class="number" id="discount"><?php echo $this->string->numberFormate($order['discount'])?>"></td>
         </tr>
         <tr>
         	<td colspan="4" align="right">Tổng tiền</td>
@@ -63,16 +66,16 @@
         <tr>
         	<td colspan="4" align="right">
             	Khách hàng trả
-                <input type="hidden" id="payment" />
+                <input type="hidden" id="payment" value="<?php echo $order['payment']?>"/>
             </td>
-            <td class="number" id="paymentshow"></td>
+            <td class="number" id="paymentshow"><?php echo $this->string->numberFormate($order['payment'])?></td>
         </tr>
         <tr>
         	<td colspan="4" align="right">
             	Thối lại
-                <input type="hidden" id="remain" />
+                <input type="hidden" id="remain" value="<?php echo $order['remain']?>"/>
             </td>
-            <td class="number" id="remainshow"></td>
+            <td class="number" id="remainshow"><?php echo $this->string->numberFormate($order['remain'])?></td>
         </tr>
     </tbody>
 </table>
@@ -82,50 +85,93 @@ Khách hàng: <span id="customernametext"><?php echo $order['customername']?></s
 <input type="button" class="button" id="btnSelectCustomer" value="Chọn khách hàng">
 <div>
     <input type="button" class="button" id="btnRemove" value="Xóa hàng">
+    <input type="button" class="button" id="btnDiscount" value="Giảm giá">
     <input type="button" class="button" id="btnPayment" value="Thanh toán">
     <input type="button" class="button" id="btnPrintOrder" value="In hóa đơn">
     
 </div>
 <script language="javascript">
+
 numberReady();
 $(document).ready(function(e) {
     tinhtong();
+	
 });
 $('#btnPayment').click(function(e) {
 	
 	function paymentOrder()
 	{
-		$('#payment').val(np.text);
-		$('#paymentshow').html(formateNumber(np.text));
-		tinhtong();
+		if(Number(np.text) >= Number(stringtoNumber($('#finaltotal').html())))
+		{
+			$('#payment').val(np.text);
+			$('#paymentshow').html(formateNumber(np.text));
+			tinhtong();
+		}
+		else
+		{
+			alert("Bạn nhập số tiền thanh toán phải lớn hơn tổng tiền của đơn hàng!");
+		}
 	}
     np.show("Nhập số tiền khách hàng trả",0,paymentOrder);
+});
+$('#btnDiscount').click(function(e) {
+    function disCountOrder()
+	{
+		if(Number(np.text) < 100 )
+		{
+			$('#discountpercent').val(np.text);
+			$('#discountpercentshow').html(formateNumber(np.text));
+			tinhtong();
+		}
+		else
+		{
+			alert("Bạn nhập phần trăm giảm giá phải < 100");
+		}
+	}
+    np.show("Giảm giá%",0,disCountOrder);
 });
 function tinhtong()
 {
 	var sum = Number("<?php echo $sum?>");
 	var discountpercent = Number(stringtoNumber($('#discountpercent').val()));
 	var finaltotal = (1 - discountpercent/100)*sum;
-	$('#discount').html(formateNumber(discountpercent/100*sum));
+	var discount = discountpercent/100*sum;
+	
+	$('#discount').html(formateNumber(discount));
 	$('#finaltotal').html(formateNumber(finaltotal));
-	if(Number($('#payment').val())!=0)
+	
+	if(Number($('#payment').val())!=0 || discountpercent!=0)
 	{
+		
 		$('#remain').val(Number($('#payment').val())-finaltotal);
 		$('#remainshow').html(formateNumber($('#remain').val()));
+		
+		//Cap nhat don hang
+		$.post("?route=page/home/payment",
+			{
+				orderid:$('#orderid').val(),
+				total:finaltotal,
+				payment:Number($('#payment').val()),
+				remain:Number($('#remain').val()),
+				discount:discount,
+				discountpercent:discountpercent
+			},
+			function(data){
+				
+			});
 	}
+	if(Number($('#payment').val())==0)
+	{
+		
+		$('#remain').val(0);
+		$('#remainshow').html(0);	
+	}
+	
 }
 $('#discountpercent').keyup(function(e) {
 	tinhtong();
-	//Cap nhat don hang
-	$.post("?route=page/home/updateOrder",
-		{
-			orderid:$('#orderid').val(),
-			col:"discountpercent",
-			val:$('#discountpercent').val()
-		},
-		function(data){
-		
-		});
+	
+	
 });
 /*$('.btnaddOrder').click(function(e) {
      pro.addOrder($('#orderid').val(),$(this).attr('mediaid'),$(this).attr('code'),$(this).attr('title'),$(this).attr('unit'),1,$(this).attr('price'));
