@@ -362,10 +362,10 @@ function logout()
 function NumPad()
 {
 	this.text = "";
-	this.show = function(callbackfunc,value)
+	this.show = function(title,value,callbackfunc)
 	{
 		this.text = "";
-		$("#popup").attr('title','Nhập số');
+		$("#popup").attr('title',title);
 		$( "#popup" ).dialog({
 			autoOpen: false,
 			show: "blind",

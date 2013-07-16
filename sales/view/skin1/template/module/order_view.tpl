@@ -60,6 +60,20 @@
         	<td colspan="4" align="right">Tổng tiền</td>
             <td class="number" id="finaltotal"></td>
         </tr>
+        <tr>
+        	<td colspan="4" align="right">
+            	Khách hàng trả
+                <input type="hidden" id="payment" />
+            </td>
+            <td class="number" id="paymentshow"></td>
+        </tr>
+        <tr>
+        	<td colspan="4" align="right">
+            	Thối lại
+                <input type="hidden" id="remain" />
+            </td>
+            <td class="number" id="remainshow"></td>
+        </tr>
     </tbody>
 </table>
 <input type="hidden" id="customerid" value="<?php echo $order['customerid']?>">
@@ -68,7 +82,7 @@ Khách hàng: <span id="customernametext"><?php echo $order['customername']?></s
 <input type="button" class="button" id="btnSelectCustomer" value="Chọn khách hàng">
 <div>
     <input type="button" class="button" id="btnRemove" value="Xóa hàng">
-    <input type="button" class="button" id="btnPayment" value="Tính tiền">
+    <input type="button" class="button" id="btnPayment" value="Thanh toán">
     <input type="button" class="button" id="btnPrintOrder" value="In hóa đơn">
     
 </div>
@@ -78,7 +92,14 @@ $(document).ready(function(e) {
     tinhtong();
 });
 $('#btnPayment').click(function(e) {
-    window.location="?route=page/home/payment&orderid="+$('#orderid').val();
+	
+	function paymentOrder()
+	{
+		$('#payment').val(np.text);
+		$('#paymentshow').html(formateNumber(np.text));
+		tinhtong();
+	}
+    np.show("Nhập số tiền khách hàng trả",0,paymentOrder);
 });
 function tinhtong()
 {
@@ -87,6 +108,11 @@ function tinhtong()
 	var finaltotal = (1 - discountpercent/100)*sum;
 	$('#discount').html(formateNumber(discountpercent/100*sum));
 	$('#finaltotal').html(formateNumber(finaltotal));
+	if(Number($('#payment').val())!=0)
+	{
+		$('#remain').val(Number($('#payment').val())-finaltotal);
+		$('#remainshow').html(formateNumber($('#remain').val()));
+	}
 }
 $('#discountpercent').keyup(function(e) {
 	tinhtong();
@@ -122,7 +148,7 @@ $('.btnEditQty').click(function(e) {
 		//alert(np.text);
 		pro.updateOrderDetail(orderid,mediaid,code,title,unit,np.text,price);
 	}
-    np.show(updateOrdreDetail,$(this).attr('quantity'));
+    np.show("Nhập số lượng",$(this).attr('quantity'),updateOrdreDetail);
 });
 /*$('.orderrow').click(function(e) {
 	if($(this).hasClass('selectRow'))
