@@ -24,6 +24,7 @@
             <input type="hidden" id="orderid" name="orderid" />
             <div id="orderdetail">
             </div>
+            
             <h3><center>Các đơn hàng chờ thanh toán</center></h3>
             <div id="listorder"></div>
         </div>

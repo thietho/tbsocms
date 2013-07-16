@@ -53,6 +53,13 @@ class ControllerPageHome extends Controller
 		
 	}
 	
+	public function payment()
+	{
+		$this->id='content';
+		$this->template='module/payment.tpl';
+		$this->layout='layout/center';
+		$this->render();
+	}
 	public function getList()
 	{
 		$sitemapid = $this->request->get['sitemapid'];
@@ -299,5 +306,6 @@ class ControllerPageHome extends Controller
 		$this->template='module/order_list.tpl';
 		$this->render();
 	}
+	
 }
 ?>

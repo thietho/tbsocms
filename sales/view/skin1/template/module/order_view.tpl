@@ -77,6 +77,9 @@ numberReady();
 $(document).ready(function(e) {
     tinhtong();
 });
+$('#btnPayment').click(function(e) {
+    window.location="?route=page/home/payment&orderid="+$('#orderid').val();
+});
 function tinhtong()
 {
 	var sum = Number("<?php echo $sum?>");

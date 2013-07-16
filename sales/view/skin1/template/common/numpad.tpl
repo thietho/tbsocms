@@ -38,6 +38,7 @@ $('.numpad').click(function(e) {
 			break;
 		case "btnNPDec":
 			var num = Number($('#numpadtext').html());
+			if(num>1)
 			$('#numpadtext').html(num-1);
 			break;
 		case "btnClear":
