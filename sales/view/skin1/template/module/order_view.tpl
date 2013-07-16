@@ -106,10 +106,18 @@ $('.btnDecOrder').click(function(e) {
 });*/
 
 $('.btnEditQty').click(function(e) {
+	var orderid = $('#orderid').val();
+	var mediaid = $(this).attr('mediaid');
+	var code = $(this).attr('code');
+	var title = $(this).attr('title');
+	var unit = $(this).attr('unit');
+	var price = $(this).attr('price');
+	
 	
 	function updateOrdreDetail()
 	{
-		alert(np.text);
+		//alert(np.text);
+		pro.updateOrderDetail(orderid,mediaid,code,title,unit,np.text,price);
 	}
     np.show(updateOrdreDetail,$(this).attr('quantity'));
 });

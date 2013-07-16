@@ -34,7 +34,15 @@ $('.numpad').click(function(e) {
 	{
 		case "btnNPAdd":
 			var num = Number($('#numpadtext').html());
-			$('#numpadtext').html(num++);
+			$('#numpadtext').html(num+1);
+			break;
+		case "btnNPDec":
+			var num = Number($('#numpadtext').html());
+			$('#numpadtext').html(num-1);
+			break;
+		case "btnClear":
+			var num = Number($('#numpadtext').html());
+			$('#numpadtext').html('');
 			break;
 		case "btnBackSpace":
 			$('#numpadtext').html($('#numpadtext').html().substr(0,$('#numpadtext').html().length-1));

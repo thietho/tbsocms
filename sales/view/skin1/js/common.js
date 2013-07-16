@@ -370,8 +370,8 @@ function NumPad()
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 150,
-			height: 260,
+			width: 200,
+			height: 300,
 			modal: true,
 			buttons: {
 				'Đồng ý': function() 

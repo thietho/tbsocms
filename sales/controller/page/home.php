@@ -230,6 +230,33 @@ class ControllerPageHome extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
+	public function updateOrderDetail()
+	{
+		$data = $this->request->post;
+		/*$mediaid = $data['mediaid'];
+		$soluong = $data['soluong'];
+		$madonvi = $data['madonvi'];
+		$giaban = $data['giaban'];*/
+		
+		//Kiem tra mediaid va uint co trong chua
+		$where = " AND orderid = '".$data['orderid']."' AND mediaid = '".$data['mediaid']."' AND unit = '".$data['unit']."'";
+		$data_ct = $this->model_sales_order->getOrderDetailList($where);
+		if(count($data_ct)==0)
+			$this->model_sales_order->saveOrderDetail($data);
+		else
+		{
+			$ct = $data_ct[0];
+			$ct['quantity'] = $data['quantity'];
+			if($ct['quantity'] >0)
+				$this->model_sales_order->saveOrderDetail($ct);
+		}
+		
+		$data['error'] ="";
+		$this->data['output'] = json_encode($data);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 	public function orderView()
 	{
 		$orderid = $this->request->get['orderid'];

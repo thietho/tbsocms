@@ -125,6 +125,25 @@ function Product()
 				
 			});	
 	}
+	this.updateOrderDetail = function(orderid,mediaid,code,title,unit,quantity,price)
+	{
+		$.post("?route=page/home/updateOrderDetail",
+			{
+				orderid:orderid,
+				mediaid:mediaid,
+				code:code,
+				title:title,
+				unit:unit,
+				quantity:quantity,
+				price:price
+			},
+			function(data)
+			{
+				var obj = $.parseJSON(data);
+				pro.loadOrder(obj.orderid);
+				
+			});	
+	}
 	this.loadOrder = function(orderid)
 	{
 		$('#orderid').val(orderid);
