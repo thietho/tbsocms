@@ -151,6 +151,33 @@ function Product()
 		$('#orderdetail').html(loading);
 		$('#orderdetail').load("?route=page/home/orderView&orderid="+orderid);
 	}
+	this.printOrder = function(orderid)
+	{
+		$("#popup").attr('title','Đơn hàng');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 350,
+			height: 600,
+			modal: true,
+			buttons: {
+				'Đồng ý': function() 
+				{
+					
+					
+					$(this).dialog("close");
+				},
+				
+			}
+		});
+	
+		
+		$("#popup-content").load("?route=page/home/orderView&orderid="+orderid+"&view=dialog",function(){
+			$("#popup").dialog("open");	
+			
+		});
+	}
 	this.getListOrder = function()
 	{
 		$('#listorder').load("?route=page/home/getOrder");

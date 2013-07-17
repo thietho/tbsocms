@@ -114,6 +114,9 @@ $('#btnPayment').click(function(e) {
 	}
     np.show("Nhập số tiền khách hàng trả",0,paymentOrder);
 });
+$('#btnPrintOrder').click(function(e) {
+    pro.printOrder($('#orderid').val());
+});
 $('#btnDiscount').click(function(e) {
     function disCountOrder()
 	{

@@ -260,11 +260,16 @@ class ControllerPageHome extends Controller
 	public function orderView()
 	{
 		$orderid = $this->request->get['orderid'];
+		$view = $this->request->get['view'];
 		$this->data['order'] = $this->model_sales_order->getItem($orderid);
+		if($this->data['order']['customername']=="")
+			$this->data['order']['customername'] = "Khách vãng lai";
 		$where = " AND orderid = '".$orderid."'";
 		$this->data['data_ct'] = $this->model_sales_order->getOrderDetailList($where);
 		$this->id='content';
 		$this->template='module/order_view.tpl';
+		if($view == "dialog")
+			$this->template='module/order_print.tpl';
 		$this->render();
 	}
 	
