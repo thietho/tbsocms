@@ -1442,6 +1442,7 @@ ul.autocomplete {
 #numpadtext
 {
 	text-align:right;	
+	display:none;
 }
 #numpadpreview
 {

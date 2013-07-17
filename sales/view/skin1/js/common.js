@@ -371,7 +371,7 @@ function NumPad()
 			show: "blind",
 			hide: "explode",
 			width: 200,
-			height: 350,
+			height: 300,
 			modal: true,
 			buttons: {
 				'Đồng ý': function() 

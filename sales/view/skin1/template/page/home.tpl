@@ -168,7 +168,19 @@ function Product()
 				},
 				'Hoàn tất thanh toán':function()
 				{
-					
+					$.post("?route=page/home/updateOrder",
+						{
+							orderid:orderid,
+							col:'status',
+							val:'completed'
+						},
+						function(data)
+						{
+							$('#orderid').val('');
+							$('#orderdetail').html('');
+							pro.getListOrder();	
+							$('#popup').dialog("close");
+						});
 				},
 				'Đóng':function()
 				{
