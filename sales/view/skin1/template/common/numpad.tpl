@@ -38,18 +38,22 @@ $('.numpad').click(function(e) {
 		case "btnNPAdd":
 			var num = Number($('#numpadtext').html());
 			$('#numpadtext').html(num+1);
+			$('#numpadpreview').html(formateNumber($('#numpadtext').html()));
 			break;
 		case "btnNPDec":
 			var num = Number($('#numpadtext').html());
 			if(num>1)
 			$('#numpadtext').html(num-1);
+			$('#numpadpreview').html(formateNumber($('#numpadtext').html()));
 			break;
 		case "btnClear":
 			var num = Number($('#numpadtext').html());
 			$('#numpadtext').html('');
+			$('#numpadpreview').html(formateNumber($('#numpadtext').html()));
 			break;
 		case "btnBackSpace":
 			$('#numpadtext').html($('#numpadtext').html().substr(0,$('#numpadtext').html().length-1));
+			$('#numpadpreview').html(formateNumber($('#numpadtext').html()));
 			break;
 		default:
 			if($('#numpadtext').html()=="0")
