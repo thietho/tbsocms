@@ -162,12 +162,18 @@ function Product()
 			height: 600,
 			modal: true,
 			buttons: {
-				'Đồng ý': function() 
+				'In': function() 
+				{
+					openDialog("?route=page/home/orderView&orderid="+orderid+"&view=print",207,600);
+				},
+				'Hoàn tất thanh toán':function()
 				{
 					
-					
-					$(this).dialog("close");
 				},
+				'Đóng':function()
+				{
+					$(this).dialog("close");
+				}
 				
 			}
 		});

@@ -3,6 +3,9 @@
     	<td colspan="3"><div id="numpadtext">0</div></td>
     </tr>
     <tr>
+    	<td colspan="3"><div id="numpadpreview">0</div></td>
+    </tr>
+    <tr>
     	<td><input type="button" class="button numpad" id="btnNPAdd" value="+"></td>
         <td><input type="button" class="button numpad" id="btnNPDec" value="-"></td>
         <td><input type="button" class="button numpad" id="btnClear" value="C"></td>
@@ -53,6 +56,7 @@ $('.numpad').click(function(e) {
 				$('#numpadtext').html('');
 			var chr = this.value;
 			$('#numpadtext').html($('#numpadtext').html()+chr);
+			$('#numpadpreview').html(formateNumber($('#numpadtext').html()));
 	}
 	
 	if($('#numpadtext').html()=="")

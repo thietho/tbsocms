@@ -1,19 +1,10 @@
-<h3><center>Đơn hàng</center></h3>
+<h2><center>Phiếu tính tiền</center></h2>
 <h4>Mã đơn hàng: <?php echo $order['code']?></h4>
 
 Khách hàng: <span id="customernametext"><?php echo $order['customername']?></span>
 
 <table>
-    <thead>
-        <tr>      
-        	   
-            <th>Sản phẩm</th>
-            <th>Số lượng</th>
-            <th>ĐVT</th>
-            <th>Giá bán</th>
-            <th>Thành tiền</th>
-        </tr>
-    </thead>
+    
     <tbody>
     	<?php $sum = 0;?>
     	<?php foreach($data_ct as $ct){ ?>

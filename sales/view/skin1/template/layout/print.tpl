@@ -24,7 +24,10 @@ table
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
+h1,h2,h3,h4,h5,h6
+{
+	margin:5px auto	
+}
 .number {
 	text-align: right;
 }
@@ -60,7 +63,18 @@ label
 
 <div class="main">
 
-<div id="main-content"><?php echo $content?></div>
+<div id="main-content">
+	<center>
+		<p style="font-size:1.5em;font-weight:bold">Mylanbeauty.net</p>
+        Địa chỉ: 193 Tuy Lý Vương, P.12, Q.8, Tp.HCM<br />
+        ĐT: 0903 767 589<br />
+        Email: cosmetics@mylanbeauty.net<br />
+        Website: www.mylanbeauty.net
+        
+    </center>
+	<?php echo $content?>
+
+</div>
 
 <div class="clearer">&nbsp;</div>
 

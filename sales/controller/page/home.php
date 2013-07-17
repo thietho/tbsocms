@@ -270,6 +270,11 @@ class ControllerPageHome extends Controller
 		$this->template='module/order_view.tpl';
 		if($view == "dialog")
 			$this->template='module/order_print.tpl';
+		if($view == "print")
+		{
+			$this->template='module/order_print.tpl';
+			$this->layout='layout/print';
+		}
 		$this->render();
 	}
 	
