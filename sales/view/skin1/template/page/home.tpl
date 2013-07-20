@@ -200,6 +200,39 @@ function Product()
 	{
 		$('#listorder').load("?route=page/home/getOrder");
 	}
+	this.viewIncome = function()
+	{
+		$("#popup").attr('title','Doanh thu');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 600,
+			modal: true,
+			buttons: {
+				'In': function() 
+				{
+					openDialog("?route=page/home/orderView&orderid="+orderid+"&view=print",207,600);
+				},
+				'Hoàn tất thanh toán':function()
+				{
+					
+				},
+				'Đóng':function()
+				{
+					$(this).dialog("close");
+				}
+				
+			}
+		});
+	
+		
+		$("#popup-content").load("?route=page/home/income&view=dialog",function(){
+			$("#popup").dialog("open");	
+			
+		});
+	}
 }
 var pro = new Product();
 

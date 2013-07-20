@@ -295,12 +295,15 @@ class ControllerPageHome extends Controller
 	{
 		$data = $this->request->post;
 		$orderid = $data['orderid'];
+		$nhanvien = $this->user->getNhanVien();
 		
 		$this->model_sales_order->updateCol($orderid,"total",$data['total']);
 		$this->model_sales_order->updateCol($orderid,"payment",$data['payment']);
 		$this->model_sales_order->updateCol($orderid,"remain",$data['remain']);
 		$this->model_sales_order->updateCol($orderid,"discount",$data['discount']);
 		$this->model_sales_order->updateCol($orderid,"discountpercent",$data['discountpercent']);
+		$this->model_sales_order->updateCol($orderid,"paymenttime",$this->date->getToday());
+		$this->model_sales_order->updateCol($orderid,"cashier",$nhanvien['id']);
 		$data['error'] ="";
 		$this->data['output'] = json_encode($data);
 		$this->id='content';
@@ -326,6 +329,19 @@ class ControllerPageHome extends Controller
 		$this->template='module/order_list.tpl';
 		$this->render();
 	}
-	
+	public function income()
+	{
+		$where = " AND sessionid = '".$this->user->getSessionId()."'";
+		$data_order = $this->model_sales_order->getList($where);
+		
+		$arr_orderid = $this->string->matrixToArray($data_order,"id");
+		$where = " AND orderid in ('". implode("','",$arr_orderid) ."')";
+		$this->data['data_order'] = $data_order;
+		$this->data['ct'] = $this->model_sales_order->getOrderDetailList($where);
+		
+		$this->id='content';
+		$this->template='module/income.tpl';
+		$this->render();
+	}
 }
 ?>

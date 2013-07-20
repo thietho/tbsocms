@@ -7,8 +7,8 @@
         
         <div class="main-action">
         	<input type="button" class="button" value="Đóng phiên làm việc"/>
-            <input type="button" class="button" value="Khóa màng hình"/>
-            <input type="button" class="button" value="Kiểm tra doanh thu"/>
+            
+            <input type="button" class="button" id="btnIncome" value="Doanh thu" onclick="pro.viewIncome()"/>
             <input type="button" class="button" value="Quản trị hệ thống"/>
             
         </div>
