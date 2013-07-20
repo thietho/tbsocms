@@ -6,14 +6,19 @@
         <th>Mã đơn hàng</th>
         <th>Số tiền</th>
     </tr>
-	<?php foreach($data_order as $key => $order){ ?>
     <?php $sum = 0;?>
+	<?php foreach($data_order as $key => $order){ ?>
+    <?php $sum += $order['total'];?>
 	<tr>
-    	<td><?php echo $key + 1?></td>
-        <td><?php echo $this->date->formatMySQLDate($order['createtime'],'longdate')?></td>
-        <td><?php echo $order['code']?></td>
+    	<td align="center"><?php echo $key + 1?></td>
+        <td align="center"><?php echo $this->date->formatMySQLDate($order['createtime'],'longdate')?></td>
+        <td align="center"><?php echo $order['code']?></td>
         <td class="number"><?php echo $this->string->numberFormate($order['total'])?></td>
     </tr>
-	<?php }?>	    
+	<?php }?>	
+    <tr>
+    	<td colspan="3" align="right">Tổng doanh thu:</td>
+        <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
+    </tr>    
 </table>
 
