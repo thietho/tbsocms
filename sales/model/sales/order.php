@@ -120,6 +120,18 @@ class ModelSalesOrder extends Model
 		return $query->rows;
 	}
 	
+	public function getOrderDetailListTotal($where)
+	{
+		$sql = "SELECT * , SUM( quantity ) as total
+				FROM  `salesorder_detail` 
+				WHERE 1 =1
+				".$where."
+				GROUP BY mediaid, unit";
+		
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
+	
 	public function saveOrderDetail($data)
 	{
 		$obj = array();

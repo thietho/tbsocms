@@ -337,7 +337,7 @@ class ControllerPageHome extends Controller
 		$arr_orderid = $this->string->matrixToArray($data_order,"id");
 		$where = " AND orderid in ('". implode("','",$arr_orderid) ."')";
 		$this->data['data_order'] = $data_order;
-		$this->data['ct'] = $this->model_sales_order->getOrderDetailList($where);
+		$this->data['data_ct'] = $this->model_sales_order->getOrderDetailListTotal($where);
 		
 		$this->id='content';
 		$this->template='module/income.tpl';
