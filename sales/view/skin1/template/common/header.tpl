@@ -30,7 +30,7 @@
                         <li><a href="index.php?route=quanlykho/nhanvien/profile">Logged user: <b><?php echo $username?></b></a></li>
                         <li><a href="index.php?route=common/changepassword"><?php echo $button_change_password?></a></li>
                         <?php if($this->user->getUserTypeId() == 'admin'){?>
-                        <li><a href="?route=core/module">Quản trị hệ thống</a></li>
+                        <li><a href="<?php echo ADIMCP?>">Quản trị hệ thống</a></li>
                         <?php } ?>
                         <li><a onclick="pro.viewIncome()">Tổng kết doanh thu</a></li>
                         <li><a href="logout.php"><?php echo $button_logout?></a></li>

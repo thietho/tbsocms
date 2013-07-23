@@ -2,7 +2,7 @@
 // HTTP
 define('HTTP_SERVER', 'http://localhost:81/tbsocms/sales/');
 define('HTTP_IMAGE', 'http://localhost:81/tbsocms/file/');
-
+define('ADIMCP', 'http://localhost:81/tbsocms/admincp/');
 // HTTPS
 define('HTTPS_SERVER', '');
 define('HTTPS_IMAGE', '');

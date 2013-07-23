@@ -103,7 +103,7 @@ class ControllerPageHome extends Controller
 			
 			if($this->data['medias'][$i]['imagepath'] != "")
 			{
-				$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 130, 130);
+				$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 140, 140);
 				
 			}
 			

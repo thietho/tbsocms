@@ -20,6 +20,7 @@
             <a class="button" href="<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"><?php echo $button_cancel?></a>
              
              <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $post['mediaid']?>" />
+             <input type="hidden" id="mediaparent" name="mediaparent" value="<?php echo $post['mediaparent']?>" />
              <input type="hidden" id="mediatype" name="mediatype" value="<?php echo $post['mediatype']?>" />
              <input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $post['refersitemap']?>" />
              

@@ -1,7 +1,7 @@
 			<h2><?php echo $breadcrumb?></h2>
 			<div id="productlist">
             	<?php foreach($medias as $key => $media) {?>
-            	<div class="pro-item left" mediaid="<?php echo $media['mediaid']?>" style="background:url(<?php echo $media['imagepreview']?>) no-repeat center;">
+            	<div class="pro-item left" mediaid="<?php echo $media['mediaid']?>" style="background:url('<?php echo $media['imagepreview']?>') no-repeat center center;">
                 	<table>
                     	<tr>
                         	<td>

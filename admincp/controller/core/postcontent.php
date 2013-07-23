@@ -58,6 +58,7 @@ class ControllerCorePostcontent extends Controller
 		
 		$this->data['post'] =array();
 		$this->data['post']['mediatype'] = "content";
+		
 		switch($route)
 		{
 			
@@ -75,6 +76,7 @@ class ControllerCorePostcontent extends Controller
 				{
 					$this->data['post']['mediaid'] = $this->user->getSiteId().$sitemapid;
 					$this->data['post']['title'] = $sitemap['sitemapname'];
+					
 				}
 				break;
 			case "module/register":
@@ -118,6 +120,20 @@ class ControllerCorePostcontent extends Controller
 				if($mediaid == "")
 				{
 					$this->data['post']['mediaid'] = $this->model_core_media->insert($data);
+					$this->data['post']['mediaparent'] = $this->request->get['mediaparent'];
+					if($this->data['post']['mediaparent'])
+					{
+						$mediaparent = $this->model_core_media->getItem($this->data['post']['mediaparent']);
+						$this->data['post']['title'] = $mediaparent['title'];
+						$this->data['post']['summary'] = $mediaparent['summary'];
+						$this->data['post']['description'] = $mediaparent['description'];
+						$this->data['post']['keyword'] = $mediaparent['keyword'];
+						$this->data['post']['unit'] = $mediaparent['unit'];
+						$this->data['post']['sizes'] = $mediaparent['sizes'];
+						$this->data['post']['imageid'] = $mediaparent['imageid'];
+						$this->data['post']['imagepath'] = $mediaparent['imagepath'];
+						$this->data['post']['groupkeys'] = $mediaparent['groupkeys'];
+					}
 				}
 			
 		}
