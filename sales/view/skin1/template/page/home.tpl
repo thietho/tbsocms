@@ -215,7 +215,7 @@ function Product()
 				{
 					openDialog("?route=page/home/orderView&orderid="+orderid+"&view=print",207,600);
 				},
-				'Hoàn tất thanh toán':function()
+				'Đóng phiên làm việc':function()
 				{
 					
 				},

@@ -1,3 +1,14 @@
+<h3>Thông tin phiên làm việc</h3>
+<table>
+	<tr>
+    	<td><label>Mã nhân viên:</label> <?php echo $nhanvien['manhanvien']?></td>
+        <td><label>Họ tên:</label> <?php echo $nhanvien['hoten']?></td>
+    </tr>
+    <tr>
+    	<td><label>Thời gian bắt đầu:</label> <?php echo $this->date->formatMySQLDate($session['starttime'],'longdate')?></td>
+        <td></td>
+    </tr>
+</table>
 <h3>Thống kê danh thu</h3>
 <table>
 	<tr>

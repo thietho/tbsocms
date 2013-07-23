@@ -331,6 +331,8 @@ class ControllerPageHome extends Controller
 	}
 	public function income()
 	{
+		$this->data['nhanvien'] = $this->user->getNhanVien();
+		$this->data['session'] = $this->model_sales_session->getItem($this->user->getSessionId());
 		$where = " AND sessionid = '".$this->user->getSessionId()."' AND status = 'completed'";
 		$data_order = $this->model_sales_order->getList($where);
 		
