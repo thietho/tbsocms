@@ -1399,21 +1399,31 @@ ul.autocomplete {
 .pro-item
 {
 	width:150px;	
-	
+	height:150px;
 	border:#999 thin solid;
 	border-radius:10px;
 	margin:4px;
+	cursor:pointer;
+	color:#C60;
 }
 .pro-item:hover
 {
 	
 	box-shadow:5px 5px 5px #333;
 }
+.pro-item table
+{
+	height:100%
+}
 .pro-item td
 {
 	padding:0;
-	
 	text-align:center;	
+	
+}
+.pro-item td:hover
+{
+	font-weight:bold;
 }
 .sales-scr
 {
