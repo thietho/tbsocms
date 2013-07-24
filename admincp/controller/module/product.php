@@ -117,7 +117,7 @@ class ControllerModuleProduct extends Controller
 			$this->data['medias'][$i]['text_edit'] = "Edit";
 			
 			$this->data['medias'][$i]['link_addchild'] = $this->url->http('module/product/insert&sitemapid='.$sitemap['sitemapid'].'&mediaparent='.$this->data['medias'][$i]['mediaid'].$parapage);
-			$this->data['medias'][$i]['text_addchild'] = "Thêm";	
+			$this->data['medias'][$i]['text_addchild'] = "Thêm qui cách";	
 			
 			$this->data['medias'][$i]['type'] = $sitemap['moduleid'];
 			$this->data['medias'][$i]['typename'] = $this->model_core_sitemap->getModuleName($sitemap['moduleid']);
