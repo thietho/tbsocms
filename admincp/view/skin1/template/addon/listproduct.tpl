@@ -1,44 +1,5 @@
 <?php foreach($medias as $media){ ?>
-<div class="product-item left">
-	
-   
-    <div class="product-price">
-    	<table>
-        	<tr>
-            	<th>Sản phẩm</th>
-                <th>Giá</th>
-                <th>Khuyến mãi</th>
-            </tr>
-            <?php if($media['price']){ ?>
-            <tr class="price-item" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $media['title']?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>">
-            	<td>
-            		<?php echo $media['title']?>
-            	</td>
-                <td class="number">
-            		<?php echo $this->string->numberFormate($media['price'])?>
-            	</td>
-                <td class="number">
-            		<?php echo $this->string->numberFormate($media['pricepromotion'])?>
-            	</td>
-            </tr>
-            <?php } ?>
-        	<?php foreach($media['productprice'] as $item){ ?>
-            <tr class="price-item" ref="<?php echo $item['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $item['code']?>" unit="<?php echo $item['unit']?>" title="<?php echo $media['title']?> - <?php echo $item['title']?>" price="<?php echo $item['price']?>" pricepromotion="<?php echo $item['pricepromotion']?>">
-            	<td>
-            		<?php echo $media['title']?> - <?php echo $item['title']?>
-            	</td>
-                <td class="number">
-            		<?php echo $this->string->numberFormate($item['price'])?>
-            	</td>
-                <td class="number">
-            		<?php echo $this->string->numberFormate($item['pricepromotion'])?>
-            	</td>
-            </tr>
-            <?php } ?>
-        </table>
-    	
-    </div>
-    
+<div class="product-item left price-item" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $media['title']?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>">
     <input type="hidden" class="listid" value="<?php echo $media['mediaid']?>">
 	<table>
     	<tr>
@@ -49,12 +10,33 @@
         <tr>
         	<td align="center">
             	<?php echo $media['title']?><br>
-                
+                Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
+                Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?>
             </td>
         </tr>
     </table>
-	
 </div>
+<?php if(count($media['child'])){ ?>
+<?php foreach($media['child'] as $item){ ?>
+<div class="product-item left price-item" ref="<?php echo $item['mediaid']?>" image="<?php echo $item['imagepreview']?>" code="<?php echo $item['code']?>" unit="<?php echo $item['unit']?>" title="<?php echo $item['title']?>" price="<?php echo $item['price']?>" pricepromotion="<?php echo $item['pricepromotion']?>">
+    <input type="hidden" class="listid" value="<?php echo $item['mediaid']?>">
+	<table>
+    	<tr>
+        	<td width="100px" height="100px" align="center">
+            	<img src="<?php echo $item['imagepreview']?>">
+            </td>
+        </tr>
+        <tr>
+        	<td align="center">
+            	<?php echo $item['title']?><br>
+                Giá: <?php echo $this->string->numberFormate($item['price'])?><br />
+                Giá khuyến mãi: <?php echo $this->string->numberFormate($item['pricepromotion'])?>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php } ?>
+<?php } ?>
 <?php } ?>
 <div class="clearer">^&nbsp;</div>
 <script language="javascript">

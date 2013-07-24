@@ -433,25 +433,18 @@ class ControllerAddonOrder extends Controller
 		$this->data['medias'] = $this->model_core_media->getList($where);
 		foreach($this->data['medias'] as $i => $media)
 		{
-			if($this->data['medias'][$i]['imagepath'] != "")
-			{
-				$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
-				
-			}
 			
-			$data_price = $this->model_core_media->getListByParent($media['mediaid']," AND mediatype = 'price' Order by position");
-			foreach($data_price as $key => $item)
+			$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
+				
+			
+			
+			$data_child = $this->model_core_media->getListByParent($media['mediaid']," Order by position");
+			foreach($data_child as $key =>$child)
 			{
-				$para = $this->string->referSiteMapToArray($item['summary']);
-				foreach($para as $val)
-				{
-					$ar = split("=",$val);
-					$data_price[$key][$ar[0]] = $ar[1];	
-				}
-				$khuyenmai = $this->model_core_media->getItem($data_price[$key]['makhuyenmai']);
-				$data_price[$key]['tenkhuyenmai'] = $khuyenmai['title'];
+				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 			}
-			$this->data['medias'][$i]['productprice'] = $data_price;
+			$this->data['medias'][$i]['child'] = $data_child;
+			
 		}
 		
 		$this->id="content";

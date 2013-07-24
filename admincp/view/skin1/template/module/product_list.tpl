@@ -11,7 +11,7 @@
                     <th width="200px">Tồn kho</th>
    
                     <th>Tên sản phẩm</th>
-                    
+                    <th>ĐVT</th>
                     <th>Hình</th>
                     <th></th>
                 </thead>
@@ -34,7 +34,7 @@
                         </td>
                        
                         <td><b><?php echo $media['title']?></b>&nbsp;</td>
-                        
+                        <td><b><?php echo $this->document->getDonViTinh($media['unit'])?></b>&nbsp;</td>
                         <td><?php echo $media['imagepreview']?>&nbsp;</td>
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
@@ -62,7 +62,7 @@
                         </td>
                        
                         <td><b><?php echo $child['title']?></b>&nbsp;</td>
-                        
+                        <td><b><?php echo $this->document->getDonViTinh($child['unit'])?></b>&nbsp;</td>
                         <td><?php echo $child['imagepreview']?>&nbsp;</td>
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>

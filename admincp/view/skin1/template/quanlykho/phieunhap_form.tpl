@@ -176,7 +176,10 @@ function DinhLuong()
             var pos = $(this).attr('ref');
 			objdl.tinhtong(pos);
         });
-		
+		$('.giatien').keyup(function(e) {
+            var pos = $(this).attr('ref');
+			objdl.tinhtong(pos);
+        });
 		numberReady();
 	}
 	this.removeRow = function(pos)
