@@ -103,6 +103,9 @@ class ControllerModuleProduct extends Controller
 			foreach($data_child as $key =>$child)
 			{
 				$data_child[$key]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG($child['imagepath'], 100, 100)."' >";
+				
+				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
+				$data_child[$key]['text_edit'] = "Edit";
 			}
 			$this->data['medias'][$i]['child'] = $data_child;
 			$parapage = "";
