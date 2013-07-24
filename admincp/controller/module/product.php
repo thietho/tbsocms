@@ -98,12 +98,12 @@ class ControllerModuleProduct extends Controller
 			}
 			
 			$mediaid = $this->data['medias'][$i]['mediaid'];
-			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->viewTonKho($mediaid);
+			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
 			$data_child = $this->model_core_media->getListByParent($mediaid);
 			foreach($data_child as $key =>$child)
 			{
 				$data_child[$key]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG($child['imagepath'], 100, 100)."' >";
-				
+				$data_child[$key]['tonkho'] = $this->model_core_media->getTonKho($child['mediaid']);
 				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
 				$data_child[$key]['text_edit'] = "Edit";
 			}

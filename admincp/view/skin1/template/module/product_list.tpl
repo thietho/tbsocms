@@ -29,11 +29,8 @@
                         <td class="number"><b><?php echo $this->string->numberFormate($media['price'])?></b>&nbsp;</td>
                         <td class="number"><b><?php echo $this->string->numberFormate($media['pricepromotion'])?></b>&nbsp;</td>
                         <td class="number">
-                        	<?php echo $media['tonkho']['main']['tonkho']?>
-                            <?php foreach($media['tonkho']['prices'] as $price){ ?>
-                            <br />
-                            <?php echo $price['title']?>: <?php echo $price['tonkho']?>
-                            <?php } ?>
+                        	<?php echo $media['tonkho']?>
+                            
                         </td>
                        
                         <td><b><?php echo $media['title']?></b>&nbsp;</td>
@@ -61,7 +58,7 @@
                         <td class="number"><b><?php echo $this->string->numberFormate($child['price'])?></b>&nbsp;</td>
                         <td class="number"><b><?php echo $this->string->numberFormate($child['pricepromotion'])?></b>&nbsp;</td>
                         <td class="number">
-                        	
+                        	<?php echo $child['tonkho']?>
                         </td>
                        
                         <td><b><?php echo $child['title']?></b>&nbsp;</td>

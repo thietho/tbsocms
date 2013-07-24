@@ -691,28 +691,11 @@ class ModelCoreMedia extends ModelCoreFile
 		$int_xuat = $this->model_quanlykho_donvitinh->toInt($soluongxuat);
 		//$arr_xuat = $this->model_quanlykho_donvitinh->toDonVi($int_xuat,$media['unit']);
 		$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap - $int_xuat,$media['unit']);
-		
+		//print_r($arr_ton);
+		//echo "<br>";
 		return $this->model_quanlykho_donvitinh->toText($arr_ton);
 	}
 	
-	function viewTonKho($mediaid)
-	{
-		$data_price = array();
-		$media = $this->getItem($mediaid);
-		$media['tonkho'] = $this->getTonKho($media['mediaid']);
-		$data = array();
-		$data['main'] = $media;
-		
-		$data_price =$this->getListByParent($mediaid," AND mediatype = 'price' Order by position");
-		if(count($data_price))
-		{
-			foreach($data_price as $key => $price)
-			{
-				$data_price[$key]['tonkho'] = $this->getTonKho($price['mediaid']);
-			}
-		}
-		$data['prices'] = $data_price;
-		return $data;
-	}
+	
 }
 ?>

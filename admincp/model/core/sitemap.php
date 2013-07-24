@@ -169,7 +169,7 @@ class ModelCoreSitemap extends Model
 	{
 		$data = $this->getPath($id, $siteid);
 		$strBreadcrumb = "";
-		for($i=count($data)-1;$i>$end;$i--)
+		for($i=count($data)-1;$i>=$end;$i--)
 		{
 			
 			

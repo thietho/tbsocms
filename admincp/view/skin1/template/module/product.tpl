@@ -68,7 +68,8 @@ function Product()
 					{
 						if(data!="")
 						{
-							alert(data)
+							alert(data);
+							window.location.reload();
 							
 						}
 					}
