@@ -345,11 +345,15 @@ class ControllerCorePostcontent extends Controller
 		
 		
 		$data['userid'] = $this->user->getId();
-		foreach($data['saleprice'] as $key => $val)
+		//$data['saleprice'] = "";
+		if(count($data['saleprice']))
 		{
-			$data['saleprice'][$key] = $this->string->toNumber($val);
+			foreach($data['saleprice'] as $key => $val)
+			{
+				$data['saleprice'][$key] = $this->string->toNumber($val);
+			}
+			$data['saleprice'] = json_encode($data['saleprice']);
 		}
-		$data['saleprice'] = json_encode($data['saleprice']);
 		
 		
 		if($data['price'] == "")

@@ -96,6 +96,7 @@ class ControllerModuleProduct extends Controller
 				$this->data['medias'][$i]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100)."' >";
 				
 			}
+			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
 			
 			$mediaid = $this->data['medias'][$i]['mediaid'];
 			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);

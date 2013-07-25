@@ -26,7 +26,21 @@
                         
                         <td><b><?php echo $media['code']?></b>&nbsp;</td>
                         <td><b><?php echo $media['sizes']?></b>&nbsp;</td>
-                        <td class="number"><b><?php echo $this->string->numberFormate($media['price'])?></b>&nbsp;</td>
+                        <td class="number">
+                        	
+                        	<ul>
+                            	<?php if($media['price']){ ?>
+                            	<li><?php echo $this->string->numberFormate($media['price'])?></li>
+                                <?php } ?>
+                                <?php if(count($media['saleprice'])){ ?>
+                                <?php foreach($media['saleprice'] as $k => $price){ ?>
+                            	<li><?php echo $this->string->numberFormate($price)?>/<?php echo $this->document->getDonViTinh($k)?></li>
+                            	<?php } ?>
+                                <?php } ?>
+                            </ul>
+                        	
+                            
+                        </td>
                         <td class="number"><b><?php echo $this->string->numberFormate($media['pricepromotion'])?></b>&nbsp;</td>
                         <td class="number">
                         	<?php echo $media['tonkho']?>
@@ -38,10 +52,12 @@
                         <td><?php echo $media['imagepreview']?>&nbsp;</td>
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
-                        	<a class="button" href="<?php echo $media['link_edit']?>" title="<?php echo $media['text_edit']?>"><?php echo $media['text_edit']?></a>
+                        	
+                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="window.location='<?php echo $media['link_edit']?>'"/>
                             <?php } ?>
                             <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
-                  			<a class="button" href="<?php echo $media['link_addchild']?>" title="<?php echo $media['text_addchild']?>"><?php echo $media['text_addchild']?></a>          
+                  			
+                            <input type="button" class="button" value="<?php echo $media['text_addchild']?>" onclick="window.location='<?php echo $media['link_addchild']?>'"/>
                             <?php }?>
                         </td>
                     </tr>
@@ -66,7 +82,8 @@
                         <td><?php echo $child['imagepreview']?>&nbsp;</td>
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
-                        	<a class="button" href="<?php echo $child['link_edit']?>" title="<?php echo $child['text_edit']?>"><?php echo $media['text_edit']?></a>
+                        	
+                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="window.location='<?php echo $child['link_edit']?>'"/>
                             <?php } ?>
                            
                         </td>

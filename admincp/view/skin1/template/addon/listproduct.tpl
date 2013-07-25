@@ -9,7 +9,7 @@
         </tr>
         <tr>
         	<td align="center">
-            	<?php echo $media['title']?><br>
+            	<?php echo $this->string->getTextLength($media['title'],0,5)?>...<br>
                 Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
                 Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?>
             </td>

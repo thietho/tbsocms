@@ -128,30 +128,41 @@ $('#title').change(function(e) {
 								
 								$('#unit').change(function(e) {
 									$('#giaban').html('');
-                                    $.getJSON("?route=quanlykho/donvitinh/getListDonVi&madonvi="+ this.value,function(data){
-										for(i in data)
-										{
-											var str = "";
-											str+='<input type="text" id="saleprice-'+data[i].madonvi+'" name="saleprice['+data[i].madonvi+']" class="text number">/'+data[i].tendonvitinh+'<br>'
-											$('#giaban').append(str);
-											numberReady();
-										}
+									if(this.value !="")
+									{
 										
-										<?php if($post["saleprice"]!=""){ ?>
+										$.getJSON("?route=quanlykho/donvitinh/getListDonVi&madonvi="+ this.value,function(data){
+											for(i in data)
+											{
+												var str = "";
+												str+='<input type="text" id="saleprice-'+data[i].madonvi+'" name="saleprice['+data[i].madonvi+']" class="text number">/'+data[i].tendonvitinh+'<br>'
+												$('#giaban').append(str);
+												numberReady();
+											}
 											
-										var saleprice = $.parseJSON('<?php echo $post["saleprice"]?>');
-										for(i in saleprice)
-										{
-											//alert(saleprice[i])
-											$('#saleprice-'+i).val(saleprice[i]);
-										}
-										
-										<?php } ?>
-										numberReady();
-									})
+											<?php if($post["saleprice"]!=""){ ?>
+												
+											var saleprice = $.parseJSON('<?php echo $post["saleprice"]?>');
+											for(i in saleprice)
+											{
+												//alert(saleprice[i])
+												$('#saleprice-'+i).val(saleprice[i]);
+											}
+											
+											<?php } ?>
+											$('#frmgiaban').show();
+											numberReady();
+										})										
+									}
+									else
+									{
+										$('#frmgiaban').hide();
+									}
                                 });
 								$(document).ready(function(e) {
-                                	$('#unit').val("<?php echo $post['unit']?>").change();    
+									
+                                	$('#unit').val("<?php echo $post['unit']?>").change();
+										
                                 });
 								
 								
@@ -160,7 +171,7 @@ $('#title').change(function(e) {
                         </p>
                         <?php } ?>
                     	<?php if($hasPrice) {?>
-                        <p>
+                        <p id="frmgiaban">
                         	<label>Giá bán</label>
                             <div id="giaban"></div>
                         </p>
