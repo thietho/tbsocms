@@ -13,6 +13,22 @@
                         
                     </table>
                 </div>
+                	<?php if(count($media['child'])){ ?>
+                    	<?php foreach($media['child'] as $k =>$child){ ?>
+                <div class="pro-item left" mediaid="<?php echo $child['mediaid']?>" style="background:url('<?php echo $child['imagepreview']?>') no-repeat center center;">
+                	<table>
+                    	<tr>
+                        	<td>
+                            	<?php echo $child['code']?><br />
+                                <?php echo $child['title']?>
+                            </td>
+                        </tr>
+                        
+                        
+                    </table>
+                </div>
+                		<?php } ?>
+                    <?php } ?>
                 <?php } ?>
                 <div class="clearer">^&nbsp;</div>
             </div>

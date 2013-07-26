@@ -36,9 +36,9 @@ class ModelSalesSession extends Model
 		$getLastId = $this->db->insertData("session",$field,$value);
 		return $getLastId;
 	}
-	public function closeSession()
+	public function closeSession($id)
 	{
-		
+		$this->updateCol($id,"endtime",$this->date->getToday());
 	}
 	
 		

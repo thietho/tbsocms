@@ -2,11 +2,11 @@
 final class Date{
 	//Kieu ngay chuan: yyyy-mm-dd 00:00:00 - MySQLDate
 	//Kieu ngay view: dd-mm-yyyy 00:00:00 - ViewDate
-	public $now;
+	
 	
 	function __construct() 
 	{
-		$this->now = getdate();	
+		
 		
 	}
 	
@@ -155,7 +155,7 @@ final class Date{
 		$h=$this->getHour($stringdate);
 		$m=$this->getMinute($stringdate);
 		$s=$this->getSecond($stringdate);
-		$time = mktime(intval($h),intval($m),intval($s)+$sec,intval($mon),intval($d),intval($y)+$years);
+		$time = mktime(intval($h),intval($m),intval($s)+$sec,intval($mon),intval($d),intval($y));
 		return date("Y-m-d  H:i:s",$time);
 	}
 	
@@ -214,6 +214,26 @@ final class Date{
 	function timeToInt($stringdate)
 	{	
 		return strtotime($stringdate);
+	}
+	
+	public function intToTime($secs)
+	{
+		$bit = array(
+				'y' => $secs / 31556926 % 12,
+				'w' => $secs / 604800 % 52,
+				'd' => $secs / 86400 % 7,
+				'h' => $secs / 3600 % 24,
+				'm' => $secs / 60 % 60,
+				's' => $secs % 60
+			);
+        
+		foreach($bit as $k => $v)
+        	if($v > 0)
+				$ret[] = $v . $k;
+        
+    	return join(' ', $ret);
+		
+		
 	}
 	
 	public function formatTime($time,$format = "")

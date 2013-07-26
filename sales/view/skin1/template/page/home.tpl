@@ -213,11 +213,19 @@ function Product()
 			buttons: {
 				'In': function() 
 				{
-					openDialog("?route=page/home/orderView&orderid="+orderid+"&view=print",207,600);
+					openDialog("?route=page/home/income&view=print",800,600);
 				},
 				'Đóng phiên làm việc':function()
 				{
-					
+					$.get("?route=page/home/closeSession",
+						function(html)
+						{
+							if(html == "true")
+							{
+								alert("Đóng phiên làm việc thành công");
+								openDialog("?route=page/home/income&view=print",800,600);
+							}
+						});
 				},
 				'Đóng':function()
 				{

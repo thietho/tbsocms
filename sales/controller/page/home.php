@@ -108,8 +108,16 @@ class ControllerPageHome extends Controller
 			}
 			
 			$mediaid = $this->data['medias'][$i]['mediaid'];
-			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->viewTonKho($mediaid);
+			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
 			
+			$data_child = $this->model_core_media->getListByParent($mediaid);
+			foreach($data_child as $key =>$child)
+			{
+				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 140, 140);
+				$data_child[$key]['tonkho'] = $this->model_core_media->getTonKho($child['mediaid']);
+				
+			}
+			$this->data['medias'][$i]['child'] = $data_child;
 			
 			
 			
@@ -331,9 +339,20 @@ class ControllerPageHome extends Controller
 	}
 	public function income()
 	{
+		$sessionid = $this->request->get['sessionid'];
+		if($sessionid =="")
+			$sessionid = $this->user->getSessionId();
 		$this->data['nhanvien'] = $this->user->getNhanVien();
-		$this->data['session'] = $this->model_sales_session->getItem($this->user->getSessionId());
-		$where = " AND sessionid = '".$this->user->getSessionId()."' AND status = 'completed'";
+		$this->data['session'] = $this->model_sales_session->getItem($sessionid);
+		$view = $this->request->get['view'];
+		$start = $this->date->timeToInt($this->data['session']['starttime']);
+		$now = $this->date->timeToInt($this->date->getToday());
+		//print_r($this->data['session']);
+		$worktime = $now - $start;
+		
+		$this->data['session']['worktime'] = $this->date->intToTime($worktime);
+		
+		$where = " AND sessionid = '".$sessionid."' AND status = 'completed'";
 		$data_order = $this->model_sales_order->getList($where);
 		
 		$arr_orderid = $this->string->matrixToArray($data_order,"id");
@@ -343,6 +362,21 @@ class ControllerPageHome extends Controller
 		
 		$this->id='content';
 		$this->template='module/income.tpl';
+		if($view == "print")
+		{
+			
+			$this->layout='layout/print';
+		}
+		$this->render();
+	}
+	
+	public function closeSession()
+	{
+		$this->model_sales_session->closeSession($this->user->getSessionId());
+		
+		$this->data['output'] = "true";
+		$this->id='content';
+		$this->template='common/output.tpl';
 		$this->render();
 	}
 }

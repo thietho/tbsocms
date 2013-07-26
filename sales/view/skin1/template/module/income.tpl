@@ -6,7 +6,7 @@
     </tr>
     <tr>
     	<td><label>Thời gian bắt đầu:</label> <?php echo $this->date->formatMySQLDate($session['starttime'],'longdate')?></td>
-        <td></td>
+        <td><label>Số giờ làm việc:</label> <?php echo $session['worktime']?></td>
     </tr>
 </table>
 <h3>Thống kê danh thu</h3>
