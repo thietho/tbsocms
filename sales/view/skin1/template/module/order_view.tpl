@@ -131,7 +131,7 @@ $('#btnDiscount').click(function(e) {
 			alert("Bạn nhập phần trăm giảm giá phải < 100");
 		}
 	}
-    np.show("Giảm giá%",0,disCountOrder);
+    np.show("Giảm giá%",$('#discountpercent').val(),disCountOrder);
 });
 function tinhtong()
 {
@@ -248,8 +248,8 @@ function intSelectMember()
         $('#customerid').val($(this).attr('id'));
 		$('#customername').val($(this).attr('fullname'));
 		$('#customernametext').html($(this).attr('fullname'));
-		$("#popup").dialog( "close" );
-		
+		$("#popup").dialog("close");
+		$("#popup").dialog("destroy");
 		//Cap nhat customerid
 		$.post("?route=page/home/updateOrder",
 		{

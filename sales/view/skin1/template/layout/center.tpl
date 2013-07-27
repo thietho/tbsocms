@@ -58,8 +58,7 @@ $(document).ready(function(e) {
 </body>
 	<div id="popup" style="display:none">
     	<div id="popup-selete">
-        	<a class="button right closeselect">X</a>
-            <div class="clearer">^&nbsp;</div>
+        	
             <div id="popup-seletetion">
                 
                 
@@ -67,5 +66,8 @@ $(document).ready(function(e) {
         </div>
         <div id="popup-content"></div>
         
+    </div>
+    <div id="ctrnumpad" style="display:none">
+    	
     </div>
 </html>

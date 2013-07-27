@@ -218,12 +218,12 @@ final class Date{
 	
 	public function intToTime($secs)
 	{
+		
 		$bit = array(
-				'y' => $secs / 31556926 % 12,
-				'w' => $secs / 604800 % 52,
-				'd' => $secs / 86400 % 7,
-				'h' => $secs / 3600 % 24,
-				'm' => $secs / 60 % 60,
+				
+				'd' => $this->div($secs,60*60*24) ,
+				'h' => $this->div($secs,60 * 60) % 24,
+				'm' => $this->div($secs,60) % 60,
 				's' => $secs % 60
 			);
         
@@ -312,6 +312,16 @@ final class Date{
 			return "0".$n;
 		else
 			return $n;
+	}
+	public function div($a,$b)
+	{
+		$count = 0;
+		while($a>$b)
+		{
+			$a-=$b;
+			$count++;
+		}
+		return $count;
 	}
 }
 

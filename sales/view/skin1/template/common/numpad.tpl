@@ -1,9 +1,9 @@
 <table>
-	<tr>
-    	<td colspan="3"><div id="numpadtext">0</div></td>
-    </tr>
     <tr>
-    	<td colspan="3"><div id="numpadpreview">0</div></td>
+    	<td colspan="3">
+            <div id="numpadtext">0</div>
+            <div id="numpadpreview">0</div>
+        </td>
     </tr>
     <tr>
     	<td><input type="button" class="button numpad" id="btnNPAdd" value="+"></td>

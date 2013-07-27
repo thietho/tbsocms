@@ -364,30 +364,39 @@ function NumPad()
 	this.text = "";
 	this.show = function(title,value,callbackfunc)
 	{
+		
 		this.text = "";
-		$("#popup").attr('title',title);
-		$( "#popup" ).dialog({
+		$("#ctrnumpad").attr('title',title);
+		$( "#ctrnumpad" ).dialog({
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
 			width: 200,
-			height: 300,
+			height: 310,
 			modal: true,
+			close: function( event, ui ){
+					$("#ctrnumpad").html('');
+					$("#ctrnumpad").dialog("destroy");
+				},
 			buttons: {
 				'Đồng ý': function() 
 				{
 					np.text = $('#numpadtext').html();
 					callbackfunc()
-					$(this).dialog("close");
+					$("#ctrnumpad").dialog("close");
+					$("#ctrnumpad").html('');
+					$("#ctrnumpad").dialog("destroy");
 				},
 				
 			}
 		});
 	
 		
-		$("#popup-content").load("?route=common/control/numPad",function(){
-			$("#popup").dialog("open");	
-			$('#numpadtext').html(value)
+		$("#ctrnumpad").load("?route=common/control/numPad",function(){
+			$("#ctrnumpad").dialog("open");	
+			$('#numpadtext').html(value);
+			$('#numpadpreview').html(formateNumber($('#numpadtext').html()));
+			
 		});
 	}
 }

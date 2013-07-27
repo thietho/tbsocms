@@ -220,11 +220,10 @@ function Product()
 					$.get("?route=page/home/closeSession",
 						function(html)
 						{
-							if(html == "true")
-							{
-								alert("Đóng phiên làm việc thành công");
-								openDialog("?route=page/home/income&view=print",800,600);
-							}
+							
+							//alert("Đóng phiên làm việc thành công");
+							openDialog("?route=page/home/income&sessionid="+ html +"&view=print",800,600);
+							window.location = 'logout.php';
 						});
 				},
 				'Đóng':function()

@@ -8,6 +8,11 @@
     	<td><label>Thời gian bắt đầu:</label> <?php echo $this->date->formatMySQLDate($session['starttime'],'longdate')?></td>
         <td><label>Số giờ làm việc:</label> <?php echo $session['worktime']?></td>
     </tr>
+    <?php if($session['endtime'] != "0000-00-00 00:00:00")?>
+    <tr>
+    	<td><label>Thời gian kết thúc:</label> <?php echo $this->date->formatMySQLDate($session['endtime'],'longdate')?></td>
+        <td></td>
+    </tr>
 </table>
 <h3>Thống kê danh thu</h3>
 <table>

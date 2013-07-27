@@ -372,9 +372,10 @@ class ControllerPageHome extends Controller
 	
 	public function closeSession()
 	{
-		$this->model_sales_session->closeSession($this->user->getSessionId());
+		$sessionid = $this->user->getSessionId();
+		$this->model_sales_session->closeSession($sessionid);
 		
-		$this->data['output'] = "true";
+		$this->data['output'] = $sessionid;
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
