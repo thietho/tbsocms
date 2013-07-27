@@ -19,6 +19,24 @@ class ControllerPageHome extends Controller
 		
 		$this->load->model("sales/session");
 		$this->load->model("sales/order");
+		
+	}
+	
+	function index()
+	{	
+		$this->openSession();
+		$siteid = $this->user->getSiteId();
+		$this->data['sitemapid'] = $this->request->get['sitemapid'];
+		$this->data['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($this->data['sitemapid'], $siteid);
+		$this->id='content';
+		$this->template='page/home.tpl';
+		$this->layout='layout/center';
+		$this->render();
+		
+		
+	}
+	public function openSession()
+	{
 		//Kiem tra nhan vien do co dang mo phien lam viec chua
 		$nhanvien = $this->user->getNhanVien();
 		$staffid = $nhanvien['id'];
@@ -39,20 +57,6 @@ class ControllerPageHome extends Controller
 		}
 		//echo $this->user->getSessionId();
 	}
-	
-	function index()
-	{	
-		$siteid = $this->user->getSiteId();
-		$this->data['sitemapid'] = $this->request->get['sitemapid'];
-		$this->data['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($this->data['sitemapid'], $siteid);
-		$this->id='content';
-		$this->template='page/home.tpl';
-		$this->layout='layout/center';
-		$this->render();
-		
-		
-	}
-	
 	public function getList()
 	{
 		$sitemapid = $this->request->get['sitemapid'];

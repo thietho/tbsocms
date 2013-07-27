@@ -27,7 +27,7 @@
                     
                     <ul class="nicelist">
                         
-                        <li><a href="index.php?route=quanlykho/nhanvien/profile">Logged user: <b><?php echo $username?></b></a></li>
+                        <li><a href="index.php?route=addon/nhanvien/profile">Logged user: <b><?php echo $username?></b></a></li>
                         <li><a href="index.php?route=common/changepassword"><?php echo $button_change_password?></a></li>
                         <?php if($this->user->getUserTypeId() == 'admin'){?>
                         <li><a href="<?php echo ADIMCP?>">Quản trị hệ thống</a></li>
