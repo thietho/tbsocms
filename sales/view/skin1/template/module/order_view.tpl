@@ -87,8 +87,9 @@ Khách hàng: <span id="customernametext"><?php echo $order['customername']?></s
     <input type="button" class="button" id="btnRemove" value="Xóa hàng">
     <input type="button" class="button" id="btnDiscount" value="Giảm giá">
     <input type="button" class="button" id="btnPayment" value="Thanh toán">
+    <?php if($order['payment']){ ?>
     <input type="button" class="button" id="btnPrintOrder" value="In hóa đơn">
-    
+    <?php } ?>
 </div>
 <script language="javascript">
 

@@ -383,9 +383,10 @@ function NumPad()
 				{
 					np.text = $('#numpadtext').html();
 					callbackfunc()
-					$("#ctrnumpad").dialog("close");
-					$("#ctrnumpad").html('');
 					$("#ctrnumpad").dialog("destroy");
+					
+					$("#ctrnumpad").html('');
+					
 				},
 				
 			}

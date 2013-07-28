@@ -158,14 +158,24 @@ class ModelSalesOrder extends Model
 		{
 			
 			$this->db->insertData("salesorder_detail",$field,$value);
-			$id = $this->db->getLastId();
+			$data['id'] = $this->db->getLastId();
 		}
 		else
 		{			
 			$where="id = '".$data['id']."'";
 			$this->db->updateData('salesorder_detail',$field,$value,$where);
 		}
-		return $id;
+		$where = " AND orderid = '".$data['orderid']."'";
+		$data_ct = $this->getOrderDetailList($where);
+		$sum = 0;
+		foreach($data_ct as $ct)
+		{
+			$sum += $ct['subtotal'];
+		}
+		$order = $this->getItem($data['orderid']);
+		$this->updateCol($data['orderid'],'total',$sum - $order['discount']);
+		
+		return $data['id'];
 	}
 	
 	public function updateOrderDetail($id,$col,$val)

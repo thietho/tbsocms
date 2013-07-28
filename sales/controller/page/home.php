@@ -336,7 +336,14 @@ class ControllerPageHome extends Controller
 	{
 		$where = " AND status = 'new' Order by id desc";
 		$this->data['data_order'] = $this->model_sales_order->getList($where);
-		
+		$this->data['group'] = array();
+		foreach($this->data['data_order'] as $i => $order)
+		{
+			if($order['customername']=="")
+				$order['customername'] = "Khách vãng lai";
+			$this->data['group'][$order['customerid']][] = $order;
+		}
+		ksort($this->data['group']);
 		$this->id='content';
 		$this->template='module/order_list.tpl';
 		$this->render();

@@ -51,6 +51,7 @@ Khách hàng: <span id="customernametext"><?php echo $order['customername']?></s
         	<td colspan="4" align="right">Tổng tiền</td>
             <td class="number" id="finaltotal"><?php echo $this->string->numberFormate($order['total'])?></td>
         </tr>
+        <?php if($order['payment']){ ?>
         <tr>
         	<td colspan="4" align="right">
             	Khách hàng trả
@@ -65,6 +66,7 @@ Khách hàng: <span id="customernametext"><?php echo $order['customername']?></s
             </td>
             <td class="number" id="remainshow"><?php echo $this->string->numberFormate($order['remain'])?></td>
         </tr>
+        <?php }?>
     </tbody>
 </table>
 
