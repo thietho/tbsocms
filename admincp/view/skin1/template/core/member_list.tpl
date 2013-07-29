@@ -119,15 +119,15 @@ function searchForm()
 {
 	var url = "?route=core/member/getList";
 	if($("#username").val() != "")
-		url += "&username=" + $("#username").val();
+		url += "&username=" + encodeURI($("#username").val());
 	if($("#fullname").val() != "")
-		url += "&fullname="+ $("#fullname").val();
+		url += "&fullname="+ encodeURI($("#fullname").val());
 	if($("#phone").val() != "")
-		url += "&phone="+ $("#phone").val();
+		url += "&phone="+ encodeURI($("#phone").val());
 	if($("#address").val() != "")
-		url += "&address="+ $("#address").val();
+		url += "&address="+ encodeURI($("#address").val());
 	if($("#email").val() != "")
-		url += "&email="+ $("#email").val();
+		url += "&email="+ encodeURI($("#email").val());
 	if($("#status").val() != "")
 		url += "&status="+ $("#status").val();
 		
