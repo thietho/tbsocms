@@ -172,7 +172,7 @@ class ControllerCorePostlist extends Controller
 			$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
 			if($this->data['medias'][$i]['imagepath'] != "")
 			{
-				$this->data['medias'][$i]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100)."' >";
+				$this->data['medias'][$i]['imagepreview'] = "<img src='".HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100)."' >";
 				
 			}
 			

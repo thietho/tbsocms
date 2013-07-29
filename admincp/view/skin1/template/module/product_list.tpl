@@ -49,7 +49,7 @@
                        
                         <td><b><?php echo $media['title']?></b>&nbsp;</td>
                         <td><b><?php echo $this->document->getDonViTinh($media['unit'])?></b>&nbsp;</td>
-                        <td><?php echo $media['imagepreview']?>&nbsp;</td>
+                        <td align="center"><?php echo $media['imagepreview']?>&nbsp;</td>
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
                         	
@@ -79,7 +79,7 @@
                        
                         <td><b><?php echo $child['title']?></b>&nbsp;</td>
                         <td><b><?php echo $this->document->getDonViTinh($child['unit'])?></b>&nbsp;</td>
-                        <td><?php echo $child['imagepreview']?>&nbsp;</td>
+                        <td align="center"><?php echo $child['imagepreview']?>&nbsp;</td>
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
                         	
