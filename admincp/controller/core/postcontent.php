@@ -113,10 +113,11 @@ class ControllerCorePostcontent extends Controller
 				$this->data['post']['email2'] = $this->model_core_media->getInformation($this->data['post']['mediaid'], "email2");
 				$this->data['post']['email3'] = $this->model_core_media->getInformation($this->data['post']['mediaid'], "email3");
 				break;
+			
 			default:
 				$this->data['post'] = $this->model_core_media->getItem($mediaid);
 				$this->data['properties'] = $this->string->referSiteMapToArray($this->data['post']['groupkeys']);
-				
+				$this->data['post']['mediatype'] = $route;
 				if($mediaid == "")
 				{
 					$this->data['post']['mediaid'] = $this->model_core_media->insert($data);

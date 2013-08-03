@@ -538,7 +538,8 @@ function save()
 		function(data){
 			if(data=="true")
 			{
-				if("<?php echo $_GET['sitemapid']?>"!= "")
+				window.location = "<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"
+				/*if("<?php echo $_GET['sitemapid']?>"!= "")
 				{
 					var sitemapid = $('#refersitemap').val().replace('[',"");
 					sitemapid = sitemapid.replace("]","");
@@ -549,7 +550,12 @@ function save()
 						
 				}
 				else
-					window.location = "?route=core/media";	
+				{
+					if("<?php echo $_GET['route']?>" == "module/product")
+						window.location = "?route=<?php echo $this->getRoute()?>&page=<?php echo $_GET['page'] ?>";
+					else
+						window.location = "?route=core/media";	
+				}*/
 			}
 			else
 			{
