@@ -37,6 +37,16 @@
     </table>
 	
 </div>
+<div id="item-profile" class="pro-item left">
+	<table>
+    	<tr>
+        	<td>
+            	Thông tin cá nhân
+            </td>
+        </tr>
+    </table>
+	
+</div>
 <div id="item-logout" class="pro-item left">
 	<table>
     	<tr>
@@ -82,6 +92,24 @@ $('#item-changepass').click(function(e) {
 	
 		
 		$("#popup-content").load("?route=common/changepassword",function(){
+			$("#popup").dialog("open");
+			
+		});
+});
+$('#item-profile').click(function(e) {
+     $("#popup").attr('title','Thay đổi mật khẩu');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 500,
+			modal: true,
+			
+		});
+	
+		
+		$("#popup-content").load("?route=addon/nhanvien/profile",function(){
 			$("#popup").dialog("open");
 			
 		});

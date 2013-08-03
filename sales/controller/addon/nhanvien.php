@@ -10,7 +10,7 @@ class ControllerAddonNhanVien extends Controller
 		
 		$this->id='content';
 		$this->template = 'addon/nhanvien_profile.tpl';
-		$this->layout="layout/center";
+		
 		$this->render();
 	}
 }

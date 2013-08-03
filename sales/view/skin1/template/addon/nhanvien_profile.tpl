@@ -1,18 +1,13 @@
 
 <div class="section">
-
-	<div class="section-title">Hồ sơ cá nhân</div>
-    
     <div class="section-content">
-    	<!--<div id="idcur"></div>
-    	<div id="drag"></div>
-        <div id="drop"></div>-->
+    	
         <form action="" method="post" id="frmphanquyen" name="frmphanquyen">
         
         	<div class="button right">
             	
                 
-                <a class="button cancel" href="?route=page/home">Trở về</a>
+                
                 <input type="hidden" name="nhanvienid" value="<?php echo $nhanvien['id']?>">
                 <input type="hidden" name="userid" value="<?php echo $nhanvien['username']?>">
             </div>
