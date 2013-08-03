@@ -57,6 +57,22 @@ class ControllerPageHome extends Controller
 		}
 		//echo $this->user->getSessionId();
 	}
+	
+	public function main()
+	{
+		$this->id='content';
+		$this->template='module/main.tpl';
+		$this->render();
+	}
+	
+	public function showProductForm()
+	{
+		$this->data['sitemapid'] = $this->request->get['sitemapid'];
+		$this->id='content';
+		$this->template='module/product_show.tpl';
+		$this->render();
+	}
+	
 	public function getList()
 	{
 		$sitemapid = $this->request->get['sitemapid'];
@@ -74,7 +90,7 @@ class ControllerPageHome extends Controller
 			$arrsitemapid = $this->string->matrixToArray($data,"sitemapid");
 		}
 		$arr = array();
-		$where = " AND mediaparent = '' AND mediatype = '' ";
+		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
 		foreach($arrsitemapid as $sitemapid)
 		{
 			$arr[] = " refersitemap like '%[".$sitemapid."]%'";
@@ -137,13 +153,20 @@ class ControllerPageHome extends Controller
 	public function productCat()
 	{
 		$siteid = $this->user->getSiteId();
-		//$where = " AND moduleid = 'module/product' AND sitemapparent = ''";
-		
-		//$data_catroot = $this->model_core_sitemap->getList($siteid,$where);
+		/*$where = " AND moduleid = 'module/product' AND sitemapparent = ''";
+		$data_catroot = $this->model_core_sitemap->getList($siteid,$where);*/
+		$arrSiteMapTree = array();
+		$this->model_core_sitemap->getTreeSitemap("", $arrSiteMapTree, $this->user->getSiteId());
+		$this->data['catshow'] = array();
+		foreach($arrSiteMapTree as $cat)
+		{
+			if($cat['moduleid'] == 'module/product')
+				$this->data['catshow'][] = $cat;
+		}
 		//$this->data['catshow'] = "";
 		//foreach($data_catroot as $sitemap)
 		//{
-		$this->data['catshow'] .= $this->showTreeSiteMap("");
+		//$this->data['catshow'] .= $this->showTreeSiteMap("");
 		//}
 		
 		$this->id='content';

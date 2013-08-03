@@ -1,15 +1,10 @@
 <div class="section" id="sitemaplist">
 
-	<div class="section-title"><?php echo $header_change_password ?></div>
+	
     
     <div class="section-content padding1">
     	<div class="error hidden"></div>
        <form id="fchangepass" name="f" action="" method="post">
-            <div class="button right">
-            	<input class="button" type="button" name="save" value="<?php echo $button_change_password ?>" onclick="changePass()"/>
-            	<input class="button" type="button" name="cancel" value="<?php echo $button_cancel?>" onclick="linkto('index.php')"/>
-            </div>
-            <div class="clearer">^&nbsp;</div>
             
             <div class="profile">
             	
@@ -43,13 +38,14 @@ function changePass()
 		{
 			//$.blockUI({ message: "<h1>Your password has been changed</h1>" }); 
 			alert("<?php echo $announ_changepass ?>");
-			window.location = '?'
+			$("#popup").dialog("close");
 		}
 		else
 		{
 			$(".error").html(data).show('slow');
-			$.unblockUI();
+			
 		}
+		$.unblockUI();
 	});	
 }
 </script>

@@ -22,7 +22,7 @@
     <div class="right">
         <table>
             <tr>
-                <td><a href="?route=page/home"><img class="png" src="<?php echo DIR_IMAGE?>home.png" alt="" /></a></td>
+                <td><a onclick="$('#main-screen').load('?route=page/home/main');"><img class="png" src="<?php echo DIR_IMAGE?>home.png" alt="" /></a></td>
                 <td>
                     
                     <ul class="nicelist">

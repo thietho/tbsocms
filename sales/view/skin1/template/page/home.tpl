@@ -4,20 +4,9 @@
 	<div class="section-title">Bán hàng</div>
     
     <div class="section-content">
-    	<div id="showdanhmuc" class="left sales-scr" style="width:250px">
+    	
+        <div id="main-screen" class="left sales-scr">
         	
-        </div>
-        <div class="left sales-scr">
-        	
-        	<div id="search">
-            	<label>Từ khóa:</label>
-                <input type="text" class="text" id="keyword"/>
-            </div>
-            
-            <div class="clearer">^&nbsp;</div>
-            <form id="postlist" name="postlist" method="post" action="">
-        		<div id="showsanpham" class="sales-scr"></div>
-            </form>
         </div>
         <div id="orderview" class="left sales-scr" style="width:320px">
         	
@@ -33,11 +22,11 @@
 </div>
 <script language="javascript">
 $(document).ready(function(e) {
-    $('#showdanhmuc').load('?route=page/home/productCat');
-	pro.loadProduct(pro.url+"&"+strurl);
+    $('#main-screen').load('?route=page/home/main');
+	/*pro.loadProduct(pro.url+"&"+strurl);
 	$('#keyword').keyup(function(e) {
 		pro.searchForm();
-	});
+	});*/
 	pro.fixSize();
 	pro.getListOrder();
 	
@@ -71,10 +60,10 @@ function Product()
 	}
 	this.fixSize = function()
 	{
-		$('#showdanhmuc').height($('body').height() - $('#showdanhmuc').position().top);
-		$('#showsanpham').height($('body').height() - $('#showsanpham').position().top);
+		//$('#showdanhmuc').height($('body').height() - $('#showdanhmuc').position().top);
+		$('#main-screen').height($('body').height() - $('#main-screen').position().top);
 		$('#orderview').height($('body').height() - $('#orderview').position().top);
-		$('#showsanpham').width($('body').width()- $('#showdanhmuc').width() - $('#orderview').width());
+		$('#main-screen').width($('body').width() - $('#orderview').width());
 		
 	}
 	this.view = function(mediaid)
