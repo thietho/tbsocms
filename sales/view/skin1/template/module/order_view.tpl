@@ -107,6 +107,24 @@ $('#btnPayment').click(function(e) {
 			$('#payment').val(np.text);
 			$('#paymentshow').html(formateNumber(np.text));
 			tinhtong();
+			
+			var sum = Number("<?php echo $sum?>");
+			var discountpercent = Number(stringtoNumber($('#discountpercent').val()));
+			var finaltotal = (1 - discountpercent/100)*sum;
+			var discount = discountpercent/100*sum;
+			$.post("?route=page/home/payment",
+			{
+				
+				orderid:$('#orderid').val(),
+				total:finaltotal,
+				payment:Number($('#payment').val()),
+				remain:Number($('#remain').val()),
+				discount:discount,
+				discountpercent:discountpercent
+			},
+			function(data){
+				pro.loadOrder($('#orderid').val());
+			});
 		}
 		else
 		{
@@ -125,7 +143,26 @@ $('#btnDiscount').click(function(e) {
 		{
 			$('#discountpercent').val(np.text);
 			$('#discountpercentshow').html(formateNumber(np.text));
-			tinhtong();
+			tinhtong()
+			
+			var sum = Number("<?php echo $sum?>");
+			var discountpercent = Number(stringtoNumber($('#discountpercent').val()));
+			var finaltotal = (1 - discountpercent/100)*sum;
+			var discount = discountpercent/100*sum;
+			$.post("?route=page/home/payment",
+			{
+				
+				orderid:$('#orderid').val(),
+				total:finaltotal,
+				payment:Number($('#payment').val()),
+				remain:Number($('#remain').val()),
+				discount:discount,
+				discountpercent:discountpercent
+			},
+			function(data){
+				pro.loadOrder($('#orderid').val());
+			});
+			
 		}
 		else
 		{
@@ -150,19 +187,8 @@ function tinhtong()
 		$('#remain').val(Number($('#payment').val())-finaltotal);
 		$('#remainshow').html(formateNumber($('#remain').val()));
 		
-		//Cap nhat don hang
-		$.post("?route=page/home/payment",
-			{
-				orderid:$('#orderid').val(),
-				total:finaltotal,
-				payment:Number($('#payment').val()),
-				remain:Number($('#remain').val()),
-				discount:discount,
-				discountpercent:discountpercent
-			},
-			function(data){
-				
-			});
+		
+		
 	}
 	if(Number($('#payment').val())==0)
 	{

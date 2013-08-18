@@ -12,6 +12,8 @@ class ControllerThongkeSales extends Controller
 			$this->response->redirect('?route=page/home');
 		}
 		$this->load->model("quanlykho/donvitinh");
+		$this->load->model("sales/order");
+		$this->load->model("sales/session");
 	}
 	public function index()
 	{
@@ -23,11 +25,11 @@ class ControllerThongkeSales extends Controller
 	}
 	public function thongke()
 	{
-		$this->load->model("quanlykho/phieunhapxuat");
+		
 		$data = $this->request->post;
 		$tungay = $this->date->formatViewDate($data['tungay']);
 		$denngay = $this->date->formatViewDate($data['denngay']);
-		$where = " AND qlkphieunhapxuat.loaiphieu = 'PBH'";
+		$where = "";
 		if($tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
