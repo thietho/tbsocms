@@ -109,10 +109,7 @@ $('#title').change(function(e) {
                         	<label>Code</label><br>
                             <input class="text" type="text" id="code" name="code" value="<?php echo $post['code']?>" size="60" />
                         </p>
-                        <p>
-                        	<label>Qui cách</label><br>
-                            <textarea cols="50" rows="4" class="text" id="sizes" name="sizes"><?php echo $post['sizes']?></textarea>
-                        </p>
+                        
                         <p>
                         	<label>Đơn vị</label><br>
                             <select id="unit" name="unit">
@@ -126,7 +123,7 @@ $('#title').change(function(e) {
                             <script language="javascript">
 								
 								
-								$('#unit').change(function(e) {
+								/*$('#unit').change(function(e) {
 									$('#giaban').html('');
 									if(this.value !="")
 									{
@@ -163,7 +160,7 @@ $('#title').change(function(e) {
 									
                                 	$('#unit').val("<?php echo $post['unit']?>").change();
 										
-                                });
+                                });*/
 								
 								
 							</script>
@@ -171,10 +168,10 @@ $('#title').change(function(e) {
                         </p>
                         <?php } ?>
                     	<?php if($hasPrice) {?>
-                        <p id="frmgiaban">
+                        <!--<p id="frmgiaban">
                         	<label>Giá bán</label>
                             <div id="giaban"></div>
-                        </p>
+                        </p>-->
                         
                         <p>
                             <label><?php echo $text_price?></label><br>
