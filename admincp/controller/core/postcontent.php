@@ -336,6 +336,7 @@ class ControllerCorePostcontent extends Controller
 		$this->load->model("core/sitemap");
 		$route = $this->getRoute();
 		$this->data['post'] = $this->request->post;
+		
 		$sitemapid = $this->request->get['sitemapid'];
 		$mediaid = $this->request->get['mediaid'];
 		$siteid = $this->user->getSiteId();

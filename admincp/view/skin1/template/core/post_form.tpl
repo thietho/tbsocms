@@ -156,11 +156,12 @@ $('#title').change(function(e) {
 										$('#frmgiaban').hide();
 									}
                                 });
+								*/
 								$(document).ready(function(e) {
 									
-                                	$('#unit').val("<?php echo $post['unit']?>").change();
+                                	$('#unit').val("<?php echo $post['unit']?>");
 										
-                                });*/
+                                });
 								
 								
 							</script>

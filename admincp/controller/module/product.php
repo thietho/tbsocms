@@ -92,11 +92,10 @@ class ControllerModuleProduct extends Controller
 			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['refersitemap']);
 			$sitemapid = $arr[0];
 			$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
-			if($this->data['medias'][$i]['imagepath'] != "")
-			{
+			
 				$this->data['medias'][$i]['imagepreview'] = "<img src='".HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100)."' >";
 				
-			}
+			
 			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
 			
 			$mediaid = $this->data['medias'][$i]['mediaid'];
