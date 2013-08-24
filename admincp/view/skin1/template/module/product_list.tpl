@@ -5,7 +5,7 @@
                 	<th width="10%"><?php echo $column_position?></th>
                     
                     <th>Code</th>
-                    <th>Quy cách</th>
+                    
                     <th>Giá</th>
                     <th>Giá khuyến mãi</th>
                     <th width="200px">Tồn kho</th>
@@ -25,7 +25,7 @@
                         </td>
                         
                         <td><b><?php echo $media['code']?></b>&nbsp;</td>
-                        <td><b><?php echo $media['sizes']?></b>&nbsp;</td>
+                    
                         <td class="number">
                         	
                         	<ul>
@@ -70,7 +70,7 @@
                         </td>
                         
                         <td><b><?php echo $child['code']?></b>&nbsp;</td>
-                        <td><b><?php echo $child['sizes']?></b>&nbsp;</td>
+                    
                         <td class="number"><b><?php echo $this->string->numberFormate($child['price'])?></b>&nbsp;</td>
                         <td class="number"><b><?php echo $this->string->numberFormate($child['pricepromotion'])?></b>&nbsp;</td>
                         <td class="number">
