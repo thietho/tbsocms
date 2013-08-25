@@ -187,8 +187,10 @@ $('#title').change(function(e) {
                         	<label>Trang thái:</label>
                             
                             <select id="status" name="status">
-                            	<option value="active">Hiện</option>
-                                <option value="hide">Ẩn</option>
+                            	<?php foreach($this->document->status_media as $key =>$val){ ?>
+                                <option value="<?php echo $key?>"><?php echo $val?></option>
+                                <?php } ?>
+                                
                             </select>
                             <script language="javascript">
 								$('#status').val("<?php echo $post['status']?>")
@@ -499,11 +501,11 @@ function Comment()
 }
 function callbackLoadCommnet()
 {
-	objComment.loadComment('<?php echo $post['mediaid']?>');
+	objComment.loadComment("<?php echo $post['mediaid']?>");
 }
 var objComment = new Comment();
 $(document).ready(function(e) {
-    objComment.loadComment('<?php echo $post['mediaid']?>');
+    objComment.loadComment("<?php echo $post['mediaid']?>");
 });
 </script>
             <?php } ?>

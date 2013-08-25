@@ -27,6 +27,11 @@ final class Document {
 						   'completed' => "Hoàn thành",
 						   'cancel' => "Hủy đơn hàng"
 						   );
+	public $status_media = array(
+						   'active' => "Hiện",
+						   'hide' => "Ẩn"
+						   
+						   );
 	public $paymenttype = array(
 							'cash'=>'Tiền mặt',
 							'bank' =>'Chuyển khoản'
