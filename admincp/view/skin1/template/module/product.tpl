@@ -11,6 +11,7 @@
         	<div id="search">
             	<label>Từ khóa:</label>
                 <input type="text" class="text" id="keyword"/>
+                <input type="button" class="button" id="btnSearch" value="Tìm" />
             </div>
             <div class="right">
                 <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
@@ -36,7 +37,7 @@
 $(document).ready(function(e) {
     $('#showdanhmuc').load('?route=module/product/productCat');
 	pro.loadProduct(pro.url+"&page=<?php echo $_GET['page']?>");
-	$('#keyword').keyup(function(e) {
+	$('#btnSearch').click(function(e) {
 		pro.searchForm();
 	});
 });

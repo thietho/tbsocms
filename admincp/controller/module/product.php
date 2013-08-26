@@ -61,11 +61,16 @@ class ControllerModuleProduct extends Controller
 		if($keyword !="")
 		{
 			$arr = array();
+			$arrcode = array();
 			foreach($arrkey as $key)
 			{
 				$arr[] = "title like '%".$key."%'";
 			}
-			$where .= " AND (". implode(" AND ",$arr). ")";
+			foreach($arrkey as $key)
+			{
+				$arrcode[] = "code like '%".$key."%'";
+			}
+			$where .= " AND ((". implode(" AND ",$arr). ") OR (". implode(" AND ",$arrcode). "))";
 			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
 		}
 		
