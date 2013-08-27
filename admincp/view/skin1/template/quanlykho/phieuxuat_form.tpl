@@ -86,8 +86,11 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="number">Công nợ</td>
-                                <td class="number" id="congno"><?php echo $this->string->numberFormate($item['congno'])?></td>
+                                <td class="number">
+                                	Công nợ
+                                	<input type="hidden" id="congno" name="congno" value="<?php echo $item['congno']?>"/>
+                                </td>
+                                <td class="number" id="lbl-congno"><?php echo $this->string->numberFormate($item['congno'])?></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -133,7 +136,8 @@ $('#thanhtoan').keyup(function(e) {
     var tongcong = Number(stringtoNumber($('#tongcong').html()));
 	var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
 	var congno = tongcong - thanhtoan;
-	$('#congno').html(formateNumber(congno));
+	$('#congno').val(congno);
+	$('#lbl-congno').html(formateNumber(congno));
 });
 
 $('#btnSelectKhachHang').click(function(e) {

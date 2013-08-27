@@ -123,7 +123,7 @@ $('#title').change(function(e) {
                             <script language="javascript">
 								
 								
-								/*$('#unit').change(function(e) {
+								$('#unit').change(function(e) {
 									$('#giaban').html('');
 									if(this.value !="")
 									{
@@ -156,10 +156,10 @@ $('#title').change(function(e) {
 										$('#frmgiaban').hide();
 									}
                                 });
-								*/
+								
 								$(document).ready(function(e) {
 									
-                                	$('#unit').val("<?php echo $post['unit']?>");
+                                	$('#unit').val("<?php echo $post['unit']?>").change();
 										
                                 });
 								
@@ -169,10 +169,10 @@ $('#title').change(function(e) {
                         </p>
                         <?php } ?>
                     	<?php if($hasPrice) {?>
-                        <!--<p id="frmgiaban">
+                        <p id="frmgiaban">
                         	<label>Giá bán</label>
                             <div id="giaban"></div>
-                        </p>-->
+                        </p>
                         
                         <p>
                             <label><?php echo $text_price?></label><br>

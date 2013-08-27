@@ -5,12 +5,13 @@
                 	<th width="10%"><?php echo $column_position?></th>
                     
                     <th>Code</th>
-                    
+                    <th>Tên sản phẩm</th>
+                    <th>Giá bán</th>
                     <th>Giá</th>
                     <th>Giá khuyến mãi</th>
                     <th width="200px">Tồn kho</th>
    
-                    <th>Tên sản phẩm</th>
+                    
                     <th>ĐVT</th>
                     <th>Trạng thái</th>
                     <th>Hình</th>
@@ -25,25 +26,27 @@
                             <input type="text" class="text number" name="position[<?php echo $media['mediaid']?>]" value="<?php echo $key+1?>" size="3"/>
                         </td>
                         
-                        <td><b><?php echo $media['code']?></b>&nbsp;</td>
-                    
+                        <td><b><?php echo $media['code']?></b></td>
+                    	<td><b><?php echo $media['title']?></b></td>
                         <td class="number">
-                        	
-                        	<ul>
-                            	
-                            	<li><?php echo $this->string->numberFormate($media['price'])?></li>
-                                
+                        	<?php if(count($media['saleprice'])){ ?>
+                            <ul>
+                                <?php foreach($media['saleprice'] as $k => $price){ ?>
+                            	<li><?php echo $this->string->numberFormate($price)?>/<?php echo $this->document->getDonViTinh($k)?></li>
+                            <?php } ?>
                             </ul>
-                        	
-                            
+                            <?php } ?>
                         </td>
-                        <td class="number"><b><?php echo $this->string->numberFormate($media['pricepromotion'])?></b>&nbsp;</td>
+                        <td class="number">
+                            <b><?php echo $this->string->numberFormate($media['price'])?></b>
+                        </td>
+                        <td class="number"><b><?php echo $this->string->numberFormate($media['pricepromotion'])?></b></td>
                         <td class="number">
                         	<?php echo $media['tonkho']?>
                             
                         </td>
                        
-                        <td><b><?php echo $media['title']?></b></td>
+                        
                         <td><b><?php echo $this->document->getDonViTinh($media['unit'])?></b>&nbsp;</td>
                         <td><?php echo $this->document->status_media[$media['status']]?></td>
                         <td align="center"><?php echo $media['imagepreview']?>&nbsp;</td>
@@ -70,14 +73,28 @@
                                     </td>
                                     
                                     <td><b><?php echo $child['code']?></b>&nbsp;</td>
-                                
-                                    <td class="number"><b><?php echo $this->string->numberFormate($child['price'])?></b>&nbsp;</td>
+                                	<td><b><?php echo $child['title']?></b></td>
+                                    <td class="number">
+                                    	<?php if(count($child['saleprice'])){ ?>
+                                        <ul>
+                                        <?php foreach($child['saleprice'] as $k => $price){ ?>
+                                        <li><?php echo $this->string->numberFormate($price)?>/<?php echo $this->document->getDonViTinh($k)?></li>
+                                        <?php } ?>
+                                        </ul>
+                                        <?php } ?>
+                                    </td>
+                                    <td class="number">
+                                    
+                                        <b><?php echo $this->string->numberFormate($child['price'])?></b>
+                                        
+                                   
+                                    </td>
                                     <td class="number"><b><?php echo $this->string->numberFormate($child['pricepromotion'])?></b>&nbsp;</td>
                                     <td class="number">
                                         <?php echo $child['tonkho']?>
                                     </td>
                                    
-                                    <td><b><?php echo $child['title']?></b>&nbsp;</td>
+                                    
                                     <td><b><?php echo $this->document->getDonViTinh($child['unit'])?></b>&nbsp;</td>
                                     <td align="center"><?php echo $child['imagepreview']?>&nbsp;</td>
                                     <td>

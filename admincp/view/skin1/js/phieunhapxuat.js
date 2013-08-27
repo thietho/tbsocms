@@ -55,9 +55,10 @@ function PhieuNhapXuat()
             sum += Number(stringtoNumber($(this).html()));
         });
 		$('#tongcong').html(formateNumber(sum));
-		$('#tongtien').html(sum);
+		$('#tongtien').val(sum);
 		var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
-		$('#congno').html(formateNumber(sum - thanhtoan));
+		$('#congno').val(sum - thanhtoan);
+		$('#lbl-congno').html(formateNumber(sum - thanhtoan));
 	}
 }
 
