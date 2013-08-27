@@ -9,6 +9,7 @@
             <option value="<?php echo $danhmuc['sitemapid']?>"><?php echo $danhmuc['sitemapname']?></option>
             <?php } ?>
         </select>
+        <input type="button" class="button" id="btnSeachProduct" value="Tìm sản phẩm"/>
     </p>
 </div>
 <div class="clearer">^&nbsp;</div>
@@ -21,7 +22,7 @@
 <div class="clearer">^&nbsp;</div>
 <script language="javascript">
 $(document).ready(function(e) {
-    loadData("?route=addon/order/listProduct");
+    //loadData("?route=addon/order/listProduct");
 });
 function loadData(url)
 {
@@ -37,10 +38,13 @@ function searchForm()
 		url += "&sitemapid=" + $('#sitemapid').val();
     loadData(url);
 }
-$('#keyword').keyup(function(e) {
+$('#btnSeachProduct').click(function(e) {
+    searchForm();
+});
+/*$('#keyword').keyup(function(e) {
 	searchForm();
 });
 $('#sitemapid').change(function(e) {
     searchForm();
-});
+});*/
 </script>

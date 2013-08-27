@@ -5,7 +5,7 @@
     	
         <tr valign="middle">
         	<td align="center">
-            	<?php echo $media['title']?><br />
+            	<?php echo $media['title']?>(<?php echo $this->document->getDonViTinh($media['unit'])?>)<br />
                 <?php if($media['code']!="") echo $media['code']."<br>"?>
                 
                 Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
@@ -22,8 +22,9 @@
     	
         <tr valign="middle">
         	<td align="center">
-            	<?php echo $item['title']?><br>
+            	<?php echo $item['title']?>(<?php echo $this->document->getDonViTinh($item['unit'])?>)<br>
                 <?php if($item['code']!="") echo $item['code']."<br>"?>
+                <br />
                 Giá: <?php echo $this->string->numberFormate($item['price'])?><br />
                 Giá khuyến mãi: <?php echo $this->string->numberFormate($item['pricepromotion'])?>
             </td>

@@ -135,12 +135,12 @@ class ControllerCoreMedia extends Controller
 				$sitemapid = str_replace($this->user->getSiteId(),"",$mediaid);
 				$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
 				
-				$this->data['medias'][$i]['link_edit'] = $this->url->http($sitemap['moduleid'].'&sitemapid='.$sitemapid);
+				$this->data['medias'][$i]['link_edit'] = $this->url->http($sitemap['moduleid'].'/update&sitemapid='.$sitemapid);
 				$this->data['medias'][$i]['text_edit'] = "Edit";
 			}
 			else
 			{
-				$this->data['medias'][$i]['link_edit'] = $this->url->http($sitemap['moduleid'].'&mediaid='.$this->data['medias'][$i]['mediaid']);
+				$this->data['medias'][$i]['link_edit'] = $this->url->http($sitemap['moduleid'].'/update&mediaid='.$this->data['medias'][$i]['mediaid']);
 				$this->data['medias'][$i]['text_edit'] = "Edit";	
 			}
 			$this->data['medias'][$i]['type'] = $sitemap['moduleid'];

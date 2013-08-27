@@ -62,9 +62,7 @@
                         </td>
                     </tr>
                     	<?php if(count($media['child'])){ ?>
-                    <tr>
-                    	<td colspan="10">
-                        	<table>
+                    
                             <?php foreach($media['child'] as $k => $child){ ?>
                                 <tr class="media-child">
                                     <td>
@@ -106,9 +104,7 @@
                                     </td>
                                 </tr> 
                             <?php } ?>
-                            </table>
-                        </td>
-                    </tr>
+                            
                         	
                         <?php } ?>
                     <?php } ?>                	
