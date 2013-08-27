@@ -43,8 +43,7 @@
                    
                 </div>
                 <div id="fragment-nguyenlieu">
-                	<input type="hidden" id="delnhapkho" name="delnhapkho" />
-                    <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
+                	
                 	<table>
                     	<thead>
                             <tr>
@@ -104,7 +103,8 @@
                             </tr>
                         </tfoot>
                     </table>
-                    
+                    <input type="hidden" id="delnhapkho" name="delnhapkho" />
+                    <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
                 </div>
            </div>
             
