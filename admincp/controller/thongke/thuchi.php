@@ -185,9 +185,9 @@ class ControllerThongkeThuchi extends Controller
 								'taikhoanthuchi	' => 'thubanhang',
 								'sotien' => $item['thanhtoan']
 								);
-					$tongthu += $item['tongtien'];
+					$tongthu += $item['thanhtoan'];
 					$data_thuchi[$date]['thu'][] = $arr;
-					$arr_taikhoanthu['thubanhang'] += $item['tongtien'];
+					$arr_taikhoanthu['thubanhang'] += $item['thanhtoan'];
 				}
 			}
 			
@@ -220,10 +220,10 @@ class ControllerThongkeThuchi extends Controller
 								'taikhoanthuchi	' => 'chiphinhaphang',
 								'sotien' => $item['thanhtoan']
 								);
-					$tongchi += $item['tongtien'];
+					$tongchi += $item['thanhtoan'];
 					
 					$data_thuchi[$date]['chi'][] = $arr;
-					$arr_taikhoanchi['chiphinhaphang'] += $item['tongtien'];
+					$arr_taikhoanchi['chiphinhaphang'] += $item['thanhtoan'];
 				}
 			}
 		}

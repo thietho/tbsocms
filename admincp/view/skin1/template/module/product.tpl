@@ -10,7 +10,7 @@
         	<h2><?php echo $breadcrumb?></h2>
         	<div id="search">
             	<label>Từ khóa:</label>
-                <input type="text" class="text" id="keyword"/>
+                <input type="text" class="text" id="keyword" size="100"/>
                 <input type="button" class="button" id="btnSearch" value="Tìm" />
             </div>
             <div class="right">

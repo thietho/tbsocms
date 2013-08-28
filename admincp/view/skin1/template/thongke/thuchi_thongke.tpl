@@ -58,7 +58,7 @@
     	<tr class="item">
         	<td><?php echo $this->document->getCategory($tk)?></td>
             <td class="number"><?php echo $this->string->numberFormate($sotien)?></td>
-            <td class="number"><?php echo $this->string->numberFormate($sotien/$tongthu*100,2)?>%</td>
+            <td class="number"><?php echo @$this->string->numberFormate($sotien/$tongthu*100,2)?>%</td>
         </tr>
     <?php }?>
     </tbody>
@@ -77,7 +77,7 @@
     	<tr class="item">
         	<td><?php echo $this->document->getCategory($tk)?></td>
             <td class="number"><?php echo $this->string->numberFormate($sotien)?></td>
-            <td class="number"><?php echo $this->string->numberFormate($sotien/$tongchi*100,2)?>%</td>
+            <td class="number"><?php echo @$this->string->numberFormate($sotien/$tongchi*100,2)?>%</td>
         </tr>
     <?php }?>
     </tbody>

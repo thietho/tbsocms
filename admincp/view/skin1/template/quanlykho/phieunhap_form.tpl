@@ -258,7 +258,7 @@ $('#btnAddRow').click(function(e) {
 						var unit = $(this).attr('unit');
 						var title = $(this).attr('title');
 						
-						objdl.addRow(id,mediaid,code,title,0,unit,0);
+						objdl.addRow(id,mediaid,code,title,1,unit,0);
                     });
 					$(this).dialog("close");
 				},

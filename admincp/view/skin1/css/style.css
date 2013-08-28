@@ -1309,8 +1309,14 @@ ul.autocomplete {
 }
 .product-item
 {
-	height:190px;	
-	border:2px solid #fff;
+	width: 140px;
+	height: 200px;
+	border: #999 thin solid;
+	border-radius: 10px;
+	margin: 4px;
+	cursor: pointer;
+	color: #C60;
+}
 }
 .product-price
 {
@@ -1329,7 +1335,7 @@ ul.autocomplete {
 }
 .product-item:hover
 {
-	border:2px solid #666;
+	box-shadow: 5px 5px 5px #333333;
 }
 .order-new
 {
