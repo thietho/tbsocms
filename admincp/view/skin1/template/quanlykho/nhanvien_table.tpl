@@ -61,7 +61,7 @@
                         <td><?php echo $item['username'] ?></td>
                         <?php if($dialog==false){ ?>
                         <td class="link-control">
-                            <?php if($this->user->checkPermission("quanlykho/nhanvien/delete")==true){ ?>
+                            <?php if($this->user->checkPermission("quanlykho/nhanvien/update")==true){ ?>
                             <input type="button" class="button" name="btnEdit" value="<?php echo $item['text_edit']?>" onclick="window.location='<?php echo $item['link_edit']?>'"/>
                             <?php } ?>
                             <?php if($item['text_phanquyen'] != "") { ?>

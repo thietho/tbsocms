@@ -23,7 +23,7 @@ class ModelSalesShop extends Model
 		return $query->row;
 	}
 	
-	public function insert()
+	public function insert($data)
 	{
 		$curtime = $this->date->getToday();
 	
