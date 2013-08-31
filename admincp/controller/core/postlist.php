@@ -177,18 +177,8 @@ class ControllerCorePostlist extends Controller
 			}
 			
 			$mediaid = $this->data['medias'][$i]['mediaid'];
-			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->viewTonKho($mediaid);
-			//print_r($this->data['medias'][$i]['tonkho']);
-			/*$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
-			$data_price =$this->model_core_media->getListByParent($mediaid," AND mediatype = 'price' Order by position");
-			if(count($data_price))
-			{
-				foreach($data_price as $key => $price)
-				{
-					$data_price[$key]['tonkho'] = $this->model_core_media->getTonKho($price['mediaid']);
-				}
-				$this->data['medias'][$i]['prices'] = $data_price;
-			}*/
+			
+			
 			$this->data['medias'][$i]['link_edit'] = $this->url->http($sitemap['moduleid'].'/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$this->data['medias'][$i]['mediaid']);
 			$this->data['medias'][$i]['text_edit'] = "Edit";	
 			

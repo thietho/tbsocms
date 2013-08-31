@@ -24,7 +24,7 @@ class ModelCoreMedia extends ModelCoreFile
 		
 		$sql = "Select `media`.* 
 									from `media` 
-									where status not like 'delete' AND temp not like 'temp' AND mediaid like '%".$this->user->getSiteId()."%' " . $where ;
+									where status not like 'delete' AND temp not like 'temp'  " . $where ;
 		if($to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
