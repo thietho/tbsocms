@@ -23,7 +23,7 @@ class ModelCoreMedia extends ModelCoreFile
 		
 		$sql = "Select `media`.* 
 									from `media` 
-									where status like 'active' AND mediaid like '%".$this->member->getSiteId()."%' " . $where .$order ;
+									where status like 'active' " . $where .$order ;
 		if($order == "")
 			$order = " Order by position, statusdate DESC";
 		if($to > 0)
@@ -70,7 +70,26 @@ class ModelCoreMedia extends ModelCoreFile
 		//keyword
 		if($keyword !="")
 		{
-			$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
+			
+			$arrkey = split(' ', $keyword);
+			$arr = array();
+			
+			foreach($arrkey as $key)
+			{
+				$arr[] = "title like '%".$key."%'";
+			}
+			$arrsummary= array();
+			foreach($arrkey as $key)
+			{
+				$arrsummary[] = "summary like '%".$key."%'";
+			}
+			$arrdescription= array();
+			foreach($arrkey as $key)
+			{
+				$arrdescription[] = "description like '%".$key."%'";
+			}
+			$where .= " AND ((". implode(" AND ",$arr). ") OR (". implode(" AND ",$arrsummary). ") OR (". implode(" AND ",$arrdescription). "))";
+			
 		}
 		//Media Parent
 		if(is_array($mediaparent))
