@@ -5,7 +5,7 @@
         <table class="data-table" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr class="tr-head">
-                    <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
+                    
                     
                     
                     <th>Tên khách hàng</th>
@@ -22,8 +22,8 @@
         foreach($users as $user)
         {
     ?>
-                <tr class="item" id="<?php echo $user['id']?>" username="<?php echo $user['username']?>" fullname="<?php echo $user['fullname']?>" phone="<?php echo $user['phone']?>" address="<?php echo $user['address']?>" email="<?php echo $user['email']?>">
-                    <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $user['id']?>]" value="<?php echo $user['id']?>" ></td>
+                <tr class="item">
+                    
                     
                     
                     <td><?php echo $user['fullname']?></td>
@@ -37,7 +37,10 @@
         }
     ?>
                     
-                                                
+            	<tr>
+                	<td align="right" colspan="4">Tổng công nợ</td>
+                    <td class="number"><?php echo $this->string->numberFormate($tongcongno)?></td>
+                </tr>                             
             </tbody>
         </table>
     </div>			

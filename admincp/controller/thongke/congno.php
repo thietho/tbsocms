@@ -19,7 +19,7 @@ class ControllerThongkeCongno extends Controller
 	{
 		$this->data['users'] = array();
 		$rows = $this->model_core_user->getList(" Order by fullname");
-		
+		$this->data['tongcongno'] = 0;
 		foreach($rows as $i => $row)
 		{
 			
@@ -29,6 +29,7 @@ class ControllerThongkeCongno extends Controller
 			{
 				$this->data['users'][$i] = $row;
 				$this->data['users'][$i]['congno'] = $congno;
+				$this->data['tongcongno'] +=  $congno;
 			}
 		}
 		
