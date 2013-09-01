@@ -15,7 +15,7 @@
         
     </p>
 </form>
-<h3>Dach sách biên nhận</h3>
+<h3>Dach sách phiếu bán hàng</h3>
 <table>
 	<tr>
     	<th width="30%">Số phieu bán hàng</th>
@@ -59,6 +59,46 @@
     	<td></td>
         <td class="text-right">Tổng đã trả:</td>
         <td class="number"><?php echo $this->string->numberFormate($tongphieuthu)?></td>
+    </tr>
+</table>
+<h3>Dach sách các khoảng vay</h3>
+<table>
+	<tr>
+    	<th width="30%">Số phiếu</th>
+        <th width="30%">Ngày lập</th>
+        <th>Số tiền</th>
+    </tr>
+    <?php foreach($data_phieuthuvayno as $item){ ?>
+    <tr>
+    	<td><a onclick="viewPhieuThu(<?php echo $item['maphieu']?>)"><?php echo $item['sophieu']?></a></td>
+        <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
+        <td class="number"><?php echo $this->string->numberFormate($item['quidoi'])?></td>
+    </tr>
+    <?php } ?>
+    <tr>
+    	<td></td>
+        <td class="text-right">Tổng vay nợ:</td>
+        <td class="number"><?php echo $this->string->numberFormate($tongvay)?></td>
+    </tr>
+</table>
+<h3>Dach sách các khoảng trả nợ</h3>
+<table>
+	<tr>
+    	<th width="30%">Số phiếu</th>
+        <th width="30%">Ngày lập</th>
+        <th>Số tiền</th>
+    </tr>
+    <?php foreach($data_phieuchitrano as $item){ ?>
+    <tr>
+    	<td><a onclick="viewPhieuThu(<?php echo $item['maphieu']?>)"><?php echo $item['sophieu']?></a></td>
+        <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
+        <td class="number"><?php echo $this->string->numberFormate($item['quidoi'])?></td>
+    </tr>
+    <?php } ?>
+    <tr>
+    	<td></td>
+        <td class="text-right">Tổng đã trả:</td>
+        <td class="number"><?php echo $this->string->numberFormate($tongtrano)?></td>
     </tr>
 </table>
 <h3>Tổng công nợ: <?php echo $this->string->numberFormate($congno)?></h3>

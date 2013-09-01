@@ -18,6 +18,7 @@
         	<div>   
                 <input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên"/>
                 <input type="button" class="button" id="btnSelectNhaCungCap" value="Chọn nhà cung cấp"/>
+                <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng"/>
                 <div class="clearer">&nbsp;</div>
                 <p class="left">
                     <label>Tên người nhận tiền</label><br />
@@ -88,7 +89,41 @@
 $('#taikhoanthuchi').val("<?php echo $item['taikhoanthuchi']?>");
 $('#hinhthucthanhtoan').val("<?php echo $item['hinhthucthanhtoan']?>");
 var handle = "";
-
+$('#btnSelectKhachHang').click(function(e) {
+	handle = "khachhang";
+    $("#popup").attr('title','Chọn khách hàng');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 900,
+			height: 600,
+			modal: true,
+		});
+	
+		
+		$("#popup-content").load("?route=core/member&opendialog=true",function(){
+			$("#popup").dialog("open");
+		});
+});
+function intSelectMember()
+{
+	switch(handle)
+	{
+		case "khachhang":
+			$('.item').click(function(e) {
+				$("#makhachhang").val("KH-"+$(this).attr('id'));
+				$("#tenkhachhang").val($(this).attr('fullname'));
+				$("#dienthoai").val($(this).attr('phone'));
+				$("#email").val($(this).attr('email'));
+				$("#diachi").val($(this).attr('address'));
+				
+				$("#popup").dialog( "close" );
+			});
+			break;
+	}
+			
+}
 $('#btnSelectNhaCungCap').click(function(e) {
 	handle = "khachhang";
     $("#popup").attr('title','Chọn nhân viên');

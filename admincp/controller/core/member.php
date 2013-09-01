@@ -170,7 +170,8 @@ class ControllerCoreMember extends Controller
 				$this->data['users'][$i]['text_active'] = "Kích hoạt";
 			else
 				$this->data['users'][$i]['text_active'] = "Khóa";
-			$this->data['users'][$i]['congno'] = $this->getCongNo($this->data['users'][$i]['id']);
+			$arr = array($this->data['users'][$i]['id']);
+			$this->data['users'][$i]['congno'] = $this->loadModule("core/member","getCongNo",$arr);
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
@@ -195,11 +196,27 @@ class ControllerCoreMember extends Controller
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'thuno'";
 		$this->data['data_phieuthu'] = $this->model_addon_thuchi->getList($where);
 		$tongthu = 0;
-		
 		foreach($this->data['data_phieuthu'] as $item)
 		{
 			$tongthu += $item['quidoi'];	
 		}
+		//Lay tat ca phieu thu vay no
+		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'credit'";
+		$this->data['data_phieuthuvayno'] = $this->model_addon_thuchi->getList($where);
+		$tongvay = 0;
+		foreach($this->data['data_phieuthuvayno'] as $item)
+		{
+			$tongvay += $item['quidoi'];	
+		}
+		//Lay tat ca phieu chi tra no
+		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'paycredit'";
+		$this->data['data_phieuchitrano'] = $this->model_addon_thuchi->getList($where);
+		$tongtrano = 0;
+		foreach($this->data['data_phieuchitrano'] as $item)
+		{
+			$tongtrano += $item['quidoi'];	
+		}
+		
 		//Lay tat ca phieu ban hang
 		$where = " AND loaiphieu = 'PBH' AND nguoinhanid = '".$id."'";
 		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
@@ -208,13 +225,16 @@ class ControllerCoreMember extends Controller
 		{
 			$tongno += $item['congno'];	
 		}
-		
-		$congno = $tongno - $tongthu;
+		$congno = $tongno + $tongtrano - $tongthu - $tongvay;
 		
 		if($this->request->get['khachhangid'])
 		{
-			$this->data['tongphieuthu'] = $tongthu;
+			
 			$this->data['tongno'] = $tongno;
+			$this->data['tongtrano'] = $tongtrano;
+			$this->data['tongphieuthu'] = $tongthu;
+			$this->data['tongvay'] = $tongvay;
+			
 			$this->data['congno'] = $congno;
 			$this->id='content';
 			$this->template="core/member_congno.tpl";
@@ -226,7 +246,11 @@ class ControllerCoreMember extends Controller
 		}
 		else
 		{
-			return $congno;
+			$this->data['output'] = $congno;
+			$this->id='content';
+			$this->template='common/output.tpl';
+			$this->render();
+			
 		}
 	}
 	

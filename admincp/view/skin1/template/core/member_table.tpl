@@ -30,7 +30,7 @@
                         <td><?php echo $user['phone']?></td>
                         <td><?php echo $user['address']?></td>
                         <td><?php echo $user['email']?></td>
-                        <td><a onclick="viewCongNo(<?php echo $user['id']?>)"><?php echo $this->string->numberFormate($user['congno'])?></a></td>
+                        <td class="number"><a onclick="viewCongNo(<?php echo $user['id']?>)"><?php echo $this->string->numberFormate($user['congno'])?></a></td>
                 		<td><?php echo $this->document->userstatus[$user['status']]?></td>
                         <?php if($dialog!=true){ ?>
                         <td class="link-control">
