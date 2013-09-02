@@ -25,35 +25,42 @@ class ControllerThongkeTonkho extends Controller
 	{
 		$this->load->model("core/sitemap");
 		$this->load->model("core/media");
-		//Lay cac danh muc san pham
-		$where = " AND moduleid = 'module/product' AND sitemapparent =''";
+		$siteid = $this->user->getSiteId();
+		$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
 		
-		$data_sitemap = $this->model_core_sitemap->getList($this->user->getSiteId(), $where);
+		$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
+		$arr = array();
+		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
 		
-		
-		$this->data["treeitemaps"]=array();
-		foreach($data_sitemap as $sitemap)
+		foreach($arrsitemapid as $sitemapid)
 		{
-			$arrSiteMapTree = array();
-			$this->model_core_sitemap->getTreeSitemap($sitemap['sitemapid'], $arrSiteMapTree, $this->user->getSiteId());
-			foreach($arrSiteMapTree as $key => $item)
-			{
-				$where = " AND refersitemap like '%[".$item['sitemapid']."]%'";	
-				$where .= " Order by position, statusdate DESC";
-				$data_pro = $this->model_core_media->getList($where);
-				//$this->model_core_media->getTonKho($price['mediaid']);
-				foreach($data_pro as $i => $media)
-				{
-					$data_pro[$i]['tonkho']	= $this->model_core_media->viewTonKho($media['mediaid']);
-				}
-				$arrSiteMapTree[$key]['data_product'] = $data_pro;
-			}
-			$this->data["treeitemaps"][$sitemap['sitemapid']] = $arrSiteMapTree;
-			
+			$arr[] = " refersitemap like '%[".$sitemapid."]%'";
 		}
-		
-		//print_r($this->data["treeitemaps"]);
-		
+		if(count($arr))
+			$where .= "AND (". implode($arr," OR ").")";
+		$where .= " Order by title";
+		$rows = $this->model_core_media->getList($where);
+		for($i=0;$i<count($rows);$i++)
+		{
+			$this->data['medias'][$i] = $rows[$i];
+			
+			$this->data['medias'][$i]['fullname'] =$user['fullname'];
+			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['refersitemap']);
+			$sitemapid = $arr[0];
+			$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
+			
+			$mediaid = $this->data['medias'][$i]['mediaid'];
+			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
+			$data_child = $this->model_core_media->getListByParent($mediaid);
+			foreach($data_child as $key =>$child)
+			{
+				
+				
+				$data_child[$key]['tonkho'] = $this->model_core_media->getTonKho($child['mediaid']);
+				
+			}
+			$this->data['medias'][$i]['child'] = $data_child;
+		}
 	}
 	
 }

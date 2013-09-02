@@ -376,11 +376,22 @@ class ControllerAddonOrder extends Controller
 		$this->render();
 	}
 	
+	public function showProductForm()
+	{
+		$this->id="content";
+		$this->template="addon/product_form.tpl";
+		$this->render();
+	}
+	
 	public function browseProduct()
 	{
 		$this->load->model("core/sitemap");
-		$where = "AND moduleid = 'module/product'";
-		$this->data['data_danhmuc'] = $this->model_core_sitemap->getList($this->user->getSiteId(),$where," ORDER BY sitemapname");
+		
+		$arrSiteMapTree = array();
+		$this->model_core_sitemap->getTreeSitemap("", $arrSiteMapTree, $this->user->getSiteId());
+		
+		
+		$this->data['data_danhmuc'] = $arrSiteMapTree;
 		
 		$this->id="content";
 		$this->template="addon/browseproduct.tpl";
@@ -416,22 +427,27 @@ class ControllerAddonOrder extends Controller
 			$where .= " AND ((". implode(" AND ",$arr). ") OR (". implode(" AND ",$arrcode). "))";
 			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
 		}
-		if($sitemapid)
+		$siteid = $this->user->getSiteId();
+		if($sitemapid == "")
 		{
-			$where.=" AND refersitemap like '%[".$sitemapid."]%'";
+			$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
+			$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
 		}
 		else
 		{
-			$siteid = $this->member->getSiteId();
-			$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
-			$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
-			
-			foreach($arrsitemapid as $item)
-			{
-				$arr[] = " refersitemap like '%[".$item."]%'";
-			}
-			$where .= "AND (". implode($arr," OR ").")";
+			$data = array();
+			$sitemaps = $this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);
+			$arrsitemapid = $this->string->matrixToArray($data,"sitemapid");
 		}
+		$arr = array();
+		
+		if($sitemapid)
+			foreach($arrsitemapid as $sitemapid)
+			{
+				$arr[] = " refersitemap like '%[".$sitemapid."]%'";
+			}
+		if(count($arr))
+			$where .= "AND (". implode($arr," OR ").")";
 		
 		
 		$where .= " AND mediaparent='' Order by position, statusdate DESC";
