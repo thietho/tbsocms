@@ -359,3 +359,38 @@ function logout()
 		}
 	);	
 }
+function showFile(fileid)
+{
+	//if(!$(document).has("#fileinformation"))
+		$('body').append('<div id="fileinformation" style="display:none"></div>');
+	
+	$("#fileinformation").attr('title','Thông tin file');
+		$( "#fileinformation" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 600,
+			modal: true,
+			buttons: {
+				
+				
+				
+				'Tải về':function()
+				{
+					window.location = "download.php?url="+ encodeURI($('#filepath').val());
+				},
+				'Đóng': function() 
+				{
+					
+					$("#fileinformation").dialog( "close" );
+					
+				},
+			}
+		});
+	
+		
+		$("#fileinformation").load("?route=core/file/detail&fileid="+fileid+"&dialog=true",function(){
+			$("#fileinformation").dialog("open");	
+		});
+}

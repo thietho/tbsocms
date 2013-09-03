@@ -203,7 +203,7 @@ $('#title').change(function(e) {
                     	<p id="pnImage">
                             <label for="image"><?php echo $entry_image?></label><br />
                             <a  class="button" onclick="browserFileImage()"><?php echo $entry_selectphoto?></a><br />
-                            <img id="imagepreview" src="<?php echo $imagethumbnail?>" />
+                            <img id="imagepreview" src="<?php echo $imagethumbnail?>" onclick="showFile($('#imageid').val())"/>
                             <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $post['imagepath']?>" />
                             <input type="hidden" id="imageid" name="imageid" value="<?php echo $post['imageid']?>" />
                             <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $post['imagethumbnail']?>" />

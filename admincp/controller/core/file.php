@@ -80,6 +80,9 @@ class ControllerCoreFile extends Controller
 		$fileid = $this->request->get['fileid'];
 		
 		$this->data['item']=$this->model_core_file->getFile($fileid);
+		
+		if($this->string->isImage($this->data['item']['extension']))
+			$this->data['item']['imagepreview'] = HelperImage::resizePNG($this->data['item']['filepath'], 800, 800);
 		//print_r($this->data['file']);
 		//$info = pathinfo(HTTP_IMAGE.$this->data['item']['filepath']);
 		//print_r($info);

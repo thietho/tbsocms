@@ -1,10 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
-
-<body>
-</body>
-</html>
+<form id="frmQuickAddProduct">
+	<input type="hidden" id="mediatype" name="mediatype" value="module/product" >
+    <p>
+        <label>Tên sản phẩm</label><br>
+        <input class="text" type="text" id="title" name="title" size="60" />
+    </p>
+    <p>
+        <label>Code</label><br>
+        <input class="text" type="text" id="code" name="code"  size="60" />
+    </p>
+    <p>
+        <label>Đơn vị</label><br>
+        <select id="unit" name="unit">
+            
+            <option value=""></option>
+            <?php foreach($donvitinh as $val){ ?>
+            <option value="<?php echo $val['madonvi']?>"><?php echo $val['tendonvitinh']?></option>
+            <?php } ?>
+            
+        </select>
+    </p>
+    <p>
+    	<label>Mô tả ngắn</label><br>
+        <textarea class="text" rows="3" cols="70" id="summary" name="summary"></textarea>
+    </p>
+</form>

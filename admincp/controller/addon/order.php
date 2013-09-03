@@ -378,10 +378,14 @@ class ControllerAddonOrder extends Controller
 	
 	public function showProductForm()
 	{
+		$this->load->model("quanlykho/donvitinh");
+		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
 		$this->id="content";
 		$this->template="addon/product_form.tpl";
 		$this->render();
 	}
+	
+	
 	
 	public function browseProduct()
 	{
@@ -454,15 +458,16 @@ class ControllerAddonOrder extends Controller
 		$this->data['medias'] = $this->model_core_media->getList($where);
 		foreach($this->data['medias'] as $i => $media)
 		{
-			
-			$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
+			if($this->data['medias'][$i]['imagepath'])
+				$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
 				
 			
 			
 			$data_child = $this->model_core_media->getListByParent($media['mediaid']," Order by position");
 			foreach($data_child as $key =>$child)
 			{
-				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
+				if($child['imagepath'])
+					$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 			}
 			$this->data['medias'][$i]['child'] = $data_child;
 			

@@ -188,6 +188,47 @@ class ControllerCoreMedia extends Controller
 		$this->render();
 	}
 	
+	public function addProductQuick()
+	{
+		$data = $this->request->post;
+		if($this->validateAddProductQuick($data))
+		{
+			$mediaid = $this->model_core_media->insert($data);
+			$this->model_core_media->updateStatus($mediaid, "active");
+			$data['error'] = "";
+			
+		}
+		else
+		{
+			foreach($this->error as $item)
+			{
+				$data['error'] .= $item."\n";
+			}
+		}
+		$this->data['output'] = json_encode($data);
+		$this->id="content";
+		$this->template="common/output.tpl";
+		$this->render();
+	}
+	function validateAddProductQuick($data)
+	{
+		if ($data['title'] == "")
+		{
+			$this->error['title'] = "Bạn chưa nhập tên sản phẩm";
+		}
+		if ($data['unit'] == "")
+		{
+			$this->error['unit'] = "Bạn chưa chọn đơn vị tính";
+		}
+		
+
+		if (count($this->error)==0) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+	
 	public function mapmoduleform()
 	{
 		$this->data['mediaid'] = $this->request->get['mediaid'];	

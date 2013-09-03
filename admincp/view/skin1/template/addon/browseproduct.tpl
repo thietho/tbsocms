@@ -41,21 +41,23 @@ $('#btnAddProduct').click(function(e) {
 		buttons: {
 			
 			
-			'Chọn': function() 
+			'Thêm': function() 
 			{
-				$('#productselect .listid').each(function(index, element) {
-					//alert($(this).val());
-					var id = 0;
-					var mediaid = $(this).val();
-					
-					
-					var code = $(this).attr('code');
-					var unit = $(this).attr('unit');
-					var title = $(this).attr('title');
-					
-					objdl.addRow(id,mediaid,code,title,1,unit,0);
-				});
-				$(this).dialog("close");
+				$.post("?route=core/media/addProductQuick",$('#frmQuickAddProduct').serialize(),
+					function(data)
+					{
+						var obj = $.parseJSON(data);
+						if(obj.error=="")
+						{
+							loadData("?route=addon/order/listProduct");
+							$('#frmAddSanPham').dialog("close");
+						}
+						else
+						{
+							alert(obj.error);
+						}
+					});
+				
 			},
 			
 		}
