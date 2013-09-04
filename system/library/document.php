@@ -57,6 +57,10 @@ final class Document {
 						"VND" => "đồng",
 						"USD" => "usd"
 						);
+	public $mediatypes = array(
+						'module/product'=>'Product',
+						'module/news'=>'News'
+						);
 	public function toVND($value,$donvi)
 	{
 		if($donvi == "VND")

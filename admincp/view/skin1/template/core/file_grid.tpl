@@ -33,8 +33,9 @@ $('.filelist').click(function(e) {
 			modal: true,
 			buttons: {
 				
-				'Dưa vào sản phẩm':function()
+				'Đưa vào bài viết':function()
 				{
+					showMediaForm(fileid);
 				},
 				'Tải về':function()
 				{

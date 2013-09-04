@@ -43,7 +43,7 @@ $('#btnAddProduct').click(function(e) {
 			
 			'Thêm': function() 
 			{
-				$.post("?route=core/media/addProductQuick",$('#frmQuickAddProduct').serialize(),
+				$.post("?route=core/media/addMediaQuick",$('#frmQuickAddProduct').serialize(),
 					function(data)
 					{
 						var obj = $.parseJSON(data);

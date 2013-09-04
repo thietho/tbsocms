@@ -91,6 +91,8 @@ class ControllerCoreFile extends Controller
 		$this->render();
 	}
 	
+	
+	
 	function getFile()
 	{
 		$width = (int)$this->request->get['width'];

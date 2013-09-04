@@ -362,7 +362,7 @@ function logout()
 function showFile(fileid)
 {
 	//if(!$(document).has("#fileinformation"))
-		$('body').append('<div id="fileinformation" style="display:none"></div>');
+	$('body').append('<div id="fileinformation" style="display:none"></div>');
 	
 	$("#fileinformation").attr('title','Thông tin file');
 		$( "#fileinformation" ).dialog({
@@ -392,5 +392,52 @@ function showFile(fileid)
 		
 		$("#fileinformation").load("?route=core/file/detail&fileid="+fileid+"&dialog=true",function(){
 			$("#fileinformation").dialog("open");	
+		});
+}
+function showMediaForm(fileid)
+{
+	$('body').append('<div id="mediaform" style="display:none"></div>');
+	
+	$("#mediaform").attr('title','Thông tin file');
+		$( "#mediaform" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 500,
+			height: 600,
+			modal: true,
+			buttons: {
+				
+				
+				
+				'Lưu':function()
+				{
+					$.post("?route=core/media/addMediaQuick",$('#frmQuickAddMedia').serialize(),
+					function(data)
+					{
+						var obj = $.parseJSON(data);
+						if(obj.error=="")
+						{
+							//loadData("?route=addon/order/listProduct");
+							$('#frmAddSanPham').dialog("close");
+						}
+						else
+						{
+							alert(obj.error);
+						}
+					});
+				},
+				'Đóng': function() 
+				{
+					
+					$("#mediaform").dialog( "close" );
+					
+				},
+			}
+		});
+	
+		
+		$("#mediaform").load("?route=core/media/fileToMedia&fileid="+fileid+"&dialog=true",function(){
+			$("#mediaform").dialog("open");	
 		});
 }

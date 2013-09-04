@@ -188,7 +188,7 @@ class ControllerCoreMedia extends Controller
 		$this->render();
 	}
 	
-	public function addProductQuick()
+	public function addMediaQuick()
 	{
 		$data = $this->request->post;
 		if($this->validateAddProductQuick($data))
@@ -334,6 +334,17 @@ class ControllerCoreMedia extends Controller
 		
 		$this->id="donvi";
 		$this->template="common/output.tpl";
+		$this->render();
+	}
+	
+	function fileToMedia()
+	{
+		$fileid = $this->request->get['fileid'];
+		$this->data['item']=$this->model_core_file->getFile($fileid);
+		$this->load->model("quanlykho/donvitinh");
+		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
+		$this->id='file';
+		$this->template = "core/media_form.tpl";
 		$this->render();
 	}
 }
