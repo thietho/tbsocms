@@ -16,7 +16,7 @@
         
     </p>
 </div>
-<div id="frmAddSanPham" style="display:none"></div>
+
 <div class="clearer">^&nbsp;</div>
 <div id="productlist" class="left">
 	
@@ -31,48 +31,44 @@ $(document).ready(function(e) {
 });
 
 $('#btnAddProduct').click(function(e) {
-    $("#frmAddSanPham").attr('title','Thêm nhanh sản phẩm');
-	$("#frmAddSanPham").dialog({
-		autoOpen: false,
-		show: "blind",
-		hide: "explode",
-		width: 500,
-		height: 500,
-		modal: true,
-		buttons: {
-			
-			
-			'Thêm': function() 
-			{
-				$.post("?route=core/media/addMediaQuick",$('#frmQuickAddProduct').serialize(),
-					function(data)
-					{
-						var obj = $.parseJSON(data);
-						if(obj.error=="")
-						{
-							loadData("?route=addon/order/listProduct");
-							$('#frmAddSanPham').dialog("close");
-						}
-						else
-						{
-							alert(obj.error);
-						}
-					});
-				
-			},
-			
-		}
-	});
-
-	
-	$("#frmAddSanPham").load("?route=addon/order/showProductForm",function(){
-		$("#frmAddSanPham").dialog("open");	
-	});
+    addQuickProduct();
 });
 function loadData(url)
 {
 	$('#productlist').html(loading);
-	$('#productlist').load(url);
+	$('#productlist').load(url,function(){
+		$('.price-item').click(function(e) {
+				var obj = new Object();
+				obj.mediaid = $(this).attr('ref');
+				obj.imagepath = $(this).attr('image');
+				obj.title = $(this).attr('title');
+				obj.code = $(this).attr('code');
+				obj.unit = $(this).attr('unit');
+				if($(this).attr('pricepromotion') == 0)
+					obj.price = $(this).attr('price');
+				else
+					obj.price = $(this).attr('pricepromotion');
+				
+				var html = '<div><input type="button" class="button removeselect" value="X"><br><input type="hidden" class="listid" value="'+obj.mediaid+'" image="'+ obj.imagepath +'" code="'+ obj.code +'" unit="'+ obj.unit +'" title="'+ obj.title +'" price="'+obj.price+'">';
+				html+='<img src="'+ obj.imagepath +'"><br>'
+				html+= obj.title+'<br>'+ formateNumber(obj.price) +'</div>';
+				$('#productselect').append(html);
+				$('.removeselect').click(function(e) {
+					$(this).parent().remove();
+				});
+				
+			});
+			$('.product-item').hover(
+				function()
+				{
+					$(this).children('div').show();
+					
+				},function()
+				{
+					$(this).children('div').hide();
+				});
+		
+		});
 }
 function searchForm()
 {

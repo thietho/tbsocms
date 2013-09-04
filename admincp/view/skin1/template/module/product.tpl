@@ -27,6 +27,8 @@
             </div>
             <div class="clearer">^&nbsp;</div>
             <form id="postlist" name="postlist" method="post" action="">
+            	<input type="hidden" id="selectmediaid" />
+                <label id="notification"></label>
         		<div id="showsanpham"></div>
             </form>
         </div>
@@ -40,7 +42,26 @@ $(document).ready(function(e) {
 	$('#btnSearch').click(function(e) {
 		pro.searchForm();
 	});
+	$('#keyword').keyup(function(e) {
+        if(e.keyCode == 13)
+			pro.searchForm();
+    });
+	
+	$(document).ajaxComplete(function() {
+		//alert($('#selectmediaid').val())
+		if($('#selectmediaid').val()!="")
+		{
+			$('.enterGroup').hide();
+			$('.selectGroup').show();
+		}
+		else
+		{
+			$('.enterGroup').show();
+			$('.selectGroup').hide();
+		}
+	});
 });
+
 function Product()
 {
 	this.url = "?route=module/product/getList&sitemapid=<?php echo $sitemapid?>";
@@ -57,6 +78,17 @@ function Product()
 			url += "&keyword="+encodeURI($('#keyword').val());
 		}
 		this.loadProduct(url);
+	}
+	this.enterGroup = function(mediaid)
+	{
+		$('#selectmediaid').val(mediaid);
+		$('#notification').html("Chọn sản phẩm để làm qui cách");
+		$('.enterGroup').hide();
+		$('.selectGroup').show();
+	}
+	this.selectGroup = function(mediaid)
+	{
+		
 	}
 	this.deleteProduct = function()
 	{
