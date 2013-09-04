@@ -235,7 +235,7 @@ function intSelectNhaCungCap()
     });
 }
 $('#btnAddRow').click(function(e) {
-	
+	browseProduct();
 });
 
 

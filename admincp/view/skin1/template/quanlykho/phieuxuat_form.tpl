@@ -167,42 +167,7 @@ function intSelectMember()
     });
 }
 $('#btnAddRow').click(function(e) {
-	$("#popup").attr('title','Chọn sản phẩm');
-		$( "#popup" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-			width: 800,
-			height: 500,
-			modal: true,
-			buttons: {
-				
-				
-				'Chọn': function() 
-				{
-					$('#productselect .listid').each(function(index, element) {
-                        //alert($(this).val());
-						var id = 0;
-						var mediaid = $(this).val();
-						
-						
-						var code = $(this).attr('code');
-						var unit = $(this).attr('unit');
-						var title = $(this).attr('title');
-						var price = $(this).attr('price');
-						
-						objdl.addRow(id,mediaid,code,title,1,unit,price);
-                    });
-					$(this).dialog("close");
-				},
-				
-			}
-		});
-	
-		
-		$("#popup-content").load("?route=addon/order/browseProduct",function(){
-			$("#popup").dialog("open");	
-		});
+	browseProduct();
 });
 
 
