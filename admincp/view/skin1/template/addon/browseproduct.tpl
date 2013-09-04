@@ -29,6 +29,7 @@
 $(document).ready(function(e) {
     //loadData("?route=addon/order/listProduct");
 });
+
 $('#btnAddProduct').click(function(e) {
     $("#frmAddSanPham").attr('title','Thêm nhanh sản phẩm');
 	$("#frmAddSanPham").dialog({
@@ -84,6 +85,12 @@ function searchForm()
 }
 $('#btnSeachProduct').click(function(e) {
     searchForm();
+});
+$('#keyword').keyup(function(e) {
+    if(e.keyCode==13)
+	{
+		searchForm();
+	}
 });
 /*$('#keyword').keyup(function(e) {
 	searchForm();

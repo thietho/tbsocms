@@ -191,7 +191,7 @@ $('#btnAddRow').click(function(e) {
 						var title = $(this).attr('title');
 						var price = $(this).attr('price');
 						
-						objdl.addRow(id,mediaid,code,title,0,unit,price);
+						objdl.addRow(id,mediaid,code,title,1,unit,price);
                     });
 					$(this).dialog("close");
 				},
@@ -267,12 +267,6 @@ function save(type)
 		}
 	);
 }
-
-$("#manhom").val("<?php echo $item['manhom']?>");
-$("#loai").val("<?php echo $item['loai']?>");
-
-$("#madonvi").val("<?php echo $item['madonvi']?>");
-
 var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
 </script>
 

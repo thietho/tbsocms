@@ -25,7 +25,7 @@ function PhieuNhapXuat()
 				$(str).html(html);
 				$(str).val(madonvi);
 			});
-		
+		objdl.tinhtong(this.index);
 		this.index++;
 		$('.soluong').keyup(function(e) {
             var pos = $(this).attr('ref');
