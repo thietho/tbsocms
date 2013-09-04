@@ -88,7 +88,35 @@ function Product()
 	}
 	this.selectGroup = function(mediaid)
 	{
-		
+		$.post("?route=core/media/updateCol",
+			{
+				mediaid:$('#selectmediaid').val(),
+				col:'mediaparent',
+				val:mediaid
+			},
+			function(data){
+				if(data == 'true')	
+				{
+					alert("Đưa vào nhóm thành công");	
+					window.location.reload();
+				}
+			});
+	}
+	this.outGroup = function(mediaid)
+	{
+		$.post("?route=core/media/updateCol",
+			{
+				mediaid:mediaid,
+				col:'mediaparent',
+				val:''
+			},
+			function(data){
+				if(data == 'true')	
+				{
+					alert("Đưa ra nhóm thành công");
+					window.location.reload();
+				}
+			});
 	}
 	this.deleteProduct = function()
 	{

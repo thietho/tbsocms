@@ -293,6 +293,18 @@ class ControllerCoreMedia extends Controller
 		$this->template="common/output.tpl";
 		$this->render();	
 	}
+	public function updateCol()
+	{
+		$data = $this->request->post;
+		$mediaid =$data['mediaid'];
+		$col = $data['col'];
+		$val = $data['val'];
+		$this->model_core_media->updateCol($mediaid,$col,$val);
+		$this->data['output'] = 'true';
+		$this->id="sitemap";
+		$this->template="common/output.tpl";
+		$this->render();	
+	}
 	
 	//Cac ham xu ly tren form
 	public function getMedia()

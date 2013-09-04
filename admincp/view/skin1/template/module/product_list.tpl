@@ -102,7 +102,7 @@
                                         
                                         <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="window.location='<?php echo $child['link_edit']?>'"/>
                                         <?php } ?>
-                                       
+                                       	<input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
                                     </td>
                                 </tr> 
                             <?php } ?>
