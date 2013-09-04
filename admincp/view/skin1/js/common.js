@@ -441,3 +441,34 @@ function showMediaForm(fileid)
 			$("#mediaform").dialog("open");	
 		});
 }
+function showMediaUse(fileid)
+{
+	$('body').append('<div id="medialist" style="display:none"></div>');
+	
+	$("#medialist").attr('title','Thông tin file');
+		$( "#medialist" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 500,
+			height: 600,
+			modal: true,
+			buttons: {
+				
+				
+				
+				
+				'Đóng': function() 
+				{
+					
+					$("#medialist").dialog( "close" );
+					
+				},
+			}
+		});
+	
+		
+		$("#medialist").load("?route=core/media/mediaUse&fileid="+fileid+"&dialog=true",function(){
+			$("#medialist").dialog("open");	
+		});
+}

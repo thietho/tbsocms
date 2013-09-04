@@ -32,7 +32,10 @@ $('.filelist').click(function(e) {
 			height: 600,
 			modal: true,
 			buttons: {
-				
+				'Các bài viết sử dụng':function()
+				{
+					showMediaUse(fileid);
+				},
 				'Đưa vào bài viết':function()
 				{
 					showMediaForm(fileid);

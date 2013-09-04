@@ -187,7 +187,15 @@ class ControllerCoreMedia extends Controller
 		$this->template="common/output.tpl";
 		$this->render();
 	}
-	
+	public function mediaUse()
+	{
+		$fileid = $this->request->get['fileid'];
+		$where = " AND imageid = '".$fileid."'";
+		$this->data['medias'] = $this->model_core_media->getList($where);
+		$this->id="content";
+		$this->template="core/media_usefile.tpl";
+		$this->render();
+	}
 	public function addMediaQuick()
 	{
 		$data = $this->request->post;
