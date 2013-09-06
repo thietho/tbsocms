@@ -17,7 +17,12 @@
         	<?php foreach($banhang as $item) { ?>
         	<?php $sum += $item['thanhtien']?>
         <tr>
-        	<td><?php echo $item['title']?></td>
+        	<td>
+            	<?php echo $item['title']?>
+                <?php if($item['code']){ ?>
+                (<?php echo $item['code']?>)
+                <?php } ?>
+            </td>
             <td class="number"><?php echo $this->string->numberFormate($item['soluong'])?></td>
             <td><?php echo $this->document->getDonViTinh($item['madonvi'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['giatien'])?></td>
