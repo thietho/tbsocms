@@ -49,7 +49,7 @@ function loadData(url)
 				
 				objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price);
 				
-				
+				$("#popupbrowseproduct").dialog("close");
 				
 			});
 			$('.product-item').hover(
