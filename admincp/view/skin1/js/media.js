@@ -166,6 +166,101 @@ function addQuickProduct()
 		$("#frmAddSanPham").dialog("open");	
 	});
 }
+function addProduct(parent)
+{
+	$('body').append('<div id="frmProduct" style="display:none"></div>');
+	
+	$("#frmProduct").attr('title','Thông tin sản phẩm');
+	$("#frmProduct").dialog({
+		autoOpen: false,
+		show: "blind",
+		hide: "explode",
+		width: $(document).width()-100,
+		height: 600,
+		modal: true,
+		close:function()
+				{
+					$('#frmProduct').remove();
+				},
+		buttons: {
+			
+			
+			'Lưu': function() 
+			{
+				if(saveMedia())
+				{
+					$('#frmAddSanPham').dialog("close");
+				}
+			},
+			
+		}
+	});
+
+	
+	$("#frmProduct").load("?route=module/product/insert&mediaparent="+parent+"&dialog=true",function(){
+		$("#frmProduct").dialog("open");	
+	});
+}
+function editProduct(mediaid)
+{
+	$('body').append('<div id="frmProduct" style="display:none"></div>');
+	
+	$("#frmProduct").attr('title','Thông tin sản phẩm');
+	$("#frmProduct").dialog({
+		autoOpen: false,
+		show: "blind",
+		hide: "explode",
+		width: $(document).width()-100,
+		height: 600,
+		modal: true,
+		close:function()
+				{
+					$('#frmProduct').remove();
+				},
+		buttons: {
+			
+			
+			'Lưu': function() 
+			{
+				if(saveMedia())
+				{
+					$('#frmAddSanPham').dialog("close");
+					window.location.reload();
+				}
+			},
+			
+		}
+	});
+
+	
+	$("#frmProduct").load("?route=module/product/update&mediaid="+mediaid+"&dialog=true",function(){
+		$("#frmProduct").dialog("open");	
+	});
+}
+function saveMedia()
+{
+	$.blockUI({ message: "<h1>Please wait!!!</h1>" }); 
+	var oEditor = CKEDITOR.instances['editor1'] ;
+	var pageValue = oEditor.getData();
+	$('textarea#editor1').val(pageValue);
+	
+	var oEditor = CKEDITOR.instances['summary'] ;
+	var pageValue = oEditor.getData();
+	$('textarea#summary').val(pageValue);
+	
+	$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
+		function(data){
+			if(data=="true")
+			{
+				alert("Lưu thành công");
+				window.location.reload();
+				
+			}
+			
+			$.unblockUI();
+			
+		});	
+}
 function browseProduct()
 {
 	$('body').append('<div id="popupbrowseproduct" style="display:none"></div>');

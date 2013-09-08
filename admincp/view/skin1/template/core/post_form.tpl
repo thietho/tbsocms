@@ -15,10 +15,10 @@
         </div>
         
     	<div class="right">
-        	
+        	<?php if($_GET['dialog']==""){ ?>
         	<input class="button" type="button" value="<?php echo $button_save?>" onclick="save()"/>
             <a class="button" href="<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"><?php echo $button_cancel?></a>
-             
+             <?php } ?>
              <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $post['mediaid']?>" />
              <input type="hidden" id="mediaparent" name="mediaparent" value="<?php echo $post['mediaparent']?>" />
              <input type="hidden" id="mediatype" name="mediatype" value="<?php echo $post['mediatype']?>" />
@@ -109,7 +109,10 @@ $('#title').change(function(e) {
                         	<label>Code</label><br>
                             <input class="text" type="text" id="code" name="code" value="<?php echo $post['code']?>" size="60" />
                         </p>
-                        
+                        <p>
+                        	<label>Màu sắc</label><br>
+                            <input class="text" type="text" id="color" name="color" value="<?php echo $post['color']?>" size="60" />
+                        </p>
                         <p>
                         	<label>Đơn vị</label><br>
                             <select id="unit" name="unit">

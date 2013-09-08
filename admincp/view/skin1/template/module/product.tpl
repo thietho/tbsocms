@@ -15,7 +15,10 @@
             </div>
             <div class="right">
                 <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
-                <a class="button" href="?route=module/product/insert&sitemapid=<?php echo $sitemapid?>&page=<?php echo $page?>"><?php echo $button_add?></a>&nbsp;
+                <!--<a class="button" href="?route=module/product/insert&sitemapid=<?php echo $sitemapid?>&page=<?php echo $page?>"><?php echo $button_add?></a>-->
+                <a class="button" onclick="pro.add('')"><?php echo $button_add?></a>
+                &nbsp;
+                
                 <?php } ?>
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                 <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>&nbsp;
@@ -69,6 +72,15 @@ function Product()
 	{
 		$('#showsanpham').html(loading);
 		$('#showsanpham').load(url);
+	}
+	this.add = function(parent)
+	{
+		addProduct(parent);
+		
+	}
+	this.edit = function(mediaid)
+	{
+		editProduct(mediaid);
 	}
 	this.searchForm = function()
 	{
