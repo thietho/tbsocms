@@ -57,7 +57,7 @@
                             <?php } ?>
                             <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                   			
-                            <input type="button" class="button" value="<?php echo $media['text_addchild']?>" onclick="pro.add('<?php echo $media['mediaid']?>')"/>
+                            <input type="button" class="button" value="<?php echo $media['text_addchild']?>" onclick="pro.add('<?php echo $media['mediaid']?>','<?php echo $sitemapid?>')"/>
                             <input type="button" class="button enterGroup" value="Đưa vào nhóm" onclick="pro.enterGroup('<?php echo $media['mediaid']?>')"/>
                             <input type="button" class="button selectGroup" value="Chọn" onclick="pro.selectGroup('<?php echo $media['mediaid']?>')"/>
                             <?php }?>

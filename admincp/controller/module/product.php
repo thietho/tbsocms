@@ -33,6 +33,7 @@ class ControllerModuleProduct extends Controller
 	public function getList()
 	{
 		$sitemapid = $this->request->get['sitemapid'];
+		$this->data['sitemapid'] = $sitemapid;
 		$siteid = $this->user->getSiteId();
 		if($sitemapid == "")
 		{

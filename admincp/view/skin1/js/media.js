@@ -166,7 +166,7 @@ function addQuickProduct()
 		$("#frmAddSanPham").dialog("open");	
 	});
 }
-function addProduct(parent)
+function addProduct(parent,sitemapid)
 {
 	$('body').append('<div id="frmProduct" style="display:none"></div>');
 	
@@ -197,7 +197,7 @@ function addProduct(parent)
 	});
 
 	
-	$("#frmProduct").load("?route=module/product/insert&mediaparent="+parent+"&dialog=true",function(){
+	$("#frmProduct").load("?route=module/product/insert&sitemapid="+sitemapid+"&mediaparent="+parent+"&dialog=true",function(){
 		$("#frmProduct").dialog("open");	
 	});
 }

@@ -16,7 +16,7 @@
             <div class="right">
                 <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                 <!--<a class="button" href="?route=module/product/insert&sitemapid=<?php echo $sitemapid?>&page=<?php echo $page?>"><?php echo $button_add?></a>-->
-                <a class="button" onclick="pro.add('')"><?php echo $button_add?></a>
+                <a class="button" onclick="pro.add('','<?php echo $sitemapid?>')"><?php echo $button_add?></a>
                 &nbsp;
                 
                 <?php } ?>
@@ -73,9 +73,9 @@ function Product()
 		$('#showsanpham').html(loading);
 		$('#showsanpham').load(url);
 	}
-	this.add = function(parent)
+	this.add = function(parent,sitemapid)
 	{
-		addProduct(parent);
+		addProduct(parent,sitemapid);
 		
 	}
 	this.edit = function(mediaid)
