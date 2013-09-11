@@ -88,6 +88,117 @@ function showMediaForm(fileid)
 			$("#mediaform").dialog("open");	
 		});
 }
+function showFolderForm(folderid,folderparent)
+{
+	$('body').append('<div id="folderform" style="display:none"></div>');
+	var eid = "#folderform";
+	$(eid).attr('title','Thư mục');
+		$( eid ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 300,
+			height: 200,
+			modal: true,
+			close:function()
+				{
+					$(eid).remove();
+				},
+			buttons: {
+				
+				
+				
+				'Lưu':function()
+				{
+					$.post("?route=core/file/saveFolder",$('#frm_folder').serialize(),
+					function(data)
+					{
+						var obj = $.parseJSON(data);
+						if(obj.error=="")
+						{
+							
+							$('#folderform').dialog("close");
+							window.location.reload();
+						}
+						else
+						{
+							alert(obj.error);
+						}
+					});
+				},
+				'Đóng': function() 
+				{
+					
+					$(eid).dialog( "close" );
+					
+				},
+			}
+		});
+	
+		
+		$(eid).load("?route=core/file/showFolderForm&folderid="+folderid+"&folderparent="+folderparent+"&dialog=true",function(){
+			$(eid).dialog("open");	
+		});
+}
+function showFolderMoveForm()
+{
+	$('body').append('<div id="folderform" style="display:none"></div>');
+	var eid = "#folderform";
+	$(eid).attr('title','Thư mục');
+		$( eid ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 300,
+			height: 200,
+			modal: true,
+			close:function()
+				{
+					$(eid).remove();
+				},
+			buttons: {
+				
+				
+				
+				'Chọn':function()
+				{
+					$('.chkfile').each(function(index, element) {
+                        if(this.checked == true)
+						{
+							var fileid = this.value;
+							var folderid = $('#desfolder').val();
+							$.get("?route=core/file/updateFolder&fileid="+fileid+"&folderid="+folderid,
+							function(){
+								 $("#result").load("?route=core/file/getList&folderid="+$('.selectfolder').attr('folderid')+"&edit=true");
+							});
+							
+						}
+						$(eid).dialog( "close" );
+                    });
+				},
+				'Đóng': function() 
+				{
+					
+					$(eid).dialog( "close" );
+					
+				},
+			}
+		});
+	
+		
+		$(eid).load("?route=core/file/showFolderMoveForm&dialog=true",function(){
+			$(eid).dialog("open");	
+		});
+}
+function delFolder(folderid)
+{
+	$.get("?route=core/file/delFolder&folderid="+folderid,function(data){
+		if(data=="true")
+			window.location.reload();	
+		else
+			alert(data);
+	});
+}
 function showMediaUse(fileid)
 {
 	$('body').append('<div id="medialist" style="display:none"></div>');

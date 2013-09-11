@@ -459,118 +459,18 @@ class ModelCoreFile extends Model
 			return '';
 		}
 	}
-	
-/*	function saveAjaxFile($file,$data)
+	public function updateFileCol($fileid,$col,$val)
 	{
-		$arfile = split('\.', $file['name'] );
-		$name=$arfile[0];
-		$ext = $arfile[1];
-		$ext=strtolower($ext);
-		$total=substr_count($data['filetypeid'], ',')+1;
-		if($this->checkExtension($ext, $data['filetypeid']))
-		{
-			//convert byte sang MB
-			$file['size']=($file['size'])/1048576;
-			$count=1;
-			//get width + height cua file image
-			$width=0;//default = 0
-			$height=0;
-			if($data['filetypeid']==1)
-			{
-				$size = getimagesize($file['tmp_name']);
-				$width=$size[0];
-				$height=$size[1];
-			}
-			if (trim($file['tmp_name']) != '') 
-			{
-				
-				$uploadDir= $data['filepath'];
-				//Tao thu muc
-				$listdir=split("/",	$uploadDir);
-				$path=DIR_FILE;
-				foreach($listdir as $dir)
-				{
-					
-					if($dir!="")
-					{
-						$path.=$dir."/";
-						if (! is_dir($path))
-							mkdir( $path , 0777 );
-					}
-				}
-				
-				$uploadDir= DIR_FILE.$data['filepath'];
-		
-				if($data['fileid']=="" || $data['fileid']==0)
-				{
-					$datafile['fileid']=$this->model_core_file->nextID();
-					$datafile['filename']=$name.".".$ext;
-					$datafile['filepath']=$uploadDir.$name.".".$ext;
-					while(file_exists($datafile['filepath']))
-					{
-						$datafile['filename']=$name.$count.".".$ext;
-						$datafile['filepath']=$uploadDir.$name.$count.".".$ext;
-						$count++;
-					}
-					$datafile['fileparent']=$data['fileparent'];
-					$datafile['width']=$width;	
-					$datafile['height']=$height;
-					$datafile['tagkeyword']=$data['tagkeyword'];
-					$datafile['filesize']=$file['size'];
-					$datafile['extension']=$ext;
-					$datafile['filetypeid']=$data['filetypeid'];
-					$datafile['activedate']=$data['activedate'];
-					$datafile['updateddate']=$data['updateddate'];
-					$datafile['activeby']=$data['activeby'];
-					$datafile['updatedby']=$data['updatedby'];
-					$datafile['languageid']=$data['languageid'];
-					$datafile['Title']=$data['Title'];
-					$this->insertFile($datafile, $data['languageid']);
-					rename($file['tmp_name'],$uploadDir);
-				}
-				else
-				{
-					
-					$datafile['fileid']=$data['fileid'];
-					$da=$this->getFile($data['fileid']);
-					if(file_exists($da[0]['filename']))
-						unlink($da[0]['filename']);
-					
-					$datafile['filename']=$name.".".$ext;
-					$datafile['filepath']=$uploadDir.$name.".".$ext;
-					while(file_exists($datafile['filepath']))
-					{
-						$datafile['filename']=$name.$count.".".$ext;
-						$datafile['filepath']=$uploadDir.$name.$count.".".$ext;
-						$count++;
-					}
-					$datafile['fileparent']=$data['fileparent'];
-					$datafile['width']=$width;	
-					$datafile['height']=$height;
-					$datafile['tagkeyword']=$data['tagkeyword'];
-					$datafile['filesize']=$file['size'];
-					$datafile['extension']=$ext;
-					$datafile['filetypeid']=$data['filetypeid'];
-					$datafile['updateddate']=$data['updateddate'];
-					$datafile['deleteddate']=$data['deleteddate'];
-					$datafile['updatedby']=$data['updatedby'];
-					$datafile['deletedby']=$data['deletedby'];
-					$datafile['languageid']=$data['languageid'];
-					$datafile['Title']=$data['Title'];
-					$this->updateFile($datafile, $data['languageid']);
-					rename($file['tmp_name'],$uploadDir);
-				}
-				
-			}
-			$fileID = $datafile['fileid'];
-			return $fileID;
-		}
-		else
-		{
-			return '';
-		}
-	}*/
-	
+		$field=array(
+						$col
+						);
+		$value=array(
+						$val
+		);
+
+		$where=" fileid = '".$fileid."'";
+		$this->db->updateData("file",$field,$value,$where);
+	}
 	public function insertDefaultAvatar()
 	{
 		$languageid=1;//vn=1 en=2
@@ -639,5 +539,92 @@ class ModelCoreFile extends Model
 		$this->db->insertData("file_description",$field,$value);
 		return $fileid;
 	}
+	
+	//Folder
+	public function getFolder($folderid)
+	{
+		$folderid=(int)@$folderid;
+		$query = $this->db->query('Select * from `folder` where folderid ='.$folderid);
+		return $query->row;
+	}
+	
+	public function getFolders($where = "")
+	{
+		$query = $this->db->query('Select * from `folder` WHERE 1=1 ' .$where);
+		return $query->rows;
+	}
+	
+	public function getFolderChild($parent)
+	{
+		$query = $this->db->query('Select * from `folder` where folderparent ='.$parent.' Order by foldername');
+		return $query->rows;
+	}
+	
+	public function saveFolder($data)
+	{
+		$obj = array();
+		
+		$obj['folderid'] = $this->db->escape(@$data['folderid']);
+		$obj['foldername'] = $this->db->escape(@$data['foldername']);
+		$obj['folderparent'] = $this->db->escape(@$data['folderparent']);
+		
+		
+		foreach($obj as $key => $val)
+		{
+			if(isset($val))
+			{
+				$field[] = $key;
+				$value[] = $this->db->escape($val);	
+			}
+		}		
+		
+		if((int)$data['folderid']==0)
+		{
+			
+			$data['folderid']=$this->db->insertData("folder",$field,$value);
+			
+		}
+		else
+		{			
+			$where="folderid = '".$data['folderid']."'";
+			$this->db->updateData('folder',$field,$value,$where);
+		}
+	}
+	
+	public function delFolder($folderid)
+	{
+		$where="folderid = '".$folderid."'";
+		$this->db->deleteData("folder",$where);
+	}
+	function getTreeFolder($id, &$data, $level=-1, $path="", $parentpath="")
+	{
+		$arr=$this->getFolder($id);
+		
+		$rows = $this->getFolderChild($id);
+		
+		$arr['countchild'] = count(rows);
+		
+		if($arr['folderparent'] != 0) $parentpath .= "-".$arr['folderparent'];
+		
+		if($id!=0)
+		{
+			$level += 1;
+			$path .= "-".$id;
+			
+			$arr['level'] = $level;
+			$arr['path'] = $path;
+			$arr['parentpath'] = $parentpath;
+			
+			array_push($data,$arr);
+		}
+		
+		
+		if(count($rows))
+			foreach($rows as $row)
+			{
+				$this->getTreeFolder($row['folderid'], $data, $level, $path, $parentpath);
+			}
+	}
 }
+
 ?>

@@ -23,7 +23,7 @@ caption,th,td {
 }
 
 table,td,th {
-	vertical-align: middle;
+	vertical-align:middle;
 }
 
 blockquote:before,blockquote:after,q:before,q:after {
@@ -1385,11 +1385,7 @@ ul.autocomplete {
 	padding:10px;
 	width:209px;
 }
-.filelist
-{
-	width:145px;	
-	height:150px;
-}
+
 .filename
 {
 	display:none;	
@@ -1410,4 +1406,12 @@ ul.autocomplete {
 .media-child
 {
 	background:#CCC;	
+}
+.folderitem
+{
+	padding:2px;	
+}
+.selectfolder
+{
+	background:#09F;
 }

@@ -29,7 +29,10 @@
         </td>
     </tr>
     <tr valign="top">
-    	
+    	<td  width="20%" style="vertical-align:top">
+        	<span class="folderitem selectfolder" folderid="0">Root</span>
+            <div id="showfolder"></div>   
+        </td>
         <td id="result" style="vertical-align:top !important">
         	Loading...
         </td>
@@ -45,7 +48,30 @@
 <script language="javascript">
 //alert(parent.opener.document.InsertContent.title.value);
 $(document).ready(function() {
-	showResult("?route=core/file/getList")
+	var CLASSES = ($.treeview.classes = {
+		open: "open",
+		closed: "closed",
+		expandable: "expandable",
+		expandableHitarea: "expandable-hitarea",
+		lastExpandableHitarea: "lastExpandable-hitarea",
+		collapsable: "collapsable",
+		collapsableHitarea: "collapsable-hitarea",
+		lastCollapsableHitarea: "lastCollapsable-hitarea",
+		lastCollapsable: "lastCollapsable",
+		lastExpandable: "lastExpandable",
+		last: "last",
+		hitarea: "hitarea"
+	});
+	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
+		$("#group0").treeview();
+		$('.folderitem').click(function(e) {
+			$('.folderitem').removeClass("selectfolder");
+            $(this).addClass("selectfolder");
+			showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid'));
+        });
+	});
+  	showResult("?route=core/file/getList&folderid=0");
+	
 	$(".checkbox").click(function(index){
 		//alert($(this).val());
 		//alert(this.checked);
@@ -60,17 +86,62 @@ $(document).ready(function() {
 	});
 });
 
+var arrfileid = new Array();
 $("#btnfilter").click(function(){
 	
 	url = "?route=core/file/getList&keyword="+escape($("#keyword").val())+"&location="+$("#location").val()+"&sitemap="+$("#sitemap").val();
-	$("#result").load(url);						   
+	showResult(url);						   
 })
+$('#btnDelFile').click(function(e) {
+    /*for(i in arrfileid)
+	{
+		$.get("?route=core/file/delFile&fileid="+arrfileid[i],function(){
+			showResult("?route=core/file/getList&edit=true");	
+		});
+	}*/
+	/*$('.chkfile').each(function(index, element) {
+        if(this.checked==true)
+		{
+			$.get("?route=core/file/delFile&fileid="+this.value,function(){
+				showResult("?route=core/file/getList&edit=true");
+			});
+		}
+    });*/
+	$.post("?route=core/file/delListFile",$('#ffile').serialize(),function(data){
+		showResult("?route=core/file/getList");
+	});
+});
 
-function moveto(url)
+
+function removeFile(fileid)
 {
-	$("#result").html("Loading...");
-	showResult(url)
+	$("#rowimage"+fileid).html("");	
+	//arr.splice(arr.indexOf(fileid),1,arr);
+}
+var arr = new Array();
+function selectFile(fileid)
+{
+	if(arr.indexOf(fileid)==-1)
+	{
+		arr.push(fileid);
 	
+		input = '<input type="hidden" class="rows" id="seletediamge'+fileid+'" name="seletediamge'+fileid+'" value="'+fileid+'" />';
+		remove = '<a class="button" onClick="removeFile('+ fileid +')">Remove</a>'
+		$("#selected").append("<div id='rowimage"+fileid+"'>"+$("#image"+fileid).html()+input+"</div>"+remove+"<br/>");
+	}
+}
+
+function saveSelect()
+{
+	//parent.opener.document.InsertContent.listselectfile.value ="";
+	$("#listselectfile").val('');
+	$(".rows").each(function(index){
+		//parent.opener.document.InsertContent.listselectfile.value+=$(this).val()+",";
+		$("#listselectfile").val($("#listselectfile").val()+$(this).val()+",")
+	})
+	//window.close();
+	$.unblockUI();
+	addImageTo();
 }
 
 function callbackUploadFile()
@@ -78,6 +149,7 @@ function callbackUploadFile()
 	new AjaxUpload(jQuery('#btnAddImagePopup'), {
 		action: DIR_UPLOADATTACHMENT,
 		name: 'image2[]',
+		
 		responseType: 'json',
 		onChange: function(file, ext){
 		},
@@ -93,10 +165,23 @@ function callbackUploadFile()
 			}        */                    
 		},
 		onComplete: function(file, response){
-			//alert(response);
 			
+			for(i in response.files)
+			{
+				
+				var fileid = response.files[i].imageid;
+				var folderid = $('.selectfolder').attr('folderid');
+				$.get("?route=core/file/updateFolder&fileid="+fileid+"&folderid="+folderid,
+					function(){
+						 showResult("?route=core/file/getList&folderid="+folderid);
+					});
+				//Cap nhat vo thu muc folder:$('.selectfolder').attr('folderid'),
+			}
 			$('#errorupload').hide();
-			showResult("?route=core/file/getList")
+			
+           
+				
+            
 			
 			
 				
@@ -117,5 +202,4 @@ function showResult(url)
 	});
 }
 callbackUploadFile();
-
 </script>

@@ -20,16 +20,23 @@
     	<td colspan="3">
         	<p id="pnImage">
                 <label for="image">Upload file</label><br />
-                <a id="btnAddImagePopup" class="button">Select file</a><br />
                 
+                <input type="button" class="button" id="btnAddImagePopup" value="Chọn file" />
+                <input type="button" class="button" value="Tạo thư mục" onclick="showFolderForm('',$('.selectfolder').attr('folderid'))"/>
+                <input type="button" class="button" value="Sửa tên thư mục" onclick="showFolderForm($('.selectfolder').attr('folderid'),'')"/>
+                <input type="button" class="button" value="Xóa thư mục" onclick="delFolder($('.selectfolder').attr('folderid'))"/>
+                <br />
                 <div id="errorupload" class="error" style="display:none"></div>
-                <input type="button" class="button" id="btnDelFile" value="Delete file"/>
-                
+                <input type="button" class="button" id="btnDelFile" value="Xóa file"/>
+                <input type="button" class="button" id="btnMoveFile" value="Chuyển thư mục" onclick="showFolderMoveForm()"/>
             </p>
         </td>
     </tr>
     <tr valign="top">
-    	
+    	<td  width="20%" style="vertical-align:top">
+        	<span class="folderitem selectfolder" folderid="0">Root</span>
+            <div id="showfolder"></div>   
+        </td>
         <td id="result" style="vertical-align:top !important">
         	Loading...
         </td>
@@ -45,7 +52,29 @@
 <script language="javascript">
 //alert(parent.opener.document.InsertContent.title.value);
 $(document).ready(function() {
-  	$("#result").load("?route=core/file/getList&edit=true");
+	var CLASSES = ($.treeview.classes = {
+		open: "open",
+		closed: "closed",
+		expandable: "expandable",
+		expandableHitarea: "expandable-hitarea",
+		lastExpandableHitarea: "lastExpandable-hitarea",
+		collapsable: "collapsable",
+		collapsableHitarea: "collapsable-hitarea",
+		lastCollapsableHitarea: "lastCollapsable-hitarea",
+		lastCollapsable: "lastCollapsable",
+		lastExpandable: "lastExpandable",
+		last: "last",
+		hitarea: "hitarea"
+	});
+	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
+		$("#group0").treeview();
+		$('.folderitem').click(function(e) {
+			$('.folderitem').removeClass("selectfolder");
+            $(this).addClass("selectfolder");
+			showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid') +"&edit=true");
+        });
+	});
+  	showResult("?route=core/file/getList&folderid=0&edit=true");
 	
 	$(".checkbox").click(function(index){
 		//alert($(this).val());
@@ -60,37 +89,34 @@ $(document).ready(function() {
 		$("#sitemap").val(temp);
 	});
 });
+
 var arrfileid = new Array();
 $("#btnfilter").click(function(){
 	
 	url = "?route=core/file/getList&edit=true&keyword="+escape($("#keyword").val())+"&location="+$("#location").val()+"&sitemap="+$("#sitemap").val();
-	$("#result").load(url);						   
+	showResult(url);						   
 })
 $('#btnDelFile').click(function(e) {
     /*for(i in arrfileid)
 	{
 		$.get("?route=core/file/delFile&fileid="+arrfileid[i],function(){
-			$("#result").load("?route=core/file/getList&edit=true");	
+			showResult("?route=core/file/getList&edit=true");	
 		});
 	}*/
 	/*$('.chkfile').each(function(index, element) {
         if(this.checked==true)
 		{
 			$.get("?route=core/file/delFile&fileid="+this.value,function(){
-				$("#result").load("?route=core/file/getList&edit=true");
+				showResult("?route=core/file/getList&edit=true");
 			});
 		}
     });*/
 	$.post("?route=core/file/delListFile",$('#ffile').serialize(),function(data){
-		$("#result").load("?route=core/file/getList&edit=true");
+		showResult("?route=core/file/getList&edit=true");
 	});
 });
 
-function moveto(url)
-{
-	$("#result").html("Loading...")
-	$("#result").load(url);	
-}
+
 function removeFile(fileid)
 {
 	$("#rowimage"+fileid).html("");	
@@ -127,6 +153,7 @@ function callbackUploadFile()
 	new AjaxUpload(jQuery('#btnAddImagePopup'), {
 		action: DIR_UPLOADATTACHMENT,
 		name: 'image2[]',
+		
 		responseType: 'json',
 		onChange: function(file, ext){
 		},
@@ -142,10 +169,24 @@ function callbackUploadFile()
 			}        */                    
 		},
 		onComplete: function(file, response){
-			//alert(response);
 			
+			for(i in response.files)
+			{
+				
+				var fileid = response.files[i].imageid;
+				var folderid = $('.selectfolder').attr('folderid');
+				$.get("?route=core/file/updateFolder&fileid="+fileid+"&folderid="+folderid,
+					function(){
+						 showResult("?route=core/file/getList&folderid="+folderid+"&edit=true");
+					});
+				//Cap nhat vo thu muc folder:$('.selectfolder').attr('folderid'),
+			}
 			$('#errorupload').hide();
-			$("#result").load("?route=core/file/getList&edit=true");
+			
+           
+				
+            
+			
 			
 				
 			
@@ -157,6 +198,12 @@ function callbackUploadFile()
 	});	
 
 	
+}
+function showResult(url)
+{
+	$("#result").load(url,function(){
+		//intSeleteFile("<?php echo $_GET['type']?>");
+	});
 }
 callbackUploadFile();
 </script>

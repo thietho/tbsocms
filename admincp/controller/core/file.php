@@ -1,6 +1,7 @@
 <?php
 class ControllerCoreFile extends Controller
 {
+	private $error = array();
 	public function index()
 	{
 		$this->load->model("core/media");
@@ -26,6 +27,7 @@ class ControllerCoreFile extends Controller
 		$this->load->model("core/media");
 		//Loc theo media
 		$keyword = $this->request->get['keyword'];
+		$folderid = $this->request->get['folderid'];
 		$location = $this->request->get['location'];
 		$sitemap = trim($this->request->get['sitemap'],",");
 		$list = "";
@@ -41,6 +43,8 @@ class ControllerCoreFile extends Controller
 		{
 			$where .= " AND filename like '%".$keyword."%'";	
 		}
+		if($folderid!="")
+			$where .= " AND folderid = ".$folderid;
 		$rows = $this->model_core_media->getFiles($where." ORDER BY `file`.`fileid` DESC");
 		//Page
 		$page = $this->request->get['page'];		
@@ -48,15 +52,7 @@ class ControllerCoreFile extends Controller
 		$limit = 28;
 		$total = count($rows); 
 		// work out the pager values 
-		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page); 
-		
-		$pager  = $this->pager->getPagerData($total, $limit, $page); 
-		$offset = $pager->offset; 
-		$limit  = $pager->limit; 
-		$page   = $pager->page;
-		
-		$this->data['output'] ="";
-		for($i=$offset;$i < $offset + $limit && count($rows[$i])>0;$i++)
+		for($i=0;$i <  count($rows);$i++)
 		{
 			
 			$this->data['files'][$i] = $rows[$i];
@@ -67,7 +63,7 @@ class ControllerCoreFile extends Controller
 			
 		}
 		
-		$this->data['output'].=$this->data['pager'];
+		
 		$this->id='content';
 		$this->template="core/file_grid.tpl";
 		$this->render();
@@ -134,5 +130,138 @@ class ControllerCoreFile extends Controller
 		$this->template="common/output.tpl";
 		$this->render();
 	}
+	
+	public function showFolderMoveForm()
+	{
+		$this->load->model("core/file");
+		$this->data['treefolder'] = array();
+		$this->model_core_file->getTreeFolder(0, $this->data['treefolder']);
+		
+		$this->id='post';
+		$this->template="core/folder_move_form.tpl";
+		$this->render();	
+	}
+	public function showFolderForm()
+	{
+		$this->load->model("core/file");
+		$folderid = $this->request->get['folderid'];
+		$folderparent = $this->request->get['folderparent'];
+		if($folderid)
+			$this->data['item'] = $this->model_core_file->getFolder($folderid);
+		else
+		{
+			$this->data['item']['folderparent'] = $folderparent;
+		}
+		
+		$this->id='post';
+		$this->template="core/folder_form.tpl";
+		$this->render();
+	}
+	
+	public function saveFolder()
+	{
+		$data = $this->request->post;
+		$this->load->model("core/file");
+		if($this->validateFolderForm($data))
+		{
+			$this->model_core_file->saveFolder($data);
+			
+			$data['error'] = "";
+		}
+		else
+		{
+			foreach($this->error as $item)
+			{
+				$data['error'] .= $item."<br>";
+			}
+		}
+		$this->data['output'] = json_encode($data);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
+	private function validateFolderForm($data)
+	{
+		if ($data['foldername'] == "") 
+		{
+      		$this->error['foldername'] = "Bạn chưa nhập tên thư mục";
+    	}
+		
+		if (count($this->error)==0) 
+		{
+	  		return TRUE;
+		} else {
+	  		return FALSE;
+		}
+	}
+	
+	public function getFolderTreeView()
+	{
+		$this->load->model("core/file");
+		$root = @(int)$this->request->get['root'];
+		$this->data['output'] = '<ul id="group'.$root.'" class="filetree">'.$this->getFolderTree($root).'</ul>';
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
+	private function getFolderTree($root = 0)
+	{
+		
+		$folders = $this->model_core_file->getFolderChild($root);
+		$str = "";
+		foreach($folders as $item)
+		{
+			$child = $this->model_core_file->getFolderChild($item['folderid']);
+			$str.='<li id="node'.$item['folderid'].'" class="closed" ref="'.$root.'">';
+			$type = 'folder';
+			
+			
+			$str.='<span id="module'.$item['folderid'].'" class="'.$type.'"><b><span id="modulename'.$item['folderid'].'" class="folderitem" folderid="'.$item['folderid'].'">'.$item['foldername'].'</span></b> </span>';
+			if(count($child))
+			{
+				$str .= "<ul id='group".$item['folderid']."'>";
+				$str .= $this->getFolderTree($item['folderid']);
+				$str .= "</ul>";
+			}
+			$str.='</li>';
+		}
+		return $str;
+	}
+	public function updateFolder()
+	{
+		$fileid = $this->request->get['fileid'];
+		$folderid = $this->request->get['folderid'];
+		$this->load->model("core/file");
+		$this->model_core_file->updateFileCol($fileid,'folderid',$folderid);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
+	public function delFolder()
+	{
+		$folderid = $this->request->get['folderid'];
+		$this->load->model("core/file");
+		//Kt co thu con khong
+		$child = $this->model_core_file->getFolderChild($folderid);
+		//Kt co ton tai file trong thi muc ko
+		$where .= " AND folderid = ".$folderid;
+		$data_file = $this->model_core_file->getFiles($where);
+		if(count($child) == 0 && count($data_file) == 0)
+		{
+			$this->model_core_file->delFolder($folderid);
+			$this->data['output'] = "true";
+		}
+		else
+		{
+			$this->data['output'] = "Thư mục đang chứa thông tin không xóa được";
+		}
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
 }
 ?>

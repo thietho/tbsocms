@@ -1,6 +1,6 @@
 <?php if(count($files)){ ?>
 
-<?php echo $pager?>
+
 <div class="clearer">^&nbsp;</div>
 <?php if($_GET['edit']=='true'){ ?>
 <div>
@@ -8,11 +8,14 @@
 </div>
 <?php } ?>
 <?php foreach($files as $file){ ?>
-<div class="filelist left text-center" id="<?php echo $file['fileid']?>" imagethumbnail="<?php echo $file['imagethumbnail']?>" filename="<?php echo $file['filename']?>" filepath="<?php echo $file['filepath']?>">
-	<img src="<?php echo $file['imagethumbnail']?>" />
-	<p class="filename"><?php echo $file['filename']?></p>
-    <?php if($_GET['edit']=='true'){ ?>
-    <p><input type="checkbox" class="chkfile" name="chkfile[]" value="<?php echo $file['fileid']?>"></p>
+<div class="left">
+    <div class="filelist  text-center" id="<?php echo $file['fileid']?>" imagethumbnail="<?php echo $file['imagethumbnail']?>" filename="<?php echo $file['filename']?>" filepath="<?php echo $file['filepath']?>" style="background:url('<?php echo $file['imagethumbnail']?>') no-repeat center center">
+        
+        <p class="filename"><?php echo $file['filename']?></p>
+        
+    </div>
+	<?php if($_GET['edit']=='true'){ ?>
+    <center><input type="checkbox" class="chkfile" name="chkfile[]" value="<?php echo $file['fileid']?>"></center>
     <?php } ?>
 </div>
 <?php } ?>

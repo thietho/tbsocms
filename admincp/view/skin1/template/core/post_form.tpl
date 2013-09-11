@@ -522,9 +522,6 @@ $(document).ready(function(e) {
 
 </div>
 
-<script src='<?php echo DIR_JS?>ajaxupload.js' type='text/javascript' language='javascript'> </script>
-
-
 <script type="text/javascript" charset="utf-8">
 function save()
 {
