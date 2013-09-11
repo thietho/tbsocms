@@ -541,24 +541,8 @@ function save()
 		function(data){
 			if(data=="true")
 			{
-				window.location = "<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"
-				/*if("<?php echo $_GET['sitemapid']?>"!= "")
-				{
-					var sitemapid = $('#refersitemap').val().replace('[',"");
-					sitemapid = sitemapid.replace("]","");
-					//alert(strurl)
-					if(strurl=="")
-						window.location = "?route=<?php echo $this->getRoute()?>&sitemapid=<?php echo $_GET['sitemapid']?>&page=<?php echo $_GET['page'] ?>";	
-					
-						
-				}
-				else
-				{
-					if("<?php echo $_GET['route']?>" == "module/product")
-						window.location = "?route=<?php echo $this->getRoute()?>&page=<?php echo $_GET['page'] ?>";
-					else
-						window.location = "?route=core/media";	
-				}*/
+				window.location.reload();
+				
 			}
 			else
 			{
