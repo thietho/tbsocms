@@ -41,11 +41,7 @@ function loadFolder()
 {
 	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
 		$("#group0").treeview();
-		$('.folderitem').click(function(e) {
-			$('.folderitem').removeClass("selectfolder");
-            $(this).addClass("selectfolder");
-			showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid') +"&edit=true");
-        });
+		intFolder()
 	});
 }
 function showMediaForm(fileid)

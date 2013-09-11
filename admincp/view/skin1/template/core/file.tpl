@@ -81,7 +81,14 @@ $(document).ready(function() {
 		$("#sitemap").val(temp);
 	});
 });
-
+function intFolder()
+{
+	$('.folderitem').click(function(e) {
+		$('.folderitem').removeClass("selectfolder");
+		$(this).addClass("selectfolder");
+		showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid'));
+	});
+}
 var arrfileid = new Array();
 $("#btnfilter").click(function(){
 	
@@ -92,14 +99,14 @@ $('#btnDelFile').click(function(e) {
     /*for(i in arrfileid)
 	{
 		$.get("?route=core/file/delFile&fileid="+arrfileid[i],function(){
-			showResult("?route=core/file/getList&edit=true");	
+			showResult("?route=core/file/getList");	
 		});
 	}*/
 	/*$('.chkfile').each(function(index, element) {
         if(this.checked==true)
 		{
 			$.get("?route=core/file/delFile&fileid="+this.value,function(){
-				showResult("?route=core/file/getList&edit=true");
+				showResult("?route=core/file/getList");
 			});
 		}
     });*/

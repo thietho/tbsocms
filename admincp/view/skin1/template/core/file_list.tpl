@@ -81,8 +81,17 @@ $(document).ready(function() {
 		})
 		$("#sitemap").val(temp);
 	});
+	
+	
 });
-
+function intFolder()
+{
+	$('.folderitem').click(function(e) {
+		$('.folderitem').removeClass("selectfolder");
+		$(this).addClass("selectfolder");
+		showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid') +"&edit=true");
+	});
+}
 var arrfileid = new Array();
 $("#btnfilter").click(function(){
 	
