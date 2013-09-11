@@ -146,7 +146,7 @@ class ControllerModuleProduct extends Controller
 		$this->data['output'] = $this->loadModule('core/postcontent');
 		$this->id='content';
 		$this->template='common/output.tpl';
-		
+		$this->layout='layout/center';
 		$this->render();
 	}
 	
@@ -155,7 +155,7 @@ class ControllerModuleProduct extends Controller
 		$this->data['output'] = $this->loadModule('core/postcontent');
 		$this->id='content';
 		$this->template='common/output.tpl';
-		
+		$this->layout='layout/center';
 		$this->render();
 	}
 	public function productCat()

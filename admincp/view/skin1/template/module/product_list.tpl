@@ -53,11 +53,11 @@
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
                         	
-                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="pro.edit('<?php echo $media['mediaid']?>')"/>
+                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="window.location='<?php echo $media['link_edit']?>'"/>
                             <?php } ?>
                             <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                   			
-                            <input type="button" class="button" value="<?php echo $media['text_addchild']?>" onclick="pro.add('<?php echo $media['mediaid']?>','<?php echo $sitemapid?>')"/>
+                            <input type="button" class="button" value="<?php echo $media['text_addchild']?>" onclick="window.location='<?php echo $media['link_addchild']?>'"/>
                             <input type="button" class="button enterGroup" value="Đưa vào nhóm" onclick="pro.enterGroup('<?php echo $media['mediaid']?>')"/>
                             <input type="button" class="button selectGroup" value="Chọn" onclick="pro.selectGroup('<?php echo $media['mediaid']?>')"/>
                             <?php }?>
@@ -100,7 +100,7 @@
                                     <td>
                                         <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                                         
-                                        <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="pro.edit('<?php echo $child['mediaid']?>')"/>
+                                        <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="window.location='<?php echo $child['link_edit']?>'"/>
                                         <?php } ?>
                                        	<input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
                                     </td>

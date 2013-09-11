@@ -541,7 +541,7 @@ function save()
 		function(data){
 			if(data=="true")
 			{
-				window.location.reload();
+				window.location = "<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>"
 				
 			}
 			else
