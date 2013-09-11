@@ -37,6 +37,17 @@ function showFile(fileid)
 			$("#fileinformation").dialog("open");	
 		});
 }
+function loadFolder()
+{
+	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
+		$("#group0").treeview();
+		$('.folderitem').click(function(e) {
+			$('.folderitem').removeClass("selectfolder");
+            $(this).addClass("selectfolder");
+			showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid') +"&edit=true");
+        });
+	});
+}
 function showMediaForm(fileid)
 {
 	$('body').append('<div id="mediaform" style="display:none"></div>');
@@ -118,7 +129,8 @@ function showFolderForm(folderid,folderparent)
 						{
 							
 							$('#folderform').dialog("close");
-							window.location.reload();
+							loadFolder();
+							
 						}
 						else
 						{

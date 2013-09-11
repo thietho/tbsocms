@@ -66,14 +66,7 @@ $(document).ready(function() {
 		last: "last",
 		hitarea: "hitarea"
 	});
-	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
-		$("#group0").treeview();
-		$('.folderitem').click(function(e) {
-			$('.folderitem').removeClass("selectfolder");
-            $(this).addClass("selectfolder");
-			showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid') +"&edit=true");
-        });
-	});
+	loadFolder()
   	showResult("?route=core/file/getList&folderid=0&edit=true");
 	
 	$(".checkbox").click(function(index){

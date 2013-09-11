@@ -218,7 +218,7 @@ class ControllerCoreFile extends Controller
 			$type = 'folder';
 			
 			
-			$str.='<span id="module'.$item['folderid'].'" class="'.$type.'"><b><span id="modulename'.$item['folderid'].'" class="folderitem" folderid="'.$item['folderid'].'">'.$item['foldername'].'</span></b> </span>';
+			$str.='<span id="folder'.$item['folderid'].'" class="'.$type.'"><b><span id="foldername'.$item['folderid'].'" class="folderitem" folderid="'.$item['folderid'].'">'.$item['foldername'].'</span></b> </span>';
 			if(count($child))
 			{
 				$str .= "<ul id='group".$item['folderid']."'>";

@@ -22,7 +22,10 @@
     	<td colspan="3">
         	<p id="pnImage">
                 <label for="image">Upload file</label><br />
-                <a id="btnAddImagePopup" class="button">Select file</a><br />
+                <input type="button" class="button" id="btnAddImagePopup" value="Chọn file" />
+                <input type="button" class="button" value="Tạo thư mục" onclick="showFolderForm('',$('.selectfolder').attr('folderid'))"/>
+                <input type="button" class="button" value="Sửa tên thư mục" onclick="showFolderForm($('.selectfolder').attr('folderid'),'')"/>
+                <input type="button" class="button" value="Xóa thư mục" onclick="delFolder($('.selectfolder').attr('folderid'))"/>
                 
                 <div id="errorupload" class="error" style="display:none"></div>
             </p>
@@ -62,14 +65,7 @@ $(document).ready(function() {
 		last: "last",
 		hitarea: "hitarea"
 	});
-	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
-		$("#group0").treeview();
-		$('.folderitem').click(function(e) {
-			$('.folderitem').removeClass("selectfolder");
-            $(this).addClass("selectfolder");
-			showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid'));
-        });
-	});
+	loadFolder()
   	showResult("?route=core/file/getList&folderid=0");
 	
 	$(".checkbox").click(function(index){
