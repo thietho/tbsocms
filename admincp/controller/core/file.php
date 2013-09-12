@@ -144,6 +144,7 @@ class ControllerCoreFile extends Controller
 	public function showFolderForm()
 	{
 		$this->load->model("core/file");
+		
 		$folderid = $this->request->get['folderid'];
 		$folderparent = $this->request->get['folderparent'];
 		if($folderid)
@@ -152,6 +153,8 @@ class ControllerCoreFile extends Controller
 		{
 			$this->data['item']['folderparent'] = $folderparent;
 		}
+		$this->data['treefolder'] = array();
+		$this->model_core_file->getTreeFolder(0, $this->data['treefolder']);
 		
 		$this->id='post';
 		$this->template="core/folder_form.tpl";

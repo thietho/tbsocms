@@ -105,7 +105,7 @@ function showFolderForm(folderid,folderparent)
 			show: "blind",
 			hide: "explode",
 			width: 300,
-			height: 200,
+			height: 300,
 			modal: true,
 			close:function()
 				{
