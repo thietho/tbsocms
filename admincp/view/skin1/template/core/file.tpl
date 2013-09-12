@@ -75,6 +75,19 @@ $(document).ready(function() {
 	
 	
 });
+function loadFolder()
+{
+	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
+		var CLASSES = ($.treeview.classes = {
+			animated: "fast",
+ 			collapsed: false,
+			persist: "cookie",
+ 			cookieId: "rememberme"
+		});
+		$("#group0").treeview(CLASSES);
+		intFolder()
+	});
+}
 function intFolder()
 {
 	$('.folderitem').click(function(e) {
@@ -82,6 +95,15 @@ function intFolder()
 		$(this).addClass("selectfolder");
 		showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid'));
 	});
+}
+function selectFolder(folderid)
+{
+	
+	$('#foldername' + folderid).addClass("selectfolder");
+	showResult("?route=core/file/getList&folderid="+ folderid);
+	
+	
+	
 }
 var arrfileid = new Array();
 $("#btnfilter").click(function(){

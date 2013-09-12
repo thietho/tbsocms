@@ -37,32 +37,7 @@ function showFile(fileid)
 			$("#fileinformation").dialog("open");	
 		});
 }
-function loadFolder()
-{
-	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
-		var CLASSES = ($.treeview.classes = {
-			open: "open",
-			closed: "closed",
-			expandable: "expandable",
-			expandableHitarea: "expandable-hitarea",
-			lastExpandableHitarea: "lastExpandable-hitarea",
-			collapsable: "collapsable",
-			collapsableHitarea: "collapsable-hitarea",
-			lastCollapsableHitarea: "lastCollapsable-hitarea",
-			lastCollapsable: "lastCollapsable",
-			lastExpandable: "lastExpandable",
-			last: "last",
-			hitarea: "hitarea"
-		});
-		$("#group0").treeview({
-			animated: "fast",
- 			collapsed: false,
-			persist: "cookie",
- 			cookieId: "rememberme"
-			});
-		intFolder()
-	});
-}
+
 function showMediaForm(fileid)
 {
 	$('body').append('<div id="mediaform" style="display:none"></div>');
@@ -144,8 +119,8 @@ function showFolderForm(folderid,folderparent)
 						{
 							
 							$('#folderform').dialog("close");
-							loadFolder();
-							
+							$('#foldername' + folderid).html($('#foldername').val());
+							//selectFolder(folderid)
 						}
 						else
 						{

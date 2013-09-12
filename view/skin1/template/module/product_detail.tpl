@@ -191,7 +191,7 @@ $("#ben-next").click(function(){
     <p class="ben-text-right">
         <b><?php echo $post['source']?></b>
     </p>
-    
+    <?php if(count($priceproduct)){ ?>
     <div id="listprice">
         <table>
             <thead>
@@ -205,7 +205,7 @@ $("#ben-next").click(function(){
             </thead>
             <tbody>
                 
-                <?php if(count($priceproduct)){ ?>
+                
                 <?php foreach($priceproduct as $val){ ?>
                 <tr>
                     <td>
@@ -228,11 +228,11 @@ $("#ben-next").click(function(){
                     <td><input type="button" class="ben-button ben-center" onclick="cart.add('<?php echo $val['mediaid']?>')" value="Đặt hàng"></td>
                 </tr>
                 <?php } ?>
-                <?php } ?>
+                
             </tbody>
         </table>
     </div>
-    
+    <?php } ?>
     <?php if(count($child)){ ?>
     <div id="subinfo">
                 
