@@ -179,12 +179,31 @@ $('#title').change(function(e) {
                         
                         <p>
                             <label><?php echo $text_price?></label><br>
-                            <input class="text number" type="text" name="price" value="<?php echo $post['price']?>" size="60" />
+                            <input class="text number" type="text" id="price" name="price" value="<?php echo $post['price']?>" size="60" />
+                        </p>
+                        <p>
+                            <label>Phần trăm giảm giá</label><br>
+                            <input class="text number" type="text" id="discountpercent" name="discountpercent" value="<?php echo $post['discountpercent']?>" />%
                         </p>
                         <p>
                             <label>Giá khuyến mãi</label><br>
-                            <input class="text number" type="text" name="pricepromotion" value="<?php echo $post['pricepromotion']?>" size="60" />
+                            <input class="text number" type="text" id="pricepromotion" name="pricepromotion" value="<?php echo $post['pricepromotion']?>" size="60" />
                         </p>
+                        <script language="javascript">
+						$('#discountpercent').keyup(function(e) {
+                            var price = Number(stringtoNumber($('#price').val()));
+							var discountpercent = Number(stringtoNumber($('#discountpercent').val()));
+							var pricepromotion = price*( 1- discountpercent/100);
+							$('#pricepromotion').val(formateNumber(pricepromotion));
+                        });
+						
+						$('#pricepromotion').keyup(function(e) {
+                            var price = Number(stringtoNumber($('#price').val()));
+							var pricepromotion = Number(stringtoNumber($('#pricepromotion').val()));
+							var discountpercent = (1- pricepromotion/price)*100;
+							$('#discountpercent').val(formateNumber(discountpercent));
+                        });
+						</script>
                         <?php } ?>
                         <p>
                         	<label>Trang thái:</label>
