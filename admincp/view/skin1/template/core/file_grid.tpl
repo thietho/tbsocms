@@ -6,7 +6,9 @@
 
 
 <?php } ?>
-<?php foreach($files as $file){ ?>
+<?php 
+	if(count($files))
+   		foreach($files as $file){ ?>
 <div class="left">
     <div class="filelist  text-center" id="<?php echo $file['fileid']?>" imagethumbnail="<?php echo $file['imagethumbnail']?>" filename="<?php echo $file['filename']?>" filepath="<?php echo $file['filepath']?>" style="background:url('<?php echo $file['imagethumbnail']?>') no-repeat center center">
         

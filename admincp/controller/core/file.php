@@ -146,8 +146,10 @@ class ControllerCoreFile extends Controller
 		$this->load->model("core/file");
 		
 		$folderid = $this->request->get['folderid'];
+		if($folderid =="")
+			$folderid = -1;
 		$folderparent = $this->request->get['folderparent'];
-		if($folderid)
+		if($folderid!= -1)
 			$this->data['item'] = $this->model_core_file->getFolder($folderid);
 		else
 		{
