@@ -1,15 +1,13 @@
 <script src='<?php echo DIR_JS?>ajaxupload.js' type='text/javascript' language='javascript'> </script>
 
 
-
-
 <form id="ffile" name="ffile" method="post">
 
 <table width="100%" class="data-table">
 	<tr>
         <td colspan="3">
      		<input type="hidden" name="sitemap" id="sitemap" value="" />
-      		<strong>Keyword</strong> <input type="text" name="keyword" id="keyword" class="text" />&nbsp;&nbsp;
+      		<strong>File name</strong> <input type="text" name="keyword" id="keyword" class="text" />&nbsp;&nbsp;
             
             
             			
@@ -22,12 +20,19 @@
     	<td colspan="3">
         	<p id="pnImage">
                 <label for="image">Upload file</label><br />
+                
                 <input type="button" class="button" id="btnAddImagePopup" value="Chọn file" />
                 <input type="button" class="button" value="Tạo thư mục" onclick="showFolderForm('',$('.selectfolder').attr('folderid'))"/>
                 <input type="button" class="button" value="Sửa tên thư mục" onclick="showFolderForm($('.selectfolder').attr('folderid'),'')"/>
                 <input type="button" class="button" value="Xóa thư mục" onclick="delFolder($('.selectfolder').attr('folderid'))"/>
-                
+                <br />
                 <div id="errorupload" class="error" style="display:none"></div>
+               
+                <?php if($_GET['dialog'] == ''){?>
+                <input type="button" class="button" id="btnDelFile" value="Xóa file"/>
+                <input type="button" class="button" id="btnMoveFile" value="Chuyển thư mục" onclick="showFolderMoveForm()"/>
+                <?php } ?>
+                
             </p>
         </td>
     </tr>
@@ -80,6 +85,8 @@ $(document).ready(function() {
 		})
 		$("#sitemap").val(temp);
 	});
+	
+	
 });
 function intFolder()
 {
@@ -96,56 +103,16 @@ $("#btnfilter").click(function(){
 	showResult(url);						   
 })
 $('#btnDelFile').click(function(e) {
-    /*for(i in arrfileid)
-	{
-		$.get("?route=core/file/delFile&fileid="+arrfileid[i],function(){
-			showResult("?route=core/file/getList");	
-		});
-	}*/
-	/*$('.chkfile').each(function(index, element) {
-        if(this.checked==true)
-		{
-			$.get("?route=core/file/delFile&fileid="+this.value,function(){
-				showResult("?route=core/file/getList");
-			});
-		}
-    });*/
-	$.post("?route=core/file/delListFile",$('#ffile').serialize(),function(data){
-		showResult("?route=core/file/getList");
-	});
+    $('.selectfile').each(function(index, element) {
+        var fileid = this.id;
+		$.get("?route=core/file/delFile&fileid="+fileid,function(data){
+			showResult("?route=core/file/getList&folderid="+ $('.selectfolder').attr('folderid'));
+		});		
+    });
 });
 
 
-function removeFile(fileid)
-{
-	$("#rowimage"+fileid).html("");	
-	//arr.splice(arr.indexOf(fileid),1,arr);
-}
-var arr = new Array();
-function selectFile(fileid)
-{
-	if(arr.indexOf(fileid)==-1)
-	{
-		arr.push(fileid);
-	
-		input = '<input type="hidden" class="rows" id="seletediamge'+fileid+'" name="seletediamge'+fileid+'" value="'+fileid+'" />';
-		remove = '<a class="button" onClick="removeFile('+ fileid +')">Remove</a>'
-		$("#selected").append("<div id='rowimage"+fileid+"'>"+$("#image"+fileid).html()+input+"</div>"+remove+"<br/>");
-	}
-}
 
-function saveSelect()
-{
-	//parent.opener.document.InsertContent.listselectfile.value ="";
-	$("#listselectfile").val('');
-	$(".rows").each(function(index){
-		//parent.opener.document.InsertContent.listselectfile.value+=$(this).val()+",";
-		$("#listselectfile").val($("#listselectfile").val()+$(this).val()+",")
-	})
-	//window.close();
-	$.unblockUI();
-	addImageTo();
-}
 
 function callbackUploadFile()
 {
@@ -201,7 +168,8 @@ function callbackUploadFile()
 function showResult(url)
 {
 	$("#result").load(url,function(){
-		intSeleteFile("<?php echo $_GET['type']?>");
+		if("<?php echo $_GET['dialog']?>" =='true')
+			intSeleteFile("<?php echo $_GET['type']?>");
 	});
 }
 callbackUploadFile();

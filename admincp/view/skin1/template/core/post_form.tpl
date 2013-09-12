@@ -663,7 +663,7 @@ function intSeleteFile(type)
 			break;
 		case "multi":
 			$('.filelist').click(function(e) {
-                $('#popup-seletetion').append($(this))
+                //$('#popup-seletetion').append($(this))
             });
 			break;
 	}
@@ -683,7 +683,7 @@ function browserFileAttachment()
 				
 				
 				
-				'Xem danh sach':function()
+				/*'Xem danh sach':function()
 				{
 					$( "#popup-selete" ).show('fast',function(){
 						$( "#popup-selete" ).position({
@@ -696,10 +696,10 @@ function browserFileAttachment()
 					$('.closeselect').click(function(e) {
                         $( "#popup-selete" ).hide('fast');
                     });
-				},
+				},*/
 				'Chọn': function() 
 				{
-					$('#popup-seletetion .filelist').each(function(index, element) {
+					$('.selectfile').each(function(index, element) {
                         $.getJSON("?route=core/file/getFile&fileid="+this.id+"&width=50", 
 							function(file) 
 							{

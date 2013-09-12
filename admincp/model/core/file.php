@@ -596,8 +596,9 @@ class ModelCoreFile extends Model
 		$where="folderid = '".$folderid."'";
 		$this->db->deleteData("folder",$where);
 	}
-	function getTreeFolder($id, &$data, $level=-1, $path="", $parentpath="")
+	function getTreeFolder($id, &$data,$notid=-1, $level=-1, $path="", $parentpath="")
 	{
+		
 		$arr=$this->getFolder($id);
 		
 		$rows = $this->getFolderChild($id);
@@ -606,7 +607,7 @@ class ModelCoreFile extends Model
 		
 		if($arr['folderparent'] != 0) $parentpath .= "-".$arr['folderparent'];
 		
-		if($id!=0)
+		if($id!=0 && $id !=$notid)
 		{
 			$level += 1;
 			$path .= "-".$id;
@@ -616,14 +617,15 @@ class ModelCoreFile extends Model
 			$arr['parentpath'] = $parentpath;
 			
 			array_push($data,$arr);
+			
+
 		}
-		
-		
-		if(count($rows))
+		if(count($rows) && $id !=$notid)
 			foreach($rows as $row)
 			{
-				$this->getTreeFolder($row['folderid'], $data, $level, $path, $parentpath);
+				$this->getTreeFolder($row['folderid'],$data,$notid, $level, $path, $parentpath);
 			}
+		
 	}
 }
 

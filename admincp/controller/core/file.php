@@ -16,7 +16,7 @@ class ControllerCoreFile extends Controller
 		$this->template="core/file.tpl";
 		if($_GET['dialog'] == '')
 		{
-			$this->template="core/file_list.tpl";
+			//$this->template="core/file_list.tpl";
 			$this->layout="layout/center";
 		}
 		$this->render();
@@ -154,7 +154,7 @@ class ControllerCoreFile extends Controller
 			$this->data['item']['folderparent'] = $folderparent;
 		}
 		$this->data['treefolder'] = array();
-		$this->model_core_file->getTreeFolder(0, $this->data['treefolder']);
+		$this->model_core_file->getTreeFolder(0, $this->data['treefolder'],$folderid);
 		
 		$this->id='post';
 		$this->template="core/folder_form.tpl";

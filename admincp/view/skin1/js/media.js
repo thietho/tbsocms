@@ -148,6 +148,44 @@ function showFolderForm(folderid,folderparent)
 			$(eid).dialog("open");	
 		});
 }
+function showFileInfor(fileid)
+{
+	$('body').append('<div id="fileinfor" style="display:none"></div>');
+	var eid = "#fileinfor";
+	$(eid).attr('title','Thông tin file');
+		$(eid).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 600,
+			modal: true,
+			buttons: {
+				'Các bài viết sử dụng':function()
+				{
+					showMediaUse(fileid);
+				},
+				'Đưa vào bài viết':function()
+				{
+					showMediaForm(fileid);
+				},
+				'Tải về':function()
+				{
+					window.location = "download.php?url="+ encodeURI($('#filepath').val());
+				},
+				'Đóng': function() 
+				{
+					
+					$( eid ).dialog( "close" );
+				},
+			}
+		});
+	
+		
+		$(eid).load("?route=core/file/detail&fileid="+fileid+"&dialog=true",function(){
+			$(eid).dialog("open");	
+		});
+}
 function showFolderMoveForm()
 {
 	$('body').append('<div id="folderform" style="display:none"></div>');
