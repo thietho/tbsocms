@@ -54,7 +54,12 @@ function loadFolder()
 			last: "last",
 			hitarea: "hitarea"
 		});
-		$("#group0").treeview();
+		$("#group0").treeview({
+			animated: "fast",
+ 			collapsed: false,
+			persist: "cookie",
+ 			cookieId: "rememberme"
+			});
 		intFolder()
 	});
 }
