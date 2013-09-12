@@ -40,6 +40,20 @@ function showFile(fileid)
 function loadFolder()
 {
 	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
+		var CLASSES = ($.treeview.classes = {
+			open: "open",
+			closed: "closed",
+			expandable: "expandable",
+			expandableHitarea: "expandable-hitarea",
+			lastExpandableHitarea: "lastExpandable-hitarea",
+			collapsable: "collapsable",
+			collapsableHitarea: "collapsable-hitarea",
+			lastCollapsableHitarea: "lastCollapsable-hitarea",
+			lastCollapsable: "lastCollapsable",
+			lastExpandable: "lastExpandable",
+			last: "last",
+			hitarea: "hitarea"
+		});
 		$("#group0").treeview();
 		intFolder()
 	});
@@ -208,19 +222,19 @@ function showFolderMoveForm()
 				
 				'Chọn':function()
 				{
-					$('.chkfile').each(function(index, element) {
-                        if(this.checked == true)
-						{
-							var fileid = this.value;
+					$('.selectfile').each(function(index, element) {
+                        
+							var fileid = this.id;
 							var folderid = $('#desfolder').val();
 							$.get("?route=core/file/updateFolder&fileid="+fileid+"&folderid="+folderid,
 							function(){
-								 $("#result").load("?route=core/file/getList&folderid="+$('.selectfolder').attr('folderid')+"&edit=true");
+								 showResult("?route=core/file/getList&folderid="+$('.selectfolder').attr('folderid')+"&edit=true");
 							});
 							
-						}
-						$(eid).dialog( "close" );
+						
+						
                     });
+					$(eid).dialog( "close" );
 				},
 				'Đóng': function() 
 				{

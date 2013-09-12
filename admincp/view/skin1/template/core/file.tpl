@@ -56,20 +56,7 @@
 <script language="javascript">
 //alert(parent.opener.document.InsertContent.title.value);
 $(document).ready(function() {
-	var CLASSES = ($.treeview.classes = {
-		open: "open",
-		closed: "closed",
-		expandable: "expandable",
-		expandableHitarea: "expandable-hitarea",
-		lastExpandableHitarea: "lastExpandable-hitarea",
-		collapsable: "collapsable",
-		collapsableHitarea: "collapsable-hitarea",
-		lastCollapsableHitarea: "lastCollapsable-hitarea",
-		lastCollapsable: "lastCollapsable",
-		lastExpandable: "lastExpandable",
-		last: "last",
-		hitarea: "hitarea"
-	});
+	
 	loadFolder()
   	showResult("?route=core/file/getList&folderid=0");
 	
@@ -167,6 +154,7 @@ function callbackUploadFile()
 }
 function showResult(url)
 {
+	$('#result').html(loading);
 	$("#result").load(url,function(){
 		if("<?php echo $_GET['dialog']?>" =='true')
 			intSeleteFile("<?php echo $_GET['type']?>");
