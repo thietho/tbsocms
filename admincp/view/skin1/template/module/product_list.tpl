@@ -27,7 +27,10 @@
                         </td>
                         
                         <td><b><?php echo $media['code']?></b></td>
-                    	<td><b><?php echo $media['title']?></b></td>
+                    	<td>
+                        	<b><?php echo $media['title']?></b><br />
+                            <?php echo $media['color']?>
+                        </td>
                         <td class="number">
                         	<?php if(count($media['saleprice'])){ ?>
                             <ul>

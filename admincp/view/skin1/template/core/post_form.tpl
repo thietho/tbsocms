@@ -671,7 +671,7 @@ function browserFileAttachment()
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 800,
+			width: $(document).width()-100,
 			height: 600,
 			modal: true,
 			buttons: {

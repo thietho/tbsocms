@@ -136,7 +136,7 @@ class ControllerCorePostcontent extends Controller
 						$this->data['post']['groupkeys'] = $mediaparent['groupkeys'];
 					}
 				}
-			
+				
 		}
 		
 		
@@ -292,7 +292,8 @@ class ControllerCorePostcontent extends Controller
 		$this->data['statusdate'] = $this->data['post']['statusdate'];
 		$this->data['statusby'] = $this->data['post']['statusby'];
 		$this->data['updateddate'] = $this->data['post']['updateddate'];*/
-		$listfile = $this->model_core_media->getInformation($this->data['mediaid'], "attachment");
+		
+		$listfile = $this->model_core_media->getInformation($mediaid, "attachment");
 		$listfileid=array();
 		if($listfile)
 			$listfileid=split(",",$listfile);

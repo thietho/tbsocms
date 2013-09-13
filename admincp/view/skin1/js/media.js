@@ -120,7 +120,7 @@ function showFolderForm(folderid,folderparent)
 							
 							$('#folderform').dialog("close");
 							$('#foldername' + folderid).html($('#foldername').val());
-							//selectFolder(folderid)
+							loadFolder();
 						}
 						else
 						{
@@ -234,7 +234,7 @@ function delFolder(folderid)
 {
 	$.get("?route=core/file/delFolder&folderid="+folderid,function(data){
 		if(data=="true")
-			window.location.reload();	
+			loadFolder();
 		else
 			alert(data);
 	});
