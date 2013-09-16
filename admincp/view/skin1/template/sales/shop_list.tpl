@@ -145,4 +145,5 @@ function removeStaff(staffid)
 			window.location.reload();
 	});
 }
+
 </script>

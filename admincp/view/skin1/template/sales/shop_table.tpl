@@ -38,8 +38,9 @@
                         	<?php foreach($item['arr_staffid'] as $staffid){ ?>
                             	<li>
                                 	<?php echo $this->document->getNhanVien($staffid)?>
+                                    (<?php echo $this->document->getNhanVien($staffid,'username')?>)
                                     <input type="button" class="button" value="Xóa" onclick=" removeStaff(<?php echo $staffid?>)"/>
-                                    <input type="button" class="button" value="Chuyển cửa hàng" />
+                                    
                                 </li>
                             <?php } ?>
                             </ul>
