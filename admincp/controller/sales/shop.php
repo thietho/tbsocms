@@ -13,6 +13,7 @@ class ControllerSalesShop extends Controller
 		}
 			
 		$this->load->model("sales/shop");
+		$this->load->model("quanlykho/nhanvien");
 		
 	}
 	public function index()
@@ -199,6 +200,15 @@ class ControllerSalesShop extends Controller
 		} else {
 	  		return FALSE;
 		}
+	}
+	
+	public function getListStaff()
+	{
+		$where = "";
+		$this->data['data_nhanvien'] = $this->model_quanlykho_nhanvien->getList($where);
+		$this->id='content';
+		$this->template="sales/nhanvien_list.tpl";
+		$this->render();
 	}
 }
 ?>

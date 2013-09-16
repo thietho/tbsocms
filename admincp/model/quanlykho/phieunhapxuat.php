@@ -206,7 +206,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		if((int)@$data['id'] == 0 )
 		{
 				
-			$this->db->insertData("qlkphieunhapxuat_media",$field,$value);
+			$data['id'] = $this->db->insertData("qlkphieunhapxuat_media",$field,$value);
 				
 		}
 		else
@@ -214,7 +214,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 			$where="id = '".$id."'";
 			$this->db->updateData("qlkphieunhapxuat_media",$field,$value,$where);
 		}
-		return $id;
+		return $data['id'];
 	}
 	public function deletePhieuNhapXuatMedia($id)
 	{

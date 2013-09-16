@@ -72,11 +72,14 @@ $(document).ready(function() {
 		})
 		$("#sitemap").val(temp);
 	});
+	$('#showfolder').css('overflow','auto');
+	//'$('#showfolder').css('height',$(window).height() - $('#showfolder').position().top+ 'px');
 	
 	
 });
 function loadFolder()
 {
+	
 	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
 		var CLASSES = ($.treeview.classes = {
 			animated: "fast",

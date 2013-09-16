@@ -101,4 +101,42 @@ function moveto(url,eid)
 	$(eid).html(loading);
 	$(eid).load(url);	
 }
+function selectNhanVien(shopid)
+{
+	$('body').append('<div id="nhanvienfrom" style="display:none"></div>');
+	var eid = "#nhanvienfrom"
+	$(eid).attr('title','Thông tin file');
+		$(eid).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 500,
+			height: 600,
+			modal: true,
+			close:function()
+				{
+					$(eid).remove();
+				},
+			buttons: {
+				
+				
+				
+				'Chọn':function()
+				{
+					$(eid).dialog( "close" );
+				},
+				'Đóng': function() 
+				{
+					
+					$(eid).dialog( "close" );
+					
+				},
+			}
+		});
+	
+		
+		$(eid).load("?route=sales/shop/getListStaff&dialog=true",function(){
+			$(eid).dialog("open");	
+		});
+}
 </script>
