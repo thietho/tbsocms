@@ -117,26 +117,25 @@ function selectNhanVien(shopid)
 				{
 					$(eid).remove();
 				},
-			buttons: {
-				
-				
-				
-				'Chọn':function()
-				{
-					$(eid).dialog( "close" );
-				},
-				'Đóng': function() 
-				{
-					
-					$(eid).dialog( "close" );
-					
-				},
-			}
+			
 		});
 	
 		
 		$(eid).load("?route=sales/shop/getListStaff&dialog=true",function(){
-			$(eid).dialog("open");	
+			$(eid).dialog("open");
+			$('.nhanvien').click(function(e) {
+                //alert($(this).attr('nhanvienid'));
+				var nhanvienid = $(this).attr('nhanvienid');
+				$.post("?route=sales/shop/saveStaffToShop",
+					{
+						staffid:nhanvienid,
+						shopid:shopid
+					},
+					function(data){
+						alert("Luu thanh cong");
+					});
+				$(eid).dialog( "close" );
+            });
 		});
 }
 </script>

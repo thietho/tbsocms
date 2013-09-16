@@ -210,5 +210,14 @@ class ControllerSalesShop extends Controller
 		$this->template="sales/nhanvien_list.tpl";
 		$this->render();
 	}
+	public function saveStaffToShop()
+	{
+		$data = $this->request->post;
+		$this->model_sales_shop->saveShopStaff($data);
+		$this->data['output'] = "true";
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>
