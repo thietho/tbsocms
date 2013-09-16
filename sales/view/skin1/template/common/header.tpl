@@ -6,8 +6,8 @@
         
         
         
-        <h2><?php echo $title_system?></h2>
-        
+        <h2><?php echo $shop['shopname']?></h2>
+        <h3><?php echo $shop['address']?></h3>
 		
         <div class="clearer">&nbsp;</div>
 

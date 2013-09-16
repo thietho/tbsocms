@@ -4,6 +4,7 @@ class ModelSalesOrder extends Model
 	private $columns = array(
 								'code',
 								'sessionid',
+								'shopid',
 								'customerid',
 								'customername',
 								'createby',
@@ -41,9 +42,13 @@ class ModelSalesOrder extends Model
 	{
 		$curtime = $this->date->getToday();
 		$data['sessionid'] = $this->user->getSessionId();
+		$shop = $this->user->getShop();
+		$data['shopid']= $shop['id'];
 		$data['code'] = $this->creatCode($this->date->getYear($curtime).$this->date->getMonth($curtime).$this->date->getDay($curtime));
 		$data['createtime'] = $curtime;
 		$nhanvien = $this->user->getNhanVien();
+		
+		
 		$data['createby'] = $nhanvien['id'];
 		$data['status'] = "new";
 		foreach($this->columns as $val)

@@ -9,7 +9,7 @@
 			$this->data['sitename'] = $this->session->data['sitename'];
 			$this->data['language'] = $this->getLanguageCBX();
 			$imagepath = $this->model_core_media->getInformation("setting","brochure");
-			
+			$this->data['shop'] = $this->user->getShop();
 			if($imagepath != "")
 			{
 				$this->data['imagepreview'] = "<img class='png' src='".HelperImage::resizePNG($imagepath, 150, 70)."' >";

@@ -316,7 +316,24 @@ final class User {
 									where username = '".$this->username."' ";
 
 		$query = $this->db->query($sql);
-		return $query->rows[0];
+		return $query->row;
+	}
+	public function getShop()
+	{
+		$nhanvien = $this->getNhanVien();
+		$staffid = $nhanvien['id'];
+		$sql = "Select *
+									from `shop_staff` 
+									where staffid = '".$staffid."' ";
+		$query = $this->db->query($sql);
+		
+		$shopid = $query->row['shopid'];
+		$sql = "Select *
+									from `shop` 
+									where id = '".$shopid."' ";
+		$query = $this->db->query($sql);
+		
+		return $query->row;
 	}
 	
 	private function getAllModule()

@@ -20,6 +20,8 @@
 <?php }?>
 <script language="javascript">
 $('.procat').click(function(e) {
-    $('#main-screen').load("?route=page/home/showProductForm&sitemapid="+ $(this).attr('ref'));
+	url ="?route=page/home/showProductForm&sitemapid="+ $(this).attr('ref');
+    $('#main-screen').load(url);
+	pro.history.push(url);
 });
 </script>

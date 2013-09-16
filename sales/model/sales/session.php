@@ -4,8 +4,8 @@ class ModelSalesSession extends Model
 	private $columns = array(
 								'staffid',
 								'starttime',
-								'endtime'
-								
+								'endtime',
+								'shopid'
 							);
 	public function getList($where = "")
 	{
@@ -21,12 +21,13 @@ class ModelSalesSession extends Model
 		return $query->row;
 	}
 	
-	public function createSession()
+	public function createSession($shopid)
 	{
 		$curtime = $this->date->getToday();
 		$data['starttime'] = $curtime;
 		$nhanvien = $this->user->getNhanVien();
 		$data['staffid'] = $nhanvien['id'];
+		$data['shopid'] = $shopid;
 		foreach($this->columns as $val)
 		{			
 			$field[] = $val;

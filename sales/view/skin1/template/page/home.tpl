@@ -2,7 +2,7 @@
 <div class="section">
 
 	<div class="section-title">Bán hàng</div>
-    
+    <input type="button" class="button" style="position:absolute;right:320px" value="Trở về"/>
     <div class="section-content">
     	
         <div id="main-screen" class="left sales-scr">
@@ -27,6 +27,7 @@ $(document).ready(function(e) {
 	$('#keyword').keyup(function(e) {
 		pro.searchForm();
 	});*/
+	pro.history.push('?route=page/home/main');
 	pro.fixSize();
 	pro.getListOrder();
 	
@@ -37,9 +38,11 @@ $(window).resize(function(e) {
 });
 function Product()
 {
+	this.history = new Array();
 	this.url = "?route=page/home/getList";
 	this.loadProduct = function(url)
 	{
+		pro.history.push(url);
 		$('#showsanpham').html(loading);
 		$('#showsanpham').load(url,function()
 		{

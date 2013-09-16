@@ -19,6 +19,7 @@ class ControllerPageHome extends Controller
 		
 		$this->load->model("sales/session");
 		$this->load->model("sales/order");
+		$this->load->model("sales/shop");
 		
 	}
 	
@@ -40,6 +41,9 @@ class ControllerPageHome extends Controller
 		//Kiem tra nhan vien do co dang mo phien lam viec chua
 		$nhanvien = $this->user->getNhanVien();
 		$staffid = $nhanvien['id'];
+		$shop = $this->user->getShop();
+		
+		$shopid = $shop['id'];
 		$where = " AND staffid = '".$staffid."' AND endtime = '0000-00-00 00:00:00'";
 		$data_session = $this->model_sales_session->getList($where);
 		
@@ -52,7 +56,7 @@ class ControllerPageHome extends Controller
 		else
 		{
 			//Neu chua mo thi tao phien lam viec
-			$sessionid = $this->model_sales_session->createSession();
+			$sessionid = $this->model_sales_session->createSession($shopid);
 			$this->user->setSessionId($sessionid);
 		}
 		//echo $this->user->getSessionId();
