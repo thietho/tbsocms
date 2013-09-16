@@ -132,10 +132,17 @@ function selectNhanVien(shopid)
 						shopid:shopid
 					},
 					function(data){
-						alert("Luu thanh cong");
+						window.location.reload();
 					});
 				$(eid).dialog( "close" );
             });
 		});
+}
+function removeStaff(staffid)
+{
+	$.get("?route=sales/shop/removeStaff&staffid="+staffid,function(data){
+		if(data=='true')
+			window.location.reload();
+	});
 }
 </script>

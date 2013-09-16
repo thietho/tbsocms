@@ -86,7 +86,7 @@ class ModelSalesShop extends Model
 	}
 	public function getShopStaffList($where = "")
 	{
-		$sql = "Select `shop_staff`.* from `shop` where 1=1 ".$where;
+		$sql = "Select * from `shop_staff` where 1=1 ".$where;
 		$query = $this->db->query($sql);
 		return $query->rows;
 	}
