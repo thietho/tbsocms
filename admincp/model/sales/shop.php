@@ -78,9 +78,9 @@ class ModelSalesShop extends Model
 	}
 	
 	//shop_staff
-	public function getShopStaff($saffid)
+	public function getShopStaff($staffid)
 	{
-		$sql = "Select * from `shop_staff` where saffid = '".$saffid."'";
+		$sql = "Select * from `shop_staff` where staffid = '".$staffid."'";
 		$query = $this->db->query($sql);
 		return $query->row;
 	}
@@ -97,13 +97,14 @@ class ModelSalesShop extends Model
 		
 		
 		$field=array(
-						'saffid',
+						'staffid',
 						'shopid'
 						
 						);
 		$value=array(
-						$shopid,
-						$staffid
+						$staffid,
+						$shopid
+						
 						);
 		$staff = $this->getShopStaff($staffid);
 		if(count($staff) == 0 )
@@ -114,14 +115,14 @@ class ModelSalesShop extends Model
 		}
 		else
 		{
-			$where="saffid = '".$saffid."'";
+			$where="staffid = '".$staffid."'";
 			$this->db->updateData("shop_staff",$field,$value,$where);
 		}
 		return $data['id'];
 	}
-	public function deleteShopStaff($id)
+	public function deleteShopStaff($staffid)
 	{
-		$where="saffid = '".$saffid."'";
+		$where="staffid = '".$staffid."'";
 		$this->db->deleteData('shop_staff',$where);
 	}
 }
