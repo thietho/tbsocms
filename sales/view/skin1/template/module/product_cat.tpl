@@ -1,3 +1,5 @@
+<input type="button" class="button right" value="Trở về" onclick="$('#main-screen').load('?route=page/home/main')"/>
+<div class="clearer">^&nbsp;</div>
 <div class="pro-item procat left" ref=''>
 	<table>
     	<tr>
@@ -22,6 +24,6 @@
 $('.procat').click(function(e) {
 	url ="?route=page/home/showProductForm&sitemapid="+ $(this).attr('ref');
     $('#main-screen').load(url);
-	pro.history.push(url);
+	//pro.history.push(url);
 });
 </script>

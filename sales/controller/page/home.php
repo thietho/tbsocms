@@ -112,12 +112,17 @@ class ControllerPageHome extends Controller
 		if($keyword !="")
 		{
 			$arr = array();
+			$arrcode = array();
 			foreach($arrkey as $key)
 			{
 				$arr[] = "title like '%".$key."%'";
 			}
-			$where .= " AND (". implode(" AND ",$arr). ")";
-			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
+			foreach($arrkey as $key)
+			{
+				$arrcode[] = "code like '%".$key."%'";
+			}
+			$where .= " AND ((". implode(" AND ",$arr). ") OR (". implode(" AND ",$arrcode). "))";
+			
 		}
 		
 		$where .= " Order by position, statusdate DESC";

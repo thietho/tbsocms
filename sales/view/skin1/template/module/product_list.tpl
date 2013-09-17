@@ -35,3 +35,9 @@
 			
             
             <div class="clearer">&nbsp;</div>
+<script language="javascript">
+$('.procat').click(function(e) {
+    
+	pro.loadProduct(pro.url + "&sitemapid="+$(this).attr('ref'));
+});
+</script>
