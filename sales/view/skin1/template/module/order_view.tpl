@@ -236,6 +236,7 @@ $('.btnEditQty').click(function(e) {
 $('#btnToPending').click(function(e) {
     pro.getListOrder();
 	$('#orderdetail').html('');
+	$('#orderid').val(0);
 });
 $('#btnRemove').click(function(e) {
 	$('.chklist').each(function(index, element) {

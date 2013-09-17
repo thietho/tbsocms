@@ -44,6 +44,10 @@ class ControllerPageHome extends Controller
 		$shop = $this->user->getShop();
 		
 		$shopid = $shop['id'];
+		if($shopid == (int)0)
+		{
+			$this->redirect($this->url->https('page/warning'));	
+		}
 		$where = " AND staffid = '".$staffid."' AND endtime = '0000-00-00 00:00:00'";
 		$data_session = $this->model_sales_session->getList($where);
 		
@@ -361,7 +365,9 @@ class ControllerPageHome extends Controller
 	}
 	public function getOrder()
 	{
-		$where = " AND status = 'new' Order by id desc";
+		$shop = $this->user->getShop();
+		$shopid = $shop['id'];
+		$where = " AND shopid = '".$shopid."' AND status = 'new' Order by id desc";
 		$this->data['data_order'] = $this->model_sales_order->getList($where);
 		$this->data['group'] = array();
 		foreach($this->data['data_order'] as $i => $order)
