@@ -13,6 +13,7 @@
    
                     
                     <th>ĐVT</th>
+                    <th>Nhãn hiệu</th>
                     <th>Trạng thái</th>
                     <th>Hình</th>
                     <th></th>
@@ -51,6 +52,7 @@
                        
                         
                         <td><b><?php echo $this->document->getDonViTinh($media['unit'])?></b>&nbsp;</td>
+                        <td><?php echo $this->document->getCategory($media['brand'])?></td>
                         <td><?php echo $this->document->status_media[$media['status']]?></td>
                         <td align="center"><?php echo $media['imagepreview']?>&nbsp;</td>
                         <td>
@@ -99,7 +101,10 @@
                                    
                                     
                                     <td><b><?php echo $this->document->getDonViTinh($child['unit'])?></b>&nbsp;</td>
+                                    <td><?php echo $this->document->getCategory($child['brand'])?></td>
+                                    <td></td>
                                     <td align="center"><?php echo $child['imagepreview']?>&nbsp;</td>
+                                    
                                     <td>
                                         <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                                         

@@ -336,6 +336,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$sizes = $this->db->escape(@$data['sizes']);
 		$unit = $this->db->escape(@$data['unit']);
 		$color = $this->db->escape(@$data['color']);
+		$brand = $this->db->escape(@$data['brand']);
 		$mediaparent=$this->db->escape(@$data['mediaparent']);
 		$mediatype=$this->db->escape(@$data['mediatype']);
 		$refersitemap=$this->db->escape(@$data['refersitemap']);
@@ -368,6 +369,7 @@ class ModelCoreMedia extends ModelCoreFile
 						'sizes',
 						'unit',
 						'color',
+						'brand',
 						'mediaparent',
 						'mediatype',
 						'refersitemap',
@@ -397,6 +399,7 @@ class ModelCoreMedia extends ModelCoreFile
 						$sizes,
 						$unit,
 						$color,
+						$brand,
 						$mediaparent,
 						$mediatype,
 						$refersitemap,
@@ -434,6 +437,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$sizes = $this->db->escape(@$data['sizes']);
 		$unit = $this->db->escape(@$data['unit']);
 		$color = $this->db->escape(@$data['color']);
+		$brand = $this->db->escape(@$data['brand']);
 		$mediaparent=$this->db->escape(@$data['mediaparent']);
 		$mediatype=$this->db->escape(@$data['mediatype']);
 		$refersitemap=$this->db->escape(@$data['refersitemap']);
@@ -470,6 +474,7 @@ class ModelCoreMedia extends ModelCoreFile
 						'sizes',
 						'unit',
 						'color',
+						'brand',
 						'mediaparent',
 						'mediatype',
 						'refersitemap',
@@ -498,6 +503,7 @@ class ModelCoreMedia extends ModelCoreFile
 						$sizes,
 						$unit,
 						$color,
+						$brand,
 						$mediaparent,
 						$mediatype,
 						$refersitemap,
