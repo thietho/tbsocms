@@ -115,10 +115,10 @@ $('#title').change(function(e) {
                         </p>
                         <p>
                             <label>Nhãn hiệu</label><br />
-                            <select name="brand">
+                            <select id="brand" name="brand">
                                 <option value=""></option>
                                 <?php foreach($nhanhieu as $it){ ?>
-                                <option value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'selected="selected"':''; ?>><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                                <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
                                 <?php } ?>
                             </select>
                         </p>
@@ -172,7 +172,7 @@ $('#title').change(function(e) {
 								$(document).ready(function(e) {
 									
                                 	$('#unit').val("<?php echo $post['unit']?>").change();
-										
+									$('#brand').val("<?php echo $post['brand']?>")
                                 });
 								
 								
