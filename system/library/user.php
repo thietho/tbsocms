@@ -199,8 +199,7 @@ final class User {
 
 	public function hasPermission($moduleid, $action) 
 	{
-		if( $_SESSION['safemode'])
-			return true;
+		
 		if($this->usertypeid == 'admin')
 			return true;
 		$allow = false;
@@ -227,13 +226,7 @@ final class User {
 			$this->siteid = $this->session->data['siteid'];		
 			return true;
 		}
-		elseif($this->session->data['safemode']){
-			$this->usertypeid = $this->session->data['usertypeid'];
-			$this->userid = $this->session->data['userid'];
-			$this->username = $this->session->data['username'];	
-			$this->siteid = $this->session->data['siteid'];		
-			return true;
-		}
+		
 		return false;
   	}
 	
