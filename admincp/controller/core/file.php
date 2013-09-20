@@ -32,8 +32,15 @@ class ControllerCoreFile extends Controller
 		$sitemap = trim($this->request->get['sitemap'],",");
 		$list = "";
 		
-		
-		
+		//
+		$path = $this->model_core_file->getPath($folderid);
+		$arr = array();
+		$arr[] = '<a>Root</a>';	
+		foreach($path as $f)
+		{
+			$arr[] = '<a>'.$f['foldername'].'</a>';	
+		}
+		$this->data['path'] = implode(" >> ",$arr);
 		$this->load->model("core/sitemap");
 		$this->load->helper('image');
 		$where="";

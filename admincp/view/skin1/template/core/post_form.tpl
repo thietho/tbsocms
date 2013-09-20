@@ -493,21 +493,27 @@ $(document).ready(function() {
             <?php } ?>
             
             <?php if($hasTabMap) {?>
+            
             <div id="fragment-map">
                 <div>
-                	<table>
-                    	<thead>
-                        	<th width="50%"><?php echo $column_menu?></th>
-                            <th width="50%"><?php echo $column_parent?></th>
-                        </thead>
-                        <tbody>
-                        	<?php echo $listReferSiteMap?>
-                        </tbody>
-                    </table>
+                	<ul>
+                        <?php echo $listReferSiteMap?>
+                    </ul>
+                   
+                        
                 	
                 
                 </div>
             </div>
+            <?php if(count($arrrefersitemap)){?>
+            	<?php foreach($arrrefersitemap as $sitemapid){?>
+                	<?php if($sitemapid){ ?>
+                    <script language="javascript">
+						$('#refersitemap-<?php echo $sitemapid?>').attr('checked','checked');
+                    </script>
+                    <?php } ?>
+                <?php }?>
+            <?php } ?>
             <?php } ?>
             <?php if($hasTabComment) {?>
             <div id="fragment-comment">

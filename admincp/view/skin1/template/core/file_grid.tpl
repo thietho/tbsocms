@@ -1,3 +1,4 @@
+<?php echo $path?>
 <?php if(count($files)){ ?>
 
 
@@ -28,7 +29,10 @@ $('.filelist').dblclick(function(e) {
     showFileInfor(fileid);
 });
 $('.filelist').click(function(e) {
-    $(this).addClass('selectfile');
+	if($(this).hasClass('selectfile'))
+		$(this).removeClass('selectfile');
+	else
+    	$(this).addClass('selectfile');
 });
 $('.filelist').hover(
 	function(){

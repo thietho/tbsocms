@@ -559,7 +559,19 @@ class ModelCoreFile extends Model
 		$query = $this->db->query('Select * from `folder` where folderparent ='.$parent.' Order by foldername');
 		return $query->rows;
 	}
-	
+	public function getPath($folderid)
+	{
+		$data = array();
+		while($folderid!=0)
+		{
+			$folder = $this->getFolder($folderid);
+			array_push($data,$folder);
+			$folderid = $folder['folderparent'];
+			
+		}
+		$data = $this->string->swapArray($data);
+		return $data;
+	}
 	public function saveFolder($data)
 	{
 		$obj = array();

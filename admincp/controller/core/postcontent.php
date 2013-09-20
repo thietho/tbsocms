@@ -267,31 +267,6 @@ class ControllerCorePostcontent extends Controller
 			$this->data['imagethumbnail'] = HelperImage::resizePNG($this->data['post']['imagepath'], 200, 200);
 		}
 		
-		/*$this->data['mediaid'] = $this->data['post']['mediaid'];
-		$this->data['mediatype'] = $this->data['post']['mediatype'];
-		$this->data['title'] = $this->data['post']['title'];
-		$this->data['summary'] = $this->data['post']['summary'];
-		$this->data['price'] = $this->data['post']['price'];
-		$this->data['pricepromotion'] = $this->data['post']['pricepromotion'];
-		$this->data['description'] = $this->data['post']['description'];
-		$this->data['alias'] = $this->data['post']['alias'];
-		$this->data['keyword'] = $this->data['post']['keyword'];
-		$this->data['author'] = $this->data['post']['author'];
-		$this->data['source'] = $this->data['post']['source'];
-		$this->data['eventdate'] = $this->data['post']['eventdate'];
-		$this->data['eventtime'] = $this->data['post']['eventtime'];
-		$this->data['refersitemap'] = $this->data['post']['refersitemap'];
-		$this->data['imageid'] = $this->data['post']['imageid'];
-		$this->data['imagepath'] = $this->data['post']['imagepath'];
-		$this->data['fileid'] = $this->data['post']['fileid'];
-		$this->data['filepath'] = $this->data['post']['filepath'];
-		$this->data['groupkeys'] = $this->data['post']['groupkeys'];
-		$this->data['viewcount'] = $this->data['post']['viewcount'];
-		$this->data['position'] = $this->data['post']['position'];
-		$this->data['status'] = $this->data['post']['status'];
-		$this->data['statusdate'] = $this->data['post']['statusdate'];
-		$this->data['statusby'] = $this->data['post']['statusby'];
-		$this->data['updateddate'] = $this->data['post']['updateddate'];*/
 		
 		$listfile = $this->model_core_media->getInformation($mediaid, "attachment");
 		$listfileid=array();
@@ -315,8 +290,9 @@ class ControllerCorePostcontent extends Controller
 		{
 			$this->data['post']['refersitemap'] .= "[".$sitemapid."]";
 		}
+		$this->data['arrrefersitemap'] = $this->string->referSiteMapToArray($this->data['post']['refersitemap']);
 		
-		$this->data['listReferSiteMap'] = $this->getListSiteMapCheckBox($this->data['post']);
+		$this->data['listReferSiteMap'] = $this->showTreeSiteMap('');
 		
 		if($route=="module/contact")
 		{
@@ -520,7 +496,48 @@ class ControllerCorePostcontent extends Controller
 		$this->template="common/output.tpl";
 		$this->render();
 	}
-	
+	private function showTreeSiteMap($parentid)
+	{
+		$siteid = $this->user->getSiteId();
+		$str = "";
+		
+		$route = $this->getRoute();
+		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid, "Active");
+		
+		foreach($sitemaps as $item)
+		{
+			if($item['moduleid'] == $route)
+			{
+				$childs = $this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid);
+				
+				$link = '<input id="refersitemap-'.$item['sitemapid'].'" name="listrefersitemap['.$item['sitemapid'].']" type="checkbox" value="'.$item['sitemapid'].'" />'.$item['sitemapname'];
+				
+				$str .= "<li>";
+				
+				$str .= $link;
+				
+				if(count($childs) > 0)
+				{
+					
+					
+					
+					$str .= "<ul>";
+					$str .= $this->showTreeSiteMap($item['sitemapid']);
+					$str .= "</ul>";
+				}
+				else
+				{
+					
+					
+					
+				}
+				$str .= "</li>";
+				
+			}
+		}
+		
+		return $str;
+	}
 	private function getListSiteMapCheckBox($media)
 	{
 		$strReferSitemap = $media['refersitemap'];

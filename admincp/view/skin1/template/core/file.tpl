@@ -6,6 +6,7 @@
 <table width="100%" class="data-table">
 	<tr>
         <td colspan="3">
+        	<input type="hidden" id="folderidcur" value="0" />
      		<input type="hidden" name="sitemap" id="sitemap" value="" />
       		<strong>File name</strong> <input type="text" name="keyword" id="keyword" class="text" />&nbsp;&nbsp;
             
@@ -58,20 +59,9 @@
 $(document).ready(function() {
 	
 	loadFolder()
-  	showResult("?route=core/file/getList&folderid=0");
+  	showResult("?route=core/file/getList&folderid="+ $('#folderidcur').val());
 	
-	$(".checkbox").click(function(index){
-		//alert($(this).val());
-		//alert(this.checked);
-		
-		temp ="";
-		$(".checkbox").each(function(index){
-			
-			if(this.checked)
-			temp += $(this).val()+",";
-		})
-		$("#sitemap").val(temp);
-	});
+	
 	$('#showfolder').css('overflow','auto');
 	//'$('#showfolder').css('height',$(window).height() - $('#showfolder').position().top+ 'px');
 	
@@ -101,7 +91,7 @@ function intFolder()
 }
 function selectFolder(folderid)
 {
-	
+	$('#folderidcur').val(folderid);
 	$('#foldername' + folderid).addClass("selectfolder");
 	showResult("?route=core/file/getList&folderid="+ folderid);
 	
