@@ -1290,9 +1290,30 @@ ul.autocomplete {
 	width:145px;	
 	height:150px;
 }
+
 .filename
 {
 	display:none;	
+}
+.folderlist
+{
+	width:145px;	
+	height:150px;
+	background:url(../image/folder.png) no-repeat center center;
+}
+.folderlist table
+{
+	height:100%;
+	
+}
+.folderlist td
+{
+	text-align:center;
+	border:none !important;	
+}
+.folderlist tr
+{
+	border:none !important;	
 }
 .needimport
 {

@@ -41,6 +41,8 @@ class ControllerCoreFile extends Controller
 			$arr[] = '<a>'.$f['foldername'].'</a>';	
 		}
 		$this->data['path'] = implode(" >> ",$arr);
+		//
+		$this->data['folderchild'] = $this->model_core_file->getFolderChild($folderid);
 		$this->load->model("core/sitemap");
 		$this->load->helper('image');
 		$where="";

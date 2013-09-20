@@ -1,8 +1,18 @@
 <?php echo $path?>
-<?php if(count($files)){ ?>
-
-
 <div class="clearer">^&nbsp;</div>
+<?php if(count($folderchild)){ ?>
+	<?php foreach($folderchild as $folder){ ?>
+    <div class="left folderlist" folderid="<?php echo $folder['folderid']?>" title="<?php echo $folder['foldername']?>">
+    	<table>
+        	<tr>
+            	<td><?php echo $folder['foldername']?></td>
+            </tr>
+        </table>
+    	
+    </div>
+    <?php }?>
+
+
 
 
 
@@ -10,8 +20,8 @@
 <?php 
 	if(count($files))
    		foreach($files as $file){ ?>
-<div class="left">
-    <div class="filelist  text-center" id="<?php echo $file['fileid']?>" imagethumbnail="<?php echo $file['imagethumbnail']?>" filename="<?php echo $file['filename']?>" filepath="<?php echo $file['filepath']?>" style="background:url('<?php echo $file['imagethumbnail']?>') no-repeat center center">
+	<div class="left">
+    <div class="filelist  text-center" id="<?php echo $file['fileid']?>" imagethumbnail="<?php echo $file['imagethumbnail']?>" filename="<?php echo $file['filename']?>" filepath="<?php echo $file['filepath']?>" style="background:url('<?php echo $file['imagethumbnail']?>') no-repeat center center" title="<?php echo $file['filename']?>">
         
         <p class="filename"><?php echo $file['filename']?></p>
         
@@ -44,5 +54,8 @@ $('.filelist').hover(
 		$(this).children('.filename').css('overflow','hidden');
 	});
 	
-
+$('.folderlist').click(function(e) {
+    var folderid = $(this).attr('folderid');
+	alert(folderid);
+});
 </script>
