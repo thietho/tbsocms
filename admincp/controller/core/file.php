@@ -35,10 +35,10 @@ class ControllerCoreFile extends Controller
 		//
 		$path = $this->model_core_file->getPath($folderid);
 		$arr = array();
-		$arr[] = '<a>Root</a>';	
+		$arr[] = '<a class="folderpath" folderid="0">Root</a>';	
 		foreach($path as $f)
 		{
-			$arr[] = '<a>'.$f['foldername'].'</a>';	
+			$arr[] = '<a class="folderpath" folderid="'.$f['folderid'].'">'.$f['foldername'].'</a>';	
 		}
 		$this->data['path'] = implode(" >> ",$arr);
 		//

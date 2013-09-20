@@ -23,9 +23,10 @@
                 <label for="image">Upload file</label><br />
                 
                 <input type="button" class="button" id="btnAddImagePopup" value="Chọn file" />
-                <input type="button" class="button" value="Tạo thư mục" onclick="showFolderForm('',$('.selectfolder').attr('folderid'))"/>
-                <input type="button" class="button" value="Sửa tên thư mục" onclick="showFolderForm($('.selectfolder').attr('folderid'),'')"/>
-                <input type="button" class="button" value="Xóa thư mục" onclick="delFolder($('.selectfolder').attr('folderid'))"/>
+                <input type="button" class="button" value="Tạo thư mục" onclick="showFolderForm('',$('#folderidcur').val())"/>
+                <input type="button" class="button" value="Sửa tên thư mục" onclick="showFolderForm($('#folderidcur').val(),'')"/>
+                <input type="button" class="button" value="Xóa thư mục" onclick="delFolder($('#folderidcur').val())"/>
+                <input type="button" class="button" value="Cây thư mục" onclick="$('#folderconten').show()"/>
                 <br />
                 <div id="errorupload" class="error" style="display:none"></div>
                
@@ -38,12 +39,16 @@
         </td>
     </tr>
     <tr valign="top">
-    	<td  width="20%" style="vertical-align:top">
-        	<span class="folderitem selectfolder" folderid="0">Root</span>
-            <div id="showfolder"></div>   
-        </td>
-        <td id="result" style="vertical-align:top !important">
-        	Loading...
+    	
+        <td style="vertical-align:top !important">
+        	
+        	<div id="folderconten" style="position:absolute;background:#fff;overflow:auto;display:none;width:300px">
+            	<span class="folderitem selectfolder" folderid="0">Root</span>
+                <input type="button" class="button right" value="X" onclick="$('#folderconten').hide()"/>
+            	<div id="showfolder"></div>
+            </div>
+        	<div id="result"></div>
+        	
         </td>
         
     </tr>
@@ -86,11 +91,13 @@ function intFolder()
 	$('.folderitem').click(function(e) {
 		$('.folderitem').removeClass("selectfolder");
 		$(this).addClass("selectfolder");
-		showResult("?route=core/file/getList&folderid="+ $(this).attr('folderid'));
+		var folderid = $(this).attr('folderid');
+		selectFolder(folderid)
 	});
 }
 function selectFolder(folderid)
 {
+	$('.folderitem').removeClass("selectfolder");
 	$('#folderidcur').val(folderid);
 	$('#foldername' + folderid).addClass("selectfolder");
 	showResult("?route=core/file/getList&folderid="+ folderid);
@@ -142,7 +149,7 @@ function callbackUploadFile()
 			{
 				
 				var fileid = response.files[i].imageid;
-				var folderid = $('.selectfolder').attr('folderid');
+				var folderid = $('#folderidcur').val();
 				$.get("?route=core/file/updateFolder&fileid="+fileid+"&folderid="+folderid,
 					function(){
 						 showResult("?route=core/file/getList&folderid="+folderid);

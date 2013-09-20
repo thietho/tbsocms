@@ -56,6 +56,10 @@ $('.filelist').hover(
 	
 $('.folderlist').click(function(e) {
     var folderid = $(this).attr('folderid');
-	alert(folderid);
+	selectFolder(folderid);
+});
+$('.folderpath').click(function(e) {
+    var folderid = $(this).attr('folderid');
+	selectFolder(folderid);
 });
 </script>
