@@ -409,9 +409,6 @@ class ControllerAddonOrder extends Controller
 		$this->load->model("core/sitemap");
 		$this->load->helper('image');
 		
-		
-		
-		
 		$keyword = urldecode($this->request->get['keyword']);
 		$sitemapid = urldecode($this->request->get['sitemapid']);
 		$arrkey = split(' ', $keyword);
