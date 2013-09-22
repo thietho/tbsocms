@@ -445,7 +445,7 @@ input.text,textarea,select {
 }
 input.short
 {
-	width:50px;	
+	width:100px;	
 }
 input.text:focus,textarea:focus,select:focus {
 	background: #FFFFF5;

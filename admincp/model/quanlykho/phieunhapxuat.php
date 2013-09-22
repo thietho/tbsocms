@@ -174,7 +174,9 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$soluong=$this->string->toNumber($this->db->escape(@$data['soluong']));
 		$madonvi=$this->db->escape(@$data['madonvi']);
 		$giatien=$this->string->toNumber($this->db->escape(@$data['giatien']));
-		$thanhtien=$soluong*$giatien;
+		$giamgia=$this->string->toNumber($this->db->escape(@$data['giamgia']));
+		$phantramgiamgia=$this->string->toNumber($this->db->escape(@$data['phantramgiamgia']));
+		$thanhtien=$soluong*($giatien-$giamgia);
 		$trangthai = "active";
 		$loaiphieu=$this->db->escape(@$data['loaiphieu']);
 		
@@ -186,9 +188,12 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'soluong',
 						'madonvi',
 						'giatien',
+						'giamgia',
+						'phantramgiamgia',
 						'thanhtien',
 						'trangthai',
 						'loaiphieu'
+						
 						);
 		$value=array(
 						$phieuid,
@@ -198,9 +203,12 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$soluong,
 						$madonvi,
 						$giatien,
+						$giamgia,
+						$phantramgiamgia,
 						$thanhtien,
 						$trangthai,
-						$loaiphieu
+						$loaiphieu,
+						
 						);
 
 		if((int)@$data['id'] == 0 )

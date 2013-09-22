@@ -160,7 +160,7 @@ class ControllerCorePostcontent extends Controller
 		$this->data['hasSubInfor'] = false;
 		//Video
 		$this->data['hasVideo'] = false;
-		$this->data['DIR_CANCEL'] = HTTP_SERVER."index.php?route=".$route."&sitemapid=".$sitemapid;
+		$this->data['DIR_CANCEL'] = HTTP_SERVER."?route=".$route."&sitemapid=".$sitemapid;
 		//Gallery
 		$this->data['hasTabImages'] = false;
 		$this->data['hasTabVideos'] = false;
@@ -227,7 +227,7 @@ class ControllerCorePostcontent extends Controller
 			$this->data['hasSource'] = false;
 			$this->data['hasSubInfor'] = false;
 			//$this->data['post']['title'] = $sitemap['sitemapname'];
-			$this->data['DIR_CANCEL'] = HTTP_SERVER."index.php";
+			$this->data['DIR_CANCEL'] = HTTP_SERVER."?route=core/content";
 		}
 		if($route == "module/register")
 		{
@@ -249,7 +249,7 @@ class ControllerCorePostcontent extends Controller
 			$this->data['hasSource'] = false;
 			$this->data['hasSubInfor'] = false;
 			//$this->data['post']['title'] = $sitemap['sitemapname'];
-			$this->data['DIR_CANCEL'] = HTTP_SERVER."index.php";
+			$this->data['DIR_CANCEL'] = HTTP_SERVER."?route=core/content";
 			$this->data['hasEmail'] = true;
 		}
 		

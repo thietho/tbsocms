@@ -8,6 +8,7 @@
                     <th>Tên sản phẩm</th>
                     <th>Giá bán</th>
                     <th>Giá</th>
+                    <th>Giảm</th>
                     <th>Giá khuyến mãi</th>
                     <th width="200px">Tồn kho</th>
    
@@ -43,6 +44,9 @@
                         </td>
                         <td class="number">
                             <b><?php echo $this->string->numberFormate($media['price'])?></b>
+                        </td>
+                        <td class="number">
+                            <b><?php echo $this->string->numberFormate($media['discountpercent'])?>%</b>
                         </td>
                         <td class="number"><b><?php echo $this->string->numberFormate($media['pricepromotion'])?></b></td>
                         <td class="number">
@@ -93,6 +97,9 @@
                                         <b><?php echo $this->string->numberFormate($child['price'])?></b>
                                         
                                    
+                                    </td>
+                                    <td class="number">
+                                        <b><?php echo $this->string->numberFormate($child['discountpercent'])?>%</b>
                                     </td>
                                     <td class="number"><b><?php echo $this->string->numberFormate($child['pricepromotion'])?></b>&nbsp;</td>
                                     <td class="number">

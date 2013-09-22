@@ -215,6 +215,8 @@ class ControllerQuanlykhoPhieunhap extends Controller
 			$arr_soluong = $data['soluong'];
 			$arr_madonvi = $data['dlmadonvi'];
 			$arr_giatien = $data['giatien'];
+			$arr_giamgia = $data['giamgia'];
+			$arr_phantramgiamgia = $data['phantramgiamgia'];
 			foreach($arr_mediaid as $i => $mediaid)
 			{
 				$dl['id'] = $nhapkhoid[$i];
@@ -225,6 +227,8 @@ class ControllerQuanlykhoPhieunhap extends Controller
 				$dl['soluong'] = $arr_soluong[$i];
 				$dl['madonvi'] = $arr_madonvi[$i];
 				$dl['giatien'] = $arr_giatien[$i];
+				$dl['giamgia'] = $arr_giamgia[$i];
+				$dl['phantramgiamgia'] = $arr_phantramgiamgia[$i];
 				$dl['loaiphieu'] = $this->loaiphieu;
 				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
 				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
