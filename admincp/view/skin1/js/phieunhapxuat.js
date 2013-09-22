@@ -3,6 +3,7 @@ function PhieuNhapXuat()
 	this.index = 0;
 	this.addRow = function(id,mediaid,code,title,soluong,madonvi,giatien,giamgia,phantramgiamgia)
 	{
+		
 		var row = '<tr id="row'+ this.index +'">';
 		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="mediaid-'+ this.index +'" name="mediaid['+ this.index +']" value="'+ mediaid +'" /><input type="hidden" id="code-'+ this.index +'" name="code['+ this.index +']" value="'+ code +'" />'+ code +'</td>';
 		row +='<td><input type="hidden" id="title-'+ this.index +'" name="title['+ this.index +']" value="'+ title +'" />'+ title +'</td>';
@@ -36,6 +37,10 @@ function PhieuNhapXuat()
         });
 		$('.giatien').keyup(function(e) {
             var pos = $(this).attr('ref');
+			var giatien = Number(stringtoNumber($('#giatien-'+pos).val()));
+			var phantramgiamgia = Number(stringtoNumber($('#phantramgiamgia-'+pos).val()));
+			var giamgia = giatien * phantramgiamgia/100;
+			$('#giamgia-'+pos).val(formateNumber(giamgia))
 			objdl.tinhtong(pos);
         });
 		$('.giamgia').keyup(function(e) {
@@ -70,6 +75,7 @@ function PhieuNhapXuat()
 		var giamgia = Number(stringtoNumber($('#giamgia-'+pos).val()));
 		var phantramgiamgia = Number(stringtoNumber($('#phantramgiamgia-'+pos).val()));
 		var thanhtien = soluong*(giatien-giamgia);
+		
 		$('#thanhtien-'+pos).html(formateNumber(thanhtien));
 		var sum = 0;
 		$('.thanhtien').each(function(index, element) {
