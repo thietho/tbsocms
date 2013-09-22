@@ -21,6 +21,7 @@ class ControllerModuleProduct extends Controller
 	
 	function index()
 	{	
+		
 		$siteid = $this->user->getSiteId();
 		$this->data['sitemapid'] = $this->request->get['sitemapid'];
 		$this->data['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($this->data['sitemapid'], $siteid);
@@ -246,11 +247,45 @@ class ControllerModuleProduct extends Controller
 	
 	public function delcat()
 	{
-		echo $id = $this->request->get['id'];
+		$id = $this->request->get['id'];
 		$this->model_core_sitemap->deleteSitemap($id, $this->user->getSiteId());	
 		
 		$this->data['output'] = "true";
+		$this->id='content';
 		$this->template='common/output.tpl';
+		$this->render();
+	}
+	public function addToList()
+	{
+		$mediaid = $this->request->get['mediaid'];
+		$media = $this->model_core_media->getItem($mediaid);
+		$media['imagepreview'] =HelperImage::resizePNG($media['imagepath'], 100, 100);
+		if(!isset($_SESSION['productlist']))
+		{
+			$_SESSION['productlist'] = array();
+		}
+		$_SESSION['productlist'][$mediaid]=$media;
+		$this->data['output'] = "true";
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	public function removeListItem()
+	{
+		$mediaid = $this->request->get['mediaid'];
+		unset($_SESSION['productlist'][$mediaid]);
+		
+		$this->data['output'] = "true";
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+		
+	}
+	public function listProductSelected()
+	{
+		$this->data['medias'] = $_SESSION['productlist'];
+		$this->id='content';
+		$this->template='module/product_selected.tpl';
 		$this->render();
 	}
 }

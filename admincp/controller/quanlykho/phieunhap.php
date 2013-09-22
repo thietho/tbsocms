@@ -170,13 +170,29 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		if($id) 
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
-			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
+			
 			$where = " AND phieuid = '".$id."'";
 			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
-			
-			
     	}
-		
+		else
+		{
+			if(isset($_SESSION['productlist']))
+			{
+				$medias = $_SESSION['productlist'];
+				$i=0;
+				foreach($medias as $media)
+				{
+					$this->data['data_nhapkho'][$i]['mediaid']=$media['mediaid'];
+					$this->data['data_nhapkho'][$i]['code']=$media['code'];
+					$this->data['data_nhapkho'][$i]['title']=$media['title'];
+					if($media['color'])
+						$this->data['data_nhapkho'][$i]['title'].= " - ".$media['color'];
+					$this->data['data_nhapkho'][$i]['soluong']=1;
+					$this->data['data_nhapkho'][$i]['madonvi']=$media['unit'];
+					$i++;
+				}
+			}
+		}
 		$this->id='content';
 		$this->template='quanlykho/phieunhap_form.tpl';
 		$this->layout="layout/center";
@@ -236,6 +252,10 @@ class ControllerQuanlykhoPhieunhap extends Controller
 			}
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
 			$this->data['output'] = "true-".$data['id'];
+			if(isset($_SESSION['productlist']))
+			{
+				unset($_SESSION['productlist']);	
+			}
 		}
 		else
 		{

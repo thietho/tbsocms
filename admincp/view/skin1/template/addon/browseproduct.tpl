@@ -47,7 +47,7 @@ function loadData(url)
 				else
 					obj.price = $(this).attr('pricepromotion');
 				
-				objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price);
+				objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,0,0);
 				
 				$("#popupbrowseproduct").dialog("close");
 				

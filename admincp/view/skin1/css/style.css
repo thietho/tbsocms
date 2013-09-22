@@ -289,7 +289,9 @@ table.data-table tr {
 table.data-table .item:hover {
 	background:#0F0;
 }
-
+table.data-table .itemselected {
+	background:#F00;
+}
 table.data-table td,table th { /*padding: 10px;*/
 	padding:4px;
 }
@@ -1401,16 +1403,7 @@ ul.autocomplete {
 	display:none;
 	border:thin solid #999;
 }
-.selectitem
-{
-	padding:10px;
-	width:209px;
-}
 
-.filename
-{
-	display:none;	
-}
 #popup-seletetion .filelist
 {
 	height:auto;

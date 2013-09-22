@@ -16,8 +16,7 @@
             <div class="right">
                 <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                 <a class="button" href="?route=module/product/insert&sitemapid=<?php echo $sitemapid?>&page=<?php echo $page?>"><?php echo $button_add?></a>
-                
-                &nbsp;
+                <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
                 
                 <?php } ?>
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
@@ -90,6 +89,70 @@ function Product()
 			url += "&keyword="+encodeURI($('#keyword').val());
 		}
 		this.loadProduct(url);
+	}
+	this.addToList = function(mediaid)
+	{
+		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+		$.get("?route=module/product/addToList&mediaid="+mediaid,function(){
+			$.unblockUI();	
+		});
+		/*$('.inputchk').each(function(index, element) {
+            if(this.checked)
+			{
+				var mediaid = this.value;
+				$.get("?route=module/product/addToList&mediaid="+mediaid);
+			}
+        });*/
+	}
+	this.removeListItem = function(mediaid)
+	{
+		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+		$.get("?route=module/product/removeListItem&mediaid="+mediaid,function(){
+			$.unblockUI();	
+		});	
+	}
+	this.viewListSelect = function()
+	{
+		$('body').append('<div id="listproduct" style="display:none"></div>');
+		var eid = "#listproduct";
+		$(eid).attr('title','Danh sách sản phẩm đươc chọn');
+			$(eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: 800,
+				height: 600,
+				modal: true,
+				buttons: {
+					'Xóa khỏi danh sách':function()
+					{
+						$('.itemselected').each(function(index, element) {
+							var meidaid = $(this).attr('mediaid');
+                            pro.removeListItem(meidaid);
+                        });
+						pro.viewListSelect();
+					},
+					'Lập phiếu nhập kho':function()
+					{
+						window.location = "?route=quanlykho/phieunhap/insert";
+					},
+					'Lập phiếu bán hàng':function()
+					{
+						window.location = "?route=quanlykho/phieuxuat/insert";
+					},
+					
+					'Đóng': function() 
+					{
+						
+						$( eid ).dialog( "close" );
+					},
+				}
+			});
+		
+			
+			$(eid).load("?route=module/product/listProductSelected",function(){
+				$(eid).dialog("open");	
+			});
 	}
 	this.enterGroup = function(mediaid)
 	{

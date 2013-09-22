@@ -173,9 +173,30 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
 			$where = " AND phieuid = '".$id."'";
 			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
-			
-			
     	}
+		else
+		{
+			if(isset($_SESSION['productlist']))
+			{
+				$medias = $_SESSION['productlist'];
+				$i=0;
+				foreach($medias as $media)
+				{
+					$this->data['data_nhapkho'][$i]['mediaid']=$media['mediaid'];
+					$this->data['data_nhapkho'][$i]['code']=$media['code'];
+					$this->data['data_nhapkho'][$i]['title']=$media['title'];
+					if($media['color'])
+						$this->data['data_nhapkho'][$i]['title'].= " - ".$media['color'];
+					$this->data['data_nhapkho'][$i]['soluong']=1;
+					$this->data['data_nhapkho'][$i]['madonvi']=$media['unit'];
+					$price = $media['price'];
+					if($media['pricepromotion'])
+						$price = $media['pricepromotion'];
+					$this->data['data_nhapkho'][$i]['giatien']=$price;
+					$i++;
+				}
+			}
+		}
 		
 		$this->id='content';
 		$this->template='quanlykho/phieuxuat_form.tpl';
@@ -240,6 +261,10 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien- $this->string->toNumber($data['thanhtoan']));
 			$this->data['output'] = "true-".$data['id'];
+			if(isset($_SESSION['productlist']))
+			{
+				unset($_SESSION['productlist']);	
+			}
 		}
 		else
 		{
