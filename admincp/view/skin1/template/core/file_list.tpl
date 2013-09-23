@@ -22,8 +22,8 @@
                 <label for="image">Upload file</label><br />
                 
                 <input type="button" class="button" id="btnAddImagePopup" value="Chọn file" />
-                <input type="button" class="button" value="Tạo thư mục" onclick="showFolderForm('',$('.selectfolder').attr('folderid'))"/>
-                <input type="button" class="button" value="Sửa tên thư mục" onclick="showFolderForm($('.selectfolder').attr('folderid'),'')"/>
+                <input type="button" class="button" value="Tạo thư mục" onclick="showFolderForm('',$('#folderidcur').val())"/>
+                <input type="button" class="button" value="Sửa tên thư mục" onclick="showFolderForm($('#folderidcur').val(),'')"/>
                 <input type="button" class="button" value="Xóa thư mục" onclick="delFolder($('.selectfolder').attr('folderid'))"/>
                 <br />
                 <div id="errorupload" class="error" style="display:none"></div>

@@ -115,7 +115,7 @@ $('#btnDelFile').click(function(e) {
     $('.selectfile').each(function(index, element) {
         var fileid = this.id;
 		$.get("?route=core/file/delFile&fileid="+fileid,function(data){
-			showResult("?route=core/file/getList&folderid="+ $('.selectfolder').attr('folderid'));
+			showResult("?route=core/file/getList&folderid="+ $('#folderidcur').val());
 		});		
     });
 });
@@ -154,7 +154,7 @@ function callbackUploadFile()
 					function(){
 						 showResult("?route=core/file/getList&folderid="+folderid);
 					});
-				//Cap nhat vo thu muc folder:$('.selectfolder').attr('folderid'),
+				//Cap nhat vo thu muc folder:$('#folderidcur').val(),
 			}
 			$('#errorupload').hide();
 			

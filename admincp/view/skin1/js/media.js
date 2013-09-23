@@ -209,7 +209,7 @@ function showFolderMoveForm()
 							var folderid = $('#desfolder').val();
 							$.get("?route=core/file/updateFolder&fileid="+fileid+"&folderid="+folderid,
 							function(){
-								 showResult("?route=core/file/getList&folderid="+$('.selectfolder').attr('folderid')+"&edit=true");
+								 showResult("?route=core/file/getList&folderid="+$('#folderidcur').val()+"&edit=true");
 							});
 							
 						
