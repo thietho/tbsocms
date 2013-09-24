@@ -144,35 +144,7 @@ function searchForm()
 	});
 <?php } ?>
 
-function view(id)
-{
-	$("#popup").attr('title','Phiếu nhập kho');
-	$( "#popup" ).dialog({
-		autoOpen: false,
-		show: "blind",
-		hide: "explode",
-		width: 900,
-		height: 600,
-		modal: true,
-		buttons: {
-			
-			'In':function()
-			{
-				openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print",800,500)
-				
-			},
-			'Đóng': function() 
-			{
-				
-				$( this ).dialog( "close" );
-				
-			},
-		}
-	});
-	$("#popup-content").load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true",function(){
-		$("#popup").dialog("open");
-	});
-}
+
 function moveto(url,eid)
 {
 	$(eid).html(loading);

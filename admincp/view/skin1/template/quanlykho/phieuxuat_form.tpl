@@ -64,8 +64,8 @@
                         <tfoot>
                             <tr>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class="number">Tổng số lượng</td>
+                                <td id="sumsoluong" class="number"></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -134,7 +134,7 @@ $(document).ready(function(e) {
 </script>
 	<?php } ?>
 <?php } ?>
-<script language="javascript" src="<?php echo HTTP_SERVER.DIR_JS?>phieunhapxuat.js"></script>
+
 <script language="javascript">
 $(document).ready(function(e) {
     $('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });

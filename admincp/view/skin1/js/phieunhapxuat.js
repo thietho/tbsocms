@@ -34,6 +34,7 @@ function PhieuNhapXuat()
 		$('.soluong').keyup(function(e) {
             var pos = $(this).attr('ref');
 			objdl.tinhtong(pos);
+			
         });
 		$('.giatien').keyup(function(e) {
             var pos = $(this).attr('ref');
@@ -86,6 +87,70 @@ function PhieuNhapXuat()
 		var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
 		$('#congno').val(sum - thanhtoan);
 		$('#lbl-congno').html(formateNumber(sum - thanhtoan));
+		var sum = 0;
+		$('.soluong').each(function(index, element) {
+			sum += Number(stringtoNumber(this.value));
+		});
+		$('#sumsoluong').html(formateNumber(sum));
+	}
+	this.viewPX = function(id)
+	{
+		$("#popup").attr('title','Phiếu bán hàng');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 900,
+			height: 600,
+			modal: true,
+			buttons: {
+				
+				'In':function()
+				{
+					openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print",800,500)
+					
+				},
+				'Đóng': function() 
+				{
+					
+					$( this ).dialog( "close" );
+					
+				},
+			}
+		});
+		$("#popup-content").load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true",function(){
+			$("#popup").dialog("open");
+		});
+	}
+	
+	this.viewPN = function(id)
+	{
+		$("#popup").attr('title','Phiếu nhập kho');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 900,
+			height: 600,
+			modal: true,
+			buttons: {
+				
+				'In':function()
+				{
+					openDialog("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=print",800,500)
+					
+				},
+				'Đóng': function() 
+				{
+					
+					$( this ).dialog( "close" );
+					
+				},
+			}
+		});
+		$("#popup-content").load("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=true",function(){
+			$("#popup").dialog("open");
+		});
 	}
 }
 

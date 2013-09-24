@@ -235,6 +235,10 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$sql = "Select `qlkphieunhapxuat`.nguoilap,
 						`qlkphieunhapxuat`.ngaylap,
 						`qlkphieunhapxuat`.maphieu,
+						`qlkphieunhapxuat`.nhacungcapid,
+						`qlkphieunhapxuat`.tennhacungcap,
+						`qlkphieunhapxuat`.nguoinhanid,
+						`qlkphieunhapxuat`.nguoinhan,
 						`qlkphieunhapxuat_media`.*
 									from `qlkphieunhapxuat_media`,`qlkphieunhapxuat` 
 									where `qlkphieunhapxuat`.id = `qlkphieunhapxuat_media`.phieuid " . $where;

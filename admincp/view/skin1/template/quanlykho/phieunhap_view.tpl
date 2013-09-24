@@ -28,8 +28,8 @@
             <th>Sản phẩm</th>
             <th>Số lượng</th>
             <th>Đơn vị</th>
-            <th>Giá nhập</th>
-            <th>Thành tiên</th>
+            <th>Giá</th>
+            <th>Thành tiền</th>
         </tr>
     </thead>
     <tbody>
