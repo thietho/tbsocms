@@ -255,27 +255,34 @@ final class Member {
 		$query = $this->db->query($sql);
 		if($query->num_rows==0)
 		{
+			$query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
+			$country = $query['country'];
+			$city = $query['city'];
 			$sql = "INSERT INTO `user_stats` (
 								`id` ,
 								`starttime` ,
 								`sessionid` ,
 								`username` ,
-								`ip` 
+								`ip`,
+								`country`,
+								`city`
 								)
 								VALUES (
 								NULL , 
 								'".$starttime."', 
 								'".$sessionid."', 
 								'".$username."', 
-								'".$ip."'
-									);";
+								'".$ip."',
+								'".$country."',
+								'".$city."'
+								);";
 			$this->db->query($sql);
 		}
 		else
 		{
 			$sql = "UPDATE `user_stats` SET 
-					`starttime` = '".$starttime."' 
-					`username` = '".$username."'
+					`starttime` = '".$starttime."',
+					`username` = '".$username."',
 					`ip` = '".$ip."'
 					
 					WHERE `user_stats`.`sessionid` ='".$sessionid."'";
