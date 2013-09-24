@@ -76,10 +76,16 @@ class ControllerAddonRegister extends Controller
     	}
 		else
 		{
-			$item = $this->model_core_user->getItem($data['username']);
-			if(count($item)>0)
-				$this->error['username'] = "Tên đăng nhập đã đươc sử dụng";
-			
+			if($this->validation->_isId($data['username']) == "")
+			{
+				$this->error['username'] = "Tên đăng nhập không đúng định dạng";
+			}
+			else
+			{
+				$item = $this->model_core_user->getItem($data['username']);
+				if(count($item)>0)
+					$this->error['username'] = "Tên đăng nhập đã đươc sử dụng";
+			}
 		}
 		if(trim($data['password']) =="")
 		{

@@ -6,7 +6,7 @@
 </center>
 <table>
 	<tr>
-    	<td width="50%"><label>Người nhập:</label> <?php echo $item['nguoithuchien']?></td>
+    	<td width="50%"><label>Người nhận:</label> <?php echo $item['nguoinhan']?></td>
         <td>
         	<?php if($item['tennhacungcap']){?>
             <label>Nhà cung cấp:</label> <?php echo $item['tennhacungcap']?>

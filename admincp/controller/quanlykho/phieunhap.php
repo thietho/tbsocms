@@ -187,8 +187,12 @@ class ControllerQuanlykhoPhieunhap extends Controller
 					$this->data['data_nhapkho'][$i]['title']=$media['title'];
 					if($media['color'])
 						$this->data['data_nhapkho'][$i]['title'].= " - ".$media['color'];
-					$this->data['data_nhapkho'][$i]['soluong']=1;
+					$this->data['data_nhapkho'][$i]['soluong']=$media['qty'];
 					$this->data['data_nhapkho'][$i]['madonvi']=$media['unit'];
+					$price = $media['price'];
+					/*if($media['pricepromotion'])
+						$price = $media['pricepromotion'];*/
+					$this->data['data_nhapkho'][$i]['giatien']=$price;
 					$i++;
 				}
 			}
@@ -273,15 +277,15 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	{
 		
 		
-    	if($data['nguoithuchien'] == "")
+    	/*if($data['nguoithuchien'] == "")
 		{
       		$this->error['nguoithuchien'] = "Bạn chưa nhập người nhập";
-    	}
+    	}*/
 		
-		if ($data['nguoigiao'] == "") 
+		/*if ($data['nguoigiao'] == "") 
 		{
       		$this->error['nguoigiao'] = "Bạn chưa nhập tên người giao";
-    	}
+    	}*/
 		if ($data['nguoinhan'] == "") 
 		{
       		$this->error['nguoinhan'] = "Bạn chưa nhập tên người nhận";

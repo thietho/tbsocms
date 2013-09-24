@@ -13,6 +13,7 @@
                         <th>Mã phiếu</th>
                         <th>Ngày nhập</th>
                         <th>Người nhập</th>
+                        <th>Nhà cung cấp</th>
                         <th>Tổng tiền nhập</th>
                         <th>Thanh toán</th>
                         <th>Công nợ</th>
@@ -38,6 +39,7 @@
                         <td><a onclick="view(<?php echo $item['id']?>)"><?php echo $item['maphieu']?></a></td>
                         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'],'longdate')?></td>
                        	<td><?php echo $item['nguoithuchien']?></td>
+                        <td><?php echo $item['tennhacungcap']?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>

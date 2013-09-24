@@ -260,11 +260,26 @@ class ControllerModuleProduct extends Controller
 		$mediaid = $this->request->get['mediaid'];
 		$media = $this->model_core_media->getItem($mediaid);
 		$media['imagepreview'] =HelperImage::resizePNG($media['imagepath'], 100, 100);
+		$media['qty'] = 1;
 		if(!isset($_SESSION['productlist']))
 		{
 			$_SESSION['productlist'] = array();
 		}
-		$_SESSION['productlist'][$mediaid]=$media;
+		if(!isset($_SESSION['productlist'][$mediaid]))
+		{
+			$_SESSION['productlist'][$mediaid]=$media;
+		}
+		$this->data['output'] = "true";
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	public function updateQty()
+	{
+		$mediaid = $this->request->get['mediaid'];
+		$qty = $this->request->get['qty'];
+		$_SESSION['productlist'][$mediaid]['qty'] = $qty;
+		
 		$this->data['output'] = "true";
 		$this->id='content';
 		$this->template='common/output.tpl';

@@ -21,12 +21,12 @@
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
-                    <p>
+                    <!--<p>
                         <label>Người nhập</label><br />
                         <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
                         <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 />
                         <input type="button" class="button" id="btnSelectNhanVienNhap" value="Chọn nhân viên nhập"/>
-                    </p>
+                    </p>-->
                     <p>
                         <label>Nhà cung cấp</label><br />
                         <span id="nhacungcapview"></span>
