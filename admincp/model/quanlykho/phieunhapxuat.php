@@ -246,4 +246,20 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$query = $this->db->query($sql);
 		return $query->rows;
 	}
+	public function getAgvPrice($mediaid,$loaiphieu)
+	{
+		$where = " AND loaiphieu = '".$loaiphieu."' AND mediaid = '".$mediaid."'";
+		$data = $this->getPhieuNhapXuatMediaList($where);
+		$sumthanhtien = 0;
+		$sumsoluong = 0;
+		foreach($data as $item)
+		{
+			$sumsoluong += $item['soluong'];
+			$sumthanhtien += $item['thanhtien'];
+		}
+		if($sumsoluong ==0)
+			return 0;
+		else
+			return $sumthanhtien/$sumsoluong;
+	}
 }

@@ -25,12 +25,14 @@ class ControllerThongkeTonkho extends Controller
 	{
 		$this->load->model("core/sitemap");
 		$this->load->model("core/media");
+		$this->load->model("quanlykho/phieunhapxuat");
 		
 		$where = " AND mediatype = 'module/product' ";
 		$this->data['medias'] = $this->model_core_media->getList($where);
 		foreach($this->data['medias'] as $i => $media)
 		{
 			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($media['mediaid']);
+			$this->data['medias'][$i]['priceimport'] = $this->model_quanlykho_phieunhapxuat->getAgvPrice($media['mediaid'],'NK');
 		}
 		
 	}
