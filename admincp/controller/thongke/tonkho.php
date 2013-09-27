@@ -25,42 +25,14 @@ class ControllerThongkeTonkho extends Controller
 	{
 		$this->load->model("core/sitemap");
 		$this->load->model("core/media");
-		$siteid = $this->user->getSiteId();
-		$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
 		
-		$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
-		$arr = array();
-		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
+		$where = " AND mediatype = 'module/product' ";
+		$this->data['medias'] = $this->model_core_media->getList($where);
+		foreach($this->data['medias'] as $i => $media)
+		{
+			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($media['mediaid']);
+		}
 		
-		foreach($arrsitemapid as $sitemapid)
-		{
-			$arr[] = " refersitemap like '%[".$sitemapid."]%'";
-		}
-		if(count($arr))
-			$where .= "AND (". implode($arr," OR ").")";
-		$where .= " Order by title";
-		$rows = $this->model_core_media->getList($where);
-		for($i=0;$i<count($rows);$i++)
-		{
-			$this->data['medias'][$i] = $rows[$i];
-			
-			$this->data['medias'][$i]['fullname'] =$user['fullname'];
-			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['refersitemap']);
-			$sitemapid = $arr[0];
-			$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
-			
-			$mediaid = $this->data['medias'][$i]['mediaid'];
-			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
-			$data_child = $this->model_core_media->getListByParent($mediaid);
-			foreach($data_child as $key =>$child)
-			{
-				
-				
-				$data_child[$key]['tonkho'] = $this->model_core_media->getTonKho($child['mediaid']);
-				
-			}
-			$this->data['medias'][$i]['child'] = $data_child;
-		}
 	}
 	
 }

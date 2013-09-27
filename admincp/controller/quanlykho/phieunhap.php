@@ -90,6 +90,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		$where = " AND loaiphieu='".$this->loaiphieu."'";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
+		$datasearchlike['tennhacungcap'] = urldecode($this->request->get['tennhacungcap']);
 		$datasearchlike['nguoithuchien'] = urldecode($this->request->get['nguoithuchien']);
 		
 		$arr = array();

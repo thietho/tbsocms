@@ -10,6 +10,8 @@
                 <input type="text" id="maphieu" name="maphieu" class="text" value="" />
                 <label>Người bán</label>
                 <input type="text" id="nguoithuchien" name="nguoithuchien" class="text" value="" />
+                <label>Khách hàng</label>
+                <input type="text" id="nguoinhan" name="nguoinhan" class="text" value="" />
                 <label>Từ ngày</label>
                 <input type="text" class="text date" id="tungay" />
                 <script language="javascript">
