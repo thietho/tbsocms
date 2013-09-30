@@ -213,8 +213,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		{
 			
 			$data['loaiphieu'] = $this->loaiphieu;
-			if($data['id']=="")
-				$data['ngaylap'] = $this->date->getToday();
+			
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
 			
 			//Xoa dinh luong
