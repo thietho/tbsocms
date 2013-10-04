@@ -9,6 +9,10 @@
         <input class="text" type="text" id="code" name="code"  size="60" />
     </p>
     <p>
+        <label>Màu sắc</label><br>
+        <input class="text" type="text" id="color" name="color"  size="60" />
+    </p>
+    <p>
         <label>Đơn vị</label><br>
         <select id="unit" name="unit">
             
