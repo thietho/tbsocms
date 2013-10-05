@@ -77,8 +77,8 @@ class ControllerPageHome extends Controller
 		$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
 		$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
 		$queryoptions = array();
-		$queryoptions['mediaparent'] = '%';
-		$queryoptions['mediatype'] = '%';
+		$queryoptions['mediaparent'] = '';
+		$queryoptions['mediatype'] = 'module/product';
 		$options['refersitemap'] = $arrsitemapid;
 		$data = $this->model_core_media->getPaginationList($options, $step=0, $to=9);
 		
