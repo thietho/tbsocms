@@ -70,8 +70,9 @@
                             <input type="button" class="button enterGroup" value="Đưa vào nhóm" onclick="pro.enterGroup('<?php echo $media['mediaid']?>')"/>
                             <input type="button" class="button selectGroup" value="Chọn" onclick="pro.selectGroup('<?php echo $media['mediaid']?>')"/>
                             <?php }?>
-                            
+                            <?php if(count($media['child'])==0){ ?>
                             <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $media['mediaid']?>')"/>
+                            <?php } ?>
                         </td>
                     </tr>
                     	<?php if(count($media['child'])){ ?>

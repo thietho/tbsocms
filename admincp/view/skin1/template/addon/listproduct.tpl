@@ -1,4 +1,5 @@
 <?php foreach($medias as $media){ ?>
+<?php if(count($media['child'])==0){ ?>
 <div class="product-item left price-item" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $media['title']?><?php if($media['color']!="") echo '('.$media['color'].')' ?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>" style="background:url('<?php echo $media['imagepreview']?>') no-repeat center center;">
     <input type="hidden" class="listid" value="<?php echo $media['mediaid']?>">
 	<table height="100%">
@@ -14,6 +15,7 @@
         </tr>
     </table>
 </div>
+<?php }?>
 <?php if(count($media['child'])){ ?>
 <?php foreach($media['child'] as $item){ ?>
 <div class="product-item left price-item" ref="<?php echo $item['mediaid']?>" image="<?php echo $item['imagepreview']?>" code="<?php echo $item['code']?>" color="<?php echo $item['color']?>" unit="<?php echo $item['unit']?>" title="<?php echo $item['title']?>" price="<?php echo $item['price']?>" pricepromotion="<?php echo $item['pricepromotion']?>" style="background:url('<?php echo $item['imagepreview']?>') no-repeat center center;">
