@@ -137,6 +137,73 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		$this->render();
 	}
 	
+	public function getCongNo($id='')
+	{
+		if($id=="")
+			$id=$this->request->get['nhacungcapid'];
+		
+		$this->data['nhacungcap'] = $this->model_quanlykho_nhacungcap->getItem($id);
+		//Lay tat ca phieu chi thanhtoanncc
+		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'thanhtoanncc'";
+		$this->data['data_phieuchi'] = $this->model_addon_thuchi->getList($where);
+		$tongthu = 0;
+		foreach($this->data['data_phieuthu'] as $item)
+		{
+			$tongthu += $item['quidoi'];	
+		}
+		//Lay tat ca phieu thu vay no
+		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'credit'";
+		$this->data['data_phieuthuvayno'] = $this->model_addon_thuchi->getList($where);
+		$tongvay = 0;
+		foreach($this->data['data_phieuthuvayno'] as $item)
+		{
+			$tongvay += $item['quidoi'];	
+		}
+		//Lay tat ca phieu chi tra no
+		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'paycredit'";
+		$this->data['data_phieuchitrano'] = $this->model_addon_thuchi->getList($where);
+		$tongtrano = 0;
+		foreach($this->data['data_phieuchitrano'] as $item)
+		{
+			$tongtrano += $item['quidoi'];	
+		}
+		
+		//Lay tat ca phieu ban hang
+		$where = " AND loaiphieu = 'PBH' AND nguoinhanid = '".$id."'";
+		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
+		$tongno = 0;
+		foreach($this->data['data_phieubanhang'] as $item)
+		{
+			$tongno += $item['congno'];	
+		}
+		$congno = $tongno + $tongtrano - $tongthu - $tongvay;
+		
+		if($this->request->get['khachhangid'])
+		{
+			
+			$this->data['tongno'] = $tongno;
+			$this->data['tongtrano'] = $tongtrano;
+			$this->data['tongphieuthu'] = $tongthu;
+			$this->data['tongvay'] = $tongvay;
+			
+			$this->data['congno'] = $congno;
+			$this->id='content';
+			$this->template="core/member_congno.tpl";
+			if($_GET['dialog']=='print')
+			{
+				$this->layout='layout/print';
+			}
+			$this->render();
+		}
+		else
+		{
+			$this->data['output'] = $congno;
+			$this->id='content';
+			$this->template='common/output.tpl';
+			$this->render();
+			
+		}
+	}
 	
 	private function getForm()
 	{
