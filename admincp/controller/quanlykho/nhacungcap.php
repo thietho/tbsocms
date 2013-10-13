@@ -146,39 +146,23 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		//Lay tat ca phieu chi thanhtoanncc
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'thanhtoanncc'";
 		$this->data['data_phieuchi'] = $this->model_addon_thuchi->getList($where);
-		$tongthu = 0;
-		foreach($this->data['data_phieuthu'] as $item)
+		$tongchi = 0;
+		foreach($this->data['data_phieuchi'] as $item)
 		{
-			$tongthu += $item['quidoi'];	
-		}
-		//Lay tat ca phieu thu vay no
-		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'credit'";
-		$this->data['data_phieuthuvayno'] = $this->model_addon_thuchi->getList($where);
-		$tongvay = 0;
-		foreach($this->data['data_phieuthuvayno'] as $item)
-		{
-			$tongvay += $item['quidoi'];	
-		}
-		//Lay tat ca phieu chi tra no
-		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'paycredit'";
-		$this->data['data_phieuchitrano'] = $this->model_addon_thuchi->getList($where);
-		$tongtrano = 0;
-		foreach($this->data['data_phieuchitrano'] as $item)
-		{
-			$tongtrano += $item['quidoi'];	
+			$tongchi += $item['quidoi'];	
 		}
 		
-		//Lay tat ca phieu ban hang
-		$where = " AND loaiphieu = 'PBH' AND nguoinhanid = '".$id."'";
-		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
+		//Lay tat ca phieu nhap hang
+		$where = " AND loaiphieu = 'NK' AND nhacungcapid = '".$id."'";
+		$this->data['data_phieunhapkho'] = $this->model_quanlykho_phieunhapxuat->getList($where);
 		$tongno = 0;
-		foreach($this->data['data_phieubanhang'] as $item)
+		foreach($this->data['data_phieunhapkho'] as $item)
 		{
 			$tongno += $item['congno'];	
 		}
-		$congno = $tongno + $tongtrano - $tongthu - $tongvay;
+		$congno = $tongno - $tongchi;
 		
-		if($this->request->get['khachhangid'])
+		if($this->request->get['nhacungcapid'])
 		{
 			
 			$this->data['tongno'] = $tongno;
@@ -188,7 +172,7 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 			
 			$this->data['congno'] = $congno;
 			$this->id='content';
-			$this->template="core/member_congno.tpl";
+			$this->template="quanlykho/nhacungcap_congno.tpl";
 			if($_GET['dialog']=='print')
 			{
 				$this->layout='layout/print';
@@ -277,73 +261,7 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		}
 	}
 	//Cac ham xu ly tren form
-	public function getCongNo($id='')
-	{
-		if($id=="")
-			$id=$this->request->get['khachhangid'];
-		
-		$this->data['user'] = $this->model_core_user->getId($id);
-		//Lay tat ca phieu thu cong no
-		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'thuno'";
-		$this->data['data_phieuthu'] = $this->model_addon_thuchi->getList($where);
-		$tongthu = 0;
-		foreach($this->data['data_phieuthu'] as $item)
-		{
-			$tongthu += $item['quidoi'];	
-		}
-		//Lay tat ca phieu thu vay no
-		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'credit'";
-		$this->data['data_phieuthuvayno'] = $this->model_addon_thuchi->getList($where);
-		$tongvay = 0;
-		foreach($this->data['data_phieuthuvayno'] as $item)
-		{
-			$tongvay += $item['quidoi'];	
-		}
-		//Lay tat ca phieu chi tra no
-		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'paycredit'";
-		$this->data['data_phieuchitrano'] = $this->model_addon_thuchi->getList($where);
-		$tongtrano = 0;
-		foreach($this->data['data_phieuchitrano'] as $item)
-		{
-			$tongtrano += $item['quidoi'];	
-		}
-		
-		//Lay tat ca phieu ban hang
-		$where = " AND loaiphieu = 'PBH' AND nguoinhanid = '".$id."'";
-		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
-		$tongno = 0;
-		foreach($this->data['data_phieubanhang'] as $item)
-		{
-			$tongno += $item['congno'];	
-		}
-		$congno = $tongno + $tongtrano - $tongthu - $tongvay;
-		
-		if($this->request->get['khachhangid'])
-		{
-			
-			$this->data['tongno'] = $tongno;
-			$this->data['tongtrano'] = $tongtrano;
-			$this->data['tongphieuthu'] = $tongthu;
-			$this->data['tongvay'] = $tongvay;
-			
-			$this->data['congno'] = $congno;
-			$this->id='content';
-			$this->template="core/member_congno.tpl";
-			if($_GET['dialog']=='print')
-			{
-				$this->layout='layout/print';
-			}
-			$this->render();
-		}
-		else
-		{
-			$this->data['output'] = $congno;
-			$this->id='content';
-			$this->template='common/output.tpl';
-			$this->render();
-			
-		}
-	}
+	
 	
 }
 ?>
