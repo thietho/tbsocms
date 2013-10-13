@@ -117,7 +117,34 @@ function searchForm()
 	$('#listsanpham').html(loading);
 	$('#listsanpham').load("?route=quanlykho/nhacungcap/getList"+url);
 }
-
+function viewCongNoNCC(id)
+{
+	$("#popup").attr('title','Công nợ');
+				$( "#popup" ).dialog({
+					autoOpen: false,
+					show: "blind",
+					hide: "explode",
+					width: 800,
+					height: 500,
+					modal: true,
+					buttons: {
+						'Đóng': function() {
+							$( this ).dialog( "close" );
+							
+						},
+						
+						'In': function(){
+							openDialog("?route=quanlykho/nhacungcap/getCongNo&nhacungcapid="+id+"&dialog=print",800,500)
+							
+						},
+					}
+				});
+			
+				
+	$("#popup-content").load("?route=quanlykho/nhacungcap/getCongNo&nhacungcapid="+id+"&dialog=true",function(){
+		$("#popup").dialog("open");	
+	});
+}
 function moveto(url,eid)
 {
 	$(eid).html(loading);

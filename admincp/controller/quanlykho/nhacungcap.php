@@ -19,6 +19,8 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		$this->load->model("core/category");
 		
 		$this->load->model("quanlykho/donvitinh");
+		$this->load->model("addon/thuchi");
+		$this->load->model("quanlykho/phieunhapxuat");
 		
 		$this->data['loaisanpham'] = array();
 		$this->model_core_category->getTree("sanpham",$this->data['loaisanpham']);
@@ -121,8 +123,10 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 			//
 			
 			$imagepreview = "";
-			$this->data['datas'][$i]['imagethumbnail'] = HelperImage::resizePNG($this->data['datas'][$i]['imagepath'], 100, 0);
 			
+			$this->data['datas'][$i]['imagethumbnail'] = HelperImage::resizePNG($this->data['datas'][$i]['imagepath'], 100, 0);
+			$arr = array($this->data['datas'][$i]['id']);
+			$this->data['datas'][$i]['congno'] = $this->loadModule("quanlykho/nhacungcap","getCongNo",$arr);
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';

@@ -17,7 +17,7 @@
                         <th>Người liên hệ</th>
                         <th>Số điện thoại liên hệ</th>
                         <th>Email liên hệ</th>
-                        <tr>Công nợ</tr>
+                        <th>Công nợ</th>
                         <th>Ghi chú</th>
                         <?php if($dialog!=true){ ?>
                         <th>Control</th>     
@@ -43,7 +43,8 @@
                        	<td><?php echo $item['nguoilienhe']?></td>
                         <td><?php echo $item['sodienthoainguoilienhe']?></td>
                         <td><?php echo $item['emailnguoilienhe']?></td>
-                        <td><?php echo $item['congno']?></td>
+                        
+                        <td class="number"><a onclick="viewCongNoNCC(<?php echo $item['id']?>)"><?php echo $this->string->numberFormate($item['congno'])?></a></td>
                         <td><?php echo $item['ghichu']?></td>
                         <?php if($dialog!=true){ ?>
                         <td class="link-control">
