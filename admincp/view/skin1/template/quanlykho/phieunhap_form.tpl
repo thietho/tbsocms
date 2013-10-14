@@ -22,12 +22,13 @@
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
-                    <!--<p>
-                        <label>Người nhập</label><br />
+                    
+                    <p>
+                        <label>Khách hàng</label><br />
                         <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
                         <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 />
-                        <input type="button" class="button" id="btnSelectNhanVienNhap" value="Chọn nhân viên nhập"/>
-                    </p>-->
+                        <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
+                    </p>
                     <p>
                         <label>Nhà cung cấp</label><br />
                         <span id="nhacungcapview"></span>
@@ -150,22 +151,20 @@ $(document).ready(function(e) {
 $(document).ready(function(e) {
     $('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 });
-$('#btnSelectNhanVienNhap').click(function(e) {
-	handle = "nguoithuchien";
-    $("#popup").attr('title','Chọn nhân viên');
+$('#btnSelectKhachHang').click(function(e) {
+    $("#popup").attr('title','Chọn khách hàng');
 		$( "#popup" ).dialog({
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 800,
+			width: 900,
 			height: 600,
 			modal: true,
-			
 		});
 	
 		
-		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
-			$("#popup").dialog("open");	
+		$("#popup-content").load("?route=core/member&opendialog=true",function(){
+			$("#popup").dialog("open");
 		});
 });
 $('#btnSelectNhanVienNhan').click(function(e) {
@@ -186,6 +185,16 @@ $('#btnSelectNhanVienNhan').click(function(e) {
 			$("#popup").dialog("open");	
 		});
 });
+function intSelectMember()
+{
+	$('.item').click(function(e) {
+		
+        $('#nguoithuchienid').val($(this).attr('id'));
+		$('#nguoithuchien').val($(this).attr('fullname'));
+		
+		$("#popup").dialog( "close" );
+    });
+}
 function intSelectNhanVien()
 {
 	switch(handle)
@@ -220,6 +229,7 @@ $('#thanhtoan').keyup(function(e) {
 	$('#congno').val(congno);
 	$('#lbl-congno').html(formateNumber(congno));
 });
+
 
 $('#btnSeleteNhaCungCap').click(function(e) {
     $("#popup").attr('title','Chọn nhà cung cấp');

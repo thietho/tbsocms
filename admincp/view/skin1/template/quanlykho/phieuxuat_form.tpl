@@ -37,6 +37,14 @@
                         <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
                     </p>
                     <p>
+                        <label>Nhà cung cấp</label><br />
+                        <span id="nhacungcapview"></span>
+                        <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
+                        <input type="hidden" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>">
+                        <input type="button" class="button" id="btnSeleteNhaCungCap" value="Chọn nhà cung cấp">
+                        
+                    </p>
+                    <p>
                         <label>Ghi chú</label><br />
                         <textarea id="ghichu" name="ghichu"><?php echo $item['ghichu']?></textarea>
                         
@@ -182,7 +190,31 @@ $('#btnAddRow').click(function(e) {
 	browseProduct();
 });
 
-
+$('#btnSeleteNhaCungCap').click(function(e) {
+    $("#popup").attr('title','Chọn nhà cung cấp');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 900,
+			height: 600,
+			modal: true,
+		});
+	
+		
+		$("#popup-content").load("?route=quanlykho/nhacungcap&opendialog=true",function(){
+			$("#popup").dialog("open");
+		});
+});
+function intSelectNhaCungCap()
+{
+	$('.item').click(function(e) {
+        $('#nhacungcapid').val($(this).attr('id'));
+		$('#tennhacungcap').val($(this).attr('tennhacungcap'));
+		$('#nhacungcapview').html($(this).attr('tennhacungcap'));
+		$("#popup").dialog( "close" );
+    });
+}
 function save(type)
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
