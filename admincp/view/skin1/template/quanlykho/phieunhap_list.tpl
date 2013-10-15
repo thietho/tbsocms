@@ -119,7 +119,8 @@ function searchForm()
 	
 	if($("#frm_phieunhap #nguoithuchien").val() != "")
 		url += "&nguoithuchien="+ encodeURI($("#frm_phieunhap #nguoithuchien").val());
-	
+	if($("#frm_phieunhap #tennhacungcap").val() != "")
+		url += "&tennhacungcap="+ encodeURI($("#frm_phieunhap #tennhacungcap").val());
 	if($("#frm_phieunhap #tungay").val() != "")
 		url += "&tungay="+ encodeURI($("#frm_phieunhap #tungay").val());
 	if($("#frm_phieunhap #denngay").val() != "")

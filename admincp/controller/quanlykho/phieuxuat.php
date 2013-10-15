@@ -97,7 +97,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		foreach($datasearchlike as $key => $item)
 		{
 			if($item !="")
-				$arr[] = " AND " . $key ." like '".$item."%'";
+				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		$where .= implode("",$arr);

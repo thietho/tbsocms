@@ -164,7 +164,15 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		{
 			$tongno += $item['congno'];	
 		}
-		$congno = $tongno - $tongchi;
+		//Lay tat ca phieu xuat hang
+		$where = " AND loaiphieu = 'PBH' AND nhacungcapid = '".$id."'";
+		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
+		$tongban = 0;
+		foreach($this->data['data_phieubanhang'] as $item)
+		{
+			$tongban += $item['congno'];	
+		}
+		$congno = $tongno - $tongchi - $tongban;
 		
 		if($this->request->get['nhacungcapid'])
 		{
