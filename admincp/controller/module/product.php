@@ -307,6 +307,7 @@ class ControllerModuleProduct extends Controller
 	public function history()
 	{
 		$mediaid = $this->request->get['mediaid'];
+		$this->data['media'] = $this->model_core_media->getItem($mediaid);
 		//Nhap kho
 		$where = " AND mediaid = '".$mediaid."' AND qlkphieunhapxuat.loaiphieu = 'NK'";
 		$data_nhapkho = $this->model_quanlykho_phieunhapxuat->thongke($where);

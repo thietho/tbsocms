@@ -1,3 +1,6 @@
+<h3>Tên sản phẩm: <?php echo $media['title']?></h3>
+<h3>Mã sản phẩm: <?php echo $media['code']?></h3>
+
 <table class="data-table">
 	<thead>
         <tr>
@@ -17,6 +20,7 @@
             <th>Giá</th>
         </tr>
     </thead>
+    <?php if(count($nhapxuat)){ ?>
     <tbody>
     	<?php foreach($nhapxuat as $date => $item){?>
         <tr>
@@ -39,4 +43,5 @@
             <?php } ?>
         <?php } ?>
     </tbody>
+    <?php } ?>
 </table>
