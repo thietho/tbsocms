@@ -14,6 +14,7 @@ class ControllerThongkeCongno extends Controller
 		$this->load->model("core/user");
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->model("addon/thuchi");
+		$this->load->model("quanlykho/nhacungcap");
 	}
 	public function index()
 	{
@@ -32,7 +33,23 @@ class ControllerThongkeCongno extends Controller
 				$this->data['tongcongno'] +=  $congno;
 			}
 		}
-		
+		//
+		$this->data['nhacungcap'] = array();
+		$this->data['tongcongnoncc'] = 0;
+		$rows = $this->model_quanlykho_nhacungcap->getList();
+		foreach($rows as $i => $row)
+		{
+			$arr = array($row['id']);
+			
+			$congno = $this->loadModule("quanlykho/nhacungcap","getCongNo",$arr);
+			if($congno!="0")
+			{
+				$this->data['nhacungcap'][$i]=$row;
+				$this->data['nhacungcap'][$i]['congno'] = $congno;
+				$this->data['tongcongnoncc'] +=  $congno;
+			}
+			
+		}
 		
 		$this->id='content';
 		$this->template="thongke/congno.tpl";

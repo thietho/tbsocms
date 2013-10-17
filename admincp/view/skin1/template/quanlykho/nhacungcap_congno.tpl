@@ -118,7 +118,10 @@ $('#btnThanhToan').click(function(e) {
 		{
 			var arr = data.split("-");
 			if(arr[0] == "true")
+			{
 				alert("Thanh toán thành công")
+				window.location.reload();	
+			}
 		}
 	);
 });
