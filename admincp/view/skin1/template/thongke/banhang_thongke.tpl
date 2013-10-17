@@ -1,8 +1,10 @@
 <table class="data-table">
 	<thead>
         <tr>
+        	<th width="80px">Ngày</th>
         	<th>Mã phiếu</th>
         	<th>Tên sản phẩm</th>
+            <th>Code</th>
             <th>Khách hàng</th>
             <th>Số lượng</th>
             <th>Đơn vị</th>
@@ -21,13 +23,10 @@
         	<?php foreach($banhang as $item) { ?>
         	<?php $sum += $item['thanhtien']?>
         <tr>
+        	<td><?php echo $this->date->formatMySQLDate($date)?></td>
         	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>)"><?php echo $item['maphieu']?></a></td>
-        	<td>
-            	<?php echo $item['title']?>
-                <?php if($item['code']){ ?>
-                (<?php echo $item['code']?>)
-                <?php } ?>
-            </td>
+        	<td><?php echo $item['title']?></td>
+            <td><?php echo $item['code']?></td>
             <td><?php echo $item['nguoinhan']?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['soluong'])?></td>
             <td><?php echo $this->document->getDonViTinh($item['madonvi'])?></td>
@@ -39,13 +38,8 @@
         	<?php } ?>
         <?php } ?>
         <tr>
-        	<td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="number">Tổng cộng</td>
+        	
+            <td class="number" colspan="10">Tổng cộng</td>
             <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
         </tr>
     </tbody>
