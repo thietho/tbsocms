@@ -38,7 +38,7 @@
                     </p>
                     <p>
                         <label>Nhà cung cấp</label><br />
-                        <span id="nhacungcapview"></span>
+                        <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
                         <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
                         <input type="hidden" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>">
                         <input type="button" class="button" id="btnSeleteNhaCungCap" value="Chọn nhà cung cấp">
@@ -212,6 +212,7 @@ function intSelectNhaCungCap()
         $('#nhacungcapid').val($(this).attr('id'));
 		$('#tennhacungcap').val($(this).attr('tennhacungcap'));
 		$('#nhacungcapview').html($(this).attr('tennhacungcap'));
+		$('#nguoinhan').val($(this).attr('tennhacungcap'));
 		$("#popup").dialog( "close" );
     });
 }
