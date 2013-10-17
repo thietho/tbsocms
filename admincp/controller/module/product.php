@@ -338,7 +338,7 @@ class ControllerModuleProduct extends Controller
 				$ngaylap = $this->date->getDate($item['ngaylap']);
 				if($ngaylap == $date)
 				{
-					$this->data['nhapxuat'][$date]['nhapkho'] = $item;
+					$this->data['nhapxuat'][$date]['nhapkho'][] = $item;
 				}
 			}
 			foreach($data_xuatkho as $item)
@@ -346,7 +346,7 @@ class ControllerModuleProduct extends Controller
 				$ngaylap = $this->date->getDate($item['ngaylap']);
 				if($ngaylap == $date)
 				{
-					$this->data['nhapxuat'][$date]['xuatkho'] = $item;
+					$this->data['nhapxuat'][$date]['xuatkho'][] = $item;
 				}
 			}
 		}
