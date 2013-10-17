@@ -220,6 +220,35 @@ function Product()
 			$.unblockUI();
 		});	
 	}
+	
+	this.history = function(mediaid)
+	{
+		$('body').append('<div id="history_form" style="display:none"></div>');
+		var eid = "#history_form";
+		
+		
+		$(eid).attr('title','Lịch sử xuất nhập');
+			$( eid ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: 800,
+				height: 600,
+				modal: true,
+				close:function()
+					{
+						$(eid).remove();
+					},
+				
+			});
+		
+			
+			$(eid).load("?route=module/product/history&mediaid="+mediaid+"&dialog=true",function(){
+				$(eid).dialog("open");	
+			});
+		
+		
+	}
 }
 var pro = new Product();
 

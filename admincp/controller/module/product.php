@@ -11,6 +11,7 @@ class ControllerModuleProduct extends Controller
 			$this->response->redirect('?route=page/home');
 		}
 		$this->load->model("quanlykho/donvitinh");
+		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->model("core/sitemap");
 		$this->load->model("core/media");
 		$this->load->model("core/media");
@@ -301,6 +302,57 @@ class ControllerModuleProduct extends Controller
 		$this->data['medias'] = $_SESSION['productlist'];
 		$this->id='content';
 		$this->template='module/product_selected.tpl';
+		$this->render();
+	}
+	public function history()
+	{
+		$mediaid = $this->request->get['mediaid'];
+		//Nhap kho
+		$where = " AND mediaid = '".$mediaid."' AND qlkphieunhapxuat.loaiphieu = 'NK'";
+		$data_nhapkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
+		//Xuat kho
+		$where = " AND mediaid = '".$mediaid."' AND qlkphieunhapxuat.loaiphieu = 'PBH'";
+		$data_xuatkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
+		$arrdate = array();
+		foreach($data_nhapkho as $item)
+		{
+			$ngaylap = $this->date->getDate($item['ngaylap']);
+			if(!in_array($ngaylap,$arrdate))
+			{
+				$arrdate[] = $this->date->getDate($item['ngaylap']);
+			}
+		}
+		foreach($data_xuatkho as $item)
+		{
+			$ngaylap = $this->date->getDate($item['ngaylap']);
+			if(!in_array($ngaylap,$arrdate))
+			{
+				$arrdate[] = $this->date->getDate($item['ngaylap']);
+			}
+		}
+		sort(&$arrdate);
+		foreach($arrdate as $date)
+		{
+			foreach($data_nhapkho as $item)
+			{
+				$ngaylap = $this->date->getDate($item['ngaylap']);
+				if($ngaylap == $date)
+				{
+					$this->data['nhapxuat'][$date]['nhapkho'] = $item;
+				}
+			}
+			foreach($data_xuatkho as $item)
+			{
+				$ngaylap = $this->date->getDate($item['ngaylap']);
+				if($ngaylap == $date)
+				{
+					$this->data['nhapxuat'][$date]['xuatkho'] = $item;
+				}
+			}
+		}
+		//print_r($this->data['nhapxuat']);
+		$this->id='content';
+		$this->template='module/product_history.tpl';
 		$this->render();
 	}
 }
