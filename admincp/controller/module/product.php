@@ -368,11 +368,16 @@ class ControllerModuleProduct extends Controller
 	public function importData()
 	{
 		
+		$arr = split("\.",$_FILES['fileimport']['name']);
+		$ext = $arr[1];
 		include DIR_COMPONENT.'PHPExcel/Classes/PHPExcel/IOFactory.php';
 		//$inputFileName = 'GuiHangChoHo_20131002.xls';
 		
 		$inputFileName = $_FILES['fileimport']['tmp_name'];
-		$objReader = new PHPExcel_Reader_Excel2007();
+		if($ext =='xls')
+			$objReader = new PHPExcel_Reader_Excel5();
+		else
+			$objReader = new PHPExcel_Reader_Excel2007();
 		$objPHPExcel = $objReader->load($inputFileName);
 		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 		//var_dump($sheetData);
