@@ -31,6 +31,8 @@ $(document).ready(function(e) {
 				table +='<tr>';
 				for(j in response.datas[i])
 				{
+					if(response.datas[i][j]==null)
+						break;
 					if(i==1)
 						table+='<th>'+response.datas[i][j]+'</th>';
 					else

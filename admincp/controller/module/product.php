@@ -378,7 +378,7 @@ class ControllerModuleProduct extends Controller
 			$objReader = new PHPExcel_Reader_Excel5();
 		else
 			$objReader = new PHPExcel_Reader_Excel2007();
-		$objReader->setLoadSheetsOnly("Sheet1");
+		//$objReader->setLoadSheetsOnly("Sheet1");
 		$objPHPExcel = $objReader->load($inputFileName);
 		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 		//var_dump($sheetData);
