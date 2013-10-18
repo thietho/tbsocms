@@ -22,7 +22,13 @@ class ControllerModuleProduct extends Controller
 	
 	function index()
 	{	
-		
+		include DIR_COMPONENT.'PHPExcel/Classes/PHPExcel/IOFactory.php';
+		$inputFileName = 'GuiHangChoHo_20131002.xls';
+		$objReader = new PHPExcel_Reader_Excel5();
+		$objPHPExcel = $objReader->load($inputFileName);
+		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+		//var_dump($sheetData);
+		//echo $sheetData[1]['A'];
 		$siteid = $this->user->getSiteId();
 		$this->data['sitemapid'] = $this->request->get['sitemapid'];
 		$this->data['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($this->data['sitemapid'], $siteid);
