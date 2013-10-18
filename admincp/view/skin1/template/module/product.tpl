@@ -16,9 +16,10 @@
             <div class="right">
                 <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                 <a class="button" href="?route=module/product/insert&sitemapid=<?php echo $sitemapid?>&page=<?php echo $page?>"><?php echo $button_add?></a>
-                <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
+                <a class="button" id="btnImport" onclick="pro.importData()">Import</a>
                 
                 <?php } ?>
+                <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                 <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>&nbsp;
                 <?php } ?>
@@ -244,6 +245,35 @@ function Product()
 		
 			
 			$(eid).load("?route=module/product/history&mediaid="+mediaid+"&dialog=true",function(){
+				$(eid).dialog("open");	
+			});
+		
+		
+	}
+	this.importData = function()
+	{
+		$('body').append('<div id="history_form" style="display:none"></div>');
+		var eid = "#history_form";
+		
+		
+		$(eid).attr('title','Import dữ liệu');
+			$( eid ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: 800,
+				height: 600,
+				modal: true,
+				close:function()
+					{
+						$(eid).remove();
+					},
+				
+				
+			});
+		
+			
+			$(eid).load("?route=module/product/import&dialog=true",function(){
 				$(eid).dialog("open");	
 			});
 		

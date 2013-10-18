@@ -22,13 +22,8 @@ class ControllerModuleProduct extends Controller
 	
 	function index()
 	{	
-		include DIR_COMPONENT.'PHPExcel/Classes/PHPExcel/IOFactory.php';
-		$inputFileName = 'GuiHangChoHo_20131002.xls';
-		$objReader = new PHPExcel_Reader_Excel5();
-		$objPHPExcel = $objReader->load($inputFileName);
-		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
-		//var_dump($sheetData);
-		//echo $sheetData[1]['A'];
+		
+		
 		$siteid = $this->user->getSiteId();
 		$this->data['sitemapid'] = $this->request->get['sitemapid'];
 		$this->data['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($this->data['sitemapid'], $siteid);
@@ -360,6 +355,33 @@ class ControllerModuleProduct extends Controller
 		//print_r($this->data['nhapxuat']);
 		$this->id='content';
 		$this->template='module/product_history.tpl';
+		$this->render();
+	}
+	
+	public function import()
+	{
+		$this->id='content';
+		$this->template='module/product_import.tpl';
+		$this->render();
+	}
+	
+	public function importData()
+	{
+		
+		include DIR_COMPONENT.'PHPExcel/Classes/PHPExcel/IOFactory.php';
+		//$inputFileName = 'GuiHangChoHo_20131002.xls';
+		
+		$inputFileName = $_FILES['fileimport']['tmp_name'];
+		$objReader = new PHPExcel_Reader_Excel2007();
+		$objPHPExcel = $objReader->load($inputFileName);
+		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+		//var_dump($sheetData);
+		//echo $sheetData[1]['A'];
+		
+		
+		$this->data['output'] = json_encode($sheetData);
+		$this->id='content';
+		$this->template='common/output.tpl';
 		$this->render();
 	}
 }
