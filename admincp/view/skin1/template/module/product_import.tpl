@@ -2,7 +2,7 @@
 <form id="frm_importproduct" method="post" enctype="multipart/form-data">
 	
     <input type="button" class="button" id="importfile" value="Chọn file">
-    
+    <div id="viewdata"></div>
 </form>
 <script language="javascript">
 $(document).ready(function(e) {
@@ -25,30 +25,23 @@ $(document).ready(function(e) {
 			}
 		},
 		onComplete: function(file, response){
-			
-			for(i in response.files)
+			var table = '<table>';
+			for(i in response.datas)
 			{
-				
-				var fileid = response.files[i].imageid;
-				var folderid = $('#folderidcur').val();
-				$.get("?route=core/file/updateFolder&fileid="+fileid+"&folderid="+folderid,
-					function(){
-						 showResult("?route=core/file/getList&folderid="+folderid);
-					});
-				//Cap nhat vo thu muc folder:$('#folderidcur').val(),
+				table +='<tr>';
+				for(j in response.datas[i])
+				{
+					if(i==1)
+						table+='<th>'+response.datas[i][j]+'</th>';
+					else
+						table+='<td>'+response.datas[i][j]+'</td>';
+				}
+				table +='</tr>';
 			}
-			$('#errorupload').hide();
+			table += '</table>';
+			$('#viewdata').html(table);
 			
-           
-				
-            
-			
-			
-				
-			
-			
-			$('#pnImage').show();
-			$('.loadingimage').hide();
+
 			
 		}
 	});	

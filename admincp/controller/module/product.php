@@ -378,13 +378,14 @@ class ControllerModuleProduct extends Controller
 			$objReader = new PHPExcel_Reader_Excel5();
 		else
 			$objReader = new PHPExcel_Reader_Excel2007();
+		$objReader->setLoadSheetsOnly("Sheet1");
 		$objPHPExcel = $objReader->load($inputFileName);
 		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 		//var_dump($sheetData);
 		//echo $sheetData[1]['A'];
 		
 		
-		$this->data['output'] = json_encode($sheetData);
+		$this->data['output'] = json_encode(array('datas' => $sheetData));
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
