@@ -403,10 +403,20 @@ class ControllerModuleProduct extends Controller
 							 ->setKeywords("Ho Lan Solutions")
 							 ->setCategory("Product");
 		$objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A1', 'Mã sản phẩm')
-            ->setCellValue('B1', 'Tên sản phẩm')
-            ->setCellValue('C1', 'ĐVT')
-            ->setCellValue('D1', 'Danh mục!');
+            ->setCellValue('A1', 'ID')
+			->setCellValue('B1', 'IDParent')
+			->setCellValue('C1', 'Mã sản phẩm')
+            ->setCellValue('D1', 'Tên sản phẩm')
+			->setCellValue('E1', 'Màu sắc')
+            ->setCellValue('F1', 'ĐVT')
+            ->setCellValue('G1', 'Danh mục')
+			->setCellValue('H1', 'Giá bán')
+			->setCellValue('I1', 'Giá bán o shop')
+			->setCellValue('J1', 'Nhãn hiệu')
+			->setCellValue('K1', 'Giảm giá')
+			->setCellValue('L1', 'Giá khuyến mãi')
+			->setCellValue('M1', 'Thông tin vắn tắt')
+			;
 		$objPHPExcel->getActiveSheet()->getStyle('A1:D1')->getFont()->setBold(true);
 		/*$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
 		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
