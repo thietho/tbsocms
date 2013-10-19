@@ -17,6 +17,7 @@
                 <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                 <a class="button" href="?route=module/product/insert&sitemapid=<?php echo $sitemapid?>&page=<?php echo $page?>"><?php echo $button_add?></a>
                 <a class="button" id="btnImport" onclick="pro.importData()">Import</a>
+                <a class="button" id="btnExport" onclick="pro.exportData()">Export</a>
                 
                 <?php } ?>
                 <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
@@ -276,8 +277,13 @@ function Product()
 			$(eid).load("?route=module/product/import&dialog=true",function(){
 				$(eid).dialog("open");	
 			});
-		
-		
+	}
+	
+	this.exportData = function()
+	{
+		$.get("?route=module/product/export",function(){
+				
+		});	
 	}
 }
 var pro = new Product();

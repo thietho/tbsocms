@@ -390,5 +390,36 @@ class ControllerModuleProduct extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
+	
+	public function export()
+	{
+		require_once DIR_COMPONENT.'PHPExcel/Classes/PHPExcel.php';
+		$objPHPExcel = new PHPExcel();
+		$objPHPExcel->getProperties()->setCreator("Ho Lan Solutions")
+							 ->setLastModifiedBy("Lư Thiết Hồ")
+							 ->setTitle("Export data")
+							 ->setSubject("Export data")
+							 ->setDescription("")
+							 ->setKeywords("Ho Lan Solutions")
+							 ->setCategory("Product");
+		$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Hello')
+            ->setCellValue('B2', 'world!')
+            ->setCellValue('C1', 'Hello')
+            ->setCellValue('D2', 'world!');
+		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
+		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
+		$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
+		
+		$objPHPExcel->getActiveSheet()->setTitle('Product');
+		$objPHPExcel->setActiveSheetIndex(0);
+		//
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$objWriter->save("product.xls");
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>
