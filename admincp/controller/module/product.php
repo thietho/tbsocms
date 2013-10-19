@@ -417,7 +417,7 @@ class ControllerModuleProduct extends Controller
 			->setCellValue('L1', 'Giá khuyến mãi')
 			->setCellValue('M1', 'Thông tin vắn tắt')
 			;
-		$objPHPExcel->getActiveSheet()->getStyle('A1:D1')->getFont()->setBold(true);
+		$objPHPExcel->getActiveSheet()->getStyle('A1:M1')->getFont()->setBold(true);
 		/*$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
 		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
 		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
