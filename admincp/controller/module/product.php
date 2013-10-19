@@ -409,11 +409,11 @@ class ControllerModuleProduct extends Controller
             ->setCellValue('D1', 'Tên sản phẩm')
 			->setCellValue('E1', 'Màu sắc')
             ->setCellValue('F1', 'ĐVT')
-            ->setCellValue('G1', 'Danh mục')
-			->setCellValue('H1', 'Giá bán')
-			->setCellValue('I1', 'Giá bán o shop')
-			->setCellValue('J1', 'Nhãn hiệu')
-			->setCellValue('K1', 'Giảm giá')
+			->setCellValue('G1', 'Nhãn hiệu')
+            ->setCellValue('H1', 'Danh mục')
+			->setCellValue('I1', 'Giá bán')
+			->setCellValue('J1', 'Giá bán o shop')
+			->setCellValue('K1', 'Giảm giá%')
 			->setCellValue('L1', 'Giá khuyến mãi')
 			->setCellValue('M1', 'Thông tin vắn tắt')
 			;
@@ -422,7 +422,47 @@ class ControllerModuleProduct extends Controller
 		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
 		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
 		$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);*/
-		
+		//Dua du lieu vao
+		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
+		$where .= " Order by title";
+		$medias = $this->model_core_media->getList($where);
+		$data = array();
+		foreach($medias as $i => $media)
+		{
+			$data[] = $media;
+			$where = " AND mediaparent = '".$media['mediaid']."' AND mediatype = 'module/product' ";
+			$where .= " Order by position, statusdate DESC";
+			$childs = $this->model_core_media->getList($where);
+			
+			if(count($childs))
+			{
+				foreach($childs as $child)	
+				{
+					$data[] = $child;
+				}
+			}
+		}
+		//print_r($data);
+		$key = 2;
+		foreach($data as $media)
+		{
+			$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue('A'.$key, $media['mediaid'])
+				->setCellValue('B'.$key, $media['mediaparent'])
+				->setCellValue('C'.$key, $media['code'])
+				->setCellValue('D'.$key, $media['title'])
+				->setCellValue('E'.$key, $media['color'])
+				->setCellValue('F'.$key, $media['unit'])
+				->setCellValue('G'.$key, $media['brand'])
+				->setCellValue('H'.$key, $media['refersitemap'])
+				->setCellValue('I'.$key, $media['price'])
+				->setCellValue('J'.$key, $media['saleprice'])
+				->setCellValue('K'.$key, $media['discountpercent'])
+				->setCellValue('L'.$key, $media['pricepromotion'])
+				->setCellValue('M'.$key, $media['summary'])
+				;
+			$key++;
+		}
 		$objPHPExcel->getActiveSheet()->setTitle('Product');
 		$objPHPExcel->setActiveSheetIndex(0);
 		//
