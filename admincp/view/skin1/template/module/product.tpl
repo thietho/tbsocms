@@ -262,14 +262,31 @@ function Product()
 				autoOpen: false,
 				show: "blind",
 				hide: "explode",
-				width: 800,
+				width: $(document).width()-100,
 				height: 600,
 				modal: true,
 				close:function()
 					{
 						$(eid).remove();
 					},
+				buttons: {
 				
+					'Import':function()
+					{
+						//$('#history_form').scrollTop(500);
+						$('#history_form').scrollTop(0)
+						//alert(i)
+						var k = 2;
+						pro.postProduct(k);
+						
+					},
+					'Đóng': function() 
+					{
+						
+						$(eid).dialog( "close" );
+						
+					},
+				}
 				
 			});
 		
@@ -278,7 +295,35 @@ function Product()
 				$(eid).dialog("open");	
 			});
 	}
-	
+	this.postProduct = function(k)
+	{
+		$.post("?route=core/media/importProduct",
+			{
+				mediaid:$('#item'+k+' #A').html(),
+				mediaparent:$('#item'+k+' #B').html(),
+				code:$('#item'+k+' #C').html(),
+				title:$('#item'+k+' #D').html(),
+				color:$('#item'+k+' #E').html(),
+				unit:$('#item'+k+' #F').html(),
+				brand:$('#item'+k+' #G').html(),
+				refersitemap:$('#item'+k+' #H').html(),
+				price:$('#item'+k+' #I').html(),
+				saleprice:$('#item'+k+' #J').html(),
+				discountpercent:$('#item'+k+' #K').html(),
+				pricepromotion:$('#item'+k+' #L').html(),
+				summary:$('#item'+k+' #M').html(),
+				
+			},
+			function(data)
+			{
+				
+				$('#item'+k).addClass('itemselected');
+				
+				$('#history_form').scrollTop($('#history_form').scrollTop()+$('#item'+k).height());
+				if(k<=i)
+					pro.postProduct(k+1);
+			});
+	}
 	this.exportData = function()
 	{
 		$.get("?route=module/product/export",function(data){

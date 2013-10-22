@@ -331,7 +331,7 @@ class ModelCoreMedia extends ModelCoreFile
 	
 	public function insert($data)
 	{
-		$mediaid = $this->nextID($this->user->getSiteId().time());
+		$mediaid = $this->db->escape(@$data['mediaid']);
 		$code = $this->db->escape(@$data['code']);
 		$sizes = $this->db->escape(@$data['sizes']);
 		$unit = $this->db->escape(@$data['unit']);
@@ -358,7 +358,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$groupkeys=$this->db->escape(@$data['groupkeys']);
 		$viewcount=0;
 		$position=(int)@$data['position'];
-		$status="delete";
+		$status="active";
 		$statusdate = $this->date->getToday();
 		$statusby=$this->db->escape(@$data['userid']);
 		$updateddate = $this->date->getToday();

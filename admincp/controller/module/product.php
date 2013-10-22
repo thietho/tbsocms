@@ -447,6 +447,7 @@ class ControllerModuleProduct extends Controller
 		foreach($data as $media)
 		{
 			$brand = $this->document->getCategory($media['brand']);
+			$unit = $this->document->getDonViTinh($media['unit']);
 			$arrsitemapid = $this->string->referSiteMapToArray($media['refersitemap']);
 			$arrsitemapname = array();
 			foreach($arrsitemapid as $sitemapid)
@@ -465,7 +466,7 @@ class ControllerModuleProduct extends Controller
 				->setCellValue('C'.$key, $media['code'])
 				->setCellValue('D'.$key, $media['title'])
 				->setCellValue('E'.$key, $media['color'])
-				->setCellValue('F'.$key, $media['unit'])
+				->setCellValue('F'.$key, $unit)
 				->setCellValue('G'.$key, $brand)
 				->setCellValue('H'.$key, $danhmuc)
 				->setCellValue('I'.$key, $media['price'])

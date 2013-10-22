@@ -25,10 +25,13 @@ $(document).ready(function(e) {
 			}
 		},
 		onComplete: function(file, response){
-			var table = '<table>';
+			var table = '<table class="data-table">';
 			for(i in response.datas)
 			{
-				table +='<tr class="item">';
+				if(i == 1)
+					table +='<tr>';
+				else
+					table +='<tr id="item'+i+'" class="item">';
 				for(j in response.datas[i])
 				{
 					//if(response.datas[i][j]==null)

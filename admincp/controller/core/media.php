@@ -8,6 +8,7 @@ class ControllerCoreMedia extends Controller
 		$this->load->model("core/media");
 		$this->load->model("quanlykho/donvitinh");
 		$this->load->model("core/sitemap");
+		$this->load->model("core/category");
 		$this->load->helper('image');
 		
 		$this->data['module'] = array(
@@ -217,6 +218,85 @@ class ControllerCoreMedia extends Controller
 		$this->id="content";
 		$this->template="common/output.tpl";
 		$this->render();
+	}
+	
+	public function importProduct()
+	{
+		$data = $this->request->post;
+		if($this->validateImportProduct($data))
+		{
+			//Lay lai danh muc
+			$refersitemap = $data['refersitemap'];
+			if($refersitemap!="")
+			{
+				$arrsitemapname = split(',',$refersitemap);
+				$arrsitemapid = array();
+				foreach($arrsitemapname as $sitemapname)
+				{
+					$where = " AND sitemapname = '".$sitemapname."'";
+					$sitemap = $this->model_core_sitemap->getList($this->user->getSiteId(), $where);
+					$arrsitemapid[] = $sitemap[0]['sitemapid'];
+				}
+				$refersitemap = $this->string->arrayToString($arrsitemapid);
+				
+			}
+			$data['refersitemap'] = $refersitemap;
+			//Lay nhan hieu
+			$brand = $data['brand'];
+			if($brand!="")
+			{
+				$where = " AND categoryname = '".$brand."'";
+				$data_ca = $this->model_core_category->getList($where);
+				$brand = $data_ca[0]['categoryid'];
+			}
+			$data['brand'] = $brand;
+			//Don vi
+			$unit = $data['unit'];
+			if($unit!="")
+			{
+				$where = " AND tendonvitinh	 = '".$unit."'";
+				$data_unit = $this->model_quanlykho_donvitinh->getList($where);
+				$unit = $data_ca[0]['madonvi'];
+			}
+			$data['unit'] = $unit;
+			
+			$media = $this->model_core_media->getItem($data['mediaid']);
+			if(count($media)==0)
+			{
+				$mediaid = $this->model_core_media->insert($data);
+			}
+			else
+			{
+				$mediaid = $data['mediaid'];
+				foreach($data as $key => $val)
+				{
+					$this->model_core_media->updateCol($mediaid,$key,$val);
+				}
+			}
+			//$mediaid = $this->model_core_media->insert($data);
+			//$this->model_core_media->updateStatus($mediaid, "active");
+			$data['error'] = "";
+			
+		}
+		else
+		{
+			foreach($this->error as $item)
+			{
+				$data['error'] .= $item."\n";
+			}
+		}
+		$this->data['output'] = json_encode($data);
+		$this->id="content";
+		$this->template="common/output.tpl";
+		$this->render();
+	}
+	private function validateImportProduct($data)
+	{
+		if (count($this->error)==0) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 	function validateAddProductQuick($data)
 	{
