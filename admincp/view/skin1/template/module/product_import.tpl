@@ -28,15 +28,18 @@ $(document).ready(function(e) {
 			var table = '<table>';
 			for(i in response.datas)
 			{
-				table +='<tr>';
+				table +='<tr class="item">';
 				for(j in response.datas[i])
 				{
-					if(response.datas[i][j]==null)
-						break;
+					//if(response.datas[i][j]==null)
+						//break;
+					var value = response.datas[i][j];
+					if(value==null)
+						value = '';
 					if(i==1)
-						table+='<th>'+response.datas[i][j]+'</th>';
+						table+='<th>'+value+'</th>';
 					else
-						table+='<td>'+response.datas[i][j]+'</td>';
+						table+='<td id="'+j+'">'+value+'</td>';
 				}
 				table +='</tr>';
 			}

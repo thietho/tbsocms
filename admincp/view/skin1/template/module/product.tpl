@@ -281,8 +281,8 @@ function Product()
 	
 	this.exportData = function()
 	{
-		$.get("?route=module/product/export",function(){
-				
+		$.get("?route=module/product/export",function(data){
+			window.location = "download.php?url="+ encodeURI(data);
 		});	
 	}
 }

@@ -446,6 +446,19 @@ class ControllerModuleProduct extends Controller
 		$key = 2;
 		foreach($data as $media)
 		{
+			$brand = $this->document->getCategory($media['brand']);
+			$arrsitemapid = $this->string->referSiteMapToArray($media['refersitemap']);
+			$arrsitemapname = array();
+			foreach($arrsitemapid as $sitemapid)
+			{
+				if($sitemapid)
+					$arrsitemapname[] = $this->document->getSiteMap($sitemapid,$this->user->getSiteId());
+			}
+			$danhmuc = "";
+			if(count($arrsitemapname))
+			{				
+				$danhmuc = implode(",",$arrsitemapname);
+			}
 			$objPHPExcel->setActiveSheetIndex(0)
 				->setCellValue('A'.$key, $media['mediaid'])
 				->setCellValue('B'.$key, $media['mediaparent'])
@@ -453,8 +466,8 @@ class ControllerModuleProduct extends Controller
 				->setCellValue('D'.$key, $media['title'])
 				->setCellValue('E'.$key, $media['color'])
 				->setCellValue('F'.$key, $media['unit'])
-				->setCellValue('G'.$key, $media['brand'])
-				->setCellValue('H'.$key, $media['refersitemap'])
+				->setCellValue('G'.$key, $brand)
+				->setCellValue('H'.$key, $danhmuc)
 				->setCellValue('I'.$key, $media['price'])
 				->setCellValue('J'.$key, $media['saleprice'])
 				->setCellValue('K'.$key, $media['discountpercent'])
@@ -467,7 +480,9 @@ class ControllerModuleProduct extends Controller
 		$objPHPExcel->setActiveSheetIndex(0);
 		//
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-		$objWriter->save("product.xls");
+		$filename = "product".time().".xls";
+		$objWriter->save(DIR_CACHE.$filename);
+		$this->data['output'] = HTTP_IMAGE."cache/".$filename;
 		
 		$this->id='content';
 		$this->template='common/output.tpl';
