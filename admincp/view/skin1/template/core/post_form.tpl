@@ -202,8 +202,15 @@ $('#title').change(function(e) {
 						$('#discountpercent').keyup(function(e) {
                             var price = Number(stringtoNumber($('#price').val()));
 							var discountpercent = Number(stringtoNumber($('#discountpercent').val()));
-							var pricepromotion = price*( 1- discountpercent/100);
-							$('#pricepromotion').val(formateNumber(pricepromotion));
+							if(discountpercent ==0)
+							{
+								$('#pricepromotion').val(0);
+							}
+							else
+							{
+								var pricepromotion = price*( 1- discountpercent/100);
+								$('#pricepromotion').val(formateNumber(pricepromotion));
+							}
                         });
 						
 						$('#pricepromotion').keyup(function(e) {
@@ -211,6 +218,8 @@ $('#title').change(function(e) {
 							var pricepromotion = Number(stringtoNumber($('#pricepromotion').val()));
 							var discountpercent = (1- pricepromotion/price)*100;
 							$('#discountpercent').val(formateNumber(discountpercent));
+							if(pricepromotion == 0)
+								$('#discountpercent').val(0);
                         });
 						</script>
                         <?php } ?>
