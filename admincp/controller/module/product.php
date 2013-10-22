@@ -412,7 +412,7 @@ class ControllerModuleProduct extends Controller
 			->setCellValue('G1', 'Nhãn hiệu')
             ->setCellValue('H1', 'Danh mục')
 			->setCellValue('I1', 'Giá bán')
-			->setCellValue('J1', 'Giá bán o shop')
+			->setCellValue('J1', 'Giá bán tại cửa hàng')
 			->setCellValue('K1', 'Giảm giá%')
 			->setCellValue('L1', 'Giá khuyến mãi')
 			->setCellValue('M1', 'Thông tin vắn tắt')
@@ -460,6 +460,16 @@ class ControllerModuleProduct extends Controller
 			{				
 				$danhmuc = implode(",",$arrsitemapname);
 			}
+			//echo $media['saleprice'];
+			$saleprice = json_decode(html_entity_decode($media['saleprice']));
+			//print_r($saleprice);
+			$shop = "";
+			if(count($saleprice))
+				foreach($saleprice as $donvi => $price)
+				{
+					$shop .= $this->document->getDonViTinh($donvi)."-".$price.",";
+				}
+			//echo $shop;
 			$objPHPExcel->setActiveSheetIndex(0)
 				->setCellValue('A'.$key, $media['mediaid'])
 				->setCellValue('B'.$key, $media['mediaparent'])
@@ -470,7 +480,7 @@ class ControllerModuleProduct extends Controller
 				->setCellValue('G'.$key, $brand)
 				->setCellValue('H'.$key, $danhmuc)
 				->setCellValue('I'.$key, $media['price'])
-				->setCellValue('J'.$key, $media['saleprice'])
+				->setCellValue('J'.$key, $shop)
 				->setCellValue('K'.$key, $media['discountpercent'])
 				->setCellValue('L'.$key, $media['pricepromotion'])
 				->setCellValue('M'.$key, $media['summary'])
