@@ -285,8 +285,10 @@ class ControllerCoreMedia extends Controller
 			echo $data['saleprice'] = $saleprice;
 			
 			$media = $this->model_core_media->getItem($data['mediaid']);
+			$data['mediatype'] = "module/product";
 			if(count($media)==0)
 			{
+				
 				$mediaid = $this->model_core_media->insert($data);
 			}
 			else
@@ -316,6 +318,10 @@ class ControllerCoreMedia extends Controller
 	}
 	private function validateImportProduct($data)
 	{
+		if ($data['title'] == "")
+		{
+			$this->error['title'] = "Bạn chưa nhập tên sản phẩm";
+		}
 		if (count($this->error)==0) {
 			return TRUE;
 		} else {

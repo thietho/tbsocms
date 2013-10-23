@@ -246,7 +246,8 @@ class ModelCoreMedia extends ModelCoreFile
 	
 	public function insertTemp($data)
 	{
-		$mediaid = $this->nextID($this->user->getSiteId().time());
+		$date = getdate();
+		$mediaid = $this->nextID($date['getdate'].$this->date->numberFormate($date['mon']));
 		$mediaparent=$this->db->escape(@$data['mediaparent']);
 		$mediatype=$this->db->escape(@$data['mediatype']);
 		$refersitemap=$this->db->escape(@$data['refersitemap']);
@@ -332,6 +333,8 @@ class ModelCoreMedia extends ModelCoreFile
 	public function insert($data)
 	{
 		$mediaid = $this->db->escape(@$data['mediaid']);
+		if($mediaid == "")
+			$mediaid = $this->nextID($date['getdate'].$this->date->numberFormate($date['mon']));
 		$code = $this->db->escape(@$data['code']);
 		$sizes = $this->db->escape(@$data['sizes']);
 		$unit = $this->db->escape(@$data['unit']);
