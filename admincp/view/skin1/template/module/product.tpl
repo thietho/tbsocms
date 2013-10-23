@@ -274,6 +274,7 @@ function Product()
 					'Import':function()
 					{
 						//$('#history_form').scrollTop(500);
+						$('.item').removeClass('itemselected');
 						$('#history_form').scrollTop(0)
 						//alert(i)
 						var k = 2;
@@ -284,7 +285,7 @@ function Product()
 					{
 						
 						$(eid).dialog( "close" );
-						
+						window.location.reload();
 					},
 				}
 				
@@ -322,6 +323,8 @@ function Product()
 				$('#history_form').scrollTop($('#history_form').scrollTop()+$('#item'+k).height());
 				if(k<=i)
 					pro.postProduct(k+1);
+				else
+					alert("Import dữ liệu thành công!");
 			});
 	}
 	this.exportData = function()

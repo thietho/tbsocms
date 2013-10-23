@@ -256,9 +256,33 @@ class ControllerCoreMedia extends Controller
 			{
 				$where = " AND tendonvitinh	 = '".$unit."'";
 				$data_unit = $this->model_quanlykho_donvitinh->getList($where);
-				$unit = $data_ca[0]['madonvi'];
+				$unit = $data_unit[0]['madonvi'];
 			}
 			$data['unit'] = $unit;
+			//Sale price
+			$saleprice = $data['saleprice'];
+			$arrsaleprice = array();
+			if($saleprice!="")
+			{
+				$arr = split(',',$saleprice);
+				print_r($arr);
+				foreach($arr as $val)
+				{
+					if($val!="")
+					{
+						$ar = split('-',$val);
+						print_r($ar);
+						$donvi = $ar[0];
+						$price = $ar[1];
+						$where = " AND tendonvitinh	 = '".$donvi."'";
+						$data_unit = $this->model_quanlykho_donvitinh->getList($where);
+						echo $unit = $data_unit[0]['madonvi'];
+						$arrsaleprice[$unit]=$price;
+					}
+				}
+				$saleprice = json_encode($arrsaleprice);
+			}
+			echo $data['saleprice'] = $saleprice;
 			
 			$media = $this->model_core_media->getItem($data['mediaid']);
 			if(count($media)==0)
