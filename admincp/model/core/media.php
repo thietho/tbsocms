@@ -350,7 +350,9 @@ class ModelCoreMedia extends ModelCoreFile
 		
 		$title=$this->db->escape(@$data['title']);
 		$summary=$this->db->escape(@$data['summary']);
-		$price=$this->db->escape(@$data['price']);
+		$saleprice=$this->db->escape(@$data['saleprice']);
+		$price=$this->db->escape(@$this->string->toNumber($data['price']));
+		$discountpercent=$this->db->escape(@$this->string->toNumber($data['discountpercent']));
 		$pricepromotion=$this->db->escape(@$this->string->toNumber($data['pricepromotion']));
 		$description=(@$data['description']);
 		$author=$this->db->escape(@$data['author']);
@@ -382,7 +384,9 @@ class ModelCoreMedia extends ModelCoreFile
 						'userid',
 						'title',
 						'summary',
+						'saleprice',
 						'price',
+						'discountpercent',
 						'pricepromotion',
 						'description',
 						'author',
@@ -412,7 +416,9 @@ class ModelCoreMedia extends ModelCoreFile
 						$userid,
 						$title,
 						$summary,
+						$saleprice,
 						$price,
+						$discountpercent,
 						$pricepromotion,
 						$description,
 						$author,

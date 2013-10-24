@@ -297,7 +297,7 @@ $('#title').change(function(e) {
                         <textarea class="text" rows="3" cols="70" id="summary" name="summary"><?php echo $post['summary']?></textarea>
 <script language="javascript">
 $(document).ready(function(e) {
-    setCKEditorType('summary',2);
+    setCKEditorType('summary',0);
 });
 </script>
                     </p>
@@ -482,7 +482,7 @@ function removeSubInfor(mediaid)
 </script>
 <script language="javascript">
 $(document).ready(function() { 
-	setCKEditorType('sub_description',2);
+	setCKEditorType('sub_description',0);
 	$("#subinforlist").load("?route=core/postcontent/loadSubInfor&mediaid="+$("#mediaid").val());
 })
 </script>
@@ -590,7 +590,7 @@ var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
 var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
 $(document).ready(function() { 
 	
-	setCKEditorType('editor1',2);
+	setCKEditorType('editor1',0);
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 	
 });

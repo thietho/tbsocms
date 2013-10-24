@@ -129,6 +129,8 @@
                     </table>
                     <input type="hidden" id="delnhapkho" name="delnhapkho" />
                     <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
+                    <input type="button" class="button" id="btnImport" value="Lấy dữ liệu từ file excel"/>
+                    <input type="button" class="button" id="btnImport" value="Lấy file excel mẫu"/>
                 </div>
            </div>
             
@@ -258,6 +260,9 @@ function intSelectNhaCungCap()
 }
 $('#btnAddRow').click(function(e) {
 	browseProduct();
+});
+$('#btnImport').click(function(e) {
+    objdl.importDetail();
 });
 
 

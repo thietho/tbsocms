@@ -154,7 +154,7 @@ var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
 var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
 
 $(document).ready(function() { 
-	setCKEditorType('description',2);
+	setCKEditorType('description',0);
 	
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 	

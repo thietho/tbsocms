@@ -271,12 +271,12 @@ class ControllerCoreMedia extends Controller
 					if($val!="")
 					{
 						$ar = split('-',$val);
-						print_r($ar);
+						
 						$donvi = $ar[0];
 						$price = $ar[1];
 						$where = " AND tendonvitinh	 = '".$donvi."'";
 						$data_unit = $this->model_quanlykho_donvitinh->getList($where);
-						echo $unit = $data_unit[0]['madonvi'];
+						$unit = $data_unit[0]['madonvi'];
 						$arrsaleprice[$unit]=$price;
 					}
 				}

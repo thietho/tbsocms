@@ -415,9 +415,9 @@ class ControllerModuleProduct extends Controller
 			->setCellValue('J1', 'Giá bán tại cửa hàng')
 			->setCellValue('K1', 'Giảm giá%')
 			->setCellValue('L1', 'Giá khuyến mãi')
-			->setCellValue('M1', 'Thông tin vắn tắt')
+			
 			;
-		$objPHPExcel->getActiveSheet()->getStyle('A1:M1')->getFont()->setBold(true);
+		$objPHPExcel->getActiveSheet()->getStyle('A1:L1')->getFont()->setBold(true);
 		/*$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
 		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
 		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
@@ -483,7 +483,7 @@ class ControllerModuleProduct extends Controller
 				->setCellValue('J'.$key, $shop)
 				->setCellValue('K'.$key, $media['discountpercent'])
 				->setCellValue('L'.$key, $media['pricepromotion'])
-				->setCellValue('M'.$key, $media['summary'])
+				
 				;
 			$key++;
 		}
