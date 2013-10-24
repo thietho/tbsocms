@@ -503,7 +503,7 @@ class ControllerCorePostcontent extends Controller
 		$str = "";
 		
 		$route = $this->getRoute();
-		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid, "Active");
+		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid);
 		
 		foreach($sitemaps as $item)
 		{

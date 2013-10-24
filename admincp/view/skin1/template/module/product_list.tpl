@@ -115,7 +115,7 @@
                                     
                                     <td><b><?php echo $this->document->getDonViTinh($child['unit'])?></b>&nbsp;</td>
                                     <td><?php echo $this->document->getCategory($child['brand'])?></td>
-                                    <td></td>
+                                    <td><?php echo $this->document->status_media[$child['status']]?></td>
                                     <td align="center"><?php echo $child['imagepreview']?>&nbsp;</td>
                                     
                                     <td>
