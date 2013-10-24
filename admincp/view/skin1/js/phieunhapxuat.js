@@ -176,11 +176,11 @@ function PhieuNhapXuat()
 					'Import':function()
 					{
 						//$('#history_form').scrollTop(500);
-						$('.item').removeClass('itemselected');
-						$('#history_form').scrollTop(0)
+						//$('.item').removeClass('itemselected');
+						//$('#history_form').scrollTop(0)
 						//alert(i)
-						var k = 2;
-						pro.postProduct(k);
+						//var k = 2;
+						//pro.postProduct(k);
 						
 					},
 					'Đóng': function() 

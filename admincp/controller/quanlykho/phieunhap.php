@@ -306,7 +306,47 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	
 	
 	//Cac ham xu ly tren form
-	
+	public function getFileFormate()
+	{
+		require_once DIR_COMPONENT.'PHPExcel/Classes/PHPExcel.php';
+		$objPHPExcel = new PHPExcel();
+		$objPHPExcel->getProperties()->setCreator("Ho Lan Solutions")
+							 ->setLastModifiedBy("Lư Thiết Hồ")
+							 ->setTitle("Export data")
+							 ->setSubject("Export data")
+							 ->setDescription("")
+							 ->setKeywords("Ho Lan Solutions")
+							 ->setCategory("Product");
+		$objPHPExcel->setActiveSheetIndex(0)
+            
+			->setCellValue('A1', 'Mã sản phẩm')
+            ->setCellValue('B1', 'Tên sản phẩm')
+			->setCellValue('C1', 'Màu sắc')
+            ->setCellValue('D1', 'ĐVT')
+			->setCellValue('E1', 'Số Lượng')
+            ->setCellValue('F1', 'Giá')
+			->setCellValue('G1', '% giảm giá')
+			
+			
+			;
+		$objPHPExcel->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
+		/*$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
+		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
+		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
+		$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);*/
+		
+		$objPHPExcel->getActiveSheet()->setTitle('Product');
+		$objPHPExcel->setActiveSheetIndex(0);
+		//
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$filename = "nhapxuat.xls";
+		$objWriter->save(DIR_CACHE.$filename);
+		$this->data['output'] = HTTP_IMAGE."cache/".$filename;
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 	
 }
 ?>

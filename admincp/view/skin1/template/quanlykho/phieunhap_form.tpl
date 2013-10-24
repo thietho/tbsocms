@@ -130,7 +130,7 @@
                     <input type="hidden" id="delnhapkho" name="delnhapkho" />
                     <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
                     <input type="button" class="button" id="btnImport" value="Lấy dữ liệu từ file excel"/>
-                    <input type="button" class="button" id="btnImport" value="Lấy file excel mẫu"/>
+                    <input type="button" class="button" id="btnGetFomat" value="Lấy file excel mẫu"/>
                 </div>
            </div>
             
@@ -264,7 +264,11 @@ $('#btnAddRow').click(function(e) {
 $('#btnImport').click(function(e) {
     objdl.importDetail();
 });
-
+$('#btnGetFomat').click(function(e) {
+    $.get("?route=quanlykho/phieunhap/getFileFormate",function(data){
+		window.location = "download.php?url="+ encodeURI(data);
+	});	
+});
 
 function save(type)
 {
