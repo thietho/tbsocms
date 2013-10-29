@@ -216,6 +216,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 			
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
 			
+			$phieu = $this->model_quanlykho_phieunhapxuat->getItem($data['id']);
 			//Xoa dinh luong
 			$delnhapkho = $data['delnhapkho'];
 			if($delnhapkho)
@@ -252,6 +253,18 @@ class ControllerQuanlykhoPhieunhap extends Controller
 				$dl['giamgia'] = $arr_giamgia[$i];
 				$dl['phantramgiamgia'] = $arr_phantramgiamgia[$i];
 				$dl['loaiphieu'] = $this->loaiphieu;
+				
+				$dl['maphieu'] = $phieu['maphieu'];
+				$dl['ngaylap'] = $phieu['ngaylap'];
+				$dl['nguoilap'] = $phieu['nguoilap'];
+				$dl['nhacungcapid'] = $phieu['nhacungcapid'];
+				$dl['tennhacungcap'] = $phieu['tennhacungcap'];
+				$dl['khachhangid'] = $phieu['khachhangid'];
+				$dl['tenkhachhang'] = $phieu['tenkhachhang'];
+				$dl['nguoigiao'] = $phieu['nguoigiao'];
+				$dl['nguoinhanid'] = $phieu['nguoinhanid'];
+				$dl['nguoinhan'] = $phieu['nguoinhan'];
+				
 				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
 				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
 				

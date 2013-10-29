@@ -38,9 +38,12 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 	
 	public function save($data)
 	{
+		$today = $this->date->getToday();
+		$year = $this->date->getYear($today);
+		$month = $this->date->getMonth($today);
 		$id=(int)@$data['id'];
 		$loaiphieu=$this->db->escape(@$data['loaiphieu']);
-		$maphieu=$this->createMaPhieu($loaiphieu.$this->date->now['year'].$this->date->numberFormate($this->date->now['mon']));
+		$maphieu=$this->createMaPhieu($loaiphieu.$year.$this->date->numberFormate($month));
 		$nguoilap=$this->user->getUserName();
 		if($id==0)
 			$ngaylap=$this->date->getToday();
@@ -51,6 +54,9 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$nguoithuchien=$this->db->escape(@$data['nguoithuchien']);
 		$nhacungcapid=$this->db->escape(@$data['nhacungcapid']);
 		$tennhacungcap=$this->db->escape(@$data['tennhacungcap']);
+		$khachhangid=$this->db->escape(@$data['khachhangid']);
+		$tenkhachhang=$this->db->escape(@$data['tenkhachhang']);
+		
 		$nguoigiao=$this->db->escape(@$data['nguoigiao']);
 		$nguoinhanid=$this->db->escape(@$data['nguoinhanid']);
 		$nguoinhan=$this->db->escape(@$data['nguoinhan']);
@@ -70,6 +76,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'nguoithuchien',
 						'nhacungcapid',
 						'tennhacungcap',
+						'khachhangid',
+						'tenkhachhang',
 						'nguoigiao',
 						'nguoinhanid',
 						'nguoinhan',
@@ -90,6 +98,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$nguoithuchien,
 						$nhacungcapid,
 						$tennhacungcap,
+						$khachhangid,
+						$tenkhachhang,
 						$nguoigiao,
 						$nguoinhanid,
 						$nguoinhan,
@@ -183,6 +193,18 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$trangthai = "active";
 		$loaiphieu=$this->db->escape(@$data['loaiphieu']);
 		
+		$maphieu=$this->db->escape(@$data['maphieu']);
+		$ngaylap=$this->db->escape(@$data['ngaylap']);
+		$ngaylap=$this->db->escape(@$data['ngaylap']);
+		
+		$nhacungcapid=$this->db->escape(@$data['nhacungcapid']);
+		$tennhacungcap=$this->db->escape(@$data['tennhacungcap']);
+		$khachhangid=$this->db->escape(@$data['khachhangid']);
+		$tenkhachhang=$this->db->escape(@$data['tenkhachhang']);
+		$nguoigiao=$this->db->escape(@$data['nguoigiao']);
+		$nguoinhanid=$this->db->escape(@$data['nguoinhanid']);
+		$nguoinhan=$this->db->escape(@$data['nguoinhan']);
+		
 		$field=array(
 						'phieuid',
 						'mediaid',
@@ -195,7 +217,16 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'phantramgiamgia',
 						'thanhtien',
 						'trangthai',
-						'loaiphieu'
+						'loaiphieu',
+						'maphieu',
+						'ngaylap',
+						'nhacungcapid',
+						'tennhacungcap',
+						'khachhangid',
+						'tenkhachhang',
+						'nguoigiao',
+						'nguoinhanid',
+						'nguoinhan'
 						
 						);
 		$value=array(
@@ -211,7 +242,15 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$thanhtien,
 						$trangthai,
 						$loaiphieu,
-						
+						$maphieu,
+						$ngaylap,
+						$nhacungcapid,
+						$tennhacungcap,
+						$khachhangid,
+						$tenkhachhang,
+						$nguoigiao,
+						$nguoinhanid,
+						$nguoinhan
 						);
 
 		if((int)@$data['id'] == 0 )
