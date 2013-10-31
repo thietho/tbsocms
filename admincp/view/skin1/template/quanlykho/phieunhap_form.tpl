@@ -22,7 +22,12 @@
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
-                    
+                    <p>
+                    	<label>Loại phiếu</label><br />
+                        <select name="loaiphieu">
+                        </select>
+                        
+                    </p>
                     <p>
                         <label>Khách hàng</label><br />
                         <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
