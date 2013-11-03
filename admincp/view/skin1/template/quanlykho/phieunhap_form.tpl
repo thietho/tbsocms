@@ -24,19 +24,22 @@
                 <div id="fragment-thongtin">
                     <p>
                     	<label>Loại phiếu</label><br />
-                        <select name="loaiphieu">
+                        <select id="loaiphieu" name="loaiphieu">
+                        <?php foreach($loaiphieu as $key =>  $val){ ?>
+                        	<option value="<?php echo $key?>"><?php echo $val?></option>
+                        <?php } ?>
                         </select>
                         
                     </p>
-                    <p>
+                    <p id="f-NK-KHTL" class="nhapxuat">
                         <label>Khách hàng</label><br />
-                        <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
-                        <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 />
+                        <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>" >
+                        <input type="text" id="tenkhachhang" name="tenkhachhang" value="<?php echo $item['tenkhachhang']?>" class="text" size=60 />
                         <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
                     </p>
-                    <p>
+                    <p id="f-NK" class="nhapxuat">
                         <label>Nhà cung cấp</label><br />
-                        <span id="nhacungcapview"></span>
+                        <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
                         <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
                         <input type="hidden" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>">
                         <input type="button" class="button" id="btnSeleteNhaCungCap" value="Chọn nhà cung cấp">
@@ -155,9 +158,7 @@ $(document).ready(function(e) {
 <?php } ?>
 
 <script language="javascript">
-$(document).ready(function(e) {
-    $('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
-});
+
 $('#btnSelectKhachHang').click(function(e) {
     $("#popup").attr('title','Chọn khách hàng');
 		$( "#popup" ).dialog({
@@ -196,8 +197,8 @@ function intSelectMember()
 {
 	$('.item').click(function(e) {
 		
-        $('#nguoithuchienid').val($(this).attr('id'));
-		$('#nguoithuchien').val($(this).attr('fullname'));
+        $('#khachhangid').val($(this).attr('id'));
+		$('#tenkhachhang').val($(this).attr('fullname'));
 		
 		$("#popup").dialog( "close" );
     });
@@ -336,12 +337,28 @@ function save(type)
 		}
 	);
 }
+$('#loaiphieu').val("<?php echo $item['loaiphieu']?>")
+$('#loaiphieu').change(function(e) {
+	$('.nhapxuat').hide();
+    $('#f-'+$('#loaiphieu').val()).show();
+	switch(this.value)
+	{
+		case "NK":
+			$('#khachhangid').val('');
+			$('#tenkhachhang').val('');
+			break;
+		case "NK-KHTL":
+			$('#nhacungcapid').val('');
+			$('#tennhacungcap').val('');
+			$('#nhacungcapview').html('');
+	}
+});
 
-$("#manhom").val("<?php echo $item['manhom']?>");
-$("#loai").val("<?php echo $item['loai']?>");
-
-$("#madonvi").val("<?php echo $item['madonvi']?>");
 
 var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
+$(document).ready(function(e) {
+    $('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
+	$('#loaiphieu').change();
+});
 </script>
 

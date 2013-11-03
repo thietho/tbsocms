@@ -7,11 +7,12 @@
         <form action="" method="post" id="frm_phieunhap">
         	<div id="ben-search">
             	<label>Mã phiếu</label>
-                <input type="text" id="maphieu" name="maphieu" class="text" value="" />
-                <label>Người nhập</label>
-                <input type="text" id="nguoithuchien" name="nguoithuchien" class="text" value="" />
+                <input type="text" id="maphieu" name="maphieu" class="text"/>
+                
                 <label>Nhà cung cấp</label>
-                <input type="text" id="tennhacungcap" name="tennhacungcap" class="text" value="" />           
+                <input type="text" id="tennhacungcap" name="tennhacungcap" class="text" />           
+                <label>Khách hàng</label>
+                <input type="text" id="tenkhachhang" name="tenkhachhang" class="text"/>
                 <label>Từ ngày</label>
                 <input type="text" class="text date" id="tungay" />
                 <script language="javascript">
@@ -117,8 +118,8 @@ function searchForm()
 	if($("#frm_phieunhap #maphieu").val() != "")
 		url += "&maphieu=" + $("#frm_phieunhap #maphieu").val();
 	
-	if($("#frm_phieunhap #nguoithuchien").val() != "")
-		url += "&nguoithuchien="+ encodeURI($("#frm_phieunhap #nguoithuchien").val());
+	if($("#frm_phieunhap #tenkhachhang").val() != "")
+		url += "&tenkhachhang="+ encodeURI($("#frm_phieunhap #tenkhachhang").val());
 	if($("#frm_phieunhap #tennhacungcap").val() != "")
 		url += "&tennhacungcap="+ encodeURI($("#frm_phieunhap #tennhacungcap").val());
 	if($("#frm_phieunhap #tungay").val() != "")

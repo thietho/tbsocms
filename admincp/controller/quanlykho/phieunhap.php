@@ -89,13 +89,15 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	public function getList() 
 	{
 		
-		
+		$arr = array();
+		foreach($this->data['loaiphieu'] as $key => $val)
+			$arr[] = $key;
 		$this->data['datas'] = array();
-		$where = " AND loaiphieu='".$this->loaiphieu."'";
+		$where = " AND loaiphieu in ('". implode("','", $arr) ."')";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
 		$datasearchlike['tennhacungcap'] = urldecode($this->request->get['tennhacungcap']);
-		$datasearchlike['nguoithuchien'] = urldecode($this->request->get['nguoithuchien']);
+		$datasearchlike['tenkhachhang'] = urldecode($this->request->get['tenkhachhang']);
 		
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
@@ -216,7 +218,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		if($this->validateForm($data))
 		{
 			
-			$data['loaiphieu'] = $this->loaiphieu;
+			//$data['loaiphieu'] = $this->loaiphieu;
 			
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
 			
@@ -256,7 +258,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 				$dl['giatien'] = $arr_giatien[$i];
 				$dl['giamgia'] = $arr_giamgia[$i];
 				$dl['phantramgiamgia'] = $arr_phantramgiamgia[$i];
-				$dl['loaiphieu'] = $this->loaiphieu;
+				$dl['loaiphieu'] = $phieu['loaiphieu'];
 				
 				$dl['maphieu'] = $phieu['maphieu'];
 				$dl['ngaylap'] = $phieu['ngaylap'];
