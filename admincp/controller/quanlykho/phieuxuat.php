@@ -216,7 +216,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$data['nguoithuchienid'] = $nhanvien['id'];
 			$data['nguoithuchien'] = $nhanvien['hoten'];
 			
-			$data['loaiphieu'] = $this->loaiphieu;
+			//$data['loaiphieu'] = $this->loaiphieu;
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
 			$phieu = $this->model_quanlykho_phieunhapxuat->getItem($data['id']);
 			//Xoa dinh luong

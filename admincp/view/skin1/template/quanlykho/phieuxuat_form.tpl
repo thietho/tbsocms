@@ -12,6 +12,7 @@
      	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/phieuxuat')"/>   
      	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
                 <input type="hidden" name="ngaylap" value="<?php echo $item['ngaylap']?>">
+                <input type="hidden" name="loaiphieu" value="PBH">
                 
             </div>
             <div class="clearer">^&nbsp;</div>
