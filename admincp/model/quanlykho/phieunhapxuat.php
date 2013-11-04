@@ -274,16 +274,10 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 	
 	public function thongke($where)
 	{
-		$sql = "Select `qlkphieunhapxuat`.nguoilap,
-						`qlkphieunhapxuat`.ngaylap,
-						`qlkphieunhapxuat`.maphieu,
-						`qlkphieunhapxuat`.nhacungcapid,
-						`qlkphieunhapxuat`.tennhacungcap,
-						`qlkphieunhapxuat`.nguoinhanid,
-						`qlkphieunhapxuat`.nguoinhan,
+		$sql = "Select 
 						`qlkphieunhapxuat_media`.*
-									from `qlkphieunhapxuat_media`,`qlkphieunhapxuat` 
-									where `qlkphieunhapxuat`.id = `qlkphieunhapxuat_media`.phieuid " . $where;
+									from `qlkphieunhapxuat_media` 
+									where 1=1 " . $where;
 		
 		$query = $this->db->query($sql);
 		return $query->rows;

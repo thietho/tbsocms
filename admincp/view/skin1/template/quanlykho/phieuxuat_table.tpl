@@ -39,7 +39,7 @@
                         <td><a onclick="objdl.viewPX(<?php echo $item['id']?>)"><?php echo $item['maphieu']?></a></td>
                         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'],'longdate')?></td>
                        	<td><?php echo $item['nguoithuchien']?></td>
-                        <td><?php echo $item['nguoinhan']?></td>
+                        <td><?php echo $item['tenkhachhang']?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>

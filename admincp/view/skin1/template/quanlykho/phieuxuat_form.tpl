@@ -32,8 +32,8 @@
                     
                     <p>
                         <label>Khách hàng</label><br />
-                        <input type="hidden" id="nguoinhanid" name="nguoinhanid" value="<?php echo $item['nguoinhanid']?>" value="<?php echo $item['nguoinhanid']?>">
-                        <input type="text" id="nguoinhan" name="nguoinhan" value="<?php echo $item['nguoinhan']?>" class="text" size=60 />
+                        <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>" >
+                        <input type="text" id="tenkhachhang" name="tenkhachhang" value="<?php echo $item['tenkhachhang']?>" class="text" size=60 />
                         <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
                     </p>
                     <p>
@@ -180,8 +180,8 @@ function intSelectMember()
 {
 	$('.item').click(function(e) {
 		
-        $('#nguoinhanid').val($(this).attr('id'));
-		$('#nguoinhan').val($(this).attr('fullname'));
+        $('#khachhangid').val($(this).attr('id'));
+		$('#tenkhachhang').val($(this).attr('fullname'));
 		
 		$("#popup").dialog( "close" );
     });

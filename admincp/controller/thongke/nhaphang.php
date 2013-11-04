@@ -27,7 +27,7 @@ class ControllerThongkeNhaphang extends Controller
 		$data = $this->request->post;
 		$tungay = $this->date->formatViewDate($data['tungay']);
 		$denngay = $this->date->formatViewDate($data['denngay']);
-		$where = " AND qlkphieunhapxuat.loaiphieu = 'NK'";
+		$where = " AND loaiphieu = 'NK'";
 		if($tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
@@ -36,7 +36,7 @@ class ControllerThongkeNhaphang extends Controller
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
-		$data_banhang = $this->model_quanlykho_phieunhapxuat->thongke($where);
+		$data_banhang = $this->model_quanlykho_phieunhapxuat->thongke($where ." Order by ngaylap");
 		
 		if(count($data_banhang))
 		{
