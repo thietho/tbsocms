@@ -66,6 +66,9 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$ghichu=$this->db->escape(@$data['ghichu']);
 		$songaycongno=$this->string->toNumber($this->db->escape(@$data['songaycongno']));
 		$trangthai = "active";
+		$lydothu=$this->db->escape(@$data['lydothu']);
+		$thuphi=$this->string->toNumber($this->db->escape(@$data['thuphi']));
+		
 		$field=array(
 							
 						
@@ -86,7 +89,9 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'congno',
 						'ghichu',
 						'trangthai',
-						'songaycongno'
+						'songaycongno',
+						'lydothu',
+						'thuphi'
 					);
 		$value=array(
 						
@@ -108,7 +113,9 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$congno,
 						$ghichu,
 						$trangthai,
-						$songaycongno
+						$songaycongno,
+						$lydothu,
+						$thuphi
 						);
 		if((int)$data['id'] == 0)
 		{

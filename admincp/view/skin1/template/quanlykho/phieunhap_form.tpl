@@ -83,6 +83,20 @@
                         <tbody id="nhapkhonguyenlieu">
                         </tbody>
                         <tfoot>
+                        	<tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                	
+                                    <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo $item['lydothu']?>"/>
+                                </td>
+                                <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo $this->string->numberFormate($item['thuphi'])?>"/></td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 <td></td>
                                 <td class="number">Tổng số lượng</td>
@@ -229,6 +243,9 @@ function intSelectNhanVien()
 $('#btnTrahet').click(function(e) {
     $('#thanhtoan').val($('#tongcong').html());
 	$('#thanhtoan').keyup();
+});
+$('#thuphi').keyup(function(e) {
+    objdl.tinhtong(0);
 });
 $('#thanhtoan').keyup(function(e) {
     var tongcong = Number(stringtoNumber($('#tongcong').html()));

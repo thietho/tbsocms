@@ -82,6 +82,8 @@ function PhieuNhapXuat()
 		$('.thanhtien').each(function(index, element) {
             sum += Number(stringtoNumber($(this).html()));
         });
+		var thuphi = Number(stringtoNumber($('#thuphi').val()));
+		sum+=thuphi;
 		$('#tongcong').html(formateNumber(sum));
 		$('#tongtien').val(sum);
 		var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
