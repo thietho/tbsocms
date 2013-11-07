@@ -310,10 +310,10 @@ class ControllerModuleProduct extends Controller
 		$mediaid = $this->request->get['mediaid'];
 		$this->data['media'] = $this->model_core_media->getItem($mediaid);
 		//Nhap kho
-		$where = " AND mediaid = '".$mediaid."' AND qlkphieunhapxuat.loaiphieu = 'NK'";
+		$where = " AND mediaid = '".$mediaid."' AND loaiphieu = 'NK'";
 		$data_nhapkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
 		//Xuat kho
-		$where = " AND mediaid = '".$mediaid."' AND qlkphieunhapxuat.loaiphieu = 'PBH'";
+		$where = " AND mediaid = '".$mediaid."' AND loaiphieu = 'PBH'";
 		$data_xuatkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
 		$arrdate = array();
 		foreach($data_nhapkho as $item)

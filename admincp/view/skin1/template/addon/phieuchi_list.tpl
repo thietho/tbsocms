@@ -78,7 +78,10 @@
                         <td><?php echo $item['chungtulienquan']?></td>
                         <td><?php echo $item['nguoithuchien']?></td>
                         <td><?php echo $item['tenkhachhang']?></td>
-                        <td><?php echo $this->document->getCategory($item['taikhoanthuchi'])?></td>
+                        <td>
+                        	<?php echo $this->document->getCategory($item['taikhoanthuchi'])?>
+                            <?php if($item['lydo']) echo " - ".$item['lydo']?>
+                        </td>
                         
                         <td class="number"><?php echo $this->string->numberFormate($item['sotien'])?></td>
                         <td class="link-control">

@@ -54,10 +54,8 @@
                         <th>Ngày lập</th>
                         <th>Số chứng từ</th>
                         <th>Tên nộp tiền</th>
-                        <th>Số điện thoại</th>
-                        <th>Địa chỉ</th>
-                        <th>Email</th>
                         <th>Người thu</th>
+                        <th>Tài khoản thu</th>
                         <th>Số tiền</th>
                         <th></th>                                  
                     </tr>
@@ -73,10 +71,12 @@
                         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
                         <td><?php echo $item['chungtulienquan']?></td>
                         <td><?php echo $item['tenkhachhang']?></td>
-                        <td><?php echo $item['dienthoai']?></td>
-                        <td><?php echo $item['diachi']?></td>
-                        <td><?php echo $item['email']?></td>
+                        
                         <td><?php echo $item['nguoithuchien']?></td>
+                        <td>
+                        	<?php echo $this->document->getCategory($item['taikhoanthuchi'])?>
+                            <?php if($item['lydo']) echo " - ".$item['lydo']?>
+                        </td>
                         <td class="number"><?php echo $this->string->numberFormate($item['sotien'])?></td>
                         <td class="link-control">
                         	<?php if($this->user->checkPermission("addon/phieuthu/update")==true){ ?>

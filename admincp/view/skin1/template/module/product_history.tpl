@@ -35,7 +35,7 @@
             <td><?php echo $item['nhapkho'][$i]['madonvi']?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['nhapkho'][$i]['giatien'])?></td>
             <td><?php echo $item['xuatkho'][$i]['maphieu']?></td>
-            <td><?php echo $item['xuatkho'][$i]['nguoinhan']?></td>
+            <td><?php echo $item['xuatkho'][$i]['tenkhachhang']?></td>
             <td><?php echo $item['xuatkho'][$i]['soluong']?></td>
             <td><?php echo $item['xuatkho'][$i]['madonvi']?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['xuatkho'][$i]['giatien'])?></td>
