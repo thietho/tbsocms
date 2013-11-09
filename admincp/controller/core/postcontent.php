@@ -43,6 +43,13 @@ class ControllerCorePostcontent extends Controller
 		
 		$sitemap = $this->model_core_sitemap->getItem($sitemapid, $siteid);	
 		
+		$this->data['color'] = array();
+		$this->model_core_category->getTree("color",$this->data['color']);
+		unset($this->data['color'][0]);
+		
+		$this->data['size'] = array();
+		$this->model_core_category->getTree("size",$this->data['size']);
+		unset($this->data['size'][0]);
 		
 		$this->data['nhomhuong'] = array();
 		$this->model_core_category->getTree("nhomhuong",$this->data['nhomhuong']);
@@ -126,7 +133,6 @@ class ControllerCorePostcontent extends Controller
 					{
 						$mediaparent = $this->model_core_media->getItem($this->data['post']['mediaparent']);
 						$this->data['post']['title'] = $mediaparent['title'];
-						$this->data['post']['code'] = $mediaparent['code'];
 						$this->data['post']['summary'] = $mediaparent['summary'];
 						$this->data['post']['description'] = $mediaparent['description'];
 						$this->data['post']['keyword'] = $mediaparent['keyword'];
@@ -484,6 +490,8 @@ class ControllerCorePostcontent extends Controller
 		$arr = $data['loaisp'];
 		$arr['nhomhuong'] = $data['nhomhuong'];
 		$arr['nhanhieu'] = $data['nhanhieu'];
+		$arr['color'] = $data['color'];
+		$arr['size'] = $data['size'];
 		$groupkeys = $this->string->arrayToString($arr);
 		return $groupkeys;	
 	}
@@ -503,7 +511,7 @@ class ControllerCorePostcontent extends Controller
 		$str = "";
 		
 		$route = $this->getRoute();
-		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid);
+		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid, "Active");
 		
 		foreach($sitemaps as $item)
 		{

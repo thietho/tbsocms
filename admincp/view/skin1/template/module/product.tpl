@@ -165,6 +165,11 @@ function Product()
 	}
 	this.selectGroup = function(mediaid)
 	{
+		if($('#selectmediaid').val() == mediaid)
+		{
+			alert('Bạn không thể đưa vào nhóm sản phẩm bạn dang chọn!!!')
+			return;
+		}
 		$.post("?route=core/media/updateCol",
 			{
 				mediaid:$('#selectmediaid').val(),

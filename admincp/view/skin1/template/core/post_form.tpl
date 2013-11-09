@@ -202,15 +202,8 @@ $('#title').change(function(e) {
 						$('#discountpercent').keyup(function(e) {
                             var price = Number(stringtoNumber($('#price').val()));
 							var discountpercent = Number(stringtoNumber($('#discountpercent').val()));
-							if(discountpercent ==0)
-							{
-								$('#pricepromotion').val(0);
-							}
-							else
-							{
-								var pricepromotion = price*( 1- discountpercent/100);
-								$('#pricepromotion').val(formateNumber(pricepromotion));
-							}
+							var pricepromotion = price*( 1- discountpercent/100);
+							$('#pricepromotion').val(formateNumber(pricepromotion));
                         });
 						
 						$('#pricepromotion').keyup(function(e) {
@@ -218,8 +211,6 @@ $('#title').change(function(e) {
 							var pricepromotion = Number(stringtoNumber($('#pricepromotion').val()));
 							var discountpercent = (1- pricepromotion/price)*100;
 							$('#discountpercent').val(formateNumber(discountpercent));
-							if(pricepromotion == 0)
-								$('#discountpercent').val(0);
                         });
 						</script>
                         <?php } ?>
@@ -297,7 +288,7 @@ $('#title').change(function(e) {
                         <textarea class="text" rows="3" cols="70" id="summary" name="summary"><?php echo $post['summary']?></textarea>
 <script language="javascript">
 $(document).ready(function(e) {
-    setCKEditorType('summary',0);
+    setCKEditorType('summary',2);
 });
 </script>
                     </p>
@@ -316,7 +307,28 @@ $(document).ready(function(e) {
             <div id="fragment-properties">
             	<div>
                 	
-                	
+                	<p>
+                    	<label>Màu sắc</label>
+                        <?php foreach($color as $it){ ?>
+                        <div>
+                        	
+                        	<?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?>
+                            <input type="checkbox"  name="loaisp[<?php echo $it['categoryid']?>]" value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'checked="checked"':''; ?> />
+                            <?php echo $it['categoryname']?>
+                        </div>
+                        <?php } ?>
+                    </p>
+                    <p>
+                    	<label>Size</label>
+                        <?php foreach($size as $it){ ?>
+                        <div>
+                        	
+                        	<?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?>
+                            <input type="checkbox"  name="loaisp[<?php echo $it['categoryid']?>]" value="<?php echo $it['categoryid']?>" <?php echo in_array($it['categoryid'],$properties)?'checked="checked"':''; ?> />
+                            <?php echo $it['categoryname']?>
+                        </div>
+                        <?php } ?>
+                    </p>
                     <p>
                     	<label><?php echo $text_status?></label>
                         <?php foreach($statuspro as $it){ ?>
@@ -482,7 +494,7 @@ function removeSubInfor(mediaid)
 </script>
 <script language="javascript">
 $(document).ready(function() { 
-	setCKEditorType('sub_description',0);
+	setCKEditorType('sub_description',2);
 	$("#subinforlist").load("?route=core/postcontent/loadSubInfor&mediaid="+$("#mediaid").val());
 })
 </script>
@@ -590,7 +602,7 @@ var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
 var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
 $(document).ready(function() { 
 	
-	setCKEditorType('editor1',0);
+	setCKEditorType('editor1',2);
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 	
 });
