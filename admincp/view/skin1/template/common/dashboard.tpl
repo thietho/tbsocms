@@ -33,6 +33,16 @@
             		<label><?php echo $dash_email ?></label><br />
 					<input type="text" name="EmailContact" value="<?php echo $item['EmailContact']?>" class="text" size=60 />
             	</p>
+                <p>
+                    <label>Keyword</label><br />
+                    <textarea name="Keyword"><?php echo $item['Keyword']?></textarea>
+                        
+                </p>
+				<p>
+                    <label>Mô tả</label><br />
+                    <textarea name="Description"><?php echo $item['Description']?></textarea>
+                        
+                </p>
             </div>
             <div>
             	<!--<h3>Trang chủ</h3>-->
@@ -61,12 +71,75 @@ function browserFile(eid,type)
 {
     $('#handler').val(eid);
 	$('#outputtype').val(type);
-	showPopup("#popup", 800, 500);
-	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
-	$("#popup").load("?route=core/file&dialog=true")
+	$("#popup").attr('title','Chọn hình');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: $(document).width()-100,
+			height: 600,
+			modal: true,
+			
+		});
+	
+		
+		$("#popup-content").load("?route=core/file&dialog=true&type=single",function(){
+			$("#popup").dialog("open");	
+		});
 		
 }
+function intSeleteFile(type)
+{
+	
+	switch(type)
+	{
+		case "single":
+			$('.filelist').click(function(e) {
+				$('#'+ $('#handler').val()).html($(this).attr('filepath'))
+				$('#'+ $('#handler').val()+'_filepath').val($(this).attr('filepath'));
+				
+				/*$('#imagepreview').attr('src',$(this).attr('imagethumbnail'));
+				$('#imageid').val(this.id);
+				$('#imagepath').val($(this).attr('filepath'));
+				$('#imagethumbnail').val($(this).attr('imagethumbnail'));*/
+				$("#popup").dialog( "close" );
+				
+				
+			});			
+			break;
+			
+		case "editor":
+			$('.filelist').click(function(e) {
 
+				
+				width = "";
+							
+				var value = "<img src='<?php echo HTTP_IMAGE?>"+$(this).attr('filepath')+"'/>";
+				
+				var oEditor = CKEDITOR.instances['editor1'] ;
+				
+				
+				// Check the active editing mode.
+				if (oEditor.mode == 'wysiwyg' )
+				{
+					// Insert the desired HTML.
+					oEditor.insertHtml( value ) ;
+					
+					var temp = oEditor.getData()
+					oEditor.setData( temp );
+				}
+				else
+					alert( 'You must be on WYSIWYG mode!' ) ;
+				$("#popup").dialog( "close" );
+			});			
+			break;
+		case "multi":
+			$('.filelist').click(function(e) {
+                //$('#popup-seletetion').append($(this))
+            });
+			break;
+	}
+}
 function addImageTo()
 {
 	var str= trim($("#listselectfile").val(),",");

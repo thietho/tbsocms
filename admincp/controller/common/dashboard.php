@@ -24,6 +24,8 @@ class ControllerCommonDashboard extends Controller
 		$this->data['item']['Slogan'] = $this->model_core_media->getInformation($this->data['item']['mediaid'], 'Slogan');
 		$this->data['item']['Currency'] = $this->model_core_media->getInformation($this->data['item']['mediaid'], 'Currency');
 		$this->data['item']['EmailContact'] = $this->model_core_media->getInformation($this->data['item']['mediaid'], 'EmailContact');
+		$this->data['item']['Keyword'] = $this->model_core_media->getInformation($this->data['item']['mediaid'], 'Keyword');
+		$this->data['item']['Description'] = $this->model_core_media->getInformation($this->data['item']['mediaid'], 'Description');
 		
 		
 		$this->data['item']['brochure'] = $this->model_core_media->getInformation($this->data['item']['mediaid'], 'brochure');
@@ -39,7 +41,8 @@ class ControllerCommonDashboard extends Controller
 		$this->model_core_media->saveInformation($data['mediaid'],"Slogan",$data['Slogan']);
 		$this->model_core_media->saveInformation($data['mediaid'],"Currency",$data['Currency']);
 		$this->model_core_media->saveInformation($data['mediaid'],"EmailContact",$data['EmailContact']);
-		
+		$this->model_core_media->saveInformation($data['mediaid'],"Keyword",$data['Keyword']);
+		$this->model_core_media->saveInformation($data['mediaid'],"Description",$data['Description']);
 		
 		$this->model_core_media->saveInformation($data['mediaid'],"brochure",$data['brochure']);
 		$this->data['output'] = "true";
