@@ -123,6 +123,10 @@ $('#title').change(function(e) {
                             </select>
                         </p>
                         <p>
+                        	<label>Chú thích</label><br>
+                            <input class="text" type="text" id="noted" name="noted" value="<?php echo $post['noted']?>" size="60" />
+                        </p>
+                        <p>
                         	<label>Đơn vị</label><br>
                             <select id="unit" name="unit">
                             	

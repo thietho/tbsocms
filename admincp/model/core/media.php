@@ -480,7 +480,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$viewcount=(int)@$data['viewcount'];
 
 		$updateddate = $this->date->getToday();
-		
+		$noted=$this->db->escape(@$data['noted']);
 		$field=array(
 						'code',
 						'sizes',
@@ -508,7 +508,8 @@ class ModelCoreMedia extends ModelCoreFile
 						'filepath',
 						'groupkeys',
 						'status',
-						'updateddate'
+						'updateddate',
+						'noted'
 					);
 		$value=array(
 						$code,
@@ -537,7 +538,8 @@ class ModelCoreMedia extends ModelCoreFile
 						$filepath,
 						$groupkeys,
 						$status,
-						$updateddate
+						$updateddate,
+						$noted
 					);
 		
 		$where="mediaid = '".$mediaid."'";
