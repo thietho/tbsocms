@@ -218,7 +218,7 @@ class ControllerCoreMember extends Controller
 		}
 		
 		//Lay tat ca phieu ban hang
-		$where = " AND loaiphieu = 'PBH' AND nguoinhanid = '".$id."'";
+		$where = " AND loaiphieu = 'PBH' AND khachhangid = '".$id."'";
 		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
 		$tongno = 0;
 		foreach($this->data['data_phieubanhang'] as $item)
