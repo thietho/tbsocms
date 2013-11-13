@@ -216,7 +216,7 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		
 		$this->id='content';
 		$this->template='quanlykho/nhacungcap_form.tpl';
-		$this->layout="layout/center";
+		
 		
 		$this->render();
 	}

@@ -8,8 +8,7 @@
     	<form id="frm" name="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="Save" class="button" onclick="save()"/>
-     	        <input type="button" value="Cancel" class="button" onclick="linkto('<?php echo $cancel?>')"/>   
+            	
      	        <input type="hidden" name="id" value="<?php echo $user['id']?>" />   
                 <input type="hidden" name="usertypeid" value="member" />   
             </div>
@@ -75,27 +74,3 @@
     </div>
     
 </div>
-<script language="javascript">
-function save()
-{
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
-	
-	$.post("?route=core/member/save", $("#frm").serialize(),
-		function(data){
-			var arr = data.split("-");
-			if(arr[0] == "true")
-			{
-				window.location = "?route=core/member";
-			}
-			else
-			{
-			
-				$('#error').html(data).show('slow');
-				$.unblockUI();
-				
-			}
-			
-		}
-	);
-}
-</script>

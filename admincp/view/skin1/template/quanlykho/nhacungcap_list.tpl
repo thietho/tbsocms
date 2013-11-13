@@ -26,12 +26,15 @@
             </div>
         	<div class="button right">
             	<?php if($dialog==true){ ?>
-            	
+            	<?php if($this->user->checkPermission("quanlykho/nhacungcap/insert")==true){ ?>
+                <input class="button" value="Thêm" type="button" onclick="showNhaCungCapForm('','searchForm()')">
+                <?php } ?>
+                
                 <?php }else{ ?>
                 
                
                 <?php if($this->user->checkPermission("quanlykho/nhacungcap/insert")==true){ ?>
-                <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo $insert?>')">
+                <input class="button" value="Thêm" type="button" onclick="showNhaCungCapForm('','searchForm()')">
                 <?php } ?>
                 <?php if($this->user->checkPermission("quanlykho/nhacungcap/delete")==true){ ?>
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>

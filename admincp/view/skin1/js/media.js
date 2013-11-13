@@ -438,16 +438,17 @@ function browseProduct()
 
 		});
 }
-function showMemberForm(memberid)
+function showMemberForm(memberid,strFun)
 {
 	$('body').append('<div id="frm_member" style="display:none"></div>');
 	var eid = "#frm_member";
-	$(eid).attr('title','Thư mục');
+	$(eid).attr('title','Thông tin khách hàng');
 		$( eid ).dialog({
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: $(document).width()-100,
+			//width: $(document).width()-100,
+			width: 600,
 			height: 600,
 			modal: true,
 			close:function()
@@ -469,6 +470,9 @@ function showMemberForm(memberid)
 							if(arr[0] == "true")
 							{
 								//window.location = "?route=core/member";\
+								alert("Lưu thành công!");
+								if(strFun!="")
+									var ret = eval(strFun);
 								$(eid).dialog( "close" );
 							}
 							else
@@ -478,7 +482,7 @@ function showMemberForm(memberid)
 								$.unblockUI();
 								
 							}
-							
+							$.unblockUI();
 						}
 					);	
 						
@@ -494,9 +498,82 @@ function showMemberForm(memberid)
 				},
 			}
 		});
+		var url = "?route=core/member/insert&dialog=true";
+		if(memberid)
+		{
+			url = "?route=core/member/update&id="+memberid+"&dialog=true";
+		}
+		$(eid).load(url,function(){
+			$(eid).dialog("open");	
+		});
+}
+function showNhaCungCapForm(nhacungcapid,strFun)
+{
+	$('body').append('<div id="frm_member" style="display:none"></div>');
+	var eid = "#frm_member";
+	$(eid).attr('title','Thông tin khách hàng');
+		$( eid ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			//width: $(document).width()-100,
+			width: 600,
+			height: 600,
+			modal: true,
+			close:function()
+				{
+					$(eid).remove();
+				},
+			buttons: {
+				
+				
+				
+				'Lưu':function()
+				{
+					
+					
+					$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 	
-		
-		$(eid).load("?route=core/member/insert&dialog=true",function(){
+					$.post("?route=quanlykho/nhacungcap/save", $("#frm").serialize(),
+						function(data){
+							var arr = data.split("-");
+							if(arr[0] == "true")
+							{
+								//window.location = "?route=core/member";\
+								alert("Lưu thành công!");
+								if(strFun!="")
+									var ret = eval(strFun);
+								$(eid).dialog( "close" );
+							}
+							else
+							{
+							
+								$('#error').html(data).show('slow');
+								$.unblockUI();
+								
+							}
+							$.unblockUI();
+						}
+					);	
+						
+						
+                    
+					
+				},
+				'Đóng': function() 
+				{
+					
+					$(eid).dialog( "close" );
+					
+				},
+			}
+		});
+		var url = "?route=quanlykho/nhacungcap/insert&dialog=true";
+		if(nhacungcapid)
+		{
+			url = "?route=quanlykho/nhacungcap/update&id="+nhacungcapid+"&dialog=true";
+		}
+		$(eid).load(url,function(){
 			$(eid).dialog("open");	
 		});
 }

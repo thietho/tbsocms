@@ -35,7 +35,7 @@
                         <?php if($dialog!=true){ ?>
                         <td class="link-control">
                         	<?php if($this->user->checkPermission("core/member/update")==true){ ?>
-                            <input type="button" class="button" value="<?php echo $user['text_edit']?>" onclick="window.location='<?php echo $user['link_edit']?>'"/>
+                            <input type="button" class="button" value="<?php echo $user['text_edit']?>" onclick="showMemberForm(<?php echo $user['id']?>,'searchForm()')"/>
                             <?php } ?>
                             <?php if($this->user->checkPermission("core/member/active")==true){ ?>
                             <input type="button" class="button" value="<?php echo $user['text_active']?>" onclick="activeUser('<?php echo $user['id']?>')"/>

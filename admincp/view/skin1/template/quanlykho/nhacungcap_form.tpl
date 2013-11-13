@@ -7,8 +7,7 @@
     	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="Lưu" class="button" onClick="save()"/>
-     	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/nhacungcap')"/>   
+            	
      	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
                 
             </div>
@@ -61,29 +60,4 @@
     </div>
     
 </div>
-<script language="javascript">
-
-function save()
-{
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
-	
-	$.post("?route=quanlykho/nhacungcap/save", $("#frm").serialize(),
-		function(data){
-			if(data == "true")
-			{
-				window.location = "?route=quanlykho/nhacungcap";
-			}
-			else
-			{
-			
-				$('#error').html(data).show('slow');
-				$.unblockUI();
-				
-			}
-			
-		}
-	);
-}
-
-</script>
 
