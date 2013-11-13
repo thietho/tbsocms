@@ -438,4 +438,65 @@ function browseProduct()
 
 		});
 }
-
+function showMemberForm(memberid)
+{
+	$('body').append('<div id="frm_member" style="display:none"></div>');
+	var eid = "#frm_member";
+	$(eid).attr('title','Thư mục');
+		$( eid ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: $(document).width()-100,
+			height: 600,
+			modal: true,
+			close:function()
+				{
+					$(eid).remove();
+				},
+			buttons: {
+				
+				
+				
+				'Lưu':function()
+				{
+					
+					$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	
+					$.post("?route=core/member/save", $("#frm").serialize(),
+						function(data){
+							var arr = data.split("-");
+							if(arr[0] == "true")
+							{
+								//window.location = "?route=core/member";\
+								$(eid).dialog( "close" );
+							}
+							else
+							{
+							
+								$('#error').html(data).show('slow');
+								$.unblockUI();
+								
+							}
+							
+						}
+					);	
+						
+						
+                    
+					
+				},
+				'Đóng': function() 
+				{
+					
+					$(eid).dialog( "close" );
+					
+				},
+			}
+		});
+	
+		
+		$(eid).load("?route=core/member/insert&dialog=true",function(){
+			$(eid).dialog("open");	
+		});
+}

@@ -9,7 +9,7 @@
         	<div class="button right">
                	<?php if($dialog!=true){ ?>
                 <?php if($this->user->checkPermission("core/member/insert")==true){ ?>
-                <input type="button" class="button" value="Thêm" onclick="window.location='<?php echo $insert?>'" />
+                <input type="button" class="button" value="Thêm" onclick="showMemberForm('')" />
                 <?php } ?>
                 <?php if($this->user->checkPermission("core/member/delete")==true){ ?>
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteUser()"/>  

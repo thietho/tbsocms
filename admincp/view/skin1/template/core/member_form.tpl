@@ -22,7 +22,7 @@
                 <p>
             		<label>Full name</label><br />
 					<input type="text" name="fullname" value="<?php echo $user['fullname']?>" class="text" size=60 autocomplete="on" />
-                    <i class="error"><?php echo $error['fullname']?></i>
+                    
             	</p>
                 <p>
             		<label>Birthday</label><br />
@@ -41,12 +41,12 @@
                 <p>
             		<label>Email</label><br />
 					<input type="text" name="email" value="<?php echo $user['email']?>" class="text" size=60 />
-                    <i class="error"><?php echo $error['email']?></i>
+                    
             	</p>
                 <p>
             		<label>Phone</label><br />
 					<input type="text" name="phone" value="<?php echo $user['phone']?>" class="text" size=60 />
-                    <i class="error"><?php echo $error['phone']?></i>
+                    
             	</p>
                 <p>
             		<label>Address</label><br />
