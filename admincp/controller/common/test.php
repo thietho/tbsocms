@@ -4,8 +4,8 @@ class ControllerCommonTest extends Controller
 	
 	function sendmail()
 	{
-		$mail['from'] = "info@chubbykids.us";
-		$mail['FromName'] = "chubbykids.us";
+		$mail['from'] = "cosmetics@mylanbeauty.net";
+		$mail['FromName'] = "Mỹ Lan Beauty Shop";
 		$mail['to'] = "thietho1982@gmail.com";
 		$mail['name'] = "Thiet Ho";
 		$mail['subject'] =  "Test send mail";
