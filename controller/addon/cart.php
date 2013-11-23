@@ -39,7 +39,7 @@ class ControllerAddonCart extends Controller
 		$price = $media['price'];
 		if($media['pricepromotion'])
 			$price = $media['pricepromotion'];
-		$parent = $this->model_core_media->getItem($media['mediaparent']);
+		/*$parent = $this->model_core_media->getItem($media['mediaparent']);
 		if(count($parent))
 		{
 			$media['imagethumbnail'] = HelperImage::resizePNG($parent['imagepath'], 100, 100);
@@ -55,7 +55,13 @@ class ControllerAddonCart extends Controller
 			$price = $media['price'];
 			if($media['pricepromotion'])
 				$price = $media['pricepromotion'];
-		}
+		}*/
+		$media['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 100, 100);
+		$title = $media['title'];
+		$price = $media['price'];
+		$price = $media['price'];
+		if($media['pricepromotion'])
+			$price = $media['pricepromotion'];
 		$qty =(int)$_SESSION['cart'][$mediaid]['qty'];
 		
 		$_SESSION['cart'][$mediaid] = array(

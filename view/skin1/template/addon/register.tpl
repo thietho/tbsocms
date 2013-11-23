@@ -46,19 +46,7 @@
 				 </script>
                 <td><input type="text" id="birthday" name="birthday" class="ben-textbox" size="40"></td>
             </tr>
-            <tr>
-            	<td><label>Ngày sinh của bé</label></td>
-                <script language="javascript">
-					$(function() {
-						$("#birthdaykids").datepicker({
-								changeMonth: true,
-								changeYear: true,
-								dateFormat: 'dd-mm-yy'
-								});
-						});
-				 </script>
-                <td><input type="text" id="birthdaykids" name="birthdaykids" class="ben-textbox" size="40"></td>
-            </tr>
+            
             <tr>
             	<td></td>
                 <td>

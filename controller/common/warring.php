@@ -18,7 +18,7 @@ class ControllerCommonWarring extends Controller
 		$media = $this->model_core_media->getItem($mediaid);
 		$price = $media['price'];
 		$parent = $this->model_core_media->getItem($media['mediaparent']);
-		if(count($parent))
+		/*if(count($parent))
 		{
 			$media['imagethumbnail'] = HelperImage::resizePNG($parent['imagepath'], 100, 100);
 			$title = $parent['title'];
@@ -30,7 +30,8 @@ class ControllerCommonWarring extends Controller
 		{
 			$media['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 100, 100);
 			
-		}
+		}*/
+		$media['imagethumbnail'] = HelperImage::resizePNG($media['imagepath'], 100, 100);
 		return $media;
 	}
 	

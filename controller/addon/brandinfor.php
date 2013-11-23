@@ -11,7 +11,7 @@ class ControllerAddonBrandinfor extends Controller
 		$mediaid = $this->member->getSiteId()."cat".$id;
 		$this->data['media'] = $this->model_core_media->getItem($mediaid);
 		
-		$this->document->title .= " - ".$this->data['media']['title'];
+		$this->document->title .= $this->data['media']['title'];
 		
 		$this->data['media']['imagethumbnail'] = HelperImage::resizePNG($this->data['media']['imagepath'], 300,0);
 		$this->data['media']['summary'] = html_entity_decode($this->data['media']['summary']);

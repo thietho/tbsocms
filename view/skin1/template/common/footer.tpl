@@ -4,27 +4,25 @@
         
         
         
-        <p>&copy; 2013 Customer Name. All rights Reserved</p>
-
-        <p class="ben-other">
-        	<a target="_blank" href="http://holansolutions.com">Website powered</a> by <a target="_blank" href="http://holansolutions.com">www.holansolutions.com</a></p>
+        
+        <div class="ben-other">
+        	<table>
+            	<tr>
+                	<td>Website Design by</td>
+                    <td> <img src="<?php echo HTTP_SERVER.DIR_IMAGE?>logo-small.png" alt="" /></td>
+                </tr>
+            </table>
+        	
+       	</div>
         
         <div class="clearer">&nbsp;</div>
 
     </div>
 
-    <!--<div class="ben-right" id="ben-footer-right">
-
-        <p class="ben-small">
-        	<a href="index.php?route=page/home">Home</a> <span class="ben-text-separator">|</span> 
-            <a href="index.php?route=pagesample/leftsidebar">Left Sidebar</a> <span class="ben-text-separator">|</span> 
-            <a href="index.php?route=pagesample/singlecolumn">Single Column</a> <span class="ben-text-separator">|</span> 
-            <a href="index.php?route=pagesample/threecolumn">Three Column</a> <span class="ben-text-separator">|</span> 
-            <strong><a href="index.php?route=pagesample/styledemo">Style Demo</a></strong> <span class="ben-text-separator">|</span> 
-            <a href="#top" class="ben-other">Page Top &uarr;</a>
-        </p>
+    <div class="ben-right" id="ben-footer-right">
+        Địa chỉ: 575/84 CMT8, P.15, Q.10, Tp.HCM (Lầu 1) <strong>Hotline: 0903 76 75 80 - 0906 965 338</strong>
     
-    </div>-->
+    </div>
 
     <div class="clearer">&nbsp;</div>
 

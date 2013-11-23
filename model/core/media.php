@@ -56,40 +56,21 @@ class ModelCoreMedia extends ModelCoreFile
 		$from = (int)$step * (int)$to;
 		
 		//All Options
-		@$keyword = $options['keyword'];
-		@$mediaparent = $options['mediaparent'];
+		$keyword = $options['keyword'];
+		$mediaparent = $options['mediaparent'];
 		$mediatype = $options['mediatype'];
-		@$day = $options['day'];
-		@$month = $options['month'];
-		@$year = $options['year'];
-		@$refersitemap = $options['refersitemap'];
-		@$groupkeys = $options['groupkeys'];
+		$day = $options['day'];
+		$month = $options['month'];
+		$year = $options['year'];
+		$refersitemap = $options['refersitemap'];
+		$groupkeys = $options['groupkeys'];
 		
 		//Where Command
 		$where = "";
 		//keyword
 		if($keyword !="")
 		{
-			
-			$arrkey = split(' ', $keyword);
-			$arr = array();
-			
-			foreach($arrkey as $key)
-			{
-				$arr[] = "title like '%".$key."%'";
-			}
-			$arrsummary= array();
-			foreach($arrkey as $key)
-			{
-				$arrsummary[] = "summary like '%".$key."%'";
-			}
-			$arrdescription= array();
-			foreach($arrkey as $key)
-			{
-				$arrdescription[] = "description like '%".$key."%'";
-			}
-			$where .= " AND ((". implode(" AND ",$arr). ") OR (". implode(" AND ",$arrsummary). ") OR (". implode(" AND ",$arrdescription). "))";
-			
+			$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
 		}
 		//Media Parent
 		if(is_array($mediaparent))
@@ -249,10 +230,10 @@ class ModelCoreMedia extends ModelCoreFile
 		return $query->rows;
 	}
 	
-	public function getListByParent($parent,$order = "", $from=0, $length=0)
+	public function getListByParent($parent, $w="")
 	{
-		$where = "AND mediaparent = '".$parent."' ".$order;		
-		return $this->getMedias($where, $from, $length);		
+		$where = "AND mediaparent = '".$parent."'" . $w;		
+		return $this->getList($where);		
 		
 		
 	}

@@ -25,7 +25,7 @@ class ControllerSitebarQuestion extends Controller
 		{
 			$index += 1;
 			
-			$link = $this->document->createLink($sitemapid,$media['mediaid']);
+			$link = $this->document->createLink($sitemapid,$media['alias']);
 			
 			$imagethumbnail = "";
 			if($media['imagepath'] != ""  )

@@ -33,7 +33,7 @@
        
        
        
-       <p><?php echo @$currencyexchange_text_amount?></p>
+       <p><?php echo $currencyexchange_text_amount?></p>
        <p>
        	<input type="text" id="amount" class="ben-textbox number" />&nbsp;&nbsp;
         <input type="button" class="ben-button" value="Qui đổi" onclick="changeRate()"/>
@@ -44,7 +44,7 @@
       
       
       
-      <p><?php echo @$currencyexchange_text_result?></p>
+      <p><?php echo $currencyexchange_text_result?></p>
       <p>
         <input type="text" id="result" class="ben-textbox number" readonly="readonly"/>
       </p>

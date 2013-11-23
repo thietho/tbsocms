@@ -1,8 +1,8 @@
 <?php if(count($medias)){ ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo HTTP_SERVER.DIR_VIEW?>css/preview.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo HTTP_SERVER.DIR_VIEW?>css/wt-rotator.css"/>
-	<script type="text/javascript" src="<?php echo HTTP_SERVER.DIR_VIEW?>js/jquery.wt-rotator.min.js"></script>
-	<script type="text/javascript" src="<?php echo HTTP_SERVER.DIR_VIEW?>js/preview.js"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo DIR_VIEW?>css/preview.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo DIR_VIEW?>css/wt-rotator.css"/>
+	<script type="text/javascript" src="<?php echo DIR_VIEW?>js/jquery.wt-rotator.min.js"></script>
+	<script type="text/javascript" src="<?php echo DIR_VIEW?>js/preview.js"></script>
     <div class="container">
         <div class="wt-rotator">
             <a href="#"></a>            

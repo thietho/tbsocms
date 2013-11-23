@@ -136,8 +136,11 @@ class ModelCoreSitemap extends Model
 		$strBreadcrumb = "<a href='".HTTP_SERVER."'>Trang chủ</a>";
 		for($i=count($data)-1;$i>$end;$i--)
 		{
-			
-			$link = "<a href='".$this->document->createLink($data[$i]['sitemapid'])."'>".$data[$i]['sitemapname']."</a>";
+			$link = "".$data[$i]['sitemapname']."";
+			if($data[$i]['modulepath'] != "")
+			{
+				$link = "<a class='ben-smaller' href='index.php?route=page/detail&sitemapid=".$data[$i]['sitemapid']."'>".$data[$i]['sitemapname']."</a>";
+			}
 			$strBreadcrumb .= " &#187; ".$link; 
 		}
 		return $strBreadcrumb;
@@ -277,7 +280,7 @@ class ModelCoreSitemap extends Model
 		
 		$rows = $this->getListByParent($id, $siteid);
 		
-		$arr['countchild'] = count(rows);
+		$arr['countchild'] = count($rows);
 		
 		if($arr['sitemapparent'] != "") $parentpath .= "-".$arr['sitemapparent'];
 		

@@ -64,8 +64,8 @@ class ControllerModuleContact extends Controller
 			$message['folder']="inbox";
 			$this->model_core_message->insert($message);
 			
-			//$mail['from'] = $data['email'];
-			//$mail['FromName'] = $data['fullname'];
+			$mail['from'] = $data['email'];
+			$mail['FromName'] = $data['fullname'];
 			$mail['to'] = implode(",",$arrmail);
 			$mail['name'] = "";
 			$mail['subject'] =  $message['title'];

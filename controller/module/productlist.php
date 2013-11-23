@@ -20,7 +20,7 @@ class ControllerModuleProductlist extends Controller
 		$this->data['sitemap']['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($sitemapid, $siteid);
 		if($headername!="")
 			$this->data['sitemap']['sitemapname'] = $headername;
-		$this->document->title .= " - ".$this->data['sitemap']['sitemapname'];
+		
 		
 		$step = (int)$this->request->get['step'];
 		$to = $count;
@@ -36,7 +36,7 @@ class ControllerModuleProductlist extends Controller
 		}
 		
 		$queryoptions = array();
-		$queryoptions['mediaparent'] = '%';
+		$queryoptions['mediaparent'] = '';
 		$queryoptions['mediatype'] = '%';
 		$queryoptions['refersitemap'] = $listsitemap;
 		$order = $_GET['order'];
@@ -161,7 +161,6 @@ class ControllerModuleProductlist extends Controller
 		$this->data['sitemap']['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($sitemapid, $siteid);
 		if($headername!="")
 			$this->data['sitemap']['sitemapname'] = $headername;
-		$this->document->title .= " - ".$this->data['sitemap']['sitemapname'];
 		
 		$step = (int)$this->request->get['step'];
 		$to = $count;
@@ -177,7 +176,7 @@ class ControllerModuleProductlist extends Controller
 		}
 		
 		$queryoptions = array();
-		$queryoptions['mediaparent'] = '%';
+		$queryoptions['mediaparent'] = '';
 		$queryoptions['mediatype'] = '%';
 		$queryoptions['refersitemap'] = $listsitemap;
 		
@@ -195,7 +194,7 @@ class ControllerModuleProductlist extends Controller
 				$orderby = " ORDER BY `price` DESC";
 				break;
 			default:
-				$orderby = " ORDER BY `updateddate` DESC";
+				$orderby = " ORDER BY position,`title` DESC";
 		}
 		if($mediaid == "")
 		{
@@ -205,12 +204,12 @@ class ControllerModuleProductlist extends Controller
 				$medias = $this->model_core_media->getPaginationList($queryoptions,0,0,$orderby);
 			}
 			
-			
+			//print_r($medias);
 			$this->data['medias'] = array();
 			
 		
 			$index = -1;
-			foreach($medias as $media)
+			foreach($medias as $i => $media)
 			{
 				$index += 1;
 				//$media = $medias[$i];
@@ -222,35 +221,23 @@ class ControllerModuleProductlist extends Controller
 				
 				$imagethumbnail = "";
 				
-				if($media['imagepath'] != "" )
+				//if($media['imagepath'] != "" )
 				{
 					$imagethumbnail = HelperImage::resizePNG($media['imagepath'], $template['width'], $template['height']);
 					$imagetpreview = HelperImage::resizePNG($media['imagepath'], $template['widthpreview'], $template['heightpreview']);
 				}
 				
 				$priceproduct = $this->model_core_media->getListByParent($media['mediaid']," AND mediatype = 'price' Order by position");
-				$price = $media['price'];
-				if($price == 0)
-				{
-					$price = $priceproduct[0]['price'];
-					$volume = $priceproduct[0]['title'];
-					
-				}
+				
+				
 				$properties = $this->string->referSiteMapToArray($media['groupkeys']);
-				$this->data['medias'][] = array(
-					'mediaid' => $media['mediaid'],
-					'title' => $media['title'],
-					'keyword' => $media['keyword'],
-					'summary' => $media['summary'],
-					'price' => $price,
-					'volume' => $volume,
-					'properties' => $properties,
-					'imagethumbnail' => $imagethumbnail,
-					'imagetpreview' => $imagetpreview,
-					'fileid' => $media['imageid'],
-					'statusdate' => $this->date->formatMySQLDate($media['statusdate'], 'longdate', "/"),
-					'link' => $link
-				);
+				$this->data['medias'][$i] =$media;
+				$this->data['medias'][$i]['link']= $link;
+				$this->data['medias'][$i]['properties']= $properties;
+				$this->data['medias'][$i]['imagethumbnail']= $imagethumbnail;
+				$this->data['medias'][$i]['imagetpreview']= $imagetpreview;
+				$this->data['medias'][$i]['statusdate']= $this->date->formatMySQLDate($media['statusdate'], 'longdate', "/");
+				
 				
 			}
 			
