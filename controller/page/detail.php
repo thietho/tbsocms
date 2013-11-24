@@ -228,7 +228,7 @@ class ControllerPageDetail extends Controller
 	private function loadSiteBar()
 	{
 		//Left sitebar
-		$arr = array('san-pham');
+		$arr = array('sanpham');
 		$this->data['leftsitebar']['produtcategory'] = $this->loadModule('sitebar/catalogue','index',$arr);
 		$this->data['leftsitebar']['supportonline'] = $this->loadModule('sitebar/supportonline');
 		//$this->data['leftsitebar']['exchange'] = $this->loadModule('sitebar/exchange');
