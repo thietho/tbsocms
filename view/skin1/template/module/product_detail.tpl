@@ -1,4 +1,4 @@
-<h3><?php echo $sitemap['sitemapname'] ?></h3>
+
 
 <h2><?php echo $sitemap['breadcrumb']?></h2>
 <div class="ben-post">
@@ -140,8 +140,16 @@ $("#ben-next").click(function(){
     </div>
     <div class="ben-right product-right">
         <h2><?php echo $post['title']?></h2>
-        <?php if($post['noted']!="") echo "<h4>".$post['noted']."</h4>";?>
+        <?php if($post['noted'] != "") echo "<h4>".$post['noted']."</h4>"; ?>
         
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>        
         
         <div class="fb-like" data-href="<?php echo $post['link']?>" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
         
@@ -150,7 +158,7 @@ $("#ben-next").click(function(){
             	<table>
                 	<?php if($post['code'] != ""){ ?>
                     <tr>
-                    	<td><strong>Mã số:</strong></td>
+                    	<td><strong>Model:</strong></td>
                         <td>
                         	
                             <?php echo $post['code']?>
@@ -174,12 +182,32 @@ $("#ben-next").click(function(){
                             
                         </td>
                     </tr>
+                    <?php if($post['sizes'] != ""){ ?>
+                    <tr>
+                    	<td><strong>Qui cách:</strong></td>
+                        <td>
+                        	
+                            <?php echo $post['sizes']?>
+                            
+                        </td>
+                    </tr>
+                    <?php } ?>
                     <?php if($post['color'] != ""){ ?>
                     <tr>
                     	<td><strong>Màu:</strong></td>
                         <td>
                         	
                             <?php echo $post['color']?>
+                            
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    <?php if($post['material'] != ""){ ?>
+                    <tr>
+                    	<td><strong>Chất liệu:</strong></td>
+                        <td>
+                        	
+                            <?php echo $post['material']?>
                             
                         </td>
                     </tr>
@@ -197,7 +225,8 @@ $("#ben-next").click(function(){
                             <?php } ?>
                                 
                             <span  class="product-price <?php echo $cls?>"><?php echo $this->string->numberFormate($post['price'])?> <?php echo $this->document->setup['Currency']?></span>
-                            <input type="button" class="ben-button" onclick="cart.add('<?php echo $post['mediaid']?>')" value="Đặt hàng">
+                            <input type="button" class="cart-order" onclick="cart.add('<?php echo $post['mediaid']?>')" value="Đặt hàng">
+                            
                         </td>
                     </tr>
                     <?php } ?>
@@ -295,53 +324,54 @@ $("#ben-next").click(function(){
     
     <div class="clearer">&nbsp;</div>
 </div>
-<div class=" ben-section-title">Sản phẩm cùng nhãn hiệu</div>
-<?php echo $saphamcungnhanhieu?>
 
 <?php echo $comment?>
-<div class=" ben-section-title">Gửi Nhận xét về <?php echo $post['title']?></div>
+<div class="ben-section-breadcrumb">Gửi Nhận xét về <?php echo $post['title']?></div>
 <div id="comment-warning" class="ben-error ben-hidden"></div>
-<form id="frmComment">
-<input type="hidden" name="mediaid" value="<?php echo $post['mediaid']?>" />
-<div class="ben-post ben-comment">
-	<table>
-    	<tr>
-        	<td>
-            	<table>
-                	<tr>
-                    	<td>Họ tên:</td>
-                        <td><input type="text" class="ben-textbox" name="fullname" /></td>
-                    </tr>
-                    <tr>
-                    	<td>Đánh giá:</td>
-                        <td>
-                        	<select name="level" class="ben-textbox">
-                            	<option value="">Chưa đánh giá</option>
-                                <?php for($i=1;$i<=5;$i++){ ?>
-                                <option value="<?php echo $i?>"><?php echo $i?> sao</option>
-                                <?php } ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                    	<td>Email:</td>
-                        <td><input type="text" class="ben-textbox" name="email"/></td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-            	<table>
-                	<tr>
-                    	<td>Nội dung:</td>
-                        <td><textarea name="description" class="ben-textbox"></textarea></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-    <input type="button" class="ben-button ben-center" value="Gửi nhận xét" onclick="sendComment()"/>
+<div class="ben-section-content">
+	<form id="frmComment">
+    <input type="hidden" name="mediaid" value="<?php echo $post['mediaid']?>" />
+    <div class="ben-post ben-comment">
+        <table>
+            <tr>
+                <td width="260px">
+                    <table>
+                        <tr>
+                            <td>Họ tên:</td>
+                            <td><input type="text" class="ben-textbox" name="fullname" /></td>
+                        </tr>
+                        <tr>
+                            <td>Đánh giá:</td>
+                            <td>
+                                <select name="level" class="ben-textbox">
+                                    <option value="">Chưa đánh giá</option>
+                                    <?php for($i=1;$i<=5;$i++){ ?>
+                                    <option value="<?php echo $i?>"><?php echo $i?> sao</option>
+                                    <?php } ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="text" class="ben-textbox" name="email"/></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td width="70px">Nội dung:</td>
+                            <td><textarea name="description" class="ben-textbox"></textarea></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <input type="button" class="ben-button ben-center" value="Gửi nhận xét" onclick="sendComment()"/>
+    </div>
+    </form>
 </div>
-</form>
+    
 <script language="javascript">
 $(".product-icon").click(function(){
 	var arr = this.id.split("-");
@@ -406,3 +436,7 @@ function sendComment()
 	);		
 }
 </script>
+<div class="ben-section-breadcrumb">Sản phẩm cùng nhãn hiệu</div>
+<div class="ben-section-content">
+	<?php echo $saphamcungnhanhieu?>
+</div>

@@ -183,7 +183,7 @@ class ControllerModuleProduct extends Controller
 		$siteid = $this->user->getSiteId();
 		$str = "";
 		
-		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid, "Active");
+		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid);
 		
 		foreach($sitemaps as $item)
 		{

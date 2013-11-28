@@ -13,17 +13,8 @@ class ControllerCommonSitemapmenu extends Controller
 		
 		$this->data['menu'] = $this->getMenu("");
 		$this->data['addon'] = $this->getAddOnMenu("");
-		//$this->data['addonmodule'] = $this->model_core_sitemap->getModuleAddons();
-		$this->data['addonmodule'] = array(
-										"core/category" => $this->data['category'],
-										"core/media" => $this->data['menu_media'],
-										"core/file" => $this->data['menu_file'],
-								 		"core/sitemap" => $this->data['menu_sitemap'],
-										"addon/order" => "Order management <span id='orderwarring'></span>",
-								 		"core/member" => "Member management",
-										"core/message" => $this->data['message'],
-										"core/user" => $this->data['user_management'],
-									);
+		
+		
 		$this->id='sitemapmenu';
 		$this->template='common/sitemapmenu.tpl';
 		$this->render();
@@ -47,22 +38,22 @@ class ControllerCommonSitemapmenu extends Controller
 			{
 				case 'module/information':
 				case 'module/contact':
+				case 'module/location':
 				
-					$link='<a class="left sitebar" href="?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'" ref="?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'" title="[Detail]">'.$item['sitemapname'].'</a>';
+					$link='<a class="left sitebar" href="?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'" >'.$item['sitemapname'].'</a>';
 					break;
 				case 'module/product':
 				case 'module/news':
 				case 'module/gallery':
+				case 'module/banner':
+				case 'module/link':
+				
 					$link='<a class="left" href="?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'">'.$item['sitemapname'].'</a>';
 					break;
+				case 'module/forward':
+					$link='<a class="left" onclick="setForward(\''.$item['sitemapid'].'\')">'.$item['sitemapname'].'</a>';
+					break;
 			}
-			
-			if($item['moduleid'] != "group" && $item['moduleid'] != "homepage")
-			{
-				
-			}
-			
-			
 			
 			$str .= "<li>";
 			$str .= "<div class='collape'>";

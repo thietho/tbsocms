@@ -119,24 +119,57 @@
             	</div>
                 <div class="clearer">^&nbsp;</div>
                 <div id="fragment-sanpham">
-                    <input type="button" class="button" value="Chọn sản phẩm" onClick="order.browseProduct()">
-                    <input type="hidden" id="delid" name="delid">
                     <table>
-                        <thead>
+                    	<thead>
                             <tr>
-                                <th><?php echo $column_productname?></th>
-                                <th><?php echo $column_productimage?></th>
-                                <th><?php echo $column_productqty?></th>
-                                <th>Đơn vị</th>
-                                <th>Giá</th>
+                                <th>Model</th>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Đơn vị tính</th>
+                                <th>Đơn giá</th>
+                                <th>Giảm giá%</th>
+                                <th>Giảm giá</th>
+                                
+                                <th>Thành tiền</th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody id="listproduct">
-                       
+                        <tbody id="nhapkhonguyenlieu">
                         </tbody>
-                        
+                        <tfoot>
+                        	<tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                	
+                                    <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo $item['lydothu']?>"/>
+                                </td>
+                                <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo $this->string->numberFormate($item['thuphi'])?>"/></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="number">Tổng số lượng</td>
+                                <td id="sumsoluong" class="number"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">
+                                	Tổng cộng
+                                    <input type="hidden" id="tongtien" name="tongtien" value="<?php echo $item['tongtien']?>"/>
+                                </td>
+                                <td class="number" id="tongcong"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+                                <td></td>
+                            </tr>
+                            
+                        </tfoot>
                     </table>
+                    <input type="hidden" id="delnhapkho" name="delnhapkho" />
+                    <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
                 </div>
 
             </div>
@@ -151,8 +184,9 @@
 $(document).ready(function(e) {
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
     <?php foreach($detail as $item){?>
-	var row = order.addRow("<?php echo $item['id']?>","<?php echo $item['mediaid']?>","<?php echo $item['title']?>","<?php echo $item['imagepreview']?>","<?php echo $item['quantity']?>","<?php echo $item['quantity']?>","<?php echo $item['price']?>");
+	//var row = order.addRow("<?php echo $item['id']?>","<?php echo $item['mediaid']?>","<?php echo $item['title']?>","<?php echo $item['imagepreview']?>","<?php echo $item['quantity']?>","<?php echo $item['unit']?>","<?php echo $item['price']?>");
 	
+	objdl.addRow("<?php echo $item['id']?>","<?php echo $item['mediaid']?>","<?php echo $item['code']?>","<?php echo $item['title']?>","<?php echo $item['quantity']?>","<?php echo $item['unit']?>","<?php echo $item['price']?>","<?php echo $item['discount']?>","<?php echo $item['discountpercent']?>");
 	<?php } ?>
 	numberReady();
 	$('#paymenttype').val("<?php echo $order['paymenttype']?>");
@@ -230,6 +264,9 @@ function intSelectNhanVien()
 	
 			
 }
+$('#btnAddRow').click(function(e) {
+	browseProduct();
+});
 function save()
 {
 	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 

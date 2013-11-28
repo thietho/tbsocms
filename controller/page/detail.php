@@ -13,6 +13,9 @@ class ControllerPageDetail extends Controller
 	{
 		if($this->cachehtml->iscacht($this->name) == false)
 		{
+			$arr = array('menu-chinh');
+			$this->data['mainmenu'] = $this->loadModule('common/header','showMenu',$arr);
+			
 			$this->load->model("core/sitemap");
 			$this->document->sitemapid = $this->request->get['sitemapid'];
 			$siteid = $this->member->getSiteId();
@@ -168,8 +171,8 @@ class ControllerPageDetail extends Controller
 						{
 							$template = array(
 											  'template' => "module/product_list.tpl",
-											  'width' => 150,
-											  'height' =>150,
+											  'width' => 170,
+											  'height' =>170,
 											  'paging' => true,
 											  'sorting' =>true
 											  );
@@ -216,7 +219,19 @@ class ControllerPageDetail extends Controller
 					break;
 				}
 			}
+			//San pham noi bat
+			$template = array(
+						  'template' => "home/product.tpl",
+						  'width' => 150,
+						  'height' =>150,
+						  'paging' => false,
+						  'sorting' =>false
+						  );
 			
+			$medias = $this->getProduct('sanphamhot');
+			//print_r($medias);
+			$arr = array("",100000,"",$template,$medias);
+			$this->data['producthot'] = $this->loadModule('module/productlist','index',$arr);
 			$this->loadSiteBar();
 		}
 		$this->id="content";
@@ -228,19 +243,47 @@ class ControllerPageDetail extends Controller
 	private function loadSiteBar()
 	{
 		//Left sitebar
-		$arr = array('sanpham');
+		$arr = array('san-pham');
 		$this->data['leftsitebar']['produtcategory'] = $this->loadModule('sitebar/catalogue','index',$arr);
-		$this->data['leftsitebar']['supportonline'] = $this->loadModule('sitebar/supportonline');
+		$this->data['leftsitebar']['search'] = $this->loadModule('sitebar/searchproduct');
+		$this->data['leftsitebar']['dknhantinh'] = $this->loadModule('sitebar/dangkynhantin');
+		
 		//$this->data['leftsitebar']['exchange'] = $this->loadModule('sitebar/exchange');
-		$this->data['leftsitebar']['weblink'] = $this->loadModule('sitebar/weblink');
+		//$this->data['leftsitebar']['weblink'] = $this->loadModule('sitebar/weblink');
 		$this->data['leftsitebar']['hitcounter'] = $this->loadModule('sitebar/hitcounter');
 		
 		//Rigth sitebar
-		$this->data['rightsitebar']['login'] = $this->loadModule('sitebar/login');
-		$this->data['rightsitebar']['search'] = $this->loadModule('sitebar/search');
 		$this->data['rightsitebar']['cart'] = $this->loadModule('sitebar/cart');
-		$this->data['rightsitebar']['banner'] = $this->loadModule('sitebar/banner');
-		$this->data['rightsitebar']['question'] = $this->loadModule('sitebar/question');
+		$this->data['rightsitebar']['login'] = $this->loadModule('sitebar/login');
+		$this->data['rightsitebar']['supportonline'] = $this->loadModule('sitebar/supportonline');
+		
+		$template = array(
+						  'template' => "sitebar/news.tpl",
+						  'width' => 50,
+						  'height' =>50
+						  
+						  );
+		$arr = array('tin-tuc-san-pham',10,'',$template);
+		$this->data['rightsitebar']['newsproduct'] = $this->loadModule('sitebar/news','index',$arr);
+		//$this->data['rightsitebar']['search'] = $this->loadModule('sitebar/search');
+		
+		//$this->data['rightsitebar']['banner'] = $this->loadModule('sitebar/banner');
+		//$this->data['rightsitebar']['question'] = $this->loadModule('sitebar/question');
+	}
+	function getProduct($status)
+	{
+		$this->load->model('core/media');
+		//$siteid = $this->member->getSiteId();
+		//$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
+		//$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
+		$queryoptions = array();
+		$queryoptions['mediaparent'] = '';
+		$queryoptions['mediatype'] = 'module/product';
+		$queryoptions['refersitemap'] = '%';
+		$queryoptions['groupkeys'] = $status;
+		$data = $this->model_core_media->getPaginationList($queryoptions, $step=0, $to=0);
+		
+		return $data;
 	}
 }
 ?>

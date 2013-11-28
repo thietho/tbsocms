@@ -14,7 +14,7 @@ class ControllerModulePagedetail extends Controller
 		$siteid = $this->member->getSiteId();
 		
 		$this->data['post'] = $this->model_core_media->getByAlias($mediaid);
-		$this->document->title = "Mỹ Lan Beauty Shop - ".$this->data['post']['title'];
+		$this->document->title = "Hà Linh Sport - ".$this->data['post']['title'];
 		
 		if(count($this->data['post']) == 0)
 		{
@@ -126,6 +126,7 @@ class ControllerModulePagedetail extends Controller
 		$this->document->title .= " - ".$this->data['post']['title'];
 		if($this->data['post']['code'])
 			$this->document->title .= " - ".$this->data['post']['code'];
+		$this->document->title = "Hà Linh Sport - ".$this->data['post']['title'];
 		if(count($this->data['post']) == 0)
 		{
 			$this->data['post']['description'] = "Updating...";
@@ -179,23 +180,19 @@ class ControllerModulePagedetail extends Controller
 			}
 			
 		}
-		//Get sub infomation
 		
-		$this->data['child'] = $this->model_core_media->getListByParent($mediaid," AND mediatype = 'subinfor' Order by position");
-		foreach($this->data['child'] as $key => $item)
-		{
-			$this->data['child'][$key]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG($item['imagepath'], $template['width'], $template['height'])."' >";
-		}
 		
-		$this->data['priceproduct'] = $this->model_core_media->getListByParent($mediaid," AND mediatype = 'module/product' Order by position");
 		
-		foreach($this->data['priceproduct'] as $key => $item)
+		
+		$this->data['priceproduct'] = $this->model_core_media->getListByParent($mediaid," AND mediatype = 'module/product' " ," Order by position");
+		
+		/*foreach($this->data['priceproduct'] as $key => $item)
 		{
 			
 			
 			$khuyenmai = $this->model_core_media->getItem($this->data['priceproduct'][$key]['makhuyenmai']);
 			$this->data['priceproduct'][$key]['tenkhuyenmai'] = $khuyenmai['title'];
-		}
+		}*/
 		
 		$queryoptions = array();
 		$queryoptions['mediaparent'] = '%';

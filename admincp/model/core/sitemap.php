@@ -7,19 +7,19 @@ class ModelCoreSitemap extends Model
 							'module/information' => 'Information Page',
 							'module/register' => 'Register Page',
 							'module/news'=>'News',
-							'module/event' => 'Event',
-							'module/banner'=>'Banner',
-							'module/album'=>'Album',
-							'module/video'=>'Video',
-							'module/audio'=>'Audio',
+							//'module/event' => 'Event',
+							//'module/banner'=>'Banner',
+							//'module/album'=>'Album',
+							//'module/video'=>'Video',
+							//'module/audio'=>'Audio',
 							'module/product'=>'Product',
-							'module/download'=>'Download',
+							//'module/download'=>'Download',
 							'module/contact'=>'Contact',
 							'module/link'=>'Web URL',
-							'module/traning'=>'Traning',
-							'module/question'=>'Questions',
+							//'module/traning'=>'Traning',
+							//'module/question'=>'Questions',
 							'module/location'=>'Location',
-							
+							'module/forward'=>'Forward',
 							);
 	private $moduleaddon = array(
 								 /*"core/changeskin" => "Change skin",*/
@@ -290,6 +290,18 @@ class ModelCoreSitemap extends Model
 					);
 		$value=array(
 						$position
+					);
+		$where="sitemapid = '".$sitmapid."' AND siteid = '".$siteid."'";
+		$this->db->updateData('sitemap',$field,$value,$where);
+	}
+	
+	public function updateCol($sitmapid,$col,$val, $siteid)
+	{
+		$field=array(
+						$col
+					);
+		$value=array(
+						$val
 					);
 		$where="sitemapid = '".$sitmapid."' AND siteid = '".$siteid."'";
 		$this->db->updateData('sitemap',$field,$value,$where);
