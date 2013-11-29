@@ -23,6 +23,7 @@ class ControllerAddonCompose extends Controller
 		$error = $this->validateForm($data);
 		if(count($error)==0)
 		{
+			$this->load->model("core/media");
 			//Luu tin nhan vao folder send
 			$data['to'] = "admin";
 			$this->load->model("core/message");
@@ -39,6 +40,17 @@ class ControllerAddonCompose extends Controller
 			$data['replyfrom']= $messageid;
 			
 			$messageid=$this->model_core_message->insert($data);
+			
+			//Gui mail thong bao cho admin
+			$email = $this->model_core_media->getInformation("setting", 'EmailContact');
+			$mail['from'] = $this->document->getUser($data['userid'],'email');
+			$mail['FromName'] = $this->document->getUser($data['userid']);
+			$mail['to'] = $email;
+			$mail['name'] = "Admin";
+			$mail['subject'] =  $data['title'];
+			$arr = array($description['description']);
+			$mail['body'] = $this->loadModule('module/contact','createEmailTemplate',$arr);
+			$this->mailsmtp->sendMail($mail);
 			$this->data['output'] = "true";
 		}
 		else
