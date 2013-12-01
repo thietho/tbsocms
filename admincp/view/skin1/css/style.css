@@ -1436,8 +1436,10 @@ ul.autocomplete {
 .progress
 {
 	width:200px;	
+	
 }
 .bar {
     height: 18px;
     background: green;
+	text-align:center;
 }

@@ -15,6 +15,7 @@
             
             &nbsp;&nbsp;<input type="button" id="btnfilter" name="btnfilter" value="Filter" class="button"/>
             <input id="fileupload" type="file" name="files[]" data-url="?route=common/uploadattachment" multiple value="Chon file">
+            <div class="progress" id="progress'+t+'"><div class="bar" style="width: 0%;"></div></div>
             <table>
                 <tbody id="listfile">
                 </tbody>
@@ -67,7 +68,7 @@ var posk =0
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
-		add: function (e, data) {
+		/*add: function (e, data) {
 			//alert(data.files[0].name)
 			var t =posk++;
 			
@@ -84,7 +85,7 @@ $(function () {
                     data.context = $('<p/>').text('Uploading...').replaceAll($(this));
                     data.submit();
                 });
-        },
+        },*/
         done: function (e, data) {
             /*$.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo(document.body);
@@ -92,12 +93,13 @@ $(function () {
 			showResult("?route=core/file/getList&folderid="+ $('#folderidcur').val());
         },
 		progressall: function (e, data) {
-			showProgress(cur,e, data)
-			/*var progress = parseInt(data.loaded / data.total * 100, 10);
-			$('#progress'+cur+' .bar').css(
+			//showProgress(cur,e, data)
+			var progress = parseInt(data.loaded / data.total * 100, 10);
+			$('.bar').html(progress+"%");
+			$('.progress .bar').css(
 				'width',
 				progress + '%'
-			);*/
+			);
 		}
     });
 });
