@@ -58,6 +58,16 @@
                     </div>
                     <input type="hidden" id="brochure_filepath" name="brochure" value="<?php echo $item['brochure']?>"/>
                     <input type="button" class="button" value="<?php echo $entry_photo ?>" onclick="browserFile('brochure','any')"/>
+                    <input type="button" class="button" value="Remove" onclick="$('#brochure_filepath').val('');$('#brochure').html('')"/>
+                </p>
+                <p>
+                    <label>Background</label><br />
+                    <div id="background">
+                        <?php echo $item['background']?>
+                    </div>
+                    <input type="hidden" id="background_filepath" name="background" value="<?php echo $item['background']?>"/>
+                    <input type="button" class="button" value="<?php echo $entry_photo ?>" onclick="browserFile('background','any')"/>
+                    <input type="button" class="button" value="Remove" onclick="$('#background_filepath').val('');$('#background').html('')"/>
                 </p>
             </div>
         </form>
@@ -199,4 +209,3 @@ function save()
 }
 
 </script>
-<script src='<?php echo DIR_JS?>ajaxupload.js' type='text/javascript' language='javascript'> </script>

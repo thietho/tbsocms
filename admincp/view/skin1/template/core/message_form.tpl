@@ -1,4 +1,3 @@
-
 <div class="section">
 
 	<div class="section-title">
@@ -31,7 +30,7 @@
                     <div>
                         <p>
                             <label onclick="openDialog('?route=core/message/findContact',300,500)"><?php echo $entry_to?></label><br>
-                            <input class="text" type="text" name="to" value="<?php echo $item['from']?>" size="100%" />
+                            <input class="text" type="text" name="to" value='<?php echo $message['from']?>' size="100%" />
                         </p>
                         <p>
                             <label><?php echo $entry_subject?></label><br>

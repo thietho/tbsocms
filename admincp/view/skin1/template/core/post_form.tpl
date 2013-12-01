@@ -210,10 +210,10 @@ $('#title').change(function(e) {
                         </p>
                         <?php } ?>
                     	<?php if($hasPrice) {?>
-                        <p id="frmgiaban">
+                        <!--<p id="frmgiaban">
                         	<label>Giá bán</label>
                             <div id="giaban"></div>
-                        </p>
+                        </p>-->
                         
                         <p>
                             <label><?php echo $text_price?></label><br>
@@ -336,7 +336,7 @@ $(document).ready(function(e) {
             <div id="fragment-properties">
             	<div>
                 	
-                	<!--<p>
+                	<p>
                     	<label>Màu sắc</label>
                         <?php foreach($color as $it){ ?>
                         <div>
@@ -357,7 +357,7 @@ $(document).ready(function(e) {
                             <?php echo $it['categoryname']?>
                         </div>
                         <?php } ?>
-                    </p>-->
+                    </p>
                     <p>
                     	<label><?php echo $text_status?></label>
                         <?php foreach($statuspro as $it){ ?>

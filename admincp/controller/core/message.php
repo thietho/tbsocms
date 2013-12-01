@@ -19,7 +19,7 @@ class ControllerCoreMessage extends Controller
 	
 	public function insert()
 	{
-		$this->load->language('core/message');
+		//$this->load->language('core/message');
 		//$this->data = array_merge($this->data, $this->language->getData());
 		
 		$this->document->title = $this->language->get('heading_title');
@@ -27,10 +27,10 @@ class ControllerCoreMessage extends Controller
 		
 		$messageid = $this->request->get['messageid'];
 		
-		$this->data['item'] = $this->model_core_message->getItem($messageid);
+		$this->data['message'] = $this->model_core_message->getItem($messageid);
 		
 		if($messageid)
-			$this->data['title'] = "Re: ".$this->data['item']['title'];
+			$this->data['title'] = "Re: ".$this->data['message']['title'];
     
     	$this->getForm();
 	}
@@ -207,7 +207,8 @@ class ControllerCoreMessage extends Controller
 	
 	private function getForm()
 	{
-		
+		$this->load->language('core/message');
+		$this->data = array_merge($this->data, $this->language->getData());
 		
 		$this->data['error'] = @$this->error;
 		
