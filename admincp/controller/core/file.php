@@ -68,8 +68,13 @@ class ControllerCoreFile extends Controller
 			$this->model_core_file->updateFileTemp($this->data['files'][$i]['fileid']);
 			$this->data['files'][$i]['imagethumbnail'] = HelperImage::resizePNG($this->data['files'][$i]['filepath'], 130, 130);
 			if(!$this->string->isImage($this->data['files'][$i]['extension']))
-				$this->data['files'][$i]['imagethumbnail'] = DIR_IMAGE."icon/dinhkem.png";
-			
+			{
+				$urlext = HTTP_IMAGE."icon/48px/".$this->data['files'][$i]['extension'].".png";
+				
+				if(!@fopen($urlext,"r"))
+					$urlext = HTTP_IMAGE."icon/48px/_blank.png";
+				$this->data['files'][$i]['imagethumbnail'] = $urlext;
+			}
 		}
 		
 		
