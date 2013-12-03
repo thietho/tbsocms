@@ -181,7 +181,7 @@ class ControllerThongkeThuchi extends Controller
 				{
 					$arr = array(
 								'maphieu' => $item['maphieu'],
-								'loai' => "Phiếu bán hàng",
+								'loai' => "Phiếu bán hàng - ".$item['tenkhachhang'],
 								'taikhoanthuchi	' => 'thubanhang',
 								'sotien' => $item['thanhtoan']
 								);
@@ -216,7 +216,7 @@ class ControllerThongkeThuchi extends Controller
 				{
 					$arr = array(
 								'maphieu' => $item['maphieu'],
-								'loai' => "Phiếu phập hàng",
+								'loai' => "Phiếu phập hàng - ".$item['tennhacungcap'],
 								'taikhoanthuchi	' => 'chiphinhaphang',
 								'sotien' => $item['thanhtoan']
 								);
