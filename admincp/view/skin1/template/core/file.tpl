@@ -14,7 +14,7 @@
             			
             
             &nbsp;&nbsp;<input type="button" id="btnfilter" name="btnfilter" value="Filter" class="button"/>
-            <input id="fileupload" class="button" type="file" name="files[]"  multiple value="Chon file" >
+            
             <div class="progress" id="progress'+t+'"><div class="bar" style="width: 0%;"></div></div>
             <table>
                 <tbody id="listfile">
@@ -27,7 +27,7 @@
         	<p id="pnImage">
                 
                 
-                
+                <input id="fileupload" class="button" type="file" name="files[]"  multiple value="Chon file" >
                 <input type="button" class="button" value="Tạo thư mục" onclick="showFolderForm('',$('#folderidcur').val())"/>
                 <input type="button" class="button" value="Sửa tên thư mục" onclick="showFolderForm($('#folderidcur').val(),'')"/>
                 <input type="button" class="button" value="Xóa thư mục" onclick="delFolder($('#folderidcur').val())"/>
