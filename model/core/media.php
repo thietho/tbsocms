@@ -28,8 +28,9 @@ class ModelCoreMedia extends ModelCoreFile
 		if($order == "")
 		{
 			$order = " Order by position, statusdate DESC";
-			$sql .= $order;
+			
 		}
+		$sql .= $order;
 		if($to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
