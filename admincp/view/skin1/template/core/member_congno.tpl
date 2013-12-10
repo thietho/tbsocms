@@ -41,6 +41,32 @@
         <td class="number"><?php echo $this->string->numberFormate($tongno)?></td>
     </tr>
 </table>
+<h3>Dach sách phiếu trả hàng</h3>
+<table>
+	<tr>
+    	<th width="30%">Số phieu trả hàng</th>
+        <th width="30%">Ngày lập</th>
+        <th>Tổng tiền</th>
+        <th>Thanh toán</th>
+        <th>Công nợ</th>
+    </tr>
+    <?php foreach($data_phieutrahang as $item){ ?>
+    <tr>
+    	<td><a onclick="viewPhieuNhapHang(<?php echo $item['id']?>)"><?php echo $item['maphieu']?></a></td>
+        <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
+        <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+        <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
+        <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>
+    </tr>
+    <?php } ?>
+    <tr>
+    	<td></td>
+        <td></td>
+        <td></td>
+        <td class="text-right">Tổng công nợ:</td>
+        <td class="number"><?php echo $this->string->numberFormate($tongtrahang)?></td>
+    </tr>
+</table>
 <h3>Dach sách phiếu thu công nợ</h3>
 <table>
 	<tr>
@@ -141,6 +167,11 @@ function viewPhieuBanHang(id)
 {
 	openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print",800,500);
 }
+function viewPhieuNhapHang(id)
+{
+	openDialog("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=print",800,500);
+}
+
 function viewPhieuThu(maphieu)
 {
 	openDialog("?route=addon/phieuthu/view&maphieu="+maphieu+"&dialog=print",800,500);
