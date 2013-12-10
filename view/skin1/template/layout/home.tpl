@@ -66,9 +66,9 @@ var HTTP_SERVER = '<?php echo HTTP_SERVER?>';
 
 <script type="text/javascript" language="javascript" src="<?php echo HTTP_SERVER.DIR_JS?>jquery.carouFredSel-6.2.1.js"></script>
 
-<!--<script type="text/javascript" language="javascript" src="<?php echo HTTP_SERVER.DIR_JS?>snowstorm.js"></script>-->
+<script type="text/javascript" language="javascript" src="<?php echo HTTP_SERVER.DIR_JS?>hoaroi.js"></script>
 <link rel='stylesheet' type='text/css' href='<?php echo HTTP_SERVER.DIR_VIEW?>css/stickytooltip.css'>
-
+<script type='text/javascript' language='javascript' src='<?php echo HTTP_SERVER.DIR_VIEW?>js/menu-collapsed.js'></script>
 <script type="text/javascript">
 $(document).ready(function() {
 		/*
@@ -97,6 +97,13 @@ $(function() {
 	});
 </script>
 
+<?php 
+	$str = "";
+    if($this->document->setup['background'] !=""){
+    	$str = "background: url('".HTTP_IMAGE.$this->document->setup['background']."') top center repeat-y fixed";
+	}
+?>
+<body style="<?php echo $str?>" >
 
 <body>
 
@@ -126,19 +133,21 @@ $(function() {
 
 </html>
 <div id="mystickytooltip" class="stickytooltip">
-	<div style="padding:5px">
-        <div id="sticky1">
-        	
-        </div>
+	
+    <div id="sticky1">
+        
     </div>
+    
 </div>
 <script language="javascript">
 
 $(document).ready(function(){
 	$(".link_hover").hover(function(){
-		var img = '<img src="'+$(this).attr('ref')+'">';
-		var text = '<h5>'+$(this).attr('title')+'</h5>';
-		$('#sticky1').html(img+text);
+		//var img = '<img src="'+$(this).attr('ref')+'">';
+		var price = $(this).attr('price');
+		var text = '<div class="tooltip-title">'+$(this).attr('title')+' - <span>'+price+'</span></div>';
+		var summary = '<div class="tooltip-summary">'+$(this).attr('summary')+'</div>';
+		$('#sticky1').html(text+summary);
 		
 	});
 
