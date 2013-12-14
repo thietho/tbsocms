@@ -79,7 +79,7 @@ class ControllerCorePostcontent extends Controller
 				
 				$this->data['post']=$this->model_core_media->initialization($this->data['post']['mediaid'],$this->data['post']['mediatype']);
 				$this->data['post'] = $this->model_core_media->getItem($this->data['post']['mediaid']);
-				$this->data['post']['mediatype'] = "information";
+				$this->data['post']['mediatype'] = "module/information";
 				if($this->data['post']['title'] == '' && $route='module/information')
 				{
 					$this->data['post']['mediaid'] = $this->user->getSiteId().$sitemapid;
@@ -95,7 +95,7 @@ class ControllerCorePostcontent extends Controller
 				$this->data['post']=$this->model_core_media->initialization($this->data['post']['mediaid'],$this->data['post']['mediatype']);
 				$this->data['post'] = $this->model_core_media->getItem($this->data['post']['mediaid']);
 				
-				$this->data['post']['mediatype'] = "register";
+				$this->data['post']['mediatype'] = "module/register";
 				
 				if($this->data['post']['title'] == '' && $route='module/register')
 				{
@@ -327,7 +327,7 @@ class ControllerCorePostcontent extends Controller
 			{
 				$this->error['mediaid'] ="ID không hợp lệ";	
 			}
-			if($data['id']=="")
+			if($data['id']=="" && $data['mediatype']=="module/produc")
 			{
 				$media = $this->model_core_media->getItem($data['mediaid']);
 				if(count($media))

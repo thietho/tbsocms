@@ -225,17 +225,7 @@ class ControllerCoreMember extends Controller
 		{
 			$tongno += $item['congno'];	
 		}
-		//Lay tat ca phieu tra hang hang
-		$where = " AND loaiphieu = 'NK-KHTL' AND khachhangid = '".$id."'";
-		$this->data['data_phieutrahang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
-		
-		$tongtrahang = 0;
-		foreach($this->data['data_phieutrahang'] as $item)
-		{
-			$tongtrahang += $item['congno'];	
-		}
-		
-		$congno = $tongno + $tongtrano - $tongtrahang - $tongthu - $tongvay;
+		$congno = $tongno + $tongtrano - $tongthu - $tongvay;
 		
 		if($this->request->get['khachhangid'])
 		{
@@ -246,7 +236,6 @@ class ControllerCoreMember extends Controller
 			$this->data['tongvay'] = $tongvay;
 			
 			$this->data['congno'] = $congno;
-			$this->data['tongtrahang'] = $tongtrahang;
 			$this->id='content';
 			$this->template="core/member_congno.tpl";
 			if($_GET['dialog']=='print')

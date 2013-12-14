@@ -170,7 +170,9 @@ class ControllerModuleProduct extends Controller
 		//$this->data['catshow'] = "";
 		//foreach($data_catroot as $sitemap)
 		//{
-		$this->data['catshow'] .= $this->showTreeSiteMap("");
+		//$this->data['root'] = "san-pham";
+		$this->data['root'] = urldecode($this->request->get['root']);
+		$this->data['catshow'] .= $this->showTreeSiteMap($this->data['root']);
 		//}
 		
 		$this->id='content';

@@ -62,9 +62,9 @@
                     <div class="col2 right">
                     	
                     	<p id="pnImage">
-                            <label for="image">Image</label><br />
-                            <a id="btnAddImage" class="button">Select main photo</a><br />
-                            <img id="preview" src="<?php echo $post['imagethumbnail']?>" />
+                            <label for="image"><?php echo $entry_image?></label><br />
+                            <a  class="button" onclick="browserFileImage()">Chọn hình</a><br />
+                            <img id="imagepreview" src="<?php echo $imagethumbnail?>" onclick="showFile($('#imageid').val())"/>
                             <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $post['imagepath']?>" />
                             <input type="hidden" id="imageid" name="imageid" value="<?php echo $post['imageid']?>" />
                             <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $post['imagethumbnail']?>" />
@@ -74,8 +74,9 @@
                         <div id="errorupload" class="error" style="display:none"></div>
                         
                         <div class="loadingimage" style="display:none"></div>
+                       	
                         <p>
-                        	<a id="btnAddAttachment" class="button">Select other photo</a><br />
+                        	<a id="btnAddAttachment" class="button" onclick="browserFileAttachment()">Chọn hình phụ</a><br />
                         </p>
                         <p id="attachment">
                         </p>
@@ -134,12 +135,10 @@
 
 </div>
 <div id="popup" class="hidden"></div>
-<script src='<?php echo DIR_JS?>ajaxupload.js' type='text/javascript' language='javascript'> </script>
 
 
 <script type="text/javascript" charset="utf-8">
-var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
-var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
+
 $(document).ready(function() { 
 	setCKEditorType('editor1',0);
 	
@@ -147,9 +146,184 @@ $(document).ready(function() {
 	
 });
 </script>
+<script language="javascript">
+function browserFileImage()
+{
+    
+	$("#popup").attr('title','Chọn hình');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: $(document).width()-100,
+			height: 600,
+			modal: true,
+			
+		});
+	
+		
+		$("#popup-content").load("?route=core/file&dialog=true&type=single",function(){
+			$("#popup").dialog("open");	
+		});
+		
+}
+function intSeleteFile(type)
+{
+	
+	switch(type)
+	{
+		case "single":
+			$('.filelist').click(function(e) {
+				$('#imagepreview').attr('src',$(this).attr('imagethumbnail'));
+				$('#imageid').val(this.id);
+				$('#imagepath').val($(this).attr('filepath'));
+				$('#imagethumbnail').val($(this).attr('imagethumbnail'));
+				$("#popup").dialog( "close" );
+			});			
+			break;
+			
+		case "editor":
+			$('.filelist').click(function(e) {
 
-<script src="<?php echo DIR_JS?>uploadpreview.js" type="text/javascript"></script>
-<script src="<?php echo DIR_JS?>uploadattament.js" type="text/javascript"></script>
+				
+				width = "";
+							
+				var value = "<img src='<?php echo HTTP_IMAGE?>"+$(this).attr('filepath')+"'/>";
+				
+				var oEditor = CKEDITOR.instances['editor1'] ;
+				
+				
+				// Check the active editing mode.
+				if (oEditor.mode == 'wysiwyg' )
+				{
+					// Insert the desired HTML.
+					oEditor.insertHtml( value ) ;
+					
+					var temp = oEditor.getData()
+					oEditor.setData( temp );
+				}
+				else
+					alert( 'You must be on WYSIWYG mode!' ) ;
+				$("#popup").dialog( "close" );
+			});			
+			break;
+		case "multi":
+			$('.filelist').click(function(e) {
+                //$('#popup-seletetion').append($(this))
+            });
+			break;
+	}
+}
+function browserFileAttachment()
+{
+
+	$("#popup").attr('title','Chọn hình');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: $(document).width()-100,
+			height: 600,
+			modal: true,
+			buttons: {
+				
+				
+				
+				/*'Xem danh sach':function()
+				{
+					$( "#popup-selete" ).show('fast',function(){
+						$( "#popup-selete" ).position({
+							my: "center",
+							at: "center",
+							of: "#popup"
+						});
+						$( "#popup-selete" ).draggable();
+					});
+					$('.closeselect').click(function(e) {
+                        $( "#popup-selete" ).hide('fast');
+                    });
+				},*/
+				'Chọn': function() 
+				{
+					$('.selectfile').each(function(index, element) {
+                        $.getJSON("?route=core/file/getFile&fileid="+this.id+"&width=50", 
+							function(file) 
+							{
+								
+								$('#attachment').append(attachment.creatAttachmentRow(file.file.fileid,file.file.filename,file.file.imagepreview));
+								
+							});
+						
+                    });
+					$('#popup-seletetion').html("");
+					$( this ).dialog( "close" );
+				},
+			}
+		});
+	
+		
+		$("#popup-content").load("?route=core/file&dialog=true&type=multi",function(){
+			$("#popup").dialog("open");	
+		});
+}
+function browserFile()
+{
+    //var re = openDialog("?route=core/file&dialog=true",800,500);
+	$('#handler').val('file');
+	$('#outputtype').val('file');
+	showPopup("#popup", 800, 500);
+	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
+	$("#popup").load("?route=core/file&dialog=true")
+		
+}
+
+function browserFileEditor()
+{
+
+	
+	$("#popup").attr('title','Chọn hình');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 800,
+			height: 600,
+			modal: true,
+			
+		});
+	
+		
+		$("#popup-content").load("?route=core/file&dialog=true&type=editor",function(){
+			$("#popup").dialog("open");	
+		});
+}
+
+
+function Attachment()
+{
+	this.index = 0;
+	this.removeAttachmentRow = function(index)
+	{
+		$("#delfile").append('<input type="hidden" id="attimageid'+attachment.index+'" name="delfile['+index+']" value="'+$("#attimageid"+index).val()+'" />');
+		$("#attrows"+index).html("")
+	}
+	this.creatAttachmentRow = function(iid,path,thums)
+	{
+		
+		row = '<div id="attrows'+attachment.index+'"><img src="'+thums+'" /><input type="hidden" id="attimageid'+attachment.index+'" name="attimageid['+attachment.index+']" value="'+iid+'" />'+path+' <a id="removerow'+attachment.index+'" onclick="attachment.removeAttachmentRow('+attachment.index+')" class="button" >Remove</a></div>';
+		attachment.index++;
+		return row;	
+	}
+	this.creatAttachmentRowView = function(iid,name,path,thums)
+	{
+		row = '<div id="attrows'+attachment.index+'"><img src="'+thums+'" /><input type="hidden" id="attimageid'+attachment.index+'" name="attimageid['+attachment.index+']" value="'+iid+'" />'+'<a href="'+path+'" target="_blank">'+name+'</a>';
+		attachment.index++;
+		return row;
+	}
+
+}
+var attachment = new Attachment();
+</script>
 
 
 
