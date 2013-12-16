@@ -13,12 +13,12 @@ final class MailSMTP {
 		$mail->Username = "thietho1982@gmail.com"; // your SMTP username or your gmail username
 		$mail->Password = "Ho9501424"; // your SMTP password or your gmail password*/
 		
-		$mail->Host = "mail.halinhsport.com"; // specify main and backup server
+		$mail->Host = "mail.shoplovebaby.com"; // specify main and backup server
 		$mail->Port = 587; // set the port to use
 		$mail->SMTPAuth = true; // turn on SMTP authentication
 		$mail->SMTPSecure = '';
-		$mail->Username = "info@halinhsport.com"; // your SMTP username or your gmail username
-		$mail->Password = "KMy23n].P(Ng";
+		$mail->Username = "info@shoplovebaby.com"; // your SMTP username or your gmail username
+		$mail->Password = "ocEZZvo&F&,O";
 		
 		$from = $data['from']; // Reply to this email
 		$arremail = split(',',$data['to']);

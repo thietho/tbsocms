@@ -25,7 +25,7 @@ class ControllerModuleProduct extends Controller
 		
 		
 		$siteid = $this->user->getSiteId();
-		$this->data['sitemapid'] = $this->request->get['sitemapid'];
+		$this->data['sitemapid'] = urldecode($this->request->get['sitemapid']);
 		$this->data['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($this->data['sitemapid'], $siteid);
 		$this->id='content';
 		$this->template='module/product.tpl';
@@ -242,7 +242,7 @@ class ControllerModuleProduct extends Controller
 	public function editcat()
 	{
 		$siteid = $this->user->getSiteId();
-		$sitemapid = $this->request->get['sitemapid'];
+		$sitemapid = urldecode($this->request->get['sitemapid']);
 		$this->data['item'] = $this->model_core_sitemap->getItem($sitemapid, $siteid);
 		$this->id='content';
 		$this->template='module/product_cat_form.tpl';
@@ -251,7 +251,7 @@ class ControllerModuleProduct extends Controller
 	
 	public function delcat()
 	{
-		$id = $this->request->get['id'];
+		$id = urldecode($this->request->get['id']);
 		$this->model_core_sitemap->deleteSitemap($id, $this->user->getSiteId());	
 		
 		$this->data['output'] = "true";

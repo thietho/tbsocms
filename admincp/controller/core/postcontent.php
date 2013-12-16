@@ -321,15 +321,17 @@ class ControllerCorePostcontent extends Controller
 	
 	private function validate($data)
 	{
+		//print_r($data);
 		if($data['mediaid']!="")
 		{
 			if($this->validation->_isId(trim($data['mediaid'])) == false)
 			{
 				$this->error['mediaid'] ="ID không hợp lệ";	
 			}
-			if($data['id']=="" && $data['mediatype']=="module/produc")
+			if($data['id']=="" && $data['mediatype'] == "module/product")
 			{
 				$media = $this->model_core_media->getItem($data['mediaid']);
+				
 				if(count($media))
 					$this->error['mediaid'] ="ID đã được sử dụng";	
 			}

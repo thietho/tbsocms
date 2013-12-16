@@ -434,6 +434,7 @@ final class String
 	
 	function chuyenvekodau($s)
 	{
+		$s = str_replace("Đ","d",$s);
 		$mkt=array('a','d','e','o','i','u','y');
 		foreach($mkt as $item)
 		{
