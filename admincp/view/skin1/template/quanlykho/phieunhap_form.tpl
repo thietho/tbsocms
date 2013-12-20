@@ -63,6 +63,9 @@
                             <option value="<?php echo $key?>"><?php echo $val?></option>
                             <?php } ?>
                         </select>
+                        <script language="javascript">
+                        $('#trangthai').val("<?php echo $item['trangthai']?>");
+                        </script>
                     </p>
                     <p>
                         <label>Ghi chú</label><br />
