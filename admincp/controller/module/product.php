@@ -189,19 +189,23 @@ class ControllerModuleProduct extends Controller
 		
 		foreach($sitemaps as $item)
 		{
-			if($item['moduleid'] == "module/product")
+			//if($item['moduleid'] == "module/product")
 			{
 				$childs = $this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid);
 				
-				$link = "<a href='?route=module/product&sitemapid=".$item['sitemapid']."'>".$item['sitemapname']."</a> ";
-				if($this->user->checkPermission("module/product/addcat")==true)
-					$link .= "<a class='addcat' cparent='".$item['sitemapid']."'><img src='".DIR_IMAGE."icon/add.png' width='19px'></a>";
-				if($this->user->checkPermission("module/product/editcat")==true)
-					$link .= "<a class='editcat' sitemapid='".$item['sitemapid']."'><img src='".DIR_IMAGE."icon/edit.png' width='19px'></a>";
-				if(count($childs) == 0)
+				$link = "<a>".$item['sitemapname']."</a> ";
+				if($item['moduleid'] == "module/product")
 				{
-					if($this->user->checkPermission("module/product/delcat")==true)
-						$link .= "<a class='delcat' sitemapid='".$item['sitemapid']."'><img src='".DIR_IMAGE."icon/del.png' width='19px'></a>";
+					$link = "<a href='?route=".$item['moduleid']."&sitemapid=".$item['sitemapid']."'>".$item['sitemapname']."</a> ";
+					if($this->user->checkPermission("module/product/addcat")==true)
+						$link .= "<a class='addcat' cparent='".$item['sitemapid']."'><img src='".DIR_IMAGE."icon/add.png' width='19px'></a>";
+					if($this->user->checkPermission("module/product/editcat")==true)
+						$link .= "<a class='editcat' sitemapid='".$item['sitemapid']."'><img src='".DIR_IMAGE."icon/edit.png' width='19px'></a>";
+					if(count($childs) == 0)
+					{
+						if($this->user->checkPermission("module/product/delcat")==true)
+							$link .= "<a class='delcat' sitemapid='".$item['sitemapid']."'><img src='".DIR_IMAGE."icon/del.png' width='19px'></a>";
+					}
 				}
 				$str .= "<li>";
 				

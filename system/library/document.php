@@ -27,6 +27,11 @@ final class Document {
 						   'completed' => "Hoàn thành",
 						   'cancel' => "Hủy đơn hàng"
 						   );
+	public $status_phieunhapxuat = array(
+						   'new' => "Chưa giao",
+						   'delivered' => "Đã giao",
+						   
+						   );
 	public $status_media = array(
 						   'active' => "Hiện",
 						   'hide' => "Ẩn"

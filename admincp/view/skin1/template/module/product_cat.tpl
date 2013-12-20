@@ -51,7 +51,7 @@ $('.addcat').click(function(e) {
 										var arr = data.split("-");
 										if(arr[0] == "true")
 										{
-											$('#showdanhmuc').load('?route=module/product/productCat&root=san-pham');
+											$('#showdanhmuc').load('?route=module/product/productCat');
 										}
 										else
 										{
@@ -98,7 +98,7 @@ $('.editcat').click(function(e) {
 										var arr = data.split("-");
 										if(arr[0] == "true")
 										{
-											$('#showdanhmuc').load('?route=module/product/productCat&root=san-pham');
+											$('#showdanhmuc').load('?route=module/product/productCat');
 										}
 										else
 										{
@@ -132,7 +132,7 @@ $('.delcat').click(function(e) {
 	$.get("?route=module/product/delcat&id="+id,
 		function(data)
 		{
-			$('#showdanhmuc').load('?route=module/product/productCat&root=san-pham');
+			$('#showdanhmuc').load('?route=module/product/productCat');
 		});
 });
 </script>

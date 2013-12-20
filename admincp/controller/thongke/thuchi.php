@@ -128,7 +128,7 @@ class ControllerThongkeThuchi extends Controller
 			}
 		}
 		//Thong ke pheu nhap hang
-		$where = " AND loaiphieu = 'NK'";
+		$where = " AND loaiphieu in ('NK','NK-KHTL')";
 		if($tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
@@ -183,7 +183,8 @@ class ControllerThongkeThuchi extends Controller
 								'maphieu' => $item['maphieu'],
 								'loai' => "Phiếu bán hàng - ".$item['tenkhachhang'],
 								'taikhoanthuchi	' => 'thubanhang',
-								'sotien' => $item['thanhtoan']
+								'sotien' => $item['thanhtoan'],
+								'congno' => $item['congno']
 								);
 					$tongthu += $item['thanhtoan'];
 					$data_thuchi[$date]['thu'][] = $arr;
@@ -218,7 +219,8 @@ class ControllerThongkeThuchi extends Controller
 								'maphieu' => $item['maphieu'],
 								'loai' => "Phiếu phập hàng - ".$item['tennhacungcap'],
 								'taikhoanthuchi	' => 'chiphinhaphang',
-								'sotien' => $item['thanhtoan']
+								'sotien' => $item['thanhtoan'],
+								'congno' => $item['congno']
 								);
 					$tongchi += $item['thanhtoan'];
 					
