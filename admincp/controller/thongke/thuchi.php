@@ -217,7 +217,7 @@ class ControllerThongkeThuchi extends Controller
 				{
 					$arr = array(
 								'maphieu' => $item['maphieu'],
-								'loai' => "Phiếu phập hàng - ".$item['tennhacungcap'],
+								'loai' => "Phiếu phập hàng - ". ( $item['tennhacungcap']==""?$item['tenkhachhang']:$item['tennhacungcap'] ),
 								'taikhoanthuchi	' => 'chiphinhaphang',
 								'sotien' => $item['thanhtoan'],
 								'congno' => $item['congno']
