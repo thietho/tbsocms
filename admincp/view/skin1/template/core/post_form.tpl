@@ -210,14 +210,15 @@ $('#title').change(function(e) {
                         </p>
                         <?php } ?>
                     	<?php if($hasPrice) {?>
-                        <!--<p id="frmgiaban">
+                        <p id="frmgiaban">
                         	<label>Giá bán</label>
                             <div id="giaban"></div>
-                        </p>-->
+                        </p>
                         
                         <p>
                             <label><?php echo $text_price?></label><br>
-                            <input class="text number" type="text" id="price" name="price" value="<?php echo $post['price']?>" size="60" />
+                            <input class="text number" type="text" id="price" name="price" value="<?php echo $post['price']?>"/>
+                            <input class="text short" type="text" id="noteprice" name="noteprice" value="<?php echo $post['noteprice']?>" />
                         </p>
                         <p>
                             <label>Phần trăm giảm giá</label><br>
@@ -225,7 +226,7 @@ $('#title').change(function(e) {
                         </p>
                         <p>
                             <label>Giá khuyến mãi</label><br>
-                            <input class="text number" type="text" id="pricepromotion" name="pricepromotion" value="<?php echo $post['pricepromotion']?>" size="60" />
+                            <input class="text number" type="text" id="pricepromotion" name="pricepromotion" value="<?php echo $post['pricepromotion']?>" />
                         </p>
                         <script language="javascript">
 						$('#discountpercent').keyup(function(e) {

@@ -24,6 +24,7 @@ class ModelCoreMedia extends ModelCoreFile
 							'source',
 							'saleprice',
 							'price',
+							'noteprice',
 							'discountpercent',
 							'pricepromotion',
 							'imageid',
