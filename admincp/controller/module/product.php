@@ -316,7 +316,7 @@ class ControllerModuleProduct extends Controller
 		$mediaid = $this->request->get['mediaid'];
 		$this->data['media'] = $this->model_core_media->getItem($mediaid);
 		//Nhap kho
-		$where = " AND mediaid = '".$mediaid."' AND loaiphieu = 'NK'";
+		$where = " AND mediaid = '".$mediaid."' AND loaiphieu like 'NK%'";
 		$data_nhapkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
 		//Xuat kho
 		$where = " AND mediaid = '".$mediaid."' AND loaiphieu = 'PBH'";
