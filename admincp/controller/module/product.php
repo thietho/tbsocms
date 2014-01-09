@@ -23,6 +23,9 @@ class ControllerModuleProduct extends Controller
 	function index()
 	{	
 		
+		$this->data['nhanhieu'] = array();
+		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
+		unset($this->data['nhanhieu'][0]);
 		
 		$siteid = $this->user->getSiteId();
 		$this->data['sitemapid'] = urldecode($this->request->get['sitemapid']);
@@ -77,7 +80,11 @@ class ControllerModuleProduct extends Controller
 			$where .= " AND ((". implode(" AND ",$arr). ") OR (". implode(" AND ",$arrcode). "))";
 			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
 		}
-		
+		$brand = urldecode($this->request->get['brand']);
+		if($brand !="")
+		{
+			$where .= " AND brand like '".$brand."'";
+		}
 		$where .= " Order by position, statusdate DESC";
 		$rows = $this->model_core_media->getList($where);
 		//Page

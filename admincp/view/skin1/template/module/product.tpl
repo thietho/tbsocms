@@ -11,6 +11,12 @@
         	<div id="search">
             	<label>Từ khóa:</label>
                 <input type="text" class="text" id="keyword" size="100"/>
+                <select id="brand">
+                	<option value="">Tất cả nhản hiệu</option>
+                    <?php foreach($nhanhieu as $it){ ?>
+                    <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                    <?php } ?>
+                </select>
                 <input type="button" class="button" id="btnSearch" value="Tìm" />
             </div>
             <div class="right">
@@ -99,6 +105,10 @@ function Product()
 		if($('#keyword').val()!="")
 		{
 			url += "&keyword="+encodeURI($('#keyword').val());
+		}
+		if($('#brand').val()!="")
+		{
+			url += "&brand="+encodeURI($('#brand').val());
 		}
 		this.loadProduct(url);
 	}
