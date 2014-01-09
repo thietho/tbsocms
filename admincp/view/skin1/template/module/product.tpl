@@ -43,7 +43,16 @@
 <script language="javascript">
 $(document).ready(function(e) {
     $('#showdanhmuc').load('?route=module/product/productCat');
-	pro.loadProduct(pro.url+"&page=<?php echo $_GET['page']?>");
+	var page = control.getParam("page",strurl);
+	if(page != undefined)
+	{
+		pro.loadProduct(pro.url+"&page="+page);
+	}
+	else
+	{
+		pro.loadProduct(pro.url+"&page=<?php echo $_GET['page']?>");	
+	}
+	
 	$('#btnSearch').click(function(e) {
 		pro.searchForm();
 	});
