@@ -135,6 +135,11 @@ class ControllerCorePostcontent extends Controller
 					{
 						$mediaparent = $this->model_core_media->getItem($this->data['post']['mediaparent']);
 						$this->data['post']['title'] = $mediaparent['title'];
+						$this->data['post']['code'] = $mediaparent['code'];
+						$this->data['post']['brand'] = $mediaparent['brand'];
+						$this->data['post']['sizes'] = $mediaparent['sizes'];
+						$this->data['post']['color'] = $mediaparent['color'];
+						$this->data['post']['material'] = $mediaparent['material'];
 						$this->data['post']['summary'] = $mediaparent['summary'];
 						$this->data['post']['description'] = $mediaparent['description'];
 						$this->data['post']['keyword'] = $mediaparent['keyword'];
