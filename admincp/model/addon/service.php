@@ -2,7 +2,7 @@
 class ModelAddonService extends ModelCoreFile 
 { 
 	private $arr_col = array(
-							'id',
+							
 							'servicename',
 							'servicetype',
 							'startday',
@@ -11,11 +11,11 @@ class ModelAddonService extends ModelCoreFile
 							'status',
 							
 							);
-	public function getItem($mediaid, $where="")
+	public function getItem($id)
 	{
-		$query = $this->db->query("Select `media`.* 
-									from `media` 
-									where mediaid ='".$mediaid."' ".$where);
+		$query = $this->db->query("Select `service`.* 
+									from `service` 
+									where id ='".$id."' ");
 		return $query->row;
 	}
 	
@@ -24,9 +24,9 @@ class ModelAddonService extends ModelCoreFile
 	public function getList($where="", $from=0, $to=0)
 	{
 		
-		$sql = "Select `media`.* 
-									from `media` 
-									where status not like 'delete' AND temp not like 'temp'  " . $where ;
+		$sql = "Select `service`.* 
+									from `service` 
+									where 1=1 " . $where ;
 		if($to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
@@ -36,9 +36,9 @@ class ModelAddonService extends ModelCoreFile
 		return $query->rows;
 	}
 	
-	public function updateCol($mediaid,$col,$val)
+	public function updateCol($id,$col,$val)
 	{
-		$mediaid = $mediaid;
+		$id = $id;
 		$col = $col;
 		$val = $val;
 		
@@ -50,37 +50,23 @@ class ModelAddonService extends ModelCoreFile
 						$val
 					);
 		
-		$where="mediaid = '".$mediaid."'";
-		$this->db->updateData('media',$field,$value,$where);
+		$where="id = '".$id."'";
+		$this->db->updateData('service',$field,$value,$where);
 	}
 	
 	public function save($data)
 	{
-		$media = $this->getItem($data['mediaid']);
-		
-		$date = getdate();
-		if($data['mediaid'] == "")
-				$data['mediaid'] = $this->nextID($date['year'].$this->date->numberFormate($date['mon']));
-		$data['price']=$this->db->escape(@$this->string->toNumber($data['price']));
-		$data['discountpercent']=$this->db->escape(@$this->string->toNumber($data['discountpercent']));
-		$data['pricepromotion']=$this->db->escape(@$this->string->toNumber($data['pricepromotion']));
-		$data['updateddate'] = $this->date->getToday();
+		$service = $this->getItem($data['id']);
 		
 		$value = array();
-		if(count($media))
+		if(count($service))
 		{
-			foreach($media as $col => $val)
+			foreach($service as $col => $val)
 			{
 				if(isset($data[$col]))
-					$media[$col] = $data[$col];
+					$service[$col] = $data[$col];
 			}
-			$data = $media;
-		}
-		else
-		{
-			$data['statusby']=$this->db->escape(@$data['userid']);
-			$data['status']="active";
-			$data['statusdate'] = $this->date->getToday();
+			$data = $service;
 		}
 		
 		foreach($this->arr_col as $col)
@@ -91,18 +77,25 @@ class ModelAddonService extends ModelCoreFile
 
 		$field=$this->arr_col;
 		
-		if(count($media) == 0)
+		if(count($service) == 0)
 		{
-			$data['id'] = $this->db->insertData("media",$field,$value);
+			$data['id'] = $this->db->insertData("service",$field,$value);
 		}
 		else
 		{
-			$where="mediaid = '".$data['mediaid']."'";
-			$this->db->updateData("media",$field,$value,$where);
+			$where="id = '".$data['id']."'";
+			$this->db->updateData("service",$field,$value,$where);
 		}
 		return $data['id'];
 	}
 	
+	public function delete($id)
+	{
+		$where="id = '".$id."'";
+		$this->db->deleteData("service",$where);
+		$where="serviceid = '".$id."'";
+		$this->db->deleteData("service_detail",$where);
+	}
 	
 }
 ?>
