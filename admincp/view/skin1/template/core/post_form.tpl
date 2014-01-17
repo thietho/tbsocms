@@ -773,16 +773,7 @@ function browserFileAttachment()
 			$("#popup").dialog("open");	
 		});
 }
-function browserFile()
-{
-    //var re = openDialog("?route=core/file&dialog=true",800,500);
-	$('#handler').val('file');
-	$('#outputtype').val('file');
-	showPopup("#popup", 800, 500);
-	$("#popup").html("<img src='view/skin1/image/loadingimage.gif' />");
-	$("#popup").load("?route=core/file&dialog=true")
-		
-}
+
 
 function browserFileEditor()
 {
