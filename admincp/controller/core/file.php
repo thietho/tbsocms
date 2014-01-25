@@ -114,7 +114,16 @@ class ControllerCoreFile extends Controller
 		if($this->string->isImage($file['extension']))
 			$file['imagepreview'] = HelperImage::resizePNG($file['filepath'], $width, $height);
 		else
-			$file['imagepreview'] = DIR_IMAGE."icon/dinhkem.png";
+		{
+			
+			
+			$urlext = HTTP_IMAGE."icon/48px/".$file['extension'].".png";
+			
+			if(!@fopen($urlext,"r"))
+				$urlext = HTTP_IMAGE."icon/48px/_blank.png";
+			$file['imagepreview'] = $urlext;
+			
+		}
 		$this->data['output'] = json_encode(array('file' => $file));
 		$this->id='post';
 		$this->template="common/output.tpl";

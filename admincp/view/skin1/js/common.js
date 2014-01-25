@@ -360,10 +360,10 @@ function logout()
 	);	
 }
 
-function selectFilm(eid)
+function selectFilm(eid,type)
 {
     $('#handler').val(eid);
-	
+	$('#outputtype').val(type);
 	$('body').append('<div id="filmform" style="display:none"></div>');
 	var eid = "#filmform";
 	$(eid).attr('title','Chọn film');
@@ -392,21 +392,63 @@ function browserFile(eid,type)
 {
     $('#handler').val(eid);
 	$('#outputtype').val(type);
-	$("#popup").attr('title','Chọn hình');
-		$( "#popup" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-			width: $(document).width()-100,
-			height: 600,
-			modal: true,
+	switch(type)
+	{
+		case "single":
+			$("#popup").attr('title','Chọn hình');
+				$( "#popup" ).dialog({
+					autoOpen: false,
+					show: "blind",
+					hide: "explode",
+					width: $(document).width()-100,
+					height: 600,
+					modal: true,
+					
+				});
 			
-		});
-	
+				
+				$("#popup-content").load("?route=core/file&dialog=true&type="+type,function(){
+					$("#popup").dialog("open");	
+				});			
+			break;
+		case "multi":
+			$("#popup").attr('title','Chọn hình');
+			$( "#popup" ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: 600,
+				modal: true,
+				buttons: {
+					
+					
+					
+					
+					'Chọn': function() 
+					{
+						$('.selectfile').each(function(index, element) {
+						$.getJSON("?route=core/file/getFile&fileid="+this.id+"&width=50", 
+							function(file) 
+							{
+								
+								$('#'+ $('#handler').val()).append(attachment.creatAttachmentRow(file.file.fileid,file.file.filename,file.file.imagepreview));
+								
+							});
+				
+						});
+						$('#popup-seletetion').html("");
+						$( this ).dialog( "close" );
+					},
+				}
+			});
 		
-		$("#popup-content").load("?route=core/file&dialog=true&type="+type,function(){
-			$("#popup").dialog("open");	
-		});
+			
+			$("#popup-content").load("?route=core/file&dialog=true&type="+type,function(){
+				$("#popup").dialog("open");	
+			});
+			break;
+	}
 		
 }
 function intSeleteFile(type)
@@ -456,51 +498,62 @@ function intSeleteFile(type)
 				$("#popup").dialog( "close" );
 			});			
 			break;
-		case "multi":
+		case "video":
 			$('.filelist').click(function(e) {
-                //$('#popup-seletetion').append($(this))
-            });
+
+				
+				width = "";
+							
+				
+				var value = '<video width="100%"  controls="true">';
+                value += '<source src="'+ HTTP_IMAGE+$(this).attr('filepath')+'" type="video/mp4">';
+                                              
+                value += 'Your browser does not support the video tag.';
+                value += '</video>';
+				var oEditor = CKEDITOR.instances[''+$('#handler').val()] ;
+				
+				
+				// Check the active editing mode.
+				if (oEditor.mode == 'wysiwyg' )
+				{
+					// Insert the desired HTML.
+					oEditor.insertHtml( value ) ;
+					
+					var temp = oEditor.getData()
+					oEditor.setData( temp );
+				}
+				else
+					alert( 'You must be on WYSIWYG mode!' ) ;
+				$("#popup").dialog( "close" );
+			});			
+			break;
+		
+		case "multi":
+			
 			break;
 	}
 }
-function addImageTo()
+function Attachment()
 {
-	var str= trim($("#listselectfile").val(),",");
-	var arr = str.split(",");
-	
-	if(str!="")
+	this.index = 0;
+	this.removeAttachmentRow = function(index)
 	{
-		for (i=0;i<arr.length;i++)
-		{
-			$.getJSON("?route=core/file/getFile&fileid="+arr[i], 
-				function(data) 
-				{
-					switch($('#outputtype').val())
-					{
-						case 'image':
-							if(isImage(data.file.extension))
-							{
-								width = "";
-								
-								width = 'width="200px"'
-								var value = "<img src='<?php echo HTTP_IMAGE?>"+data.file.filepath+"' " + width +"/>";
-								
-								$('#'+ $('#handler').val()).html(value)
-								$('#'+ $('#handler').val()+'_filepath').val(data.file.filepath);
-							}
-							else
-							{
-								alert('Bạn phải chọn file hình');	
-							}						
-							break;
-						default:
-							var value = data.file.filepath;
-								
-							$('#'+ $('#handler').val()).html(value)
-							$('#'+ $('#handler').val()+'_filepath').val(data.file.filepath);
-					}
-					
-				});
-		}
+		$("#delfile").append('<input type="hidden" id="attimageid'+attachment.index+'" name="delfile['+index+']" value="'+$("#attimageid"+index).val()+'" />');
+		$("#attrows"+index).html("")
 	}
+	this.creatAttachmentRow = function(iid,path,thums)
+	{
+		
+		row = '<div id="attrows'+attachment.index+'"><img src="'+thums+'" /><input type="hidden" id="attimageid'+attachment.index+'" name="attimageid['+attachment.index+']" value="'+iid+'" />'+path+' <a id="removerow'+attachment.index+'" onclick="attachment.removeAttachmentRow('+attachment.index+')" class="button" >Remove</a></div>';
+		attachment.index++;
+		return row;	
+	}
+	this.creatAttachmentRowView = function(iid,name,path,thums)
+	{
+		row = '<div id="attrows'+attachment.index+'"><img src="'+thums+'" /><input type="hidden" id="attimageid'+attachment.index+'" name="attimageid['+attachment.index+']" value="'+iid+'" />'+'<a href="'+path+'" target="_blank">'+name+'</a>';
+		attachment.index++;
+		return row;
+	}
+
 }
+var attachment = new Attachment();
