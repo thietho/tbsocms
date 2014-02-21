@@ -91,7 +91,10 @@ foreach($status as $key=>$val)
                                                        
                     </select>
             </p>
-            
+            <p>
+            	<label>Link</label>
+        		<input type="text" id="forward" name="forward" value="<?php echo $sitemap['forward']?>" class="text" size="80"/>
+            </p>
             <p>
             	<label><?php echo $lbl_image?></label><br />
             	<input type="button" value="<?php echo $entry_photo ?>" class="button" onclick="browserFileImage()"/>
