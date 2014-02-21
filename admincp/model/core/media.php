@@ -5,6 +5,8 @@ class ModelCoreMedia extends ModelCoreFile
 { 
 	private $arr_col = array(
 							'mediaid',
+							'barcode',
+							'ref',
 							'code',
 							'sizes',
 							'unit',

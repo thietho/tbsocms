@@ -69,6 +69,8 @@ class ControllerModuleProduct extends Controller
 		{
 			$arr = array();
 			$arrcode = array();
+			$arrbarcode = array();
+			$arrref = array();
 			foreach($arrkey as $key)
 			{
 				$arr[] = "title like '%".$key."%'";
@@ -77,7 +79,15 @@ class ControllerModuleProduct extends Controller
 			{
 				$arrcode[] = "code like '%".$key."%'";
 			}
-			$where .= " AND ((". implode(" AND ",$arr). ") OR (". implode(" AND ",$arrcode). "))";
+			foreach($arrkey as $key)
+			{
+				$arrbarcode[] = "barcode like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrref[] = "ref like '%".$key."%'";
+			}
+			$where .= " AND ((". implode(" AND ",$arr). ") OR (". implode(" AND ",$arrcode). ") OR (". implode(" AND ",$arrbarcode). ") OR (". implode(" AND ",$arrref). ") )";
 			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
 		}
 		$brand = urldecode($this->request->get['brand']);

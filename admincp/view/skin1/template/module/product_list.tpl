@@ -6,7 +6,8 @@
                     <th>ID</th>
                     <th>Model</th>
                     <th>Tên sản phẩm</th>
-                    <th>Giá bán</th>
+                    <th>Barcode</th>
+                    <th>Ref</th>
                     <th>Giá</th>
                     <th>Giảm</th>
                     <th>Giá khuyến mãi</th>
@@ -33,15 +34,8 @@
                         	<b><?php echo $media['title']?></b><br />
                             <?php echo $media['color']?>
                         </td>
-                        <td class="number">
-                        	<?php if(count($media['saleprice'])){ ?>
-                            <ul>
-                                <?php foreach($media['saleprice'] as $k => $price){ ?>
-                            	<li><?php echo $this->string->numberFormate($price)?>/<?php echo $this->document->getDonViTinh($k)?></li>
-                            <?php } ?>
-                            </ul>
-                            <?php } ?>
-                        </td>
+                        <td><?php echo $media['barcode']?></td>
+                        <td><?php echo $media['ref']?></td>
                         <td class="number">
                             <b>
                             	<?php echo $this->string->numberFormate($media['price'])?>

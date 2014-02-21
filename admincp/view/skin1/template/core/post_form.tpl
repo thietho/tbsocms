@@ -119,6 +119,14 @@ $('#title').change(function(e) {
                         </p>-->
                         <?php } ?>
                         <?php if($hasCode){?>
+                        <p>
+                        	<label>Bar code</label><br>
+                            <input class="text" type="text" id="barcode" name="barcode" value="<?php echo $post['barcode']?>" size="60" />
+                        </p>
+                        <p>
+                        	<label>Ref</label><br>
+                            <input class="text" type="text" id="ref" name="ref" value="<?php echo $post['ref']?>" size="60" />
+                        </p>
                        	<p>
                         	<label>Model</label><br>
                             <input class="text" type="text" id="code" name="code" value="<?php echo $post['code']?>" size="60" />
