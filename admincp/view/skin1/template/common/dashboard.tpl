@@ -96,40 +96,5 @@ function addRow(obj)
 	$('#listfilm').append(str);
 	index++;
 }
-var obj = new Object();
-<?php foreach($data_film as $f) { ?>
-	
-	obj.id = "<?php echo $f['id']?>";
-	obj.moviename = "<?php echo $f['moviename']?>";
-	obj.icone = "<?php echo $f['iconethumbnail']?>";
-	addRow(obj);
-<?php } ?>
-function intSelectMovie()
-{
-	switch($('#outputtype').val())
-	{
-		case "add":
-			$('.item').click(function(e) {
-			var eid = $('#handler').val();
-			var obj = new Object();
-			obj.id = $(this).attr('id');
-			obj.moviename = $(this).attr('moviename');
-			obj.icone = $(this).attr('icone');
-			addRow(obj);
-			$("#filmform").dialog( "close" );
-    		});
-			break;
-		case "edit":
-			$('.item').click(function(e) {
-			var eid = $('#handler').val();
-			$('#'+eid).val($(this).attr('id'));
-			$('#'+eid+'_name').html($(this).attr('moviename'));
-			$('#'+eid+'_icon').attr('src',$(this).attr('icone'));
-			
-			$("#filmform").dialog( "close" );
-    		});
-			break;
-	}
-	
-}
+
 </script>
