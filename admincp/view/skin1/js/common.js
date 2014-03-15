@@ -393,15 +393,47 @@ function browserFile(eid,type)
     $('#handler').val(eid);
 	$('#outputtype').val(type);
 	$("#popup").attr('title','Chọn hình');
-		$( "#popup" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-			width: $(document).width()-100,
-			height: 600,
-			modal: true,
-			
-		});
+		switch(type)
+		{
+			case "single":
+			$( "#popup" ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: 600,
+				modal: true,
+				
+			});
+			break;
+			case "multi":
+			$( "#popup" ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: 600,
+				modal: true,
+				buttons:
+				{
+					"Chọn":function()
+					{
+						$('.selectfile').each(function(index, element) {
+							var fileid = $(this).attr('id');
+							var filename = $(this).attr('filename');
+							var imagethumbnail = $(this).attr('imagethumbnail');
+                            $('#attachment').append(attachment.creatAttachmentRow(fileid,filename,imagethumbnail));
+                        });
+						$("#popup").dialog( "close" );
+					},
+					"Bỏ qua":function()
+					{
+						$("#popup").dialog( "close" );
+					}
+				}
+			});
+			break;
+		}
 	
 		
 		$("#popup-content").load("?route=core/file&dialog=true&type="+type,function(){
@@ -533,3 +565,27 @@ function addImageTo()
 	}
 }
 
+function Attachment()
+{
+	this.index = 0;
+	this.removeAttachmentRow = function(index)
+	{
+		$("#delfile").append('<input type="hidden" id="attimageid'+attachment.index+'" name="delfile['+index+']" value="'+$("#attimageid"+index).val()+'" />');
+		$("#attrows"+index).html("")
+	}
+	this.creatAttachmentRow = function(iid,path,thums)
+	{
+		
+		row = '<div id="attrows'+attachment.index+'"><img src="'+thums+'" /><input type="hidden" id="attimageid'+attachment.index+'" name="attimageid['+attachment.index+']" value="'+iid+'" />'+path+' <a id="removerow'+attachment.index+'" onclick="attachment.removeAttachmentRow('+attachment.index+')" class="button" >Remove</a></div>';
+		attachment.index++;
+		return row;	
+	}
+	this.creatAttachmentRowView = function(iid,name,path,thums)
+	{
+		row = '<div id="attrows'+attachment.index+'"><img src="'+thums+'" /><input type="hidden" id="attimageid'+attachment.index+'" name="attimageid['+attachment.index+']" value="'+iid+'" />'+'<a href="'+path+'" target="_blank">'+name+'</a>';
+		attachment.index++;
+		return row;
+	}
+
+}
+var attachment = new Attachment();

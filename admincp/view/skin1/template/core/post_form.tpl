@@ -299,27 +299,44 @@ $('#title').change(function(e) {
 	
 	$(document).ready(function() {
    	// put all your jQuery goodness in here.
+	$("#attachment").sortable();
 	
 <?php
-		foreach($attachment as $item)
+		foreach($attachment as $key => $item)
 		{
 			if(count($item))
 			{
 ?>
-				$.getJSON("?route=core/file/getFile&fileid=<?php echo $item['fileid']?>&width=50", 
+				arratt[<?php echo $key?>] = <?php echo $item['fileid']?>;
+				/*$.getJSON("?route=core/file/getFile&fileid=<?php echo $item['fileid']?>&width=50", 
 				function(file) 
 				{
 					
 					$('#attachment').append(attachment.creatAttachmentRow(file.file.fileid,file.file.filename,file.file.imagepreview));
 					
-				});
+				});*/
 			
 <?php
 			}
 		}
 ?>
+		//alert(arratt)
+		callAtt(0);
  	});
-	
+var arratt = new Array();
+function callAtt(pos)
+{
+	if(arratt[pos]!= undefined)
+	{
+		$.getJSON("?route=core/file/getFile&fileid="+ arratt[pos] +"&width=50", 
+		function(file) 
+		{
+			
+			$('#attachment').append(attachment.creatAttachmentRow(file.file.fileid,file.file.filename,file.file.imagepreview));
+			callAtt(pos+1);
+		});
+	}
+}
 </script>
                     <div class="clearer">&nbsp;</div>
                 
