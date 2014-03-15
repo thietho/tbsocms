@@ -75,7 +75,7 @@ class ControllerCorePostcontent extends Controller
 				
 				//$this->data['post'] = $this->model_core_media->getInformationMedia($sitemapid, "content");
 				$this->data['post']['mediaid'] = $this->user->getSiteId().$sitemapid;
-				
+				$mediaid = $this->data['post']['mediaid'];
 				
 				$this->data['post']=$this->model_core_media->initialization($this->data['post']['mediaid'],$this->data['post']['mediatype']);
 				$this->data['post'] = $this->model_core_media->getItem($this->data['post']['mediaid']);
@@ -90,7 +90,7 @@ class ControllerCorePostcontent extends Controller
 			case "module/register":
 				//$this->data['post'] = $this->model_core_media->getInformationMedia($sitemapid, "content");
 				$this->data['post']['mediaid'] = $this->user->getSiteId().$sitemapid;
-				
+				$mediaid = $this->data['post']['mediaid'];
 				
 				$this->data['post']=$this->model_core_media->initialization($this->data['post']['mediaid'],$this->data['post']['mediatype']);
 				$this->data['post'] = $this->model_core_media->getItem($this->data['post']['mediaid']);
@@ -107,7 +107,7 @@ class ControllerCorePostcontent extends Controller
 			
 				//$this->data['post'] = $this->model_core_media->getInformationMedia($sitemapid, "content");
 				$this->data['post']['mediaid'] = $this->user->getSiteId().$sitemapid;
-				
+				$mediaid = $this->data['post']['mediaid'];
 				$this->data['post'] = $this->model_core_media->initialization($this->data['post']['mediaid'],$this->data['post']['mediatype']);
 				$this->data['post'] = $this->model_core_media->getItem($this->data['post']['mediaid']);
 				$this->data['post']['mediatype'] = "contact";
