@@ -88,15 +88,9 @@
                                     <td><b><?php echo $child['mediaid']?></b></td>
                                     <td><b><?php echo $child['code']?></b>&nbsp;</td>
                                 	<td><b><?php echo $child['title']?></b></td>
-                                    <td class="number">
-                                    	<?php if(count($child['saleprice'])){ ?>
-                                        <ul>
-                                        <?php foreach($child['saleprice'] as $k => $price){ ?>
-                                        <li><?php echo $this->string->numberFormate($price)?>/<?php echo $this->document->getDonViTinh($k)?></li>
-                                        <?php } ?>
-                                        </ul>
-                                        <?php } ?>
-                                    </td>
+                                    <td><?php echo $child['barcode']?></td>
+                        			<td><?php echo $child['ref']?></td>
+                                    
                                     <td class="number">
                                     
                                         <b><?php echo $this->string->numberFormate($child['price'])?></b>
