@@ -17,26 +17,5 @@
     </table>
 </div>
 <?php }?>
-<?php if(count($media['child'])){ ?>
-<?php foreach($media['child'] as $item){ ?>
-<div class="product-item left price-item" ref="<?php echo $item['mediaid']?>" image="<?php echo $item['imagepreview']?>" code="<?php echo $item['code']?>" color="<?php echo $item['color']?>" unit="<?php echo $item['unit']?>" title="<?php echo $item['title']?>" price="<?php echo $item['price']?>" pricepromotion="<?php echo $item['pricepromotion']?>" style="background:url('<?php echo $item['imagepreview']?>') no-repeat center center;">
-    <input type="hidden" class="listid" value="<?php echo $item['mediaid']?>">
-	<table height="100%">
-    	
-        <tr valign="middle">
-        	<td align="center">
-            	<?php echo $item['title']?>(<?php echo $this->document->getDonViTinh($item['unit'])?>)<br>
-                <?php if($item['code']!="") echo $item['code']."<br>"?>
-                <?php if($media['color']!="") echo "Màu: ".$item['color']."<br>"?>
-                
-                Giá: <?php echo $this->string->numberFormate($item['price'])?><br />
-                Giá khuyến mãi: <?php echo $this->string->numberFormate($item['pricepromotion'])?><br />
-                Tồn: <?php echo $item['tonkho']?>
-            </td>
-        </tr>
-    </table>
-</div>
-<?php } ?>
-<?php } ?>
-<?php } ?>
+<?php }?>
 <div class="clearer">^&nbsp;</div>
