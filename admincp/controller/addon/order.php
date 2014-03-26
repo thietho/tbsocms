@@ -449,7 +449,7 @@ class ControllerAddonOrder extends Controller
 			$where .= "AND (". implode($arr," OR ").")";
 		
 		
-		$where .= " AND mediaparent='' Order by position, statusdate DESC";
+		$where .= "  Order by position, statusdate DESC";
 		$this->data['medias'] = $this->model_core_media->getList($where);
 		foreach($this->data['medias'] as $i => $media)
 		{
