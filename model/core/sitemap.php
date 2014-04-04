@@ -102,17 +102,22 @@ class ModelCoreSitemap extends Model
 		return $deep;
 	}
 	
-	public function getRoot($id, $siteid)
+	public function getRoot($id, $siteid,$deeproot = 0)
 	{
 		if($id == "") return 'index';
 		$row=$this->getItem($id, $siteid);
+		
 		if($row['sitemapparent'] == "")
 		{
 			return $row['sitemapid'];
 		}
 		while($row['sitemapparent']!="")
 		{
+			$deep = $this->getDeep($row['sitemapid'], $siteid);
+			if($deep == $deeproot)
+				return $row['sitemapid'];
 			$row=$this->getItem($row['sitemapparent'], $siteid);
+			
 		}
 		return $row['sitemapid'];
 	}
