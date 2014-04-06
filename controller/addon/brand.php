@@ -13,6 +13,8 @@ class ControllerAddonBrand extends Controller
 	{
 		$this->load->model("core/media");
 		$this->load->model("core/sitemap");
+		$this->data['media'] = $this->model_core_media->getItem($mediaid);
+		$this->document->title .= $this->data['media']['title'];
 		if($categoryid=="")
 		{
 			$arr = split("-",$this->request->get['id']);
