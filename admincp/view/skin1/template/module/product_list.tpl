@@ -87,7 +87,10 @@
                                     </td>
                                     <td><b><?php echo $child['mediaid']?></b></td>
                                     <td><b><?php echo $child['code']?></b>&nbsp;</td>
-                                	<td><b><?php echo $child['title']?></b></td>
+                                	<td>
+                                        <b><?php echo $child['title']?></b><br />
+                            			<?php echo $child['color']?>
+                                    </td>
                                     <td><?php echo $child['barcode']?></td>
                         			<td><?php echo $child['ref']?></td>
                                     
