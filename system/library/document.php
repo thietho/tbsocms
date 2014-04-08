@@ -165,6 +165,22 @@ final class Document {
 									where mediaid ='".$mediaid."' ");
 		return $query->row[$name];	
 	}
+	public function productName($mediaid)
+	{
+		$query = $this->db->query("Select `media`.* 
+									from `media` 
+									where mediaid ='".$mediaid."' ");
+		$media = $query->row;
+		$productname = $media['title'];
+		if($media['code'])
+			$productname .= " - ".$media['code'];
+		if($media['sizes'])
+			$productname .= " ".$media['sizes'];
+		if($media['color'])
+			$productname .= " ".$media['color'];
+		return $productname;	
+		
+	}
 	public function getNhanVien($id,$name = 'hoten')
 	{
 		$sql = "Select `qlknhanvien`.* 
