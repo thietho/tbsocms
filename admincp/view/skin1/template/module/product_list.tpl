@@ -81,7 +81,7 @@
                     	<?php if(count($media['child'])){ ?>
                     
                             <?php foreach($media['child'] as $k => $child){ ?>
-                                <tr class="media-child">
+                                <tr id="<?php echo $child['mediaid']?>" class="media-child">
                                     <td>
                                         <input type="checkbox" value="<?php echo $child['mediaid']?>" name="delete[<?php echo $child['mediaid']?>]" class="inputchk">
                                         <input type="text" class="text number" name="position[<?php echo $child['mediaid']?>]" value="<?php echo $k +1?>" size="3"/>
@@ -121,7 +121,7 @@
                                     <td>
                                         <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                                         
-                                        <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="window.location='<?php echo $child['link_edit']?>'"/>
+                                        <input type="button" class="button" value="<?php echo $child['text_edit']?>" onclick="showProductForm('<?php echo $child['mediaid']?>','<?php echo $child['link_edit']?>')"/>
                               			          
                                         <?php } ?>
                                        	<input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
