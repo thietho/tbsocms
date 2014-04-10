@@ -427,7 +427,10 @@ class ControllerCorePostcontent extends Controller
 				$this->model_core_media->saveInformation($data['mediaid'], "email3", $this->data['post']['email3']);
 			}*/
 			$data['error'] = "";
-			
+			$data['unitname'] = $this->document->getDonViTinh($data['unit']);
+			$data['brandname'] = $this->document->getCategory($data['brand']);
+			$data['statusname'] = $this->document->status_media[$data['status']];
+			$data['imagepreview'] = HelperImage::resizePNG($data['imagepath'], 100, 100);
 			
 		}
 		else

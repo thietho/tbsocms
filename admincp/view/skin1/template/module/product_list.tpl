@@ -57,7 +57,7 @@
                         <td><b class="unit"><?php echo $this->document->getDonViTinh($media['unit'])?></b>&nbsp;</td>
                         <td class="brand"><?php echo $this->document->getCategory($media['brand'])?></td>
                         <td class="status"><?php echo $this->document->status_media[$media['status']]?></td>
-                        <td align="center" class="imagepreview"><?php echo $media['imagepreview']?>&nbsp;</td>
+                        <td align="center" ><img class="imagepreview" src="<?php echo $media['imagepreview']?>" />&nbsp;</td>
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
                         	
@@ -86,34 +86,37 @@
                                         <input type="checkbox" value="<?php echo $child['mediaid']?>" name="delete[<?php echo $child['mediaid']?>]" class="inputchk">
                                         <input type="text" class="text number" name="position[<?php echo $child['mediaid']?>]" value="<?php echo $k +1?>" size="3"/>
                                     </td>
-                                    <td><b><?php echo $child['mediaid']?></b></td>
-                                    <td><b><?php echo $child['code']?></b>&nbsp;</td>
-                                	<td>
-                                        <b><?php echo $child['title']?></b><br />
-                            			<?php echo $child['color']?>
+                                    <td><b class="mediaid"><?php echo $child['mediaid']?></b></td>
+                                    <td><b class="code"><?php echo $child['code']?></b></td>
+                                    <td>
+                                        <b class="title"><?php echo $child['title']?></b>
+                                        <div class="color"><?php echo $child['color']?></div>
                                     </td>
-                                    <td><?php echo $child['barcode']?></td>
-                        			<td><?php echo $child['ref']?></td>
-                                    
+                                    <td class="barcode"><?php echo $child['barcode']?></td>
+                                    <td class="ref"><?php echo $child['ref']?></td>
                                     <td class="number">
-                                    
-                                        <b><?php echo $this->string->numberFormate($child['price'])?></b>
-                                        
-                                   
+                                        <b class="price">
+                                            <?php echo $this->string->numberFormate($child['price'])?>
+                                            <?php if($child['noteprice']!=""){?>
+                                            <br />(<?php echo $child['noteprice']?>)
+                                            <?php }?>
+                                        </b>
                                     </td>
                                     <td class="number">
-                                        <b><?php echo $this->string->numberFormate($child['discountpercent'])?>%</b>
+                                        <b class="discountpercent"><?php echo $this->string->numberFormate($child['discountpercent'])?>%</b>
                                     </td>
-                                    <td class="number"><b><?php echo $this->string->numberFormate($child['pricepromotion'])?></b>&nbsp;</td>
-                                    <td class="number">
+                                    <td class="number"><b class="pricepromotion"><?php echo $this->string->numberFormate($child['pricepromotion'])?></b></td>
+                                    <td class="number" class="tonkho">
                                         <?php echo $child['tonkho']?>
+                                        
                                     </td>
                                    
                                     
-                                    <td><b><?php echo $this->document->getDonViTinh($child['unit'])?></b>&nbsp;</td>
-                                    <td><?php echo $this->document->getCategory($child['brand'])?></td>
-                                    <td><?php echo $this->document->status_media[$child['status']]?></td>
-                                    <td align="center"><?php echo $child['imagepreview']?>&nbsp;</td>
+                                    <td><b class="unit"><?php echo $this->document->getDonViTinh($child['unit'])?></b>&nbsp;</td>
+                                    <td class="brand"><?php echo $this->document->getCategory($child['brand'])?></td>
+                                    <td class="status"><?php echo $this->document->status_media[$child['status']]?></td>
+                                    <td align="center" ><img class="imagepreview" src="<?php echo $child['imagepreview']?>" />&nbsp;</td>
+                                    
                                     
                                     <td>
                                         <?php if($this->user->checkPermission("module/product/update")==true){ ?>

@@ -153,7 +153,7 @@ $('#title').change(function(e) {
                             <select id="brand" name="brand">
                                 <option value=""></option>
                                 <?php foreach($nhanhieu as $it){ ?>
-                                <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                                <option value="<?php echo $it['categoryid']?>" <?php echo ($post['brand']==$it['categoryid'])?"selected":"" ?>><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
                                 <?php } ?>
                             </select>
                         </p>
@@ -167,7 +167,7 @@ $('#title').change(function(e) {
                             	
                                 <option value=""></option>
                                 <?php foreach($donvitinh as $val){ ?>
-                                <option value="<?php echo $val['madonvi']?>"><?php echo $val['tendonvitinh']?></option>
+                                <option value="<?php echo $val['madonvi']?>" <?php echo ($post['unit']==$val['madonvi'])?"selected='selected'":"" ?>><?php echo $val['tendonvitinh']?></option>
                                 <?php } ?>
                                 
                             </select>
@@ -209,8 +209,8 @@ $('#title').change(function(e) {
                                 });
 								
 								$(document).ready(function(e) {
-									
-                                	$('#unit').val("<?php echo $post['unit']?>").change();
+									setTimeout('$("#unit").val("<?php echo $post["unit"]?>").change()',1000);
+                                	//$('#unit').val("<?php echo $post['unit']?>").change();
 									$('#brand').val("<?php echo $post['brand']?>")
                                 });
 								
@@ -259,12 +259,12 @@ $('#title').change(function(e) {
                             
                             <select id="status" name="status">
                             	<?php foreach($this->document->status_media as $key =>$val){ ?>
-                                <option value="<?php echo $key?>"><?php echo $val?></option>
+                                <option value="<?php echo $key?>" <?php echo ($key==$post['status'])?"selected='selected'":"" ?>><?php echo $val?></option>
                                 <?php } ?>
                                 
                             </select>
                             <script language="javascript">
-								$('#status').val("<?php echo $post['status']?>")
+								//$('#status').val("<?php echo $post['status']?>")
 							</script>
                         </p>
                     </div>

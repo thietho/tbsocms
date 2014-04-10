@@ -136,8 +136,11 @@ function showProductForm(mediaid,linkeditfull)
 							$("#"+obj.mediaid+" .price").html(price);
 							$("#"+obj.mediaid+" .discountpercent").html(obj.discountpercent+"%");	
 							$("#"+obj.mediaid+" .pricepromotion").html(obj.pricepromotion);	
-							$("#"+obj.brand+" .brand").html(obj.brand);
-							$("#"+obj.status+" .status").html(obj.status);
+							$("#"+obj.mediaid+" .brand").html(obj.brandname);
+							$("#"+obj.mediaid+" .unit").html(obj.unitname);
+							$("#"+obj.mediaid+" .status").html(obj.statusname);
+							$("#"+obj.mediaid+" .imagepreview").attr("src",obj.imagepreview);
+							
 						}
 						else
 						{

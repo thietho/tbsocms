@@ -119,7 +119,7 @@ class ControllerModuleProduct extends Controller
 			$sitemapid = $arr[0];
 			$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
 			
-				$this->data['medias'][$i]['imagepreview'] = "<img src='".HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100)."' >";
+			$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
 				
 			
 			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
@@ -129,7 +129,7 @@ class ControllerModuleProduct extends Controller
 			$data_child = $this->model_core_media->getListByParent($mediaid);
 			foreach($data_child as $key =>$child)
 			{
-				$data_child[$key]['imagepreview'] = "<img src='".HelperImage::resizePNG($child['imagepath'], 100, 100)."' >";
+				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 				$data_child[$key]['saleprice'] = json_decode($child['saleprice']);
 				$data_child[$key]['tonkho'] = $this->model_core_media->getTonKho($child['mediaid']);
 				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
