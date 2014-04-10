@@ -23,45 +23,46 @@
                 
                 <tbody>
                     <?php foreach($medias as $key => $media) {?>
-                	<tr>
+                	<tr id="<?php echo $media['mediaid']?>">
                     	<td>
                         	<input type="checkbox" value="<?php echo $media['mediaid']?>" name="delete[<?php echo $media['mediaid']?>]" class="inputchk">
                             <input type="text" class="text number" name="position[<?php echo $media['mediaid']?>]" value="<?php echo $key+1?>" size="3"/>
                         </td>
-                        <td><b><?php echo $media['mediaid']?></b></td>
-                        <td><b><?php echo $media['code']?></b></td>
+                        <td><b class="mediaid"><?php echo $media['mediaid']?></b></td>
+                        <td><b class="code"><?php echo $media['code']?></b></td>
                     	<td>
-                        	<b><?php echo $media['title']?></b><br />
-                            <?php echo $media['color']?>
+                        	<b class="title"><?php echo $media['title']?></b>
+                            <div class="color"><?php echo $media['color']?></div>
                         </td>
-                        <td><?php echo $media['barcode']?></td>
-                        <td><?php echo $media['ref']?></td>
+                        <td class="barcode"><?php echo $media['barcode']?></td>
+                        <td class="ref"><?php echo $media['ref']?></td>
                         <td class="number">
-                            <b>
+                            <b class="price">
                             	<?php echo $this->string->numberFormate($media['price'])?>
                                 <?php if($media['noteprice']!=""){?>
-                                (<?php echo $media['noteprice']?>)
+                                <br />(<?php echo $media['noteprice']?>)
                                 <?php }?>
                             </b>
                         </td>
                         <td class="number">
-                            <b><?php echo $this->string->numberFormate($media['discountpercent'])?>%</b>
+                            <b class="discountpercent"><?php echo $this->string->numberFormate($media['discountpercent'])?>%</b>
                         </td>
-                        <td class="number"><b><?php echo $this->string->numberFormate($media['pricepromotion'])?></b></td>
-                        <td class="number">
+                        <td class="number"><b class="pricepromotion"><?php echo $this->string->numberFormate($media['pricepromotion'])?></b></td>
+                        <td class="number" class="tonkho">
                         	<?php echo $media['tonkho']?>
                             
                         </td>
                        
                         
-                        <td><b><?php echo $this->document->getDonViTinh($media['unit'])?></b>&nbsp;</td>
-                        <td><?php echo $this->document->getCategory($media['brand'])?></td>
-                        <td><?php echo $this->document->status_media[$media['status']]?></td>
-                        <td align="center"><?php echo $media['imagepreview']?>&nbsp;</td>
+                        <td><b class="unit"><?php echo $this->document->getDonViTinh($media['unit'])?></b>&nbsp;</td>
+                        <td class="brand"><?php echo $this->document->getCategory($media['brand'])?></td>
+                        <td class="status"><?php echo $this->document->status_media[$media['status']]?></td>
+                        <td align="center" class="imagepreview"><?php echo $media['imagepreview']?>&nbsp;</td>
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
                         	
-                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="window.location='<?php echo $media['link_edit']?>'"/>
+                            
+                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="showProductForm('<?php echo $media['mediaid']?>','<?php echo $media['link_edit']?>')"/>
                             <?php } ?>
                             <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                   			
@@ -118,6 +119,7 @@
                                         <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                                         
                                         <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="window.location='<?php echo $child['link_edit']?>'"/>
+                              			          
                                         <?php } ?>
                                        	<input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
                                         <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo $child['mediaid']?>')"/>

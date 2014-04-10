@@ -40,10 +40,11 @@ function showFile(fileid)
 
 function showMediaForm(fileid)
 {
-	$('body').append('<div id="mediaform" style="display:none"></div>');
+	var eid = "mediaform";
+	$('body').append('<div id="'+eid+'" style="display:none"></div>');
 	
-	$("#mediaform").attr('title','Thông tin file');
-		$( "#mediaform" ).dialog({
+	$("#"+eid).attr('title','Thông tin file');
+		$("#"+eid).dialog({
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
@@ -52,7 +53,7 @@ function showMediaForm(fileid)
 			modal: true,
 			close:function()
 				{
-					$('#mediaform').remove();
+					$("#"+eid).remove();
 				},
 			buttons: {
 				
@@ -67,7 +68,7 @@ function showMediaForm(fileid)
 						if(obj.error=="")
 						{
 							//loadData("?route=addon/order/listProduct");
-							$('#frmAddSanPham').dialog("close");
+							$("#"+eid).dialog("close");
 						}
 						else
 						{
@@ -85,8 +86,79 @@ function showMediaForm(fileid)
 		});
 	
 		
-		$("#mediaform").load("?route=core/media/fileToMedia&fileid="+fileid+"&dialog=true",function(){
-			$("#mediaform").dialog("open");	
+		$("#"+eid).load("?route=core/media/fileToMedia&fileid="+fileid+"&dialog=true",function(){
+			$("#"+eid).dialog("open");	
+		});
+}
+function showProductForm(mediaid,linkeditfull)
+{
+	var eid = "mediaform";
+	$('body').append('<div id="'+eid+'" style="display:none"></div>');
+	
+	$("#"+eid).attr('title','Thông tin file');
+		$("#"+eid).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: $(document).width()-100,
+			height: window.innerHeight,
+			modal: true,
+			close:function()
+				{
+					$("#"+eid).remove();
+				},
+			buttons: {
+				'Chỉnh sửa đầy đủ':function()
+				{
+					window.location = linkeditfull;
+				},
+				'Lưu':function()
+				{
+					$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
+					function(data)
+					{
+						var obj = $.parseJSON(data);
+						if(obj.error=="")
+						{
+							$("#"+eid).dialog("close");
+							//Cap nhap lay thong tin tren list
+							$("#"+obj.mediaid+" .mediaid").html(obj.mediaid);
+							$("#"+obj.mediaid+" .code").html(obj.code);
+							$("#"+obj.mediaid+" .title").html(obj.title);
+							$("#"+obj.mediaid+" .color").html(obj.color);
+							$("#"+obj.mediaid+" .barcode").html(obj.barcode);
+							$("#"+obj.mediaid+" .ref").html(obj.ref);
+							var price = obj.price;
+							if(obj.noteprice !="")
+							{
+								price += "<br />("+obj.noteprice+")";
+							}
+							$("#"+obj.mediaid+" .price").html(price);
+							$("#"+obj.mediaid+" .discountpercent").html(obj.discountpercent+"%");	
+							$("#"+obj.mediaid+" .pricepromotion").html(obj.pricepromotion);	
+							$("#"+obj.brand+" .brand").html(obj.brand);
+							$("#"+obj.status+" .status").html(obj.status);
+						}
+						else
+						{
+							$('#error').html(data).show('slow');
+						}
+					});
+				},
+				'Đóng': function() 
+				{
+					
+					$("#mediaform").dialog( "close" );
+					
+				},
+			}
+		});
+	
+		
+		$("#"+eid).load("?route=module/product/update&mediaid="+mediaid+"&dialog=true",function(){
+			$("#"+eid).dialog("open");	
+			$('#unit').val("<?php echo $post['unit']?>").change();
+			$('#brand').val("<?php echo $post['brand']?>")
 		});
 }
 function showFolderForm(folderid,folderparent)

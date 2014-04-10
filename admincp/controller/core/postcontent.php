@@ -162,6 +162,7 @@ class ControllerCorePostcontent extends Controller
 		$this->data['hasId'] = false;
 		$this->data['hasTitle'] = true;
 		$this->data['hasSummary'] = true;
+		$this->data['hasDetail'] = true;
 		$this->data['hasSource'] = true;
 		$this->data['hasFile'] = true;
 		$this->data['hasAttachment'] = true;
@@ -275,7 +276,11 @@ class ControllerCorePostcontent extends Controller
 			$this->data['hasEmail'] = true;
 		}
 		
-		
+		if($this->request->get['dialog']== 'true')
+		{
+			$this->data['hasSummary'] = false;
+			$this->data['hasDetail'] = false;
+		}
 	
 		
 		
@@ -421,16 +426,19 @@ class ControllerCorePostcontent extends Controller
 				$this->model_core_media->saveInformation($data['mediaid'], "email2", $this->data['post']['email2']);
 				$this->model_core_media->saveInformation($data['mediaid'], "email3", $this->data['post']['email3']);
 			}*/
-			$this->data['output'] = "true";
+			$data['error'] = "";
+			
+			
 		}
 		else
 		{
+			$data['error'] ="";
 			foreach($this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				$data['error'] .= $item."<br>";
 			}
 		}
-		
+		$this->data['output'] = json_encode($data);
 		
 		$this->template="common/output.tpl";
 		$this->render();

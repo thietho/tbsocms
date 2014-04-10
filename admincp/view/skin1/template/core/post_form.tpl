@@ -36,7 +36,9 @@
                 <?php if($hasProperties) {?>
                 <li><a href="#fragment-properties"><span><?php echo $lbl_property ?></span></a></li>
                 <?php }?>
+                <?php if($hasDetail){ ?>
                 <li><a href="#fragment-detail"><span><?php echo $lbl_detail ?></span></a></li>
+                <?php } ?>
                 <?php if($hasVideo) {?>
                 <li><a href="#fragment-video"><span>Video</span></a></li>
                 <?php }?>
@@ -296,7 +298,7 @@ $('#title').change(function(e) {
                     </div>
                     <?php }?>
 <script language="javascript">
-	
+	var arratt = new Array();
 	$(document).ready(function() {
    	// put all your jQuery goodness in here.
 	$("#attachment").sortable();
@@ -323,7 +325,7 @@ $('#title').change(function(e) {
 		//alert(arratt)
 		callAtt(0);
  	});
-var arratt = new Array();
+
 function callAtt(pos)
 {
 	if(arratt[pos]!= undefined)
@@ -407,17 +409,24 @@ $(document).ready(function(e) {
                 </div>
             </div>
             <?php } ?>
+            <?php if($hasDetail){ ?>
             <div id="fragment-detail">
             	
-                <input type="button" class="button" value="<?php echo $entry_photo ?>" onclick="browserFile('editor1','editor')"/>
-                <input type="button" class="button" value="Chọn video" onclick="browserFile('editor1','video')"/>
+                <input type="button" class="button" value="<?php echo $entry_photo ?>" onclick="browserFile('description','editor')"/>
+                <input type="button" class="button" value="Chọn video" onclick="browserFile('description','video')"/>
                 
             	<div>
                 	<p>
-                        <textarea name="description" id="editor1" ><?php echo $post['description']?></textarea>
+                        <textarea name="description" id="description" ><?php echo $post['description']?></textarea>
                     </p>
                 </div>
             </div>
+            <script language="javascript">
+			$(document).ready(function(e) {
+                setCKEditorType('description',2);
+            });
+			</script>
+            <?php }?>
             <?php if($hasVideo) {?>
             <div id="fragment-video">
                     <p id="pnVideo">
@@ -638,10 +647,13 @@ $(document).ready(function(e) {
 <script type="text/javascript" charset="utf-8">
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
-	var oEditor = CKEDITOR.instances['editor1'] ;
+	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" });
+	<?php if($hasDetail){ ?>
+	var oEditor = CKEDITOR.instances['description'] ;
 	var pageValue = oEditor.getData();
-	$('textarea#editor1').val(pageValue);
+	$('textarea#description').val(pageValue);
+	<?php } ?>
+	
 	<?php if($hasSummary) {?>
 	var oEditor = CKEDITOR.instances['summary'] ;
 	var pageValue = oEditor.getData();
@@ -649,16 +661,17 @@ function save()
 	<?php } ?>
 	$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
 		function(data){
-			if(data=="true")
+			var obj = $.parseJSON(data);
+			if(obj.error=="")
 			{
 				window.location = "<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>";
-				
 			}
 			else
 			{
 				$('#error').html(data).show('slow');
 				$.unblockUI();
 			}
+			
 			
 		});
 }
@@ -668,7 +681,7 @@ function save()
 
 $(document).ready(function() { 
 	
-	setCKEditorType('editor1',2);
+	
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 	
 });
