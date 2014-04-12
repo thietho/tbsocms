@@ -522,7 +522,35 @@ function intSeleteFile(type)
 			break;
 	}
 }
+executeFunctionByName = function(functionName)
+{
+    var args = Array.prototype.slice.call(arguments).splice(1);
+    //debug
+    console.log('args:', args);
 
+    var namespaces = functionName.split(".");
+    //debug
+    console.log('namespaces:', namespaces);
+
+    var func = namespaces.pop();
+    //debug
+    console.log('func:', func);
+
+    ns = namespaces.join('.');
+    //debug
+    console.log('namespace:', ns);
+
+    if(ns == '')
+    {
+        ns = 'window';
+    }
+
+    ns = eval(ns);
+    //debug
+    console.log('evaled namespace:', ns);
+
+    return ns[func].apply(ns, args);
+}
 function addImageTo()
 {
 	var str= trim($("#listselectfile").val(),",");

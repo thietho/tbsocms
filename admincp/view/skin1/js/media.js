@@ -151,7 +151,7 @@ function showProductForm(mediaid,linkeditfull)
 				'Đóng': function() 
 				{
 					
-					$("#mediaform").dialog( "close" );
+					$("#"+eid).dialog( "close" );
 					
 				},
 			}
@@ -160,8 +160,6 @@ function showProductForm(mediaid,linkeditfull)
 		
 		$("#"+eid).load("?route=module/product/update&mediaid="+mediaid+"&dialog=true",function(){
 			$("#"+eid).dialog("open");	
-			$('#unit').val("<?php echo $post['unit']?>").change();
-			$('#brand').val("<?php echo $post['brand']?>")
 		});
 }
 function showFolderForm(folderid,folderparent)
