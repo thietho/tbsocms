@@ -401,7 +401,7 @@ function browserFile(eid,type)
 				show: "blind",
 				hide: "explode",
 				width: $(document).width()-100,
-				height: 600,
+				height: window.innerHeight,
 				modal: true,
 				
 			});
