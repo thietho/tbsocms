@@ -95,7 +95,7 @@ function showProductForm(mediaid,linkeditfull)
 	var eid = "mediaform";
 	$('body').append('<div id="'+eid+'" style="display:none"></div>');
 	
-	$("#"+eid).attr('title','Thông tin file');
+	$("#"+eid).attr('title','Thông tin sản phẩm');
 		$("#"+eid).dialog({
 			autoOpen: false,
 			show: "blind",
@@ -110,7 +110,16 @@ function showProductForm(mediaid,linkeditfull)
 			buttons: {
 				'Chỉnh sửa đầy đủ':function()
 				{
-					window.location = linkeditfull;
+					$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
+					function(data)
+					{
+						var obj = $.parseJSON(data);
+						if(obj.error=="")
+						{
+							window.location = linkeditfull;
+						}
+					});
+					
 				},
 				'Lưu':function()
 				{
