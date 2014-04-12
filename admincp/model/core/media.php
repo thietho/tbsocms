@@ -22,6 +22,7 @@ class ModelCoreMedia extends ModelCoreFile
 							'description',
 							'alias',
 							'keyword',
+							'metadescription',
 							'author',
 							'source',
 							'saleprice',

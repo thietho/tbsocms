@@ -162,6 +162,7 @@ class ControllerCorePostcontent extends Controller
 		$this->data['hasId'] = false;
 		$this->data['hasTitle'] = true;
 		$this->data['hasSummary'] = true;
+		$this->data['hasSEO'] = true;
 		$this->data['hasDetail'] = true;
 		$this->data['hasSource'] = true;
 		$this->data['hasFile'] = true;

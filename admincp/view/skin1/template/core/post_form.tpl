@@ -209,9 +209,9 @@ $('#title').change(function(e) {
                                 });
 								
 								$(document).ready(function(e) {
-									setTimeout('$("#unit").val("<?php echo $post["unit"]?>").change()',1000);
+									$("#frmPost #unit").val("<?php echo $post['unit']?>").change();
                                 	//$('#unit').val("<?php echo $post['unit']?>").change();
-									$('#brand').val("<?php echo $post['brand']?>")
+									$('#frmPost #brand').val("<?php echo $post['brand']?>");
                                 });
 								
 								
@@ -259,12 +259,12 @@ $('#title').change(function(e) {
                             
                             <select id="status" name="status">
                             	<?php foreach($this->document->status_media as $key =>$val){ ?>
-                                <option value="<?php echo $key?>" <?php echo ($key==$post['status'])?"selected='selected'":"" ?>><?php echo $val?></option>
+                                <option value="<?php echo $key?>"?><?php echo $val?></option>
                                 <?php } ?>
                                 
                             </select>
                             <script language="javascript">
-								//$('#status').val("<?php echo $post['status']?>")
+								$('#frmPost #status').val("<?php echo $post['status']?>")
 							</script>
                         </p>
                     </div>
@@ -359,6 +359,17 @@ $(document).ready(function(e) {
 </script>
                     </p>
                     <?php } ?>
+                    <?php if($hasSEO) {?>
+                    <p>
+                        <label>Meta description</label><br>
+                        <textarea class="text" rows="3" cols="70" id="metadescription" name="metadescription"><?php echo $post['metadescription']?></textarea>
+
+                    </p>
+                    <p>
+                        <label>Meta keyword</label><br>
+                        <textarea class="text" rows="3" cols="70" id="keyword" name="keyword"><?php echo $post['keyword']?></textarea>
+                    </p>
+                    <?php }?>
                     <?php if($hasSource) {?>
                     <p>
                         <label><?php echo $entry_source?></label><br>
