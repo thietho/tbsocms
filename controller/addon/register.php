@@ -6,7 +6,7 @@ class ControllerAddonRegister extends Controller
 	{
 		if($this->member->getId())
 			$this->response->redirect($this->document->createLink('memberinfor'));
-		$this->document->breadcrumb .= "Đăng ký thành viên";
+		//$this->document->breadcrumb .= "Đăng ký thành viên";
 		$arr = array("dieu-khoan-dang-ky");
 		$this->data['dieukhoan'] = $this->loadModule('module/information','index',$arr);
 		$this->id="content";

@@ -10,7 +10,7 @@ class ControllerModulePagelist extends Controller
 			$sitemapid = $this->document->sitemapid;
 		$siteid = $this->member->getSiteId();
 		$this->data['sitemap'] = $this->model_core_sitemap->getItem($sitemapid, $siteid);
-		
+		$this->document->title .= " - ".$this->data['sitemap']['sitemapname'];
 		$step = (int)$this->request->get['step'];
 		$to = $count;
 		

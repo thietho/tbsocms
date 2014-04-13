@@ -28,7 +28,7 @@ class ControllerModuleProductlist extends Controller
 		if($headername!="")
 			$this->data['sitemap']['sitemapname'] = $headername;
 		
-		
+		$this->document->title .= " - ".$this->data['sitemap']['sitemapname'];
 		$step = (int)$this->request->get['step'];
 		$to = $count;
 		//$_GET = $this->document->getPara();
