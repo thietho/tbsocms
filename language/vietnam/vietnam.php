@@ -10,6 +10,10 @@ $_['thousand_point']        = ',';
 
 // Text
 $_['text_home']             = 'Trang chủ';
+$_['text_myaccount']        = 'Tài khoảng của tôi';
+$_['text_gift']             = 'Gift';
+$_['text_outbrands']        = 'Out brands';
+$_['text_cardisempty']      = 'Đơn hàng trống';
 
 $_['text_time']             = 'Page created in %s seconds';
 $_['text_yes']              = 'Yes';
@@ -27,6 +31,7 @@ $_['text_numberaccess']       = 'Số lượt truy cập';
 
 $_['text_detail']       = 'Chi tiết';
 $_['text_order']       	= 'Đặt hàng';
+$_['text_orders']       	= 'Đơn hàng';
 $_['text_hotline']       	= 'HOTLINE';
 
 $_['text_cart']       	= 'Giỏ hàng';
@@ -52,7 +57,13 @@ $_['text_note']       	= 'Ghi chú';
 
 $_['text_register']       	= 'Đăng ký thành viên';
 $_['text_login']       	= 'Đăng nhập tài khoản';
+$_['text_logout']       	= 'Đăng xuất';
 $_['text_customerinformation']       	= 'Thông tin khách hàng';
+
+$_['text_comparelist']       	= 'Danh sách so sánh';
+$_['text_event']       	= 'Sự kiện';
+$_['text_wishlist']       	= 'Danh sách mong muốn';
+$_['text_trackingorder']       	= 'Tra cứu đơn hàng';
 
 //Warring
 $_['war_usernamenotnull'] = 'Bạn chưa nhập tên đăng nhập';

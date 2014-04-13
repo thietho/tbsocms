@@ -10,6 +10,11 @@ $_['thousand_point']        = ',';
 
 // Text
 $_['text_home']             = 'Home';
+$_['text_myaccount']        = 'My account';
+$_['text_gift']             = 'Gift';
+$_['text_outbrands']        = 'Out brands';
+$_['text_cardisempty']      = 'Card is empty';
+
 $_['text_time']             = 'Page created in %s seconds';
 $_['text_yes']              = 'Yes';
 $_['text_no']               = 'No';
@@ -26,6 +31,7 @@ $_['text_numberaccess']       = 'Visitors';
 
 $_['text_detail']       = 'Detail';
 $_['text_order']       	= 'Order';
+$_['text_orders']       	= 'Order';
 $_['text_hotline']       	= 'HOTLINE';
 
 $_['text_cart']       	= 'Cart';
@@ -50,8 +56,13 @@ $_['text_note']       	= 'Note';
 
 $_['text_register']       	= 'Register';
 $_['text_login']       	= 'Login';
+$_['text_logout']       	= 'Logout';
 $_['text_customerinformation']       	= 'Customer information';
 
+$_['text_comparelist']       	= 'Compare list';
+$_['text_event']       	= 'Event';
+$_['text_wishlist']       	= 'Wish list';
+$_['text_trackingorder']       	= 'Track my order';
 //Warring
 $_['war_usernamenotnull'] = 'User name not null';
 $_['war_usernamenotavailable'] = 'User name not available';
