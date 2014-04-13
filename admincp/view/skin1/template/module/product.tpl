@@ -203,7 +203,8 @@ function Product()
 				if(data == 'true')	
 				{
 					alert("Đưa vào nhóm thành công");	
-					window.location.reload();
+					//window.location.reload();
+					pro.searchForm();
 				}
 			});
 	}
@@ -219,7 +220,8 @@ function Product()
 				if(data == 'true')	
 				{
 					alert("Đưa ra nhóm thành công");
-					window.location.reload();
+					//window.location.reload();
+					pro.searchForm();
 				}
 			});
 	}
@@ -235,8 +237,8 @@ function Product()
 						if(data!="")
 						{
 							alert(data);
-							window.location.reload();
-							
+							//window.location.reload();
+							pro.searchForm();
 						}
 					}
 			);
