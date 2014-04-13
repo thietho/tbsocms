@@ -145,8 +145,8 @@ function Product()
 				autoOpen: false,
 				show: "blind",
 				hide: "explode",
-				width: 800,
-				height: 600,
+				width: $(document).width()-100,
+				height: window.innerHeight,
 				modal: true,
 				buttons: {
 					'Xóa khỏi danh sách':function()
@@ -262,8 +262,8 @@ function Product()
 				autoOpen: false,
 				show: "blind",
 				hide: "explode",
-				width: 800,
-				height: 600,
+				width: $(document).width()-100,
+				height: window.innerHeight,
 				modal: true,
 				close:function()
 					{
@@ -291,7 +291,7 @@ function Product()
 				show: "blind",
 				hide: "explode",
 				width: $(document).width()-100,
-				height: 600,
+				height: window.innerHeight,
 				modal: true,
 				close:function()
 					{

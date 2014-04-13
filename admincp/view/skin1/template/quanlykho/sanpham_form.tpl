@@ -159,7 +159,7 @@ $('#btnAddRow').click(function(e) {
 			show: "blind",
 			hide: "explode",
 			width: 900,
-			height: 600,
+			height: window.innerHeight,
 			modal: true,
 			buttons: {
 				
@@ -225,8 +225,8 @@ function browserFileImage()
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 800,
-			height: 600,
+			width: $(document).width()-100,
+			height: window.innerHeight,
 			modal: true,
 			
 		});

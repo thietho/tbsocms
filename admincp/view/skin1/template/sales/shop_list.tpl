@@ -111,7 +111,7 @@ function selectNhanVien(shopid)
 			show: "blind",
 			hide: "explode",
 			width: 500,
-			height: 600,
+			height: window.innerHeight,
 			modal: true,
 			close:function()
 				{

@@ -97,7 +97,7 @@ $('#btnSelectKhachHang').click(function(e) {
 			show: "blind",
 			hide: "explode",
 			width: 900,
-			height: 600,
+			height: window.innerHeight,
 			modal: true,
 		});
 	
@@ -131,8 +131,8 @@ $('#btnSelectNhanVien').click(function(e) {
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 800,
-			height: 600,
+			width: $(document).width()-100,
+			height: window.innerHeight,
 			modal: true,
 			
 		});
@@ -149,8 +149,8 @@ $('#btnSelectNguoiChi').click(function(e) {
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 800,
-			height: 600,
+			width: $(document).width()-100,
+			height: window.innerHeight,
 			modal: true,
 			
 		});
@@ -223,7 +223,7 @@ function view(maphieu)
 					autoOpen: false,
 					show: "blind",
 					hide: "explode",
-					width: 800,
+					width: $(document).width()-100,
 					height: 500,
 					modal: true,
 					close: function(event, ui) {

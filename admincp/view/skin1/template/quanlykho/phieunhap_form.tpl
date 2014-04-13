@@ -191,7 +191,7 @@ $('#btnSelectKhachHang').click(function(e) {
 			show: "blind",
 			hide: "explode",
 			width: 900,
-			height: 600,
+			height: window.innerHeight,
 			modal: true,
 		});
 	
@@ -207,8 +207,8 @@ $('#btnSelectNhanVienNhan').click(function(e) {
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 800,
-			height: 600,
+			width: $(document).width()-100,
+			height: window.innerHeight,
 			modal: true,
 			
 		});
@@ -274,7 +274,7 @@ $('#btnSeleteNhaCungCap').click(function(e) {
 			show: "blind",
 			hide: "explode",
 			width: 900,
-			height: 600,
+			height: window.innerHeight,
 			modal: true,
 		});
 	
@@ -327,7 +327,7 @@ function save(type)
 							show: "blind",
 							hide: "explode",
 							width: 900,
-							height: 600,
+							height: window.innerHeight,
 							modal: true,
 							close: function(ev, ui){
 									window.location = "?route=quanlykho/phieunhap";
