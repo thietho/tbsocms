@@ -11,7 +11,7 @@ class ControllerModuleBlock extends Controller
 		$siteid = $this->member->getSiteId();
 		$this->data['sitemap'] = $this->model_core_sitemap->getItem($sitemapid, $siteid);
 		//$this->document->title .= " - ".$this->data['sitemap']['sitemapname'];
-		$step = (int)$this->request->get['step'];
+		@$step = (int)$this->request->get['step'];
 		$to = $count;
 		
 		//Get list
@@ -20,60 +20,59 @@ class ControllerModuleBlock extends Controller
 		$queryoptions['mediatype'] = '%';
 		$queryoptions['refersitemap'] = $sitemapid;
 		
-		if($mediaid == "")
-		{
-			$medias = $this->model_core_media->getPaginationList($queryoptions, $step, $to);
-			
-			if(count($medias) == 1)
-			{
-				
-			}
-			
-			$this->data['medias'] = array();
-			
 		
-			$index = -1;
-			foreach($medias as $media)
-			{
-				$index += 1;
-				
-				$link = $this->document->createLink($sitemapid,$media['alias']);
-				
-				$imagethumbnail = "";
-				if($media['imagepath'] != "" && $template['width'] >0 )
-				{
-					$imagethumbnail = HelperImage::resizePNG($media['imagepath'], $template['width'], $template['height']);
-				}
-	
-				$weblink = $this->model_core_media->getInformation($media['mediaid'], "Link");
-				$this->data['medias'][] = array(
-					'mediaid' => $media['mediaid'],
-					'title' => $media['title'],
-					'summary' => $media['summary'],
-					'imagethumbnail' => $imagethumbnail,
-					'statusdate' => $this->date->formatMySQLDate($media['statusdate'], 'longdate', "/"),
-					'weblink' => $weblink,
-					'link' => $link
-				);
-				
-			}
-			//print_r($this->data['medias']);
-			$querystring = "?route=page/detail&sitemapid=".$sitemapid;
-			
-			$pagelinks = $this->model_core_media->getPaginationLinks($index, $queryoptions, $querystring, $step, $to);
-			
-			$this->data['nextlink'] = $pagelinks['nextlink'];
-			$this->data['prevlink'] = $pagelinks['prevlink'];
-			
-			//Other news
-			$this->data['othernews'] = $this->model_core_media->getPaginationList($queryoptions, $step+1, $to);
-			for($i=0;$i<count($this->data['othernews']);$i++)
-			{
-				$this->data['othernews'][$i]['statusdate'] = $this->date->formatMySQLDate($this->data['othernews'][$i]['statusdate'], 'longdate', "/");
-				$this->data['othernews'][$i]['link'] = HTTP_SERVER."?route=page/detail&sitemapid=".$sitemapid."&mediaid=".$this->data['othernews'][$i]['mediaid'];
-			}
+		$medias = $this->model_core_media->getPaginationList($queryoptions, $step, $to);
+		
+		if(count($medias) == 1)
+		{
 			
 		}
+		
+		$this->data['medias'] = array();
+		
+	
+		$index = -1;
+		foreach($medias as $media)
+		{
+			$index += 1;
+			
+			$link = $this->document->createLink($sitemapid,$media['alias']);
+			
+			$imagethumbnail = "";
+			if($media['imagepath'] != "" && $template['width'] >0 )
+			{
+				$imagethumbnail = HelperImage::resizePNG($media['imagepath'], $template['width'], $template['height']);
+			}
+
+			$weblink = $this->model_core_media->getInformation($media['mediaid'], "Link");
+			$this->data['medias'][] = array(
+				'mediaid' => $media['mediaid'],
+				'title' => $media['title'],
+				'summary' => $media['summary'],
+				'imagethumbnail' => $imagethumbnail,
+				'statusdate' => $this->date->formatMySQLDate($media['statusdate'], 'longdate', "/"),
+				'weblink' => $weblink,
+				'link' => $link
+			);
+			
+		}
+		//print_r($this->data['medias']);
+		$querystring = "?route=page/detail&sitemapid=".$sitemapid;
+		
+		$pagelinks = $this->model_core_media->getPaginationLinks($index, $queryoptions, $querystring, $step, $to);
+		
+		@$this->data['nextlink'] = $pagelinks['nextlink'];
+		@$this->data['prevlink'] = $pagelinks['prevlink'];
+		
+		//Other news
+		$this->data['othernews'] = $this->model_core_media->getPaginationList($queryoptions, $step+1, $to);
+		for($i=0;$i<count($this->data['othernews']);$i++)
+		{
+			$this->data['othernews'][$i]['statusdate'] = $this->date->formatMySQLDate($this->data['othernews'][$i]['statusdate'], 'longdate', "/");
+			$this->data['othernews'][$i]['link'] = HTTP_SERVER."?route=page/detail&sitemapid=".$sitemapid."&mediaid=".$this->data['othernews'][$i]['mediaid'];
+		}
+		
+		
 		
 		$this->id="news";
 		$this->template=$template['template'];
@@ -272,10 +271,10 @@ class ControllerModuleBlock extends Controller
 		$this->data['media'] = $this->model_core_media->getItem($mediaid);
 		if(count($this->data['media']))
 		{
-			$this->data['media']['imagethumbnail'] = HelperImage::fixsize($this->data['media']['imagepath'], $template['width'], $template['height']);
-			$this->data['media']['summary'] = html_entity_decode($this->data['media']['summary']);
-			$this->data['media']['description'] = html_entity_decode($this->data['media']['description']);
-			$this->data['media']['link'] = $this->document->createLink(str_replace($this->member->getSiteId(),"",$mediaid));
+			@$this->data['media']['imagethumbnail'] = HelperImage::fixsize($this->data['media']['imagepath'], $template['width'], $template['height']);
+			@$this->data['media']['summary'] = html_entity_decode($this->data['media']['summary']);
+			@$this->data['media']['description'] = html_entity_decode($this->data['media']['description']);
+			@$this->data['media']['link'] = $this->document->createLink(str_replace($this->member->getSiteId(),"",$mediaid));
 			
 			$this->id="news";
 			$this->template=$template['template'];

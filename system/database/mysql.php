@@ -4,7 +4,7 @@ final class MySQL {
 	private $prefix;
 	
 	public function __construct($hostname, $username, $password, $database, $prefix = NULL) {
-		if (!$this->link = mysql_connect($hostname, $username, $password)) {
+		if (!@$this->link = mysql_connect($hostname, $username, $password)) {
       		exit('Error: Could not make a database connection using ' . $username . '@' . $hostname);
     	}
 

@@ -283,7 +283,7 @@ final class String
 		$refersitemap = str_replace("][","@",$refersitemap);
 		$refersitemap = str_replace("[","",$refersitemap);
 		$refersitemap = str_replace("]","",$refersitemap);
-		$arr = split("@",$refersitemap);
+		@$arr = split("@",$refersitemap);
 		return $arr;
 	}
 	

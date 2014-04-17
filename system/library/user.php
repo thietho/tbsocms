@@ -16,7 +16,7 @@ final class User {
 		$this->json  = Registry::get('json');
 		$this->string  = Registry::get('string');
 		$this->date  = Registry::get('date');
-		if($this->request->get['lang'])
+		if(@$this->request->get['lang'])
 		{
 			$this->session->set('siteid',$this->request->get['lang']);
 		}
