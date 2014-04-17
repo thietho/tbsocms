@@ -89,7 +89,7 @@ class ControllerModuleProductlist extends Controller
 		$this->data['pager']  = $this->pager->pageLayoutWeb($total, $limit, $page,$uri); 
 		
 		$pager  = $this->pager->getPagerData($total, $limit, $page); 
-		$offset = $pager->offset; 
+		$offset = (int)$pager->offset; 
 		$limit  = $pager->limit; 
 		$page   = $pager->page;
 		for($i=$offset;$i < $offset + $limit && count($medias[$i])>0;$i++)
