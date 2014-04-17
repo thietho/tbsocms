@@ -18,6 +18,7 @@
                     <th>Nhãn hiệu</th>
                     <th>Trạng thái</th>
                     <th>Hình</th>
+                    <th>Danh mục</th>
                     <th></th>
                 </thead>
                 
@@ -58,6 +59,7 @@
                         <td class="brand"><?php echo $this->document->getCategory($media['brand'])?></td>
                         <td class="status"><?php echo $this->document->status_media[$media['status']]?></td>
                         <td align="center" ><img class="imagepreview" src="<?php echo $media['imagepreview']?>" />&nbsp;</td>
+                        <td><?php echo $media['sitemapname']?></td>
                         <td>
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
                         	

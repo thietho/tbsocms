@@ -131,7 +131,7 @@ function showProductForm(mediaid,linkeditfull)
 						{
 							$("#"+eid).dialog("close");
 							//Cap nhap lay thong tin tren list
-							$("#"+obj.mediaid+" .mediaid").html(obj.mediaid);
+							/*$("#"+obj.mediaid+" .mediaid").html(obj.mediaid);
 							$("#"+obj.mediaid+" .code").html(obj.code);
 							$("#"+obj.mediaid+" .title").html(obj.title);
 							$("#"+obj.mediaid+" .color").html(obj.color);
@@ -148,8 +148,8 @@ function showProductForm(mediaid,linkeditfull)
 							$("#"+obj.mediaid+" .brand").html(obj.brandname);
 							$("#"+obj.mediaid+" .unit").html(obj.unitname);
 							$("#"+obj.mediaid+" .status").html(obj.statusname);
-							$("#"+obj.mediaid+" .imagepreview").attr("src",obj.imagepreview);
-							//pro.searchForm();
+							$("#"+obj.mediaid+" .imagepreview").attr("src",obj.imagepreview);*/
+							pro.searchForm();
 						}
 						else
 						{

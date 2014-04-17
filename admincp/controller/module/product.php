@@ -116,8 +116,20 @@ class ControllerModuleProduct extends Controller
 			$user = $this->model_core_user->getItem($this->data['medias'][$i]['userid']);
 			$this->data['medias'][$i]['fullname'] =$user['fullname'];
 			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['refersitemap']);
+			$this->data['medias'][$i]['sitemapname'] = "";
+			$arrsitemapname = array();
+			if(count($arr))
+			{
+				foreach($arr as $sid)
+				{
+					$sitemap = $this->model_core_sitemap->getItem($sid,$this->user->getSiteId());
+					$arrsitemapname[]= $sitemap['sitemapname'];	
+				}
+				$this->data['medias'][$i]['sitemapname'] = implode("<br>",$arrsitemapname);
+			}
 			$sitemapid = $arr[0];
 			$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
+			
 			
 			$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
 				
