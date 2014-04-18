@@ -548,7 +548,7 @@ function saveMedia()
 function browseProduct()
 {
 	$('body').append('<div id="popupbrowseproduct" style="display:none"></div>');
-	$("#popup").attr('title','Chọn sản phẩm');
+	$("#popupbrowseproduct").attr('title','Chọn sản phẩm');
 		$("#popupbrowseproduct").dialog({
 			autoOpen: false,
 			show: "blind",
