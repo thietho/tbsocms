@@ -49,15 +49,8 @@
 <script language="javascript">
 $(document).ready(function(e) {
     $('#showdanhmuc').load('?route=module/product/productCat');
-	pro.page = Number(control.getParam("page",strurl));
-	/*if(page != undefined)
-	{
-		pro.loadProduct(pro.url+"&page="+page);
-	}
-	else
-	{
-		pro.loadProduct(pro.url+"&page=<?php echo $_GET['page']?>");	
-	}*/
+	pro.page = Number(control.getParam("page",control.getUrl()));
+	
 	pro.searchForm();
 	$('#btnSearch').click(function(e) {
 		
@@ -112,7 +105,7 @@ function Product()
 		{
 			url += "&brand="+encodeURI($('#brand').val());
 		}
-		url += "&page="+ this.page;
+		url += "&page="+ Number(control.getParam("page",control.getUrl()));
 		this.loadProduct(url);
 	}
 	this.addToList = function(mediaid)
