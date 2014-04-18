@@ -36,7 +36,7 @@
             <td><?php echo $this->document->productName($val['mediaid'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($val['soluong'])?></td>
             <td><?php echo $this->document->getDonViTinh($val['madonvi'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($val['giatien'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($val['giatien'] - $val['giamgia'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($val['thanhtien'])?></td>
             
         </tr>
