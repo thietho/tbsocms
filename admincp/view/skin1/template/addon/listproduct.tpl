@@ -6,7 +6,7 @@
     	
         <tr valign="middle">
         	<td align="center">
-            	<?php echo $media['title']?>(<?php echo $this->document->getDonViTinh($media['unit'])?>)<br />
+            	<?php echo $this->document->productName($media)?><br />
                 <?php if($media['code']!="") echo $media['code']."<br>"?>
                 <?php if($media['color']!="") echo "Màu: ".$media['color']."<br>"?>
                 Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
