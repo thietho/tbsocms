@@ -59,7 +59,18 @@ label
 <div id="site-wrapper">
 
 <div class="main">
-
+<center>
+	<p style="font-size:1.5em;font-weight:bold">Mỹ Lan Beauty Shop</p>
+    <p>
+    	Địa chỉ: 575/21/46 Nguyễn Thiện Thuật, P3, Q3, TP.HCM
+    </p>
+    <p>
+    	Điện thoại: 0903 767 580 - 0906 965 338
+    </p>
+    <p>
+    	Website: mylanbeauty.net
+    </p>
+</center>
 <div id="main-content"><?php echo $content?></div>
 
 <div class="clearer">&nbsp;</div>
