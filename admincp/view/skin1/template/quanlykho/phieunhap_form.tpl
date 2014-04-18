@@ -79,7 +79,7 @@
                 	<table>
                     	<thead>
                             <tr>
-                                <th>Model</th>
+                                
                                 <th>Sản phẩm</th>
                                 <th>Số lượng</th>
                                 <th>Đơn vị tính</th>
@@ -95,7 +95,7 @@
                         </tbody>
                         <tfoot>
                         	<tr>
-                                <td></td>
+                                
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -109,7 +109,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td></td>
+                                
                                 <td class="number">Tổng số lượng</td>
                                 <td id="sumsoluong" class="number"></td>
                                 <td></td>
@@ -123,7 +123,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td></td>
+                                
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -134,7 +134,7 @@
                                 <td><input type="button" class="button" id="btnTrahet" value="Trả hết"/></td>
                             </tr>
                             <tr>
-                                <td></td>
+                                
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -148,7 +148,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td></td>
+                                
                                 <td></td>
                                 <td></td>
                                 <td></td>

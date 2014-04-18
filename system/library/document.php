@@ -167,10 +167,17 @@ final class Document {
 	}
 	public function productName($mediaid)
 	{
-		$query = $this->db->query("Select `media`.* 
-									from `media` 
-									where mediaid ='".$mediaid."' ");
-		$media = $query->row;
+		if(!is_array( $mediaid))
+		{
+			$query = $this->db->query("Select `media`.* 
+										from `media` 
+										where mediaid ='".$mediaid."' ");
+			$media = $query->row;
+		}
+		else
+		{
+			$media = $mediaid;	
+		}
 		$productname = $media['title'];
 		if($media['code'])
 			$productname .= " - ".$media['code'];
@@ -178,7 +185,7 @@ final class Document {
 			$productname .= " ".$media['sizes'];
 		if($media['color'])
 			$productname .= " ".$media['color'];
-		return $productname;	
+		return $productname;
 		
 	}
 	public function getNhanVien($id,$name = 'hoten')
