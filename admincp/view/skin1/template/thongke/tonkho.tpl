@@ -22,7 +22,7 @@
                 <?php $sumthanhtien += $media['priceimport']*$media['tonkho'];?>
 			<tr>
             	<td><?php echo $media['code']?></td>
-                <td><?php echo $media['title']?></td>
+                <td><?php echo $this->document->productName($item['mediaid'])?></td>
                 <td><?php echo $media['color']?></td>
                 <td class="number"><?php echo $media['tonkho']?></td>
                 <td class="number"><?php echo $this->string->numberFormate($media['priceimport'])?></td>

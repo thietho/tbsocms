@@ -4,7 +4,6 @@
         	<th width="80px">Ngày</th>
         	<th>Mã phiếu</th>
         	<th>Tên sản phẩm</th>
-            <th>Code</th>
             <th>Khách hàng</th>
             <th>Số lượng</th>
             <th>Đơn vị</th>
@@ -25,8 +24,8 @@
         <tr>
         	<td><?php echo $this->date->formatMySQLDate($date)?></td>
         	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>)"><?php echo $item['maphieu']?></a></td>
-        	<td><?php echo $item['title']?></td>
-            <td><?php echo $item['code']?></td>
+        	<td><?php echo $this->document->productName($item['mediaid'])?></td>
+            
             <td><?php echo $item['nguoinhan']?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['soluong'])?></td>
             <td><?php echo $this->document->getDonViTinh($item['madonvi'])?></td>
@@ -39,7 +38,7 @@
         <?php } ?>
         <tr>
         	
-            <td class="number" colspan="10">Tổng cộng</td>
+            <td class="number" colspan="9">Tổng cộng</td>
             <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
         </tr>
     </tbody>
