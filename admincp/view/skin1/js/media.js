@@ -554,7 +554,7 @@ function browseProduct()
 			show: "blind",
 			hide: "explode",
 			width: $(document).width()-100,
-			height: 500,
+			height: window.innerHeight,
 			modal: true,
 			close:function()
 				{
