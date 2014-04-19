@@ -3,8 +3,8 @@
             
             	<thead>
                 	<th width="10%"><?php echo $column_position?></th>
-                    <th>ID</th>
-                    <th>Model</th>
+                    
+                    
                     <th>Tên sản phẩm</th>
                     <th>Barcode</th>
                     <th>Ref</th>
@@ -29,11 +29,11 @@
                         	<input type="checkbox" value="<?php echo $media['mediaid']?>" name="delete[<?php echo $media['mediaid']?>]" class="inputchk">
                             <input type="text" class="text number" name="position[<?php echo $media['mediaid']?>]" value="<?php echo $key+1?>" size="3"/>
                         </td>
-                        <td><b class="mediaid"><?php echo $media['mediaid']?></b></td>
-                        <td><b class="code"><?php echo $media['code']?></b></td>
+                        
+                        
                     	<td>
-                        	<b class="title"><?php echo $media['title']?></b>
-                            <div class="color"><?php echo $media['color']?></div>
+                        	<b class="title"><?php echo $this->document->productName($media)?></b>
+                            
                         </td>
                         <td class="barcode"><?php echo $media['barcode']?></td>
                         <td class="ref"><?php echo $media['ref']?></td>
@@ -88,11 +88,9 @@
                                         <input type="checkbox" value="<?php echo $child['mediaid']?>" name="delete[<?php echo $child['mediaid']?>]" class="inputchk">
                                         <input type="text" class="text number" name="position[<?php echo $child['mediaid']?>]" value="<?php echo $k +1?>" size="3"/>
                                     </td>
-                                    <td><b class="mediaid"><?php echo $child['mediaid']?></b></td>
-                                    <td><b class="code"><?php echo $child['code']?></b></td>
                                     <td>
-                                        <b class="title"><?php echo $child['title']?></b>
-                                        <div class="color"><?php echo $child['color']?></div>
+	                                    <b class="title"><?php echo $this->document->productName($child)?></b>
+                                        
                                     </td>
                                     <td class="barcode"><?php echo $child['barcode']?></td>
                                     <td class="ref"><?php echo $child['ref']?></td>
