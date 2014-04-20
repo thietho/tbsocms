@@ -396,6 +396,8 @@ function browserFile(eid,type)
 		switch(type)
 		{
 			case "single":
+			case "editor":
+			case "video":
 			$( "#popup" ).dialog({
 				autoOpen: false,
 				show: "blind",
