@@ -27,6 +27,11 @@ class ControllerModuleProduct extends Controller
 		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
 		unset($this->data['nhanhieu'][0]);
 		
+		$this->data['status'] = array();
+		$this->model_core_category->getTree("status",$this->data['status']);
+		unset($this->data['status'][0]);
+		
+		
 		$siteid = $this->user->getSiteId();
 		$this->data['sitemapid'] = urldecode($this->request->get['sitemapid']);
 		$this->data['breadcrumb'] = $this->model_core_sitemap->getBreadcrumb($this->data['sitemapid'], $siteid);
@@ -94,6 +99,11 @@ class ControllerModuleProduct extends Controller
 		if($brand !="")
 		{
 			$where .= " AND brand like '".$brand."'";
+		}
+		$status = urldecode($this->request->get['status']);
+		if($status !="")
+		{
+			$where .= " AND groupkeys like '%[".$status."]%'";
 		}
 		$where .= " Order by position, statusdate DESC";
 		$rows = $this->model_core_media->getList($where);

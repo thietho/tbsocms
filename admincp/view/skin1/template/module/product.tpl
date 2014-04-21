@@ -8,6 +8,11 @@
         </div>
         <div  class="left" style="width:80%">
         	<h2><?php echo $breadcrumb?></h2>
+            <div>
+            	<?php foreach($status as $it){ ?>
+                	<a  onclick="window.location='#status=<?php echo $it['categoryid']?>';pro.searchForm();"><?php echo $it['categoryname']?></a>
+                <?php }?>
+            </div>
         	<div id="search">
             	<label>Từ khóa:</label>
                 <input type="text" class="text" id="keyword" size="100"/>
@@ -105,7 +110,8 @@ function Product()
 		{
 			url += "&brand="+encodeURI($('#brand').val());
 		}
-		url += "&page="+ Number(control.getParam("page",control.getUrl()));
+		url += "&status=" + control.getParam("status",control.getUrl());
+		url += "&page=" + Number(control.getParam("page",control.getUrl()));
 		this.loadProduct(url);
 	}
 	this.addToList = function(mediaid)
