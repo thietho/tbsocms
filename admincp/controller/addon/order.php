@@ -409,6 +409,7 @@ class ControllerAddonOrder extends Controller
 			$arrref = array();
 			$arrcolor = array();
 			$arrsizes = array();
+			$arrmaterial = array();
 			foreach($arrkey as $key)
 			{
 				$arr[] = "title like '%".$key."%'";
@@ -429,13 +430,17 @@ class ControllerAddonOrder extends Controller
 			{
 				$arrref[] = "ref like '%".$key."%'";
 			}
-			foreach($arrcolor as $key)
+			foreach($arrkey as $key)
 			{
 				$arrcolor[] = "color like '%".$key."%'";
 			}
-			foreach($arrsizes as $key)
+			foreach($arrkey as $key)
 			{
 				$arrsizes[] = "sizes like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrmaterial[] = "material like '%".$key."%'";
 			}
 			$where .= " AND ((". implode(" AND ",$arr). ") 
 									OR (". implode(" AND ",$arrcode). ") 
@@ -443,6 +448,7 @@ class ControllerAddonOrder extends Controller
 									OR (". implode(" AND ",$arrref). ") 
 									OR (". implode(" AND ",$arrcolor). ") 
 									OR (". implode(" AND ",$arrsizes). ") 
+									OR (". implode(" AND ",$arrmaterial). ") 
 							)";
 		}
 		$siteid = $this->user->getSiteId();

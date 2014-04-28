@@ -78,6 +78,7 @@ class ControllerModuleProduct extends Controller
 			$arrref = array();
 			$arrcolor = array();
 			$arrsizes = array();
+			$arrmaterial = array();
 			foreach($arrkey as $key)
 			{
 				$arr[] = "title like '%".$key."%'";
@@ -98,13 +99,17 @@ class ControllerModuleProduct extends Controller
 			{
 				$arrref[] = "ref like '%".$key."%'";
 			}
-			foreach($arrcolor as $key)
+			foreach($arrkey as $key)
 			{
 				$arrcolor[] = "color like '%".$key."%'";
 			}
-			foreach($arrsizes as $key)
+			foreach($arrkey as $key)
 			{
 				$arrsizes[] = "sizes like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrmaterial[] = "material like '%".$key."%'";
 			}
 			$where .= " AND ((". implode(" AND ",$arr). ") 
 									OR (". implode(" AND ",$arrcode). ") 
@@ -112,8 +117,9 @@ class ControllerModuleProduct extends Controller
 									OR (". implode(" AND ",$arrref). ") 
 									OR (". implode(" AND ",$arrcolor). ") 
 									OR (". implode(" AND ",$arrsizes). ") 
+									OR (". implode(" AND ",$arrmaterial). ") 
 							)";
-			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
+			
 		}
 		$brand = urldecode($this->request->get['brand']);
 		if($brand !="")
