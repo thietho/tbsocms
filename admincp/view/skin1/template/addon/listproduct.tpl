@@ -7,7 +7,6 @@
         <tr valign="middle">
         	<td align="center">
             	<?php echo $this->document->productName($media)?><br />
-                <?php if($media['code']!="") echo $media['code']."<br>"?>
                 <?php if($media['color']!="") echo "Màu: ".$media['color']."<br>"?>
                 Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
                 Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />

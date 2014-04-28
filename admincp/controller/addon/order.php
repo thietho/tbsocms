@@ -407,6 +407,8 @@ class ControllerAddonOrder extends Controller
 			$arrcode = array();
 			$arrbarcode = array();
 			$arrref = array();
+			$arrcolor = array();
+			$arrsizes = array();
 			foreach($arrkey as $key)
 			{
 				$arr[] = "title like '%".$key."%'";
@@ -423,8 +425,25 @@ class ControllerAddonOrder extends Controller
 			{
 				$arrref[] = "ref like '%".$key."%'";
 			}
-			$where .= " AND ((". implode(" AND ",$arr). ") OR (". implode(" AND ",$arrcode). ") OR (". implode(" AND ",$arrbarcode). ") OR (". implode(" AND ",$arrref). ") )";
-			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
+			foreach($arrkey as $key)
+			{
+				$arrref[] = "ref like '%".$key."%'";
+			}
+			foreach($arrcolor as $key)
+			{
+				$arrcolor[] = "color like '%".$key."%'";
+			}
+			foreach($arrsizes as $key)
+			{
+				$arrsizes[] = "sizes like '%".$key."%'";
+			}
+			$where .= " AND ((". implode(" AND ",$arr). ") 
+									OR (". implode(" AND ",$arrcode). ") 
+									OR (". implode(" AND ",$arrbarcode). ") 
+									OR (". implode(" AND ",$arrref). ") 
+									OR (". implode(" AND ",$arrcolor). ") 
+									OR (". implode(" AND ",$arrsizes). ") 
+							)";
 		}
 		$siteid = $this->user->getSiteId();
 		if($sitemapid == "")
