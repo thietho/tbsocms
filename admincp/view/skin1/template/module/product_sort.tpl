@@ -8,7 +8,7 @@
             <tr valign="middle">
                 <td align="center">
                     <?php echo $this->document->productName($media)?><br />
-                    Giảm: <?php echo $this->string->numberFormate($media['discountpercent'])?><br />
+                    Giảm: <?php echo $this->string->numberFormate($media['discountpercent'])?>%<br />
                     Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
                     Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />
                     Tồn: <?php echo $media['tonkho']?>

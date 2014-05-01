@@ -231,8 +231,72 @@ class ControllerModuleProduct extends Controller
 	}
 	public function listsort()
 	{
+		$rows = $this->productData();
 		
-		$this->getList("module/product_sort.tpl");	
+		$this->data['medias'] = array();
+		
+		foreach($rows as $i => $media)
+		{
+			$this->data['medias'][$i] = $rows[$i];
+			//$user = $this->model_core_user->getItem($this->data['medias'][$i]['userid']);
+			//$this->data['medias'][$i]['fullname'] =$user['fullname'];
+			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['refersitemap']);
+			$this->data['medias'][$i]['sitemapname'] = "";
+			$arrsitemapname = array();
+			if(count($arr))
+			{
+				foreach($arr as $sid)
+				{
+					$sitemap = $this->model_core_sitemap->getItem($sid,$this->user->getSiteId());
+					$arrsitemapname[]= $sitemap['sitemapname'];	
+				}
+				$this->data['medias'][$i]['sitemapname'] = implode("<br>",$arrsitemapname);
+			}
+			$sitemapid = $arr[0];
+			$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
+			
+			
+			$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
+				
+			
+			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
+			
+			$mediaid = $this->data['medias'][$i]['mediaid'];
+			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
+			$data_child = $this->model_core_media->getListByParent($mediaid);
+			foreach($data_child as $key =>$child)
+			{
+				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
+				$data_child[$key]['saleprice'] = json_decode($child['saleprice']);
+				$data_child[$key]['tonkho'] = $this->model_core_media->getTonKho($child['mediaid']);
+				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
+				$data_child[$key]['text_edit'] = "Edit";
+			}
+			$this->data['medias'][$i]['child'] = $data_child;
+			$parapage = "";
+			if($page)
+				$parapage = "&page=".$page;
+			if($page)
+				
+			$this->data['medias'][$i]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$this->data['medias'][$i]['mediaid'].$parapage);
+			$this->data['medias'][$i]['text_edit'] = "Edit";
+			
+			$this->data['medias'][$i]['link_addchild'] = $this->url->http('module/product/insert&sitemapid='.$sitemap['sitemapid'].'&mediaparent='.$this->data['medias'][$i]['mediaid'].$parapage);
+			$this->data['medias'][$i]['text_addchild'] = "Thêm qui cách";	
+			
+			$this->data['medias'][$i]['type'] = $sitemap['moduleid'];
+			$this->data['medias'][$i]['typename'] = $this->model_core_sitemap->getModuleName($sitemap['moduleid']);
+			
+			
+			
+		}
+		$this->data['refres']=$_SERVER['QUERY_STRING'];
+		$this->id='content';
+		
+		$this->template="module/product_sort.tpl";
+		
+		$this->render();
+		
 	}
 	public function savesort()
 	{
