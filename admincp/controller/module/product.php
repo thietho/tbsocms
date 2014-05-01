@@ -41,15 +41,15 @@ class ControllerModuleProduct extends Controller
 		$this->render();
 	}
 	
-	public function getList()
+	public function getList($template="module/product_list.tpl")
 	{
 		$sitemapid = urldecode($this->request->get['sitemapid']);
 		$this->data['sitemapid'] = $sitemapid;
 		$siteid = $this->user->getSiteId();
 		if($sitemapid == "")
 		{
-			$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
-			$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
+			//$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
+			//$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
 		}
 		else
 		{
@@ -147,10 +147,11 @@ class ControllerModuleProduct extends Controller
 		$page   = $pager->page;
 		$this->data['medias'] = array();
 		for($i=$offset;$i < $offset + $limit && count($rows[$i])>0;$i++)
+		//foreach($rows as $i => $media)
 		{
 			$this->data['medias'][$i] = $rows[$i];
-			$user = $this->model_core_user->getItem($this->data['medias'][$i]['userid']);
-			$this->data['medias'][$i]['fullname'] =$user['fullname'];
+			//$user = $this->model_core_user->getItem($this->data['medias'][$i]['userid']);
+			//$this->data['medias'][$i]['fullname'] =$user['fullname'];
 			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['refersitemap']);
 			$this->data['medias'][$i]['sitemapname'] = "";
 			$arrsitemapname = array();
@@ -203,7 +204,8 @@ class ControllerModuleProduct extends Controller
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
-		$this->template="module/product_list.tpl";
+		
+		$this->template=$template;
 		
 		
 		$this->render();

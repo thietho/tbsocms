@@ -29,12 +29,13 @@
                 <a class="button" href="?route=module/product/insert&sitemapid=<?php echo $sitemapid?>&page=<?php echo $page?>"><?php echo $button_add?></a>
                 <a class="button" id="btnImport" onclick="pro.importData()">Import</a>
                 <a class="button" id="btnExport" onclick="pro.exportData()">Export</a>
-                
+               
                 <?php } ?>
                 <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
-                <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>&nbsp;
-                <a class="button" href="?route=module/information&sitemapid=<?php echo $sitemapid?>&goback=module/product">Biên tập nội dung</a>&nbsp;
+                <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>
+                <a class="button" href="?route=module/information&sitemapid=<?php echo $sitemapid?>&goback=module/product">Biên tập nội dung</a>
+                <a class="button" onclick="pro.showListSort()">Sắp xếp</a>
                 <?php } ?>
                 <?php if($this->user->checkPermission("module/product/deleted")==true){ ?>
                 <a class="button" onclick="pro.deleteProduct()">Xóa</a>&nbsp;
@@ -101,7 +102,12 @@ function Product()
 	}
 	this.searchForm = function()
 	{
-		url = this.url;
+		
+		this.loadProduct(this.url+this.getUrl());
+	}
+	this.getUrl = function()
+	{
+		url = "";
 		if($('#keyword').val()!="")
 		{
 			url += "&keyword="+encodeURI($('#keyword').val());
@@ -112,7 +118,7 @@ function Product()
 		}
 		url += "&status=" + control.getParam("status",control.getUrl());
 		url += "&page=" + Number(control.getParam("page",control.getUrl()));
-		this.loadProduct(url);
+		return url
 	}
 	this.addToList = function(mediaid)
 	{
@@ -247,7 +253,7 @@ function Product()
 	{
 		$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
 		$.post("?route=core/postlist/updatePosition", $("#postlist").serialize(), function(data){
-			pro.loadProduct(pro.url);
+			pro.searchForm();
 			$.unblockUI();
 		});	
 	}
@@ -362,6 +368,75 @@ function Product()
 			window.location = "download.php?url="+ encodeURI(data);
 		});	
 	}
+	this.showListSort = function()
+	{
+		var eid = "listsort";
+		$('body').append('<div id="'+eid+'" style="display:none"></div>');
+		
+		$("#"+eid).attr('title','Danh sách sản phẩm');
+			$("#"+eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				modal: true,
+				close:function()
+					{
+						$("#"+eid).remove();
+					},
+				buttons: {
+					
+					'Lưu':function()
+					{
+						$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
+						function(data)
+						{
+							var obj = $.parseJSON(data);
+							if(obj.error=="")
+							{
+								$("#"+eid).dialog("close");
+								//Cap nhap lay thong tin tren list
+								/*$("#"+obj.mediaid+" .mediaid").html(obj.mediaid);
+								$("#"+obj.mediaid+" .code").html(obj.code);
+								$("#"+obj.mediaid+" .title").html(obj.title);
+								$("#"+obj.mediaid+" .color").html(obj.color);
+								$("#"+obj.mediaid+" .barcode").html(obj.barcode);
+								$("#"+obj.mediaid+" .ref").html(obj.ref);
+								var price = obj.price;
+								if(obj.noteprice !="")
+								{
+									price += "<br />("+obj.noteprice+")";
+								}
+								$("#"+obj.mediaid+" .price").html(price);
+								$("#"+obj.mediaid+" .discountpercent").html(obj.discountpercent+"%");	
+								$("#"+obj.mediaid+" .pricepromotion").html(obj.pricepromotion);	
+								$("#"+obj.mediaid+" .brand").html(obj.brandname);
+								$("#"+obj.mediaid+" .unit").html(obj.unitname);
+								$("#"+obj.mediaid+" .status").html(obj.statusname);
+								$("#"+obj.mediaid+" .imagepreview").attr("src",obj.imagepreview);*/
+								pro.searchForm();
+							}
+							else
+							{
+								$('#error').html(data).show('slow');
+							}
+						});
+					},
+					'Đóng': function() 
+					{
+						
+						$("#"+eid).dialog( "close" );
+						
+					},
+				}
+			});
+			
+			alert(pro.getUrl())
+			$("#"+eid).load("?route=module/product/listsort"+pro.getUrl()+"&dialog=true",function(){
+				$("#"+eid).dialog("open");	
+			});
+		}
 }
 var pro = new Product();
 
