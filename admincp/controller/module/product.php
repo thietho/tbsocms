@@ -40,16 +40,14 @@ class ControllerModuleProduct extends Controller
 		$this->layout='layout/center';
 		$this->render();
 	}
-	
-	public function getList($template="module/product_list.tpl")
+	private function productData()
 	{
 		$sitemapid = urldecode($this->request->get['sitemapid']);
 		$this->data['sitemapid'] = $sitemapid;
 		$siteid = $this->user->getSiteId();
 		if($sitemapid == "")
 		{
-			//$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
-			//$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
+			
 		}
 		else
 		{
@@ -131,8 +129,30 @@ class ControllerModuleProduct extends Controller
 		{
 			$where .= " AND groupkeys like '%[".$status."]%'";
 		}
+		
+		$sort = "sort".$sitemapid.$status;
+		$listmediaid = $this->model_core_media->getInformation($sort,'sort');
+		$arrmediaid = $this->string->referSiteMapToArray($listmediaid);
+		$data_media = array();
+		
+		if(count($arrmediaid))
+		{
+			$where .= " AND mediaid NOT IN ('". implode("','",$arrmediaid) ."')";
+			foreach($arrmediaid as $mediaid)
+			{
+				$media = $this->model_core_media->getItem($mediaid);
+				$data_media[] = $media;
+			}
+		}
 		$where .= " Order by position, statusdate DESC";
 		$rows = $this->model_core_media->getList($where);
+		$data_media = array_merge($data_media,$rows);
+		return $data_media;
+	}
+	public function getList($template="module/product_list.tpl")
+	{
+		
+		$rows = $this->productData();
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;		
@@ -207,10 +227,25 @@ class ControllerModuleProduct extends Controller
 		
 		$this->template=$template;
 		
-		
 		$this->render();
 	}
-	
+	public function listsort()
+	{
+		
+		$this->getList("module/product_sort.tpl");	
+	}
+	public function savesort()
+	{
+		$data = $this->request->post;
+		
+		$this->model_core_media->saveInformation($data['sort'],"sort",$this->string->arrayToString($data['mediaid']));
+		
+		$this->data['output'] = "true";
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();	
+	}
 	public function insert()
 	{
 		$this->data['output'] = $this->loadModule('core/postcontent');

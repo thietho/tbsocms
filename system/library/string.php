@@ -280,6 +280,8 @@ final class String
 	
 	function referSiteMapToArray($refersitemap)
 	{
+		if($refersitemap =="")
+			return;
 		$refersitemap = str_replace("][","@",$refersitemap);
 		$refersitemap = str_replace("[","",$refersitemap);
 		$refersitemap = str_replace("]","",$refersitemap);

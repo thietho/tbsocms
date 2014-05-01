@@ -389,38 +389,11 @@ function Product()
 					
 					'Lưu':function()
 					{
-						$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
+						$.post("?route=module/product/savesort",$('#frm_sortproduct').serialize(),
 						function(data)
 						{
-							var obj = $.parseJSON(data);
-							if(obj.error=="")
-							{
-								$("#"+eid).dialog("close");
-								//Cap nhap lay thong tin tren list
-								/*$("#"+obj.mediaid+" .mediaid").html(obj.mediaid);
-								$("#"+obj.mediaid+" .code").html(obj.code);
-								$("#"+obj.mediaid+" .title").html(obj.title);
-								$("#"+obj.mediaid+" .color").html(obj.color);
-								$("#"+obj.mediaid+" .barcode").html(obj.barcode);
-								$("#"+obj.mediaid+" .ref").html(obj.ref);
-								var price = obj.price;
-								if(obj.noteprice !="")
-								{
-									price += "<br />("+obj.noteprice+")";
-								}
-								$("#"+obj.mediaid+" .price").html(price);
-								$("#"+obj.mediaid+" .discountpercent").html(obj.discountpercent+"%");	
-								$("#"+obj.mediaid+" .pricepromotion").html(obj.pricepromotion);	
-								$("#"+obj.mediaid+" .brand").html(obj.brandname);
-								$("#"+obj.mediaid+" .unit").html(obj.unitname);
-								$("#"+obj.mediaid+" .status").html(obj.statusname);
-								$("#"+obj.mediaid+" .imagepreview").attr("src",obj.imagepreview);*/
-								pro.searchForm();
-							}
-							else
-							{
-								$('#error').html(data).show('slow');
-							}
+							$("#"+eid).dialog( "close" );
+							pro.searchForm();
 						});
 					},
 					'Đóng': function() 
@@ -432,8 +405,8 @@ function Product()
 				}
 			});
 			
-			alert(pro.getUrl())
-			$("#"+eid).load("?route=module/product/listsort"+pro.getUrl()+"&dialog=true",function(){
+			
+			$("#"+eid).load("?route=module/product/listsort&sitemapid=<?php echo $sitemapid?>"+pro.getUrl()+"&dialog=true",function(){
 				$("#"+eid).dialog("open");	
 			});
 		}
