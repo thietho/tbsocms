@@ -1,5 +1,5 @@
 <form id="frm_sortproduct">
-	<input type="hidden" name="sort" value="<?php echo 'sort'.$this->request->get['sitemapid'].$this->request->get['status']?>">
+	<input type="hidden" name="sort" value="<?php echo 'sort'.$this->request->get['sitemapid'].$this->request->get['status'].$this->request->get['brand']?>">
     <?php foreach($medias as $key => $media) {?>
     <div class="product-item left" ref="<?php echo $media['mediaid']?>" style="background:url('<?php echo $media['imagepreview']?>') no-repeat center center;">
         <input type="hidden" class="listid" name="mediaid[]" value="<?php echo $media['mediaid']?>">
