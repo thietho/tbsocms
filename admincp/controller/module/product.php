@@ -130,7 +130,7 @@ class ControllerModuleProduct extends Controller
 			$where .= " AND groupkeys like '%[".$status."]%'";
 		}
 		
-		$sort = "sort".$sitemapid.$status;
+		/*$sort = "sort".$sitemapid.$status;
 		$listmediaid = $this->model_core_media->getInformation($sort,'sort');
 		$arrmediaid = $this->string->referSiteMapToArray($listmediaid);
 		$data_media = array();
@@ -143,11 +143,11 @@ class ControllerModuleProduct extends Controller
 				$media = $this->model_core_media->getItem($mediaid);
 				$data_media[] = $media;
 			}
-		}
+		}*/
 		$where .= " Order by position, statusdate DESC";
 		$rows = $this->model_core_media->getList($where);
-		$data_media = array_merge($data_media,$rows);
-		return $data_media;
+		//$data_media = array_merge($data_media,$rows);
+		return $rows;
 	}
 	public function getList($template="module/product_list.tpl")
 	{
