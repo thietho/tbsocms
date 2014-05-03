@@ -231,7 +231,63 @@ class ControllerModuleProduct extends Controller
 	}
 	public function listsort()
 	{
-		$rows = $this->productData();
+		$sitemapid = urldecode($this->request->get['sitemapid']);
+		$this->data['sitemapid'] = $sitemapid;
+		$siteid = $this->user->getSiteId();
+		if($sitemapid == "")
+		{
+			
+		}
+		else
+		{
+			$data = array();
+			$sitemaps = $this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);
+			$arrsitemapid = $this->string->matrixToArray($data,"sitemapid");
+		}
+		$arr = array();
+		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
+		if($sitemapid)
+			foreach($arrsitemapid as $sitemapid)
+			{
+				$arr[] = " refersitemap like '%[".$sitemapid."]%'";
+			}
+		if(count($arr))
+			$where .= "AND (". implode($arr," OR ").")";
+		
+		$keyword = urldecode($this->request->get['keyword']);
+		$arrkey = split(' ', $keyword);
+		
+		
+		$brand = urldecode($this->request->get['brand']);
+		if($brand !="")
+		{
+			$where .= " AND brand like '".$brand."'";
+		}
+		$status = urldecode($this->request->get['status']);
+		if($status !="")
+		{
+			$where .= " AND groupkeys like '%[".$status."]%'";
+		}
+		
+		$sort = "sort".$sitemapid.$status;
+		$listmediaid = $this->model_core_media->getInformation($sort,'sort');
+		$arrmediaid = $this->string->referSiteMapToArray($listmediaid);
+		$data_media = array();
+		
+		if(count($arrmediaid))
+		{
+			$where .= " AND mediaid NOT IN ('". implode("','",$arrmediaid) ."')";
+			foreach($arrmediaid as $mediaid)
+			{
+				$media = $this->model_core_media->getItem($mediaid);
+				$data_media[] = $media;
+			}
+		}
+		$where .= " Order by position, statusdate DESC";
+		$rows = $this->model_core_media->getList($where);
+		$data_media = array_merge($data_media,$rows);
+		
+		$rows =$data_media;
 		
 		$this->data['medias'] = array();
 		
