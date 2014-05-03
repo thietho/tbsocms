@@ -17,7 +17,7 @@
             </div>
             <div class="clearer">^&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
-            <div id="container">
+            <div id="phieunhapxuat">
                 <ul class="tabs-nav">
                     <li class="tabs-selected"><a href="#fragment-thongtin"><span>Thông tin phiếu nhập</span></a></li>
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
@@ -173,7 +173,7 @@ $(document).ready(function(e) {
 
 <script language="javascript">
 $(document).ready(function(e) {
-    $('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
+    $('#phieunhapxuat').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 });
 $('#btnTrahet').click(function(e) {
     $('#thanhtoan').val($('#tongcong').html());

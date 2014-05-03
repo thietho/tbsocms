@@ -53,6 +53,7 @@
     </div>
 </div>
 <script language="javascript">
+
 $(document).ready(function(e) {
     $('#showdanhmuc').load('?route=module/product/productCat');
 	pro.page = Number(control.getParam("page",control.getUrl()));

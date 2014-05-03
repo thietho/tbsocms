@@ -64,7 +64,7 @@
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
                         	
                             
-                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="showProductForm('<?php echo $media['mediaid']?>','<?php echo $media['link_edit']?>')"/>
+                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="showProductForm('<?php echo $media['mediaid']?>','<?php echo $media['link_edit']?>','pro.searchForm()')"/>
                             <?php } ?>
                             <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                   			

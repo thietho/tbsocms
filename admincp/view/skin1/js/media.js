@@ -90,7 +90,7 @@ function showMediaForm(fileid)
 			$("#"+eid).dialog("open");	
 		});
 }
-function showProductForm(mediaid,linkeditfull)
+function showProductForm(mediaid,linkeditfull,funcname)
 {
 	var eid = "mediaform";
 	$('body').append('<div id="'+eid+'" style="display:none"></div>');
@@ -149,7 +149,8 @@ function showProductForm(mediaid,linkeditfull)
 							$("#"+obj.mediaid+" .unit").html(obj.unitname);
 							$("#"+obj.mediaid+" .status").html(obj.statusname);
 							$("#"+obj.mediaid+" .imagepreview").attr("src",obj.imagepreview);*/
-							pro.searchForm();
+							//pro.searchForm();
+							setTimeout(funcname,0);
 						}
 						else
 						{

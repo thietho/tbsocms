@@ -29,7 +29,7 @@ $(document).ready(function(e) {
 });
 
 $('#btnAddProduct').click(function(e) {
-    addQuickProduct();
+    showProductForm('','','searchForm()');
 });
 function loadData(url)
 {
