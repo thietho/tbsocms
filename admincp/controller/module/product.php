@@ -274,13 +274,18 @@ class ControllerModuleProduct extends Controller
 		$arrmediaid = $this->string->referSiteMapToArray($listmediaid);
 		$data_media = array();
 		
+		$rows = $this->model_core_media->getList($where);
+		$arrdb = $this->string->matrixToArray($rows,'mediaid');
 		if(count($arrmediaid))
 		{
 			$where .= " AND mediaid NOT IN ('". implode("','",$arrmediaid) ."')";
 			foreach($arrmediaid as $mediaid)
 			{
-				$media = $this->model_core_media->getItem($mediaid);
-				$data_media[] = $media;
+				if(in_array($mediaid,$arrdb))
+				{
+					$media = $this->model_core_media->getItem($mediaid);
+					$data_media[] = $media;
+				}
 			}
 		}
 		$where .= " Order by position, statusdate DESC";
