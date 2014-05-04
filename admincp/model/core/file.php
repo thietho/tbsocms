@@ -196,6 +196,8 @@ class ModelCoreFile extends Model
 	public function deleteFile($id)
 	{
 		$file=$this->getFile($id);
+		$arr = split("\.",$file['filename']);
+		
 		
 		if(file_exists(DIR_FILE.$file['filepath']))
 			unlink(DIR_FILE.$file['filepath']);
@@ -203,6 +205,9 @@ class ModelCoreFile extends Model
 		$fileid=(int)@$id;
 		$where="fileid = ".$fileid;
 		$this->db->deleteData('file',$where);
+		//Xoa catch
+		$this->cache->delete($arr[0]);
+		
 	}
 	
 	public function checkExtension($ext, $filetypeid="any")

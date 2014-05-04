@@ -153,7 +153,7 @@ $('#title').change(function(e) {
                             <select id="brand" name="brand">
                                 <option value=""></option>
                                 <?php foreach($nhanhieu as $it){ ?>
-                                <option value="<?php echo $it['categoryid']?>" <?php echo ($post['brand']==$it['categoryid'])?"selected":"" ?>><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                                <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
                                 <?php } ?>
                             </select>
                         </p>

@@ -4,6 +4,9 @@ class ControllerCoreFile extends Controller
 	private $error = array();
 	public function index()
 	{
+		
+		$files = glob(DIR_CACHE . '*13*');
+		print_r($files);
 		$this->load->model("core/media");
 		$this->load->model("core/sitemap");
 		
