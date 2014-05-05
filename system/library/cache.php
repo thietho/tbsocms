@@ -31,7 +31,8 @@ final class Cache {
 
   	public function set($key, $value) {
     	$this->delete($key);
-		
+		if (!is_dir(DIR_CACHE))
+			mkdir( DIR_CACHE , 0777 );
 		$file = DIR_CACHE . 'cache.' . $key . '.' . (time() + $this->expire);
     	
 		$handle = fopen($file, 'w');
