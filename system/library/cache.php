@@ -1,6 +1,6 @@
 <?php
 final class Cache { 
-	private $expire = 3600;
+	private $expire = 84600;
 
   	public function __construct() {
 		$files = glob(DIR_CACHE . '*');
