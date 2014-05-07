@@ -269,7 +269,7 @@ class ControllerModuleProduct extends Controller
 			$where .= " AND groupkeys like '%[".$status."]%'";
 		}
 		
-		$sort = "sort".$sitemapid.$status;
+		$sort = "sort".$sitemapid.$status.$brand;
 		$listmediaid = $this->model_core_media->getInformation($sort,'sort');
 		$arrmediaid = $this->string->referSiteMapToArray($listmediaid);
 		$data_media = array();
