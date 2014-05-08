@@ -64,7 +64,7 @@
                         	<?php if($this->user->checkPermission("module/product/update")==true){ ?>
                         	
                             
-                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="showProductForm('<?php echo $media['mediaid']?>','<?php echo $media['link_edit']?>','pro.searchForm()')"/>
+                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="showProductForm('<?php echo $media['mediaid']?>','pro.searchForm()')"/>
                             <?php } ?>
                             <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
                   			
@@ -121,7 +121,7 @@
                                     <td>
                                         <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                                         
-                                        <input type="button" class="button" value="<?php echo $child['text_edit']?>" onclick="showProductForm('<?php echo $child['mediaid']?>','<?php echo $child['link_edit']?>')"/>
+                                        <input type="button" class="button" value="<?php echo $child['text_edit']?>" onclick="showProductForm('<?php echo $child['mediaid']?>','pro.searchForm()')"/>
                               			          
                                         <?php } ?>
                                        	<input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>

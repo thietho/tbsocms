@@ -3,19 +3,7 @@ final class Cache {
 	private $expire = 84600;
 
   	public function __construct() {
-		$files = glob(DIR_CACHE . '*');
 		
-    	if(count($files)>0)
-		{
-			foreach ($files as $file) 
-			{
-				$time = filemtime($file);
-				
-				if (time() - $time > $this->expire) {
-					@unlink($file);
-				}
-			}	
-		}
   	}
 
 	public function get($key) {
@@ -55,5 +43,21 @@ final class Cache {
 			}	
 		}
   	}
+	public function clear()
+	{
+		$files = glob(DIR_CACHE . '*');
+		
+    	if(count($files)>0)
+		{
+			foreach ($files as $file) 
+			{
+				$time = filemtime($file);
+				
+				if (time() - $time > $this->expire) {
+					@unlink($file);
+				}
+			}	
+		}
+	}
 }
 ?>

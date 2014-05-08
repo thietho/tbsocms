@@ -211,7 +211,7 @@ $('#btnSelectKhachHang').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		$("#popup-content").load("?route=core/member&opendialog=true",function(){
 			
 		});
@@ -248,7 +248,7 @@ $('#btnSelectNhanVien').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		
 		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
 			

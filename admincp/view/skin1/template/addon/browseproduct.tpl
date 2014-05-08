@@ -29,7 +29,7 @@ $(document).ready(function(e) {
 });
 
 $('#btnAddProduct').click(function(e) {
-    showProductForm('','','searchForm()');
+    showProductForm('','searchForm()');
 });
 function loadData(url)
 {

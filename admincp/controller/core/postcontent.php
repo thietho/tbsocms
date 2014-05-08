@@ -277,11 +277,11 @@ class ControllerCorePostcontent extends Controller
 			$this->data['hasEmail'] = true;
 		}
 		
-		if($this->request->get['dialog']== 'true')
+		/*if($this->request->get['dialog']== 'true')
 		{
 			$this->data['hasSummary'] = false;
 			$this->data['hasDetail'] = false;
-		}
+		}*/
 	
 		
 		

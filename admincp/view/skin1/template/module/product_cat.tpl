@@ -75,7 +75,7 @@ $('.addcat').click(function(e) {
 					});
 				
 		$("#popup").dialog("open");
-		$("#popup").html(loading);		
+		$("#popup-content").html(loading);		
 		$("#popup-content").load('?route=module/product/addcat&parent='+parent,function(){
 			
 		});
@@ -123,7 +123,7 @@ $('.editcat').click(function(e) {
 					});
 				
 		$("#popup").dialog("open");
-		$("#popup").html(loading);		
+		$("#popup-content").html(loading);		
 		$("#popup-content").load('?route=module/product/editcat&sitemapid='+sitemapid,function(){
 			
 		});

@@ -148,7 +148,7 @@ function view(maphieu)
 				});
 			
 	$("#popup").dialog("open");	
-	$("#popup").html(loading);		
+	$("#popup-content").html(loading);		
 	$("#popup-content").load("?route=addon/phieuchi/view&maphieu="+maphieu+"&dialog=true",function(){
 		
 	});

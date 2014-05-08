@@ -102,7 +102,7 @@ $('#btnSelectKhachHang').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		$("#popup-content").load("?route=core/member&opendialog=true",function(){
 			
 		});
@@ -139,7 +139,7 @@ $('#btnSelectNhaCungCap').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		$("#popup-content").load("?route=quanlykho/nhacungcap&opendialog=true",function(){
 			
 		});
@@ -176,7 +176,7 @@ $('#btnSelectNhanVien').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);	
+		$("#popup-content").html(loading);	
 		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
 			
 		});
@@ -195,7 +195,7 @@ $('#btnSelectNguoiChi').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);	
+		$("#popup-content").html(loading);	
 		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
 			
 		});
@@ -282,7 +282,7 @@ function view(maphieu)
 				});
 			
 	$("#popup").dialog("open");
-	$("#popup").html(loading);			
+	$("#popup-content").html(loading);			
 	$("#popup-content").load("?route=addon/phieuchi/view&maphieu="+maphieu+"&dialog=true",function(){
 		
 	});

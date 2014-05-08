@@ -121,7 +121,7 @@ function PhieuNhapXuat()
 			}
 		});
 		$("#popup").dialog("open");
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		$("#popup-content").load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true",function(){
 			
 		});
@@ -153,7 +153,7 @@ function PhieuNhapXuat()
 			}
 		});
 		$("#popup").dialog("open");
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		$("#popup-content").load("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=true",function(){
 			
 		});

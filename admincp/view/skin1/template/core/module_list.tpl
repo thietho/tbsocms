@@ -115,7 +115,7 @@ function Module()
 					});
 				
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);			
+		$("#popup-content").html(loading);			
 		$("#popup-content").load('?route=core/module/update&moduleid='+moduleid,function(){
 			
 		});
@@ -148,7 +148,7 @@ function Module()
 					});
 				
 		$("#popup").dialog("open");
-		$("#popup").html(loading);			
+		$("#popup-content").html(loading);			
 		$("#popup-content").load('?route=core/module/insert&parent='+parent,function(){
 			
 		});
@@ -180,7 +180,7 @@ function Module()
 					});
 				
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);			
+		$("#popup-content").html(loading);			
 		$("#popup-content").load('?route=core/module/move&id='+id,function(){
 			
 		});
@@ -213,7 +213,7 @@ function Module()
 					});
 				
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);				
+		$("#popup-content").html(loading);				
 		$("#popup-content").load('?route=core/module/permission&id='+id,function(){
 			
 		});

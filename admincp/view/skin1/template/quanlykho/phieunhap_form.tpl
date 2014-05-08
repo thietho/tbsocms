@@ -196,7 +196,7 @@ $('#btnSelectKhachHang').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		$("#popup-content").load("?route=core/member&opendialog=true",function(){
 			
 		});
@@ -215,7 +215,7 @@ $('#btnSelectNhanVienNhan').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
 			
 		});
@@ -281,7 +281,7 @@ $('#btnSeleteNhaCungCap').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		$("#popup-content").load("?route=quanlykho/nhacungcap&opendialog=true",function(){
 			
 		});
@@ -352,7 +352,7 @@ function save(type)
 						});
 					
 						$("#popup").dialog("open");
-						$("#popup").html(loading);
+						$("#popup-content").html(loading);
 						$("#popup-content").load("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=true",function(){
 							
 						});

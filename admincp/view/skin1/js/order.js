@@ -51,7 +51,7 @@ function Order()
 		});
 	
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);	
+		$("#popup-content").html(loading);	
 		$("#popup-content").load("?route=addon/order/editDelivery&orderid="+orderid,function(){
 			
 		});
@@ -161,7 +161,7 @@ function Order()
 		});
 	
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);	
+		$("#popup-content").html(loading);	
 		$("#popup-content").load("?route=addon/order/browseProduct",function(){
 			
 		});
@@ -225,7 +225,7 @@ function Order()
 		});
 	
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);	
+		$("#popup-content").html(loading);	
 		$("#popup-content").load("?route=addon/order/viewHistory&orderid="+orderid,function(){
 			
 		});

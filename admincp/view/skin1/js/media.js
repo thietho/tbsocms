@@ -92,7 +92,7 @@ function showMediaForm(fileid)
 			
 		});
 }
-function showProductForm(mediaid,linkeditfull,funcname)
+function showProductForm(mediaid,funcname)
 {
 	var eid = "mediaform";
 	$('body').append('<div id="'+eid+'" style="display:none"></div>');
@@ -110,19 +110,7 @@ function showProductForm(mediaid,linkeditfull,funcname)
 					$("#"+eid).remove();
 				},
 			buttons: {
-				'Chỉnh sửa đầy đủ':function()
-				{
-					$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
-					function(data)
-					{
-						var obj = $.parseJSON(data);
-						if(obj.error=="")
-						{
-							window.location = linkeditfull;
-						}
-					});
-					
-				},
+				
 				'Lưu':function()
 				{
 					$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),

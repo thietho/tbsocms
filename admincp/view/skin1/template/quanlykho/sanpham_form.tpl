@@ -198,7 +198,7 @@ $('#btnAddRow').click(function(e) {
 		});
 	
 		$("#popup").dialog("open");
-		$("#popup").html(loading);
+		$("#popup-content").html(loading);
 		$("#popup-content").load("?route=quanlykho/nguyenlieu&opendialog=true",function(){
 			
 		});
@@ -233,7 +233,7 @@ function browserFileImage()
 		});
 	
 		$("#popup").dialog("open");	
-		$("#popup").html(loading);	
+		$("#popup-content").html(loading);	
 		$("#popup-content").load("?route=core/file&dialog=true&type=single",function(){
 			
 		});
