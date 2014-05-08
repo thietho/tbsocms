@@ -180,9 +180,10 @@ function Product()
 				}
 			});
 		
-			
+			$(eid).dialog("open");
+			$(eid).html(loading);
 			$(eid).load("?route=module/product/listProductSelected",function(){
-				$(eid).dialog("open");	
+				
 			});
 	}
 	this.enterGroup = function(mediaid)
@@ -280,9 +281,10 @@ function Product()
 				
 			});
 		
-			
+			$(eid).dialog("open");
+			$(eid).html(loading);
 			$(eid).load("?route=module/product/history&mediaid="+mediaid+"&dialog=true",function(){
-				$(eid).dialog("open");	
+				
 			});
 		
 		
@@ -327,9 +329,10 @@ function Product()
 				
 			});
 		
-			
+			$(eid).dialog("open");	
+			$(eid).html(loading);
 			$(eid).load("?route=module/product/import&dialog=true",function(){
-				$(eid).dialog("open");	
+				
 			});
 	}
 	this.postProduct = function(k)
@@ -373,7 +376,7 @@ function Product()
 	{
 		var eid = "listsort";
 		$('body').append('<div id="'+eid+'" style="display:none"></div>');
-		
+		$('body').css('overflow','hidden');
 		$("#"+eid).attr('title','Danh sách sản phẩm');
 			$("#"+eid).dialog({
 				autoOpen: false,
@@ -385,6 +388,7 @@ function Product()
 				close:function()
 					{
 						$("#"+eid).remove();
+						$('body').css('overflow','auto');
 					},
 				buttons: {
 					
@@ -406,9 +410,10 @@ function Product()
 				}
 			});
 			
-			
+			$("#"+eid).dialog("open");
+			$("#"+eid).html(loading);
 			$("#"+eid).load("?route=module/product/listsort&sitemapid=<?php echo $sitemapid?>"+pro.getUrl()+"&dialog=true",function(){
-				$("#"+eid).dialog("open");	
+				
 			});
 		}
 }

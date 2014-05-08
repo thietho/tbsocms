@@ -172,9 +172,10 @@ function viewCongNo(id)
 					}
 				});
 			
-				
+	$("#popup").dialog("open");	
+	$("#popup").html(loading);			
 	$("#popup-content").load("?route=core/member/getCongNo&khachhangid="+id+"&dialog=true",function(){
-		$("#popup").dialog("open");	
+		
 	});
 }
 

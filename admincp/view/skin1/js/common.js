@@ -381,9 +381,10 @@ function selectFilm(eid,type)
 			
 		});
 	
-		
+		$(eid).dialog("open");
+		$(eid).html(loading);
 		$(eid).load("?route=lotte/movie&opendialog=true",function(){
-			$(eid).dialog("open");	
+				
 		});
 		
 }
@@ -437,9 +438,10 @@ function browserFile(eid,type)
 			break;
 		}
 	
-		
+		$("#popup").dialog("open");	
+		$("#popup").html(loading);
 		$("#popup-content").load("?route=core/file&dialog=true&type="+type,function(){
-			$("#popup").dialog("open");	
+			
 		});
 		
 }

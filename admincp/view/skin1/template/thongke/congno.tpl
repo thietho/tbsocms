@@ -112,9 +112,10 @@ function viewCongNo(id)
 					}
 				});
 			
-				
+	$("#popup").dialog("open");	
+	$("#popup").html(loading);			
 	$("#popup-content").load("?route=core/member/getCongNo&khachhangid="+id+"&dialog=true",function(){
-		$("#popup").dialog("open");	
+		
 	});
 }
 function viewCongNoNCC(id)
@@ -140,9 +141,10 @@ function viewCongNoNCC(id)
 					}
 				});
 			
-				
+	$("#popup").dialog("open");	
+	$("#popup").html(loading);			
 	$("#popup-content").load("?route=quanlykho/nhacungcap/getCongNo&nhacungcapid="+id+"&dialog=true",function(){
-		$("#popup").dialog("open");	
+		
 	});
 }
 </script>           

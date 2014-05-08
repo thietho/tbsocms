@@ -99,9 +99,10 @@ function browserFileImage()
 			
 		});
 	
-		
+		$("#popup").dialog("open");	
+		$("#popup").html(loading);	
 		$("#popup-content").load("?route=core/file&dialog=true&type=single",function(){
-			$("#popup").dialog("open");	
+			
 		});
 		
 }

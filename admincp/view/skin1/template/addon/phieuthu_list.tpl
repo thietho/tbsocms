@@ -140,9 +140,10 @@ function view(maphieu)
 					}
 				});
 			
-				
+	$("#popup").dialog("open");	
+	$("#popup").html(loading);			
 	$("#popup-content").load("?route=addon/phieuthu/view&maphieu="+maphieu+"&dialog=true",function(){
-		$("#popup").dialog("open");	
+		
 	});
 }
 function searchForm()

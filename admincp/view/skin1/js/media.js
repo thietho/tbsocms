@@ -32,9 +32,10 @@ function showFile(fileid)
 			}
 		});
 	
-		
+		$("#fileinformation").dialog("open");
+		$("#fileinformation").html(loading);
 		$("#fileinformation").load("?route=core/file/detail&fileid="+fileid+"&dialog=true",function(){
-			$("#fileinformation").dialog("open");	
+			
 		});
 }
 
@@ -85,9 +86,10 @@ function showMediaForm(fileid)
 			}
 		});
 	
-		
+		$("#"+eid).dialog("open");
+		$("#"+eid).html(loading);
 		$("#"+eid).load("?route=core/media/fileToMedia&fileid="+fileid+"&dialog=true",function(){
-			$("#"+eid).dialog("open");	
+			
 		});
 }
 function showProductForm(mediaid,linkeditfull,funcname)
@@ -167,9 +169,10 @@ function showProductForm(mediaid,linkeditfull,funcname)
 			}
 		});
 	
-		
+		$("#"+eid).dialog("open");
+		$("#"+eid).html(loading);
 		$("#"+eid).load("?route=module/product/update&mediaid="+mediaid+"&dialog=true",function(){
-			$("#"+eid).dialog("open");	
+			
 		});
 }
 function showFolderForm(folderid,folderparent)
@@ -224,9 +227,10 @@ function showFolderForm(folderid,folderparent)
 			}
 		});
 	
-		
+		$(eid).dialog("open");
+		$(eid).html(loading);
 		$(eid).load("?route=core/file/showFolderForm&folderid="+folderid+"&folderparent="+folderparent+"&dialog=true",function(){
-			$(eid).dialog("open");	
+			
 		});
 }
 function showFileInfor(fileid)
@@ -262,9 +266,10 @@ function showFileInfor(fileid)
 			}
 		});
 	
-		
+		$(eid).dialog("open");
+		$(eid).html(loading);
 		$(eid).load("?route=core/file/detail&fileid="+fileid+"&dialog=true",function(){
-			$(eid).dialog("open");	
+			
 		});
 }
 function showFolderMoveForm()
@@ -312,9 +317,10 @@ function showFolderMoveForm()
 			}
 		});
 	
-		
+		$(eid).dialog("open");
+		$(eid).html(loading);
 		$(eid).load("?route=core/file/showFolderMoveForm&dialog=true",function(){
-			$(eid).dialog("open");	
+				
 		});
 }
 function setForward(sitemapid)
@@ -359,9 +365,10 @@ function setForward(sitemapid)
 			}
 		});
 	
-		
+		$(eid).dialog("open");
+		$(eid).html(loading);
 		$(eid).load("?route=core/sitemap/forwardForm&sitemapid="+sitemapid+"&dialog=true",function(){
-			$(eid).dialog("open");	
+			
 		});
 }
 function delFolder(folderid)
@@ -400,9 +407,10 @@ function showMediaUse(fileid)
 			}
 		});
 	
-		
+		$("#medialist").dialog("open");
+		$("#medialist").html(loading);
 		$("#medialist").load("?route=core/media/mediaUse&fileid="+fileid+"&dialog=true",function(){
-			$("#medialist").dialog("open");	
+			
 		});
 }
 function addQuickProduct()
@@ -446,9 +454,10 @@ function addQuickProduct()
 		}
 	});
 
-	
+	$("#frmAddSanPham").dialog("open");
+	$("#frmAddSanPham").html(loading);	
 	$("#frmAddSanPham").load("?route=addon/order/showProductForm",function(){
-		$("#frmAddSanPham").dialog("open");	
+		
 	});
 }
 function addProduct(parent,sitemapid)
@@ -481,9 +490,10 @@ function addProduct(parent,sitemapid)
 		}
 	});
 
-	
+	$("#frmProduct").dialog("open");
+	$("#frmProduct").html(loading);
 	$("#frmProduct").load("?route=module/product/insert&sitemapid="+sitemapid+"&mediaparent="+parent+"&dialog=true",function(){
-		$("#frmProduct").dialog("open");	
+		
 	});
 }
 function editProduct(mediaid)
@@ -517,9 +527,10 @@ function editProduct(mediaid)
 		}
 	});
 
-	
+	$("#frmProduct").dialog("open");
+	$("#frmProduct").html(loading);
 	$("#frmProduct").load("?route=module/product/update&mediaid="+mediaid+"&dialog=true",function(){
-		$("#frmProduct").dialog("open");	
+		
 	});
 }
 function saveMedia()
@@ -564,9 +575,10 @@ function browseProduct()
 			
 		});
 	
-		
+		$("#popupbrowseproduct").dialog("open");
+		$("#popupbrowseproduct").html(loading);
 		$("#popupbrowseproduct").load("?route=addon/order/browseProduct",function(){
-			$("#popupbrowseproduct").dialog("open");
+			
 			
 
 		});
@@ -636,8 +648,10 @@ function showMemberForm(memberid,strFun)
 		{
 			url = "?route=core/member/update&id="+memberid+"&dialog=true";
 		}
+		$(eid).dialog("open");
+		$(eid).html(loading);
 		$(eid).load(url,function(){
-			$(eid).dialog("open");	
+			
 		});
 }
 function showNhaCungCapForm(nhacungcapid,strFun)
@@ -706,7 +720,9 @@ function showNhaCungCapForm(nhacungcapid,strFun)
 		{
 			url = "?route=quanlykho/nhacungcap/update&id="+nhacungcapid+"&dialog=true";
 		}
+		$(eid).dialog("open");
+		$(eid).html(loading);	
 		$(eid).load(url,function(){
-			$(eid).dialog("open");	
+			
 		});
 }

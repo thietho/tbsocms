@@ -197,9 +197,10 @@ $('#btnAddRow').click(function(e) {
 			}
 		});
 	
-		
+		$("#popup").dialog("open");
+		$("#popup").html(loading);
 		$("#popup-content").load("?route=quanlykho/nguyenlieu&opendialog=true",function(){
-			$("#popup").dialog("open");
+			
 		});
 });
 function intSelectNguyenLieu()
@@ -231,9 +232,10 @@ function browserFileImage()
 			
 		});
 	
-		
+		$("#popup").dialog("open");	
+		$("#popup").html(loading);	
 		$("#popup-content").load("?route=core/file&dialog=true&type=single",function(){
-			$("#popup").dialog("open");	
+			
 		});
 }
 function intSeleteFile()

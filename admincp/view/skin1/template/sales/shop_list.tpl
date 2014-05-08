@@ -120,9 +120,10 @@ function selectNhanVien(shopid)
 			
 		});
 	
-		
+		$(eid).dialog("open");
+		$(eid).html(loading);
 		$(eid).load("?route=sales/shop/getListStaff&dialog=true",function(){
-			$(eid).dialog("open");
+			
 			$('.nhanvien').click(function(e) {
                 //alert($(this).attr('nhanvienid'));
 				var nhanvienid = $(this).attr('nhanvienid');

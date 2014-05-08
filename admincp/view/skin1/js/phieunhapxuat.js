@@ -120,8 +120,10 @@ function PhieuNhapXuat()
 				},
 			}
 		});
+		$("#popup").dialog("open");
+		$("#popup").html(loading);
 		$("#popup-content").load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true",function(){
-			$("#popup").dialog("open");
+			
 		});
 	}
 	
@@ -150,8 +152,10 @@ function PhieuNhapXuat()
 				},
 			}
 		});
+		$("#popup").dialog("open");
+		$("#popup").html(loading);
 		$("#popup-content").load("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=true",function(){
-			$("#popup").dialog("open");
+			
 		});
 	}
 	
@@ -195,9 +199,10 @@ function PhieuNhapXuat()
 				
 			});
 		
-			
+			$(eid).dialog("open");
+			$(eid).html(loading);
 			$(eid).load("?route=module/product/import&dialog=true",function(){
-				$(eid).dialog("open");	
+				
 			});
 	}
 }

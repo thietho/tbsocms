@@ -210,9 +210,10 @@ $('#btnSelectKhachHang').click(function(e) {
 			modal: true,
 		});
 	
-		
+		$("#popup").dialog("open");
+		$("#popup").html(loading);
 		$("#popup-content").load("?route=core/member&opendialog=true",function(){
-			$("#popup").dialog("open");
+			
 		});
 });
 function intSelectMember()
@@ -246,9 +247,11 @@ $('#btnSelectNhanVien').click(function(e) {
 			
 		});
 	
+		$("#popup").dialog("open");	
+		$("#popup").html(loading);
 		
 		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
-			$("#popup").dialog("open");	
+			
 		});
 });
 function intSelectNhanVien()
