@@ -154,7 +154,7 @@
                     	$sum += $item['subtotal'];
                     ?>
                     	<tr>
-                            <td><?php echo $item['title']?></td>
+                            <td><?php echo $this->document->productName($item)?></td>
                             <td><?php echo $item['imagepreview']?></td>
                             <td class="number"><?php echo $this->string->numberFormate($item['quantity'])?></td>
                             <td><?php echo $this->document->getDonViTinh($item['unit'])?></td>
