@@ -1,8 +1,9 @@
 			<?php echo $pager?>
 			
     <?php foreach($medias as $key => $media) {?>
-    <div class="listitem " id="<?php echo $media['mediaid']?>" price="<?php echo $this->string->numberFormate($media['price'])?>" >
-        <input type="hidden" class="listid" name="mediaid[]" value="<?php echo $media['mediaid']?>">
+    <div class="listitem <?php echo count($media['child'])>0?'group':'mediaitem' ?>" id="<?php echo $media['mediaid']?>" price="<?php echo $this->string->numberFormate($media['price'])?>" >
+        
+        
         <table class="data-table">
             
             <tr class="item">
@@ -130,6 +131,17 @@ $(function(){
     
     $('.listitem').on('click', function(e){
         console.log('clicked', this);
-    })
+    });
+	$('.mediaitem').draggable();
+	$('.listitem').droppable({
+      drop: function( event, ui ) {
+		
+		var desid = ui.draggable.attr('id');
+		var souid = $(this).attr('id');
+		pro.selectGroup(desid,souid)
+		//console.log(ui);
+      }
+    });
+	
 });
 </script>

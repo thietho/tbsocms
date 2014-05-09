@@ -221,18 +221,14 @@ function Product()
 		$('.enterGroup').hide();
 		$('.selectGroup').show();
 	}
-	this.selectGroup = function(mediaid)
+	this.selectGroup = function(des,sou)
 	{
-		if($('#selectmediaid').val() == mediaid)
-		{
-			alert('Bạn không thể đưa vào nhóm sản phẩm bạn dang chọn!!!')
-			return;
-		}
+		
 		$.post("?route=core/media/updateCol",
 			{
-				mediaid:$('#selectmediaid').val(),
+				mediaid:des,
 				col:'mediaparent',
-				val:mediaid
+				val:sou
 			},
 			function(data){
 				if(data == 'true')	
