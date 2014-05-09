@@ -1447,3 +1447,7 @@ ul.autocomplete {
     background: green;
 	text-align:center;
 }
+.selected
+{
+	background-color:#F00 !important;
+}

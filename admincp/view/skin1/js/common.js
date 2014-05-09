@@ -40,9 +40,11 @@ function getPosOfNode(idparent,eid)
 
 function setCKEditorType(strID, intType)
 {
-	//obj = CKEDITOR.instances[strID]
-	if (CKEDITOR.instances[strID]) {
-		window.location.reload();
+	obj = CKEDITOR.instances[strID]
+	if (obj) {
+		//console.log(obj)
+		CKEDITOR.remove(obj);
+		
 	}
 	switch (intType)
 	{
