@@ -39,6 +39,8 @@
                     		<td>
                             	<input type="button" class="button" value="Sửa" onclick="showProductForm('<?php echo $child['mediaid']?>','<?php echo $media['mediaid']?>','pro.searchForm()');"/>
                             	<input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $child['mediaid']?>')"/>
+                                <input type="button" class="button" value="Xóa" onclick="pro.delete('<?php echo $child['mediaid']?>')"/>
+                                <input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
                             </td>
                         
                         

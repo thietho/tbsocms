@@ -240,6 +240,7 @@ function Product()
 					alert("Đưa vào nhóm thành công");	
 					//window.location.reload();
 					pro.searchForm();
+					
 				}
 			});
 	}
@@ -285,7 +286,7 @@ function Product()
 		if (answer)
 		{
 			$.post("?route=core/media/delete", 
-					{delete:mediaid}, 
+					{delete:Array(mediaid)}, 
 					function(data)
 					{
 						if(data!="")
