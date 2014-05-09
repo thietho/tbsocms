@@ -3,10 +3,8 @@
 	<div class="section-title"><?php echo $this->document->title?></div>
     
     <div class="section-content">
-    	<div id="showdanhmuc" class="left" style="width:20%">
-        	
-        </div>
-        <div  class="left" style="width:80%">
+    	
+        <div>
         	<h2><?php echo $breadcrumb?></h2>
             <div>
             	<?php foreach($status as $it){ ?>
@@ -22,11 +20,17 @@
                     <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
                     <?php } ?>
                 </select>
+                <select id="sitemapid">
+                	<option value="">Tất cả danh mục</option>
+                </select>
+                <select id="status">
+                	<option value="">Tất cả danh mục</option>
+                </select>
                 <input type="button" class="button" id="btnSearch" value="Tìm" />
             </div>
             <div class="right">
                 <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
-                <a class="button" href="?route=module/product/insert&sitemapid=<?php echo $sitemapid?>&page=<?php echo $page?>"><?php echo $button_add?></a>
+                <a class="button" href="?route=module/product/insert&page=<?php echo $page?>"><?php echo $button_add?></a>
                 <a class="button" id="btnImport" onclick="pro.importData()">Import</a>
                 <a class="button" id="btnExport" onclick="pro.exportData()">Export</a>
                
@@ -34,7 +38,7 @@
                 <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                 <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>
-                <a class="button" href="?route=module/information&sitemapid=<?php echo $sitemapid?>&goback=module/product">Biên tập nội dung</a>
+                <a class="button" href="?route=module/information&goback=module/product">Biên tập nội dung</a>
                 <a class="button" onclick="pro.showListSort()">Sắp xếp</a>
                 <?php } ?>
                 <?php if($this->user->checkPermission("module/product/deleted")==true){ ?>
@@ -55,7 +59,7 @@
 <script language="javascript">
 
 $(document).ready(function(e) {
-    $('#showdanhmuc').load('?route=module/product/productCat');
+    //$('#showdanhmuc').load('?route=module/product/productCat');
 	pro.page = Number(control.getParam("page",control.getUrl()));
 	
 	pro.searchForm();
@@ -85,7 +89,7 @@ $(document).ready(function(e) {
 
 function Product()
 {
-	this.url = "?route=module/product/getList&sitemapid=<?php echo $sitemapid?>";
+	this.url = "?route=module/product/getList";
 	this.page = 0;
 	this.loadProduct = function(url)
 	{
@@ -412,7 +416,7 @@ function Product()
 			
 			$("#"+eid).dialog("open");
 			$("#"+eid).html(loading);
-			$("#"+eid).load("?route=module/product/listsort&sitemapid=<?php echo $sitemapid?>"+pro.getUrl()+"&dialog=true",function(){
+			$("#"+eid).load("?route=module/product/listsort"+pro.getUrl()+"&dialog=true",function(){
 				
 			});
 		}
