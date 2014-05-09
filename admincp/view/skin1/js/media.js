@@ -92,7 +92,7 @@ function showMediaForm(fileid)
 			
 		});
 }
-function showProductForm(mediaid,funcname)
+function showProductForm(mediaid,mediaparentid,funcname)
 {
 	var eid = "mediaform";
 	$('body').append('<div id="'+eid+'" style="display:none"></div>');
@@ -159,7 +159,7 @@ function showProductForm(mediaid,funcname)
 	
 		$("#"+eid).dialog("open");
 		$("#"+eid).html(loading);
-		$("#"+eid).load("?route=module/product/update&mediaid="+mediaid+"&dialog=true",function(){
+		$("#"+eid).load("?route=module/product/update&mediaid="+mediaid+"&mediaparent="+mediaparentid+"=&dialog=true",function(){
 			
 		});
 }

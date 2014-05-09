@@ -271,7 +271,7 @@ caption {
 
 table.data-table {
 	border: 1px solid #CCB;
-	margin-bottom: 2em;
+	
 	width: 100%;
 }
 
@@ -1450,4 +1450,8 @@ ul.autocomplete {
 .selected
 {
 	background-color:#F00 !important;
+}
+.links
+{
+	margin:5px;	
 }

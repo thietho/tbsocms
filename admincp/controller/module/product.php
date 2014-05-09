@@ -31,6 +31,8 @@ class ControllerModuleProduct extends Controller
 		$this->model_core_category->getTree("status",$this->data['status']);
 		unset($this->data['status'][0]);
 		
+		$this->data['sitemaps'] = array();
+		$this->model_core_sitemap->getTreeSitemap("", $this->data['sitemaps']);
 		
 		$siteid = $this->user->getSiteId();
 		$this->data['sitemapid'] = urldecode($this->request->get['sitemapid']);

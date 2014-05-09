@@ -5,12 +5,8 @@
     <div class="section-content">
     	
         <div>
-        	<h2><?php echo $breadcrumb?></h2>
-            <div>
-            	<?php foreach($status as $it){ ?>
-                	<a  onclick="window.location='#status=<?php echo $it['categoryid']?>';pro.searchForm();"><?php echo $it['categoryname']?></a>
-                <?php }?>
-            </div>
+        	
+            
         	<div id="search">
             	<label>Từ khóa:</label>
                 <input type="text" class="text" id="keyword" size="100"/>
@@ -22,15 +18,26 @@
                 </select>
                 <select id="sitemapid">
                 	<option value="">Tất cả danh mục</option>
+                    <?php foreach($sitemaps as $sitemap){ ?>
+                    <?php if($sitemap['moduleid'] == 'module/product'){ ?>
+                    <option value="<?php echo $sitemap['sitemapid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$sitemap['level']) ?><?php echo $sitemap['sitemapname']?></option>
+                    <?php } ?>
+                    <?php } ?>
                 </select>
-                <select id="status">
-                	<option value="">Tất cả danh mục</option>
+                <select id="status">            	
+                	<option value=""></option>
+                    <?php foreach($status as $it){ ?>
+                    <option value="<?php echo $it['categoryid']?>"><?php echo $it['categoryname']?></option>
+                    <?php } ?>
                 </select>
                 <input type="button" class="button" id="btnSearch" value="Tìm" />
+                <input type="button" class="button" id="btnViewAll" value="Tất cả" />
+                <input type="button" class="button" value="Sắp xếp" onclick="pro.showListSort()"/>
+                
             </div>
             <div class="right">
                 <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
-                <a class="button" href="?route=module/product/insert&page=<?php echo $page?>"><?php echo $button_add?></a>
+                <a class="button" onclick="showProductForm('','','pro.searchForm()');"><?php echo $button_add?></a>
                 <a class="button" id="btnImport" onclick="pro.importData()">Import</a>
                 <a class="button" id="btnExport" onclick="pro.exportData()">Export</a>
                
@@ -39,7 +46,7 @@
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                 <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>
                 <a class="button" href="?route=module/information&goback=module/product">Biên tập nội dung</a>
-                <a class="button" onclick="pro.showListSort()">Sắp xếp</a>
+                
                 <?php } ?>
                 <?php if($this->user->checkPermission("module/product/deleted")==true){ ?>
                 <a class="button" onclick="pro.deleteProduct()">Xóa</a>&nbsp;
@@ -57,7 +64,9 @@
     </div>
 </div>
 <script language="javascript">
-
+$('#search select').change(function(e) {
+    pro.searchForm();
+});
 $(document).ready(function(e) {
     //$('#showdanhmuc').load('?route=module/product/productCat');
 	pro.page = Number(control.getParam("page",control.getUrl()));
@@ -67,6 +76,13 @@ $(document).ready(function(e) {
 		
 		pro.searchForm();
 	});
+	$('#btnViewAll').click(function(e) {
+        $('#search #keyword').val('');
+		$('#search #brand').val('');
+		$('#search #sitemapid').val('');
+		$('#search #status').val('');
+		pro.searchForm();
+    });
 	$('#keyword').keyup(function(e) {
         if(e.keyCode == 13)
 			pro.searchForm();
@@ -113,15 +129,23 @@ function Product()
 	this.getUrl = function()
 	{
 		url = "";
-		if($('#keyword').val()!="")
+		if($('#search #keyword').val()!="")
 		{
-			url += "&keyword="+encodeURI($('#keyword').val());
+			url += "&keyword="+encodeURI($('#search #keyword').val());
 		}
-		if($('#brand').val()!="")
+		if($('#search #brand').val()!="")
 		{
-			url += "&brand="+encodeURI($('#brand').val());
+			url += "&brand="+encodeURI($('#search #brand').val());
 		}
-		url += "&status=" + control.getParam("status",control.getUrl());
+		if($('#search #sitemapid').val()!="")
+		{
+			url += "&sitemapid="+encodeURI($('#search #sitemapid').val());
+		}
+		if($('#search #status').val()!="")
+		{
+			url += "&status="+encodeURI($('#search #status').val());
+		}
+		
 		url += "&page=" + Number(control.getParam("page",control.getUrl()));
 		return url
 	}
@@ -243,6 +267,25 @@ function Product()
 		{
 			$.post("?route=core/media/delete", 
 					$("#postlist").serialize(), 
+					function(data)
+					{
+						if(data!="")
+						{
+							alert(data);
+							//window.location.reload();
+							pro.searchForm();
+						}
+					}
+			);
+		}
+	}
+	this.delete = function(mediaid)
+	{
+		var answer = confirm("Bạn có chắc xóa không?")
+		if (answer)
+		{
+			$.post("?route=core/media/delete", 
+					{delete:mediaid}, 
 					function(data)
 					{
 						if(data!="")
