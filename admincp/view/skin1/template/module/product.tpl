@@ -224,7 +224,7 @@ function Product()
 	this.selectGroup = function(des,sou)
 	{
 		
-		$.post("?route=core/media/updateCol",
+		$.post("?route=core/media/enterGroup",
 			{
 				mediaid:des,
 				col:'mediaparent',
@@ -242,7 +242,7 @@ function Product()
 	}
 	this.outGroup = function(mediaid)
 	{
-		$.post("?route=core/media/updateCol",
+		$.post("?route=core/media/outGroup",
 			{
 				mediaid:mediaid,
 				col:'mediaparent',

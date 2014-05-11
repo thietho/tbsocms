@@ -412,8 +412,9 @@ class ControllerCorePostcontent extends Controller
 			
 			
 			$this->model_core_media->save($data);
-			
-			
+			$this->model_core_media->updateInforChild($data['mediaid']);
+			if($data['mediaparent']!="")
+				$this->model_core_media->updateInforChild($data['mediaparent']);
 			$listAttachment=$this->data['post']['attimageid'];
 			$this->model_core_media->saveAttachment($data['mediaid'],$listAttachment);
 			/*$listdelfile=$this->data['post']['delfile'];

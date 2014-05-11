@@ -294,7 +294,8 @@ final class String
 		$s="";
 		if(count($arr))
 			foreach($arr as $item)
-				$s.="[".$item."]";
+				if(trim($item)!="")
+					$s.="[".$item."]";
 		return $s;
 	}
 	

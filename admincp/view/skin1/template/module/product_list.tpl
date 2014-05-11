@@ -15,7 +15,7 @@
                     -->
                 </td>
                 <td>
-                	<?php echo $this->document->productName($media)?><br />
+                	<strong><?php echo $this->document->productName($media)?></strong><br />
                     Giảm: <?php echo $this->string->numberFormate($media['discountpercent'])?>%<br />
                     Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
                     Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />

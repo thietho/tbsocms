@@ -406,7 +406,34 @@ class ControllerCoreMedia extends Controller
 		$this->template="common/output.tpl";
 		$this->render();	
 	}
-	
+	public function enterGroup()
+	{
+		$data = $this->request->post;
+		$mediaid =$data['mediaid'];
+		$col = $data['col'];
+		$val = $data['val'];
+		$this->model_core_media->updateCol($mediaid,$col,$val);
+		$this->model_core_media->updateInforChild($val);
+		$this->data['output'] = 'true';
+		$this->id="sitemap";
+		$this->template="common/output.tpl";
+		$this->render();	
+	}
+	public function outGroup()
+	{
+		$data = $this->request->post;
+		$mediaid =$data['mediaid'];
+		$media = $this->model_core_media->getItem($mediaid);
+		$col = $data['col'];
+		$val = $data['val'];
+		$this->model_core_media->updateCol($mediaid,$col,$val);
+		
+		$this->model_core_media->updateInforChild($media['mediaparent']);
+		$this->data['output'] = 'true';
+		$this->id="sitemap";
+		$this->template="common/output.tpl";
+		$this->render();	
+	}
 	//Cac ham xu ly tren form
 	public function getMedia()
 	{
