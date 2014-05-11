@@ -40,6 +40,8 @@ class ControllerModuleProduct extends Controller
 		$this->id='content';
 		$this->template='module/product.tpl';
 		$this->layout='layout/center';
+		if($this->request->get['open']=='dialog')
+			$this->layout='';
 		$this->render();
 	}
 	private function productData()

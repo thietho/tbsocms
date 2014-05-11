@@ -97,14 +97,20 @@ function PhieuNhapXuat()
 	}
 	this.viewPX = function(id)
 	{
-		$("#popup").attr('title','Phiếu bán hàng');
-		$( "#popup" ).dialog({
+		var eid = "popupviewphieu";
+		$('body').append('<div id="'+eid+'" style="display:none"></div>');
+		$("#"+eid).attr('title','Phiếu bán hàng');
+		$( "#"+eid ).dialog({
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
 			width: 900,
 			height: window.innerHeight,
 			modal: true,
+			close:function()
+				{
+					$('#'+eid).remove();
+				},
 			buttons: {
 				
 				'In':function()
@@ -120,23 +126,29 @@ function PhieuNhapXuat()
 				},
 			}
 		});
-		$("#popup").dialog("open");
-		$("#popup-content").html(loading);
-		$("#popup-content").load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true",function(){
+		$("#"+eid).dialog("open");
+		$("#"+eid).html(loading);
+		$("#"+eid).load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true",function(){
 			
 		});
 	}
 	
 	this.viewPN = function(id)
 	{
-		$("#popup").attr('title','Phiếu nhập kho');
-		$( "#popup" ).dialog({
+		var eid = "popupviewphieu";
+		$('body').append('<div id="'+eid+'" style="display:none"></div>');
+		$("#"+eid).attr('title','Phiếu nhập kho');
+		$( "#"+eid ).dialog({
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
 			width: 900,
 			height: window.innerHeight,
 			modal: true,
+			close:function()
+				{
+					$('#'+eid).remove();
+				},
 			buttons: {
 				
 				'In':function()
@@ -152,9 +164,9 @@ function PhieuNhapXuat()
 				},
 			}
 		});
-		$("#popup").dialog("open");
-		$("#popup-content").html(loading);
-		$("#popup-content").load("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=true",function(){
+		$("#"+eid).dialog("open");
+		$("#"+eid).html(loading);
+		$("#"+eid).load("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=true",function(){
 			
 		});
 	}
@@ -204,6 +216,10 @@ function PhieuNhapXuat()
 			$(eid).load("?route=module/product/import&dialog=true",function(){
 				
 			});
+	}
+	this.save = function(type)
+	{
+		
 	}
 }
 

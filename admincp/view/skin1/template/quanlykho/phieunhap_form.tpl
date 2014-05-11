@@ -7,8 +7,8 @@
     	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="Lưu" class="button" onClick="save('')"/>
-                <input type="button" value="Lưu & In" class="button" onClick="save('print')"/>
+            	<input type="button" value="Lưu" class="button" onClick="savephieu('')"/>
+                <input type="button" value="Lưu & In" class="button" onClick="savephieu('print')"/>
      	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/phieunhap')"/>   
      	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
                 <input type="hidden" name="ngaylap" value="<?php echo $item['ngaylap']?>">
@@ -307,7 +307,7 @@ $('#btnGetFomat').click(function(e) {
 	});	
 });
 
-function save(type)
+function savephieu(type)
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 	

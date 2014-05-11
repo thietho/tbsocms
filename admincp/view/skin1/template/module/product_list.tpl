@@ -23,7 +23,7 @@
                     <?php if(count($media['child'])==0){ ?>
                             
                     <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $media['mediaid']?>')"/>
-                    
+                    <input type="button" class="button selectProduct" value="Chọn" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $this->document->productName($media)?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>" discountpercent="<?php echo $media['discountpercent']?>"/>
                     <?php } ?>
                     <?php if(count($media['child'])){ ?>
                     <table>
@@ -43,6 +43,7 @@
                                 <input type="button" class="button" value="Xóa" onclick="pro.delete('<?php echo $child['mediaid']?>')"/>
                                 <input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
                                 <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo $child['mediaid']?>')"/>
+                                <input type="button" class="button selectProduct" value="Chọn" ref="<?php echo $child['mediaid']?>" image="<?php echo $child['imagepreview']?>" code="<?php echo $child['code']?>" unit="<?php echo $child['unit']?>" title="<?php echo $this->document->productName($child)?>" price="<?php echo $child['price']?>" pricepromotion="<?php echo $child['pricepromotion']?>" discountpercent="<?php echo $child['discountpercent']?>"/>
                             </td>
                         
                         
@@ -93,6 +94,7 @@
                             <?php } ?>
                         </div>-->
 <script language="javascript">
+
 $(function(){
     $.contextMenu({
         selector: '.listitem', 
@@ -149,4 +151,5 @@ $(function(){
 	
 	
 });
+
 </script>
