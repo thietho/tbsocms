@@ -42,6 +42,7 @@
                             	<input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $child['mediaid']?>')"/>
                                 <input type="button" class="button" value="Xóa" onclick="pro.delete('<?php echo $child['mediaid']?>')"/>
                                 <input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
+                                <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo $child['mediaid']?>')"/>
                             </td>
                         
                         
@@ -113,11 +114,24 @@ $(function(){
 				case "del":
 					pro.delete($(this).attr('id'));
 					break;
+				case "enterGroup":
+					$('.mediaitem').draggable();
+					$('.listitem').droppable({
+					  drop: function( event, ui ) {
+						
+						var desid = ui.draggable.attr('id');
+						var souid = $(this).attr('id');
+						pro.selectGroup(desid,souid)
+						//console.log(ui);
+					  }
+					});
+					break;
 			}
         },
         items: {
 			<?php if($this->user->checkPermission("module/product/update")==true){ ?>
             "edit": {name: "Sửa"},
+			"enterGroup": {name: "Đưa vào nhóm"},
 			<?php } ?>
 			<?php if($this->user->checkPermission("module/product/insert")==true){ ?>
             "addSizes": {name: "Thêm qui cách"},
@@ -132,16 +146,7 @@ $(function(){
     $('.listitem').on('click', function(e){
         console.log('clicked', this);
     });
-	$('.mediaitem').draggable();
-	$('.listitem').droppable({
-      drop: function( event, ui ) {
-		
-		var desid = ui.draggable.attr('id');
-		var souid = $(this).attr('id');
-		pro.selectGroup(desid,souid)
-		//console.log(ui);
-      }
-    });
+	
 	
 });
 </script>
