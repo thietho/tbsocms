@@ -90,6 +90,8 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$where = " AND loaiphieu='".$this->loaiphieu."'";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
+		$datasearchlike['trangthai'] = urldecode($this->request->get['trangthai']);
+		
 		$datasearchlike['tenkhachhang'] = urldecode($this->request->get['tenkhachhang']);
 		$datasearchlike['nguoithuchien'] = urldecode($this->request->get['nguoithuchien']);
 		
@@ -111,6 +113,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		{
 			$where .= " AND ngaylap <= '".$denngay." 24:00:00'";
 		}
+		//echo $where;
 		$rows = $this->model_quanlykho_phieunhapxuat->getList($where);
 		//Page
 		$page = $this->request->get['page'];		
