@@ -76,8 +76,9 @@ function Product()
 	this.page = 0;
 	this.loadProduct = function(url)
 	{
-		$('#showsanpham').html(loading);
-		$('#showsanpham').load(url);
+		//$('#showsanpham').html(loading);
+		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+		$('#showsanpham').load(url,function(){$.unblockUI();});
 	}
 	this.add = function(parent,sitemapid)
 	{
