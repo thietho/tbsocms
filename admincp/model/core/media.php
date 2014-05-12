@@ -603,7 +603,7 @@ class ModelCoreMedia extends ModelCoreFile
 	{
 		$data_child = $this->getListByParent($mediaid);
 		$ref = '';
-		if($data_child)
+		if(count($data_child))
 		{
 			$arrcol = array(
 							'barcode',
@@ -623,9 +623,9 @@ class ModelCoreMedia extends ModelCoreFile
 				//$this->updateCol($mediaid,$col,$this->string->arrayToString($val));
 				$ref .= $this->string->arrayToString($val);
 			}
-			
+			$this->updateCol($mediaid,"ref",$ref);
 		}
-		$this->updateCol($mediaid,"ref",$ref);
+		
 	}
 	public function delete($mediaid)
 	{
