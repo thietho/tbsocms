@@ -135,7 +135,7 @@ function Order()
 			show: "blind",
 			hide: "explode",
 			width: $(document).width()-100,
-			height: 500,
+			height: window.innerHeight,
 			modal: true,
 			buttons: {
 				
@@ -210,7 +210,7 @@ function Order()
 			show: "blind",
 			hide: "explode",
 			width: $(document).width()-100,
-			height: 500,
+			height: window.innerHeight,
 			modal: true,
 			buttons: {
 				

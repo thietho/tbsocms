@@ -411,7 +411,7 @@ function addQuickProduct()
 		show: "blind",
 		hide: "explode",
 		width: 500,
-		height: 500,
+		height: window.innerHeight,
 		modal: true,
 		close:function()
 				{

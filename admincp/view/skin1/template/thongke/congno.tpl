@@ -97,7 +97,7 @@ function viewCongNo(id)
 					show: "blind",
 					hide: "explode",
 					width: $(document).width()-100,
-					height: 500,
+					height: window.innerHeight,
 					modal: true,
 					buttons: {
 						'Đóng': function() {
@@ -126,7 +126,7 @@ function viewCongNoNCC(id)
 					show: "blind",
 					hide: "explode",
 					width: $(document).width()-100,
-					height: 500,
+					height: window.innerHeight,
 					modal: true,
 					buttons: {
 						'Đóng': function() {

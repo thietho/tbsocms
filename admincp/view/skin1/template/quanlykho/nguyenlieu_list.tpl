@@ -140,7 +140,7 @@ function viewTonKho(id)
 					show: "blind",
 					hide: "explode",
 					width: $(document).width()-100,
-					height: 500,
+					height: window.innerHeight,
 					modal: true,
 					buttons: {
 						
@@ -167,7 +167,7 @@ function importNguyenLieu(id)
 					show: "blind",
 					hide: "explode",
 					width: $(document).width()-100,
-					height: 500,
+					height: window.innerHeight,
 					modal: true,
 					buttons: {
 						
@@ -212,7 +212,7 @@ function exportNguyenLieu(id)
 					show: "blind",
 					hide: "explode",
 					width: $(document).width()-100,
-					height: 500,
+					height: window.innerHeight,
 					modal: true,
 					buttons: {
 						
