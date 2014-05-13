@@ -1,6 +1,6 @@
 <?php	
     $file_url = urldecode($_GET['url']);
-	//$file = pathinfo($file_url);
+	$file = pathinfo($file_url);
    	/*header('Content-Type: application/octet-stream');
     header("Content-Transfer-Encoding: Binary"); 
     header("Content-disposition: attachment; filename=\"".$file['filename'].".".$file['extension']."\""); 

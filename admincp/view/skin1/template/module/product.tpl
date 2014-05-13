@@ -72,6 +72,7 @@ $('#search select').change(function(e) {
 function Product()
 {
 	this.open = "<?php echo $this->request->get['open']?>";
+	console.log(this.open);
 	this.url = "?route=module/product/getList";
 	this.page = 0;
 	this.loadProduct = function(url)

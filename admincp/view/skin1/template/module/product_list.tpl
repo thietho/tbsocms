@@ -144,7 +144,23 @@ $(function(){
 			<?php } ?>
         }
     });
-    
+    $('.selectProduct').click(function(e) {
+		var obj = new Object();
+		obj.mediaid = $(this).attr('ref');
+		obj.imagepath = $(this).attr('image');
+		obj.title = $(this).attr('title');
+		obj.code = $(this).attr('code');
+		obj.unit = $(this).attr('unit');
+		console.log(obj.mediaid);
+		obj.price = $(this).attr('price');
+		
+		obj.pricepromotion = $(this).attr('pricepromotion');
+		obj.discountpercent = $(this).attr('discountpercent');
+		
+		objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,obj.pricepromotion,obj.discountpercent);
+		
+		$("#popupbrowseproduct").dialog("close");
+	});
     $('.listitem').on('click', function(e){
         console.log('clicked', this);
     });

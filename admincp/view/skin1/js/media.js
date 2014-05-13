@@ -558,28 +558,6 @@ function browseProduct()
 		$("#popupbrowseproduct").dialog("open");
 		$("#popupbrowseproduct").html(loading);
 		$("#popupbrowseproduct").load("?route=module/product&open=dialog",function(){
-			
-			
-			$(document).ajaxComplete(function(event, XMLHttpRequest, ajaxOptions) {
-				//console.log("runn");
-                $('.selectProduct').click(function(e) {
-					var obj = new Object();
-					obj.mediaid = $(this).attr('ref');
-					obj.imagepath = $(this).attr('image');
-					obj.title = $(this).attr('title');
-					obj.code = $(this).attr('code');
-					obj.unit = $(this).attr('unit');
-					
-					obj.price = $(this).attr('price');
-					
-					obj.pricepromotion = $(this).attr('pricepromotion');
-					obj.discountpercent = $(this).attr('discountpercent');
-					
-					objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,obj.pricepromotion,obj.discountpercent);
-					
-					$("#popupbrowseproduct").dialog("close");
-				});
-            });
 
 		});
 }

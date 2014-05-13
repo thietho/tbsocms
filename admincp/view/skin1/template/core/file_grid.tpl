@@ -5,6 +5,9 @@
     <div class="left folderlist" folderpath="<?php echo $folder['foldername']?>" title="<?php echo $folder['foldername']?>">
     	<table>
         	<tr>
+            	
+            </tr>
+        	<tr>
             	<td><?php echo $folder['foldername']?></td>
             </tr>
         </table>
@@ -36,5 +39,31 @@
 
 
 <script language="javascript">
-
+$(function(){
+    $.contextMenu({
+        selector: '.filelist', 
+        callback: function(key, options) {
+            var m = "clicked: " + key;
+            window.console && console.log(m);
+			
+			switch(key)
+			{
+				case "delete":
+					file.del();
+					break;
+				
+			}
+        },
+        items: {
+			
+          	//"edit": {name: "Edit", icon: "edit"},
+			"cut": {name: "Cut", icon: "cut"},
+			"copy": {name: "Copy", icon: "copy"},
+			"paste": {name: "Paste", icon: "paste"},
+			"delete": {name: "Delete", icon: "delete"},
+			
+			
+        }
+    });
+});
 </script>

@@ -60,7 +60,7 @@ class ControllerCoreFile extends Controller
 				{
 					$ext = $this->string->getFileExt($file);
 					if($this->string->isImage($ext))
-						$this->data['files'][$i]['imagethumbnail'] = HelperImage::resizePNG($file, 130, 130);
+						$this->data['files'][$i]['imagethumbnail'] = HelperImage::resizePNG(str_replace(DIR_FILE,"",$file), 130, 130);
 					else
 					{
 						$urlext = HTTP_IMAGE."icon/48px/".$ext.".png";
@@ -128,17 +128,25 @@ class ControllerCoreFile extends Controller
 	
 	public function detail()
 	{
-		$this->load->model("core/file");
+		/*$this->load->model("core/file");
 		$this->load->helper('image');
 		$fileid = $this->request->get['fileid'];
 		
 		$this->data['item']=$this->model_core_file->getFile($fileid);
 		
 		if($this->string->isImage($this->data['item']['extension']))
-			$this->data['item']['imagepreview'] = HelperImage::resizePNG($this->data['item']['filepath'], 800, 800);
+			$this->data['item']['imagepreview'] = HelperImage::resizePNG($this->data['item']['filepath'], 800, 800);*/
 		//print_r($this->data['file']);
 		//$info = pathinfo(HTTP_IMAGE.$this->data['item']['filepath']);
 		//print_r($info);
+		$this->load->helper('image');
+		$filepath = urldecode($this->request->get['filepath']);
+		$this->data['item'] = pathinfo($filepath);
+		if($this->string->isImage($this->data['item']['extension']))
+			$this->data['item']['imagepreview'] = HelperImage::resizePNG(str_replace(DIR_FILE,"",$filepath), 800, 800);
+		$this->data['item']['filepath'] = str_replace(DIR_FILE,"",$filepath);
+		$this->data['item']['filesize'] = filesize($filepath)/1024;
+		
 		$this->id='file';
 		$this->template = "core/file_detail.tpl";
 		$this->render();

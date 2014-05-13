@@ -36,8 +36,7 @@
                 <div id="errorupload" class="error" style="display:none"></div>
                
                 <?php if($_GET['dialog'] == ''){?>
-                <input type="button" class="button" id="btnDelFile" value="Xóa file"/>
-                <input type="button" class="button" id="btnMoveFile" value="Chuyển thư mục" onclick="showFolderMoveForm()"/>
+                
                 <?php } ?>
                 
             </p>
@@ -153,6 +152,10 @@ function ObjFile()
 	{
 		$('#pathview').html(this.path.join("/"));	
 	}
+	this.copy = function()
+	{
+		
+	}
 	this.del = function()
 	{
 		var arrpath = Array();
@@ -168,6 +171,45 @@ function ObjFile()
 			function(data){
 				showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
 		});	
+	}
+	this.show = function(filepath)
+	{
+		$('body').append('<div id="fileinfor" style="display:none"></div>');
+		var eid = "#fileinfor";
+		$(eid).attr('title','Thông tin file');
+			$(eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				modal: true,
+				buttons: {
+					'Các bài viết sử dụng':function()
+					{
+						showMediaUse(fileid);
+					},
+					'Đưa vào bài viết':function()
+					{
+						showMediaForm(fileid);
+					},
+					'Tải về':function()
+					{
+						window.location = "download.php?url="+ encodeURI($('#filepath').val());
+					},
+					'Đóng': function() 
+					{
+						
+						$( eid ).dialog( "close" );
+					},
+				}
+			});
+		
+			$(eid).dialog("open");
+			$(eid).html(loading);
+			$(eid).load("?route=core/file/detail&filepath="+encodeURI(filepath)+"&dialog=true",function(){
+				
+		});
 	}
 }
 function loadFolder()
@@ -228,7 +270,7 @@ function showResult(url)
 		//
 		$('.filelist').dblclick(function(e) {
 			var fileid = this.id;
-			showFileInfor(fileid);
+			file.show($(this).attr('filepath'));
 		});
 		$('.filelist').click(function(e) {
 			if($(this).hasClass('selectfile'))
@@ -246,10 +288,16 @@ function showResult(url)
 				//$(this).children('.filename').css('overflow','hidden');
 			});
 			
-		$('.folderlist').click(function(e) {
+		$('.folderlist').dblclick(function(e) {
 			var folder = $(this).attr('folderpath');
 			file.selectFolder(folder);
 		});
+		$('.folderlist').click(function(e) {
+            if($(this).hasClass('selectfolder'))
+				$(this).removeClass('selectfolder');
+			else
+				$(this).addClass('selectfolder');
+        });
 		
 	});
 }
