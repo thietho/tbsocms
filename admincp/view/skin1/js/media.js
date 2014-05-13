@@ -359,15 +359,7 @@ function setForward(sitemapid)
 			
 		});
 }
-function delFolder(folderid)
-{
-	$.get("?route=core/file/delFolder&folderid="+folderid,function(data){
-		if(data=="true")
-			loadFolder();
-		else
-			alert(data);
-	});
-}
+
 function showMediaUse(fileid)
 {
 	$('body').append('<div id="medialist" style="display:none"></div>');

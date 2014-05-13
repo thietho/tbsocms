@@ -30,19 +30,31 @@ class ControllerCoreFile extends Controller
 		$this->load->model("core/media");
 		$this->load->helper('image');
 		//HTTP_IMAGE . 'upload/*'; 
-		$files = glob(DIR_FILE.'upload/*');
+		$this->data['folderchild'] = array();
+		$this->data['files'] = array();
+		$folder = urldecode($this->request->get['folder']);
+		if($folder=="")
+			$files = glob(DIR_FILE.'upload/*');
+		else
+		{
+			$files = glob(DIR_FILE.'upload/'.$folder.'/*');
+			$this->data['folderchild'][]['foldername'] = $this->string->getFileName("..");
+		}
 		//Loc theo media
 		$keyword = $this->request->get['keyword'];
-		$this->data['files'] = array();
-		$this->data['folderchild'] = array();
+		
+		
 		//print_r($this->data['files']);
+		
+		
 		if(count($files)>0)
 		{
 			foreach($files as $i => $file) 
 			{
 				if(is_dir($file))
 				{
-					$this->data['folderchild'][$i]['foldername'] = $this->string->getFileName($file);
+					
+					$this->data['folderchild'][]['foldername'] = $this->string->getFileName($file);
 				}
 				else
 				{
@@ -57,6 +69,7 @@ class ControllerCoreFile extends Controller
 						$this->data['files'][$i]['imagethumbnail'] = $urlext;	
 					}
 					$this->data['files'][$i]['filename'] = $this->string->getFileName($file);
+					$this->data['files'][$i]['filepath'] = $file;
 				}
 			}	
 		}
@@ -161,10 +174,11 @@ class ControllerCoreFile extends Controller
 	}
 	public function delFile()
 	{
-		$this->load->model("core/file");
+		/*$this->load->model("core/file");
 		$fileid = $this->request->get['fileid'];
-		$this->model_core_file->deleteFile($fileid);
-		
+		$this->model_core_file->deleteFile($fileid);*/
+		$filepath = urldecode($this->request->get['filepath']);
+		unlink($filepath);
 		$this->data['output'] = "true";
 		$this->id='post';
 		$this->template="common/output.tpl";
@@ -174,10 +188,11 @@ class ControllerCoreFile extends Controller
 	public function delListFile()
 	{
 		$this->load->model("core/file");
-		$listfileid = $this->request->post['chkfile'];
-		foreach($listfileid as $fileid)
-			$this->model_core_file->deleteFile($fileid);
-		
+		$listpath = $this->request->post['chkfile'];
+		/*foreach($listfileid as $fileid)
+			$this->model_core_file->deleteFile($fileid);*/
+		foreach($listpath as $path)
+			unlink($path);
 		$this->data['output'] = "true";
 		$this->id='post';
 		$this->template="common/output.tpl";

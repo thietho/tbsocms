@@ -2,7 +2,7 @@
 <div class="clearer">^&nbsp;</div>
 <?php if(count($folderchild)){ ?>
 	<?php foreach($folderchild as $folder){ ?>
-    <div class="left folderlist" folderid="<?php echo $folder['folderid']?>" title="<?php echo $folder['foldername']?>">
+    <div class="left folderlist" folderpath="<?php echo $folder['foldername']?>" title="<?php echo $folder['foldername']?>">
     	<table>
         	<tr>
             	<td><?php echo $folder['foldername']?></td>
@@ -36,32 +36,5 @@
 
 
 <script language="javascript">
-$('.filelist').dblclick(function(e) {
-	var fileid = this.id;
-    showFileInfor(fileid);
-});
-$('.filelist').click(function(e) {
-	if($(this).hasClass('selectfile'))
-		$(this).removeClass('selectfile');
-	else
-    	$(this).addClass('selectfile');
-});
-$('.filelist').hover(
-	function(){
-		$(this).css('background-color','#ccc');
-		
-	},
-	function(){
-		$(this).css('background-color','transparent');
-		//$(this).children('.filename').css('overflow','hidden');
-	});
-	
-$('.folderlist').click(function(e) {
-    var folderid = $(this).attr('folderid');
-	selectFolder(folderid);
-});
-$('.folderpath').click(function(e) {
-    var folderid = $(this).attr('folderid');
-	selectFolder(folderid);
-});
+
 </script>

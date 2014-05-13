@@ -52,6 +52,7 @@
                 <input type="button" class="button right" value="X" onclick="$('#folderconten').hide()"/>
             	<div id="showfolder"></div>
             </div>
+            <div id="pathview"></div>
         	<div id="result"></div>
         	
         </td>
@@ -65,6 +66,7 @@
 	var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
 var cur = "";
 var posk =0
+
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
@@ -96,7 +98,7 @@ $(function () {
 				function(){
 					 showResult("?route=core/file/getList&folderid="+folderid);
 				});*/
-			showResult("?route=core/file/getList&folderid="+ $('#folderidcur').val());
+			showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
         },
 		progressall: function (e, data) {
 			//showProgress(cur,e, data)
@@ -131,6 +133,43 @@ $(document).ready(function() {
 	
 	
 });
+function ObjFile()
+{
+	this.path = Array();
+	this.selectFolder = function(folder)
+	{
+		if(folder=="..")
+		{
+			this.path.pop();	
+		}
+		else
+			this.path.push(folder);
+		
+		showResult("?route=core/file/getList&folder="+ encodeURI(this.path.join("/")));
+		console.log(this.path.join("/"));
+		this.showPath();
+	}
+	this.showPath = function()
+	{
+		$('#pathview').html(this.path.join("/"));	
+	}
+	this.del = function()
+	{
+		var arrpath = Array();
+		
+		$('.selectfile').each(function(index, element) {
+			var filepath = $(this).attr("filepath");
+			arrpath.push(filepath);
+		});
+		$.post("?route=core/file/delListFile",
+			{
+				chkfile:arrpath
+			},
+			function(data){
+				showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+		});	
+	}
+}
 function loadFolder()
 {
 	
@@ -154,16 +193,7 @@ function intFolder()
 		selectFolder(folderid)
 	});
 }
-function selectFolder(folderid)
-{
-	$('.folderitem').removeClass("selectfolder");
-	$('#folderidcur').val(folderid);
-	$('#foldername' + folderid).addClass("selectfolder");
-	showResult("?route=core/file/getList&folderid="+ folderid);
-	
-	
-	
-}
+
 var arrfileid = new Array();
 $("#btnfilter").click(function(){
 	
@@ -171,14 +201,15 @@ $("#btnfilter").click(function(){
 	showResult(url);						   
 })
 $('#btnDelFile').click(function(e) {
-    $('.selectfile').each(function(index, element) {
+    /*$('.selectfile').each(function(index, element) {
         var fileid = this.id;
 		$.get("?route=core/file/delFile&fileid="+fileid,function(data){
 			showResult("?route=core/file/getList&folderid="+ $('#folderidcur').val());
 		});		
-    });
+    });*/
+	file.del();
 });
-
+var file = new ObjFile();
 
 
 
@@ -192,8 +223,34 @@ function showResult(url)
 			$('#fileupload').fileupload({
 				// Uncomment the following to send cross-domain cookies:
 				//xhrFields: {withCredentials: true},
-				url: '?route=common/uploadattachment&folderid='+ $('#folderidcur').val()
+				url: '?route=common/uploadfile&folder=' + encodeURI($('#pathview').html())
 			});
+		//
+		$('.filelist').dblclick(function(e) {
+			var fileid = this.id;
+			showFileInfor(fileid);
+		});
+		$('.filelist').click(function(e) {
+			if($(this).hasClass('selectfile'))
+				$(this).removeClass('selectfile');
+			else
+				$(this).addClass('selectfile');
+		});
+		$('.filelist').hover(
+			function(){
+				$(this).css('background-color','#ccc');
+				
+			},
+			function(){
+				$(this).css('background-color','transparent');
+				//$(this).children('.filename').css('overflow','hidden');
+			});
+			
+		$('.folderlist').click(function(e) {
+			var folder = $(this).attr('folderpath');
+			file.selectFolder(folder);
+		});
+		
 	});
 }
 //callbackUploadFile();
