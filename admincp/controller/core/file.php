@@ -28,12 +28,39 @@ class ControllerCoreFile extends Controller
 	public function getList()
 	{
 		$this->load->model("core/media");
+		$this->load->helper('image');
+		//HTTP_IMAGE . 'upload/*'; 
+		$files = glob(DIR_FILE.'upload/*');
 		//Loc theo media
 		$keyword = $this->request->get['keyword'];
-		$folderid = $this->request->get['folderid'];
-		$location = $this->request->get['location'];
-		$sitemap = trim($this->request->get['sitemap'],",");
-		$list = "";
+		$this->data['files'] = array();
+		$this->data['folderchild'] = array();
+		//print_r($this->data['files']);
+		if(count($files)>0)
+		{
+			foreach($files as $i => $file) 
+			{
+				if(is_dir($file))
+				{
+					$this->data['folderchild'][$i]['foldername'] = $this->string->getFileName($file);
+				}
+				else
+				{
+					$ext = $this->string->getFileExt($file);
+					if($this->string->isImage($ext))
+						$this->data['files'][$i]['imagethumbnail'] = HelperImage::resizePNG($file, 130, 130);
+					else
+					{
+						$urlext = HTTP_IMAGE."icon/48px/".$ext.".png";
+						if(!@fopen($urlext,"r"))
+							$urlext = HTTP_IMAGE."icon/48px/_blank.png";
+						$this->data['files'][$i]['imagethumbnail'] = $urlext;	
+					}
+					$this->data['files'][$i]['filename'] = $this->string->getFileName($file);
+				}
+			}	
+		}
+		/*$list = "";
 		
 		//
 		$path = $this->model_core_file->getPath($folderid);
@@ -78,7 +105,7 @@ class ControllerCoreFile extends Controller
 					$urlext = HTTP_IMAGE."icon/48px/_blank.png";
 				$this->data['files'][$i]['imagethumbnail'] = $urlext;
 			}
-		}
+		}*/
 		
 		
 		$this->id='content';

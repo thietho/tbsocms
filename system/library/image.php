@@ -198,6 +198,7 @@ final class Image {
 	
 	function resizePNG( $width = 0, $height = 0, $file)
 	{
+		
 		if ( $height <= 0 && $width <= 0 ) {
 			return false;
 		}

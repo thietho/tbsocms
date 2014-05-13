@@ -37,6 +37,7 @@ final class HelperImage {
 	
 	static public function resizePNG($filepath, $width, $height) {
 		if (!file_exists(DIR_FILE . $filepath) && $filepath != "") {
+			
 			$filepath = HelperImage::getDefaultCache($filepath);
 		}
 		
