@@ -157,7 +157,7 @@ $(function(){
 		obj.pricepromotion = $(this).attr('pricepromotion');
 		obj.discountpercent = $(this).attr('discountpercent');
 		
-		objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,obj.pricepromotion,obj.discountpercent);
+		objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,obj.price - obj.pricepromotion,obj.discountpercent);
 		
 		$("#popupbrowseproduct").dialog("close");
 	});
