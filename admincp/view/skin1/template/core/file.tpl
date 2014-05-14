@@ -135,6 +135,9 @@ $(document).ready(function() {
 function ObjFile()
 {
 	this.path = Array();
+	this.clipboard = Array();
+	this.iscut = false;
+	//this.clipboard.length
 	this.selectFolder = function(folder)
 	{
 		if(folder=="..")
@@ -154,8 +157,26 @@ function ObjFile()
 	}
 	this.copy = function()
 	{
-		
+		$.post("?route=core/file/copy",
+			{
+				source:this.clipboard,
+				desdir:this.path.join("/")
+			},
+			function(data){
+				showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+				if(file.iscut == true)
+				{
+					$.post("?route=core/file/delListFile",
+								{
+									chkfile:file.clipboard
+								});
+					file.iscut = false;
+				}
+				file.clipboard = Array();
+				//console.log("clipboard: "+ file.clipboard);
+		});	
 	}
+	
 	this.del = function()
 	{
 		var arrpath = Array();

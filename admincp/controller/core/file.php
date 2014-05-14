@@ -192,7 +192,23 @@ class ControllerCoreFile extends Controller
 		$this->template="common/output.tpl";
 		$this->render();
 	}
-	
+	public function copy()
+	{
+		$data = $this->request->post;
+		
+		$arrfilepath = $data['source'];
+		$desdir = DIR_FILE."upload/".$data['desdir']."/";
+		foreach($arrfilepath as $filepath)
+		{
+			$file = pathinfo($filepath);
+			
+			copy($filepath,$desdir.$file['basename']);
+		}
+		$this->data['output'] = "true";
+		$this->id='post';
+		$this->template="common/output.tpl";
+		$this->render();
+	}
 	public function delListFile()
 	{
 		$this->load->model("core/file");
