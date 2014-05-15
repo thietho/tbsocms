@@ -30,6 +30,7 @@ class ControllerCoreFile extends Controller
 		$this->load->model("core/media");
 		$this->load->helper('image');
 		//HTTP_IMAGE . 'upload/*'; 
+		
 		$this->data['folderchild'] = array();
 		$this->data['files'] = array();
 		$folder = urldecode($this->request->get['folder']);
@@ -41,38 +42,46 @@ class ControllerCoreFile extends Controller
 			$this->data['folderchild'][-1]['foldername'] = $this->string->getFileName("..");
 			$this->data['folderchild'][-1]['folderpath'] = $file;
 		}
-		//Loc theo media
-		$keyword = $this->request->get['keyword'];
+		
+		$keyword = urldecode($this->request->get['keyword']);
 		
 		
 		//print_r($this->data['files']);
-		
+		//echo substr_count('New folder4444','a'); 
 		
 		if(count($files)>0)
 		{
+			
 			foreach($files as $i => $file) 
 			{
-				if(is_dir($file))
+				$info = pathinfo($file);
+				
+				if(substr_count(strtolower($info['basename']), strtolower($keyword))>0 || $keyword == "")
 				{
 					
-					$this->data['folderchild'][$i]['foldername'] = $this->string->getFileName($file);
-					$this->data['folderchild'][$i]['folderpath'] = $file;
-				}
-				else
-				{
-					$ext = $this->string->getFileExt($file);
-					if($this->string->isImage($ext))
-						$this->data['files'][$i]['imagethumbnail'] = HelperImage::resizePNG(str_replace(DIR_FILE,"",$file), 130, 130);
+					if(is_dir($file))
+					{
+						
+						$this->data['folderchild'][$i]['foldername'] = $this->string->getFileName($file);
+						$this->data['folderchild'][$i]['folderpath'] = $file;
+					}
 					else
 					{
-						$urlext = HTTP_IMAGE."icon/48px/".$ext.".png";
-						if(!@fopen($urlext,"r"))
-							$urlext = HTTP_IMAGE."icon/48px/_blank.png";
-						$this->data['files'][$i]['imagethumbnail'] = $urlext;	
-					}
-					$this->data['files'][$i]['filename'] = $this->string->getFileName($file);
-					$this->data['files'][$i]['filepath'] = $file;
+						$ext = $this->string->getFileExt($file);
+						if($this->string->isImage($ext))
+							$this->data['files'][$i]['imagethumbnail'] = HelperImage::resizePNG(str_replace(DIR_FILE,"",$file), 130, 130);
+						else
+						{
+							$urlext = HTTP_IMAGE."icon/48px/".$ext.".png";
+							if(!@fopen($urlext,"r"))
+								$urlext = HTTP_IMAGE."icon/48px/_blank.png";
+							$this->data['files'][$i]['imagethumbnail'] = $urlext;	
+						}
+						$this->data['files'][$i]['filename'] = $this->string->getFileName($file);
+						$this->data['files'][$i]['filepath'] = $file;
+					}	
 				}
+				
 			}	
 		}
 		/*$list = "";
@@ -209,7 +218,7 @@ class ControllerCoreFile extends Controller
 			}
 			if(is_dir($filepath))
 			{
-				echo $filepath;
+				
 				$this->smartCopy($filepath,$desdir);
 			}
 		}

@@ -1,19 +1,18 @@
 <script src='<?php echo DIR_JS?>jquery.fileupload.js' type='text/javascript' language='javascript'> </script>
 
 
-<form id="ffile" name="ffile" method="post">
+
 
 <table width="100%" class="data-table">
 	<tr>
         <td colspan="3">
-        	<input type="hidden" id="folderidcur" value="0" />
-     		<input type="hidden" name="sitemap" id="sitemap" value="" />
+        	
       		<strong>File name</strong> <input type="text" name="keyword" id="keyword" class="text" />&nbsp;&nbsp;
             
             
             			
             
-            &nbsp;&nbsp;<input type="button" id="btnfilter" name="btnfilter" value="Filter" class="button"/>
+           
             
             <div class="progress" id="progress'+t+'"><div class="bar" style="width: 0%;"></div></div>
             <table>
@@ -55,7 +54,7 @@
         
     </tr>
 </table>
-</form>
+
 <script>
 	var imageindex = 0;
 	var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
@@ -402,20 +401,12 @@ function intFolder()
 }
 
 var arrfileid = new Array();
-$("#btnfilter").click(function(){
+$("#keyword").keyup(function(){
 	
-	url = "?route=core/file/getList&keyword="+escape($("#keyword").val())+"&location="+$("#location").val()+"&sitemap="+$("#sitemap").val();
+	url = "?route=core/file/getList";
 	showResult(url);						   
 })
-$('#btnDelFile').click(function(e) {
-    /*$('.selectfile').each(function(index, element) {
-        var fileid = this.id;
-		$.get("?route=core/file/delFile&fileid="+fileid,function(data){
-			showResult("?route=core/file/getList&folderid="+ $('#folderidcur').val());
-		});		
-    });*/
-	file.del();
-});
+
 var file = new ObjFile();
 
 
@@ -424,7 +415,7 @@ var file = new ObjFile();
 function showResult(url)
 {
 	$('#result').html(loading);
-	$("#result").load(url,function(){
+	$("#result").load(url+"&keyword="+encodeURI($("#keyword").val()),function(){
 		if("<?php echo $_GET['dialog']?>" =='true')
 			intSeleteFile("<?php echo $_GET['type']?>");
 			$('#fileupload').fileupload({
