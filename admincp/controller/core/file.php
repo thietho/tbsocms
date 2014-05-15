@@ -314,7 +314,19 @@ class ControllerCoreFile extends Controller
 			reset($objects); 
 			rmdir($dir); 
 		} 
-	} 
+	}
+	public function newFolder()
+	{
+		$data = $this->request->post;
+		$foldername = $data['foldername'];
+		$desdir = DIR_FILE."upload/".$data['desdir']."/";
+		mkdir($desdir.$foldername);
+		
+		$this->data['output'] = "true";
+		$this->id='post';
+		$this->template="common/output.tpl";
+		$this->render();
+	}
 	public function showFolderMoveForm()
 	{
 		$this->load->model("core/file");

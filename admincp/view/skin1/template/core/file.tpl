@@ -209,6 +209,10 @@ function ObjFile()
 				hide: "explode",
 				width: $(document).width()-100,
 				height: window.innerHeight,
+				close:function()
+				{
+					$(eid).remove();
+				},
 				modal: true,
 				buttons: {
 					'Các bài viết sử dụng':function()
@@ -236,6 +240,68 @@ function ObjFile()
 			$(eid).load("?route=core/file/detail&filepath="+encodeURI(filepath)+"&dialog=true",function(){
 				
 		});
+	}
+	this.newFolder = function()
+	{
+		$('body').append('<div id="frmnewfolder" style="display:none"></div>');
+		var eid = "#frmnewfolder";
+		$(eid).attr('title','Tạo thư mục');
+			$(eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: 200,
+				height: 150,
+				modal: true,
+				close:function()
+				{
+					$(eid).remove();
+				},
+				buttons: {
+					
+					
+					'Tạo':function()
+					{
+						flag = true;
+						console.log("Dir name: "+ $('#txt_dirname').val());
+						if($('#txt_dirname').val()=="")
+						{
+							alert("Bạn chưa nhập tên thư mục");	
+							flag = false;
+						}
+						$('.folderlist').each(function(index, element) {
+                            if($('#txt_dirname').val() == $(this).attr('folderpath'))
+							{
+								alert("Tên thư mục đã tồn tại");
+								flag = false;
+							}
+                        });
+						if(flag)
+						{
+							console.log("Thu muc hop le");
+							$.post("?route=core/file/newFolder",
+								{
+									foldername:	$('#txt_dirname').val(),
+									desdir:file.path.join("/")
+								},
+								function(){
+									showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+									$( eid ).dialog( "close" );
+								}
+							);
+						}
+					},
+					'Đóng': function() 
+					{
+						
+						$( eid ).dialog( "close" );
+					},
+				}
+			});
+		
+			$(eid).dialog("open");
+			$(eid).html('<input type="text" class="text" id="txt_dirname" value=""/>');
+			
 	}
 }
 function loadFolder()

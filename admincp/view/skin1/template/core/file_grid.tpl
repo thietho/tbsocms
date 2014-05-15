@@ -78,7 +78,9 @@ $(function(){
 					file.iscut = true;
 					console.log("clipboard: "+ file.clipboard);
 					break;
-				
+				case "newfolder":
+					file.newFolder();
+					break;
 				
 			}
         },
@@ -87,7 +89,7 @@ $(function(){
           	"edit": {name: "Edit", icon: "edit"},
 			"cut": {name: "Cut", icon: "cut"},
 			"copy": {name: "Copy", icon: "copy"},
-			
+			"newfolder": {name: "New Folder", icon: "folder"},
 			"delete": {name: "Delete", icon: "delete"},
         }
     });
