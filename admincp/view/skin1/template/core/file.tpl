@@ -179,19 +179,24 @@ function ObjFile()
 	
 	this.del = function()
 	{
-		var arrpath = Array();
-		
-		$('.selectfile').each(function(index, element) {
-			var filepath = $(this).attr("filepath");
-			arrpath.push(filepath);
-		});
-		$.post("?route=core/file/delListFile",
-			{
-				chkfile:arrpath
-			},
-			function(data){
-				showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
-		});	
+		var ans = confirm("Bạn có chắc xóa file không?");
+		if(ans == true)
+		{
+			var arrpath = Array();
+			
+			$('.selectfile').each(function(index, element) {
+				var filepath = $(this).attr("filepath");
+				arrpath.push(filepath);
+			});
+			$.post("?route=core/file/delListFile",
+				{
+					chkfile:arrpath
+				},
+				function(data){
+					showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+			});	
+			
+		}
 	}
 	this.show = function(filepath)
 	{
@@ -290,8 +295,7 @@ function showResult(url)
 			});
 		//
 		$('.filelist').dblclick(function(e) {
-			var fileid = this.id;
-			file.show($(this).attr('filepath'));
+			
 		});
 		$('.filelist').click(function(e) {
 			if($(this).hasClass('selectfile'))

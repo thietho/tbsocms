@@ -49,7 +49,11 @@ $(function(){
 			
 			switch(key)
 			{
+				case "edit":
+					file.show($(this).attr('filepath'));
+					break;
 				case "delete":
+					$(this).addClass('selectfile');
 					file.del();
 					break;
 				case "copy":
@@ -80,14 +84,10 @@ $(function(){
         },
         items: {
 			
-          	//"edit": {name: "Edit", icon: "edit"},
+          	"edit": {name: "Edit", icon: "edit"},
 			"cut": {name: "Cut", icon: "cut"},
 			"copy": {name: "Copy", icon: "copy"},
-			/*"paste": {name: "Paste", icon: "paste",disabled:function(key, opt) { 
-                    						// this references the trigger element
-											return !this.data('pasteDisabled'); 
-										}
-				},*/
+			
 			"delete": {name: "Delete", icon: "delete"},
         }
     });
