@@ -331,20 +331,35 @@ function ObjFile()
 							alert("Bạn chưa nhập tên thư mục");	
 							flag = false;
 						}
-						$('.fileitem').each(function(index, element) {
-                            if($('#txt_newname').val() == $(this).attr('filename') )
-							{
-								alert("Tên file đã tồn tại");
-								flag = false;
-							}
-                        });
+						if(objfile.hasClass('fileitem'))
+						{
+							$('.fileitem').each(function(index, element) {
+								if($('#txt_newname').val() == $(this).attr('filename') )
+								{
+									alert("Tên file đã tồn tại");
+									flag = false;
+								}
+							});
+														
+						}
+						if(objfile.hasClass('folderitem'))
+						{
+							$('.folderitem').each(function(index, element) {
+								if($('#txt_newname').val() == $(this).attr('filename') )
+								{
+									alert("Tên thư mục đã tồn tại");
+									flag = false;
+								}
+							});
+							
+						}
 						if(flag)
 						{
 							console.log("File hop le");
 							$.post("?route=core/file/rename",
 								{
-									filename:$('#txt_newname').val(),
-									desdir:file.path.join("/")
+									oldname:objfile.attr('filepath'),
+									newname:$('#txt_newname').val()
 								},
 								function(){
 									showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));

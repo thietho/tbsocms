@@ -3,11 +3,9 @@
 <div id="listfilecontent">
 <?php if(count($folderchild)){ ?>
 	<?php foreach($folderchild as $folder){ ?>
-    <div class="left folderlist filelist" filepath="<?php echo $folder['folderpath']?>" folderpath="<?php echo $folder['foldername']?>" title="<?php echo $folder['foldername']?>">
+    <div class="left folderlist folderitem filelist" filepath="<?php echo $folder['folderpath']?>" folderpath="<?php echo $folder['foldername']?>" title="<?php echo $folder['foldername']?>" filename="<?php echo $folder['foldername']?>" style="background:url('<?php echo DIR_IMAGE?>folder.png')  no-repeat center center">
     	<table>
-        	<tr>
-            	<td><img src="<?php echo DIR_IMAGE?>folder.png" /></td>
-            </tr>
+        	
         	<tr>
             	<td><?php echo $folder['foldername']?></td>
             </tr>
