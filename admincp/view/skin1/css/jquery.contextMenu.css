@@ -97,6 +97,7 @@
 .context-menu-item.icon-add { background-image: url(images/page_white_add.png); }
 .context-menu-item.icon-quit { background-image: url(images/door.png); }
 .context-menu-item.icon-folder { background-image: url(images/folder.png); }
+.context-menu-item.icon-rename { background-image: url(images/rename.png); }
 /* vertically align inside labels */
 .context-menu-input > label > * { vertical-align: top; }
 

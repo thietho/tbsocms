@@ -327,6 +327,18 @@ class ControllerCoreFile extends Controller
 		$this->template="common/output.tpl";
 		$this->render();
 	}
+	public function rename()
+	{
+		$data = $this->request->post;
+		$filename = $data['filename'];
+		$desdir = DIR_FILE."upload/".$data['desdir']."/";
+		
+		
+		$this->data['output'] = "true";
+		$this->id='post';
+		$this->template="common/output.tpl";
+		$this->render();
+	}
 	public function showFolderMoveForm()
 	{
 		$this->load->model("core/file");

@@ -303,6 +303,67 @@ function ObjFile()
 			$(eid).html('<input type="text" class="text" id="txt_dirname" value=""/>');
 			
 	}
+	this.rename = function(objfile)
+	{
+		$('body').append('<div id="frmnewfolder" style="display:none"></div>');
+		var eid = "#frmnewfolder";
+		$(eid).attr('title','Đổi tên');
+			$(eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: 200,
+				height: 150,
+				modal: true,
+				close:function()
+				{
+					$(eid).remove();
+				},
+				buttons: {
+					
+					
+					'Sửa':function()
+					{
+						flag = true;
+						console.log("File name: "+ $('#txt_newname').val());
+						if($('#txt_dirname').val()=="")
+						{
+							alert("Bạn chưa nhập tên thư mục");	
+							flag = false;
+						}
+						$('.fileitem').each(function(index, element) {
+                            if($('#txt_newname').val() == $(this).attr('filename') )
+							{
+								alert("Tên file đã tồn tại");
+								flag = false;
+							}
+                        });
+						if(flag)
+						{
+							console.log("File hop le");
+							$.post("?route=core/file/rename",
+								{
+									filename:$('#txt_newname').val(),
+									desdir:file.path.join("/")
+								},
+								function(){
+									showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+									$( eid ).dialog( "close" );
+								}
+							);
+						}
+					},
+					'Đóng': function() 
+					{
+						
+						$( eid ).dialog( "close" );
+					},
+				}
+			});
+		
+			$(eid).dialog("open");
+			$(eid).html('<input type="text" class="text" id="txt_newname" value="'+ objfile.attr('filename') +'"/>');
+	}
 }
 function loadFolder()
 {
