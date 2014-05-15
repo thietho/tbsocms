@@ -28,10 +28,7 @@
                 
                 
                 <input id="fileupload" class="button" type="file" name="files[]"  multiple value="Chon file" >
-                <input type="button" class="button" value="Tạo thư mục" onclick="showFolderForm('',$('#folderidcur').val())"/>
-                <input type="button" class="button" value="Sửa tên thư mục" onclick="showFolderForm($('#folderidcur').val(),'')"/>
-                <input type="button" class="button" value="Xóa thư mục" onclick="delFolder($('#folderidcur').val())"/>
-                <input type="button" class="button" value="Cây thư mục" onclick="$('#folderconten').show()"/>
+               	
                 <br />
                 <div id="errorupload" class="error" style="display:none"></div>
                
