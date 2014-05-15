@@ -38,7 +38,8 @@ class ControllerCoreFile extends Controller
 		else
 		{
 			$files = glob(DIR_FILE.'upload/'.$folder.'/*');
-			$this->data['folderchild'][]['foldername'] = $this->string->getFileName("..");
+			$this->data['folderchild'][-1]['foldername'] = $this->string->getFileName("..");
+			$this->data['folderchild'][-1]['folderpath'] = $file;
 		}
 		//Loc theo media
 		$keyword = $this->request->get['keyword'];
@@ -54,7 +55,8 @@ class ControllerCoreFile extends Controller
 				if(is_dir($file))
 				{
 					
-					$this->data['folderchild'][]['foldername'] = $this->string->getFileName($file);
+					$this->data['folderchild'][$i]['foldername'] = $this->string->getFileName($file);
+					$this->data['folderchild'][$i]['folderpath'] = $file;
 				}
 				else
 				{
@@ -200,15 +202,82 @@ class ControllerCoreFile extends Controller
 		$desdir = DIR_FILE."upload/".$data['desdir']."/";
 		foreach($arrfilepath as $filepath)
 		{
-			$file = pathinfo($filepath);
-			
-			copy($filepath,$desdir.$file['basename']);
+			if(is_file($filepath))
+			{
+				$file = pathinfo($filepath);
+				copy($filepath,$desdir.$file['basename']);
+			}
+			if(is_dir($filepath))
+			{
+				echo $filepath;
+				$this->smartCopy($filepath,$desdir);
+			}
 		}
 		$this->data['output'] = "true";
 		$this->id='post';
 		$this->template="common/output.tpl";
 		$this->render();
 	}
+	
+	function smartCopy($source, $dest, $options=array('folderPermission'=>0755,'filePermission'=>0755)) 
+    { 
+        $result=false; 
+        
+        if (is_file($source)) { 
+            if ($dest[strlen($dest)-1]=='/') { 
+                if (!file_exists($dest)) { 
+                    cmfcDirectory::makeAll($dest,$options['folderPermission'],true); 
+                } 
+                $__dest=$dest."/".basename($source); 
+            } else { 
+                $__dest=$dest; 
+            } 
+            $result=copy($source, $__dest); 
+            chmod($__dest,$options['filePermission']); 
+            
+        } elseif(is_dir($source)) { 
+            if ($dest[strlen($dest)-1]=='/') { 
+                if ($source[strlen($source)-1]=='/') { 
+                    //Copy only contents 
+                } else { 
+                    //Change parent itself and its contents 
+                    $dest=$dest.basename($source); 
+                    @mkdir($dest); 
+                    chmod($dest,$options['filePermission']); 
+                } 
+            } else { 
+                if ($source[strlen($source)-1]=='/') { 
+                    //Copy parent directory with new name and all its content 
+                    @mkdir($dest,$options['folderPermission']); 
+                    chmod($dest,$options['filePermission']); 
+                } else { 
+                    //Copy parent directory with new name and all its content 
+                    @mkdir($dest,$options['folderPermission']); 
+                    chmod($dest,$options['filePermission']); 
+                } 
+            } 
+
+            $dirHandle=opendir($source); 
+            while($file=readdir($dirHandle)) 
+            { 
+                if($file!="." && $file!="..") 
+                { 
+                     if(!is_dir($source."/".$file)) { 
+                        $__dest=$dest."/".$file; 
+                    } else { 
+                        $__dest=$dest."/".$file; 
+                    } 
+                    //echo "$source/$file ||| $__dest<br />"; 
+                    $result=$this->smartCopy($source."/".$file, $__dest, $options); 
+                } 
+            } 
+            closedir($dirHandle); 
+            
+        } else { 
+            $result=false; 
+        } 
+        return $result; 
+    }
 	public function delListFile()
 	{
 		$this->load->model("core/file");
@@ -216,13 +285,36 @@ class ControllerCoreFile extends Controller
 		/*foreach($listfileid as $fileid)
 			$this->model_core_file->deleteFile($fileid);*/
 		foreach($listpath as $path)
-			unlink($path);
+		{	
+			if(is_file($path))
+				unlink($path);
+			if(is_dir($path))
+				$this->rrmdir($path);
+		}
 		$this->data['output'] = "true";
 		$this->id='post';
 		$this->template="common/output.tpl";
 		$this->render();
 	}
-	
+	function rrmdir($dir) 
+	{ 
+		if (is_dir($dir)) 
+		{ 
+			$objects = scandir($dir); 
+			foreach ($objects as $object) 
+			{ 
+				if ($object != "." && $object != "..") 
+				{ 
+					if (filetype($dir."/".$object) == "dir") 
+						$this->rrmdir($dir."/".$object); 
+					else 
+					unlink($dir."/".$object); 
+				} 
+			} 
+			reset($objects); 
+			rmdir($dir); 
+		} 
+	} 
 	public function showFolderMoveForm()
 	{
 		$this->load->model("core/file");
