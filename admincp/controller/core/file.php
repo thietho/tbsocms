@@ -421,34 +421,41 @@ class ControllerCoreFile extends Controller
 	
 	public function getFolderTreeView()
 	{
-		$this->load->model("core/file");
-		$root = @(int)$this->request->get['root'];
+		
+		$root = DIR_FILE.'upload/*';
 		$this->data['output'] = '<ul id="group'.$root.'" class="filetree">'.$this->getFolderTree($root).'</ul>';
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
 	}
 	
-	private function getFolderTree($root = 0)
+	private function getFolderTree($path)
 	{
+		//$files = glob(DIR_FILE.'upload/*');
+		$folders = glob($path);
 		
-		$folders = $this->model_core_file->getFolderChild($root);
 		$str = "";
 		foreach($folders as $item)
 		{
-			$child = $this->model_core_file->getFolderChild($item['folderid']);
-			$str.='<li id="node'.$item['folderid'].'" class="closed" ref="'.$root.'">';
-			$type = 'folder';
 			
-			
-			$str.='<span id="folder'.$item['folderid'].'" class="'.$type.'"><b><span id="foldername'.$item['folderid'].'" class="folderitem" folderid="'.$item['folderid'].'">'.$item['foldername'].'</span></b> </span>';
-			if(count($child))
+			if(is_dir($item))
 			{
-				$str .= "<ul id='group".$item['folderid']."'>";
-				$str .= $this->getFolderTree($item['folderid']);
-				$str .= "</ul>";
+				$str.='<li id="node'.$item.'" class="closed" ref="'.$path.'">';
+				$type = 'folder';
+				
+				
+				$str.='<span id="folder'.$item.'" class="'.$type.'"><b><span id="foldername'.$item.'" class="folderitem" folderid="'.$item.'">'.$item.'</span></b> </span>';
+				$child = glob($item."/*");
+				if(count($child))
+				{
+					$str .= "<ul id='group".$item."'>";
+					$str .= $this->getFolderTree($item."/*");
+					$str .= "</ul>";
+				}
+				$str.='</li>';
+
 			}
-			$str.='</li>';
+			
 		}
 		return $str;
 	}

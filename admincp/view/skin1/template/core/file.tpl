@@ -42,11 +42,7 @@
     	
         <td style="vertical-align:top !important">
         	
-        	<div id="folderconten" style="position:absolute;background:#fff;overflow:auto;display:none;width:300px">
-            	<span class="folderitem selectfolder" folderid="0">Root</span>
-                <input type="button" class="button right" value="X" onclick="$('#folderconten').hide()"/>
-            	<div id="showfolder"></div>
-            </div>
+        	
             <div id="pathview"></div>
         	<div id="result"></div>
         	
@@ -119,11 +115,11 @@ function showProgress(id,e, data)
 //alert(parent.opener.document.InsertContent.title.value);
 $(document).ready(function() {
 	
-	loadFolder()
-  	showResult("?route=core/file/getList&folderid="+ $('#folderidcur').val());
+	//loadFolder()
+  	showResult("?route=core/file/getList");
 	
 	
-	$('#showfolder').css('overflow','auto');
+	//$('#showfolder').css('overflow','auto');
 	//'$('#showfolder').css('height',$(window).height() - $('#showfolder').position().top+ 'px');
 	
 	
@@ -376,7 +372,7 @@ function ObjFile()
 			$(eid).html('<input type="text" class="text" id="txt_newname" value="'+ objfile.attr('filename') +'"/>');
 	}
 }
-function loadFolder()
+/*function loadFolder()
 {
 	
 	$('#showfolder').load("?route=core/file/getFolderTreeView",function(){
@@ -398,7 +394,7 @@ function intFolder()
 		var folderid = $(this).attr('folderid');
 		selectFolder(folderid)
 	});
-}
+}*/
 
 var arrfileid = new Array();
 $("#keyword").keyup(function(){

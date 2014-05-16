@@ -322,7 +322,7 @@ $('#title').change(function(e) {
 			}
 		}
 ?>
-		//alert(arratt)
+		alert(arratt)
 		callAtt(0);
  	});
 

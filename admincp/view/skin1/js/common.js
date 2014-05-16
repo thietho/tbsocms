@@ -424,10 +424,10 @@ function browserFile(eid,type)
 					"Chọn":function()
 					{
 						$('.selectfile').each(function(index, element) {
-							var fileid = $(this).attr('id');
+							var filepath = $(this).attr('filepath');
 							var filename = $(this).attr('filename');
 							var imagethumbnail = $(this).attr('imagethumbnail');
-                            $('#attachment').append(attachment.creatAttachmentRow(fileid,filename,imagethumbnail));
+                            $('#attachment').append(attachment.creatAttachmentRow(filepath,filename,imagethumbnail));
                         });
 						$("#popup").dialog( "close" );
 					},

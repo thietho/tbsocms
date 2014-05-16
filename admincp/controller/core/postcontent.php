@@ -410,12 +410,15 @@ class ControllerCorePostcontent extends Controller
 				}
 			}
 			
-			
+			$data['imagepath'] = str_replace(DIR_FILE,"",$data['imagepath']);
 			$this->model_core_media->save($data);
 			$this->model_core_media->updateInforChild($data['mediaid']);
 			if($data['mediaparent']!="")
 				$this->model_core_media->updateInforChild($data['mediaparent']);
-			$listAttachment=$this->data['post']['attimageid'];
+			//$listAttachment=$this->data['post']['attimageid'];
+			if(count($this->data['post']['attimageid']))
+				foreach($this->data['post']['attimageid'] as $path)
+					$listAttachment[]= str_replace(DIR_FILE,"",$path);
 			$this->model_core_media->saveAttachment($data['mediaid'],$listAttachment);
 			/*$listdelfile=$this->data['post']['delfile'];
 			if(count($listdelfile))
