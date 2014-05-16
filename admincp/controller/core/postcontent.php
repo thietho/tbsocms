@@ -303,10 +303,21 @@ class ControllerCorePostcontent extends Controller
 		$this->data['attachment']=array();
 		foreach($listfileid as $key => $item)
 		{
-			$this->data['attachment'][$key] = $this->model_core_file->getFile($item);
-			$this->data['attachment'][$key]['imagethumbnail'] = HelperImage::resizePNG($this->data['attachment'][$key]['filepath'], 50, 50);
-			if(!$this->string->isImage($this->data['attachment'][$key]['extension']))
-				$this->data['attachment'][$key]['imagethumbnail'] = DIR_IMAGE."icon/dinhkem.png";
+			//$this->data['attachment'][$key] = $this->model_core_file->getFile($item);
+			$info = pathinfo($item);
+			//print_r($info);
+			$this->data['attachment'][$key]=$info;
+			$this->data['attachment'][$key]['imagethumbnail'] = HelperImage::resizePNG($item, 100, 100);
+			$this->data['attachment'][$key]['filepath'] = $item;
+			if(!$this->string->isImage($info['extension']))
+			{
+				$urlext = HTTP_IMAGE."icon/48px/".$info['extension'].".png";
+				if(!@fopen($urlext,"r"))
+					$urlext = HTTP_IMAGE."icon/48px/_blank.png";
+				
+				$this->data['attachment'][$key]['imagethumbnail'] = $urlext;
+			}
+				
 		}
 		$this->data['status'] = $this->data['post']['status'];
 		if($this->data['status'] == "")

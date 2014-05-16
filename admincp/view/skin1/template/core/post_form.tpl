@@ -309,7 +309,8 @@ $('#title').change(function(e) {
 			if(count($item))
 			{
 ?>
-				arratt[<?php echo $key?>] = <?php echo $item['fileid']?>;
+				
+				$('#attachment').append(attachment.creatAttachmentRow("<?php echo $item['filepath']?>","<?php echo $item['basename']?>","<?php echo $item['imagethumbnail']?>"));
 				/*$.getJSON("?route=core/file/getFile&fileid=<?php echo $item['fileid']?>&width=50", 
 				function(file) 
 				{
@@ -322,21 +323,23 @@ $('#title').change(function(e) {
 			}
 		}
 ?>
-		alert(arratt)
-		callAtt(0);
+		//alert(arratt)
+		//callAtt(0);
  	});
 
 function callAtt(pos)
 {
 	if(arratt[pos]!= undefined)
 	{
-		$.getJSON("?route=core/file/getFile&fileid="+ arratt[pos] +"&width=50", 
+		$('#attachment').append(attachment.creatAttachmentRow(file.file.fileid,file.file.filename,file.file.imagepreview));
+		callAtt(pos+1);
+		/*$.getJSON("?route=core/file/getFile&fileid="+ arratt[pos] +"&width=50", 
 		function(file) 
 		{
 			
 			$('#attachment').append(attachment.creatAttachmentRow(file.file.fileid,file.file.filename,file.file.imagepreview));
 			callAtt(pos+1);
-		});
+		});*/
 	}
 }
 </script>
