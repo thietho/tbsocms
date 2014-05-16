@@ -1,4 +1,5 @@
-<?php echo $path?>
+
+
 <div class="clearer">^&nbsp;</div>
 <div id="listfilecontent">
 <?php if(count($folderchild)){ ?>

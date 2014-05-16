@@ -275,7 +275,7 @@ $('#title').change(function(e) {
                             <label for="image"><?php echo $entry_image?></label><br />
                             
                             <input type="button" class="button" value="<?php echo $entry_photo ?>" onclick="browserFile('imageid','single')"/><br />
-                            <img id="imageid_preview" src="<?php echo $imagethumbnail?>" onclick="showFile($('#imageid_fileid').val())"/>
+                            <img id="imageid_preview" src="<?php echo $imagethumbnail?>" onclick="showFile($('#imageid_filepath').val())"/>
                             <input type="hidden" id="imageid_filepath" name="imagepath" value="<?php echo $post['imagepath']?>" />
                             <input type="hidden" id="imageid_fileid" name="imageid" value="<?php echo $post['imageid']?>" />
                             

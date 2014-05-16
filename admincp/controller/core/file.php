@@ -56,7 +56,7 @@ class ControllerCoreFile extends Controller
 			{
 				$info = pathinfo($file);
 				
-				if(substr_count(strtolower($info['basename']), strtolower($keyword))>0 || $keyword == "")
+				if(@substr_count(strtolower($info['basename']), strtolower($keyword))>0 || $keyword == "")
 				{
 					
 					if(is_dir($file))
@@ -156,7 +156,7 @@ class ControllerCoreFile extends Controller
 		if($this->string->isImage($this->data['item']['extension']))
 			$this->data['item']['imagepreview'] = HelperImage::resizePNG(str_replace(DIR_FILE,"",$filepath), 800, 800);
 		$this->data['item']['filepath'] = str_replace(DIR_FILE,"",$filepath);
-		$this->data['item']['filesize'] = filesize($filepath)/1024;
+		$this->data['item']['filesize'] = filesize(DIR_FILE.$filepath)/1024;
 		
 		$this->id='file';
 		$this->template = "core/file_detail.tpl";

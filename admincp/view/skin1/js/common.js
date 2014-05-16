@@ -453,7 +453,7 @@ function intSeleteFile(type)
 	switch(type)
 	{
 		case "single":
-			$('.filelist').click(function(e) {
+			$('.fileitem').dblclick(function(e) {
 				$('#'+ $('#handler').val()+'_fileid').val($(this).attr('id'));
 				$('#'+ $('#handler').val()).html($(this).attr('filepath'));
 				$('#'+ $('#handler').val()+'_filepath').val($(this).attr('filepath'));
@@ -595,3 +595,24 @@ function Attachment()
 
 }
 var attachment = new Attachment();
+
+$.xhrPool = [];
+$.xhrPool.abortAll = function() {
+    $(this).each(function(idx, jqXHR) {
+        jqXHR.abort();
+    });
+    $.xhrPool = [];
+};
+
+$.ajaxSetup({
+    beforeSend: function(jqXHR) {
+        $.xhrPool.push(jqXHR);
+		console.log($.xhrPool);
+    },
+    complete: function(jqXHR) {
+        var index = $.xhrPool.indexOf(jqXHR);
+        if (index > -1) {
+            $.xhrPool.splice(index, 1);
+        }
+    }
+});

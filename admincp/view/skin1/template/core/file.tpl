@@ -2,7 +2,7 @@
 
 
 
-
+<div id="frmfile">
 <table width="100%" class="data-table">
 	<tr>
         <td colspan="3">
@@ -50,7 +50,7 @@
         
     </tr>
 </table>
-
+</div>
 <script>
 	var imageindex = 0;
 	var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
@@ -87,9 +87,10 @@ $(function () {
 				var folderid = $('#folderidcur').val();
 			$.get("?route=core/file/updateFolder&fileid="+fileid+"&folderid="+folderid,
 				function(){
-					 showResult("?route=core/file/getList&folderid="+folderid);
+					 file.showList("?route=core/file/getList&folderid="+folderid);
 				});*/
-			showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+			
+			file.showList("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
         },
 		progressall: function (e, data) {
 			//showProgress(cur,e, data)
@@ -112,18 +113,6 @@ function showProgress(id,e, data)
 }
 </script>
 <script language="javascript">
-//alert(parent.opener.document.InsertContent.title.value);
-$(document).ready(function() {
-	
-	//loadFolder()
-  	showResult("?route=core/file/getList");
-	
-	
-	//$('#showfolder').css('overflow','auto');
-	//'$('#showfolder').css('height',$(window).height() - $('#showfolder').position().top+ 'px');
-	
-	
-});
 function ObjFile()
 {
 	this.path = Array();
@@ -139,7 +128,7 @@ function ObjFile()
 		else
 			this.path.push(folder);
 		
-		showResult("?route=core/file/getList&folder="+ encodeURI(this.path.join("/")));
+		file.showList("?route=core/file/getList&folder="+ encodeURI(this.path.join("/")));
 		console.log(this.path.join("/"));
 		this.showPath();
 	}
@@ -155,7 +144,7 @@ function ObjFile()
 				desdir:this.path.join("/")
 			},
 			function(data){
-				showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+				file.showList("?route=core/file/getList&folder="+ encodeURI(file.path.join("/")));
 				if(file.iscut == true)
 				{
 					$.post("?route=core/file/delListFile",
@@ -185,7 +174,7 @@ function ObjFile()
 					chkfile:arrpath
 				},
 				function(data){
-					showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+					file.showList("?route=core/file/getList&folder="+ encodeURI(file.path.join("/")));
 			});	
 			
 		}
@@ -277,7 +266,7 @@ function ObjFile()
 									desdir:file.path.join("/")
 								},
 								function(){
-									showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+									file.showList("?route=core/file/getList&folder="+ encodeURI(file.path.join("/")));
 									$( eid ).dialog( "close" );
 								}
 							);
@@ -354,7 +343,7 @@ function ObjFile()
 									newname:$('#txt_newname').val()
 								},
 								function(){
-									showResult("?route=core/file/getList&folder="+ encodeURI($('#pathview').html()));
+									file.showList("?route=core/file/getList&folder="+ encodeURI(file.path.join("/")));
 									$( eid ).dialog( "close" );
 								}
 							);
@@ -370,6 +359,59 @@ function ObjFile()
 		
 			$(eid).dialog("open");
 			$(eid).html('<input type="text" class="text" id="txt_newname" value="'+ objfile.attr('filename') +'"/>');
+	}
+	this.showList = function(url)
+	{
+		$.xhrPool.abortAll();
+		$.xhrPool = [];
+			$.xhrPool.abortAll = function() {
+				$(this).each(function(idx, jqXHR) {
+					jqXHR.abort();
+				});
+				$.xhrPool = [];
+			};
+		$('#pathview').html(file.path.join("/"));
+		$('#result').html(loading);
+		$("#result").load(url,function(){
+			if("<?php echo $_GET['dialog']?>" =='true')
+				intSeleteFile("<?php echo $_GET['type']?>");
+				$('#fileupload').fileupload({
+					// Uncomment the following to send cross-domain cookies:
+					//xhrFields: {withCredentials: true},
+					url: '?route=common/uploadfile&folder=' + encodeURI(file.path.join("/"))
+				});
+			//
+			$('.filelist').dblclick(function(e) {
+				
+			});
+			$('.filelist').click(function(e) {
+				if($(this).hasClass('selectfile'))
+					$(this).removeClass('selectfile');
+				else
+					$(this).addClass('selectfile');
+			});
+			$('.filelist').hover(
+				function(){
+					$(this).css('background-color','#ccc');
+					
+				},
+				function(){
+					$(this).css('background-color','transparent');
+					//$(this).children('.filename').css('overflow','hidden');
+				});
+				
+			$('.folderlist').dblclick(function(e) {
+				var folder = $(this).attr('folderpath');
+				file.selectFolder(folder);
+			});
+			$('.folderlist').click(function(e) {
+				if($(this).hasClass('selectfolder'))
+					$(this).removeClass('selectfolder');
+				else
+					$(this).addClass('selectfolder');
+			});
+			
+		});
 	}
 }
 /*function loadFolder()
@@ -397,60 +439,23 @@ function intFolder()
 }*/
 
 var arrfileid = new Array();
-$("#keyword").keyup(function(){
-	
-	url = "?route=core/file/getList";
-	showResult(url);						   
+$("#frmfile #keyword").keyup(function(e){
+	//if(e.keyCode == 13)
+	{
+		
+		url = "?route=core/file/getList&folder="+ encodeURI(file.path.join("/"))+"&keyword="+encodeURI($("#keyword").val());
+		file.showList(url);
+							   
+	}
 })
 
 var file = new ObjFile();
+$(document).ready(function() {
+  	file.showList("?route=core/file/getList");
+});
 
 
 
 
-function showResult(url)
-{
-	$('#result').html(loading);
-	$("#result").load(url+"&keyword="+encodeURI($("#keyword").val()),function(){
-		if("<?php echo $_GET['dialog']?>" =='true')
-			intSeleteFile("<?php echo $_GET['type']?>");
-			$('#fileupload').fileupload({
-				// Uncomment the following to send cross-domain cookies:
-				//xhrFields: {withCredentials: true},
-				url: '?route=common/uploadfile&folder=' + encodeURI($('#pathview').html())
-			});
-		//
-		$('.filelist').dblclick(function(e) {
-			
-		});
-		$('.filelist').click(function(e) {
-			if($(this).hasClass('selectfile'))
-				$(this).removeClass('selectfile');
-			else
-				$(this).addClass('selectfile');
-		});
-		$('.filelist').hover(
-			function(){
-				$(this).css('background-color','#ccc');
-				
-			},
-			function(){
-				$(this).css('background-color','transparent');
-				//$(this).children('.filename').css('overflow','hidden');
-			});
-			
-		$('.folderlist').dblclick(function(e) {
-			var folder = $(this).attr('folderpath');
-			file.selectFolder(folder);
-		});
-		$('.folderlist').click(function(e) {
-            if($(this).hasClass('selectfolder'))
-				$(this).removeClass('selectfolder');
-			else
-				$(this).addClass('selectfolder');
-        });
-		
-	});
-}
 //callbackUploadFile();
 </script>

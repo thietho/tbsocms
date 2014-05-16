@@ -1,41 +1,37 @@
-function showFile(fileid)
+function showFile(filepath)
 {
-	//if(!$(document).has("#fileinformation"))
-	$('body').append('<div id="fileinformation" style="display:none"></div>');
-	
-	$("#fileinformation").attr('title','Thông tin file');
-		$( "#fileinformation" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-			width: $(document).width()-100,
-			height: window.innerHeight,
-			modal: true,
-			close:function()
+	$('body').append('<div id="fileinfor" style="display:none"></div>');
+		var eid = "#fileinfor";
+		$(eid).attr('title','Thông tin file');
+			$(eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				close:function()
 				{
-					$('#fileinformation').remove();
+					$(eid).remove();
 				},
-			buttons: {
-				
-				
-				
-				'Tải về':function()
-				{
-					window.location = "download.php?url="+ encodeURI($('#filepath').val());
-				},
-				'Đóng': function() 
-				{
+				modal: true,
+				buttons: {
 					
-					$("#fileinformation").dialog( "close" );
-					
-				},
-			}
-		});
-	
-		$("#fileinformation").dialog("open");
-		$("#fileinformation").html(loading);
-		$("#fileinformation").load("?route=core/file/detail&fileid="+fileid+"&dialog=true",function(){
-			
+					'Tải về':function()
+					{
+						window.location = "download.php?url="+ encodeURI($('#filepath').val());
+					},
+					'Đóng': function() 
+					{
+						
+						$( eid ).dialog( "close" );
+					},
+				}
+			});
+		
+			$(eid).dialog("open");
+			$(eid).html(loading);
+			$(eid).load("?route=core/file/detail&filepath="+encodeURI(filepath)+"&dialog=true",function(){
+				
 		});
 }
 
