@@ -442,12 +442,12 @@ $(document).ready(function(e) {
 		pro.searchForm();
 	});
 	$('#btnViewAll').click(function(e) {
-        /*$('#search #keyword').val('');
+        $('#search #keyword').val('');
 		$('#search #brand').val('');
 		$('#search #sitemapid').val('');
 		$('#search #status').val('');
-		pro.searchForm();*/
-		window.location = "?route=module/product";
+		pro.searchForm();
+		//window.location = "?route=module/product";
     });
 	$('#keyword').keyup(function(e) {
         if(e.keyCode == 13)

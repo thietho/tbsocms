@@ -157,7 +157,12 @@ $(function(){
 		obj.pricepromotion = $(this).attr('pricepromotion');
 		obj.discountpercent = $(this).attr('discountpercent');
 		
-		objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,obj.price - obj.pricepromotion,obj.discountpercent);
+		var giagiam = 0;
+		if(obj.pricepromotion > 0)
+		{
+			giagiam = obj.price - obj.pricepromotion;
+		}
+		objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,giagiam,obj.discountpercent);
 		
 		$("#popupbrowseproduct").dialog("close");
 	});
