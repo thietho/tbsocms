@@ -20,8 +20,9 @@
             <th>STT</th>
             
             <th>Sản phẩm</th>
-            <th>Số lượng</th>
-            <th>Đơn vị</th>
+			<th>Nhãn hiệu</th>            
+            <th>SL</th>
+            <!--<th>Đơn vị</th>-->
             <th>Giá</th>
             <th>Thành tiền</th>
         </tr>
@@ -34,10 +35,11 @@
             <td><center><?php echo $key+1?></center></td>
             
             <td><?php echo $this->document->productName($val['mediaid'])?></td>
+            <td><?php echo $this->document->getCategory($this->document->getMedia($val['mediaid'],'brand'))?></td>
             <td class="number"><?php echo $this->string->numberFormate($val['soluong'])?></td>
-            <td><?php echo $this->document->getDonViTinh($val['madonvi'])?></td>
+            <!--<td><?php echo $this->document->getDonViTinh($val['madonvi'])?></td>-->
             <td class="number"><?php echo $this->string->numberFormate($val['giatien'] - $val['giamgia'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($val['thanhtien'])?></td>
+            <td class="number"><?php if($val['thanhtien']) echo $this->string->numberFormate($val['thanhtien']); else echo "Tặng"?></td>
             
         </tr>
         <?php } ?>
@@ -47,25 +49,7 @@
             <td colspan="5" class="number">Tổng tiền</td>
             <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
         </tr>
-        <tr>
-          
-            <td colspan="5" class="number">Thanh toán</td>
-            <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
-        </tr>
-        <?php if($item['congno']){ ?>
-        <tr>
-            <td colspan="5" class="number">Công nợ</td>
-            <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>
-        </tr>
-        <tr>
-            <td colspan="5" class="number">Số ngày công nợ</td>
-            <td class="number"><?php echo $this->string->numberFormate($item['songaycongno'])?> ngày</td>
-        </tr>
-        <tr>
-            <td colspan="5" class="number">Ngày đến hạng thanh toán</td>
-            <td class="number"><?php echo $this->date->formatMySQLDate($this->date->addday($item['ngaylap'],$item['songaycongno']))?></td>
-        </tr>
-        <?php }?>
+        
     </tbody>
 </table>
 <table style="margin:15px 0">

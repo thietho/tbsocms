@@ -443,7 +443,7 @@ $("#frmfile #keyword").keyup(function(e){
 	//if(e.keyCode == 13)
 	{
 		
-		url = "?route=core/file/getList&folder="+ encodeURI(file.path.join("/"))+"&keyword="+encodeURI($("#keyword").val());
+		url = "?route=core/file/getList&folder="+ encodeURI(file.path.join("/"))+"&keyword="+encodeURI($("#frmfile #keyword").val());
 		file.showList(url);
 							   
 	}
