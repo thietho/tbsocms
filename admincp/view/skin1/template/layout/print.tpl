@@ -12,11 +12,17 @@
 body
 {
 	font-family:Tahoma, Geneva, sans-serif;	
-	font: normal 75% sans-serif;
+	font: normal 72% sans-serif;
+}
+h1,h2,h3,h4,h5,h6 
+{
+	margin:2px 0;
+	text-transform:uppercase
 }
 p
 {
-	margin:3px 0;	
+	margin:0;	
+	font-size:0.8em;
 }
 table
 {
@@ -24,7 +30,10 @@ table
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
+.cusinfo
+{
+	font-size:0.9em;	
+}
 .number {
 	text-align: right;
 }
@@ -34,23 +43,24 @@ table
 .text-separator {padding: 0 5px;}
 .table-data td
 {
-	border-right:thin solid #000;
-	border-bottom:thin solid #000;
+	border-top:thin dashed #666;
+	border-left:thin solid #000;
 }
 .table-data th
 {
-	border-right:thin solid #000;
-	border-bottom:thin solid #000;
+	border:thin solid #000;
+	
 }
 
 .table-data
 {
-	border-top:thin solid #000;
-	border-left:thin solid #000;
+	border-right:thin solid #000;
+	border-bottom:thin solid #000;
 }
 label
 {
-	font-weight:bold;	
+	font-weight:bold;
+	text-transform:uppercase;
 }
 </style>
 
@@ -60,7 +70,7 @@ label
 
 <div class="main">
 <center>
-	<p style="font-size:1.5em;font-weight:bold">Mỹ Lan Beauty Shop</p>
+	<h1>Mỹ Lan Beauty Shop</h1>
     <p>
     	Địa chỉ: 575/21/46 Nguyễn Thiện Thuật, P3, Q3, TP.HCM
     </p>

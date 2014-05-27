@@ -1,16 +1,25 @@
 <center>
     <h2>Phiếu bán hàng</h2>
-    Ngày <?php echo $this->date->getDay($item['ngaylap'])?> tháng <?php echo $this->date->getMonth($item['ngaylap'])?> năm <?php echo $this->date->getYear($item['ngaylap'])?><br />
-	<label>Số:</label> <?php echo $item['maphieu']?>
-
+    
 </center>
 <table>
 	<tr>
-    	<td><label>Khách hàng:</label> <?php echo $item['tenkhachhang']?></td>
-    </tr>
-    
-    <tr>
-    	<td><label>Ghi chú:</label> <?php echo $item['ghichu']?></td>
+    	<td>
+            <div class="cusinfo">
+                <label>Khách hàng:</label> <?php echo $item['tenkhachhang']?> - <label>ĐT:</label> <?php echo $this->document->getCustomer($item['khachhangid'],'phone')?>
+            </div>
+            <div class="cusinfo">
+                <label>Địa chỉ:</label> <?php echo $this->document->getCustomer($item['khachhangid'],'address')?>
+            </div>
+        </td>
+        <td align="right">
+        	<p>
+            	Ngày <?php echo $this->date->getDay($item['ngaylap'])?> tháng <?php echo $this->date->getMonth($item['ngaylap'])?> năm <?php echo $this->date->getYear($item['ngaylap'])?>
+            </p>
+            <p>
+                <label>Số:</label> <?php echo $item['maphieu']?>
+            </p>
+        </td>
     </tr>
 </table>
 
@@ -45,8 +54,11 @@
         <?php } ?>
         <tr>
             
-           
-            <td colspan="5" class="number">Tổng tiền</td>
+           	<td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="number"><strong>Tổng tiền</strong></td>
             <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
         </tr>
         
@@ -66,6 +78,6 @@
         <td align="center"><i>(Ký, Họ tên)</i></td>
     </tr>
 </table>
-<div style="height:80px"></div>
+
 
          

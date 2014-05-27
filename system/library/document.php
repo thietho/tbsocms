@@ -215,7 +215,14 @@ final class Document {
 		$query = $this->db->query($sql);
 		return $query->row[$name];
 	}
-	
+	public function getCustomer($id,$name = 'fullname')
+	{
+		$sql = "Select `user`.* 
+									from `user` 
+									where id ='".$id."' ";
+		$query = $this->db->query($sql);
+		return $query->row[$name];
+	}
 	public function getModule($id,$name = 'modulename')
 	{
 		$query = $this->db->query("Select `module`.* 
