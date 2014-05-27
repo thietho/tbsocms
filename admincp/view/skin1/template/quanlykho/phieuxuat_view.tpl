@@ -54,6 +54,15 @@
         <?php } ?>
         <tr>
             
+           	<td><center><?php echo $key+2?></center></td>
+            <td><?php echo $item['lydothu']?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="number"><?php echo $this->string->numberFormate($item['thuphi'])?></td>
+        </tr>
+        <tr>
+            
            	<td></td>
             <td></td>
             <td></td>
