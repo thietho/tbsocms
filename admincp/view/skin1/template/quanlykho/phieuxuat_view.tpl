@@ -52,6 +52,7 @@
             
         </tr>
         <?php } ?>
+        <?php if($item['thuphi'] != 0){ ?>
         <tr>
             
            	<td><center><?php echo $key+2?></center></td>
@@ -61,6 +62,7 @@
             <td></td>
             <td class="number"><?php echo $this->string->numberFormate($item['thuphi'])?></td>
         </tr>
+        <?php } ?>
         <tr>
             
            	<td></td>
