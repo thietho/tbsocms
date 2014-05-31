@@ -19,7 +19,7 @@
     </div>
     
     <div class="right text-center" id="logo">
-        <a href="http://ben-solution.com/">
+        <a href="http://holansolutions.com/">
             <img class="png" src="<?php echo DIR_IMAGE?>logo.png"/><br />
         </a>  
     </div>

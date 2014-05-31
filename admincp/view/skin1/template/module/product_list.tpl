@@ -19,7 +19,9 @@
                     Giảm: <?php echo $this->string->numberFormate($media['discountpercent'])?>%<br />
                     Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
                     Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />
+                    <?php echo ($media['groupkeys']!="")?$media['groupkeys']."<br>":"" ?>
                     <?php if($media['tonkho']) echo "Tồn: ".$media['tonkho']?>
+                    
                     <?php if(count($media['child'])==0){ ?>
                             
                     <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $media['mediaid']?>')"/>

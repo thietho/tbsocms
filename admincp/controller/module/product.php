@@ -196,7 +196,18 @@ class ControllerModuleProduct extends Controller
 				
 			
 			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
-			
+			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['groupkeys']);
+			$arrstatus = array();
+			if(count($arr))
+			{
+				foreach($arr as $status)
+				{	
+					if($status)
+						$arrstatus[] = $this->document->getCategory($status);
+				}
+			}
+			if(count($arrstatus))
+				$this->data['medias'][$i]['groupkeys'] = implode(",",$arrstatus);
 			$mediaid = $this->data['medias'][$i]['mediaid'];
 			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
 			$data_child = $this->model_core_media->getListByParent($mediaid);
