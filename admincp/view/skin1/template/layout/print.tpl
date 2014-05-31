@@ -78,7 +78,7 @@ label
     	Điện thoại: 0903 767 580 - 0906 965 338
     </p>
     <p>
-    	Website: mylanbeauty.net
+    	Website: www.mylanbeauty.net
     </p>
 </center>
 <div id="main-content"><?php echo $content?></div>
