@@ -109,9 +109,11 @@ function showProductForm(mediaid,mediaparentid,funcname)
 				
 				'Lưu':function()
 				{
+					$.blockUI({ message: "<h1>please wait...</h1>" });
 					$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
 					function(data)
 					{
+						
 						var obj = $.parseJSON(data);
 						if(obj.error=="")
 						{
@@ -137,12 +139,15 @@ function showProductForm(mediaid,mediaparentid,funcname)
 							$("#"+obj.mediaid+" .imagepreview").attr("src",obj.imagepreview);*/
 							//pro.searchForm();
 							setTimeout(funcname,0);
+							
 						}
 						else
 						{
 							$('#error').html(data).show('slow');
 						}
+						$.unblockUI();
 					});
+					
 				},
 				'Đóng': function() 
 				{
