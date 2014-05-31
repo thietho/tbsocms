@@ -2,7 +2,7 @@
 <div id="top">
 
     <div class="left text-center" id="weblogo">
-        <a href="http://ben-solution.com/">		
+        <a href="http://holansolutions.com/">		
 			<?php echo $imagepreview ?>
 		</a>  
     </div>
