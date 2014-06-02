@@ -17,7 +17,7 @@
                 <td>
                 	<strong><?php echo $this->document->productName($media)?></strong><br />
                     Giảm: <?php echo $this->string->numberFormate($media['discountpercent'])?>%<br />
-                    Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
+                    Giá: <?php echo $this->string->numberFormate($media['price'])?><?php if($media['noteprice']) echo "(".$media['noteprice'].")";?><br />
                     Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />
                     <?php echo ($media['groupkeys']!="")?$media['groupkeys']."<br>":"" ?>
                     <?php if($media['tonkho']) echo "Tồn: ".$media['tonkho']?>
@@ -32,7 +32,7 @@
                     <?php foreach($media['child'] as $k => $child){ ?>
                     	<tr>
                         	<td>
-                            	<?php echo $child['sizes']?>: <?php echo $this->string->numberFormate($child['price'])?><br />
+                            	<?php echo $child['sizes']?>: <?php echo $this->string->numberFormate($child['price'])?><?php if($child['noteprice']!="") echo "(".$child['noteprice'].")";?><br />
                                 Giảm: <?php echo $this->string->numberFormate($child['discountpercent'])?>%<br />
                                 Giá khuyến mãi: <?php echo $this->string->numberFormate($child['pricepromotion'])?><br />
                                 <?php if($child['tonkho']) echo "Tồn: ".$child['tonkho']?>
