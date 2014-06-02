@@ -34,7 +34,6 @@
                         	<td>
                             	<?php echo $child['sizes']?>: <?php echo $this->string->numberFormate($child['price'])?><br />
                                 Giảm: <?php echo $this->string->numberFormate($child['discountpercent'])?>%<br />
-                                Giá: <?php echo $this->string->numberFormate($child['price'])?><br />
                                 Giá khuyến mãi: <?php echo $this->string->numberFormate($child['pricepromotion'])?><br />
                                 <?php if($child['tonkho']) echo "Tồn: ".$child['tonkho']?>
                             </td>
