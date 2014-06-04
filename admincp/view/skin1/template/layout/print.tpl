@@ -72,7 +72,7 @@ label
 <center>
 	<h1>Mỹ Lan Beauty Shop</h1>
     <p>
-    	Địa chỉ: 575/21/46 Nguyễn Thiện Thuật, P3, Q3, TP.HCM
+    	Địa chỉ: 242/21/46 Nguyễn Thiện Thuật, P3, Q3, TP.HCM
     </p>
     <p>
     	Điện thoại: 0903 767 580 - 0906 965 338

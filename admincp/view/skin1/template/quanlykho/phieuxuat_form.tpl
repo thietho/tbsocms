@@ -38,6 +38,14 @@
                         <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
                     </p>
                     <p>
+                    	<label>Điện thoại</label><br />
+                        <input type="text" id="dienthoai" name="dienthoai" value="<?php echo $item['dienthoai']?>" class="text" size=60 />
+                    </p>
+                    <p>
+                    	<label>Địa chỉ</label><br />
+                        <input type="text" id="diachi" name="diachi" value="<?php echo $item['diachi']?>" class="text" size=60 />
+                    </p>
+                    <p>
                         <label>Nhà cung cấp</label><br />
                         <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
                         <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
@@ -215,7 +223,8 @@ function intSelectMember()
 		
         $('#khachhangid').val($(this).attr('id'));
 		$('#tenkhachhang').val($(this).attr('fullname'));
-		
+		$('#dienthoai').val($(this).attr('phone'));
+		$('#diachi').val($(this).attr('address'));
 		$("#popup").dialog( "close" );
     });
 }

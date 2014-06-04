@@ -6,10 +6,12 @@
 	<tr>
     	<td>
             <div class="cusinfo">
-                <label>Khách hàng:</label> <?php echo $item['tenkhachhang']?> - <label>ĐT:</label> <?php echo $this->document->getCustomer($item['khachhangid'],'phone')?>
+                <label>Khách hàng:</label> <?php echo $item['tenkhachhang']?> - <label>ĐT:</label> <?php echo $item['dienthoai']?>
             </div>
             <div class="cusinfo">
-                <label>Địa chỉ:</label> <?php echo $this->document->getCustomer($item['khachhangid'],'address')?>
+                <label>Địa chỉ:</label> <?php echo $item['diachi']?>
+                
+                <!--<?php echo $this->document->getCustomer($item['khachhangid'],'address')?>-->
             </div>
         </td>
         <td align="right">

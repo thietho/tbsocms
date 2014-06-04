@@ -56,6 +56,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$tennhacungcap=$this->db->escape(@$data['tennhacungcap']);
 		$khachhangid=$this->db->escape(@$data['khachhangid']);
 		$tenkhachhang=$this->db->escape(@$data['tenkhachhang']);
+		$dienthoai=$this->db->escape(@$data['dienthoai']);
+		$diachi=$this->db->escape(@$data['diachi']);
 		
 		$nguoigiao=$this->db->escape(@$data['nguoigiao']);
 		$nguoinhanid=$this->db->escape(@$data['nguoinhanid']);
@@ -81,6 +83,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'tennhacungcap',
 						'khachhangid',
 						'tenkhachhang',
+						'dienthoai',
+						'diachi',
 						'nguoigiao',
 						'nguoinhanid',
 						'nguoinhan',
@@ -105,6 +109,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$tennhacungcap,
 						$khachhangid,
 						$tenkhachhang,
+						$dienthoai,
+						$diachi,
 						$nguoigiao,
 						$nguoinhanid,
 						$nguoinhan,

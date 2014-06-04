@@ -470,7 +470,7 @@ function intSeleteFile(type)
 			break;
 			
 		case "editor":
-			$('.filelist').click(function(e) {
+			$('.fileitem').dblclick(function(e) {
 
 				
 				width = "";
@@ -495,7 +495,7 @@ function intSeleteFile(type)
 			});			
 			break;
 		case "video":
-			$('.filelist').click(function(e) {
+			$('.fileitem').dblclick(function(e) {
 
 				
 				width = "";
