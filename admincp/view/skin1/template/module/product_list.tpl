@@ -39,7 +39,8 @@
                             </td>
                             <td>
                             	Barcode: <?php echo $child['barcode']?><br />
-                   	 			Ref: <?php echo $child['ref']?>
+                   	 			Ref: <?php echo $child['ref']?><br />
+                                Trạng thái:<?php echo $this->document->status_media[$child['status']]?><br />
                             </td>
                     		<td>
                             	<input type="button" class="button" value="Sửa" onclick="showProductForm('<?php echo $child['mediaid']?>','<?php echo $media['mediaid']?>','pro.searchForm()');"/>
