@@ -14,7 +14,7 @@ class ControllerModuleProduct extends Controller
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->model("core/sitemap");
 		$this->load->model("core/media");
-		$this->load->model("module/baogia");
+		$this->load->model("core/media");
 		$this->load->model("core/user");
 		$this->load->helper('image');
 		$this->load->model("core/category");
@@ -755,33 +755,6 @@ class ControllerModuleProduct extends Controller
 		$this->id='content';
 		$this->template='module/product_baogia_form.tpl';
 		$this->layout='layout/center';
-		$this->render();
-	}
-	
-	public function savebaogia()
-	{
-		$data = $this->request->post;
-		if(count($data))
-		{
-			$data['id'] = $this->model_module_baogia->save($data);
-			
-			$arr_id = $data['arrid'];
-			$arr_mediaid = $data['mediaid'];
-			$arr_gia = $data['gia'];
-			$arr_ghichu = $data['arrghichu'];
-			foreach($arr_mediaid as $key => $mediaid)
-			{
-				$detail['id'] = $arr_id[$key];
-				$detail['baogiaid'] = $data['id'];
-				$detail['mediaid'] = $arr_mediaid[$key];
-				$detail['gia'] = $arr_gia[$key];
-				$detail['ghichu'] = $arr_ghichu[$key];
-				$this->model_module_baogia->saveBaoGiaMedia($detail);
-			}
-		}
-		$this->data['output'] = json_encode($data);
-		$this->id='content';
-		$this->template='common/output.tpl';
 		$this->render();
 	}
 }
