@@ -160,6 +160,10 @@ function Product()
                         });
 						pro.viewListSelect();
 					},
+					'Lập báo giá':function()
+					{
+						pro.baogiaForm('');
+					},
 					'Lập phiếu nhập kho':function()
 					{
 						window.location = "?route=quanlykho/phieunhap/insert";
@@ -182,6 +186,42 @@ function Product()
 			$(eid).load("?route=module/product/listProductSelected",function(){
 				
 			});
+	}
+	this.baogiaForm = function(baogiaid)
+	{
+		$('body').append('<div id="baogiaform" style="display:none"></div>');
+		var eid = "#baogiaform";
+		$(eid).attr('title','Danh sách sản phẩm đươc chọn');
+			$(eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				modal: true,
+				buttons: {
+					
+					'Lưu':function()
+					{
+						
+					},
+					'Lưu & in':function()
+					{
+						
+					},
+					'Đóng': function() 
+					{
+						
+						$( eid ).dialog( "close" );
+					},
+				}
+			});
+		
+			$(eid).dialog("open");
+			$(eid).html(loading);
+			$(eid).load("?route=module/product/baogiaForm",function(){
+				
+			});	
 	}
 	this.enterGroup = function(mediaid)
 	{

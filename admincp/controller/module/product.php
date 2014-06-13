@@ -748,5 +748,14 @@ class ControllerModuleProduct extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
+	public function baogiaForm()
+	{
+		$id = $this->request->get['id'];
+		$this->data['medias'] = $_SESSION['productlist'];
+		print_r($this->data['medias']);
+		$this->id='content';
+		$this->template='module/product_baogia_form.tpl';
+		$this->render();
+	}
 }
 ?>
