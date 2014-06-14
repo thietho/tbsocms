@@ -104,7 +104,7 @@ function PhieuNhapXuat()
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 900,
+			width: 1000,
 			height: window.innerHeight,
 			modal: true,
 			close:function()
@@ -142,7 +142,7 @@ function PhieuNhapXuat()
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 900,
+			width: 1000,
 			height: window.innerHeight,
 			modal: true,
 			close:function()

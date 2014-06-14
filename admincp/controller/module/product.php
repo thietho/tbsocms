@@ -881,7 +881,9 @@ class ControllerModuleProduct extends Controller
 				$parent = $this->model_core_media->getItem($media['mediaparent']);
 				$sitemap = $this->string->referSiteMapToArray($parent['refersitemap']);
 			}
-			
+			$media['gia'] = $item['gia'];
+			$media['ghichu'] = $item['ghichu'];
+			$media['imagepreview'] = HelperImage::resizePNG($media['imagepath'], 100, 100);
 			$this->data['sitemaps']["".$sitemap[0]][] = $media;
 		}
 		//print_r($this->data['sitemaps']);

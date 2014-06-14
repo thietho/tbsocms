@@ -26,7 +26,7 @@
             <th>STT</th>
             <th>Sản phẩm</th>
 			<th>Nhãn hiệu</th>            
-            <th>SL</th>
+            
             <th>Giá</th>
             <th>Hình</th>
         </tr>
@@ -35,16 +35,21 @@
     <?php foreach($sitemaps as $sitemap => $medias){ ?>
     	<?php if(count($medias)){ ?>
     	<tr>
-        	<td colspan="6"><strong><?php echo $this->document->getSiteMap($sitemap,SITEID)?></strong></td>
+        	<td colspan="5"><strong><?php echo $this->document->getSiteMap($sitemap,SITEID)?></strong></td>
         </tr>
         <?php foreach($medias as $media){?>
         <tr>
         	<td></td>
-            <td><?php echo $this->document->productName($media)?></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>
+            	<?php echo $this->document->productName($media)?>
+                <?php if($media['ghichu']){ ?>
+                (<?php echo $media['ghichu']?>)
+                <?php } ?>
+            </td>
+            <td><font style="text-transform:uppercase"><?php echo $this->document->getCategory($this->document->getMedia($media['mediaid'],'brand'))?></font></td>
+            
+            <td class="number"><?php echo $this->string->numberFormate($media['gia'])?></td>
+            <td><img src="<?php echo $media['imagepreview']?>" /></td>
         </tr>
         <?php }?>
         <?php } ?>

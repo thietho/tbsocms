@@ -190,7 +190,7 @@ $('#btnSelectKhachHang').click(function(e) {
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 900,
+			width: 1000,
 			height: window.innerHeight,
 			modal: true,
 		});
@@ -275,7 +275,7 @@ $('#btnSeleteNhaCungCap').click(function(e) {
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 900,
+			width: 1000,
 			height: window.innerHeight,
 			modal: true,
 		});
@@ -329,7 +329,7 @@ function savephieu(type)
 							autoOpen: false,
 							show: "blind",
 							hide: "explode",
-							width: 900,
+							width: 1000,
 							height: window.innerHeight,
 							modal: true,
 							close: function(ev, ui){

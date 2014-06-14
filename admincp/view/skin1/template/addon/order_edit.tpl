@@ -205,7 +205,7 @@ $('#btnSelectKhachHang').click(function(e) {
 			autoOpen: false,
 			show: "blind",
 			hide: "explode",
-			width: 900,
+			width: 1000,
 			height: window.innerHeight,
 			modal: true,
 		});
