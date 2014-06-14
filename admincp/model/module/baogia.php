@@ -21,7 +21,7 @@ class ModelModuleBaogia extends ModelCoreFile
 		
 		$sql = "Select `baogia`.* 
 									from `baogia` 
-									where 1=1 AND " . $where ;
+									where 1=1 " . $where ;
 		if($to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
@@ -66,6 +66,13 @@ class ModelModuleBaogia extends ModelCoreFile
 		
 		return $data['id'];
 	}
+	public function delete($id)
+	{
+		$where="id = '".$id."'";
+		$this->db->deleteData("baogia",$where);
+		$where="baogiaid = '".$id."'";
+		$this->db->deleteData("baogia_media",$where);
+	}
 	//Detail
 	private $arr_coldetail = array(
 							
@@ -89,7 +96,7 @@ class ModelModuleBaogia extends ModelCoreFile
 		
 		$sql = "Select `baogia_media`.* 
 									from `baogia_media` 
-									where 1=1 AND " . $where ;
+									where 1=1 " . $where ;
 		if($to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
@@ -134,5 +141,11 @@ class ModelModuleBaogia extends ModelCoreFile
 		
 		return $data['id'];
 	}
+	public function deleteBaoGiaMedia($id)
+	{
+		$where="id = '".$id."'";
+		$this->db->deleteData("baogia_media",$where);
+	}
+	
 }
 ?>

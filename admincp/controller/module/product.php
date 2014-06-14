@@ -1,6 +1,7 @@
 <?php
 class ControllerModuleProduct extends Controller
 {
+	private $error = array();
 	function __construct() 
 	{
 		$this->load->model("core/module");
@@ -748,10 +749,39 @@ class ControllerModuleProduct extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
+	public function listBaoGia()
+	{
+		$where = " Order by id desc";
+		$this->data['data_baogia'] = $this->model_module_baogia->getList($where);
+		
+		$this->id='content';
+		$this->template='module/product_baogia_list.tpl';
+		$this->render();
+	}
 	public function baogiaForm()
 	{
-		$id = $this->request->get['id'];
-		$this->data['medias'] = $_SESSION['productlist'];
+		$id = $this->request->get['baogiaid'];
+		if($id)
+		{
+			$this->data['item'] =$this->model_module_baogia->getItem($id);
+			$where = " AND baogiaid = '".$id."'";
+			$this->data['detail'] = $this->model_module_baogia->getBaoGiaMediaList($where);
+			//print_r($this->data['detail']);
+			foreach($this->data['detail'] as $i =>$item)
+			{
+				$media = $this->model_core_media->getItem($item['mediaid']);	
+				foreach($media as $key => $val)
+				{
+					if($key !="id")
+						$this->data['detail'][$i][$key] = $val;
+				}
+			}
+			
+		}
+		else
+		{
+			$this->data['medias'] = $_SESSION['productlist'];
+		}
 		$this->id='content';
 		$this->template='module/product_baogia_form.tpl';
 		$this->layout='layout/center';
@@ -761,10 +791,17 @@ class ControllerModuleProduct extends Controller
 	public function savebaogia()
 	{
 		$data = $this->request->post;
-		if(count($data))
+		if($this->validateBaoGia($data))
 		{
-			$data['id'] = $this->model_module_baogia->save($data);
+			//Xoa
+			$arrdelid = split(",",$data['delid']);
+			foreach($arrdelid as $id)
+			{
+				if($id)
+					$this->model_module_baogia->deleteBaoGiaMedia($id);
+			}
 			
+			$data['id'] = $this->model_module_baogia->save($data);
 			$arr_id = $data['arrid'];
 			$arr_mediaid = $data['mediaid'];
 			$arr_gia = $data['gia'];
@@ -774,14 +811,59 @@ class ControllerModuleProduct extends Controller
 				$detail['id'] = $arr_id[$key];
 				$detail['baogiaid'] = $data['id'];
 				$detail['mediaid'] = $arr_mediaid[$key];
-				$detail['gia'] = $arr_gia[$key];
+				$detail['gia'] = $this->string->toNumber($arr_gia[$key]);
 				$detail['ghichu'] = $arr_ghichu[$key];
 				$this->model_module_baogia->saveBaoGiaMedia($detail);
 			}
+			$data['error'] = "";
+		}
+		else
+		{
+			foreach($this->error as $item)
+			{
+				$data['error'] .= $item."<br>";
+			}	
 		}
 		$this->data['output'] = json_encode($data);
 		$this->id='content';
 		$this->template='common/output.tpl';
+		$this->render();
+	}
+	private function validateBaoGia($data)
+	{
+		if ($data['ngaybaogia'] == "") 
+		{
+      		$this->error['ngaybaogia'] = "Bạn chưa nhập ngày báo giá";
+    	}
+
+		if (count($this->error)==0) {
+	  		return TRUE;
+		} else {
+	  		return FALSE;
+		}
+	}
+	public function delBaoGia()
+	{
+		$data = $this->request->post;
+		$arrbaogiaid = $data['arrbaogiaid'];
+		foreach($arrbaogiaid as $baogiaid)
+		{
+			$this->model_module_baogia->delete($baogiaid);
+		}
+		$this->data['output'] = '';
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	public function viewBaoGia()
+	{
+		$baogiaid = $this->request->get['baogiaid'];
+		$this->data['item'] =$this->model_module_baogia->getItem($baogiaid);
+		$where = " AND baogiaid = '".$baogiaid."'";
+		$this->data['detail'] = $this->model_module_baogia->getBaoGiaMediaList($where);
+		//print_r($this->data['baogiadetail']);
+		$this->id='content';
+		$this->template='module/product_baogia_view.tpl';
 		$this->render();
 	}
 }

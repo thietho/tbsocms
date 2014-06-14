@@ -42,6 +42,7 @@
                 <a class="button" id="btnExport" onclick="pro.exportData()">Export</a>
                
                 <?php } ?>
+                <a class="button" onclick="pro.viewListBaoGia()">Danh sách báo giá</a>
                 <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
                 <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>
@@ -188,7 +189,90 @@ function Product()
 				
 			});
 	}
-	
+	this.viewListBaoGia = function()
+	{
+		$('body').append('<div id="listbaogia" style="display:none"></div>');
+		var eid = "#listbaogia";
+		$(eid).attr('title','Danh sách báo giá');
+			$(eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				modal: true,
+				buttons: {
+					'Xóa':function()
+					{
+						var arr = new Array();
+						$('.rowselect').each(function(index, element) {
+							if(this.checked)
+							{
+								arr.push(this.value);
+							}
+						});
+						$.post("?route=module/product/delBaoGia",
+								{
+									arrbaogiaid:arr
+								},
+								function(data){
+									$(eid).html(loading);
+									$(eid).load("?route=module/product/listBaoGia");
+								});
+					},
+					'Lập báo giá':function()
+					{
+						
+						window.location = "?route=module/product/baogiaForm";
+					},
+					'Đóng': function() 
+					{
+						
+						$( eid ).dialog( "close" );
+					},
+				}
+			});
+		
+			$(eid).dialog("open");
+			$(eid).html(loading);
+			$(eid).load("?route=module/product/listBaoGia",function(){
+				
+			});
+	}
+	this.viewBaoGia = function(baogiaid)
+	{
+		$('body').append('<div id="baogiaview" style="display:none"></div>');
+		var eid = "#baogiaview";
+		$(eid).attr('title','Danh sách báo giá');
+			$(eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: 900,
+				height: window.innerHeight,
+				modal: true,
+				buttons: {
+					'In':function()
+					{
+						
+					},
+					'Chỉnh sửa':function()
+					{
+						
+						window.location = "?route=module/product/baogiaForm&baogiaid="+baogiaid;
+					},
+					'Đóng': function() 
+					{
+						
+						$( eid ).dialog( "close" );
+					},
+				}
+			});
+		
+			$(eid).dialog("open");
+			$(eid).html(loading);
+			$(eid).load("?route=module/product/viewBaoGia&baogiaid="+baogiaid);
+	}
 	this.enterGroup = function(mediaid)
 	{
 		$('#selectmediaid').val(mediaid);

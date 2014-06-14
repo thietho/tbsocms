@@ -22,17 +22,18 @@
                 <div id="fragment-thongtin">
                 	<p>
                         <label>Ngày</label>
-                        <input type="date" class="text" id="ngaybaogia" name="ngaybaogia" />
+                        <input type="date" class="text" id="ngaybaogia" name="ngaybaogia" value="<?php echo $item['ngaybaogia']?>"/>
                     </p>
                     <p>
                         <label>Ghi chú</label><br>
-                        <textarea id="ghichu" name="ghichu"></textarea>
+                        <textarea id="ghichu" name="ghichu"><?php echo $item['ghichu']?></textarea>
                     </p>
                 </div>
                 <div fragment-detail>
                     <table class="data-table">
                         <thead>
                             <tr>
+                            	<th><input type="checkbox" onclick="$('.rowselect').attr('checked',this.checked)"/></th>
                                 <th>Tên sản phẩm</th>
                                 <th>Nhẵn hiệu</th>
                                 <th>Giá</th>
@@ -43,7 +44,8 @@
                         </tbody>
                     </table>
                     <input type="hidden" id="delid" name="delid" />
-                    <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
+                    <input type="button" class="button" id="btnAddRow" value="Thêm sản phẩm"/>
+                    <input type="button" class="button" id="btnDel" value="Xóa"/>
                 </div>                
            </div>
 		</form>
@@ -63,14 +65,17 @@ function BaoGia()
 	this.index = 0;
 	this.newRow = function(obj)
 	{
-		var row = '<tr id="'+this.index+'">';
+		var row = '<tr id="row'+this.index+'" class="item">';
+		row += '<td align="center"><input type="checkbox" class="rowselect" value="'+ this.index +'"/></td>';
 		row += '<td><input type="hidden" id="arrid-'+ this.index +'" name="arrid['+ this.index +']" value="'+ obj.id +'" /><input type="hidden" id="mediaid-'+ this.index +'" name="mediaid['+ this.index +']" value="'+ obj.mediaid +'" />'+ obj.productname +'</td>';
 		row += '<td>'+ obj.brandname +'</td>';
 		var price = obj.price;
 		if(obj.pricepromotion>0)
 			price = obj.pricepromotion;
 		row += '<td><input type="text" class="text number" id="gia-'+ this.index +'" name="gia['+ this.index +']" value="'+price+'"></td>';
-		row += '<td><input type="text" class="text" id="arrghichu-'+ this.index +'" name="arrghichu['+ this.index +']"></td>';
+		if(obj.ghichu == undefined)
+			obj.ghichu = "";
+		row += '<td><input type="text" class="text" id="arrghichu-'+ this.index +'" name="arrghichu['+ this.index +']" value="'+obj.ghichu+'"></td>';
 		row += '</tr>'
 		this.index++;
 		
@@ -83,8 +88,8 @@ function BaoGia()
 	
 		$.post("?route=module/product/savebaogia", $("#frm_baogia").serialize(),
 			function(data){
-				var arr = data.split("-");
-				if(arr[0] == "true")
+				var arr = $.parseJSON(data);
+				if(arr.error == "")
 				{
 					switch(type)
 					{
@@ -131,7 +136,7 @@ function BaoGia()
 				else
 				{
 				
-					$('#error').html(data).show('slow');
+					$('#error').html(arr.error).show('slow');
 					$.unblockUI();
 					
 				}
@@ -144,8 +149,14 @@ var bg = new BaoGia();
 $('#btnAddRow').click(function(e) {
 	browseProduct();
 });
-$('.selectProduct').click(function(e) {
-	alert($(this).attr('ref'));
+$('#btnDel').click(function(e) {
+    $('.rowselect').each(function(index, element) {
+        if(this.checked)
+		{
+			$('#delid').val($('#delid').val()+","+ $('#arrid-'+this.value).val());
+			$('#row'+this.value).remove();
+		}
+    });
 });
 </script>
 <?php foreach($medias as $media){ ?>
@@ -157,7 +168,22 @@ $('.selectProduct').click(function(e) {
 	obj.brandname = "<?php echo $this->document->getCategory($media['brand'])?>";
 	obj.price = "<?php echo $media['price']?>";
 	obj.pricepromotion = "<?php echo $media['pricepromotion']?>";
-	bg.newRow(obj)
+	
+	bg.newRow(obj);
+	numberReady();
+</script>
+<?php } ?>
+<?php foreach($detail as $media){ ?>
+<script language="javascript">
+	var obj = new Object();
+	obj.id = "<?php echo $media['id']?>";
+	obj.mediaid = "<?php echo $media['mediaid']?>";
+	obj.productname = "<?php echo $this->document->productName($media)?>";
+	obj.brandname = "<?php echo $this->document->getCategory($media['brand'])?>";
+	obj.price = "<?php echo $media['gia']?>";
+	obj.pricepromotion = 0;
+	obj.ghichu = "<?php echo $media['ghichu']?>";
+	bg.newRow(obj);
 	numberReady();
 </script>
 <?php } ?>

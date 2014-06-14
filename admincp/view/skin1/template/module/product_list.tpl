@@ -164,6 +164,7 @@ $(function(){
 		obj.discountpercent = $(this).attr('discountpercent');
 		obj.productname = $(this).attr('productname');
 		obj.brandname = $(this).attr('brandname');
+		
 		var giagiam = 0;
 		if(obj.pricepromotion > 0)
 		{
