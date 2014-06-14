@@ -68,6 +68,7 @@ class ModelModuleBaogia extends ModelCoreFile
 	}
 	//Detail
 	private $arr_coldetail = array(
+							
 							'baogiaid',
 							'mediaid',
 							'gia',
@@ -119,7 +120,7 @@ class ModelModuleBaogia extends ModelCoreFile
 		}
 		
 
-		$field=$this->arr_col;
+		$field=$this->arr_coldetail;
 		
 		if(count($obj) == 0)
 		{
