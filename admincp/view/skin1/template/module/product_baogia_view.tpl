@@ -20,7 +20,7 @@
 	</tr>
     <?php } ?>
 </table>
-<table class="data-table">
+<table class="table-data">
 	<thead>
         <tr>
             <th>STT</th>
@@ -32,6 +32,7 @@
         </tr>
     </thead>
     <tbody>
+    <?php $index = 1?>
     <?php foreach($sitemaps as $sitemap => $medias){ ?>
     	<?php if(count($medias)){ ?>
     	<tr>
@@ -39,7 +40,7 @@
         </tr>
         <?php foreach($medias as $media){?>
         <tr>
-        	<td></td>
+        	<td align="center"><?php echo $index++?></td>
             <td>
             	<?php echo $this->document->productName($media)?>
                 <?php if($media['ghichu']){ ?>

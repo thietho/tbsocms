@@ -891,6 +891,8 @@ class ControllerModuleProduct extends Controller
 		//print_r($this->data['baogiadetail']);
 		$this->id='content';
 		$this->template='module/product_baogia_view.tpl';
+		if($_GET['opendialog'] == 'print')
+			$this->layout="layout/print";
 		$this->render();
 	}
 }

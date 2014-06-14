@@ -248,13 +248,13 @@ function Product()
 				autoOpen: false,
 				show: "blind",
 				hide: "explode",
-				width: 900,
+				width: 1000,
 				height: window.innerHeight,
 				modal: true,
 				buttons: {
 					'In':function()
 					{
-						
+						openDialog("?route=module/product/viewBaoGia&baogiaid="+baogiaid+"&opendialog=print",800,500)
 					},
 					'Chỉnh sửa':function()
 					{
