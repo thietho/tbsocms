@@ -861,6 +861,31 @@ class ControllerModuleProduct extends Controller
 		$this->data['item'] =$this->model_module_baogia->getItem($baogiaid);
 		$where = " AND baogiaid = '".$baogiaid."'";
 		$this->data['detail'] = $this->model_module_baogia->getBaoGiaMediaList($where);
+		$siteid = $this->user->getSiteId();
+		
+		$sitemaps = array();
+		$this->model_core_sitemap->getTreeSitemap("",$sitemaps,$siteid);
+		$this->data['sitemaps'] = array();
+		foreach($sitemaps as $sitemap)
+		{
+			$this->data['sitemaps'][$sitemap['sitemapid']] = array();
+		}
+		
+		foreach($this->data['detail'] as $item)
+		{
+			$media = $this->model_core_media->getItem($item['mediaid']);
+			$sitemap = $this->string->referSiteMapToArray($media['refersitemap']);
+			
+			if($sitemap[0]=="")
+			{
+				$parent = $this->model_core_media->getItem($media['mediaparent']);
+				$sitemap = $this->string->referSiteMapToArray($parent['refersitemap']);
+			}
+			
+			$this->data['sitemaps']["".$sitemap[0]][] = $media;
+		}
+		//print_r($this->data['sitemaps']);
+		
 		//print_r($this->data['baogiadetail']);
 		$this->id='content';
 		$this->template='module/product_baogia_view.tpl';
