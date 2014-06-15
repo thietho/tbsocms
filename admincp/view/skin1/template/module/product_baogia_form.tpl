@@ -6,7 +6,7 @@
         
         	<div class="button right">
             	<input type="button" value="Lưu" class="button" onClick="bg.save('')"/>
-                <input type="button" value="Lưu & In" class="button" onClick="save('print')"/>
+                <input type="button" value="Lưu & In" class="button" onClick="bg.save('print')"/>
      	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/phieuxuat')"/>   
      	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
                 
@@ -22,7 +22,17 @@
                 <div id="fragment-thongtin">
                 	<p>
                         <label>Ngày</label>
-                        <input type="date" class="text" id="ngaybaogia" name="ngaybaogia" value="<?php echo $item['ngaybaogia']?>"/>
+                        
+                        <script language="javascript">
+                            $(function() {
+                                $("#ngaybaogia").datepicker({
+                                        changeMonth: true,
+                                        changeYear: true,
+                                        dateFormat: 'dd-mm-yy'
+                                        });
+                                });
+                         </script>
+                        <input type="text" id="ngaybaogia" name="ngaybaogia" value="<?php echo $this->date->formatMySQLDate($item['ngaybaogia'])?>" class="text" />
                     </p>
                     <p>
                         <label>Ghi chú</label><br>
@@ -98,39 +108,42 @@ function BaoGia()
 							break;
 						case "print":
 							$.unblockUI();
-							var id = arr[1];
-							$("#popup").attr('title','Phiếu nhập kho');
-							$( "#popup" ).dialog({
-								autoOpen: false,
-								show: "blind",
-								hide: "explode",
-								width: 1000,
-								height: window.innerHeight,
-								modal: true,
-								close: function(ev, ui){
-										window.location = "?route=quanlykho/phieuxuat";
-									},
-								buttons: {
-									
-									'In':function()
+							$('body').append('<div id="baogiaview" style="display:none"></div>');
+							var eid = "#baogiaview";
+							$(eid).attr('title','Danh sách báo giá');
+								$(eid).dialog({
+									autoOpen: false,
+									show: "blind",
+									hide: "explode",
+									width: 1000,
+									height: window.innerHeight,
+									modal: true,
+									close:function()
 									{
-										openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print",800,500)
-										window.location = "?route=quanlykho/phieuxuat";
+										$(eid).remove();
+										window.location = "?route=module/product";
 									},
-									'Đóng': function() 
-									{
+									buttons: {
+										'In':function()
+										{
+											openDialog("?route=module/product/viewBaoGia&baogiaid="+arr.id+"&opendialog=print",800,500)
+											window.location = "?route=module/product";
+										},
 										
-										$( this ).dialog( "close" );
-										window.location = "?route=quanlykho/phieuxuat";
-									},
-								}
-							});
-						
-							$("#popup").dialog("open");
-							$("#popup-content").html(loading);
-							$("#popup-content").load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true",function(){
-								
-							});
+										'Đóng': function() 
+										{
+											
+											$( eid ).dialog( "close" );
+											window.location = "?route=module/product";
+										},
+									}
+								});
+							
+								$(eid).dialog("open");
+								$(eid).html(loading);
+								$(eid).load("?route=module/product/viewBaoGia&baogiaid="+arr.id);
+											
+							
 					}
 				}
 				else

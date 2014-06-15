@@ -42,6 +42,7 @@
                 <a class="button" id="btnExport" onclick="pro.exportData()">Export</a>
                
                 <?php } ?>
+                <a class="button" onclick="pro.showDanhMuc()">Danh mục sản phẩm</a>
                 <a class="button" onclick="pro.viewListBaoGia()">Danh sách báo giá</a>
                 <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
@@ -119,6 +120,39 @@ function Product()
 		url += "&page=" + Number(control.getParam("page",control.getUrl()));
 		return url
 	}
+	this.showDanhMuc = function()
+	{
+		$('body').append('<div id="showdanhmuc" style="display:none"></div>');
+		var eid = "#showdanhmuc";
+		$(eid).attr('title','Danh mục sản phẩm');
+			$(eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				modal: true,
+				close:function()
+				{
+					$(eid).remove();
+				},
+				buttons: {
+					
+					
+					'Đóng': function() 
+					{
+						
+						$( eid ).dialog( "close" );
+					},
+				}
+			});
+		
+			$(eid).dialog("open");
+			$(eid).html(loading);
+			$(eid).load("?route=module/product/productCat",function(){
+				
+			});
+	}
 	this.addToList = function(mediaid)
 	{
 		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
@@ -152,6 +186,10 @@ function Product()
 				width: $(document).width()-100,
 				height: window.innerHeight,
 				modal: true,
+				close:function()
+				{
+					$(eid).remove();
+				},
 				buttons: {
 					'Xóa khỏi danh sách':function()
 					{
@@ -201,6 +239,10 @@ function Product()
 				width: $(document).width()-100,
 				height: window.innerHeight,
 				modal: true,
+				close:function()
+				{
+					$(eid).remove();
+				},
 				buttons: {
 					'Xóa':function()
 					{
@@ -251,6 +293,10 @@ function Product()
 				width: 1000,
 				height: window.innerHeight,
 				modal: true,
+				close:function()
+				{
+					$(eid).remove();
+				},
 				buttons: {
 					'In':function()
 					{

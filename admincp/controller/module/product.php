@@ -800,7 +800,7 @@ class ControllerModuleProduct extends Controller
 				if($id)
 					$this->model_module_baogia->deleteBaoGiaMedia($id);
 			}
-			
+			$data['ngaybaogia'] = $this->date->formatViewDate($data['ngaybaogia']);
 			$data['id'] = $this->model_module_baogia->save($data);
 			$arr_id = $data['arrid'];
 			$arr_mediaid = $data['mediaid'];

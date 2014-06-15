@@ -22,7 +22,7 @@
 					cache: false,
 					success: function(html)
 					{
-						$("#sitemapid").val(html);
+						$("#frmSiteMap #sitemapid").val(html);
 					}
 			});
 		});
