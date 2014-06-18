@@ -42,10 +42,13 @@
     	
         <?php foreach($data_nhapkho as $key =>$val){ ?>
             
-        <tr>
+        <tr <?php if($val['thanhtien']==0) echo 'style="font-weight:bold"'?>>
             <td><center><?php echo $key+1?></center></td>
             
-            <td><?php echo $this->document->productName($val['mediaid'])?></td>
+            <td>
+            	
+                <?php echo $this->document->productName($val['mediaid'])?>
+            </td>
             <td><font style="text-transform:uppercase"><?php echo $this->document->getCategory($this->document->getMedia($val['mediaid'],'brand'))?></font></td>
             <td class="number"><?php echo $this->string->numberFormate($val['soluong'])?></td>
             <!--<td><?php echo $this->document->getDonViTinh($val['madonvi'])?></td>-->

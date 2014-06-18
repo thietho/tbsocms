@@ -77,6 +77,15 @@ function Product()
 	console.log(this.open);
 	this.url = "?route=module/product/getList";
 	this.page = 0;
+	this.createData = function(obj)
+	{
+		var db = openDatabase('mydb', '1.0', 'ClientDB', 2 * 1024 * 1024);
+		db.transaction(function (tx) {
+		   tx.executeSql('CREATE TABLE IF NOT EXISTS media (id unique, mediaid, barcode, ref, code, sizes, unit, color, material, brand, mediaparent, mediatype, refersitemap, userid, title, summary, description, metadescription, alias, keyword, author, source, saleprice, price, noteprice, discountpercent, pricepromotion, imageid, imagepath, fileid, filepath, groupkeys, viewcount, position, status, temp, statusdate, statusby, updateddate, noted)');
+		   tx.executeSql('INSERT INTO media (id, mediaid, barcode, ref, code, sizes, unit, color, material, brand, mediaparent, mediatype, refersitemap, userid, title, summary, description, metadescription, alias, keyword, author, source, saleprice, price, noteprice, discountpercent, pricepromotion, imageid, imagepath, fileid, filepath, groupkeys, viewcount, position, status, temp, statusdate, statusby, updateddate, noted) VALUES (id, mediaid, barcode, ref, code, sizes, unit, color, material, brand, mediaparent, mediatype, refersitemap, userid, title, summary, description, metadescription, alias, keyword, author, source, saleprice, price, noteprice, discountpercent, pricepromotion, imageid, imagepath, fileid, filepath, groupkeys, viewcount, position, status, temp, statusdate, statusby, updateddate, noted)');
+		   
+		});	
+	}
 	this.loadProduct = function(url)
 	{
 		//$('#showsanpham').html(loading);
