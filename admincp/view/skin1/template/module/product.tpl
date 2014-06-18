@@ -63,6 +63,7 @@
             </form>
         </div>
         <div class="clearer">^&nbsp;</div>
+        
     </div>
 </div>
 <script language="javascript">
@@ -74,7 +75,7 @@ $('#search select').change(function(e) {
 function Product()
 {
 	this.open = "<?php echo $this->request->get['open']?>";
-	console.log(this.open);
+	//console.log(this.open);
 	this.url = "?route=module/product/getList";
 	this.page = 0;
 	this.createData = function(obj)
@@ -82,9 +83,27 @@ function Product()
 		var db = openDatabase('mydb', '1.0', 'ClientDB', 2 * 1024 * 1024);
 		db.transaction(function (tx) {
 		   tx.executeSql('CREATE TABLE IF NOT EXISTS media (id unique, mediaid, barcode, ref, code, sizes, unit, color, material, brand, mediaparent, mediatype, refersitemap, userid, title, summary, description, metadescription, alias, keyword, author, source, saleprice, price, noteprice, discountpercent, pricepromotion, imageid, imagepath, fileid, filepath, groupkeys, viewcount, position, status, temp, statusdate, statusby, updateddate, noted)');
-		   tx.executeSql('INSERT INTO media (id, mediaid, barcode, ref, code, sizes, unit, color, material, brand, mediaparent, mediatype, refersitemap, userid, title, summary, description, metadescription, alias, keyword, author, source, saleprice, price, noteprice, discountpercent, pricepromotion, imageid, imagepath, fileid, filepath, groupkeys, viewcount, position, status, temp, statusdate, statusby, updateddate, noted) VALUES (id, mediaid, barcode, ref, code, sizes, unit, color, material, brand, mediaparent, mediatype, refersitemap, userid, title, summary, description, metadescription, alias, keyword, author, source, saleprice, price, noteprice, discountpercent, pricepromotion, imageid, imagepath, fileid, filepath, groupkeys, viewcount, position, status, temp, statusdate, statusby, updateddate, noted)');
 		   
-		});	
+		   for(i in obj)
+		   {
+			   tx.executeSql('INSERT INTO media (id, mediaid, barcode, ref, code, sizes, unit, color, material, brand, mediaparent, mediatype, refersitemap, userid, title, summary, description, metadescription, alias, keyword, author, source, saleprice, price, noteprice, discountpercent, pricepromotion, imageid, imagepath, fileid, filepath, groupkeys, viewcount, position, status, temp, statusdate, statusby, updateddate, noted) VALUES ('+ obj[i].id +', '+ obj[i].mediaid +', '+ obj[i].barcode +', '+ obj[i].ref +', '+ obj[i].code +', '+ obj[i].sizes +', '+ obj[i].unit +', '+ obj[i].color +', '+ obj[i].material +', '+ obj[i].brand +', '+ obj[i].mediaparent +', '+ obj[i].mediatype +', '+ obj[i].refersitemap +', '+ obj[i].userid +', '+ obj[i].title +', '+ obj[i].summary +', '+ obj[i].description +', '+ obj[i].metadescription +', '+ obj[i].alias +', '+ obj[i].keyword +', '+ obj[i].author +', '+ obj[i].source +', '+ obj[i].saleprice +', '+ obj[i].price +', '+ obj[i].noteprice +', '+ obj[i].discountpercent +', '+ obj[i].pricepromotion +', '+ obj[i].imageid +', '+ obj[i].imagepath +', '+ obj[i].fileid +', '+ obj[i].filepath +', '+ obj[i].groupkeys +', '+ obj[i].viewcount +', '+ obj[i].position +', '+ obj[i].status +', '+ obj[i].temp +', '+ obj[i].statusdate +', '+ obj[i].statusby +', '+ obj[i].updateddate +', '+ obj[i].noted +')');
+		   }
+		   
+		   tx.executeSql('SELECT * FROM media', [], function (tx, results) {
+				var len = results.rows.length, i;
+				
+				msg = "<p>Found rows: " + len + "</p>";
+				document.querySelector('#resulttable').innerHTML +=  msg;
+				for (i = 0; i < len; i++){
+					msg = "<p><b>" + results.rows.item(i).log + "</b></p>";
+					document.querySelector('#resulttable').innerHTML +=  msg;
+				}
+			}, null);
+		});
+		
+		db.transaction(function (tx) {
+			
+		});
 	}
 	this.loadProduct = function(url)
 	{
@@ -579,7 +598,7 @@ var pro = new Product();
 $(document).ready(function(e) {
     //$('#showdanhmuc').load('?route=module/product/productCat');
 	pro.page = Number(control.getParam("page",control.getUrl()));
-	
+		
 	pro.searchForm();
 	//console.log("aa");
 	$('#btnSearch').click(function(e) {

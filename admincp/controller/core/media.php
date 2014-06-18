@@ -468,7 +468,7 @@ class ControllerCoreMedia extends Controller
 			$imagepreview = "<img width=100 src='".HelperImage::resizePNG($media['imagepath'], 180, 180)."' >";
 			$datas[$key]['imagepreview'] = $imagepreview;
 		}
-		$this->data['output'] = json_encode(array('medias' => $datas));
+		$this->data['output'] = json_encode( $datas);
 		$this->id="media";
 		$this->template="common/output.tpl";
 		$this->render();
