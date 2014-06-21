@@ -308,7 +308,7 @@ final class Date{
 	//CAC HAM PRIVATE CAN CHO MODULE
 	public function numberFormate($n)
 	{
-		$n = int($n);
+		$n = (int)$n;
 		if($n<10)
 			return "0".$n;
 		else
