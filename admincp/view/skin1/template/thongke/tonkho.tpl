@@ -7,9 +7,9 @@
 		<table class="data-table">
             
             <tr>
-                <th>Mã sản phẩm</th>
+                
                 <th>Tên sản phẩm</th>
-                <th>Màu</th>
+                
                 <th>Tồn kho</th>
                 <th>Giá nhập trung bình</th>
                 <th>Thành tiền</th>
@@ -21,9 +21,9 @@
                 <?php $sum += (int)$media['tonkho'];?>
                 <?php $sumthanhtien += $media['priceimport']*$media['tonkho'];?>
 			<tr>
-            	<td><?php echo $media['code']?></td>
-                <td><?php echo $this->document->productName($item['mediaid'])?></td>
-                <td><?php echo $media['color']?></td>
+            	
+                <td><?php echo $this->document->productName($media['mediaid'])?></td>
+                
                 <td class="number"><?php echo $media['tonkho']?></td>
                 <td class="number"><?php echo $this->string->numberFormate($media['priceimport'])?></td>
                 <td class="number"><?php echo $this->string->numberFormate($media['priceimport']*$media['tonkho'])?></td>
@@ -31,8 +31,8 @@
             	<?php } ?>
             <?php } ?>
             <tr>
-            	<td></td>
-                <td></td>
+            	
+                
                 <td class="number">Tổng tồn kho</td>
                 <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
                 <td class="number">Tổng giá trị tồn</td>

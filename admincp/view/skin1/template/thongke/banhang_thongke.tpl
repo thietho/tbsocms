@@ -1,4 +1,4 @@
-<table class="data-table">
+<table id="reportbanhang" class="data-table">
 	<thead>
         <tr>
         	<th width="80px">Ngày</th>
@@ -17,7 +17,7 @@
     	<?php $sum = 0?>
     	<?php foreach($data_banhang as $date => $banhang){ ?>
         <tr>
-        	<td colspan="5"><strong><?php echo $this->date->formatMySQLDate($date)?></strong></td>
+        	<td colspan="10"><strong><?php echo $this->date->formatMySQLDate($date)?></strong></td>
         </tr>
         	<?php foreach($banhang as $item) { ?>
         	<?php $sum += $item['thanhtien']?>
@@ -26,7 +26,7 @@
         	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>)"><?php echo $item['maphieu']?></a></td>
         	<td><?php echo $this->document->productName($item['mediaid'])?></td>
             
-            <td><?php echo $item['nguoinhan']?></td>
+            <td><?php echo $item['tenkhachhang']?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['soluong'])?></td>
             <td><?php echo $this->document->getDonViTinh($item['madonvi'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['giatien'])?></td>
