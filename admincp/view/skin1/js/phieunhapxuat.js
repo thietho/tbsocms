@@ -95,6 +95,10 @@ function PhieuNhapXuat()
 		});
 		$('#sumsoluong').html(formateNumber(sum));
 	}
+	this.printPX = function(listid)
+	{
+		openDialog("?route=quanlykho/phieuxuat/printlist&listid="+listid+"&opendialog=print",800,500)
+	}
 	this.viewPX = function(id)
 	{
 		var eid = "popupviewphieu";
@@ -220,6 +224,14 @@ function PhieuNhapXuat()
 	this.save = function(type)
 	{
 		
+	}
+	this.getProbyRef = function(str)
+	{
+		$.getJSON("?route=core/media/getMedia&col=ref&val="+encodeURI(str),function(data)
+		{
+			
+			objdl.addRow(0,data.medias[0].mediaid,data.medias[0].code,data.medias[0].title,1,data.medias[0].madonvi,data.medias[0].price,data.medias[0].pricepromotion,data.medias[0].discountpercent);
+		});
 	}
 }
 

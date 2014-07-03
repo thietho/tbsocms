@@ -437,8 +437,8 @@ class ControllerCoreMedia extends Controller
 	//Cac ham xu ly tren form
 	public function getMedia()
 	{
-		$col = $this->request->get['col'];
-		$val = $this->request->get['val'];
+		$col = urldecode($this->request->get['col']);
+		$val = urldecode($this->request->get['val']);
 		$operator = $this->request->get['operator'];
 		if($operator == "")
 			$operator = "equal";
@@ -461,14 +461,13 @@ class ControllerCoreMedia extends Controller
 			
 		}
 			
-			
 		$datas = $this->model_core_media->getList($where);
 		foreach($datas as $key => $media)
 		{
 			$imagepreview = "<img width=100 src='".HelperImage::resizePNG($media['imagepath'], 180, 180)."' >";
 			$datas[$key]['imagepreview'] = $imagepreview;
 		}
-		$this->data['output'] = json_encode( $datas);
+		$this->data['output'] = json_encode(array('medias' => $datas));
 		$this->id="media";
 		$this->template="common/output.tpl";
 		$this->render();

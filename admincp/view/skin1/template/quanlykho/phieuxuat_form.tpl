@@ -46,6 +46,16 @@
                         <input type="text" id="diachi" name="diachi" value="<?php echo $item['diachi']?>" class="text" size=60 />
                     </p>
                     <p>
+                    	<label>Tư vấn viên</label><br />
+                        <input list="list_nguoithuchien" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 />
+                        <datalist id="list_nguoithuchien">
+                        	<?php foreach($data_nguoithuchien as $val){ ?>
+                            <option value="<?php echo $val['nguoithuchien']?>">
+                            <?php } ?>
+                        	
+                        </datalist>
+                    </p>
+                    <p>
                         <label>Nhà cung cấp</label><br />
                         <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
                         <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
@@ -91,6 +101,16 @@
                         <tbody id="nhapkhonguyenlieu">
                         </tbody>
                         <tfoot>
+                        	<tr>
+                            	<td>
+                                	<input list="dataproduct" id="txt_ref" class="text"/>
+                                    <datalist id="dataproduct">
+                                    	<?php foreach($data_media as $media){ ?>
+                                        <option value="<?php echo $media['ref']?>" >
+                                        <?php } ?>
+                                    </datalist>
+                                </td>
+                            </tr>
                         	<tr>
                                 
                                 <td></td>
@@ -184,6 +204,13 @@ $(document).ready(function(e) {
     $('#phieunhapxuat').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 	/*$("#nhapkhonguyenlieu").sortable();
 	$("#nhapkhonguyenlieu" ).disableSelection();*/
+});
+$('#txt_ref').keyup(function(e) {
+    if(e.keyCode == 13)
+	{
+		 objdl.getProbyRef(this.value);
+		 this.value = "";
+	}
 });
 $('#btnTrahet').click(function(e) {
     $('#thanhtoan').val($('#tongcong').html());

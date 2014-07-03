@@ -18,14 +18,26 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->helper('image');
 		$this->load->model("core/category");
-		
+		$this->load->model("core/media");
 		$this->load->model("quanlykho/donvitinh");
 		
 		$this->data['loaisanpham'] = array();
 		$this->model_core_category->getTree("sanpham",$this->data['loaisanpham']);
 		unset($this->data['loaisanpham'][0]);
 		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
-		
+		$where = " GROUP BY nguoithuchien";
+		$this->data['data_nguoithuchien'] = $this->model_quanlykho_phieunhapxuat->getList($where);
+		$where = " AND mediatype = 'module/product' ORDER BY `title` ASC";
+		$this->data['data_media'] = array();
+		$medias = $this->model_core_media->getList($where);
+		foreach($medias as $i => $media)
+		{
+			$child = $this->model_core_media->getListByParent($media['mediaid']);
+			if(count($child) == 0)
+				$this->data['data_media'][] = $media;
+			
+		}
+		//print_r($this->data['data_nguoithuchien']);
    	}
 	public function index()
 	{
@@ -81,12 +93,9 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$this->template="common/output.tpl";
 		$this->render();
   	}
-	
-	public function getList() 
+	private function loadData()
 	{
 		
-		
-		$this->data['datas'] = array();
 		$where = " AND loaiphieu='".$this->loaiphieu."'";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
@@ -111,10 +120,17 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$denngay = $this->date->formatViewDate(urldecode($this->request->get['denngay']));
 		if($denngay !="")
 		{
-			$where .= " AND ngaylap <= '".$denngay." 24:00:00'";
+			$where .= " AND ngaylap <= '".$denngay." 23:59:59'";
 		}
 		//echo $where;
 		$rows = $this->model_quanlykho_phieunhapxuat->getList($where);
+		return $rows;	
+	}
+	
+	public function getList() 
+	{	
+		$this->data['datas'] = array();
+		$rows = $this->loadData();
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;		
@@ -148,9 +164,10 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		}
 		$this->render();
 	}
-	public function view()
+	public function view($id ="")
 	{
-		$id = $this->request->get['id'];
+		if($id =="")
+			$id = $this->request->get['id'];
 		if($id) 
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
@@ -167,10 +184,26 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$this->layout="layout/print";
 		$this->render();
 	}
-	
+	public function printlist()
+	{
+		$listid = $this->request->get['listid'];
+		$arrid = split("-",$listid);
+		
+		foreach($arrid as $key => $id)
+		{
+			$arr = array($id);
+			$this->data['output'].= $this->loadModule('quanlykho/phieuxuat','view',$arr);
+			//if($key < count($arrid) - 1)
+				//$this->data['output'] .= '<div style="page-break-after:always">&nbsp;</div>';
+		}
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 	private function getForm()
 	{
 		$id = $this->request->get['id'];
+		
 		if($id) 
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
@@ -216,9 +249,11 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		if($this->validateForm($data))
 		{
 			$nhanvien = $this->user->getNhanVien();
-			$data['nguoithuchienid'] = $nhanvien['id'];
-			$data['nguoithuchien'] = $nhanvien['hoten'];
-			
+			if($data['nguoithuchien']=="")
+			{
+				$data['nguoithuchienid'] = $nhanvien['id'];
+				$data['nguoithuchien'] = $nhanvien['hoten'];
+			}
 			//$data['loaiphieu'] = $this->loaiphieu;
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
 			$phieu = $this->model_quanlykho_phieunhapxuat->getItem($data['id']);
@@ -309,14 +344,76 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	  		return FALSE;
 		}
 	}
-	
-	
-	
-	
-	
-	
 	//Cac ham xu ly tren form
-	
-	
+	public function export()
+	{
+		require_once DIR_COMPONENT.'PHPExcel/Classes/PHPExcel.php';
+		$objPHPExcel = new PHPExcel();
+		$objPHPExcel->getProperties()->setCreator("Ho Lan Solutions")
+							 ->setLastModifiedBy("Lư Thiết Hồ")
+							 ->setTitle("Export data")
+							 ->setSubject("Export data")
+							 ->setDescription("")
+							 ->setKeywords("Ho Lan Solutions")
+							 ->setCategory("Product");
+		$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'STT')
+			->setCellValue('B1', 'NGÀY')
+			->setCellValue('C1', 'TÊN KHÁCH HÀNG')
+            ->setCellValue('D1', 'SẢN PHẨM')
+			->setCellValue('E1', 'T.TIỀN')
+			->setCellValue('F1', '')
+			->setCellValue('G1', 'TTV')
+            ->setCellValue('H1', 'ĐT')
+			->setCellValue('I1', 'ĐỊA CHỈ')
+			;
+		$objPHPExcel->getActiveSheet()->getStyle('A1:I1')->getFont()->setBold(true);
+		/*$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
+		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
+		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
+		$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);*/
+		
+		
+		$key = 2;
+		$rows = $this->loadData();
+		foreach($rows as $i=> $item)
+		{
+			$where = " AND phieuid = '".$item['id']."'";
+			$details = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+			$arr=array();
+			foreach($details as $detail)
+			{
+				$arr[] = $detail['soluong'].$this->document->getMedia($detail['mediaid'],"ref");
+				
+			}
+			$sanpham = implode("+",$arr);
+			$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue('A'.$key, $i+1)
+				->setCellValue('B'.$key, $this->date->formatMySQLDate($item['ngaylap']))
+				->setCellValue('C'.$key, $item['tenkhachhang'])
+				->setCellValue('D'.$key, $sanpham)
+				->setCellValue('E'.$key, $this->string->numberFormate($item['tongtien']))
+				->setCellValue('F'.$key, '')
+				->setCellValue('G'.$key, $item['nguoithuchien'])
+				->setCellValue('H'.$key, $item['dienthoai'])
+				->setCellValue('I'.$key, $item['diachi'])
+				
+				
+				
+				;
+			$key++;
+		}
+		$objPHPExcel->getActiveSheet()->setTitle('HoaDonBanHang');
+		$objPHPExcel->setActiveSheetIndex(0);
+		//
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$filename = "HoaDonBanHang".time().".xls";
+		$objWriter->save(DIR_CACHE.$filename);
+		$this->data['output'] = HTTP_IMAGE."cache/".$filename;
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>
