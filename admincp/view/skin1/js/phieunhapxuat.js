@@ -233,6 +233,7 @@ function PhieuNhapXuat()
 		{
 			
 			objdl.addRow(0,data.medias[0].mediaid,data.medias[0].code,data.medias[0].productName,1,data.medias[0].madonvi,data.medias[0].price,data.medias[0].pricepromotion,data.medias[0].discountpercent);
+			//alert($('#txt_ref').val());
 			$('#txt_ref').val('');
 		});
 	}
