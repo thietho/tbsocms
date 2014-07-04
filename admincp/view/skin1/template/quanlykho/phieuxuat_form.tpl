@@ -209,7 +209,7 @@ $(function() {
 		select: function( event, ui ) {
 			//console.log(ui.item.id);
 			objdl.getProbyMediaId(ui.item.id);
-			$('#txt_ref').val('');
+			
 		},
 		source: function( request, response ) {
 		var term = request.term;
