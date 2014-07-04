@@ -476,7 +476,80 @@ class ControllerCoreMedia extends Controller
 	public function getProduct()
 	{
 		
+		$keyword = urldecode($this->request->get['term']);
+		$arrkey = split(' ', $keyword);
+		$where = " AND mediatype = 'module/product' ";
+		if($keyword !="")
+		{
+			$arr = array();
+			$arrcode = array();
+			$arrbarcode = array();
+			$arrref = array();
+			$arrcolor = array();
+			$arrsizes = array();
+			$arrmaterial = array();
+			foreach($arrkey as $key)
+			{
+				$arr[] = "title like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrcode[] = "code like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrbarcode[] = "barcode like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrref[] = "ref like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrref[] = "ref like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrcolor[] = "color like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrsizes[] = "sizes like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrmaterial[] = "material like '%".$key."%'";
+			}
+			$where .= " AND ((". implode(" AND ",$arr). ") 
+									OR (". implode(" AND ",$arrcode). ") 
+									OR (". implode(" AND ",$arrbarcode). ") 
+									OR (". implode(" AND ",$arrref). ") 
+									OR (". implode(" AND ",$arrcolor). ") 
+									OR (". implode(" AND ",$arrsizes). ") 
+									OR (". implode(" AND ",$arrmaterial). ") 
+							)";
+			
+		}
 		
+		$medias = $this->model_core_media->getList($where);
+		$data = array();
+		foreach($medias as $media)
+		{
+			$child = $this->model_core_media->getListByParent($media['mediaid']);
+			if(count($child) == 0)
+			{
+				$arr = array(
+							"id" => $media['mediaid'],
+							"label" => $media['brand']." ".$this->document->productName($media),
+							"value" => $media['brand']." ".$this->document->productName($media)
+						);
+				$data[] = $arr;
+			}
+		}
+		$this->data['output'] = json_encode($data);
+		$this->id="media";
+		$this->template="common/output.tpl";
+		$this->render();
 	}
 	public function getListDonVi()
 	{

@@ -104,12 +104,8 @@
                         <tfoot>
                         	<tr>
                             	<td colspan="8">
-                                	<input list="dataproduct" id="txt_ref" class="text" size="100"/>
-                                    <datalist id="dataproduct">
-                                    	<?php foreach($data_media as $media){ ?>
-                                        <option value="<?php echo $media['mediaid']?>-<?php echo $media['ref']?>-<?php echo$this->document->productName($media)?>" >
-                                        <?php } ?>
-                                    </datalist>
+                                	<input type="text" id="txt_ref" class="text" size="100"/>
+                                    
                                 </td>
                             </tr>
                         	<tr>
@@ -210,6 +206,11 @@ $(function() {
 	var cache = {};
 	$( "#txt_ref" ).autocomplete({
 		minLength: 2,
+		select: function( event, ui ) {
+			//console.log(ui.item.id);
+			objdl.getProbyMediaId(ui.item.id);
+			$('#txt_ref').val('');
+		},
 		source: function( request, response ) {
 		var term = request.term;
 		if ( term in cache ) {
