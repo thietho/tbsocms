@@ -1228,7 +1228,7 @@ ul.autocomplete {
 	list-style-type: none;
 }
 .ui-autocomplete-loading {
-	background: white url(../image/ui-anim_basic_16x16.gif) right center no-repeat !important;
+	background: white url(../image/loading.gif) right center no-repeat !important;
 }
 .qlk_group
 {

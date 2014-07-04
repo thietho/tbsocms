@@ -466,11 +466,17 @@ class ControllerCoreMedia extends Controller
 		{
 			$imagepreview = "<img width=100 src='".HelperImage::resizePNG($media['imagepath'], 180, 180)."' >";
 			$datas[$key]['imagepreview'] = $imagepreview;
+			$datas[$key]['productName'] = $this->document->productName($media);
 		}
 		$this->data['output'] = json_encode(array('medias' => $datas));
 		$this->id="media";
 		$this->template="common/output.tpl";
 		$this->render();
+	}
+	public function getProduct()
+	{
+		
+		
 	}
 	public function getListDonVi()
 	{
