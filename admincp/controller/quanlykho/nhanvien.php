@@ -551,5 +551,36 @@ class ControllerQuanlykhoNhanVien extends Controller
 		$this->layout="layout/center";
 		$this->render();
 	}
+	public function getNhanVienByName()
+	{
+		$keyword = urldecode($this->request->get['term']);
+		$where = "";
+		$arrkey = split(' ', $keyword);
+		if($keyword)
+		{
+			$arr = array();
+			foreach($arrkey as $key)
+			{
+				$arr[] = "hoten like '%".$key."%'";
+			}
+			$where .= " AND ((". implode(" AND ",$arr). "))";
+		}
+		$nhanviens = $this->model_quanlykho_nhanvien->getList($where);
+		$data = array();
+		foreach($nhanviens as $nhanvien)
+		{
+			$arr = array(
+						"id" => $nhanvien['id'],
+						"label" => $nhanvien['hoten'],
+						"value" => $nhanvien['hoten'],
+						
+					);
+			$data[] = $arr;
+		}
+		$this->data['output'] = json_encode($data);
+		$this->id="member";
+		$this->template="common/output.tpl";
+		$this->render();
+	}
 }
 ?>

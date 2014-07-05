@@ -357,5 +357,40 @@ class ControllerCoreMember extends Controller
 	  		return FALSE;
 		}
 	}
+	
+	public function getMember()
+	{
+		$keyword = urldecode($this->request->get['term']);
+		$where = "AND usertypeid = 'member'";
+		$arrkey = split(' ', $keyword);
+		if($keyword)
+		{
+			$arr = array();
+			foreach($arrkey as $key)
+			{
+				$arr[] = "fullname like '%".$key."%'";
+			}
+			$where .= " AND ((". implode(" AND ",$arr). "))";
+		}
+		$members = $this->model_core_user->getList($where);
+		$data = array();
+		foreach($members as $member)
+		{
+			$arr = array(
+						"id" => $media['id'],
+						"label" => $member['fullname'],
+						"value" => $member['fullname'],
+						"data" => array(
+										"fullname" =>$member['fullname'],
+										"phone"=>$member['phone'],
+										"address"=>$member['address'])
+					);
+			$data[] = $arr;
+		}
+		$this->data['output'] = json_encode($data);
+		$this->id="member";
+		$this->template="common/output.tpl";
+		$this->render();
+	}
 }
 ?>

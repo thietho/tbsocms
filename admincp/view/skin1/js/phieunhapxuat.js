@@ -231,7 +231,8 @@ function PhieuNhapXuat()
 		arr = str.split("-");
 		$.getJSON("?route=core/media/getMedia&col=mediaid&val="+encodeURI(arr[0]),function(data)
 		{			
-			if(obj.pricepromotion > 0)
+			var giagiam = 0;
+			if(data.medias[0].pricepromotion > 0)
 			{
 				giagiam = data.medias[0].price - data.medias[0].pricepromotion;
 			}

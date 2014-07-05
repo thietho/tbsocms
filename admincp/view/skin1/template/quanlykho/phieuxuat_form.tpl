@@ -24,12 +24,7 @@
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
-                    <!--<p>
-                        <label>Người bán</label><br />
-                        <input type="hidden" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
-                        <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 <?php echo $readonly?>/>
-                        <input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên" />
-                    </p>-->
+                    
                     
                     
                     <p>
@@ -47,15 +42,12 @@
                         <input type="text" id="diachi" name="diachi" value="<?php echo $item['diachi']?>" class="text" size=60 />
                     </p>
                     <p>
-                    	<label>Tư vấn viên</label><br />
-                        <input list="list_nguoithuchien" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 />
-                        <datalist id="list_nguoithuchien">
-                        	<?php foreach($data_nguoithuchien as $val){ ?>
-                            <option value="<?php echo $val['nguoithuchien']?>">
-                            <?php } ?>
-                        	
-                        </datalist>
+                        <label>Tư vấn viên</label><br />
+                        <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
+                        <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 <?php echo $readonly?>/>
+                        <input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên" />
                     </p>
+                    
                     <p>
                         <label>Nhà cung cấp</label><br />
                         <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
@@ -209,7 +201,14 @@ $(function() {
 		select: function( event, ui ) {
 			//console.log(ui.item.id);
 			objdl.getProbyMediaId(ui.item.id);
-			
+			/*var obj = ui.item.data
+			var giagiam = 0;
+			if(obj.pricepromotion > 0)
+			{
+				giagiam = obj.price - obj.pricepromotion;
+			}
+			objdl.addRow('',obj.mediaid,obj.code,obj.productName,1,obj.unit,obj.price,giagiam,obj.discountpercent);
+			setTimeout("$('#txt_ref').val('')",1000);*/
 		},
 		source: function( request, response ) {
 		var term = request.term;
@@ -218,6 +217,45 @@ $(function() {
 			return;
 		}
 		$.getJSON( "?route=core/media/getProduct", request, function( data, status, xhr ) {
+			cache[ term ] = data;
+			response( data );
+			});
+		}
+	});
+	$("#tenkhachhang").autocomplete({
+		minLength: 2,
+		select: function( event, ui ) {
+			//console.log(ui.item.id);
+			//objdl.getProbyMediaId(ui.item.id);
+			//alert(ui.item.data.fullname);
+			$('#dienthoai').val(ui.item.data.phone);
+			$('#diachi').val(ui.item.data.address);
+		},
+		source: function( request, response ) {
+		var term = request.term;
+		if ( term in cache ) {
+			response( cache[ term ] );
+			return;
+		}
+		$.getJSON( "?route=core/member/getMember", request, function( data, status, xhr ) {
+			cache[ term ] = data;
+			response( data );
+			});
+		}
+	});
+	$("#nguoithuchien").autocomplete({
+		minLength: 2,
+		select: function( event, ui ) {
+			$('#nguoithuchienid').val(ui.item.id);
+			$('#nguoithuchien').val(ui.item.value);
+		},
+		source: function( request, response ) {
+		var term = request.term;
+		if ( term in cache ) {
+			response( cache[ term ] );
+			return;
+		}
+		$.getJSON( "?route=quanlykho/nhanvien/getNhanVienByName", request, function( data, status, xhr ) {
 			cache[ term ] = data;
 			response( data );
 			});
@@ -245,7 +283,34 @@ $('#thanhtoan').keyup(function(e) {
 	$('#congno').val(congno);
 	$('#lbl-congno').html(formateNumber(congno));
 });
-
+$('#btnSelectNhanVien').click(function(e) {
+	handle = "nguoinhan";
+    $("#popup").attr('title','Chọn nhân viên');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: $(document).width()-100,
+			height: window.innerHeight,
+			modal: true,
+			
+		});
+	
+		$("#popup").dialog("open");	
+		$("#popup-content").html(loading);
+		$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
+			
+		});
+});
+function intSelectNhanVien()
+{	
+	$('.item').click(function(e) {
+		$("#nguoithuchienid").val($(this).attr('id'));
+		$("#nguoithuchien").val($(this).attr('hoten'));
+		$("#popup").dialog( "close" );
+	});
+			
+}
 $('#btnSelectKhachHang').click(function(e) {
     $("#popup").attr('title','Chọn khách hàng');
 		$( "#popup" ).dialog({
