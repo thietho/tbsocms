@@ -221,8 +221,16 @@ class ControllerCoreMember extends Controller
 		$where = " AND loaiphieu = 'PBH' AND khachhangid = '".$id."'";
 		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
 		$tongno = 0;
-		foreach($this->data['data_phieubanhang'] as $item)
+		foreach($this->data['data_phieubanhang'] as $key => $item)
 		{
+			$where = " AND phieuid = '".$item['id']."'";
+			$data_ct = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+			$arr = array();
+			foreach($data_ct as $ct)
+			{
+				$arr[] = $ct['soluong']." ".$this->document->productName($ct['mediaid']);
+			}
+			$this->data['data_phieubanhang'][$key]['detail'] = implode("<br>",$arr);
 			$tongno += $item['congno'];	
 		}
 		//Lay tat ca phieu tra hang
@@ -232,6 +240,14 @@ class ControllerCoreMember extends Controller
 		$tongnotrahang = 0;
 		foreach($this->data['data_phieutrahang'] as $item)
 		{
+			$where = " AND phieuid = '".$item['id']."'";
+			$data_ct = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+			$arr = array();
+			foreach($data_ct as $ct)
+			{
+				$arr[] = $ct['soluong']." ".$this->document->productName($ct['mediaid']);
+			}
+			$this->data['data_phieutrahang'][$key]['detail'] = implode("<br>",$arr);
 			$tongnotrahang += $item['congno'];	
 		}
 		
