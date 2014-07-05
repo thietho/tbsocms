@@ -540,7 +540,7 @@ class ControllerCoreMedia extends Controller
 			{
 				$arr = array(
 							"id" => $media['mediaid'],
-							"label" => "(".$media['brand'].") ".$this->document->productName($media),
+							"label" => "(".$media['brand'].") -".$media['ref']."-".$this->document->productName($media),
 							"value" => $this->document->productName($media),
 							
 						);
