@@ -402,12 +402,10 @@ function browserFile(eid,type)
 			case "editor":
 			case "video":
 			$( "#popup" ).dialog({
-				autoOpen: false,
-				show: "blind",
-				hide: "explode",
+				
 				width: $(document).width()-100,
 				height: window.innerHeight,
-				modal: true,
+				
 				
 			});
 			break;
