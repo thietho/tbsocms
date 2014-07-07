@@ -6,12 +6,22 @@
 </center>
 <table>
 	<tr>
-    	<td width="50%"><label>Người nhận:</label> <?php echo $item['nguoinhan']?></td>
+    	<td><label>Người nhận:</label> <?php echo $item['nguoinhan']?></td>
         <td>
-        	<?php if($item['tennhacungcap']){?>
+        	<?php if($item['tennhacungcap']!=""){?>
             <label>Nhà cung cấp:</label> <?php echo $item['tennhacungcap']?>
-            <?php } ?>
             <label>Người giao:</label> <?php echo $item['nguoigiao']?>
+            <?php } ?>
+            <?php if($item['tenkhachhang']!=""){?>
+            <label>Khách hàng:</label> <?php echo $item['tenkhachhang']?>
+            
+            <?php } ?>
+            <?php if($item['dienthoai']!=""){?>
+            <label>Điện thoại:</label> <?php echo $item['dienthoai']?>
+            <?php }?>
+            <?php if($item['diachi']!=""){?>
+            <label>Địa chỉ:</label> <?php echo $item['diachi']?>
+            <?php } ?>
         </td>
     </tr>
     

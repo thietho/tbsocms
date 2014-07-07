@@ -31,25 +31,38 @@
                         </select>
                         
                     </p>
-                    <p id="f-NK-KHTL" class="nhapxuat">
-                        <label>Khách hàng</label><br />
-                        <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>" >
-                        <input type="text" id="tenkhachhang" name="tenkhachhang" value="<?php echo $item['tenkhachhang']?>" class="text" size=60 />
-                        <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
-                    </p>
-                    <p id="f-NK" class="nhapxuat">
-                        <label>Nhà cung cấp</label><br />
-                        <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
-                        <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
-                        <input type="hidden" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>">
-                        <input type="button" class="button" id="btnSeleteNhaCungCap" value="Chọn nhà cung cấp">
-                        
-                    </p>
-                    <p>
-                        <label>Người giao</label><br />
-                        <input type="text" id="nguoigiao" name="nguoigiao" value="<?php echo $item['nguoigiao']?>" class="text" size=60 />
-                        
-                    </p>
+                    <div id="f-NK-KHTL" class="nhapxuat">
+                        <p>
+                            <label>Khách hàng</label><br />
+                            <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>" >
+                            <input type="text" id="tenkhachhang" name="tenkhachhang" value="<?php echo $item['tenkhachhang']?>" class="text" size=60 />
+                            <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng" />
+                        </p>
+                        <p>
+                            <label>Điện thoại</label><br />
+                            <input type="text" id="dienthoai" name="dienthoai" value="<?php echo $item['dienthoai']?>" class="text" size=60 />
+                        </p>
+                        <p>
+                            <label>Địa chỉ</label><br />
+                            <input type="text" id="diachi" name="diachi" value="<?php echo $item['diachi']?>" class="text" size=60 />
+                        </p>
+                    </div>
+                    <div id="f-NK" class="nhapxuat">
+                    	<p>
+                            <label>Nhà cung cấp</label><br />
+                            <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
+                            <input type="hidden" id="nhacungcapid" name="nhacungcapid" value="<?php echo $item['nhacungcapid']?>">
+                            <input type="hidden" id="tennhacungcap" name="tennhacungcap" value="<?php echo $item['tennhacungcap']?>">
+                            <input type="button" class="button" id="btnSeleteNhaCungCap" value="Chọn nhà cung cấp">
+                            
+                        </p>
+                        <p>
+                            <label>Người giao</label><br />
+                            <input type="text" id="nguoigiao" name="nguoigiao" value="<?php echo $item['nguoigiao']?>" class="text" size=60 />
+                            
+                        </p>
+                    </div>
+                    
                     <p>
                         <label>Người nhận</label><br />
                         <input type="hidden" id="nguoinhanid" name="nguoinhanid" value="<?php echo $item['nguoinhanid']?>" value="<?php echo $item['nguoinhanid']?>">
