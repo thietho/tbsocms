@@ -148,7 +148,7 @@ class ControllerThongkeThuchi extends Controller
 			}
 		}
 		//End chi
-		sort(&$arrdate);
+		sort($arrdate);
 		$tongthu = 0;
 		$tongchi = 0;
 		$data_thuchi = array();
@@ -180,7 +180,7 @@ class ControllerThongkeThuchi extends Controller
 				if($ngaylap == $date)
 				{
 					$arr = array(
-								'maphieu' => $item['maphieu'],
+								'maphieu' => '<a onclick="objdl.viewPX('.$item['id'].')">'.$item['maphieu'].'</a>',
 								'loai' => "Phiếu bán hàng - ".$item['tenkhachhang'],
 								'taikhoanthuchi	' => 'thubanhang',
 								'sotien' => $item['thanhtoan'],
@@ -216,7 +216,7 @@ class ControllerThongkeThuchi extends Controller
 				if($ngaylap == $date)
 				{
 					$arr = array(
-								'maphieu' => $item['maphieu'],
+								'maphieu' => '<a onclick="objdl.viewPN('.$item['id'].')">'.$item['maphieu'].'</a>',
 								'loai' => "Phiếu phập hàng - ". ( $item['tennhacungcap']==""?$item['tenkhachhang']:$item['tennhacungcap'] ),
 								'taikhoanthuchi	' => 'chiphinhaphang',
 								'sotien' => $item['thanhtoan'],

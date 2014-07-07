@@ -147,6 +147,28 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td class="number">Ngày thanh toán</td>
+                                <td class="number">
+                                	<input type="text" class="text"  id="ngaythanhtoan" name="ngaythanhtoan" value="<?php echo $this->date->formatMySQLDate($item['ngaythanhtoan'])?>"/>
+                                    <script language="javascript">
+										$(function() {
+											$("#ngaythanhtoan").datepicker({
+													changeMonth: true,
+													changeYear: true,
+													dateFormat: 'dd-mm-yy'
+													});
+											});
+									 </script>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td class="number">
                                 	Công nợ
                                 	<input type="hidden" id="congno" name="congno" value="<?php echo $item['congno']?>"/>
@@ -262,13 +284,7 @@ $(function() {
 		}
 	});
 });
-/*$('#txt_ref').keyup(function(e) {
-    if(e.keyCode == 13)
-	{
-		 objdl.getProbyMediaId(this.value);
-		 this.value = "";
-	}
-});*/
+
 $('#btnTrahet').click(function(e) {
     $('#thanhtoan').val($('#tongcong').html());
 	$('#thanhtoan').keyup();

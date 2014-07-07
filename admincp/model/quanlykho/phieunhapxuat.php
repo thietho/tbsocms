@@ -64,6 +64,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$nguoinhan=$this->db->escape(@$data['nguoinhan']);
 		$tongtien=$this->string->toNumber($this->db->escape(@$data['tongtien']));
 		$thanhtoan=$this->string->toNumber($this->db->escape(@$data['thanhtoan']));
+		$ngaythanhtoan = $this->db->escape(@$data['ngaythanhtoan']);
 		$congno = $this->string->toNumber($this->db->escape(@$data['congno']));
 		$ghichu=$this->db->escape(@$data['ghichu']);
 		$songaycongno=$this->string->toNumber($this->db->escape(@$data['songaycongno']));
@@ -90,6 +91,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'nguoinhan',
 						'tongtien',
 						'thanhtoan',
+						'ngaythanhtoan',
 						'congno',
 						'ghichu',
 						'trangthai',
@@ -116,6 +118,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$nguoinhan,
 						$tongtien,
 						$thanhtoan,
+						$ngaythanhtoan,
 						$congno,
 						$ghichu,
 						$trangthai,

@@ -220,7 +220,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		{
 			
 			//$data['loaiphieu'] = $this->loaiphieu;
-			
+			$data['ngaythanhtoan'] = $this->date->formatViewDate($data['ngaythanhtoan']);
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
 			
 			$phieu = $this->model_quanlykho_phieunhapxuat->getItem($data['id']);

@@ -249,6 +249,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		if($this->validateForm($data))
 		{
 			$nhanvien = $this->user->getNhanVien();
+			$data['ngaythanhtoan'] = $this->date->formatViewDate($data['ngaythanhtoan']);
 			if($data['nguoithuchien']=="")
 			{
 				$data['nguoithuchienid'] = $nhanvien['id'];
