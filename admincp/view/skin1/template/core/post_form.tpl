@@ -354,10 +354,10 @@ function callAtt(pos)
               		<?php if($hasSummary) {?>
                     <p>
                         <label><?php echo $entry_summary?></label><br>
-                        <textarea class="text" rows="3" cols="70" id="summary" name="summary"><?php echo $post['summary']?></textarea>
+                        <textarea class="text editor" rows="3" cols="70" id="summary" name="summary"><?php echo $post['summary']?></textarea>
 <script language="javascript">
 $(document).ready(function(e) {
-    setCKEditorType('summary',2);
+    //setCKEditorType('summary',2);
 });
 </script>
                     </p>
@@ -431,13 +431,13 @@ $(document).ready(function(e) {
                 
             	<div>
                 	<p>
-                        <textarea name="description" id="description" ><?php echo $post['description']?></textarea>
+                        <textarea name="description" id="description" class="editor"><?php echo $post['description']?></textarea>
                     </p>
                 </div>
             </div>
             <script language="javascript">
 			$(document).ready(function(e) {
-                setCKEditorType('description',2);
+                //setCKEditorType('description',2);
             });
 			</script>
             <?php }?>
@@ -583,7 +583,7 @@ function removeSubInfor(mediaid)
 </script>
 <script language="javascript">
 $(document).ready(function() { 
-	setCKEditorType('sub_description',2);
+	//setCKEditorType('sub_description',2);
 	$("#subinforlist").load("?route=core/postcontent/loadSubInfor&mediaid="+$("#mediaid").val());
 })
 </script>
@@ -662,7 +662,7 @@ $(document).ready(function(e) {
 function save()
 {
 	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" });
-	<?php if($hasDetail){ ?>
+	/*<?php if($hasDetail){ ?>
 	var oEditor = CKEDITOR.instances['description'] ;
 	var pageValue = oEditor.getData();
 	$('textarea#description').val(pageValue);
@@ -672,7 +672,7 @@ function save()
 	var oEditor = CKEDITOR.instances['summary'] ;
 	var pageValue = oEditor.getData();
 	$('textarea#summary').val(pageValue);
-	<?php } ?>
+	<?php } ?>*/
 	$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
 		function(data){
 			var obj = $.parseJSON(data);
@@ -697,7 +697,23 @@ $(document).ready(function() {
 	
 	
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
-	
+	tinymce.init({
+		selector: ".editor",
+		theme: "modern",
+		plugins: [
+			"advlist autolink lists link image charmap print preview hr anchor pagebreak",
+			"searchreplace wordcount visualblocks visualchars code fullscreen",
+			"insertdatetime media nonbreaking save table contextmenu directionality",
+			"emoticons template paste textcolor colorpicker textpattern"
+		],
+		toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+		toolbar2: "print preview media | forecolor backcolor emoticons",
+		image_advtab: true,
+		templates: [
+			{title: 'Test template 1', content: 'Test 1'},
+			{title: 'Test template 2', content: 'Test 2'}
+		]
+	});
 });
 </script>
 <?php if($hasFile) {?>
