@@ -467,6 +467,7 @@ $(function() {
 			//console.log(ui.item.id);
 			//objdl.getProbyMediaId(ui.item.id);
 			//alert(ui.item.data.fullname);
+			$('#khachhangid').val(ui.item.id);
 			$('#dienthoai').val(ui.item.data.phone);
 			$('#diachi').val(ui.item.data.address);
 		},

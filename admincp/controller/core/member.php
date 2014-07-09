@@ -377,7 +377,7 @@ class ControllerCoreMember extends Controller
 		foreach($members as $member)
 		{
 			$arr = array(
-						"id" => $media['id'],
+						"id" => $member['id'],
 						"label" => $member['fullname'],
 						"value" => $member['fullname'],
 						"data" => array(

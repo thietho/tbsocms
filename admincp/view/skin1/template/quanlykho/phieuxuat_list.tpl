@@ -43,13 +43,14 @@
                 </select>
                 <br />
                 <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
-                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="viewAll()"/>
+                <input type="button" class="button" name="btnViewAll" value="Xem tất cả" onclick="viewAll()"/>
+                <input type="button" class="button" name="btnExport" value="Xuất ra excel" onclick="exportExcel()"/>
             </div>
         	<div class="button right">
             	<?php if($dialog==true){ ?>
             	
                 <?php }else{ ?>
-                
+                <input class="button" id="btnPrint" value="In" type="button">
                 <?php if($this->user->checkPermission("quanlykho/phieuxuat/insert")==true){ ?>
                 <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo $insert?>')">
                 <?php } ?>
@@ -71,7 +72,17 @@
     
 </div>
 <script language="javascript">
-
+$('#btnPrint').click(function(e) {
+	var arrid = new Array();
+    $('.inputchk').each(function(index, element) {
+        if(this.checked)
+		{
+			arrid.push(this.value);	
+		}
+    });
+	
+	objdl.printPX(arrid.join("-"));
+});
 function deleteitem()
 {
 	var answer = confirm("Bạn có muốn xóa không?")
@@ -117,8 +128,14 @@ function viewAll()
 	}
 	loadData(url);
 }
-
-function searchForm()
+function exportExcel()
+{
+	var url = createParam();
+	$.get("?route=quanlykho/phieuxuat/export"+url,function(data){
+			window.location = "download.php?url="+ encodeURI(data);
+		});		
+}
+function createParam()
 {
 	var url =  "";
 	if($("#frm_phieunhap #maphieu").val() != "")
@@ -133,6 +150,11 @@ function searchForm()
 		url += "&denngay="+ encodeURI($("#frm_phieunhap #denngay").val());
 	if($("#frm_phieunhap #trangthai").val() != "")
 		url += "&trangthai="+ encodeURI($("#frm_phieunhap #trangthai").val());
+	return url;
+}
+function searchForm()
+{
+	var url = createParam();
 	if("<?php echo $_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
