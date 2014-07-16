@@ -160,6 +160,11 @@ function PhieuNhapXuat()
 					openDialog("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=print",800,500)
 					
 				},
+				'In giảm giá':function()
+				{
+					openDialog("?route=quanlykho/phieunhap/view&id="+id+"&opendialog=print&show=giamgia",800,500)
+					
+				},
 				'Đóng': function() 
 				{
 					
