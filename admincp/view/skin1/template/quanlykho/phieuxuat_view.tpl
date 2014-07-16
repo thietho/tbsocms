@@ -52,7 +52,13 @@
             <td><font style="text-transform:uppercase"><?php echo $this->document->getCategory($this->document->getMedia($val['mediaid'],'brand'))?></font></td>
             <td class="number"><?php echo $this->string->numberFormate($val['soluong'])?></td>
             <!--<td><?php echo $this->document->getDonViTinh($val['madonvi'])?></td>-->
-            <td class="number"><?php echo $this->string->numberFormate($val['giatien'] - $val['giamgia'])?></td>
+            <td class="number">
+            	<?php if($val['giatien'] == 0){ ?>
+                <?php echo $this->string->numberFormate($this->document->getMedia($val['mediaid'],'price'))?>
+                <?php }else{ ?>
+            	<?php echo $this->string->numberFormate($val['giatien'] - $val['giamgia'])?>
+                <?php } ?>
+            </td>
             <td class="number"><?php if($val['thanhtien']) echo $this->string->numberFormate($val['thanhtien']); else echo "Tặng"?></td>
             
         </tr>
