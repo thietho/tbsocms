@@ -213,8 +213,8 @@ $(document).ready(function(e) {
 <script language="javascript">
 $(document).ready(function(e) {
     $('#phieunhapxuat').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
-	/*$("#nhapkhonguyenlieu").sortable();
-	$("#nhapkhonguyenlieu" ).disableSelection();*/
+	$("#nhapkhonguyenlieu").sortable();
+	/*$("#nhapkhonguyenlieu" ).disableSelection();*/
 });
 $(function() {
 	var cache = {};

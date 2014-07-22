@@ -72,6 +72,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$lydothu=$this->db->escape(@$data['lydothu']);
 		$thuphi=$this->string->toNumber($this->db->escape(@$data['thuphi']));
 		
+		
 		$field=array(
 							
 						
@@ -97,7 +98,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'trangthai',
 						'songaycongno',
 						'lydothu',
-						'thuphi'
+						'thuphi',
 					);
 		$value=array(
 						
@@ -220,7 +221,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$nguoigiao=$this->db->escape(@$data['nguoigiao']);
 		$nguoinhanid=$this->db->escape(@$data['nguoinhanid']);
 		$nguoinhan=$this->db->escape(@$data['nguoinhan']);
-		
+		$vitri=$this->string->toNumber($this->db->escape(@$data['vitri']));
 		$field=array(
 						'phieuid',
 						'mediaid',
@@ -242,8 +243,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'tenkhachhang',
 						'nguoigiao',
 						'nguoinhanid',
-						'nguoinhan'
-						
+						'nguoinhan',
+						'vitri'
 						);
 		$value=array(
 						$phieuid,
@@ -266,7 +267,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$tenkhachhang,
 						$nguoigiao,
 						$nguoinhanid,
-						$nguoinhan
+						$nguoinhan,
+						$vitri
 						);
 
 		if((int)@$data['id'] == 0 )

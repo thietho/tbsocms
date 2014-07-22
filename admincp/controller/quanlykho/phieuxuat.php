@@ -172,7 +172,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
 			
-			$where = " AND phieuid = '".$id."'";
+			$where = " AND phieuid = '".$id."' ORDER BY `vitri` ASC";
 			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 			
 			
@@ -210,7 +210,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
 			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
-			$where = " AND phieuid = '".$id."'";
+			$where = " AND phieuid = '".$id."' ORDER BY `vitri` ASC";
 			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
     	}
 		else
@@ -283,6 +283,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$arr_giatien = $data['giatien'];
 			$arr_giamgia = $data['giamgia'];
 			$arr_phantramgiamgia = $data['phantramgiamgia'];
+			$index = 0;
 			foreach($arr_mediaid as $i => $mediaid)
 			{
 				$dl['id'] = $nhapkhoid[$i];
@@ -307,9 +308,10 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 				$dl['nguoigiao'] = $phieu['nguoigiao'];
 				$dl['nguoinhanid'] = $phieu['nguoinhanid'];
 				$dl['nguoinhan'] = $phieu['nguoinhan'];
+				$dl['vitri'] = $index;
 				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
 				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
-				
+				$index++;
 			}
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien- $this->string->toNumber($data['thanhtoan']));
