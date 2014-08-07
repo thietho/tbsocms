@@ -23,7 +23,7 @@
     <script type='text/javascript' language='javascript' src='<?php echo DIR_JS?>jquery.blockUI.js'></script>
 	
 	<script type='text/javascript' language='javascript' src='<?php echo DIR_COMPONENT?>ckeditor/ckeditor.js'></script>
-    <script type="text/javascript" src="<?php echo DIR_COMPONENT?>/tinymce/tinymce.min.js"></script>
+    
     <script src="<?php echo DIR_JS?>common.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>media.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>control.js" type="text/javascript"></script>
