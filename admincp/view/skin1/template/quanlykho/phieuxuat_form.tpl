@@ -404,6 +404,7 @@ function savephieu(type)
 					case "print":
 						$.unblockUI();
 						var id = arr[1];
+						objdl.viewPX(id);
 						$("#popup").attr('title','Phiếu nhập kho');
 						$( "#popup" ).dialog({
 							autoOpen: false,
