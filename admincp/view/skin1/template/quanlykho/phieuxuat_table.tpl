@@ -37,7 +37,7 @@
                         <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['id']?>]" value="<?php echo $item['id']?>" ></td>
                         <?php } ?>
                         <td><center><?php echo $key+1 ?></center></td>
-                        <td><a onclick="objdl.viewPX(<?php echo $item['id']?>)"><?php echo $item['maphieu']?></a></td>
+                        <td><a onclick="objdl.viewPX(<?php echo $item['id']?>,'')"><?php echo $item['maphieu']?></a></td>
                         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'],'longdate')?></td>
                        	<td><?php echo $item['nguoithuchien']?></td>
                         <td><?php echo $item['tenkhachhang']?></td>

@@ -23,7 +23,7 @@
         	<?php $sum += $item['thanhtien']?>
         <tr>
         	<td><?php echo $this->date->formatMySQLDate($date)?></td>
-        	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>)"><?php echo $item['maphieu']?></a></td>
+        	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>,'')"><?php echo $item['maphieu']?></a></td>
         	<td><?php echo $this->document->productName($item['mediaid'])?></td>
             
             <td><?php echo $item['tenkhachhang']?></td>

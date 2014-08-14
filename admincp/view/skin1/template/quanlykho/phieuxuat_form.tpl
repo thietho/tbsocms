@@ -404,44 +404,8 @@ function savephieu(type)
 					case "print":
 						$.unblockUI();
 						var id = arr[1];
-						objdl.viewPX(id);
-						$("#popup").attr('title','Phiếu nhập kho');
-						$( "#popup" ).dialog({
-							autoOpen: false,
-							show: "blind",
-							hide: "explode",
-							width: 1000,
-							height: window.innerHeight,
-							modal: true,
-							close: function(ev, ui){
-									window.location = "?route=quanlykho/phieuxuat";
-								},
-							buttons: {
-								
-								'In':function()
-								{
-									openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print",800,500)
-									window.location = "?route=quanlykho/phieuxuat";
-								},
-								'In giảm giá':function()
-								{
-									openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print&show=giamgia",800,500)
-									
-								},
-								'Đóng': function() 
-								{
-									
-									$( this ).dialog( "close" );
-									window.location = "?route=quanlykho/phieuxuat";
-								},
-							}
-						});
-					
-						$("#popup").dialog("open");
-						$("#popup-content").html(loading);
-						$("#popup-content").load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true",function(){
-							
-						});
+						objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
+						
 				}
 			}
 			else
