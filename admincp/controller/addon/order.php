@@ -284,7 +284,7 @@ class ControllerAddonOrder extends Controller
 			$data['orderid'] = $this->model_addon_order->insert($data);
 		}
 		//Xoa nhung id can xoa
-		$arrdelid = split(',',$data['delid']);
+		@$arrdelid = split(',',$data['delid']);
 		foreach($arrdelid as $id)
 		{
 			if($id)
@@ -401,7 +401,7 @@ class ControllerAddonOrder extends Controller
 		
 		$keyword = urldecode($this->request->get['keyword']);
 		$sitemapid = urldecode($this->request->get['sitemapid']);
-		$arrkey = split(' ', $keyword);
+		@$arrkey = split(' ', $keyword);
 		$where = " AND mediatype = 'module/product'";
 		if($keyword !="")
 		{

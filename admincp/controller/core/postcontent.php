@@ -299,7 +299,7 @@ class ControllerCorePostcontent extends Controller
 		$listfile = $this->model_core_media->getInformation($mediaid, "attachment");
 		$listfileid=array();
 		if($listfile)
-			$listfileid=split(",",$listfile);
+			@$listfileid=split(",",$listfile);
 		$this->data['attachment']=array();
 		foreach($listfileid as $key => $item)
 		{
@@ -603,7 +603,7 @@ class ControllerCorePostcontent extends Controller
 		$para = $this->string->referSiteMapToArray($media['summary']);
 		foreach($para as $val)
 		{
-			$ar = split("=",$val);
+			@$ar = split("=",$val);
 			$media[$ar[0]] = $ar[1];	
 		}
 		

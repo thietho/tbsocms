@@ -362,7 +362,7 @@ class ControllerCoreMember extends Controller
 	{
 		$keyword = urldecode($this->request->get['term']);
 		$where = "AND usertypeid = 'member'";
-		$arrkey = split(' ', $keyword);
+		@$arrkey = split(' ', $keyword);
 		if($keyword)
 		{
 			$arr = array();

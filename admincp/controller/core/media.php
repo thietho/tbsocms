@@ -63,7 +63,7 @@ class ControllerCoreMedia extends Controller
 							OR description like '%".$keyword."%' 
 							)";	
 		}*/
-		$arrkey = split(' ', $keyword);
+		@$arrkey = split(' ', $keyword);
 		$where = "";
 		if($keyword !="")
 		{
@@ -220,7 +220,7 @@ class ControllerCoreMedia extends Controller
 			$refersitemap = $data['refersitemap'];
 			if($refersitemap!="")
 			{
-				$arrsitemapname = split(',',$refersitemap);
+				@$arrsitemapname = split(',',$refersitemap);
 				$arrsitemapid = array();
 				foreach($arrsitemapname as $sitemapname)
 				{
@@ -255,13 +255,13 @@ class ControllerCoreMedia extends Controller
 			$arrsaleprice = array();
 			if($saleprice!="")
 			{
-				$arr = split(',',$saleprice);
-				print_r($arr);
+				@$arr = split(',',$saleprice);
+				
 				foreach($arr as $val)
 				{
 					if($val!="")
 					{
-						$ar = split('-',$val);
+						@$ar = split('-',$val);
 						
 						$donvi = $ar[0];
 						$price = $ar[1];
@@ -477,7 +477,7 @@ class ControllerCoreMedia extends Controller
 	{
 		
 		$keyword = urldecode($this->request->get['term']);
-		$arrkey = split(' ', $keyword);
+		@$arrkey = split(' ', $keyword);
 		$where = " AND mediatype = 'module/product' ";
 		if($keyword !="")
 		{

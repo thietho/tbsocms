@@ -34,7 +34,7 @@ class ControllerCommonDashboard extends Controller
 		$this->data['item']['brochure'] = $this->model_core_media->getInformation($this->data['item']['mediaid'], 'brochure');
 		$this->data['item']['background'] = $this->model_core_media->getInformation($this->data['item']['mediaid'], 'background');
 		$listfilm = $this->model_core_media->getInformation($this->data['item']['mediaid'], 'listfilm');
-		$arr_filmid = split(',',$listfilm);
+		@$arr_filmid = split(',',$listfilm);
 		
 		
 		
