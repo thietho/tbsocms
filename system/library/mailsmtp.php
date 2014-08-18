@@ -21,7 +21,7 @@ final class MailSMTP {
 		$mail->Password = "ocEZZvo&F&,O";
 		
 		$from = $data['from']; // Reply to this email
-		$arremail = split(',',$data['to']);
+		@$arremail = split(',',$data['to']);
 		$to=$arremail[0]; // Recipients email ID
 		$name= $data['name']; // Recipient's name
 		$mail->From = $mail->Username;

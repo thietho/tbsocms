@@ -145,7 +145,7 @@ final class Member {
 			$action = trim($action);
 			foreach($this->permission as $item)
 			{
-				$arr = split("-",$item);
+				@$arr = split("-",$item);
 				if($arr[0] ==$moduleid && $arr[1] == $action )
 					$allow = true;
 			}

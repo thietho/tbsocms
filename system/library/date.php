@@ -245,7 +245,7 @@ final class Date{
 					return "00:00";
 				else
 				{
-					$arr = split(":",$time);
+					@$arr = split(":",$time);
 					return $arr[0].":".$arr[1];
 				}
 			case "longtime":
