@@ -228,7 +228,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 			$delnhapkho = $data['delnhapkho'];
 			if($delnhapkho)
 			{
-				$arr_nhapkhoid = split(",",$delnhapkho);
+				@$arr_nhapkhoid = split(",",$delnhapkho);
 				if(count($arr_nhapkhoid))
 				{
 					foreach($arr_nhapkhoid as $nhapkhoid)

@@ -190,7 +190,7 @@ class ControllerQuanlykhoSanpham extends Controller
 			}
 			//Xoa dinh luong
 			$deldinhluong = $data['deldinhluong'];
-			$arr_dinhluongid = split(",",$deldinhluong);
+			@$arr_dinhluongid = split(",",$deldinhluong);
 			if(count($arr_dinhluongid))
 			{
 				foreach($arr_dinhluongid as $dinhluongid)

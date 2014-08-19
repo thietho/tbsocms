@@ -555,7 +555,7 @@ class ControllerQuanlykhoNhanVien extends Controller
 	{
 		$keyword = urldecode($this->request->get['term']);
 		$where = "";
-		$arrkey = split(' ', $keyword);
+		@$arrkey = split(' ', $keyword);
 		if($keyword)
 		{
 			$arr = array();

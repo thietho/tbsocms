@@ -798,7 +798,7 @@ class ControllerModuleProduct extends Controller
 		if($this->validateBaoGia($data))
 		{
 			//Xoa
-			$arrdelid = split(",",$data['delid']);
+			@$arrdelid = split(",",$data['delid']);
 			foreach($arrdelid as $id)
 			{
 				if($id)

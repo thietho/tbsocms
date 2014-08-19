@@ -428,7 +428,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 			}
 			
 			$list = trim( $data['delchitiet'],",");
-			$arrdel = split(",", $list);
+			@$arrdel = split(",", $list);
 			
 			if(count($arrdel))
 			{
