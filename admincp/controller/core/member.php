@@ -376,9 +376,14 @@ class ControllerCoreMember extends Controller
 		$data = array();
 		foreach($members as $member)
 		{
+			$label = $member['fullname'];
+			if($member['phone'])
+				$label .= " - ".$member['phone'];
+			if($member['address'])
+				$label .= " - ".$member['address'];
 			$arr = array(
 						"id" => $member['id'],
-						"label" => $member['fullname'],
+						"label" => $label,
 						"value" => $member['fullname'],
 						"data" => array(
 										"fullname" =>$member['fullname'],
