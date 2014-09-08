@@ -166,9 +166,10 @@ function postStringData(object) {
 	});
 	return str;
 }
-
+var win;
 function openDialog(url,width,height) {
-    var result = window.showModalDialog(url, "", "dialogWidth:"+width+"px; dialogHeight:"+height+"px;");
+    //var result = window.showModalDialog(url, "", "dialogWidth:"+width+"px; dialogHeight:"+height+"px;");
+	win = window.open(url, "_blank", "toolbar=no, scrollbars=yes, resizable=yes, top=0, left=0, width="+width+", height="+height);
 }
 function daysInMonth(month,year) 
 {
