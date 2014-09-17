@@ -394,57 +394,64 @@ function selectFilm(eid,type)
 
 function browserFile(eid,type)
 {
+	
     $('#handler').val(eid);
 	$('#outputtype').val(type);
-	$("#popup").attr('title','Chọn hình');
-		switch(type)
-		{
-			case "single":
-			case "editor":
-			case "video":
-			$( "#popup" ).dialog({
-				
-				width: $(document).width()-100,
-				height: window.innerHeight,
-				
-				
-			});
-			break;
-			case "multi":
-			$( "#popup" ).dialog({
-				autoOpen: false,
-				show: "blind",
-				hide: "explode",
-				width: $(document).width()-100,
-				height: window.innerHeight,
-				modal: true,
-				buttons:
-				{
-					"Chọn":function()
-					{
-						$('.selectfile').each(function(index, element) {
-							var filepath = $(this).attr('filepath');
-							var filename = $(this).attr('filename');
-							var imagethumbnail = $(this).attr('imagethumbnail');
-                            $('#attachment').append(attachment.creatAttachmentRow(filepath,filename,imagethumbnail));
-                        });
-						$("#popup").dialog( "close" );
-					},
-					"Bỏ qua":function()
-					{
-						$("#popup").dialog( "close" );
-					}
-				}
-			});
-			break;
-		}
+	var eid = "fileform";
+	$('body').append('<div id="'+eid+'" style="display:none"></div>');
+	$("#"+eid).attr('title','Chọn hình');
 	
-		$("#popup").dialog("open");	
-		$("#popup-content").html(loading);
-		$("#popup-content").load("?route=core/file&dialog=true&type="+type,function(){
+	switch(type)
+	{
+		case "single":
+		case "editor":
+		case "video":
+		
+		$("#"+eid).dialog({
+			
+			width: $(document).width()-100,
+			height: window.innerHeight,
+			
 			
 		});
-		
+		break;
+		case "multi":
+		$("#"+eid).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: $(document).width()-100,
+			height: window.innerHeight,
+			modal: true,
+			close:function()
+			{
+				$("#"+eid).remove();
+			},
+			buttons:
+			{
+				"Chọn":function()
+				{
+					$('.selectfile').each(function(index, element) {
+						var filepath = $(this).attr('filepath');
+						var filename = $(this).attr('filename');
+						var imagethumbnail = $(this).attr('imagethumbnail');
+						$('#attachment').append(attachment.creatAttachmentRow(filepath,filename,imagethumbnail));
+					});
+					$("#"+eid).dialog( "close" );
+				},
+				"Bỏ qua":function()
+				{
+					$("#"+eid).dialog( "close" );
+				}
+			}
+		});
+		break;
+	}
+	
+	$("#"+eid).dialog("open");	
+	$("#"+eid).html(loading);
+	$("#"+eid).load("?route=core/file&dialog=true&type="+type);
+	
 }
 function intSeleteFile(type)
 {

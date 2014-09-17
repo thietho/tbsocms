@@ -698,30 +698,4 @@ $(document).ready(function() {
 	
 });
 </script>
-<?php if($hasFile) {?>
 
-<?php if($hasSubInfor) {?>
-<script src="<?php echo DIR_JS?>uploadsubimage.js" type="text/javascript"></script>
-<?php } ?>
-
-<?php }?>
-<?php if($hasVideo) {?>
-<script src="<?php echo DIR_JS?>uploadvideo.js" type="text/javascript"></script>
-<?php }?>
-<?php if($hasAudio) {?>
-<script src="<?php echo DIR_JS?>uploadaudio.js" type="text/javascript"></script>
-<?php }?>
-<script language="javascript">
-
-
-
-
-
-
-
-
-
-
-
-
-</script>
