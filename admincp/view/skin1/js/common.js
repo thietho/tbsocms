@@ -469,7 +469,8 @@ function intSeleteFile(type)
 				$('#imageid').val(this.id);
 				$('#imagepath').val($(this).attr('filepath'));
 				$('#imagethumbnail').val($(this).attr('imagethumbnail'));*/
-				$("#popup").dialog( "close" );
+				
+				$("#fileform").dialog( "close" );
 				
 				
 			});			
@@ -497,7 +498,7 @@ function intSeleteFile(type)
 				}
 				else
 					alert( 'You must be on WYSIWYG mode!' ) ;
-				$("#popup").dialog( "close" );
+				$("#fileform").dialog( "close" );
 			});			
 			break;
 		case "video":
@@ -524,7 +525,7 @@ function intSeleteFile(type)
 				}
 				else
 					alert( 'You must be on WYSIWYG mode!' ) ;*/
-				$("#popup").dialog( "close" );
+				$("#fileform").dialog( "close" );
 			});			
 			break;
 		case "multi":

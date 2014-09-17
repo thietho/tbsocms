@@ -106,17 +106,20 @@ function showProductForm(mediaid,mediaparentid,funcname)
 					$("#"+eid).remove();
 				},
 			buttons: {
-				
+				'Sưa với editor':function()
+				{
+					window.location = "?route=module/product/update&mediaid="+mediaid+"&mediaparent="+mediaparentid;
+				},
 				'Lưu':function()
 				{
-					$.blockUI({ message: "<h1>please wait...</h1>" });
-					var oEditor = CKEDITOR.instances['description'] ;
+					$.blockUI({ message: "<h1>Please wait...</h1>" });
+					/*var oEditor = CKEDITOR.instances['description'] ;
 					var pageValue = oEditor.getData();
 					$('textarea#description').val(pageValue);
 					
 					var oEditor = CKEDITOR.instances['summary'] ;
 					var pageValue = oEditor.getData();
-					$('textarea#summary').val(pageValue);
+					$('textarea#summary').val(pageValue);*/
 					$.post("?route=core/postcontent/savepost",$('#frmPost').serialize(),
 					function(data)
 					{

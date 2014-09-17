@@ -355,11 +355,13 @@ function callAtt(pos)
                     <p>
                         <label><?php echo $entry_summary?></label><br>
                         <textarea class="text editor" rows="3" cols="70" id="summary" name="summary"><?php echo $post['summary']?></textarea>
+<?php if($_GET['dialog']==""){ ?>
 <script language="javascript">
 $(document).ready(function(e) {
     setCKEditorType('summary',2);
 });
 </script>
+<?php } ?>
                     </p>
                     <?php } ?>
                     <?php if($hasSEO) {?>
@@ -435,11 +437,13 @@ $(document).ready(function(e) {
                     </p>
                 </div>
             </div>
+            <?php if($_GET['dialog']==""){ ?>
             <script language="javascript">
 			$(document).ready(function(e) {
                 setCKEditorType('description',2);
             });
 			</script>
+            <?php } ?>
             <?php }?>
             <?php if($hasVideo) {?>
             <div id="fragment-video">
@@ -678,7 +682,7 @@ function save()
 			var obj = $.parseJSON(data);
 			if(obj.error=="")
 			{
-				window.location = "<?php echo $DIR_CANCEL.'&page='.$_GET['page']?>";
+				window.location = "<?php echo $DIR_CANCEL?>";
 			}
 			else
 			{
