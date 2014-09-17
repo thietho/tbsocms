@@ -1,4 +1,4 @@
-<script src='<?php echo DIR_JS?>jquery.fileupload.js' type='text/javascript' language='javascript'> </script>
+
 
 
 
