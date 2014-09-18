@@ -614,8 +614,8 @@ $(document).ready(function(e) {
 		//window.location = "?route=module/product";
     });
 	$('#keyword').keyup(function(e) {
-        if(e.keyCode == 13)
-			pro.searchForm();
+        //if(e.keyCode == 13)
+		pro.searchForm();
     });
 	
 	$(document).ajaxComplete(function() {
