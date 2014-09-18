@@ -237,13 +237,6 @@ final class Document {
 									where moduleid ='".$moduleid."' ");
 		return $query->row[$name];	
 	}
-	public function getTenDonVi($madonvi)
-	{
-		$query = $this->db->query("Select `qlkdonvitinh`.* 
-									from `qlkdonvitinh` 
-									where madonvi ='".$madonvi."' ");
-		return $query->row['tendonvitinh'];	
-	}
 	
 	public function getDonViTinh($madonvi,$name="tendonvitinh")
 	{

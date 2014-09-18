@@ -167,6 +167,8 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		
 		$this->id='content';
 		$this->template='quanlykho/phieunhap_view.tpl';
+		if($_GET['show']=="giamgia")
+			$this->template='quanlykho/phieuxuat_view1.tpl';
 		if($_GET['opendialog'] == 'print')
 			$this->layout="layout/print";
 		$this->render();

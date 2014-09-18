@@ -87,7 +87,7 @@
 	<tr>
     	
         <th width="20%">Người lập phiếu</th>
-        <th width="20%">Khách hàng</th>
+        <th width="20%">Người giao</th>
         <th width="20%">Thủ quỷ</th>
     </tr>
     <tr>
