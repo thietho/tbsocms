@@ -365,9 +365,18 @@ class ControllerQuanlykhoNhanVien extends Controller
 		$this->data['nhanvien']['usertypeid'] = $this->document->getUser($this->data['nhanvien']['username'],'usertypeid');
 		
 		$this->data['permission'] = $this->string->referSiteMapToArray($this->data['nhanvien']['permission']);
-		
-		
-		
+		//print_r($this->data['permission']);
+		if(count($this->data['permission']) == 0)
+		{
+			//Phan quyen theo loai user
+			
+			$where = " AND permission like '%[".$this->data['nhanvien']['usertypeid']."]%'";
+			$modules = $this->model_core_module->getList($where);
+			
+			foreach($modules as $module)
+				$this->data['permission'][] = $module['moduleid'];
+			
+		}
 		$this->data['cancel'] = $this->url->https('quanlykho/nhanvien');
 		
 		$this->id='content';

@@ -347,9 +347,20 @@ final class User {
 		$arr_allmodule = $this->string->matrixToArray($data_module,'moduleid');
 		if(!in_array($moduleid,$arr_allmodule))
 			return true;
-		
+		//Kiem tra
 		$nhanvien = $this->getNhanVien();
 		$arr_allowmodule = $this->string->referSiteMapToArray($nhanvien['permission']);
+		if(count($arr_allowmodule)==0)
+		{
+			$sql = "Select *
+									from `module`
+									Where permission like '%[".$this->usertypeid."]%'";
+			$query = $this->db->query($sql);
+			foreach($query->rows as $module)
+			{
+				$arr_allowmodule[] = $module['moduleid'];
+			}
+		}
 		if(in_array($moduleid,$arr_allowmodule))
 			return true;
 		else

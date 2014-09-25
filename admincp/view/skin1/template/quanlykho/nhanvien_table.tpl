@@ -10,6 +10,7 @@
                         <th>STT</th>
                         <th>Mã nhân viên</th>
                         <th>Họ tên</th>
+                        <th>Loại</th>
                         <th>Email</th>
                         <th>Số điện thoại</th>
                         <?php if($dialog!=true){ ?>
@@ -44,6 +45,7 @@
                         <td><?php echo $key+1 ?></td>
                         <td><?php echo $item['manhanvien']?></td>
                         <td><?php echo $item['hoten']?></td>
+                        <td><?php echo $this->document->getCategory($item['loai'])?></td>
                         <td><?php echo $item['email']?></td>
                         <td><?php echo $item['sodienthoai']?></td>
                         <?php if($dialog!=true){ ?>

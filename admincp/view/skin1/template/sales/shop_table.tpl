@@ -41,8 +41,9 @@
                             	<li>
                                 	<?php echo $this->document->getNhanVien($staffid)?>
                                     (<?php echo $this->document->getNhanVien($staffid,'username')?>)
+                                    <?php if($this->user->checkPermission("sales/shop/removestaff")==true){ ?>
                                     <input type="button" class="button" value="Xóa" onclick=" removeStaff(<?php echo $staffid?>)"/>
-                                    
+                                    <?php } ?>
                                 </li>
                             <?php } ?>
                             </ul>
@@ -53,9 +54,9 @@
                             <?php if($this->user->checkPermission("sales/shop/update")==true){ ?>
                             <input type="button" class="button" name="btnEdit" value="<?php echo $item['text_edit']?>" onclick="window.location='<?php echo $item['link_edit']?>'"/>
                             <?php } ?>
-                            
+                            <?php if($this->user->checkPermission("sales/shop/addstaff")==true){ ?>
                             <input type="button" class="button" name="btnAddStaff" value="Thêm nhân viên vào cửa hàng" onclick="selectNhanVien(<?php echo $item['id']?>)"/>
-                            
+                            <?php } ?>
                         </td>
                         <?php } ?>
                     </tr>
