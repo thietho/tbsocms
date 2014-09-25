@@ -8,6 +8,7 @@ class ControllerPageHome extends Controller
 		//Lay cac module thuot usertype do ngoai admin
 		if($this->user->getUserTypeId() != 'admin')
 		{
+			
 			$this->data['allow_modules'] = $this->user->getAllowModule();
 		}
 		else

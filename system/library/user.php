@@ -340,14 +340,26 @@ final class User {
 	
 	public function checkPermission($moduleid)
 	{
+		
 		if($this->getUserTypeId() == 'admin')
 			return true;
+		
 		//Nhung module ko co khai bao thi ko can kiem tra
 		$data_module = $this->getAllModule();
 		$arr_allmodule = $this->string->matrixToArray($data_module,'moduleid');
 		if(!in_array($moduleid,$arr_allmodule))
 			return true;
 		//Kiem tra
+		$nhanvien = $this->getNhanVien();
+		$arr_allowmodule = $this->getAllowModule();
+		if(in_array($moduleid,$arr_allowmodule))
+			return true;
+		else
+			return false;
+	}
+	
+	public function getAllowModule()
+	{
 		$nhanvien = $this->getNhanVien();
 		$arr_allowmodule = $this->string->referSiteMapToArray($nhanvien['permission']);
 		if(count($arr_allowmodule)==0)
@@ -361,16 +373,6 @@ final class User {
 				$arr_allowmodule[] = $module['moduleid'];
 			}
 		}
-		if(in_array($moduleid,$arr_allowmodule))
-			return true;
-		else
-			return false;
-	}
-	
-	public function getAllowModule()
-	{
-		$nhanvien = $this->getNhanVien();
-		$arr_allowmodule = $this->string->referSiteMapToArray($nhanvien['permission']);
 		return $arr_allowmodule;
 	}
 	
