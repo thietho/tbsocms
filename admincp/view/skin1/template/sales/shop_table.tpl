@@ -9,6 +9,7 @@
                         <?php } ?>
                         <th>STT</th>
                         <th>Tên cửa hàng</th>
+                        <th>Loại</th>
                         <th>Địa chỉ</th>
                         <th>Điện thoại</th>
                         <th>Nhân viên</th>
@@ -30,6 +31,7 @@
                         <?php } ?>
                         <td><?php echo $key+1 ?></td>
                         <td><?php echo $item['shopname']?></td>
+                        <td><?php echo $this->document->shoptype[$item['shoptype']]?></td>
                         <td><?php echo $item['address']?></td>
                         <td><?php echo $item['phone']?></td>
                        	<td>

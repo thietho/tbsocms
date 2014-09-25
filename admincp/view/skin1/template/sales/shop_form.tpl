@@ -19,7 +19,15 @@
 					<input type="text" name="shopname" value="<?php echo $item['shopname']?>" class="text" size=60/>
                     
             	</p>
-              	
+              	<p>
+            		<label>Loại cửa hàng</label><br />
+					<select id="shoptype" name="shoptype">
+                    	<?php foreach($this->document->shoptype as $type => $typename){ ?>
+                        <option value="<?php echo $type?>"><?php echo $typename?></option>
+                        <?php } ?>
+                    </select>
+                    
+            	</p>
                 
                 <p>
             		<label>Địa chỉ</label><br />

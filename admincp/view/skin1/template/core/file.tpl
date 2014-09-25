@@ -1,4 +1,15 @@
-
+<style>
+.progress
+{
+	width:100%;	
+	
+}
+.bar {
+    height: 18px;
+    background: green;
+	text-align:center;
+}
+</style>
 
 
 

@@ -66,6 +66,10 @@ final class Document {
 						'module/product'=>'Product',
 						'module/news'=>'News'
 						);
+	public $shoptype = array(
+						'retail' => "Cửa hàng bán lẻ",
+						'saleoflot' => "Cửa hàng bán sỉ"
+						);
 	public function toVND($value,$donvi)
 	{
 		if($donvi == "VND")

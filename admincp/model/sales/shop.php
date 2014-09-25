@@ -3,6 +3,7 @@ class ModelSalesShop extends Model
 {
 	private $columns = array(
 								'shopname',
+								'shoptype',
 								'address',
 								'phone'
 								
@@ -38,8 +39,8 @@ class ModelSalesShop extends Model
 	
 	public function update($data)
 	{	
-		$data['createtime']=$this->db->escape(@$this->date->formatViewDate($data['createtime']));
-		$data['paymenttime']=$this->db->escape(@$this->date->formatViewDate($data['paymenttime']));
+		//$data['createtime']=$this->db->escape(@$this->date->formatViewDate($data['createtime']));
+		//$data['paymenttime']=$this->db->escape(@$this->date->formatViewDate($data['paymenttime']));
 		foreach($this->columns as $val)
 		{
 	
