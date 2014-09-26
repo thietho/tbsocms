@@ -395,7 +395,14 @@ class ControllerCorePostcontent extends Controller
 				}
 				$data['saleprice'] = json_encode($data['saleprice']);
 			}
-			
+			if(count($data['retail']))
+			{
+				foreach($data['retail'] as $key => $val)
+				{
+					$data['retail'][$key] = $this->string->toNumber($val);
+				}
+				$data['retail'] = json_encode($data['retail']);
+			}
 			
 			if($data['price'] == "")
 				$data['price'] = $this->data['post']['mainprice'];

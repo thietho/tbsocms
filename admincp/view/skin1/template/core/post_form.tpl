@@ -180,14 +180,25 @@ $('#title').change(function(e) {
 									{
 										
 										$.getJSON("?route=quanlykho/donvitinh/getListDonVi&madonvi="+ this.value,function(data){
+											var str = "<table>";
+											str+= '<tr>';
+											str+= '<td></td>';
+											str+= '<td>Sỉ</td>';
+											str+= '<td>Lẻ</td>';
+											str+= '</tr>';
 											for(i in data)
 											{
-												var str = "";
-												str+='<input type="text" id="saleprice-'+data[i].madonvi+'" name="saleprice['+data[i].madonvi+']" class="text number">/'+data[i].tendonvitinh+'<br>'
-												$('#giaban').append(str);
-												numberReady();
+												str += '<tr>';
+												str+= '<td>'+data[i].tendonvitinh+'</td>';
+												str+= '<td><input type="text" id="saleprice-'+data[i].madonvi+'" name="saleprice['+data[i].madonvi+']" class="text number"></td>';
+												str+= '<td><input type="text" id="retail-'+data[i].madonvi+'" name="retail['+data[i].madonvi+']" class="text number"></td>';
+												
+												str+=  '</tr>';
+												
 											}
-											
+											str += "</table>";
+											$('#giaban').append(str);
+											numberReady();
 											<?php if($post["saleprice"]!=""){ ?>
 												
 											var saleprice = $.parseJSON('<?php echo $post["saleprice"]?>');
@@ -195,6 +206,17 @@ $('#title').change(function(e) {
 											{
 												//alert(saleprice[i])
 												$('#saleprice-'+i).val(saleprice[i]);
+											}
+											
+											<?php } ?>
+											
+											<?php if($post["retail"]!=""){ ?>
+												
+											var retail = $.parseJSON('<?php echo $post["retail"]?>');
+											for(i in retail)
+											{
+												//alert(saleprice[i])
+												$('#retail-'+i).val(retail[i]);
 											}
 											
 											<?php } ?>

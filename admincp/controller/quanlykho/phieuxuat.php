@@ -14,7 +14,11 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$this->response->redirect('?route=page/home');
 		}
 		
-		
+		/*$this->data['loaiphieu'] = array(
+								"NK" => "Nhập từ nhà cung cấp",
+								"NK-KHTL" => "Khách hàng trả hàng",
+								
+								);*/
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->helper('image');
 		$this->load->model("core/category");
