@@ -8,7 +8,7 @@ function PhieuNhapXuat()
 		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="mediaid-'+ this.index +'" name="mediaid['+ this.index +']" value="'+ mediaid +'" /><input type="hidden" id="title-'+ this.index +'" name="title['+ this.index +']" value="'+ title +'" />'+ title +'</td>';
 		
 		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number short soluong" ref="'+ this.index +'"/></td>';
-		row +='<td class="number"><select mediaid="'+mediaid+'" class="madonvi" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'"></section></td>';
+		row +='<td class="number"><select mediaid="'+mediaid+'" class="madonvi" id="madonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+madonvi+'" ref="'+ this.index +'"></select></td>';
 		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number short giatien" ref="'+ this.index +'"/></td>';
 		row +='<td class="number"><input type="text" id="phantramgiamgia-'+ this.index +'" name="phantramgiamgia['+ this.index +']" value="'+phantramgiamgia+'" class="text number short phantramgiamgia" ref="'+ this.index +'"/></td>';
 		row +='<td class="number"><input type="text" id="giamgia-'+ this.index +'" name="giamgia['+ this.index +']" value="'+ giamgia +'" class="text number short giamgia" ref="'+ this.index +'"/></td>';
@@ -18,10 +18,13 @@ function PhieuNhapXuat()
 		row+='</tr>'
 		$('#nhapkhonguyenlieu').append(row);
 		var str = '#madonvi-'+ this.index;
+		var curpos = this.index;
 		$('.madonvi').change(function(e) {
-            //alert(this.id+this.value);
-			objdl.getPrice(mediaid,this.value);
+			var pos = $(this).attr('ref');
+			objdl.getPrice(pos,mediaid,this.value);
+			
         });
+		
 		$.getJSON("?route=core/media/getListDonVi&mediaid="+ mediaid,
 			function(data){
 				html = "";
@@ -32,7 +35,7 @@ function PhieuNhapXuat()
 				}
 				$(str).html(html);
 				$(str).val(madonvi);
-				alert($(str).val());
+				objdl.getPrice(curpos,mediaid,madonvi);
 			});
 		
 		objdl.tinhtong(this.index);
@@ -68,13 +71,18 @@ function PhieuNhapXuat()
         });
 		numberReady();
 	}
-	this.getPrice = function(mediaid,madonvi)
+	this.getPrice = function(pos,mediaid,madonvi)
 	{
+		
 		$.getJSON("?route=core/media/getMedia&col=mediaid&val="+ mediaid,
 			function(data)
 			{
+				
 				var saleprice = $.parseJSON(data.medias[0].saleprice);
 				price = saleprice[madonvi];
+				$('#giatien-'+pos).val(price);
+				
+				numberReady();
 			});
 	}
 	this.removeRow = function(pos)
