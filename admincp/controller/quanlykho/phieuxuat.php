@@ -220,6 +220,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
     	}
 		else
 		{
+			$data['ngaylap'] = $this->date->formatViewDate($data['ngaylap']);
 			if(isset($_SESSION['productlist']))
 			{
 				$medias = $_SESSION['productlist'];
@@ -256,6 +257,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		if($this->validateForm($data))
 		{
 			$nhanvien = $this->user->getNhanVien();
+			$data['ngaylap'] = $this->date->formatViewDate($data['ngaylap']);
 			$data['ngaythanhtoan'] = $this->date->formatViewDate($data['ngaythanhtoan']);
 			if($data['nguoithuchien']=="")
 			{

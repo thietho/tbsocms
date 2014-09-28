@@ -231,5 +231,12 @@ class ControllerSalesShop extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
+	public function export()
+	{
+		$this->id='content';
+		$this->template="sales/shop_export.tpl";
+		$this->layout="layout/center";
+		$this->render();
+	}
 }
 ?>

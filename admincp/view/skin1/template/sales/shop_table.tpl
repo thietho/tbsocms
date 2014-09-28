@@ -58,10 +58,10 @@
                             <input type="button" class="button" name="btnAddStaff" value="Thêm nhân viên vào cửa hàng" onclick="selectNhanVien(<?php echo $item['id']?>)"/>
                             <?php } ?>
                             <?php if($this->user->checkPermission("sales/shop/export")==true){ ?>
-                            <input type="button" class="button" name="btnExportShop" value="Xuất hàng cho cửa hàng" onclick="selectNhanVien(<?php echo $item['id']?>)"/>
+                            <input type="button" class="button" name="btnExportShop" value="Xuất hàng cho cửa hàng" onclick="window.location = '?route=sales/shop/export&shopid=<?php echo $item['id']?>'"/>
                             <?php } ?>
                             <?php if($this->user->checkPermission("sales/shop/import")==true){ ?>
-                            <input type="button" class="button" name="btnImportShop" value="Nhập kho từ cửa hàng" onclick="selectNhanVien(<?php echo $item['id']?>)"/>
+                            <input type="button" class="button" name="btnImportShop" value="Nhập kho từ cửa hàng" onclick="window.location = '?route=sales/shop/import&shopid=<?php echo $item['id']?>'"/>
                             <?php } ?>
                         </td>
                         <?php } ?>
