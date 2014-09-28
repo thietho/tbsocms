@@ -39,7 +39,7 @@
                         <?php } ?>
                         <td><center><?php echo $key+1 ?></center></td>
                         <td><a onclick="objdl.viewPN(<?php echo $item['id']?>)"><?php echo $item['maphieu']?></a></td>
-                        <td><?php echo $this->date->formatMySQLDate($item['ngaylap'],'longdate')?></td>
+                        <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
                        	
                         <td><?php echo $item['tennhacungcap']?></td>
                         <td><?php echo $item['tenkhachhang']?></td>

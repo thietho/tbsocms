@@ -11,7 +11,7 @@
                 <input type="button" value="Lưu & In" class="button" onClick="savephieu('print')"/>
      	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/phieunhap')"/>   
      	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
-                <input type="hidden" name="ngaylap" value="<?php echo $item['ngaylap']?>">
+                
                 
             </div>
             <div class="clearer">^&nbsp;</div>
@@ -22,6 +22,20 @@
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
+                	<p>
+                    	<label>Ngày nhập</label><br />
+                        
+                        <input type="text" class="text"  id="ngaylap" name="ngaylap" value="<?php echo $this->date->formatMySQLDate($item['ngaylap'])?>"/>
+						<script language="javascript">
+                            $(function() {
+                                $("#ngaylap").datepicker({
+                                        changeMonth: true,
+                                        changeYear: true,
+                                        dateFormat: 'dd-mm-yy'
+                                        });
+                                });
+                         </script>
+                    </p>
                     <p>
                     	<label>Loại phiếu</label><br />
                         <select id="loaiphieu" name="loaiphieu">

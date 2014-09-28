@@ -186,10 +186,12 @@ class ControllerQuanlykhoPhieunhap extends Controller
     	}
 		else
 		{
+			$this->data['item']['ngaylap'] = $this->date->getToday();
 			if(isset($_SESSION['productlist']))
 			{
 				$medias = $_SESSION['productlist'];
 				$i=0;
+				
 				foreach($medias as $media)
 				{
 					$this->data['data_nhapkho'][$i]['mediaid']=$media['mediaid'];
@@ -222,6 +224,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		{
 			
 			//$data['loaiphieu'] = $this->loaiphieu;
+			$data['ngaylap'] = $this->date->formatViewDate($data['ngaylap']);
 			$data['ngaythanhtoan'] = $this->date->formatViewDate($data['ngaythanhtoan']);
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
 			

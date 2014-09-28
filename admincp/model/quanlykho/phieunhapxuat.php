@@ -45,10 +45,11 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$loaiphieu=$this->db->escape(@$data['loaiphieu']);
 		$maphieu=$this->createMaPhieu($loaiphieu.$year.$this->date->numberFormate($month));
 		$nguoilap=$this->user->getUserName();
-		if($id==0)
+		/*if($id==0)
 			$ngaylap=$this->date->getToday();
 		else
-			$ngaylap=$this->db->escape(@$data['ngaylap']);
+			$ngaylap=$this->db->escape(@$data['ngaylap']);*/
+		$ngaylap=$this->db->escape(@$data['ngaylap']);
 		$loaiphieu=$this->db->escape(@$data['loaiphieu']);
 		$nguoithuchienid=$this->db->escape(@$data['nguoithuchienid']);
 		$nguoithuchien=$this->db->escape(@$data['nguoithuchien']);
