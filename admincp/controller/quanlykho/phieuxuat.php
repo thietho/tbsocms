@@ -16,8 +16,8 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		
 		$this->data['loaiphieu'] = array(
 								"PBH" => "Phiếu bán hàng",
-								//"PBH-XCH" => "Phiếu xuất ra cửa hàng",
-								"PBH-TNCC" => "Phiếu xuất trả nhà cung cấp",
+								//"XCH" => "Phiếu xuất ra cửa hàng",
+								"THNCC" => "Phiếu xuất trả nhà cung cấp",
 								
 								);
 		$this->load->model("quanlykho/phieunhapxuat");
