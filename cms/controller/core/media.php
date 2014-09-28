@@ -62,7 +62,7 @@ class ControllerCoreMedia extends Controller
 							OR description like '%".$keyword."%' 
 							)";	
 		}*/
-		$arrkey = split(' ', $keyword);
+		@$arrkey = split(' ', $keyword);
 		$where = "";
 		if($keyword !="")
 		{

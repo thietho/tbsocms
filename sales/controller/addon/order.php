@@ -295,7 +295,7 @@ class ControllerAddonOrder extends Controller
 			$data['orderid'] = $this->model_addon_order->insert($data);
 		}
 		//Xoa nhung id can xoa
-		$arrdelid = split(',',$data['delid']);
+		@$arrdelid = split(',',$data['delid']);
 		foreach($arrdelid as $id)
 		{
 			if($id)
@@ -399,7 +399,7 @@ class ControllerAddonOrder extends Controller
 		
 		$keyword = urldecode($this->request->get['keyword']);
 		$sitemapid = urldecode($this->request->get['sitemapid']);
-		$arrkey = split(' ', $keyword);
+		@$arrkey = split(' ', $keyword);
 		$where = "";
 		if($keyword !="")
 		{
@@ -445,7 +445,7 @@ class ControllerAddonOrder extends Controller
 				$para = $this->string->referSiteMapToArray($item['summary']);
 				foreach($para as $val)
 				{
-					$ar = split("=",$val);
+					@$ar = split("=",$val);
 					$data_price[$key][$ar[0]] = $ar[1];	
 				}
 				$khuyenmai = $this->model_core_media->getItem($data_price[$key]['makhuyenmai']);

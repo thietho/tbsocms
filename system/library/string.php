@@ -46,7 +46,7 @@ final class String
 	public function getTextLength($str, $to,$form)
 	{
 		
-		$arr = split(" ",strip_tags($str));
+		@$arr = split(" ",strip_tags($str));
 		$arr_str = array();
 		for($i=$to;$i<$form && $i<count($arr) ;$i++)
 		{
@@ -301,13 +301,13 @@ final class String
 	
 	function getFileName($path)
 	{
-		$arr = split("/",$path);
+		@$arr = split("/",$path);
 		return $arr[count($arr)-1];
 	}
 	
 	function getFileExt($path)
 	{
-		$arr = split("\.",$path);
+		@$arr = split("\.",$path);
 		return $arr[count($arr)-1];
 	}
 	
@@ -476,7 +476,7 @@ final class String
 		$s = $this->chuyenvekodau($s);
 		$s= str_replace("\\n","",$s);
 		$s = $this->removeKtdatbiet($s);
-		$arr = split(" ",$s);
+		@$arr = split(" ",$s);
 		
 		
 		return $arr;
@@ -514,7 +514,7 @@ final class String
 	
 	function createDirpath($path)
 	{
-		$arr = split("/",$path);
+		@$arr = split("/",$path);
 		$pa="";
 		foreach($arr as $item)
 		{
@@ -526,7 +526,7 @@ final class String
 	
 	function getFileInfo($filepath)
 	{
-		$arr = split("/",$filepath);
+		@$arr = split("/",$filepath);
 		if(count($arr)>0)
 		{
 			$data['filename'] = array_pop($arr);
@@ -538,7 +538,7 @@ final class String
 			$data['filepath'] = "";
 		}
 		$data['filesize'] = filesize($filepath);
-		$arr = split("\.",$data['filename']);
+		@$arr = split("\.",$data['filename']);
 		$data['ext'] = array_pop($arr);
 		return $data;
 	}

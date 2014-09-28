@@ -224,7 +224,7 @@ class Pager
 	function getURLQueryString($strkey, $setvalue)
 	{
 		$address = $_SERVER['QUERY_STRING'];
-		$arrParams = split("&", $address);
+		@$arrParams = split("&", $address);
 		if(count($arrParams)==1)
 			return "?$address&$strkey=$setvalue";
 		// Go though all elements

@@ -107,7 +107,7 @@ class ModelCoreMessage extends ModelCoreFile
 		/*$message = $this->getItem($messageid);
 		if($message['attachment']!="")
 		{
-			$list = split(",",$message['attachment']);
+			@$list = split(",",$message['attachment']);
 			foreach($list as $item)
 				$this->deleteFile($item);
 		}*/

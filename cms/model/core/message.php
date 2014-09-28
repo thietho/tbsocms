@@ -74,7 +74,7 @@ class ModelCoreMessage extends ModelCoreFile
 		$data['messageid']=$messageid;
 		if($attachment!="")
 		{	
-			$listfile = split(",",$attachment);
+			@$listfile = split(",",$attachment);
 			$this->updateListFileTemp($listfile);
 			$this->model_core_message->clearTemp();
 		}
@@ -162,7 +162,7 @@ class ModelCoreMessage extends ModelCoreFile
 	
 	private function getTarget($to)
 	{
-		$listarrdress = split(",",$to);
+		@$listarrdress = split(",",$to);
 		$listuser = array();
 		$listemail = array();
 		//Loc ra danh sach username va danh sach email
