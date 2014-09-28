@@ -12,7 +12,7 @@
                 <input type="button" value="Lưu & In" class="button" onClick="savephieu('print')"/>
      	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/phieuxuat')"/>   
      	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
-                <input type="hidden" name="ngaylap" value="<?php echo $item['ngaylap']?>">
+                
                 
                 
             </div>
@@ -24,7 +24,20 @@
                     <li class="tabs"><a href="#fragment-nguyenlieu"><span>Sản phẩm</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
-                    
+                    <p>
+                    	<label>Ngày nhập</label><br />
+                        
+                        <input type="text" class="text"  id="ngaylap" name="ngaylap" value="<?php echo $this->date->formatMySQLDate($item['ngaylap'])?>"/>
+						<script language="javascript">
+                            $(function() {
+                                $("#ngaylap").datepicker({
+                                        changeMonth: true,
+                                        changeYear: true,
+                                        dateFormat: 'dd-mm-yy'
+                                        });
+                                });
+                         </script>
+                    </p>
                     <p>
                     	<label>Loại phiếu</label><br />
                         <select id="loaiphieu" name="loaiphieu">
@@ -266,28 +279,7 @@ $(function() {
 			});
 		}
 	});
-	$("#tenkhachhang").autocomplete({
-		minLength: 2,
-		select: function( event, ui ) {
-			//console.log(ui.item.id);
-			//objdl.getProbyMediaId(ui.item.id);
-			//alert(ui.item.data.fullname);
-			$('#khachhangid').val(ui.item.id);
-			$('#dienthoai').val(ui.item.data.phone);
-			$('#diachi').val(ui.item.data.address);
-		},
-		source: function( request, response ) {
-		var term = request.term;
-		if ( term in cache ) {
-			response( cache[ term ] );
-			return;
-		}
-		$.getJSON( "?route=core/member/getMember", request, function( data, status, xhr ) {
-			cache[ term ] = data;
-			response( data );
-			});
-		}
-	});
+	
 	$("#nguoithuchien").autocomplete({
 		minLength: 2,
 		select: function( event, ui ) {
@@ -350,65 +342,12 @@ function intSelectNhanVien()
 	});
 			
 }
-$('#btnSelectKhachHang').click(function(e) {
-    $("#popup").attr('title','Chọn khách hàng');
-		$( "#popup" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-			width: 1000,
-			height: window.innerHeight,
-			modal: true,
-		});
-	
-		$("#popup").dialog("open");
-		$("#popup-content").html(loading);
-		$("#popup-content").load("?route=core/member&opendialog=true",function(){
-			
-		});
-});
-function intSelectMember()
-{
-	$('.item').click(function(e) {
-		
-        $('#khachhangid').val($(this).attr('id'));
-		$('#tenkhachhang').val($(this).attr('fullname'));
-		$('#dienthoai').val($(this).attr('phone'));
-		$('#diachi').val($(this).attr('address'));
-		$("#popup").dialog( "close" );
-    });
-}
+
 $('#btnAddRow').click(function(e) {
 	browseProduct();
 });
 
-$('#btnSeleteNhaCungCap').click(function(e) {
-    $("#popup").attr('title','Chọn nhà cung cấp');
-		$( "#popup" ).dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "explode",
-			width: 1000,
-			height: window.innerHeight,
-			modal: true,
-		});
-	
-		$("#popup").dialog("open");
-		$("#popup-content").html(loading);
-		$("#popup-content").load("?route=quanlykho/nhacungcap&opendialog=true",function(){
-			
-		});
-});
-function intSelectNhaCungCap()
-{
-	$('.item').click(function(e) {
-        $('#nhacungcapid').val($(this).attr('id'));
-		$('#tennhacungcap').val($(this).attr('tennhacungcap'));
-		$('#nhacungcapview').html($(this).attr('tennhacungcap'));
-		$('#nguoinhan').val($(this).attr('tennhacungcap'));
-		$("#popup").dialog( "close" );
-    });
-}
+
 function savephieu(type)
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 

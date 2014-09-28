@@ -233,6 +233,9 @@ class ControllerSalesShop extends Controller
 	}
 	public function export()
 	{
+		
+		$this->data['item'] = $this->model_sales_shop->getItem($this->request->get['shopid']);
+		$this->data['item']['ngaylap'] = $this->date->getToday();
 		$this->id='content';
 		$this->template="sales/shop_export.tpl";
 		$this->layout="layout/center";
