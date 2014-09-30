@@ -28,7 +28,7 @@
 	require_once(DIR_SYSTEM . 'library/image.php');
 	require_once(DIR_SYSTEM . 'library/mailsmtp.php');
 	include(DIR_COMPONENT."securimage/securimage.php");
-	
+	include(DIR_COMPONENT."xml/arraytoxml.php");
 	
 	// Loader
 	$loader = new Loader();

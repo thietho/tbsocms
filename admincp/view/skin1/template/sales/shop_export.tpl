@@ -50,7 +50,7 @@
                     
                     
                     <p>
-                        <label>Tư vấn viên</label><br />
+                        <label>Người xuất</label><br />
                         <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
                         <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 <?php echo $readonly?>/>
                         <input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên" />

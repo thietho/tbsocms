@@ -54,7 +54,7 @@ final class User {
 		
   	public function login($username, $password, $siteid) 
 	{
-		
+		$username;
 		if($username=="" || $password=="")
 			return false;
 		$sql="SELECT * FROM user WHERE username = '" . $this->db->escape($username) . "' AND password = '" . $this->db->escape(md5($password)) . "' AND status = 'active' AND deletedby = ''";
@@ -72,7 +72,7 @@ final class User {
 			$this->usertypeid = $query->row['usertypeid'];		
 			$this->userid = $query->row['userid'];
 			$this->username = $query->row['username'];			
-
+			print_r($query->rows[0]);
       		$query = $this->db->query("SELECT DISTINCT ug.permission FROM user u LEFT JOIN usertype ug ON u.usertypeid = ug.usertypeid WHERE u.userid = '" . (int)$this->session->data['userid'] . "'");
 
 			
@@ -306,7 +306,7 @@ final class User {
 	{
 		$sql = "Select *
 									from `qlknhanvien` 
-									where username = '".$this->username."' ";
+									where username = '".$this->getUserName()."' ";
 
 		$query = $this->db->query($sql);
 		return $query->row;
