@@ -445,43 +445,43 @@ $(document).ready(function(e) {
 			});
 	});
 	
-	function savephieu(type)
-	{
-		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
-		
-		$.post("?route=quanlykho/phieuxuat/save", $("#frm").serialize(),
-			function(data){
-				var arr = data.split("-");
-				if(arr[0] == "true")
-				{
-					switch(type)
-					{
-						case "":
-							window.location = "?route=quanlykho/phieuxuat";
-							break;
-						case "print":
-							$.unblockUI();
-							var id = arr[1];
-							objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
-							
-					}
-				}
-				else
-				{
-				
-					$('#error').html(data).show('slow');
-					$.unblockUI();
-					
-				}
-				
-			}
-		);
-	}
+	
 	$('#loaiphieu').val("<?php echo $item['loaiphieu']?>").change();
         
 });
 
-
+function savephieu(type)
+{
+	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	
+	$.post("?route=quanlykho/phieuxuat/save", $("#frm").serialize(),
+		function(data){
+			var arr = data.split("-");
+			if(arr[0] == "true")
+			{
+				switch(type)
+				{
+					case "":
+						window.location = "?route=quanlykho/phieuxuat";
+						break;
+					case "print":
+						$.unblockUI();
+						var id = arr[1];
+						objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
+						
+				}
+			}
+			else
+			{
+			
+				$('#error').html(data).show('slow');
+				$.unblockUI();
+				
+			}
+			
+		}
+	);
+}
 function intSelectMember()
 {
 	$('.item').click(function(e) {
