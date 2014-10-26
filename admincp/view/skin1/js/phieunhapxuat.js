@@ -19,8 +19,10 @@ function PhieuNhapXuat()
 		$('#nhapkhonguyenlieu').append(row);
 		var str = '#madonvi-'+ this.index;
 		var curpos = this.index;
+		
 		$('.madonvi').change(function(e) {
 			var pos = $(this).attr('ref');
+			
 			objdl.getPrice(pos,mediaid,this.value);
 			
         });
@@ -35,7 +37,8 @@ function PhieuNhapXuat()
 				}
 				$(str).html(html);
 				$(str).val(madonvi);
-				objdl.getPrice(curpos,mediaid,madonvi);
+				if(id == 0)
+					objdl.getPrice(curpos,mediaid,madonvi);
 			});
 		
 		objdl.tinhtong(this.index);
@@ -83,7 +86,6 @@ function PhieuNhapXuat()
 				
 				if(Number(price) == 0 || price == undefined)
 				{
-					alert(price);
 					price = data.medias[0].price;
 				}
 				$('#giatien-'+pos).val(price);
