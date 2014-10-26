@@ -80,6 +80,12 @@ function PhieuNhapXuat()
 				
 				var saleprice = $.parseJSON(data.medias[0].saleprice);
 				price = saleprice[madonvi];
+				
+				if(Number(price) == 0 || price == undefined)
+				{
+					alert(price);
+					price = data.medias[0].price;
+				}
 				$('#giatien-'+pos).val(price);
 				
 				numberReady();
