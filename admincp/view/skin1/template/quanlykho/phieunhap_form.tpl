@@ -253,5 +253,36 @@ $('#loaiphieu').change(function(e) {
 			$('#f-NK-KHTL').show();
 	}
 });
-
+function savephieu(type)
+{
+	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	
+	$.post("?route=quanlykho/phieunhap/save", $("#frm").serialize(),
+		function(data){
+			var arr = data.split("-");
+			if(arr[0] == "true")
+			{
+				switch(type)
+				{
+					case "":
+						window.location = "?route=quanlykho/phieunhap";
+						break;
+					case "print":
+						$.unblockUI();
+						var id = arr[1];
+						objdl.viewPX(id,"window.location = '?route=quanlykho/phieunhap'");
+						
+				}
+			}
+			else
+			{
+			
+				$('#error').html(data).show('slow');
+				$.unblockUI();
+				
+			}
+			
+		}
+	);
+}
 </script>
