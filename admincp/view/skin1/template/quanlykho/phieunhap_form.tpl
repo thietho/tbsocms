@@ -1,3 +1,4 @@
+
 <div class="section" id="sitemaplist">
 
 	<div class="section-title"><?php echo $this->document->title?></div>
@@ -284,5 +285,218 @@ function savephieu(type)
 			
 		}
 	);
+}
+//
+$(function() {
+	var cache = {};
+	$( "#txt_ref" ).autocomplete({
+		minLength: 2,
+		select: function( event, ui ) {
+			//console.log(ui.item.id);
+			objdl.getProbyMediaId(ui.item.id);
+			/*var obj = ui.item.data
+			var giagiam = 0;
+			if(obj.pricepromotion > 0)
+			{
+				giagiam = obj.price - obj.pricepromotion;
+			}
+			objdl.addRow('',obj.mediaid,obj.code,obj.productName,1,obj.unit,obj.price,giagiam,obj.discountpercent);
+			setTimeout("$('#txt_ref').val('')",1000);*/
+		},
+		source: function( request, response ) {
+		var term = request.term;
+		if ( term in cache ) {
+			response( cache[ term ] );
+			return;
+		}
+		$.getJSON( "?route=core/media/getProduct", request, function( data, status, xhr ) {
+			cache[ term ] = data;
+			response( data );
+			});
+		}
+	});
+	$("#tenkhachhang").autocomplete({
+		minLength: 2,
+		select: function( event, ui ) {
+			//console.log(ui.item.id);
+			//objdl.getProbyMediaId(ui.item.id);
+			//alert(ui.item.data.fullname);
+			$('#khachhangid').val(ui.item.id);
+			$('#dienthoai').val(ui.item.data.phone);
+			$('#diachi').val(ui.item.data.address);
+		},
+		source: function( request, response ) {
+		var term = request.term;
+		if ( term in cache ) {
+			response( cache[ term ] );
+			return;
+		}
+		$.getJSON( "?route=core/member/getMember", request, function( data, status, xhr ) {
+			cache[ term ] = data;
+			response( data );
+			});
+		}
+	});
+	$("#nguoithuchien").autocomplete({
+		minLength: 2,
+		select: function( event, ui ) {
+			$('#nguoithuchienid').val(ui.item.id);
+			$('#nguoithuchien').val(ui.item.value);
+		},
+		source: function( request, response ) {
+		var term = request.term;
+		if ( term in cache ) {
+			response( cache[ term ] );
+			return;
+		}
+		$.getJSON( "?route=quanlykho/nhanvien/getNhanVienByName", request, function( data, status, xhr ) {
+			cache[ term ] = data;
+			response( data );
+			});
+		}
+	});
+});
+$(document).ready(function(e) {
+	$('#btnTrahet').click(function(e) {
+		$('#thanhtoan').val($('#tongcong').html());
+		$('#thanhtoan').keyup();
+	});
+	$('#thuphi').keyup(function(e) {
+		objdl.tinhtong(0);
+	});
+	$('#thanhtoan').keyup(function(e) {
+		var tongcong = Number(stringtoNumber($('#tongcong').html()));
+		var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
+		var congno = tongcong - thanhtoan;
+		$('#congno').val(congno);
+		$('#lbl-congno').html(formateNumber(congno));
+	});
+	$('#btnSelectNhanVien').click(function(e) {
+		handle = "nguoinhan";
+		$("#popup").attr('title','Chọn nhân viên');
+			$( "#popup" ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				modal: true,
+				
+			});
+		
+			$("#popup").dialog("open");	
+			$("#popup-content").html(loading);
+			$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
+				
+			});
+	});
+	$('#btnSelectNhanVienNhan').click(function(e) {
+		handle = "nguoinhan";
+		$("#popup").attr('title','Chọn nhân viên');
+			$( "#popup" ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				modal: true,
+				
+			});
+		
+			$("#popup").dialog("open");	
+			$("#popup-content").html(loading);
+			$("#popup-content").load("?route=quanlykho/nhanvien&opendialog=true",function(){
+				
+			});
+	});
+	
+	$('#btnSelectKhachHang').click(function(e) {
+		$("#popup").attr('title','Chọn khách hàng');
+			$( "#popup" ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: 1000,
+				height: window.innerHeight,
+				modal: true,
+			});
+		
+			$("#popup").dialog("open");
+			$("#popup-content").html(loading);
+			$("#popup-content").load("?route=core/member&opendialog=true",function(){
+				
+			});
+	});
+	
+	$('#btnAddRow').click(function(e) {
+		browseProduct();
+	});
+	
+	$('#btnSeleteNhaCungCap').click(function(e) {
+		$("#popup").attr('title','Chọn nhà cung cấp');
+			$( "#popup" ).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: 1000,
+				height: window.innerHeight,
+				modal: true,
+			});
+		
+			$("#popup").dialog("open");
+			$("#popup-content").html(loading);
+			$("#popup-content").load("?route=quanlykho/nhacungcap&opendialog=true",function(){
+				
+			});
+	});
+	
+	
+	$('#loaiphieu').val("<?php echo $item['loaiphieu']?>").change();
+        
+});
+
+
+function intSelectMember()
+{
+	$('.item').click(function(e) {
+		
+		$('#khachhangid').val($(this).attr('id'));
+		$('#tenkhachhang').val($(this).attr('fullname'));
+		$('#dienthoai').val($(this).attr('phone'));
+		$('#diachi').val($(this).attr('address'));
+		$("#popup").dialog( "close" );
+	});
+}
+function intSelectNhaCungCap()
+{
+	$('.item').click(function(e) {
+		$('#nhacungcapid').val($(this).attr('id'));
+		$('#tennhacungcap').val($(this).attr('tennhacungcap'));
+		$('#nhacungcapview').html($(this).attr('tennhacungcap'));
+		$('#nguoinhan').val($(this).attr('tennhacungcap'));
+		$("#popup").dialog( "close" );
+	});
+}
+function intSelectNhanVien()
+{
+	switch(handle)
+	{
+		case "nguoithuchien":
+			$('.item').click(function(e) {
+				$("#nguoithuchienid").val($(this).attr('id'));
+				$("#nguoithuchien").val($(this).attr('hoten'));
+				$("#popup").dialog( "close" );
+			});
+			break;
+		case "nguoinhan":
+			$('.item').click(function(e) {
+				$("#nguoinhanid").val($(this).attr('id'));
+				$("#nguoinhan").val($(this).attr('hoten'));
+				
+				$("#popup").dialog( "close" );
+			});
+			break;	
+	}
+			
 }
 </script>
