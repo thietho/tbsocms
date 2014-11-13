@@ -107,6 +107,8 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$datasearchlike['trangthai'] = urldecode($this->request->get['trangthai']);
 		
 		$datasearchlike['tenkhachhang'] = urldecode($this->request->get['tenkhachhang']);
+		$datasearchlike['dienthoai'] = urldecode($this->request->get['dienthoai']);
+		$datasearchlike['diachi'] = urldecode($this->request->get['diachi']);
 		$datasearchlike['nguoithuchien'] = urldecode($this->request->get['nguoithuchien']);
 		
 		$arr = array();

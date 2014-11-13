@@ -12,6 +12,10 @@
                 <input type="text" id="nguoithuchien" name="nguoithuchien" class="text" value="" />-->
                 <label>Khách hàng</label>
                 <input type="text" id="tenkhachhang" name="tenkhachhang" class="text" value="" />
+                <label>Số điện thoại</label>
+                <input type="text" id="dienthoai" name="dienthoai" class="text" value="" />
+                <label>Địa chỉ</label>
+                <input type="text" id="diachi" name="diachi" class="text" value="" />
                 <label>Từ ngày</label>
                 <input type="text" class="text date" id="tungay" />
                 <script language="javascript">
@@ -143,6 +147,10 @@ function createParam()
 	
 	if($("#frm_phieunhap #tenkhachhang").val() != "")
 		url += "&tenkhachhang="+ encodeURI($("#frm_phieunhap #tenkhachhang").val());
+	if($("#frm_phieunhap #dienthoai").val() != "")
+		url += "&dienthoai="+ encodeURI($("#frm_phieunhap #dienthoai").val());
+	if($("#frm_phieunhap #diachi").val() != "")
+		url += "&diachi="+ encodeURI($("#frm_phieunhap #diachi").val());
 	
 	if($("#frm_phieunhap #tungay").val() != "")
 		url += "&tungay="+ encodeURI($("#frm_phieunhap #tungay").val());
