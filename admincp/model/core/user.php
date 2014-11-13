@@ -60,7 +60,8 @@ class ModelCoreUser extends ModelCoreFile
 		$updatedby=$this->user->getId();
 		$deletedby="";
 		$userip=$this->db->escape(@$this->request->server['REMOTE_ADDR']);
-		
+		$assignid=$this->db->escape(@$data['assignid']);
+		$commissions=$this->db->escape(@$data['commissions']);
 		$field=array(
 						'`userid`',
 						'`username`',
@@ -82,7 +83,9 @@ class ModelCoreUser extends ModelCoreFile
 						'`activeby`',
 						'`updatedby`',
 						'`deletedby`',
-						'`userip`'
+						'`userip`',
+						'`assignid`',
+						'`commissions`'
 					);
 		$value=array(
 						$userid,
@@ -105,7 +108,9 @@ class ModelCoreUser extends ModelCoreFile
 						$activeby,
 						$updatedby,
 						$deletedby,
-						$userip
+						$userip,
+						$assignid,
+						$commissions
 					);
 		
 		$id = $this->db->insertData("user",$field,$value);
@@ -137,7 +142,8 @@ class ModelCoreUser extends ModelCoreFile
 		$updatedby=$this->user->getId();
 		$deletedby="";
 		$userip=$this->db->escape(@$this->request->server['REMOTE_ADDR']);
-		
+		$assignid=$this->db->escape(@$data['assignid']);
+		$commissions=$this->db->escape(@$data['commissions']);
 		$field=array(
 						'`userid`',
 						'`username`',
@@ -159,7 +165,9 @@ class ModelCoreUser extends ModelCoreFile
 						'`activeby`',
 						'`updatedby`',
 						'`deletedby`',
-						'`userip`'
+						'`userip`',
+						'`assignid`',
+						'`commissions`'
 					);
 		$value=array(
 						$userid,
@@ -182,7 +190,9 @@ class ModelCoreUser extends ModelCoreFile
 						$activeby,
 						$updatedby,
 						$deletedby,
-						$userip
+						$userip,
+						$assignid,
+						$commissions
 					);
 		$where="id = '".$id."'";
 		$this->db->updateData("user",$field,$value,$where);
