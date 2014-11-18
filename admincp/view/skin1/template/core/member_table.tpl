@@ -44,7 +44,7 @@
                             <?php if($this->user->checkPermission("core/member/active")==true){ ?>
                             <input type="button" class="button" value="<?php echo $user['text_active']?>" onclick="activeUser('<?php echo $user['id']?>')"/>
                             <?php } ?>
-                            
+                            <input type="button" class="button" value="Tính hoa hồng" onclick="window.location='?route=core/member/commission&id=<?php echo $user['id']?>';"/>
                         </td>
                         
                     </tr>
