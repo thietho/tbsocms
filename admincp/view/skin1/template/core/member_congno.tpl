@@ -80,12 +80,14 @@
 	<tr>
     	<th>Số phiếu</th>
         <th width="80">Ngày lập</th>
+        <th>Lý do</th>
         <th>Số tiền</th>
     </tr>
     <?php foreach($data_phieuthu as $item){ ?>
     <tr>
     	<td><a onclick="viewPhieuThu(<?php echo $item['maphieu']?>)"><?php echo $item['sophieu']?></a></td>
         <td align="center"><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
+        <td><?php echo $item['lydo']?></td>
         <td class="number"><?php echo $this->string->numberFormate($item['quidoi'])?></td>
     </tr>
     <?php } ?>

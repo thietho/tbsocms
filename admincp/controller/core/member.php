@@ -381,6 +381,9 @@ class ControllerCoreMember extends Controller
 		$tungay = $this->date->formatViewDate($data['tungay']);
 		$denngay = $this->date->formatViewDate($data['denngay']);
 		$memberid = $data['memberid'];
+		$arr = array($memberid);
+		$this->data['congno'] = $this->loadModule("core/member","getCongNo",$arr);
+		
 		$this->data['member'] = $this->model_core_user->getId($memberid);
 		//Load cac khach hang assignid boi memberid
 		$where = " AND assignid = '".$memberid."'";
@@ -388,7 +391,7 @@ class ControllerCoreMember extends Controller
 		$arr_member = $this->string->matrixToArray($data_member,'id');
 		//print_r($arr_member);
 		$where = " AND loaiphieu = 'PBH'";
-		$where .= " AND khachhangid in ('". implode("','",$arr_member) ."')";
+		//$where .= " AND khachhangid in ('". implode("','",$arr_member) ."')";
 		if($tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
@@ -397,29 +400,16 @@ class ControllerCoreMember extends Controller
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
-		$data_banhang = $this->model_quanlykho_phieunhapxuat->thongke($where ." Order by ngaylap");
-		if(count($data_banhang))
+		
+		$this->data['data_banhang'] = array();
+		foreach($arr_member as $id)
 		{
-			$arrdate = array();
-			foreach($data_banhang as $i => $item)
-			{
-				$data_banhang[$i]['date'] = $this->date->getDate($item['ngaylap']);
-				$data_banhang[$i]['time'] = $this->date->getTime($item['ngaylap']);
-				if(!in_array($data_banhang[$i]['date'],$arrdate))
-					$arrdate[]=$data_banhang[$i]['date'];
-			}
-			$this->data['data_banhang'] = array();
-			foreach($arrdate as $date)
-			{
-				$this->data['data_banhang'][$date] = array();
-				foreach($data_banhang as $item)
-				{
-					if($item['date']==$date)
-					{
-						$this->data['data_banhang'][$date][] = $item;
-					}
-				}
-			}
+			$data_banhang = $this->model_quanlykho_phieunhapxuat->getList($where." AND khachhangid = ". $id ,0,0," Order by ngaylap");
+			$this->data['data_banhang'][$id] = $data_banhang;
+		}
+		
+		if(count($this->data['data_banhang']))
+		{
 			
 			$this->id='content';
 			$this->template="core/member_thongke.tpl";

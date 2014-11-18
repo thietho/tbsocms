@@ -1,48 +1,49 @@
 <table id="reportbanhang" class="data-table">
 	<thead>
         <tr>
-        	<th width="80px">Ngày</th>
+        	
         	<th>Mã phiếu</th>
-        	<th>Tên sản phẩm</th>
             <th>Khách hàng</th>
-            <th>Số lượng</th>
-            <th>Đơn vị</th>
-            <th>Giá bán</th>
-            <th>Giảm %</th>
-            <th>Giảm</th>
-            <th>Thành tiền</th>
+            <th>Điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Giá trị đơn hàng</th>
         </tr>
     </thead>
     <tbody>
     	<?php $sum = 0?>
-    	<?php foreach($data_banhang as $date => $banhang){ ?>
+    	<?php foreach($data_banhang as $memberid => $banhang){ ?>
         <tr>
-        	<td colspan="10"><strong><?php echo $this->date->formatMySQLDate($date)?></strong></td>
+        	<td colspan="6"><strong><?php echo $this->document->getCustomer($memberid)?></strong></td>
         </tr>
         	<?php foreach($banhang as $item) { ?>
-        	<?php $sum += $item['thanhtien']?>
+        	<?php $sum += $item['tongtien']?>
         <tr>
-        	<td><?php echo $this->date->formatMySQLDate($date)?></td>
+        	
         	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>,'')"><?php echo $item['maphieu']?></a></td>
-        	<td><?php echo $this->document->productName($item['mediaid'])?></td>
+        	
             
             <td><?php echo $item['tenkhachhang']?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['soluong'])?></td>
-            <td><?php echo $this->document->getDonViTinh($item['madonvi'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['giatien'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['phantramgiamgia'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['giamgia'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['thanhtien'])?></td>
+            <td><?php echo $item['dienthoai']?></td>
+            <td><?php echo $item['diachi']?></td>
+            <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
         </tr>
         	<?php } ?>
         <?php } ?>
         <tr>
-            <td class="number" colspan="9">Tổng cộng</td>
+            <td class="number" colspan="4">Tổng cộng</td>
             <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
         </tr>
         <tr>
-            <td class="number" colspan="9">Hoa hồng</td>
-            <td class="number"></td>
+            <td class="number" colspan="4">Hoa hồng</td>
+            <td class="number"><?php echo $this->string->numberFormate($sum*10/100)?></td>
+        </tr>
+        <tr>
+            <td class="number" colspan="4">Công nợ hiện tại</td>
+            <td class="number"><?php echo $this->string->numberFormate($congno)?></td>
+        </tr>
+        <tr>
+            <td class="number" colspan="4">Thanh toán hoa hồng</td>
+            <td class="number"><?php echo $this->string->numberFormate($sum*10/100 - $congno)?></td>
         </tr>
     </tbody>
 </table>

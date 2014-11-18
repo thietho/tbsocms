@@ -1,3 +1,4 @@
+<script src="<?php echo DIR_JS?>tabletoexcel.js" type="text/javascript"></script>
 <div class="section">
 
 	<div class="section-title"><?php echo $member['fullname']?></div>
