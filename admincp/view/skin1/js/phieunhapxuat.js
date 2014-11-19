@@ -130,6 +130,10 @@ function PhieuNhapXuat()
 	{
 		openDialog("?route=quanlykho/phieuxuat/printlist&listid="+listid+"&opendialog=print",800,500)
 	}
+	this.printPXDisCount = function(listid)
+	{
+		openDialog("?route=quanlykho/phieuxuat/printlist&listid="+listid+"&opendialog=print&show=giamgia",800,500)
+	}
 	this.viewPX = function(id,callback)
 	{
 		

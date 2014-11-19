@@ -55,6 +55,7 @@
             	
                 <?php }else{ ?>
                 <input class="button" id="btnPrint" value="In" type="button">
+                <input class="button" id="btnPrintDiscount" value="In giảm giá" type="button">
                 <?php if($this->user->checkPermission("quanlykho/phieuxuat/insert")==true){ ?>
                 <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo $insert?>')">
                 <?php } ?>
@@ -86,6 +87,17 @@ $('#btnPrint').click(function(e) {
     });
 	
 	objdl.printPX(arrid.join("-"));
+});
+$('#btnPrintDiscount').click(function(e) {
+	var arrid = new Array();
+    $('.inputchk').each(function(index, element) {
+        if(this.checked)
+		{
+			arrid.push(this.value);	
+		}
+    });
+	
+	objdl.printPXDisCount(arrid.join("-"));
 });
 function deleteitem()
 {
