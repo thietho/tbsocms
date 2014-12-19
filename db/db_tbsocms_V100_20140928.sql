@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `baogia` (
   `ngaybaogia` date NOT NULL,
   `ghichu` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+)   DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `baogia`
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `baogia_media` (
   `gia` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `ghichu` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
+)   DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `baogia_media`
@@ -1024,7 +1024,7 @@ CREATE TABLE IF NOT EXISTS `order_history` (
   `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `actiondate` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+)  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `order_history`
@@ -1079,7 +1079,7 @@ CREATE TABLE IF NOT EXISTS `qlkdonvitinh` (
   `quidoi` double DEFAULT NULL,
   `madonviquydoi` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`madonvi`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+)  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `qlkdonvitinh`
@@ -1122,7 +1122,7 @@ CREATE TABLE IF NOT EXISTS `qlknhacungcap` (
   `emailnguoilienhe` text COLLATE utf8_unicode_ci NOT NULL,
   `ghichu` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+)  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1165,7 +1165,7 @@ CREATE TABLE IF NOT EXISTS `qlknhanvien` (
   `permission` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_nhanvien_nhom1` (`maphongban`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+)   DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `qlknhanvien`
@@ -1212,7 +1212,7 @@ CREATE TABLE IF NOT EXISTS `qlkphieunhapxuat` (
   `lydothu` text COLLATE utf8_unicode_ci NOT NULL,
   `thuphi` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+)   DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `qlkphieunhapxuat`
@@ -1256,7 +1256,7 @@ CREATE TABLE IF NOT EXISTS `qlkphieunhapxuat_media` (
   `nguoinhan` text COLLATE utf8_unicode_ci NOT NULL,
   `vitri` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+)   DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `qlkphieunhapxuat_media`
@@ -1301,7 +1301,7 @@ CREATE TABLE IF NOT EXISTS `salesorder` (
   `discount` double NOT NULL,
   `discountpercent` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+)  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1320,7 +1320,7 @@ CREATE TABLE IF NOT EXISTS `salesorder_detail` (
   `price` double NOT NULL,
   `subtotal` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+)  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1367,7 +1367,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   `endtime` datetime NOT NULL,
   `shopid` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+)  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1600,7 +1600,7 @@ CREATE TABLE IF NOT EXISTS `thuchi` (
   `nguoithuchienid` bigint(20) NOT NULL,
   `nguoithuchien` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`maphieu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+)  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

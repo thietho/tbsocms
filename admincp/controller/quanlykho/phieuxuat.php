@@ -2,7 +2,7 @@
 class ControllerQuanlykhoPhieuxuat extends Controller
 {
 	private $error = array();
-	private $loaiphieu = "PBH";
+	private $loaiphieu = array('PBH','THNCC');
 	function __construct() 
 	{
 		
@@ -101,7 +101,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	private function loadData()
 	{
 		
-		$where = " AND loaiphieu='".$this->loaiphieu."'";
+		$where = " AND loaiphieu in ('". implode("','", $this->loaiphieu) ."') ";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
 		$datasearchlike['trangthai'] = urldecode($this->request->get['trangthai']);
