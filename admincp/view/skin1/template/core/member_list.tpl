@@ -63,7 +63,9 @@ $(document).ready(function(e) {
 	
 });
 $('#listmember .text').keyup(function(e) {
-    searchForm();
+    if(e.keyCode == 13)
+		searchForm();
+	
 });
 $('#listmember select').change(function(e) {
     searchForm();
