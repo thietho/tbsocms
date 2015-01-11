@@ -30,7 +30,7 @@ final class User {
 		$this->siteid = $this->session->data['siteid'];
 		
 	
-    	if (isset($this->session->data['userid'])) {
+    	/*if (isset($this->session->data['userid'])) {
 			$query = $this->db->query("SELECT * FROM user WHERE userid = '" . $this->db->escape($this->session->data['userid']) . "'");
 			
 			if ($query->num_rows) {
@@ -49,153 +49,20 @@ final class User {
 			} else {
 				$this->logout();
 			}
-    	}
+    	}*/
   	}
 		
-  	public function login($username, $password, $siteid) 
-	{
-		$username;
-		if($username=="" || $password=="")
-			return false;
-		$sql="SELECT * FROM user WHERE username = '" . $this->db->escape($username) . "' AND password = '" . $this->db->escape(md5($password)) . "' AND status = 'active' AND deletedby = ''";
-	   	$query = $this->db->query($sql);
-		
-    	if ($query->num_rows) 
-		{
-			$this->session->set('usertypeid',$query->row['usertypeid']);
-			$this->session->set('userid',$query->row['userid']);
-			$this->session->set('username',$query->row['username']);	
-			$this->session->set('siteid',$siteid);
-			
-			$query = $this->db->query("Select * from `site` where siteid = '".$siteid."'");
-			$this->session->set('sitename',$query->row['sitename']);		
-			$this->usertypeid = $query->row['usertypeid'];		
-			$this->userid = $query->row['userid'];
-			$this->username = $query->row['username'];			
-			print_r($query->rows[0]);
-      		$query = $this->db->query("SELECT DISTINCT ug.permission FROM user u LEFT JOIN usertype ug ON u.usertypeid = ug.usertypeid WHERE u.userid = '" . (int)$this->session->data['userid'] . "'");
-
-			
-	  		$this->setPermission($query->row['permission']);
-				
-      		return TRUE;
-    	} 
-		else 
-		{
-      		return FALSE;
-    	}
-  	}
-	
-	public function loginCMS($username, $password) 
-	{
-		
-		if($username=="" || $password=="")
-			return false;
-		$sql="SELECT * FROM user WHERE username = '" . $this->db->escape($username) . "' AND password = '" . $this->db->escape(md5($password)) . "' AND status = 'active' AND deletedby = ''";
-	   	$query = $this->db->query($sql);
-		
-    	if ($query->num_rows) 
-		{
-			$this->session->set('usertypeid',$query->row['usertypeid']);
-			$this->session->set('userid',$query->row['userid']);
-			$this->session->set('cmsuserid',$query->row['userid']);
-			$this->session->set('username',$query->row['username']);			
-			$this->usertypeid = $query->row['usertypeid'];
-			$this->userid = $query->row['userid'];
-			$this->username = $query->row['username'];			
-
-      		$query = $this->db->query("SELECT DISTINCT ug.permission FROM user u LEFT JOIN usertype ug ON u.usertypeid = ug.usertypeid WHERE u.userid = '" . (int)$this->session->data['userid'] . "'");
-
-
-	  		$this->setPermission($query->row['permission']);
-			
-			if($query->row['usertypeid'] > 1)
-			{
-				return FALSE;
-
-			}
-				
-      		return TRUE;
-    	} 
-		else 
-		{
-      		return FALSE;
-    	}
-  	}
-
-	public function logincode($username, $password) 
-	{
-		
-		if($username=="" || $password=="")
-			return false;
-		$sql="SELECT * FROM user WHERE username = '" . $this->db->escape($username) . "' AND password = '" . $this->db->escape($password) . "' AND status <> 0";
-	   	$query = $this->db->query($sql);
-		
-    	if ($query->num_rows) 
-		{
-			$this->session->set('userid',$query->row['userid']);
-			$this->session->set('username',$query->row['username']);			
-			$this->userid = $query->row['userid'];
-			$this->username = $query->row['username'];			
-
-      		$query = $this->db->query("SELECT DISTINCT ug.permission FROM user u LEFT JOIN usertype ug ON u.usertypeid = ug.usertypeid WHERE u.userid = '" . (int)$this->session->data['userid'] . "'");
-
-			
-	  		$this->setPermission($query->row['permission']);
-				
-      		return TRUE;
-    	} 
-		else 
-		{
-      		return FALSE;
-    	}
-  	}
-	
-  	public function logout() {
-		unset($_SESSION['safemode']);
-		unset($_SESSION['userid']);
-		unset($_SESSION['sessionid']);
-		unset($this->session->data['sessionid']);
-		unset($this->session->data['userid']);	
-		$this->userid = '';
-		$this->username = '';
-		$this->safemode = false;
-  	}
+  	
 	
 	public function setPermission($strPermission)
 	{
 		$this->permission = array();
 		
-		/*//Lay Mang Permission
-		$arr = $this->_getJSONArray($strPermission);
-		
-		//Lay mang cac module co quyen
-		$arrModule = $this->_getModules_Filter($arr);
-		
-		//Tao mang tung module + quyen & sitemap
-		foreach($arrModule as $moduleid)
-		{
-			$this->permission[$moduleid] = array(
-				"Permissions" => $this->_getPermissions($moduleid, $arr),
-				"Sitemaps" => $this->_getSitemaps($moduleid, $arr)
-			);
-		}*/
-		
 		$this->permission = $this->string->referSiteMapToArray($strPermission);
 		
 	}
 
-	public function setControl($key, $button)
-	{
-		$arr = array();
-		if(!is_array($button)) {array_push($arr,$button);} else {$arr = $button;}
-		$this->Control[$key] = array($arr);
-	}
 	
-	public function getControl()
-	{
-		return $this->Control;
-	}
 
 	public function hasPermission($moduleid, $action) 
 	{
@@ -240,7 +107,17 @@ final class User {
 		} 
 		return false;
   	}
-  	
+  	public function logout() {
+		unset($_SESSION['safemode']);
+		unset($_SESSION['userid']);
+		unset($_SESSION['username']);
+		unset($_SESSION['sessionid']);
+		unset($this->session->data['sessionid']);
+		unset($this->session->data['userid']);	
+		$this->userid = '';
+		$this->username = '';
+		$this->safemode = false;
+  	}
 	public function setSessionId($sessionid)
 	{
 		$this->session->set('sessionid',$sessionid);
@@ -304,12 +181,7 @@ final class User {
 
 	public function getNhanVien()
 	{
-		$sql = "Select *
-									from `qlknhanvien` 
-									where username = '".$this->getUserName()."' ";
-
-		$query = $this->db->query($sql);
-		return $query->row;
+		return $this->session->data['nhanvien'];
 	}
 	public function getShop()
 	{

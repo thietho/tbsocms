@@ -20,7 +20,7 @@ class ModelCoreUser extends ModelCoreFile
 		/*$id=$this->db->escape(@$id);
 		$query = $this->db->query("Select * from `user` where id = '".$id."'");
 		return $query->row;*/
-		$sql="Select * from `user` where id = '".$id."'";
+		$sql="Select * from `user` where id = '".$this->db->escape($id)."'";
 		$tb = $this->document->select($sql);
 		return $tb[0];
 		
@@ -28,7 +28,7 @@ class ModelCoreUser extends ModelCoreFile
 	
 	public function getItem($userid)
 	{
-		$sql = "Select * from `user` where userid = '".$userid."'";
+		$sql = "Select * from `user` where userid = '".$this->db->escape($userid)."'";
 		$tb = $this->document->select($sql);
 		return $tb[0];
 		
@@ -39,7 +39,7 @@ class ModelCoreUser extends ModelCoreFile
 	
 	public function getItemByUserName($username)
 	{
-		$sql = "Select * from `user` where username = '".$username."' AND deletedby =''";
+		$sql = "Select * from `user` where username = '".$this->db->escape($username)."' AND deletedby =''";
 		$tb = $this->document->select($sql);
 		return $tb[0];
 		
@@ -50,7 +50,7 @@ class ModelCoreUser extends ModelCoreFile
 	
 	public function getItemByEmail($email)
 	{
-		$sql = "Select * from `user` where email = '".$email."' AND deletedby =''";
+		$sql = "Select * from `user` where email = '".$this->db->escape($email)."' AND deletedby =''";
 		$tb = $this->document->select($sql);
 		return $tb[0];
 		
