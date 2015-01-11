@@ -414,13 +414,13 @@ final class Document {
 	public function getNextIdVarChar($tablename,$tableid,$temp)
 	{
 	 	//echo $temp;
-		echo $sql="SELECT $tableid FROM `$tablename` WHERE $tableid LIKE '$temp%'";
+		$sql="SELECT $tableid FROM `$tablename` WHERE $tableid LIKE '$temp%'";
 		$mid=$this->select($sql);
 		
 		//echo count($mid);
 		if(count($mid)==0)
 			return $temp."1";
-		print_r($mid);
+		
 		$mnum=array();
 		for($i=0; $i<count($mid); $i++)
 		{

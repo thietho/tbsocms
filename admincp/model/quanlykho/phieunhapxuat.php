@@ -47,7 +47,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$month = $this->date->getMonth($today);
 		$id=(int)@$data['id'];
 		$loaiphieu=$this->db->escape(@$data['loaiphieu']);
-		echo $maphieu=$this->createMaPhieu($loaiphieu.$year.$this->date->numberFormate($month));
+		$maphieu=$this->createMaPhieu($loaiphieu.$year.$this->date->numberFormate($month));
 		$nguoilap=$this->user->getUserName();
 		/*if($id==0)
 			$ngaylap=$this->date->getToday();
@@ -136,7 +136,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		{
 			//$data['id'] = $this->db->insertData("qlkphieunhapxuat",$field,$value);
 			$data['id'] = $this->document->insertData("qlkphieunhapxuat",$field,$value);
-			echo $maphieu;
+			
 			$this->updateCol($data['id'],'maphieu',$maphieu);
 		}
 		else

@@ -21,22 +21,15 @@ class ModelCoreUser extends ModelCoreFile
 		$query = $this->db->query("Select * from `user` where id = '".$id."'");
 		return $query->row;*/
 		$sql="Select * from `user` where id = '".$id."'";
-		$url = HTTP_SERVICE.'?route=core/db/select';
-		$data = array('sql' => base64_encode($sql));
-		$str = $this->document->httppost($url,$data);
-		$tb = json_decode($str);	
-		$this->document->objectToArray($tb);
+		$tb = $this->document->select($sql);
 		return $tb[0];
+		
 	}
 	
 	public function getItem($userid)
 	{
 		$sql = "Select * from `user` where userid = '".$userid."'";
-		$url = HTTP_SERVICE.'?route=core/db/select';
-		$data = array('sql' => base64_encode($sql));
-		$str = $this->document->httppost($url,$data);
-		$tb = json_decode($str);	
-		$this->document->objectToArray($tb);
+		$tb = $this->document->select($sql);
 		return $tb[0];
 		
 		/*$userid=$this->db->escape(@$userid);
@@ -47,11 +40,7 @@ class ModelCoreUser extends ModelCoreFile
 	public function getItemByUserName($username)
 	{
 		$sql = "Select * from `user` where username = '".$username."' AND deletedby =''";
-		$url = HTTP_SERVICE.'?route=core/db/select';
-		$data = array('sql' => base64_encode($sql));
-		$str = $this->document->httppost($url,$data);
-		$tb = json_decode($str);	
-		$this->document->objectToArray($tb);
+		$tb = $this->document->select($sql);
 		return $tb[0];
 		
 		/*$username=$this->db->escape(@$username);
@@ -62,11 +51,7 @@ class ModelCoreUser extends ModelCoreFile
 	public function getItemByEmail($email)
 	{
 		$sql = "Select * from `user` where email = '".$email."' AND deletedby =''";
-		$url = HTTP_SERVICE.'?route=core/db/select';
-		$data = array('sql' => base64_encode($sql));
-		$str = $this->document->httppost($url,$data);
-		$tb = json_decode($str);	
-		$this->document->objectToArray($tb);
+		$tb = $this->document->select($sql);
 		return $tb[0];
 		
 		/*$email=$this->db->escape(@$email);

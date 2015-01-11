@@ -10,7 +10,7 @@ final class Cache {
 			{
 				
 				$time = fileatime($file);
-				if (time()- $time >$this->expire)
+				if (time()- $time > $this->expire * 7)
 				{
 					unlink($file);
 				}
