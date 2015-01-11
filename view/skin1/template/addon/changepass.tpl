@@ -4,7 +4,7 @@
     	<table>
         	<tr>
             	<td><label>Tên đăng nhập</label></td>
-                <td><?php echo $this->member->getId()?></td>
+                <td><?php echo $this->member->data['username']?></td>
             </tr>
             <tr>
             	<td><label>Mật khẩu củ</label></td>
