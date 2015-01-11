@@ -6,10 +6,10 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$sql = "Select `qlkphieunhapxuat`.*
 									from `qlkphieunhapxuat` 
 									where id ='".$id."' ".$where;
-		//$tb = $this->document->select($sql);
-		//return $tb[0];
-		$query = $this->db->query($sql);
-		return $query->row;
+		$tb = $this->document->select($sql);
+		return $tb[0];
+		/*$query = $this->db->query($sql);
+		return $query->row;*/
 	}
 
 	public function getList($where="", $from=0, $to=0,$order="")
@@ -28,16 +28,16 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
-		//$tb = $this->document->select($sql);
-		//return $tb;
-		$query = $this->db->query($sql);
-		return $query->rows;
+		$tb = $this->document->select($sql);
+		return $tb;
+		/*$query = $this->db->query($sql);
+		return $query->rows;*/
 	}
 	
 	private function createMaPhieu($prefix="")
 	{
-		return $this->db->getNextIdVarChar('qlkphieunhapxuat','maphieu',$prefix);
-		//return $this->document->getNextIdVarChar('qlkphieunhapxuat','maphieu',$prefix);
+		//return $this->db->getNextIdVarChar('qlkphieunhapxuat','maphieu',$prefix);
+		return $this->document->getNextIdVarChar('qlkphieunhapxuat','maphieu',$prefix);
 	}
 	
 	public function save($data)
@@ -134,16 +134,16 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						);
 		if((int)$data['id'] == 0)
 		{
-			$data['id'] = $this->db->insertData("qlkphieunhapxuat",$field,$value);
-			//$data['id'] = $this->document->insertData("qlkphieunhapxuat",$field,$value);
+			//$data['id'] = $this->db->insertData("qlkphieunhapxuat",$field,$value);
+			$data['id'] = $this->document->insertData("qlkphieunhapxuat",$field,$value);
 			
 			$this->updateCol($data['id'],'maphieu',$maphieu);
 		}
 		else
 		{
 			$where="id = '".$data['id']."'";
-			$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
-			//$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
+			//$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
+			$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
 		}
 		return $data['id'];
 	}
@@ -162,8 +162,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$val
 						);
 		$where="id = '".$id."'";
-		$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
-		//$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
+		//$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
+		$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
 	}
 	
 	public function delete($id)
@@ -172,21 +172,21 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$value = array('deleted');
 		
 		$where="id = '".$data['id']."'";
-		$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
-		//$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
+		//$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
+		$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
 		$where="phieuid = '".$id."'";
-		$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
-		//$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
+		//$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
+		$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
 	}
 	
 	public function destroy($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("qlkphieunhapxuat",$where);
-		//$this->document->deleteData("qlkphieunhapxuat",$where);
+		//$this->db->deleteData("qlkphieunhapxuat",$where);
+		$this->document->deleteData("qlkphieunhapxuat",$where);
 		$where="phieuid = '".$id."'";
-		$this->db->deleteData("qlkphieunhapxuat_media",$where);
-		//$this->document->deleteData("qlkphieunhapxuat_media",$where);
+		//$this->db->deleteData("qlkphieunhapxuat_media",$where);
+		$this->document->deleteData("qlkphieunhapxuat_media",$where);
 	}
 	//Chi tiet phieu nhap
 	public function getPhieuNhapXuatMedia($id)
@@ -194,20 +194,20 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$sql = "Select `qlkphieunhapxuat_media`.*
 									from `qlkphieunhapxuat_media` 
 									where id ='".$id."' ".$where;
-		//$tb = $this->document->select($sql);
-		//return $tb[0];
-		$query = $this->db->query($sql);
-		return $query->row;
+		$tb = $this->document->select($sql);
+		return $tb[0];
+		/*$query = $this->db->query($sql);
+		return $query->row;*/
 	}
 	public function getPhieuNhapXuatMediaList($where)
 	{
 		$sql = "Select `qlkphieunhapxuat_media`.*
 									from `qlkphieunhapxuat_media` 
 									where trangthai <> 'deleted' " . $where;
-		//$tb = $this->document->select($sql);
-		//return $tb;
-		$query = $this->db->query($sql);
-		return $query->rows;
+		$tb = $this->document->select($sql);
+		return $tb;
+		/*$query = $this->db->query($sql);
+		return $query->rows;*/
 	}
 	public function savePhieuNhapXuatMedia($data)
 	{
@@ -290,22 +290,22 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		if((int)@$data['id'] == 0 )
 		{
 				
-			$data['id'] = $this->db->insertData("qlkphieunhapxuat_media",$field,$value);
-			//$data['id'] = $this->document->insertData("qlkphieunhapxuat_media",$field,$value);
+			//$data['id'] = $this->db->insertData("qlkphieunhapxuat_media",$field,$value);
+			$data['id'] = $this->document->insertData("qlkphieunhapxuat_media",$field,$value);
 		}
 		else
 		{
 			$where="id = '".$id."'";
-			$this->db->updateData("qlkphieunhapxuat_media",$field,$value,$where);
-			//$this->document->updateData("qlkphieunhapxuat_media",$field,$value,$where);
+			//$this->db->updateData("qlkphieunhapxuat_media",$field,$value,$where);
+			$this->document->updateData("qlkphieunhapxuat_media",$field,$value,$where);
 		}
 		return $data['id'];
 	}
 	public function deletePhieuNhapXuatMedia($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("qlkphieunhapxuat_media",$where);
-		//$this->document->deleteData("qlkphieunhapxuat_media",$where);
+		//$this->db->deleteData("qlkphieunhapxuat_media",$where);
+		$this->document->deleteData("qlkphieunhapxuat_media",$where);
 	}
 	
 	public function thongke($where)
