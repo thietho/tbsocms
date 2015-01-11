@@ -223,7 +223,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		else
 		{
 			
-			$this->data['item']['ngaylap'] = $this->date->getToday();
+			//$this->data['item']['ngaylap'] = $this->date->getToday();
 			if(isset($_SESSION['productlist']))
 			{
 				$medias = $_SESSION['productlist'];

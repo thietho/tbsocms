@@ -580,10 +580,16 @@ function addImageTo()
 function toPhpTime(t)
 {
 	var d = new Date(t);
-	var date = d.getFullYear()+"-"+ (d.getMonth()<10?"0"+d.getMonth():d.getMonth()) +"-"+d.getDate();
+	var date = d.getFullYear()+"-"+ (d.getMonth()<10?"0"+(d.getMonth()+1):d.getMonth()+1) +"-"+(d.getDate()<10?"0"+d.getDate():d.getDate());
 	var time = (d.getHours()<10?"0"+d.getHours():d.getHours())+":"+(d.getMinutes()<10?"0"+d.getMinutes():d.getMinutes())+":"+ (d.getSeconds()<10?"0"+d.getSeconds():d.getSeconds());
 	
 	return date+" "+time;
+}
+function intToDate(n)
+{
+	var d = new Date(n);
+	var date =(d.getDate()<10?"0"+d.getDate():d.getDate())+"-"+(d.getMonth()<10?"0"+(d.getMonth()+1):d.getMonth()+1)+"-"+d.getFullYear();
+	return date;
 }
 function Attachment()
 {

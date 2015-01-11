@@ -451,7 +451,8 @@ $(document).ready(function(e) {
 	
 	
 	$('#loaiphieu').val("<?php echo $item['loaiphieu']?>").change();
-        
+    if($('#ngaylap').val()=='')
+		$('#ngaylap').val(intToDate(Date.now()));
 });
 
 
