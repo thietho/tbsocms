@@ -28,8 +28,21 @@
                     <input type="button" class="button selectProduct" value="Chọn" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $this->document->productName($media)?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>" discountpercent="<?php echo $media['discountpercent']?>" productname="<?php echo $this->document->productName($media)?>" brandname="<?php echo $this->document->getCategory($media['brand'])?>"/>
                     <?php } ?>
                     <?php if(count($media['child'])){ ?>
-                    <table>
+                    <script language="javascript">
+					$("#productsize<?php echo $media['mediaid']?>").sortable();
+					$("#productsize<?php echo $media['mediaid']?>").droppable({
+					  drop: function( event, ui ) {
+						
+						$(this).children().each(function(index, element) {
+                            alert(this.id);
+                        });
+					  }
+					});
+					</script>
+                    
+                    <div id="productsize<?php echo $media['mediaid']?>">
                     <?php foreach($media['child'] as $k => $child){ ?>
+                    <table id="child<?php echo $child['mediaid']?>">
                     	<tr>
                         	<td>
                             	<?php echo $child['sizes']?> <?php echo $child['color']?> <?php echo $child['material']?> : <?php echo $this->string->numberFormate($child['price'])?><?php if($child['noteprice']!="") echo "(".$child['noteprice'].")";?><br />
@@ -53,8 +66,9 @@
                         
                         
                         </tr>
-                    <?php } ?>
                     </table>
+                    <?php } ?>
+                    </div>
                     <?php } ?>
                 </td>
                 <td width="150px">
@@ -101,6 +115,7 @@
 <script language="javascript">
 
 $(function(){
+	
     $.contextMenu({
         selector: '.listitem', 
         callback: function(key, options) {
