@@ -27,8 +27,17 @@
                     <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $media['mediaid']?>')"/>
                     <input type="button" class="button selectProduct" value="Chọn" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $this->document->productName($media)?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>" discountpercent="<?php echo $media['discountpercent']?>" productname="<?php echo $this->document->productName($media)?>" brandname="<?php echo $this->document->getCategory($media['brand'])?>"/>
                     <?php } ?>
+                    <div>
+                    	Hiển thị:
+                        <select id="displaytype<?php echo $media['mediaid']?>" mediaid="<?php echo $media['mediaid']?>">
+                        	<?php foreach($this->document->productdisplay as $key => $val){ ?>
+                            <option value="<?php echo $key?>"><?php echo $val?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
                     <?php if(count($media['child'])){ ?>
                     <script language="javascript">
+					$("#displaytype<?php echo $media['mediaid']?>").val("<?php echo $media['displaytype']?>");
 					$("#productsize<?php echo $media['mediaid']?>").sortable({
 						update: function( event, ui )
 						{
@@ -49,15 +58,13 @@
 							});
 						}
 					});
+					
+					$("#displaytype<?php echo $media['mediaid']?>").change(function(e) {
+						
+                        $.post("?route=core/media/updateCol",{mediaid:$(this).attr('mediaid'),col:'displaytype',val:this.value});
+                    });
 					</script>
-                    <div>
-                    	Hiển thị:
-                        <select id="displaytype<?php echo $media['mediaid']?>" mediaid="<?php echo $child['mediaid']?>">
-                        	<?php foreach($this->document->productdisplay as $key => $val){ ?>
-                            <option value="<?php echo $key?>"><?php echo $val?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
+                    
                     <div id="productsize<?php echo $media['mediaid']?>">
                     <?php foreach($media['child'] as $k => $child){ ?>
                     
