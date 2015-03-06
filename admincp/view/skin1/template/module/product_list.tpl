@@ -29,20 +29,39 @@
                     <?php } ?>
                     <?php if(count($media['child'])){ ?>
                     <script language="javascript">
-					$("#productsize<?php echo $media['mediaid']?>").sortable();
-					$("#productsize<?php echo $media['mediaid']?>").droppable({
-					  drop: function( event, ui ) {
-						
-						$(this).children().each(function(index, element) {
-                            alert(this.id);
-                        });
-					  }
+					$("#productsize<?php echo $media['mediaid']?>").sortable({
+						update: function( event, ui )
+						{
+							var arrid = new Array();
+							var arrpos = new Array();
+							$(this).children('table').each(function(index, element) {
+								arrid.push($(this).attr('mediaid'));
+								arrpos.push($(this).attr('position'));
+								
+							});
+							$.post("?route=module/product/updatePosition",
+								{
+									mediaid:arrid,
+									position:arrpos
+								},
+								function(){
+								
+							});
+						}
 					});
 					</script>
-                    
+                    <div>
+                    	Hiển thị:
+                        <select id="displaytype<?php echo $media['mediaid']?>" mediaid="<?php echo $child['mediaid']?>">
+                        	<?php foreach($this->document->productdisplay as $key => $val){ ?>
+                            <option value="<?php echo $key?>"><?php echo $val?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
                     <div id="productsize<?php echo $media['mediaid']?>">
                     <?php foreach($media['child'] as $k => $child){ ?>
-                    <table id="child<?php echo $child['mediaid']?>">
+                    
+                    <table id="child<?php echo $child['mediaid']?>" mediaid="<?php echo $child['mediaid']?>" position="<?php echo $k?>">
                     	<tr>
                         	<td>
                             	<?php echo $child['sizes']?> <?php echo $child['color']?> <?php echo $child['material']?> : <?php echo $this->string->numberFormate($child['price'])?><?php if($child['noteprice']!="") echo "(".$child['noteprice'].")";?><br />

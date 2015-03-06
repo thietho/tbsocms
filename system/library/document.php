@@ -19,6 +19,11 @@ final class Document {
 	public $text = array();
 	public $setting = array();
 	public $setup = array();
+	public $productdisplay = array(
+						   '' => "Chi tiết",
+						   'compact' => "Rút gọn",
+						   
+						   );
 	public $status = array(
 						   'new' => "Đơn hàng mới",
 						   'wait' => "Đang xử lý",
