@@ -1,8 +1,8 @@
 <table class="data-table">
 	<tr>
-    	<th>Code</th>
+    	
         <th>Tên sản phẩm</th>
-        <th>Màu</th>
+        
         <th>Giá</th>
         <th>Giảm</th>
         <th>Giá khuyến mãi</th>
@@ -14,21 +14,21 @@
     if(count($medias))
     	foreach($medias as $media){ ?>
     <tr class="item" mediaid="<?php echo $media['mediaid']?>">
-    	<td><?php echo $media['code']?></td>
-        <td><?php echo $media['title']?></td>
-        <td><?php echo $media['color']?></td>
+    	
+        <td><?php echo $this->document->productName($media)?></td>
+        
         
         <td class="number">
-            <b><?php echo $this->string->numberFormate($media['price'])?></b>
+            <input id="price" type="text" class="text number short ProductList" name="price[<?php echo $media['mediaid']?>]" value="<?php echo $media['price']?>" mediaid="<?php echo $media['mediaid']?>"/>
         </td>
         <td class="number">
-            <b><?php echo $this->string->numberFormate($media['discountpercent'])?>%</b>
+            <input id="discountpercent" type="text" class="text number short ProductList" name="discountpercent[<?php echo $media['mediaid']?>]" value="<?php echo $media['discountpercent']?>" mediaid="<?php echo $media['mediaid']?>"/>%
         </td>
         <td class="number">
-            <b><?php echo $this->string->numberFormate($media['pricepromotion'])?>%</b>
+            <input id="pricepromotion" type="text" class="text number short ProductList" name="pricepromotion[<?php echo $media['mediaid']?>]" value="<?php echo $this->string->numberFormate($media['pricepromotion'])?>" mediaid="<?php echo $media['mediaid']?>"/>
         </td>
         <td class="number">
-        	<input type="text" class="text number short qty" name="qty[<?php echo $media['mediaid']?>]" value="<?php echo $media['qty']?>" mediaid="<?php echo $media['mediaid']?>"/>
+        	<input id="qty" type="text" class="text number short ProductList" name="qty[<?php echo $media['mediaid']?>]" value="<?php echo $media['qty']?>" mediaid="<?php echo $media['mediaid']?>"/>
         </td>
         <td><img src="<?php echo $media['imagepreview']?>"></td>
     </tr>
@@ -44,12 +44,14 @@ $('.item').click(function(e) {
 	else
     	$(this).addClass('itemselected');
 });
-$('.qty').change(function(e) {
+$('.ProductList').keyup(function(e) {
     var mediaid = $(this).attr('mediaid');
-	var qty = this.value;
-	$.get("?route=module/product/updateQty",{
+	var col = this.id
+	var val = this.value;
+	$.get("?route=module/product/updateProductList",{
 		mediaid:mediaid,
-		qty:qty
+		col:col,
+		val:val
 	});
 });
 </script>

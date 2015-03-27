@@ -217,7 +217,6 @@
                     </table>
                     <input type="hidden" id="delnhapkho" name="delnhapkho" />
                     <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
-                    <input type="button" class="button" id="btnAddGroup" value="Thêm nhóm"/>
                 </div>
            </div>
             

@@ -237,10 +237,12 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 						$this->data['data_nhapkho'][$i]['title'].= " - ".$media['color'];
 					$this->data['data_nhapkho'][$i]['soluong']=$media['qty'];
 					$this->data['data_nhapkho'][$i]['madonvi']=$media['unit'];
-					$price = $media['price'];
+					
 					/*if($media['pricepromotion'])
 						$price = $media['pricepromotion'];*/
-					$this->data['data_nhapkho'][$i]['giatien']=$price;
+					$this->data['data_nhapkho'][$i]['giatien']=$media['price'];
+					$this->data['data_nhapkho'][$i]['giamgia']=$media['pricepromotion'];
+					$this->data['data_nhapkho'][$i]['phantramgiamgia']=$media['discountpercent'];
 					$i++;
 				}
 			}

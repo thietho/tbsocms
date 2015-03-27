@@ -526,11 +526,12 @@ class ControllerModuleProduct extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
-	public function updateQty()
+	public function updateProductList()
 	{
 		$mediaid = $this->request->get['mediaid'];
-		$qty = $this->request->get['qty'];
-		$_SESSION['productlist'][$mediaid]['qty'] = $qty;
+		$col = $this->request->get['col'];
+		$val = $this->request->get['val'];
+		$_SESSION['productlist'][$mediaid][$col] = $val;
 		
 		$this->data['output'] = "true";
 		$this->id='content';
