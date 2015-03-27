@@ -202,6 +202,21 @@ function Product()
 			$.unblockUI();	
 		});	
 	}
+	this.updateRowSelect = function(mediaid)
+	{
+		$('.ProductList').each(function(index, element) {
+			if($(this).attr('mediaid') == mediaid)
+			{
+				var col = $(this).attr('col')
+				var val = this.value;
+				$.get("?route=module/product/updateProductList",{
+					mediaid:mediaid,
+					col:col,
+					val:stringtoNumber(val)
+				});
+			}
+		});
+	}
 	this.viewListSelect = function()
 	{
 		$('body').append('<div id="listproduct" style="display:none"></div>');

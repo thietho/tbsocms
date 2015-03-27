@@ -12,23 +12,23 @@
     
     <?php 
     if(count($medias))
-    	foreach($medias as $media){ ?>
+    	foreach($medias as $key => $media){ ?>
     <tr class="item" mediaid="<?php echo $media['mediaid']?>">
     	
         <td><?php echo $this->document->productName($media)?></td>
         
         
         <td class="number">
-            <input id="price" type="text" class="text number short ProductList" name="price[<?php echo $media['mediaid']?>]" value="<?php echo $media['price']?>" mediaid="<?php echo $media['mediaid']?>"/>
+            <input id="price<?php echo $media['mediaid']?>" col="price" type="text" class="text number short ProductList price" name="price[<?php echo $media['mediaid']?>]" value="<?php echo $media['price']?>" mediaid="<?php echo $media['mediaid']?>"/>
         </td>
         <td class="number">
-            <input id="discountpercent" type="text" class="text number short ProductList" name="discountpercent[<?php echo $media['mediaid']?>]" value="<?php echo $media['discountpercent']?>" mediaid="<?php echo $media['mediaid']?>"/>%
+            <input id="discountpercent<?php echo $media['mediaid']?>" col="discountpercent" type="text" class="text number short ProductList discountpercent" name="discountpercent[<?php echo $media['mediaid']?>]" value="<?php echo $media['discountpercent']?>" mediaid="<?php echo $media['mediaid']?>"/>%
         </td>
         <td class="number">
-            <input id="pricepromotion" type="text" class="text number short ProductList" name="pricepromotion[<?php echo $media['mediaid']?>]" value="<?php echo $this->string->numberFormate($media['pricepromotion'])?>" mediaid="<?php echo $media['mediaid']?>"/>
+            <input id="pricepromotion<?php echo $media['mediaid']?>" col="pricepromotion" type="text" class="text number short ProductList pricepromotion" name="pricepromotion[<?php echo $media['mediaid']?>]" value="<?php echo $this->string->numberFormate($media['pricepromotion'])?>" mediaid="<?php echo $media['mediaid']?>"/>
         </td>
         <td class="number">
-        	<input id="qty" type="text" class="text number short ProductList" name="qty[<?php echo $media['mediaid']?>]" value="<?php echo $media['qty']?>" mediaid="<?php echo $media['mediaid']?>"/>
+        	<input id="qty<?php echo $media['mediaid']?>" col="qty" type="text" class="text number short ProductList" name="qty[<?php echo $media['mediaid']?>]" value="<?php echo $media['qty']?>" mediaid="<?php echo $media['mediaid']?>"/>
         </td>
         <td><img src="<?php echo $media['imagepreview']?>"></td>
     </tr>
@@ -44,14 +44,50 @@ $('.item').click(function(e) {
 	else
     	$(this).addClass('itemselected');
 });
-$('.ProductList').keyup(function(e) {
+$('.price').keyup(function(e) {
     var mediaid = $(this).attr('mediaid');
-	var col = this.id
-	var val = this.value;
-	$.get("?route=module/product/updateProductList",{
-		mediaid:mediaid,
-		col:col,
-		val:val
-	});
+	var price = stringtoNumber(this.value);
+	var discountpercent = stringtoNumber($('#discountpercent'+mediaid).val());
+	var pricepromotion = price * (1 - discountpercent/100);
+	$('#pricepromotion'+mediaid).val(formateNumber(pricepromotion));
+	
+});
+$('.discountpercent').keyup(function(e) {
+    var mediaid = $(this).attr('mediaid');
+	var price = stringtoNumber($('#price'+mediaid).val());
+	var discountpercent = stringtoNumber(this.value);
+	var pricepromotion = price * (1 - discountpercent/100);
+	$('#pricepromotion'+mediaid).val(formateNumber(pricepromotion));
+	if(discountpercent==0)
+		$('#pricepromotion'+mediaid).val('0');
+	
+});
+$('.pricepromotion').keyup(function(e) {
+    var mediaid = $(this).attr('mediaid');
+	var price = stringtoNumber($('#price'+mediaid).val());
+	var pricepromotion = stringtoNumber(this.value);
+	var discountpercent = (1- pricepromotion/price)*100;
+	$('#discountpercent'+mediaid).val(formateNumber(discountpercent));
+	if(pricepromotion==0)
+		$('#discountpercent'+mediaid).val('0');
+	
+});
+$('.ProductList').keyup(function(e) {
+	var mediaid = $(this).attr('mediaid');
+	pro.updateRowSelect(mediaid);
+	/*$('.ProductList').each(function(index, element) {
+        if($(this).attr('mediaid') == mediaid)
+		{
+			var col = this.id
+			var val = this.value;
+			$.get("?route=module/product/updateProductList",{
+				mediaid:mediaid,
+				col:col,
+				val:stringtoNumber(val)
+			});
+		}
+    });*/
+    
+	
 });
 </script>

@@ -202,7 +202,7 @@ $(function(){
 		obj.title = $(this).attr('title');
 		obj.code = $(this).attr('code');
 		obj.unit = $(this).attr('unit');
-		console.log(obj.mediaid);
+		//console.log(obj.mediaid);
 		obj.price = $(this).attr('price');
 		
 		obj.pricepromotion = $(this).attr('pricepromotion');

@@ -627,7 +627,7 @@ $.xhrPool.abortAll = function() {
 $.ajaxSetup({
     beforeSend: function(jqXHR) {
         $.xhrPool.push(jqXHR);
-		console.log($.xhrPool);
+		//console.log($.xhrPool);
     },
     complete: function(jqXHR) {
         var index = $.xhrPool.indexOf(jqXHR);
