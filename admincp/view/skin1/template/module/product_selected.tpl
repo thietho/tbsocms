@@ -2,12 +2,13 @@
 	<tr>
     	
         <th>Tên sản phẩm</th>
-        
-        <th>Giá</th>
-        <th>Giảm</th>
-        <th>Giá khuyến mãi</th>
         <th>Số lượng</th>
+        <th>Giá</th>
+        <th>Giảm(%)</th>
+        <th>Giá khuyến mãi</th>
+        
         <th>Hình</th>
+        <th></th>
     </tr>
     
     <?php 
@@ -17,20 +18,21 @@
     	
         <td><?php echo $this->document->productName($media)?></td>
         
-        
+        <td class="number">
+        	<input id="qty<?php echo $media['mediaid']?>" col="qty" type="text" class="text number short ProductList" name="qty[<?php echo $media['mediaid']?>]" value="<?php echo $media['qty']?>" mediaid="<?php echo $media['mediaid']?>"/>
+        </td>
         <td class="number">
             <input id="price<?php echo $media['mediaid']?>" col="price" type="text" class="text number short ProductList price" name="price[<?php echo $media['mediaid']?>]" value="<?php echo $media['price']?>" mediaid="<?php echo $media['mediaid']?>"/>
         </td>
         <td class="number">
-            <input id="discountpercent<?php echo $media['mediaid']?>" col="discountpercent" type="text" class="text number short ProductList discountpercent" name="discountpercent[<?php echo $media['mediaid']?>]" value="<?php echo $media['discountpercent']?>" mediaid="<?php echo $media['mediaid']?>"/>%
+            <input id="discountpercent<?php echo $media['mediaid']?>" col="discountpercent" type="text" class="text number short ProductList discountpercent" name="discountpercent[<?php echo $media['mediaid']?>]" value="<?php echo $media['discountpercent']?>" mediaid="<?php echo $media['mediaid']?>"/>
         </td>
         <td class="number">
             <input id="pricepromotion<?php echo $media['mediaid']?>" col="pricepromotion" type="text" class="text number short ProductList pricepromotion" name="pricepromotion[<?php echo $media['mediaid']?>]" value="<?php echo $this->string->numberFormate($media['pricepromotion'])?>" mediaid="<?php echo $media['mediaid']?>"/>
         </td>
-        <td class="number">
-        	<input id="qty<?php echo $media['mediaid']?>" col="qty" type="text" class="text number short ProductList" name="qty[<?php echo $media['mediaid']?>]" value="<?php echo $media['qty']?>" mediaid="<?php echo $media['mediaid']?>"/>
-        </td>
+        
         <td><img src="<?php echo $media['imagepreview']?>"></td>
+        <td><input type="button" class="button" value="X" onClick="pro.removeListItem('<?php echo $media['mediaid']?>');"></td>
     </tr>
     <?php } ?>
 </table>
@@ -38,12 +40,7 @@
 $(document).ready(function(e) {
     numberReady();
 });
-$('.item').click(function(e) {
-	if($(this).hasClass('itemselected'))
-		$(this).removeClass('itemselected');
-	else
-    	$(this).addClass('itemselected');
-});
+
 $('.price').keyup(function(e) {
     var mediaid = $(this).attr('mediaid');
 	var price = stringtoNumber(this.value);

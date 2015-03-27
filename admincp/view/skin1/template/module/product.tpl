@@ -200,6 +200,7 @@ function Product()
 		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 		$.get("?route=module/product/removeListItem&mediaid="+mediaid,function(){
 			$.unblockUI();	
+			pro.viewListSelect();
 		});	
 	}
 	this.updateRowSelect = function(mediaid)
@@ -234,14 +235,7 @@ function Product()
 					$(eid).remove();
 				},
 				buttons: {
-					'Xóa khỏi danh sách':function()
-					{
-						$('.itemselected').each(function(index, element) {
-							var meidaid = $(this).attr('mediaid');
-                            pro.removeListItem(meidaid);
-                        });
-						pro.viewListSelect();
-					},
+					
 					'Lập báo giá':function()
 					{
 						//pro.baogiaForm('');
