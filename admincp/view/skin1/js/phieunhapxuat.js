@@ -74,6 +74,56 @@ function PhieuNhapXuat()
         });
 		numberReady();
 	}
+	this.addGroup = function(id,title,soluong,madonvi,giatien,giamgia,phantramgiamgia)
+	{
+		var row = '<tr id="row'+ this.index +'">';
+		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="text" class="text" style="width:100%" id="title-'+ this.index +'" name="title['+ this.index +']" value="'+ title +'" /></td>';
+		
+		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number short soluong" ref="'+ this.index +'"/></td>';
+		row +='<td><input type="text" id="dlmadonvi-'+ this.index +'" name="dlmadonvi['+ this.index +']" value="'+ madonvi +'" class="text short" ref="'+ this.index +'"/></td>';
+		row +='<td class="number"><input type="text" id="giatien-'+ this.index +'" name="giatien['+ this.index +']" value="'+giatien+'" class="text number short giatien" ref="'+ this.index +'"/></td>';
+		row +='<td class="number"><input type="text" id="phantramgiamgia-'+ this.index +'" name="phantramgiamgia['+ this.index +']" value="'+phantramgiamgia+'" class="text number short phantramgiamgia" ref="'+ this.index +'"/></td>';
+		row +='<td class="number"><input type="text" id="giamgia-'+ this.index +'" name="giamgia['+ this.index +']" value="'+ giamgia +'" class="text number short giamgia" ref="'+ this.index +'"/></td>';
+		
+		row += '<td class="number thanhtien" id="thanhtien-'+ this.index +'"></td>';
+		row +='<td><input type="button" class="button" value="Xóa" onclick="objdl.removeRow('+ this.index +')"/></td>';
+		row+='</tr>';
+		row+='<div>ssswefgwefergerg wefgwerf efw èwerfwesdfgrwegfewgw</div>';
+		$('#nhapkhonguyenlieu').append(row);
+		
+		objdl.tinhtong(this.index);
+		this.index++;
+		$('.soluong').keyup(function(e) {
+            var pos = $(this).attr('ref');
+			objdl.tinhtong(pos);
+			
+        });
+		$('.giatien').keyup(function(e) {
+            var pos = $(this).attr('ref');
+			var giatien = Number(stringtoNumber($('#giatien-'+pos).val()));
+			var phantramgiamgia = Number(stringtoNumber($('#phantramgiamgia-'+pos).val()));
+			var giamgia = giatien * phantramgiamgia/100;
+			$('#giamgia-'+pos).val(formateNumber(giamgia))
+			objdl.tinhtong(pos);
+        });
+		$('.giamgia').keyup(function(e) {
+            var pos = $(this).attr('ref');
+			var giatien = Number(stringtoNumber($('#giatien-'+pos).val()));
+			var giamgia = Number(stringtoNumber($('#giamgia-'+pos).val()));
+			var phantramgiamgia = giamgia/giatien *100;
+			$('#phantramgiamgia-'+pos).val(formateNumber(phantramgiamgia))
+			objdl.tinhtong(pos);
+        });
+		$('.phantramgiamgia').keyup(function(e) {
+            var pos = $(this).attr('ref');
+			var giatien = Number(stringtoNumber($('#giatien-'+pos).val()));
+			var phantramgiamgia = Number(stringtoNumber($('#phantramgiamgia-'+pos).val()));
+			var giamgia = giatien * phantramgiamgia/100;
+			$('#giamgia-'+pos).val(formateNumber(giamgia))
+			objdl.tinhtong(pos);
+        });
+		numberReady();
+	}
 	this.getPrice = function(pos,mediaid,madonvi)
 	{
 		

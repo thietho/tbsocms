@@ -39,7 +39,7 @@
                         <textarea id="ghichu" name="ghichu"><?php echo $item['ghichu']?></textarea>
                     </p>
                 </div>
-                <div fragment-detail>
+                <div id="fragment-detail">
                     <table class="data-table">
                         <thead>
                             <tr>

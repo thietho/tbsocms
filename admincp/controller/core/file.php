@@ -4,7 +4,13 @@ class ControllerCoreFile extends Controller
 	private $error = array();
 	public function index()
 	{
-		
+		$this->load->model("core/module");
+		$moduleid = $_GET['route'];
+		$this->document->title = $this->model_core_module->getBreadcrumbs($moduleid);
+		if($this->user->checkPermission($moduleid)==false)
+		{
+			$this->response->redirect('?route=page/home');
+		}
 		$files = glob(DIR_CACHE . '*13*');
 		
 		$this->load->model("core/media");

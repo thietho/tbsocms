@@ -86,7 +86,9 @@
                             	<input type="button" class="button addToList" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $child['mediaid']?>')"/>
                                 <input type="button" class="button" value="Xóa" onclick="pro.delete('<?php echo $child['mediaid']?>')"/>
                                 <input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
+                                <?php if($this->user->checkPermission("module/product/history")==true){ ?>
                                 <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo $child['mediaid']?>')"/>
+                                <?php } ?>
                                 <input type="button" class="button selectProduct" value="Chọn" ref="<?php echo $child['mediaid']?>" image="<?php echo $child['imagepreview']?>" code="<?php echo $child['code']?>" unit="<?php echo $child['unit']?>" title="<?php echo $this->document->productName($child)?>" price="<?php echo $child['price']?>" pricepromotion="<?php echo $child['pricepromotion']?>" discountpercent="<?php echo $child['discountpercent']?>" productname="<?php echo $this->document->productName($child)?>" brandname="<?php echo $this->document->getCategory($child['brand'])?>"/>
                             </td>
                         
@@ -184,7 +186,9 @@ $(function(){
 			<?php if($this->user->checkPermission("module/product/insert")==true){ ?>
             "addSizes": {name: "Thêm qui cách"},
             <?php } ?>
+			<?php if($this->user->checkPermission("module/product/history")==true){ ?>
 			"viewHistory": {name: "Lịch sử"},
+			<?php } ?>
 			<?php if($this->user->checkPermission("module/product/deleted")==true){ ?>
 			"del": {name: "Xóa"},
 			<?php } ?>
