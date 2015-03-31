@@ -148,6 +148,8 @@ class ControllerCorePostcontent extends Controller
 						$this->data['post']['imageid'] = $mediaparent['imageid'];
 						$this->data['post']['imagepath'] = $mediaparent['imagepath'];
 						$this->data['post']['groupkeys'] = $mediaparent['groupkeys'];
+						$this->data['post']['refersitemap'] = $mediaparent['refersitemap'];
+						
 					}
 				}
 				
@@ -358,8 +360,15 @@ class ControllerCorePostcontent extends Controller
 					$this->error['mediaid'] ="ID đã được sử dụng";	
 			}
 		}
-		
-		
+		if($data['title'] == "")
+		{
+			$this->error['title'] ="Bạn chưa nhập tiêu đề";
+		}
+		if(count($data['listrefersitemap']) == 0)
+		{
+			$this->error['sitemap'] ="Bạn chưa chọn mục";
+			
+		}
 		if (count($this->error)==0) {
 	  		return TRUE;
 		} else {

@@ -153,7 +153,7 @@ function showProductForm(mediaid,mediaparentid,funcname)
 						}
 						else
 						{
-							$('#error').html(data).show('slow');
+							$('#error').html(obj.error).show('slow');
 						}
 						$.unblockUI();
 					});
