@@ -64,6 +64,10 @@ class ControllerCorePostcontent extends Controller
 		$this->model_core_category->getTree("status",$this->data['statuspro']);
 		unset($this->data['statuspro'][0]);
 		
+		$this->data['producttype'] = array();
+		$this->model_core_category->getTree("producttype",$this->data['producttype']);
+		unset($this->data['producttype'][0]);
+		
 		$this->data['post'] =array();
 		$this->data['post']['mediatype'] = "content";
 		

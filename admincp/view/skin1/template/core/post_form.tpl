@@ -250,7 +250,18 @@ $('#title').change(function(e) {
                         <p>
                             <label><?php echo $text_price?></label><br>
                             <input class="text number" type="text" id="price" name="price" value="<?php echo $post['price']?>"/>
-                            <input class="text short" type="text" id="noteprice" name="noteprice" value="<?php echo $post['noteprice']?>" />
+                            <select id="noteprice" name="noteprice">
+                            	<option value=""></option>
+                            <?php foreach($producttype as $it){ ?>
+                        
+                        		<option value="<?php echo $it['categoryid']?>"><?php echo $it['categoryname']?></option>
+                            
+                            <?php } ?>
+                            </select>
+                            <script language="javascript">
+							$('#noteprice').val("<?php echo $post['noteprice']?>");
+							</script>
+                            
                         </p>
                         <p>
                             <label>Phần trăm giảm giá</label><br>
