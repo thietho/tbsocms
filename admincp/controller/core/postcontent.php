@@ -368,7 +368,8 @@ class ControllerCorePostcontent extends Controller
 		{
 			$this->error['title'] ="Bạn chưa nhập tiêu đề";
 		}
-		if(count($data['listrefersitemap']) == 0)
+		
+		if(count($data['listrefersitemap']) == 0 && $data['mediatype'] == "module/product")
 		{
 			$this->error['sitemap'] ="Bạn chưa chọn mục";
 			
