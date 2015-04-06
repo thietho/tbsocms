@@ -261,7 +261,7 @@ class ControllerModuleProduct extends Controller
 			$arrsitemapid = $this->string->matrixToArray($data,"sitemapid");
 		}
 		$arr = array();
-		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
+		$where = " AND mediaparent = '' AND mediatype = 'module/product' AND status = 'active' AND imagepath <> ''";
 		if($sitemapid)
 			foreach($arrsitemapid as $sitemapid)
 			{
