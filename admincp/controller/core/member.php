@@ -186,7 +186,7 @@ class ControllerCoreMember extends Controller
 		$this->render();
 	}
 	
-	public function getCongNo($id='')
+	public function getCongNo($id='',$tungay='',$dennngay='')
 	{
 		if($id=="")
 			$id=$this->request->get['khachhangid'];
@@ -194,6 +194,14 @@ class ControllerCoreMember extends Controller
 		$this->data['user'] = $this->model_core_user->getId($id);
 		//Lay tat ca phieu thu cong no
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'thuno'";
+		if($tungay != "")
+		{
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
+		}
 		$this->data['data_phieuthu'] = $this->model_addon_thuchi->getList($where);
 		$tongthu = 0;
 		foreach($this->data['data_phieuthu'] as $item)
@@ -202,6 +210,14 @@ class ControllerCoreMember extends Controller
 		}
 		//Lay tat ca phieu thu vay no
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'credit'";
+		if($tungay != "")
+		{
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
+		}
 		$this->data['data_phieuthuvayno'] = $this->model_addon_thuchi->getList($where);
 		$tongvay = 0;
 		foreach($this->data['data_phieuthuvayno'] as $item)
@@ -210,6 +226,14 @@ class ControllerCoreMember extends Controller
 		}
 		//Lay tat ca phieu chi tra no
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'paycredit'";
+		if($tungay != "")
+		{
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
+		}
 		$this->data['data_phieuchitrano'] = $this->model_addon_thuchi->getList($where);
 		$tongtrano = 0;
 		foreach($this->data['data_phieuchitrano'] as $item)
@@ -381,7 +405,7 @@ class ControllerCoreMember extends Controller
 		$tungay = $this->date->formatViewDate($data['tungay']);
 		$denngay = $this->date->formatViewDate($data['denngay']);
 		$memberid = $data['memberid'];
-		$arr = array($memberid);
+		$arr = array($memberid,$tungay,$denngay);
 		$this->data['congno'] = $this->loadModule("core/member","getCongNo",$arr);
 		
 		$this->data['member'] = $this->model_core_user->getId($memberid);

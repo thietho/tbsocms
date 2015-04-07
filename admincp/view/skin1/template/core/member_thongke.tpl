@@ -43,7 +43,7 @@
         </tr>
         <tr>
             <td class="number" colspan="4">Hoa hồng</td>
-            <td class="number"><?php echo $sumcommissions?></td>
+            <td class="number"><?php echo $this->string->numberFormate($sumcommissions)?></td>
         </tr>
         <tr>
             <td class="number" colspan="4">Công nợ hiện tại</td>
