@@ -186,10 +186,14 @@ class ControllerCoreMember extends Controller
 		$this->render();
 	}
 	
-	public function getCongNo($id='',$tungay='',$dennngay='')
+	public function getCongNo($id='',$tungay='',$denngay='')
 	{
 		if($id=="")
 			$id=$this->request->get['khachhangid'];
+		if($tungay=="")
+			$tungay=$this->request->get['tungay'];
+		if($denngay=="")
+			$dennngay=$this->request->get['dennngay'];
 		
 		$this->data['user'] = $this->model_core_user->getId($id);
 		//Lay tat ca phieu thu cong no
@@ -202,6 +206,7 @@ class ControllerCoreMember extends Controller
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
+		
 		$this->data['data_phieuthu'] = $this->model_addon_thuchi->getList($where);
 		$tongthu = 0;
 		foreach($this->data['data_phieuthu'] as $item)
@@ -243,6 +248,14 @@ class ControllerCoreMember extends Controller
 		
 		//Lay tat ca phieu ban hang
 		$where = " AND loaiphieu = 'PBH' AND khachhangid = '".$id."'";
+		if($tungay != "")
+		{
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
+		}
 		$this->data['data_phieubanhang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
 		$tongno = 0;
 		foreach($this->data['data_phieubanhang'] as $key => $item)
@@ -259,6 +272,14 @@ class ControllerCoreMember extends Controller
 		}
 		//Lay tat ca phieu tra hang
 		$where = " AND loaiphieu = 'NK-KHTL' AND khachhangid = '".$id."'";
+		if($tungay != "")
+		{
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
+		}
 		$this->data['data_phieutrahang'] = $this->model_quanlykho_phieunhapxuat->getList($where);
 		
 		$tongnotrahang = 0;
@@ -405,6 +426,7 @@ class ControllerCoreMember extends Controller
 		$tungay = $this->date->formatViewDate($data['tungay']);
 		$denngay = $this->date->formatViewDate($data['denngay']);
 		$memberid = $data['memberid'];
+		
 		$arr = array($memberid,$tungay,$denngay);
 		$this->data['congno'] = $this->loadModule("core/member","getCongNo",$arr);
 		

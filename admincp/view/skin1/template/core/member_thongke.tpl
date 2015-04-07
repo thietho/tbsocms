@@ -13,18 +13,19 @@
     	<?php $sum = 0;?>
         <?php $sumcommissions = 0;?>
     	<?php foreach($data_banhang as $memberid => $banhang){ ?>
-        <?php $commissions= $this->document->getCustomer($memberid,'commissions')?>
+        	<?php $commissions= $this->document->getCustomer($memberid,'commissions')?>
         <tr>
-        	<td colspan="4"><strong><?php echo $this->document->getCustomer($memberid)?> <?php echo $this->document->getCustomer($memberid,'phone')?> <?php echo $this->document->getCustomer($memberid,'address')?> <?php echo $commissions?></strong></td>
+        	<td colspan="4"><strong><?php echo $this->document->getCustomer($memberid)?> <?php echo $this->document->getCustomer($memberid,'phone')?> <?php echo $this->document->getCustomer($memberid,'address')?> <?php echo $commissions?>%</strong></td>
             <?php $su = 0;?>
             <?php foreach($banhang as $item) { ?>
             <?php $su += $item['tongtien']?>
             <?php } ?>
-            <?php $sumcommissions += $su*$commissions/100 ?>
+            
             <td class="number"><strong><?php echo $this->string->numberFormate($su)?></strong></td>
         </tr>
         	<?php foreach($banhang as $item) { ?>
         	<?php $sum += $item['tongtien']?>
+            <?php $sumcommissions += $item['tongtien'] * $commissions/100 ?>
         <tr>
         	
         	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>,'')"><?php echo $item['maphieu']?></a></td>
