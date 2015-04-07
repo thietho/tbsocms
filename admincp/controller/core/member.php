@@ -509,5 +509,10 @@ class ControllerCoreMember extends Controller
 		$this->template="common/output.tpl";
 		$this->render();
 	}
+	
+	public function commissionsave()
+	{
+			
+	}
 }
 ?>

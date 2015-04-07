@@ -46,13 +46,13 @@
             <td class="number" colspan="4">Hoa hồng</td>
             <td class="number"><?php echo $this->string->numberFormate($sumcommissions)?></td>
         </tr>
-        <tr>
+        <!--<tr>
             <td class="number" colspan="4">Công nợ hiện tại</td>
             <td class="number"><?php echo $this->string->numberFormate($congno)?></td>
         </tr>
         <tr>
             <td class="number" colspan="4">Thanh toán hoa hồng</td>
             <td class="number"><?php echo $this->string->numberFormate($congno - $sumcommissions)?></td>
-        </tr>
+        </tr>-->
     </tbody>
 </table>

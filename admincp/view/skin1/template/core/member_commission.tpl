@@ -4,7 +4,35 @@
 	<div class="section-title"><?php echo $member['fullname']?></div>
     
     <div class="section-content">
-    	
+    	<form id="frmHoaHong">
+     
+                <input type="hidden" id="memberid" name="memberid" value="<?php echo $member['id']?>"/>
+                <input type="text" class="text date" id="ngaytinhhoahong" name="ngaytinhhoahong" />
+                <script language="javascript">
+                $(function() {
+                    $("#denngay").datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            dateFormat: 'dd-mm-yy'
+                            });
+                    });
+                </script>
+                <input type="button" class="button" value="Thêm kỳ" onClick=""/>
+                
+            
+        </form>
+        <script language="javascript">
+		function Commission()
+		{
+			this.add = function()
+			{
+				$.post("?route=core/member/commissionsave",$('#frmHoaHong').serialize(),function(){
+					
+						
+				});	
+			};
+		}
+		</script>
         <form id="frm_thongke">
         	<div id="ben-search">
             	<input type="hidden" id="memberid" name="memberid" value="<?php echo $member['id']?>"/>
