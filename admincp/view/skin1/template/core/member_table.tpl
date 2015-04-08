@@ -34,7 +34,7 @@
                         <td><?php echo $user['email']?></td>
                         <td class="number"><a onclick="viewCongNo(<?php echo $user['id']?>)"><?php echo $this->string->numberFormate($user['congno'])?></a></td>
                         <td><?php echo $this->document->getCustomer($user['assignid'])?></td>
-                        <td><?php echo $user['commissions']?>%</td>
+                        <td><?php echo $user['commissions']?></td>
                 		<td><?php echo $this->document->userstatus[$user['status']]?></td>
                         
                         <td class="link-control">

@@ -179,6 +179,7 @@ class ControllerCoreMember extends Controller
 				$this->data['users'][$i]['text_active'] = "Khóa";
 			$arr = array($this->data['users'][$i]['id']);
 			$this->data['users'][$i]['congno'] = $this->loadModule("core/member","getCongNo",$arr);
+			
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
@@ -346,7 +347,10 @@ class ControllerCoreMember extends Controller
 		
 		$this->data['user'] = $this->model_core_user->getId($id);
 		$this->data['user']['imagethumbnail']=HelperImage::resizePNG($this->data['user']['imagepath'], 200, 200);
-    	
+    	$this->data['user']['commissions'];
+		$this->data['user']['commissions'] = json_decode($this->data['user']['commissions']);
+		//print_r($commissions);
+		//echo $commissions['fullsize'];
 		
 		$this->id='content';
 		$this->template='core/member_form.tpl';
@@ -363,6 +367,7 @@ class ControllerCoreMember extends Controller
 		{
 			
 			$data['birthday'] = $this->date->formatViewDate($data['birthday']);
+			$data['commissions'] = json_encode($data['commissions']);
 			if($data['id']=="")
 			{
 				$this->model_core_user->insertUser($data);	

@@ -19,6 +19,7 @@
             <th>Giảm giá(%)</th>
             <th>Giảm giá</th>
             <th>Thành tiền</th>
+            <th>Hoa hồng</th>
         </tr>
     </thead>
     <tbody>
@@ -27,37 +28,40 @@
     	<?php foreach($data_banhang as $memberid => $banhang){ ?>
         	<?php $commissions= $this->document->getCustomer($memberid,'commissions')?>
         <tr>
-        	<td colspan="2"><strong><?php echo $this->document->getCustomer($memberid)?> <?php echo $this->document->getCustomer($memberid,'phone')?> <?php echo $this->document->getCustomer($memberid,'address')?> <?php echo $commissions?>%</strong></td>
+        	<td colspan="7"><strong><?php echo $this->document->getCustomer($memberid)?> <?php echo $this->document->getCustomer($memberid,'phone')?> <?php echo $this->document->getCustomer($memberid,'address')?> <?php echo $commissions?>%</strong></td>
             <?php $su = 0;?>
+            <?php $sucom = 0;?>
             <?php foreach($banhang as $item) { ?>
-            <?php $su += $item['tongtien']?>
+            <?php $su += $item['thanhtien']?>
+            <?php $sucom += $item['thanhtien'] * $commissions/100?>
             <?php } ?>
             
             <td class="number"><strong><?php echo $this->string->numberFormate($su)?></strong></td>
+            <td class="number"><strong><?php echo $this->string->numberFormate($sucom)?></strong></td>
         </tr>
         	<?php foreach($banhang as $item) { ?>
-        	<?php $sum += $item['tongtien']?>
-            <?php $sumcommissions += $item['tongtien'] * $commissions/100 ?>
+        	<?php $sum += $item['thanhtien']?>
+            <?php $sumcommissions += $item['thanhtien'] * $commissions/100 ?>
         <tr>
         	
         	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>,'')"><?php echo $item['maphieu']?></a></td>
-        	
-            
-            
             <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
-            
-            <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+            <td><?php echo $item['title']?></td>
+            <td class="number"><?php echo $this->string->numberFormate($item['soluong'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($item['giatien'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($item['phantramgiamgia'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($item['giamgia'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($item['thanhtien'])?></td>
+            <td class="number"><?php echo $this->string->numberFormate($item['thanhtien'] * $commissions/100)?></td>
         </tr>
         	<?php } ?>
         <?php } ?>
         <tr>
-            <td class="number" colspan="2">Tổng cộng</td>
+            <td class="number" colspan="7">Tổng cộng</td>
             <td class="number"><?php echo $this->string->numberFormate($sum)?></td>
-        </tr>
-        <tr>
-            <td class="number" colspan="2">Hoa hồng</td>
             <td class="number"><?php echo $this->string->numberFormate($sumcommissions)?></td>
         </tr>
+       
         <!--<tr>
             <td class="number" colspan="4">Công nợ hiện tại</td>
             <td class="number"><?php echo $this->string->numberFormate($congno)?></td>

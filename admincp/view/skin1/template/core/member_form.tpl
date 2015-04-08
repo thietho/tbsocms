@@ -5,7 +5,7 @@
     
     <div class="section-content padding1">
     
-    	<form id="frmMember" name="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form id="frmMember" name="frmMember" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
             	
@@ -59,7 +59,10 @@
                 </p>
                 <p>
             		<label>Commissions</label><br />
-					<input type="text" id="commissions" name="commissions" value="<?php echo $user['commissions']?>" class="text number"/>%
+                    <label>Full size</label>
+					<input type="text" id="commissions" name="commissions[fullsize]" value="<?php echo $user['commissions']->fullsize?>" class="text number short"/>%
+                    <label>Mini size</label>
+					<input type="text" id="commissions" name="commissions[minisize]" value="<?php echo $user['commissions']->minisize?>" class="text number short"/>%
             	</p>
                 <p>
             		<label>Avatar</label><br />
