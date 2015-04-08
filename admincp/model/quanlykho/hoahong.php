@@ -4,8 +4,8 @@ class ModelQuanlykhoHoahong extends Model
 	private $arr_col = array(
 							'memberid',
 							'ngaytinhhoahong',
-							'hoahong',
-							'danhthu'
+							'cachtinh',
+							'ghichu'
 							);
 	public function getItem($id)
 	{

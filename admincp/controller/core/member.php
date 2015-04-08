@@ -5,6 +5,7 @@ class ControllerCoreMember extends Controller
 	function __construct() 
 	{
 	 	$this->load->model("core/user");
+		$this->load->model("core/category");
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->model("quanlykho/hoahong");
 		$this->load->model("addon/thuchi");
@@ -146,6 +147,11 @@ class ControllerCoreMember extends Controller
 		{
 			$where .= " AND status like '".$data['status']."'";
 		}
+		if(trim($data['assignid']))
+		{
+			$where .= " AND assignid = '".$data['assignid']."'";
+		}
+		
 		$where .= " Order by fullname";
 		$rows = $this->model_core_user->getList($where);
 		//Page
@@ -409,6 +415,10 @@ class ControllerCoreMember extends Controller
 		$id = $this->request->get['id'];
 		$this->data['member'] = $this->model_core_user->getId($id);
 		
+		$this->data['commissionway'] = array();
+		$this->model_core_category->getTree("commissionway",$this->data['commissionway']);
+		unset($this->data['commissionway'][0]);
+		
 		$this->id='content';
 		$this->template="core/member_commission.tpl";
 		$this->layout=$this->user->getLayout();
@@ -429,8 +439,8 @@ class ControllerCoreMember extends Controller
 		$denngay = $this->date->formatViewDate($data['denngay']);
 		$memberid = $data['memberid'];
 		
-		$arr = array($memberid,$tungay,$denngay);
-		$this->data['congno'] = $this->loadModule("core/member","getCongNo",$arr);
+		//$arr = array($memberid,$tungay,$denngay);
+		//$this->data['congno'] = $this->loadModule("core/member","getCongNo",$arr);
 		
 		$this->data['member'] = $this->model_core_user->getId($memberid);
 		//Load cac khach hang assignid boi memberid
@@ -461,6 +471,58 @@ class ControllerCoreMember extends Controller
 			
 			$this->id='content';
 			$this->template="core/member_thongke.tpl";
+			
+			$this->render();
+		}
+		else
+		{
+			$this->data['output'] = "Không có dữ liệu phù hợp";
+			$this->id='content';
+			$this->template="common/output.tpl";
+			$this->render();
+		}
+	}
+	public function thongkeSalesProduct()
+	{
+		$this->load->model("quanlykho/phieunhapxuat");
+		$data = $this->request->post;
+		$this->data['post'] = $data;
+		$tungay = $this->date->formatViewDate($data['tungay']);
+		$denngay = $this->date->formatViewDate($data['denngay']);
+		$memberid = $data['memberid'];
+		
+		//$arr = array($memberid,$tungay,$denngay);
+		//$this->data['congno'] = $this->loadModule("core/member","getCongNo",$arr);
+		
+		$this->data['member'] = $this->model_core_user->getId($memberid);
+		//Load cac khach hang assignid boi memberid
+		$where = " AND assignid = '".$memberid."'";
+		$data_member = $this->model_core_user->getList($where);
+		$arr_member = $this->string->matrixToArray($data_member,'id');
+		//print_r($arr_member);
+		$where = " AND loaiphieu = 'PBH'";
+		//$where .= " AND khachhangid in ('". implode("','",$arr_member) ."')";
+		if($tungay != "")
+		{
+			$where .= " AND ngaylap > '".$tungay."'";
+		}
+		if($denngay != "")
+		{
+			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
+		}
+		
+		$this->data['data_banhang'] = array();
+		foreach($arr_member as $id)
+		{
+			$data_banhang = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where." AND khachhangid = ". $id ,0,0," Order by ngaylap");
+			$this->data['data_banhang'][$id] = $data_banhang;
+		}
+		
+		if(count($this->data['data_banhang']))
+		{
+			
+			$this->id='content';
+			$this->template="core/member_thongke_salesproduct.tpl";
 			
 			$this->render();
 		}
@@ -560,7 +622,10 @@ class ControllerCoreMember extends Controller
 		$where = " AND memberid = '".$memberid."' ORDER BY `ngaytinhhoahong` ASC ";
 		$data_commission = $this->model_quanlykho_hoahong->getList($where);
 		foreach($data_commission as $key => $item)
+		{
 			$data_commission[$key]['ngaytinhhoahong'] = $this->date->formatMySQLDate($item['ngaytinhhoahong']);
+			$data_commission[$key]['cachtinhtext'] = $this->document->getCategory($item['cachtinh']);
+		}
 		$this->data['output'] = json_encode($data_commission);
 		$this->id='content';
 		$this->template='common/output.tpl';

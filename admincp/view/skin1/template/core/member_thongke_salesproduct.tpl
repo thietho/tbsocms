@@ -11,10 +11,14 @@
         <tr>
         	
         	<th>Mã phiếu</th>
-            
             <th>Ngày</th>
+            <th>Sản phẩm</th>
             
-            <th>Giá trị đơn hàng</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+            <th>Giảm giá(%)</th>
+            <th>Giảm giá</th>
+            <th>Thành tiền</th>
         </tr>
     </thead>
     <tbody>
@@ -36,7 +40,7 @@
             <?php $sumcommissions += $item['tongtien'] * $commissions/100 ?>
         <tr>
         	
-        	<td><a onclick="objdl.viewPX(<?php echo $item['id']?>,'')"><?php echo $item['maphieu']?></a></td>
+        	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>,'')"><?php echo $item['maphieu']?></a></td>
         	
             
             

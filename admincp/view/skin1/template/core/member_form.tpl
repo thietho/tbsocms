@@ -5,7 +5,7 @@
     
     <div class="section-content padding1">
     
-    	<form id="frm" name="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form id="frmMember" name="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
             	
@@ -86,23 +86,23 @@
 </div>
 <script language="javascript">
 $('#btnRemoveAssign').click(function(e) {
-    $('#assignid').val('');
-	$('#assignname').val('');
-	$('#commissions').val(0);
+    $('#frmMember #assignid').val('');
+	$('#frmMember #assignname').val('');
+	$('#frmMember #commissions').val(0);
 });
 $(document).ready(function(e) {
 	numberReady();
 	$(function() {
 		var cache = {};
 		
-		$("#assignname").autocomplete({
+		$("#frmMember #assignname").autocomplete({
 			minLength: 2,
 			select: function( event, ui ) {
 				//console.log(ui.item.id);
 				//objdl.getProbyMediaId(ui.item.id);
 				//alert(ui.item.data.fullname);
-				$('#assignid').val(ui.item.id);
-				$('#assignname').val(ui.item.data.fullname);
+				$('#frmMember #assignid').val(ui.item.id);
+				$('#frmMember #assignname').val(ui.item.data.fullname);
 				
 			},
 			source: function( request, response ) {

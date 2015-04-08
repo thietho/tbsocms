@@ -598,7 +598,7 @@ function showMemberForm(memberid,strFun)
 					
 					$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 	
-					$.post("?route=core/member/save", $("#frm").serialize(),
+					$.post("?route=core/member/save", $("#frmMember").serialize(),
 						function(data){
 							var arr = data.split("-");
 							if(arr[0] == "true")
