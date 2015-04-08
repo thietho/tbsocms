@@ -9,9 +9,20 @@ function Commission(memberid)
 			comm.getList();
 		});	
 	};
-	this.view = function(memberid,tungay,denngay)
+	this.view = function(tungay,denngay)
 	{
-		
+		$('#showresult').html(loading);
+		$.post("?route=core/member/thongke", 
+			{
+				memberid:this.memberid,
+				tungay:tungay,
+				denngay:denngay
+			}, 
+			function(html)
+			{
+				$('#showresult').html(html);
+			}
+		);
 	}
 	this.getList = function()
 	{
@@ -26,22 +37,38 @@ function Commission(memberid)
 				var denngay =data[i].ngaytinhhoahong;
 				str+= "<li>"
 				str+= "Đợt "+ ( Number(i)+1) +": "+ data[i].ngaytinhhoahong;
-				str+= '<input type="button" class="button viewhoahong" value="Xem" memberid="'+memberid+'" tungay="'+tungay+'" denngay="'+denngay+'"/>';
-				str+= '<input type="button" class="button delhoahong" value="Xóa" hoahongid="'+ data[i].id +'"/>';
+				str+= '<input type="button" class="button viewhoahong" value="Xem" tungay="'+tungay+'" denngay="'+denngay+'"/>';
+				str+= '<input type="button" class="button delhoahong" value="Xóa" hoahongid="'+ data[i].id +' tungay="'+tungay+'" denngay="'+denngay+'""/>';
 				str+= "</li>"
 			}
 			str += "</ul>";
 			$('#commissionlist').html(str);
+			$(".delhoahong").click(function(e) {
+				var ans = confirm("Bạn có muốn xóa đợt tính hoa hồng ngày "+ $(this).attr("denngay"));
+				if(ans)
+				{
+					comm.del($(this).attr('hoahongid'));
+				}
+			});
+			$('.viewhoahong').click(function(e) {
+                comm.view($(this).attr('tungay'),$(this).attr('denngay'))
+            });
 		});
 	}
 	this.del = function(id)
 	{
-		
+		$.get('?route=core/member/delCommission&id='+id,function(html)
+		{
+			alert(html);
+			comm.getList();
+		});
 	}
 }
 var comm = new Commission("<?php echo $member['id']?>");
+
 $(document).ready(function(e) {
     comm.getList();
+	
 });
 </script>
 <div class="section">
@@ -69,46 +96,11 @@ $(document).ready(function(e) {
         <div id="commissionlist">
         
         </div>
-        <form id="frm_thongke">
-        	<div id="ben-search">
-            	
-                <label>Từ ngày</label>
-                <input type="text" class="text date" id="tungay" name="tungay" />
-                <script language="javascript">
-                $(function() {
-                    $("#tungay").datepicker({
-                            changeMonth: true,
-                            changeYear: true,
-                            dateFormat: 'dd-mm-yy'
-                            });
-                    });
-                </script>
-                <label>Đến ngày</label>
-                <input type="text" class="text date" id="denngay" name="denngay" />
-                <script language="javascript">
-                $(function() {
-                    $("#denngay").datepicker({
-                            changeMonth: true,
-                            changeYear: true,
-                            dateFormat: 'dd-mm-yy'
-                            });
-                    });
-                </script>
-                
-                <br />
-                <input type="button" class="button" id="btnThongKe" name="btnThongKe" value="Xem"/>
-                
-            </div>
-        	
-            <div class="clearer">^&nbsp;</div>
-            
-            <div id="showresult">
-                
-            </div>
-        	<input type="button" class="button" id="btnSaveToExcel" name="btnSaveToExcel" value="Lưu thành excel"/>
         
-        </form>
-        
+        <div id="showresult">
+                
+        </div>
+        <input type="button" class="button" id="btnSaveToExcel" name="btnSaveToExcel" value="Lưu thành excel"/>
     </div>
     
 </div>

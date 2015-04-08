@@ -201,7 +201,7 @@ class ControllerCoreMember extends Controller
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'thuno'";
 		if($tungay != "")
 		{
-			$where .= " AND ngaylap >= '".$tungay."'";
+			$where .= " AND ngaylap > '".$tungay."'";
 		}
 		if($denngay != "")
 		{
@@ -218,7 +218,7 @@ class ControllerCoreMember extends Controller
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'credit'";
 		if($tungay != "")
 		{
-			$where .= " AND ngaylap >= '".$tungay."'";
+			$where .= " AND ngaylap > '".$tungay."'";
 		}
 		if($denngay != "")
 		{
@@ -234,7 +234,7 @@ class ControllerCoreMember extends Controller
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'paycredit'";
 		if($tungay != "")
 		{
-			$where .= " AND ngaylap >= '".$tungay."'";
+			$where .= " AND ngaylap > '".$tungay."'";
 		}
 		if($denngay != "")
 		{
@@ -251,7 +251,7 @@ class ControllerCoreMember extends Controller
 		$where = " AND loaiphieu = 'PBH' AND khachhangid = '".$id."'";
 		if($tungay != "")
 		{
-			$where .= " AND ngaylap >= '".$tungay."'";
+			$where .= " AND ngaylap > '".$tungay."'";
 		}
 		if($denngay != "")
 		{
@@ -275,7 +275,7 @@ class ControllerCoreMember extends Controller
 		$where = " AND loaiphieu = 'NK-KHTL' AND khachhangid = '".$id."'";
 		if($tungay != "")
 		{
-			$where .= " AND ngaylap >= '".$tungay."'";
+			$where .= " AND ngaylap > '".$tungay."'";
 		}
 		if($denngay != "")
 		{
@@ -424,6 +424,7 @@ class ControllerCoreMember extends Controller
 	{
 		$this->load->model("quanlykho/phieunhapxuat");
 		$data = $this->request->post;
+		$this->data['post'] = $data;
 		$tungay = $this->date->formatViewDate($data['tungay']);
 		$denngay = $this->date->formatViewDate($data['denngay']);
 		$memberid = $data['memberid'];
@@ -441,7 +442,7 @@ class ControllerCoreMember extends Controller
 		//$where .= " AND khachhangid in ('". implode("','",$arr_member) ."')";
 		if($tungay != "")
 		{
-			$where .= " AND ngaylap >= '".$tungay."'";
+			$where .= " AND ngaylap > '".$tungay."'";
 		}
 		if($denngay != "")
 		{
@@ -565,6 +566,14 @@ class ControllerCoreMember extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
-	
+	public function delCommission()
+	{
+		$id = $this->request->get['id'];
+		$this->model_quanlykho_hoahong->delete($id);
+		$this->data['output'] = "Xóa thành công";
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>

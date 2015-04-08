@@ -1,3 +1,10 @@
+<h3>
+	Tính hoa hồng 
+    <?php if($post[tungay]){ ?>
+    từ ngày <?php echo $post[tungay]?>
+    <?php } ?>
+    đến ngày <?php echo $post['denngay']?>
+</h3>
 <table id="reportbanhang" class="data-table">
 	<thead>
         <tr>
