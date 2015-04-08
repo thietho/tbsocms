@@ -6,6 +6,7 @@ class ControllerCoreMember extends Controller
 	{
 	 	$this->load->model("core/user");
 		$this->load->model("quanlykho/phieunhapxuat");
+		$this->load->model("quanlykho/hoahong");
 		$this->load->model("addon/thuchi");
 		
    	}
@@ -512,7 +513,58 @@ class ControllerCoreMember extends Controller
 	
 	public function commissionsave()
 	{
+		$data = $this->request->post;
+		if($this->validateHoaHong($data))
+		{
 			
+			$data['ngaytinhhoahong'] = $this->date->formatViewDate($data['ngaytinhhoahong']);
+			
+			
+			$this->model_quanlykho_hoahong->save($data);	
+			
+			
+			$this->data['output'] = "true";
+		}
+		else
+		{
+			foreach($this->error as $item)
+			{
+				$this->data['output'] .= $item."<br>";
+			}
+		}
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+		
 	}
+	private function validateHoaHong($data)
+	{
+    	
+		if(trim($data['ngaytinhhoahong'])=="")
+		{
+			$this->error['ngaytinhhoahong'] = "Bạn chưa chọn ngày";
+			
+		}
+		
+		if (!$this->error) {
+	  		return TRUE;
+		} else {
+	  		return FALSE;
+		}
+	}
+	public function getListCommission()
+	{
+		$memberid = $this->request->get['memberid'];
+		$where = " AND memberid = '".$memberid."' ORDER BY `ngaytinhhoahong` ASC ";
+		$data_commission = $this->model_quanlykho_hoahong->getList($where);
+		foreach($data_commission as $key => $item)
+			$data_commission[$key]['ngaytinhhoahong'] = $this->date->formatMySQLDate($item['ngaytinhhoahong']);
+		$this->data['output'] = json_encode($data_commission);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
 }
 ?>
