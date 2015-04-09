@@ -25,8 +25,8 @@
     <tbody>
     	<?php $sum = 0;?>
         <?php $sumcommissions = 0;?>
-        <?php echo $commission->fullsize;?>
-        <?php print_r($commission)?>
+        
+        
     	<?php foreach($data_banhang as $memberid => $banhang){ ?>
         	
         <tr>
@@ -35,7 +35,14 @@
             <?php $sucom = 0;?>
             <?php foreach($banhang as $item) { ?>
             <?php $su += $item['thanhtien']?>
-            <?php $sucom += $item['thanhtien'] * $commissions/100?>
+            <?php
+                $comm =0;
+                if($item['phantramgiamgia']>0) 
+                    $comm = $item['thanhtien'] * $commission->fullsize /100;
+                else
+                    $comm = $item['thanhtien'] * $commission->minisize /100;
+            ?>
+            <?php $sucom += $comm?>
             <?php } ?>
             
             <td class="number"><strong><?php echo $this->string->numberFormate($su)?></strong></td>
@@ -43,7 +50,7 @@
         </tr>
         	<?php foreach($banhang as $item) { ?>
         	<?php $sum += $item['thanhtien']?>
-            <?php $sumcommissions += $item['thanhtien'] * $commissions/100 ?>
+            
         <tr>
         	
         	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>,'')"><?php echo $item['maphieu']?></a></td>
@@ -55,8 +62,15 @@
             <td class="number"><?php echo $this->string->numberFormate($item['giamgia'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['thanhtien'])?></td>
             <td class="number">
-            	<?php $comm = ?>
-            	<?php echo $this->string->numberFormate($item['thanhtien'] * $commissions/100)?>
+            	<?php
+                	$comm =0;
+                	if($item['phantramgiamgia']>0) 
+                		$comm = $item['thanhtien'] * $commission->fullsize /100;
+                    else
+                    	$comm = $item['thanhtien'] * $commission->minisize /100;
+                ?>
+                <?php $sumcommissions += $comm ?>
+            	<?php echo $this->string->numberFormate($comm)?>
             </td>
         </tr>
         	<?php } ?>
