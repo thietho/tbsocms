@@ -17,7 +17,7 @@
                 <td>
                 	<strong><?php echo $this->document->productName($media)?></strong><br />
                     Giảm: <?php echo $this->string->numberFormate($media['discountpercent'])?>%<br />
-                    Giá: <?php echo $this->string->numberFormate($media['price'])?><?php if($media['noteprice']) echo "(".$media['noteprice'].")";?><br />
+                    Giá: <?php echo $this->string->numberFormate($media['price'])?><?php if($media['noteprice']) echo "(".$this->document->getCategory($media['noteprice']).")";?><br />
                     Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />
                     <?php echo ($media['groupkeys']!="")?$media['groupkeys']."<br>":"" ?>
                     <?php if($media['tonkho']) echo "Tồn: ".$media['tonkho']?>

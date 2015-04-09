@@ -30,7 +30,7 @@
     	<?php foreach($data_banhang as $memberid => $banhang){ ?>
         	
         <tr>
-        	<td colspan="7"><strong><?php echo $this->document->getCustomer($memberid)?> <?php echo $this->document->getCustomer($memberid,'phone')?> <?php echo $this->document->getCustomer($memberid,'address')?> <?php echo $commissions?>%</strong></td>
+        	<td colspan="7"><strong><?php echo $this->document->getCustomer($memberid)?> <?php echo $this->document->getCustomer($memberid,'phone')?> <?php echo $this->document->getCustomer($memberid,'address')?></strong></td>
             <?php $su = 0;?>
             <?php $sucom = 0;?>
             <?php foreach($banhang as $item) { ?>
