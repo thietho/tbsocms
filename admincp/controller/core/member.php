@@ -500,6 +500,9 @@ class ControllerCoreMember extends Controller
 		//$this->data['congno'] = $this->loadModule("core/member","getCongNo",$arr);
 		
 		$this->data['member'] = $this->model_core_user->getId($memberid);
+		$this->data['commission'] = json_decode($this->data['member']['commissions']);
+		
+		
 		//Load cac khach hang assignid boi memberid
 		$where = " AND assignid = '".$memberid."'";
 		$data_member = $this->model_core_user->getList($where);

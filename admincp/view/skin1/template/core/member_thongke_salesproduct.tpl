@@ -25,8 +25,10 @@
     <tbody>
     	<?php $sum = 0;?>
         <?php $sumcommissions = 0;?>
+        <?php echo $commission->fullsize;?>
+        <?php print_r($commission)?>
     	<?php foreach($data_banhang as $memberid => $banhang){ ?>
-        	<?php $commissions= $this->document->getCustomer($memberid,'commissions')?>
+        	
         <tr>
         	<td colspan="7"><strong><?php echo $this->document->getCustomer($memberid)?> <?php echo $this->document->getCustomer($memberid,'phone')?> <?php echo $this->document->getCustomer($memberid,'address')?> <?php echo $commissions?>%</strong></td>
             <?php $su = 0;?>
@@ -52,7 +54,10 @@
             <td class="number"><?php echo $this->string->numberFormate($item['phantramgiamgia'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['giamgia'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['thanhtien'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['thanhtien'] * $commissions/100)?></td>
+            <td class="number">
+            	<?php $comm = ?>
+            	<?php echo $this->string->numberFormate($item['thanhtien'] * $commissions/100)?>
+            </td>
         </tr>
         	<?php } ?>
         <?php } ?>
