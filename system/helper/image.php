@@ -49,8 +49,9 @@ final class HelperImage {
 		
 		@$new_image = eregi_replace('[/]', '_', $filepath);
 		@$new_image = eregi_replace('\.([a-z]{3,4})', '_' . $width . 'x' . $height . '.png', $new_image);
+		$new_image = str_replace(' ','_',$new_image);
 		$new_image = 'cache/' . $new_image;
-
+		
 		if (!file_exists(DIR_FILE . $new_image) || (filemtime(DIR_FILE . $old_image) > filemtime(DIR_FILE . $new_image))) {
 			$old_image = HelperImage::getDefaultCache($filepath);
 			$image = new Image(DIR_FILE . $old_image);
