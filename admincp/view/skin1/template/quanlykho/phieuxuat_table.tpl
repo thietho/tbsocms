@@ -19,8 +19,8 @@
                         <th>Tổng tiền bán</th>
                         <th>Thanh toán</th>
                         <th>Công nợ</th>
-                        <th>Số ngày công nợ</th>
-                        <th>Ngày đến hạn thanh toán công nợ</th>
+                        <th>Ghi chú</th>
+                        
                         <th>Tình trạng</th>
                         <?php if($dialog!=true){ ?>
                         <th>Control</th>     
@@ -48,8 +48,8 @@
                         <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>
-                        <td class="number"><?php echo $this->string->numberFormate($item['songaycongno'])?></td>
-                        <td align="center"><?php echo $this->date->formatMySQLDate($this->date->addday($item['ngaylap'],$item['songaycongno']))?></td>
+                        <td><?php echo $item['ghichu']?></td>
+                        
                         <td><?php echo $this->document->status_phieunhapxuat[$item['trangthai']]?></td>
                         <?php if($dialog!=true){ ?>
                         <td class="link-control">
