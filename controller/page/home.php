@@ -81,7 +81,7 @@ class ControllerPageHome extends Controller
         $this->id = "content";
         $this->template = "page/home.tpl";
         $this->layout = "layout/home";
-        $this->render();
+        //$this->render();
     }
 
     private function loadSiteBar()

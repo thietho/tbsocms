@@ -2,6 +2,7 @@
 // DB
 define('SITEID', 'default');
 define('HTTP_SERVICE', 'http://localhost:81/tbsocms/services/');
+define('IMAGE_SERVER', 'http://localhost:81/file/');
 // DB
 define('DB_DRIVER', 'mysql');
 define('DB_HOSTNAME', 'localhost');

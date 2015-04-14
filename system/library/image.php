@@ -6,7 +6,9 @@ final class Image {
 	private $watermark;
 		
 	public function __construct($file) {
-		if (file_exists($file)) {
+		
+		if (file_exists($file))
+		{
 			$this->file = $file;
 
 			$info = getimagesize($file);
@@ -22,7 +24,9 @@ final class Image {
         	$this->image = $this->create($file);
 			
 			
-    	} else {
+    	} 
+		else 
+		{
       		//exit('Error: Could not load image ' . $file . '!');
     	}
 	}

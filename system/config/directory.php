@@ -1,5 +1,6 @@
 <?php
 // HTTP
+
 define('HTTP_IMAGE', 'http://localhost:81/tbsocms/file/');
 define('HTTP_SERVER', 'http://localhost:81/tbsocms/');
 

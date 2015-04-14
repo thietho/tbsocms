@@ -34,10 +34,40 @@ final class HelperImage {
 		
 		return $new_image;
 	}
-	
-	static public function resizePNG($filepath, $width, $height) {
-		if (!file_exists(DIR_FILE . $filepath) && $filepath != "") {
+	static private function getFile($filepath)
+	{
+		$arr =  split('/',$filepath);
+		print_r($arr);
+		
+		$url = IMAGE_SERVER.urldecode($filepath);
+		
+		$content = file_get_contents(IMAGE_SERVER."?path=".base64_encode($filepath));
+		if($content!='')
+		{
+			$path = DIR_FILE;
+			for($i=0;$i<count($arr);$i++);
+			{
+				echo count($arr);
+				if($key < count($arr-1))
+				{
+					$path .= $val."/";
+					if(!is_dir($path))
+					{
+						mkdir($path,0777);
+					}
+				}
+				else
+				{
+					file_put_contents($path."/".$val,$content);	
+				}
+			}
 			
+		}
+	}
+	static public function resizePNG($filepath, $width, $height) {
+		
+		if (!file_exists(DIR_FILE . $filepath) && $filepath != "") {
+			HelperImage::getFile($filepath);
 			$filepath = HelperImage::getDefaultCache($filepath);
 		}
 		
