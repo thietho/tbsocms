@@ -7,11 +7,11 @@ final class Image {
 		
 	public function __construct($file) {
 		
-		if (file_exists($file))
+		if (file_exists(DIR_FILE .$file))
 		{
-			$this->file = $file;
+			$this->file = DIR_FILE .$file;
 
-			$info = getimagesize($file);
+			$info = getimagesize(DIR_FILE .$file);
         
 			$this->info = array(
             	'width'  => $info[0],
@@ -21,13 +21,31 @@ final class Image {
 				'type'	 => $info[2]
         	);
         	
-        	$this->image = $this->create($file);
+        	$this->image = $this->create(DIR_FILE .$file);
 			
 			
     	} 
 		else 
 		{
       		//exit('Error: Could not load image ' . $file . '!');
+			
+			$arr = split("/",$file);
+			$file1 = DIR_CACHE. implode($arr,"_");
+			if(!file_exists($file1))
+			{
+				
+				$content = file_get_contents(IMAGE_SERVER."?path=".base64_encode($file));
+				file_put_contents($file1,$content);	
+			}
+			$info = getimagesize($file1);
+			$this->info = array(
+            	'width'  => $info[0],
+            	'height' => $info[1],
+            	'bits'   => $info['bits'],
+            	'mime'   => $info['mime'],
+				'type'	 => $info[2]
+        	);
+			$this->image = $this->create($file1);
     	}
 	}
 		

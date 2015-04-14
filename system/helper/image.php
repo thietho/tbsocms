@@ -34,23 +34,20 @@ final class HelperImage {
 		
 		return $new_image;
 	}
-	static private function getFile($filepath)
+	static private function checkFile($filepath)
 	{
 		$arr =  split('/',$filepath);
-		print_r($arr);
-		
 		$url = IMAGE_SERVER.urldecode($filepath);
-		
 		$content = file_get_contents(IMAGE_SERVER."?path=".base64_encode($filepath));
 		if($content!='')
 		{
-			$path = DIR_FILE;
-			for($i=0;$i<count($arr);$i++);
+			/*$path = DIR_FILE;
+			for($i=0; $i < count($arr) ; $i++ )
 			{
-				echo count($arr);
-				if($key < count($arr-1))
+				
+				if($i < count($arr) -1 )
 				{
-					$path .= $val."/";
+					$path .= $arr[$i]."/";
 					if(!is_dir($path))
 					{
 						mkdir($path,0777);
@@ -58,33 +55,34 @@ final class HelperImage {
 				}
 				else
 				{
-					file_put_contents($path."/".$val,$content);	
+					
+					file_put_contents($path.$arr[$i],$content);	
 				}
-			}
-			
+			}*/
+			return true;
 		}
+		return false;
 	}
 	static public function resizePNG($filepath, $width, $height) {
 		
 		if (!file_exists(DIR_FILE . $filepath) && $filepath != "") {
-			HelperImage::getFile($filepath);
-			$filepath = HelperImage::getDefaultCache($filepath);
+			if(HelperImage::checkFile($filepath) == false)
+				$filepath = HelperImage::getDefaultCache($filepath);
 		}
 		
 		if ($filepath == "") {
 			$filepath = HelperImage::getDefaultCache($filepath);
-		} 
-		
-		$old_image = $filepath;
+		}
 		
 		@$new_image = eregi_replace('[/]', '_', $filepath);
 		@$new_image = eregi_replace('\.([a-z]{3,4})', '_' . $width . 'x' . $height . '.png', $new_image);
 		$new_image = str_replace(' ','-',$new_image);
 		$new_image = 'cache/' . $new_image;
 		
-		if (!file_exists(DIR_FILE . $new_image) || (filemtime(DIR_FILE . $old_image) > filemtime(DIR_FILE . $new_image))) {
-			$old_image = HelperImage::getDefaultCache($filepath);
-			$image = new Image(DIR_FILE . $old_image);
+		if (!file_exists(DIR_FILE . $new_image)) 
+		{
+			
+			$image = new Image($filepath);
 			$image->resizePNG($width, $height, DIR_FILE . $new_image);
 			$image->save(DIR_FILE . $new_image);
 			unset($image);
