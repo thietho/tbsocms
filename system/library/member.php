@@ -293,11 +293,14 @@ final class Member {
 	
 	public function getHitCounter()
 	{
-				
-		$sql = "Select `user_stats`.* 
-									from `user_stats`";
-		$query = $this->db->query($sql);
-		return count($query->rows);
+		if(!isset($_SESSION['hitCounter']))
+		{
+			$sql = "SELECT count(id) as count FROM `user_stats`";
+			$query = $this->db->query($sql);
+			$_SESSION['hitCounter'] = $query->row['count'];	
+		}
+		return $_SESSION['hitCounter'];
+		
 	}
 	
 	public function getOnline()
@@ -306,10 +309,9 @@ final class Member {
 		$session_timelimit = 20; 
 		$session_timout = $this->date->addMinutes($current_time,-$session_timelimit) ;
 		
-		$sql = "Select `user_stats`.* 
-									from `user_stats` WHERE `user_stats`.`starttime` >= '".$session_timout."'";
+		$sql = "SELECT count(id) as count FROM `user_stats` WHERE `user_stats`.`starttime` >= '".$session_timout."'";
 		$query = $this->db->query($sql);
-		return count($query->rows);
+		return $query->row['count'];
 	}
 	
 	public function getOnlineInMonth()
@@ -317,12 +319,11 @@ final class Member {
 		$current_time = $this->date->getToday();
 		$year = $this->date->getYear($current_time);
 		$mon = $this->date->getMonth($current_time);
-		$sql = "SELECT  `user_stats` . * 
-						FROM  `user_stats` 
+		$sql = "SELECT count(id) as count FROM `user_stats`
 						WHERE YEAR(`starttime`) =".$year."
 						AND MONTH(`starttime`) =".$mon;
 		$query = $this->db->query($sql);
-		return count($query->rows);
+		return $query->row['count'];
 	}
 	
 	private function updatelistonline()
