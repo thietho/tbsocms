@@ -27,7 +27,16 @@
     <div class="right">
         <table>
             <tr>
-                <td><a href="?route=page/home"><img class="png" src="<?php echo DIR_IMAGE?>home.png" alt="" /></a></td>
+                <td>
+                	<a href="?route=page/home"><img class="png" src="<?php echo DIR_IMAGE?>home.png" alt="" /></a>
+                </td>
+                <td>
+                	<a href="?route=page/home">
+                    	<div class="notification-number">10</div>
+                    	<img class="png" src="<?php echo DIR_IMAGE?>notification-icon.png" alt="" />
+                        
+                    </a>
+                </td>
                 <td>
                     
                     <ul class="nicelist">
