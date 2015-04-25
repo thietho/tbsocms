@@ -56,3 +56,10 @@
     <div class="clearer">&nbsp;</div>
 
 </div>
+<script language="javascript">
+$(document).ready(function(e) {
+    $.getJSON("?route=core/notification/systemCheck",function(data){
+			
+	});
+});
+</script>

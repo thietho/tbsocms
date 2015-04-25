@@ -1461,6 +1461,7 @@ ul.autocomplete {
 	background:red;
 	border-radius: 20px;
     font-weight: bold;
-    padding: 5px;
+    padding: 2px;
 	color:#fff;
+	border:#fff thick double;
 }
