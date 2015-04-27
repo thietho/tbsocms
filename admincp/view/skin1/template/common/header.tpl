@@ -59,7 +59,12 @@
 <script language="javascript">
 $(document).ready(function(e) {
     $.getJSON("?route=core/notification/systemCheck",function(data){
-		alert(data.minsizeactive.length);
+		var count = 0;
+		for(i in data.minsizeactive)
+		{
+			//alert(data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].tonkho);	
+			
+		}
 	});
 });
 </script>
