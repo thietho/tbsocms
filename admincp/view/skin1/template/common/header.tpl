@@ -32,7 +32,7 @@
                 </td>
                 <td>
                 	<a href="?route=page/home">
-                    	<div class="notification-number">10</div>
+                    	<div id="notification-number">10</div>
                     	<img class="png" src="<?php echo DIR_IMAGE?>notification-icon.png" alt="" />
                         
                     </a>
@@ -59,7 +59,7 @@
 <script language="javascript">
 $(document).ready(function(e) {
     $.getJSON("?route=core/notification/systemCheck",function(data){
-			
+		alert(data.minsizeactive.length);
 	});
 });
 </script>
