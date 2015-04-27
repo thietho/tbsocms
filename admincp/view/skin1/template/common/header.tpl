@@ -31,11 +31,12 @@
                 	<a href="?route=page/home"><img class="png" src="<?php echo DIR_IMAGE?>home.png" alt="" /></a>
                 </td>
                 <td>
-                	<a href="?route=page/home">
-                    	<div id="notification-number">10</div>
+                	<div id="hl-notification">
+                    	<div id="notification-number"></div>
+                        <div id="notification-content"></div>
                     	<img class="png" src="<?php echo DIR_IMAGE?>notification-icon.png" alt="" />
                         
-                    </a>
+                    </div>
                 </td>
                 <td>
                     
@@ -57,14 +58,33 @@
 
 </div>
 <script language="javascript">
+$('#hl-notification').hover(
+	function(e)
+	{
+		$('#notification-content').show();
+	},
+	function(e)
+	{
+		$('#notification-content').hide();
+	});
 $(document).ready(function(e) {
     $.getJSON("?route=core/notification/systemCheck",function(data){
 		var count = 0;
+		var str = '<ul>';
+		str += '<li><strong>Các sản phẩm mini size có tồn mà đang bị ẩn</strong>';
+		str += '<ul>';
 		for(i in data.minsizeactive)
 		{
 			//alert(data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].tonkho);	
-			
+			count++;
+			str += '<li>'+ data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].tonkho +'</li>';
 		}
+		str += '<ul>';
+		str += '</li>';
+		str += '</ul>';
+		$('#notification-content').html(str);
+		if(count)
+			$('#notification-number').html(count).show();
 	});
 });
 </script>

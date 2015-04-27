@@ -1464,4 +1464,13 @@ ul.autocomplete {
     padding: 2px;
 	color:#fff;
 	border:#fff thick double;
+	display:none;
+}
+#notification-content
+{
+	position:absolute;
+	display:none;
+	background:#fff;
+	height:300px;
+	overflow:auto;
 }
