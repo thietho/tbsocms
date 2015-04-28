@@ -24,25 +24,30 @@ class ControllerCoreNotification extends Controller
 				if((int)$tonkho > 0 && $media['status'] == 'hide')
 				{
 					$media['tonkho'] = $tonkho;
-					$data_war['minsizeactive'][$key] = $media;
+					$data_war['minsizeactive'][$key]['productName'] = $media['productName'];
+					$data_war['minsizeactive'][$key]['tonkho'] = $media['tonkho'];
 				}
 				//Cac san pham minisize het hang ma chua an
 				if((int)$tonkho == 0 && $media['status'] == 'active')
 				{
-					$data_war['minsizehide'][$key] = $media;
+					$data_war['minsizehide'][$key]['productName'] = $media['productName'];
+					$data_war['minsizehide'][$key]['tonkho'] = $media['tonkho'];
 				}
 			}
 			//Cac san pham chua co gia
 			$child = $this->model_core_media->getListByParent($media['mediaid']);
-			if(count($child) == 0)
+			if(count($child) == 0 && $media['status'] == 'active')
 			{
-				$data_war['productprice'][$key] = $media;
+				$data_war['productprice'][$key]['productName'] = $media['productName'];
 			}
-			//Cac san pham dang active ma chua cap nhat hinh
-			if($media['status'] == 'active' && $media['imagepath'] == '')
+			/*//Cac san pham dang active ma chua cap nhat hinh
+			if(count($child) == 0 && $media['status'] == 'active' && $media['imagepath'] == '')
 			{
-				$data_war['productimage'][$key] = $media;
-			}
+				$data_war['productimage'][$key]['mediaid'] = $media['mediaid'];
+				$data_war['productimage'][$key]['title'] = $media['title'];
+				
+				$data_war['productimage'][$key]['productName'] = $media['productName'];
+			}*/
 		}
 		$this->data['output'] = json_encode($data_war);
 		$this->id='content';

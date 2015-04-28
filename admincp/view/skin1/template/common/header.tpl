@@ -75,12 +75,46 @@ $(document).ready(function(e) {
 		str += '<ul>';
 		for(i in data.minsizeactive)
 		{
-			//alert(data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].tonkho);	
+			
 			count++;
 			str += '<li>'+ data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].tonkho +'</li>';
 		}
-		str += '<ul>';
+		str += '</ul>';
 		str += '</li>';
+		
+		str += '<li><strong>Các sản phẩm mini size đã hết hàng chưa ẩn</strong>';
+		str += '<ul>';
+		for(i in data.minsizehide)
+		{
+			
+			count++;
+			str += '<li>'+ data.minsizehide[i].productName+' tồn: '+ data.minsizehide[i].tonkho +'</li>';
+		}
+		str += '</ul>';
+		str += '</li>';
+		
+		str += '<li><strong>Các sản phẩm chưa có giá</strong>';
+		str += '<ul>';
+		for(i in data.productprice)
+		{
+			
+			count++;
+			str += '<li>'+ data.productprice[i].productName +'</li>';
+		}
+		str += '</ul>';
+		str += '</li>';
+		
+		/*str += '<li><strong>Các sản phẩm đang active mà chưa có hình</strong>';
+		str += '<ul>';
+		for(i in data.productimage)
+		{
+			
+			count++;
+			str += '<li>'+ data.productimage[i].productName +'</li>';
+		}
+		str += '</ul>';
+		str += '</li>';*/
+		
 		str += '</ul>';
 		$('#notification-content').html(str);
 		if(count)

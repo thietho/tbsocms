@@ -28,7 +28,7 @@ class ControllerCommonLogin extends Controller
 		
 		$this->data['error'] = @$this->error;
 		$this->data['username'] = $this->request->post['username'];
-		$this->data['security'] = DIR_COMPONENT."securimage/securimage_show.php?sid=".md5(uniqid(time()));
+		//$this->data['security'] = DIR_COMPONENT."securimage/securimage_show.php?sid=".md5(uniqid(time()));
 		$this->id='content';
 		$this->template='common/login.tpl';
 		$this->layout='layout/login';
@@ -37,10 +37,10 @@ class ControllerCommonLogin extends Controller
 	
 	private function validate() {
 		//Kiem tra secure image
-		if($this->validSecure == false)
+		/*if($this->validSecure == false)
 		{
 			$this->error['error_warning'] = $this->language->get('error_warning');
-		}
+		}*/
 		
 		//Kiem tra dang nhap
 		if($this->request->post['username']=="")

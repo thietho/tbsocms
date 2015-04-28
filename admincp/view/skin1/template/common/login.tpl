@@ -30,11 +30,11 @@
                             </select>
                         </p>
                         -->                        
-                        <p>
+                        <!--<p>
                             <label for="password"><?php echo $security_code ?></label><br>
                             <img src="<?php echo $security?>" /><br />
                             <input type="text" class="text" name="code" />
-                        </p>
+                        </p>-->
                     </div>			
                 
             </div>
