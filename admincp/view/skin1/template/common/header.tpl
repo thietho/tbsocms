@@ -104,7 +104,7 @@ $(document).ready(function(e) {
 		str += '</ul>';
 		str += '</li>';
 		
-		/*str += '<li><strong>Các sản phẩm đang active mà chưa có hình</strong>';
+		str += '<li><strong>Các sản phẩm đang active mà chưa có hình</strong>';
 		str += '<ul>';
 		for(i in data.productimage)
 		{
@@ -113,7 +113,7 @@ $(document).ready(function(e) {
 			str += '<li>'+ data.productimage[i].productName +'</li>';
 		}
 		str += '</ul>';
-		str += '</li>';*/
+		str += '</li>';
 		
 		str += '</ul>';
 		$('#notification-content').html(str);

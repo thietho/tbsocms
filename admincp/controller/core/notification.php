@@ -15,11 +15,12 @@ class ControllerCoreNotification extends Controller
 		$data_war = array();
 		foreach($medias as $key => $media)
 		{
+			$media['productName'] = $this->document->productName($media);
 			if($media['noteprice'] == 'minisize')
 			{
 				//Cac san pham minisize co ton ma bi an			
 				$tonkho = $this->model_core_media->getTonKho($media['mediaid']);
-				$media['productName'] = $this->document->productName($media);
+				
 				$media['tonkho'] = $tonkho;
 				if((int)$tonkho > 0 && $media['status'] == 'hide')
 				{
@@ -40,14 +41,14 @@ class ControllerCoreNotification extends Controller
 			{
 				$data_war['productprice'][$key]['productName'] = $media['productName'];
 			}
-			/*//Cac san pham dang active ma chua cap nhat hinh
-			if(count($child) == 0 && $media['status'] == 'active' && $media['imagepath'] == '')
+			//Cac san pham dang active ma chua cap nhat hinh
+			if($media['status'] == 'active' && $media['imagepath'] == '')
 			{
 				$data_war['productimage'][$key]['mediaid'] = $media['mediaid'];
 				$data_war['productimage'][$key]['title'] = $media['title'];
 				
 				$data_war['productimage'][$key]['productName'] = $media['productName'];
-			}*/
+			}
 		}
 		$this->data['output'] = json_encode($data_war);
 		$this->id='content';
