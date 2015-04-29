@@ -36,7 +36,7 @@ class ControllerThongkeBanhang extends Controller
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
-		$data_banhang = $this->model_quanlykho_phieunhapxuat->thongke($where ." Order by ngaylap");
+		$data_banhang = $this->model_quanlykho_phieunhapxuat->thongke($where ." Order by ngaylap,phieuid");
 		if(count($data_banhang))
 		{
 			$arrdate = array();

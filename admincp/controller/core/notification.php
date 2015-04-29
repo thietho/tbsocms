@@ -5,6 +5,14 @@ class ControllerCoreNotification extends Controller
 	private $route;
 	public function __construct() 
 	{
+		$this->load->model("core/module");
+		$moduleid = $_GET['route'];
+		$this->document->title = $this->model_core_module->getBreadcrumbs($moduleid);
+		if($this->user->checkPermission($moduleid)==false)
+		{
+			$this->response->redirect('?route=page/home');
+		}
+		
 		$this->load->model("core/media");
 	}
 	public function systemCheck()
@@ -35,6 +43,7 @@ class ControllerCoreNotification extends Controller
 					$data_war['minsizehide'][$key]['tonkho'] = $media['tonkho'];
 				}
 			}
+			//Cac san pham bi am trong kho
 			//Cac san pham chua co gia
 			$child = $this->model_core_media->getListByParent($media['mediaid']);
 			if(count($child) == 0 && $media['status'] == 'active')

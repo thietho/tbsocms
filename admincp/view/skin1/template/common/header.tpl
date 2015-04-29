@@ -30,6 +30,7 @@
                 <td>
                 	<a href="?route=page/home"><img class="png" src="<?php echo DIR_IMAGE?>home.png" alt="" /></a>
                 </td>
+                <?php if($this->user->checkPermission("core/notification/systemCheck")==true){ ?>
                 <td>
                 	<div id="hl-notification">
                     	<div id="notification-number"></div>
@@ -38,6 +39,7 @@
                         
                     </div>
                 </td>
+                <?php } ?>
                 <td>
                     
                     <ul class="nicelist">
@@ -70,7 +72,7 @@ $('#hl-notification').hover(
 $(document).ready(function(e) {
     $.getJSON("?route=core/notification/systemCheck",function(data){
 		var count = 0;
-		var str = '<ul>';
+		var str = '<ul class="notification-content">';
 		str += '<li><strong>Các sản phẩm mini size có tồn mà đang bị ẩn</strong>';
 		str += '<ul>';
 		for(i in data.minsizeactive)
@@ -119,6 +121,10 @@ $(document).ready(function(e) {
 		$('#notification-content').html(str);
 		if(count)
 			$('#notification-number').html(count).show();
+			
+		$('.notification-content li strong').click(function(e) {
+            alert($('.notification-content li ul').html())
+        });
 	});
 });
 </script>
