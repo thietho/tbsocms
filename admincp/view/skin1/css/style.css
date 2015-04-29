@@ -1471,6 +1471,9 @@ ul.autocomplete {
 	position:absolute;
 	display:none;
 	background:#fff;
-	height:300px;
+	
 	overflow:auto;
+	border:#999 thin solid;
+	padding:5px;
+	border-radius:5px;
 }

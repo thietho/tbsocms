@@ -59,11 +59,13 @@
     <div class="clearer">&nbsp;</div>
 
 </div>
+<?php if($this->user->checkPermission("core/notification/systemCheck")==true){ ?>
 <script language="javascript">
 $('#hl-notification').hover(
 	function(e)
 	{
 		$('#notification-content').show();
+		
 	},
 	function(e)
 	{
@@ -121,10 +123,25 @@ $(document).ready(function(e) {
 		$('#notification-content').html(str);
 		if(count)
 			$('#notification-number').html(count).show();
-			
+		$('.notification-content li ul').hide();
 		$('.notification-content li strong').click(function(e) {
-            alert($('.notification-content li ul').html())
+            //alert($('.notification-content li ul').html())
+			
+			$(this).parent().children('ul').toggle(
+			function(e)
+			{
+				if($(this).css('display')== 'block')
+				{
+					$('#notification-content').height(window.innerHeight);
+				}
+				else
+				{
+					$('#notification-content').css('height','auto');
+				}
+			});
+			
         });
 	});
 });
 </script>
+<?php } ?>
