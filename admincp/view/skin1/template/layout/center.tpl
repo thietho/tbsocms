@@ -15,7 +15,7 @@
    	<script src="<?php echo HTTP_SERVER.DIR_JS?>jquery.js" type="text/javascript"></script>
     <script src="<?php echo HTTP_SERVER.DIR_JS?>jquery-ui.js" type="text/javascript"></script>
     <link rel="stylesheet" href="<?php echo DIR_CSS?>jquery.treeview.css" />
-	<script src="<?php echo DIR_JS?>jquery.cookie.js" type="text/javascript"></script>
+	
     <script src="<?php echo DIR_JS?>jquery.treeview.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>jquery.treeview.edit.js" type="text/javascript"></script>
     <script src="<?php echo DIR_JS?>jquery.contextMenu.js" type="text/javascript"></script>

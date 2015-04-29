@@ -132,7 +132,7 @@ $(document).ready(function(e) {
 			{
 				if($(this).css('display')== 'block')
 				{
-					$('#notification-content').height(window.innerHeight);
+					$('#notification-content').height(window.innerHeight - 100);
 				}
 				else
 				{
