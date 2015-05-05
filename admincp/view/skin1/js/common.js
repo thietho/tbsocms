@@ -698,13 +698,13 @@ function Notification()
 			
 			str += '</ul>';
 			$('#notification-content').html(str);
-			no.checkAmKho();
+			//no.systemCheckInventory();
 		});
 	}
 	this.systemCheckInventory = function()
 	{
 		//Các sản phẩm tồn âm kho
-		$.getJSON("?route=core/notification/systemCheckAmKho",function(data){
+		$.getJSON("?route=core/notification/systemCheckInventory",function(data){
 			if(data.productinventory.length>0)
 			{
 				str = '<li><strong>Các sản phẩm tồn âm kho ('+ data.productinventory.length +')</strong>';

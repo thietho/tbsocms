@@ -93,14 +93,14 @@ class ControllerCoreNotification extends Controller
 				
 				
 				
-				if((int)$inventory > 0 && $media['status'] == 'hide')
+				if((int)$media['inventory'] > 0 && $media['status'] == 'hide')
 				{
 					$media['inventory'] = $inventory;
 					$data_war['minsizeactive'][]=$data;
 					
 				}
 				//Cac san pham minisize het hang ma chua an
-				if((int)$inventory == 0 && $media['status'] == 'active')
+				if((int)$media['inventory'] == 0 && $media['status'] == 'active')
 				{
 					$data_war['minsizehide'][]=$data;
 					

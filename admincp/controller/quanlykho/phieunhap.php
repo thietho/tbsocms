@@ -22,6 +22,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->helper('image');
 		$this->load->model("core/category");
+		$this->load->model("core/media");
 		
 		$this->load->model("quanlykho/donvitinh");
 		
