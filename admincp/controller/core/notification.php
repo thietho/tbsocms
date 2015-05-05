@@ -46,7 +46,7 @@ class ControllerCoreNotification extends Controller
 			//Cac san pham bi am trong kho
 			//Cac san pham chua co gia
 			$child = $this->model_core_media->getListByParent($media['mediaid']);
-			if(count($child) == 0 && $media['status'] == 'active')
+			if(count($child) == 0 && $media['status'] == 'active' && $media['price'] == 0)
 			{
 				$data_war['productprice'][$key]['productName'] = $media['productName'];
 			}

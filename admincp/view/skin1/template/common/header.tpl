@@ -72,76 +72,8 @@ $('#hl-notification').hover(
 		$('#notification-content').hide();
 	});
 $(document).ready(function(e) {
-    $.getJSON("?route=core/notification/systemCheck",function(data){
-		var count = 0;
-		var str = '<ul class="notification-content">';
-		str += '<li><strong>Các sản phẩm mini size có tồn mà đang bị ẩn</strong>';
-		str += '<ul>';
-		for(i in data.minsizeactive)
-		{
-			
-			count++;
-			str += '<li>'+ data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].tonkho +'</li>';
-		}
-		str += '</ul>';
-		str += '</li>';
-		
-		str += '<li><strong>Các sản phẩm mini size đã hết hàng chưa ẩn</strong>';
-		str += '<ul>';
-		for(i in data.minsizehide)
-		{
-			
-			count++;
-			str += '<li>'+ data.minsizehide[i].productName+' tồn: '+ data.minsizehide[i].tonkho +'</li>';
-		}
-		str += '</ul>';
-		str += '</li>';
-		
-		str += '<li><strong>Các sản phẩm chưa có giá</strong>';
-		str += '<ul>';
-		for(i in data.productprice)
-		{
-			
-			count++;
-			str += '<li>'+ data.productprice[i].productName +'</li>';
-		}
-		str += '</ul>';
-		str += '</li>';
-		
-		str += '<li><strong>Các sản phẩm đang active mà chưa có hình</strong>';
-		str += '<ul>';
-		for(i in data.productimage)
-		{
-			
-			count++;
-			str += '<li>'+ data.productimage[i].productName +'</li>';
-		}
-		str += '</ul>';
-		str += '</li>';
-		
-		str += '</ul>';
-		$('#notification-content').html(str);
-		if(count)
-			$('#notification-number').html(count).show();
-		$('.notification-content li ul').hide();
-		$('.notification-content li strong').click(function(e) {
-            //alert($('.notification-content li ul').html())
-			
-			$(this).parent().children('ul').toggle(
-			function(e)
-			{
-				if($(this).css('display')== 'block')
-				{
-					$('#notification-content').height(window.innerHeight - 100);
-				}
-				else
-				{
-					$('#notification-content').css('height','auto');
-				}
-			});
-			
-        });
-	});
+	setTimeout('systemCheck();',5000);
+    
 });
 </script>
 <?php } ?>

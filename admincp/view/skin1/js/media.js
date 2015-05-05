@@ -155,7 +155,9 @@ function showProductForm(mediaid,mediaparentid,funcname)
 						{
 							$('#error').html(obj.error).show('slow');
 						}
+						systemCheck();
 						$.unblockUI();
+						
 					});
 					
 				},
