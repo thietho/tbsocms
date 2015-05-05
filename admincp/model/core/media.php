@@ -731,7 +731,7 @@ class ModelCoreMedia extends ModelCoreFile
 		return $this->model_quanlykho_donvitinh->toText($data_soluong);
 	}
 	
-	public function getTonKho($mediaid)
+	public function getInventory($mediaid)
 	{
 		$media = $this->getItem($mediaid);
 		

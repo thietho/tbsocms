@@ -29,10 +29,10 @@
                         <td class="number"><b><?php echo $this->string->numberFormate($media['price'])?></b>&nbsp;</td>
                         <td class="number"><b><?php echo $this->string->numberFormate($media['pricepromotion'])?></b>&nbsp;</td>
                         <td class="number">
-                        	<?php echo $media['tonkho']['main']['tonkho']?>
-                            <?php foreach($media['tonkho']['prices'] as $price){ ?>
+                        	<?php echo $media['inventory']['main']['inventory']?>
+                            <?php foreach($media['inventory']['prices'] as $price){ ?>
                             <br />
-                            <?php echo $price['title']?>: <?php echo $price['tonkho']?>
+                            <?php echo $price['title']?>: <?php echo $price['inventory']?>
                             <?php } ?>
                         </td>
                         <?php } ?>

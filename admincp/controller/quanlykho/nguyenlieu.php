@@ -312,7 +312,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 			//
 			
 			$imagepreview = "";
-			$this->data['datas'][$i]['soluongton'] = $this->model_quanlykho_nguyenlieu->getTonKho($this->data['datas'][$i]['id']);
+			$this->data['datas'][$i]['soluongton'] = $this->model_quanlykho_nguyenlieu->getInventory($this->data['datas'][$i]['id']);
 			$this->data['datas'][$i]['imagethumbnail'] = HelperImage::resizePNG($this->data['datas'][$i]['imagepath'], 100, 0);
 			
 		}
@@ -546,18 +546,18 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 		}
 	}
 	
-	public function viewTonKho()
+	public function viewinventory()
 	{
 		$id = $this->request->get['id'];
 		
 		
 		$this->data['item'] = $this->model_quanlykho_nguyenlieu->getItem($id);
-		$this->data['item']['soluongton'] = $this->model_quanlykho_nguyenlieu->getTonKho($id);
+		$this->data['item']['soluongton'] = $this->model_quanlykho_nguyenlieu->getInventory($id);
 		$where = " AND 	nguyenlieuid = '".$id."'";
 		$this->data['datact'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
 		
 		$this->id='content';
-		$this->template="quanlykho/nguyenlieu_tonkho.tpl";
+		$this->template="quanlykho/nguyenlieu_inventory.tpl";
 		//$this->layout="layout/dialog";
 		$this->data['dialog'] = true;
 		$this->render();

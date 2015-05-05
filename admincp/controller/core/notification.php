@@ -24,32 +24,32 @@ class ControllerCoreNotification extends Controller
 		foreach($medias as $key => $media)
 		{
 			$media['productName'] = $this->document->productName($media);
-			$tonkho = $this->model_core_media->getTonKho($media['mediaid']);
-			$media['tonkho'] = $tonkho;
+			//$inventory = $this->model_core_media->getInventory($media['mediaid']);
+			//$media['inventory'] = $inventory;
 			$data = array();
 			$data['productName'] = $media['productName'];
-			$data['tonkho'] = $media['tonkho'];
+			$data['inventory'] = $media['inventory'];
 			if($media['noteprice'] == 'minisize')
 			{
 				//Cac san pham minisize co ton ma bi an			
 				
 				
 				
-				if((int)$tonkho > 0 && $media['status'] == 'hide')
+				if((int)$inventory > 0 && $media['status'] == 'hide')
 				{
-					$media['tonkho'] = $tonkho;
+					$media['inventory'] = $inventory;
 					$data_war['minsizeactive'][]=$data;
 					
 				}
 				//Cac san pham minisize het hang ma chua an
-				if((int)$tonkho == 0 && $media['status'] == 'active')
+				if((int)$inventory == 0 && $media['status'] == 'active')
 				{
 					$data_war['minsizehide'][]=$data;
 					
 				}
 			}
 			//Cac san pham bi am trong kho
-			if((int)$tonkho < 0)
+			if((int)$inventory < 0)
 			{
 				$data_war['productamkho'][]=$data;
 			}
@@ -81,26 +81,26 @@ class ControllerCoreNotification extends Controller
 		foreach($medias as $key => $media)
 		{
 			$media['productName'] = $this->document->productName($media);
-			$tonkho = $this->model_core_media->getTonKho($media['mediaid']);
-			$media['tonkho'] = $tonkho;
+			//$inventory = $this->model_core_media->getInventory($media['mediaid']);
+			//$media['inventory'] = $inventory;
 			$data = array();
 			
 			$data['productName'] = $media['productName'];
-			$data['tonkho'] = $media['tonkho'];
+			$data['inventory'] = $media['inventory'];
 			if($media['noteprice'] == 'minisize')
 			{
 				//Cac san pham minisize co ton ma bi an			
 				
 				
 				
-				if((int)$tonkho > 0 && $media['status'] == 'hide')
+				if((int)$inventory > 0 && $media['status'] == 'hide')
 				{
-					$media['tonkho'] = $tonkho;
+					$media['inventory'] = $inventory;
 					$data_war['minsizeactive'][]=$data;
 					
 				}
 				//Cac san pham minisize het hang ma chua an
-				if((int)$tonkho == 0 && $media['status'] == 'active')
+				if((int)$inventory == 0 && $media['status'] == 'active')
 				{
 					$data_war['minsizehide'][]=$data;
 					
@@ -124,14 +124,14 @@ class ControllerCoreNotification extends Controller
 		foreach($medias as $key => $media)
 		{
 			$media['productName'] = $this->document->productName($media);
-			$tonkho = $this->model_core_media->getTonKho($media['mediaid']);
-			$media['tonkho'] = $tonkho;
+			$inventory = $this->model_core_media->getInventory($media['mediaid']);
+			$media['inventory'] = $inventory;
 			$data = array();
 			$data['productName'] = $media['productName'];
-			$data['tonkho'] = $media['tonkho'];
+			$data['inventory'] = $media['inventory'];
 			
 			//Cac san pham bi am trong kho
-			if((int)$tonkho < 0)
+			if((int)$inventory < 0)
 			{
 				$data_war['productamkho'][]=$data;
 			}

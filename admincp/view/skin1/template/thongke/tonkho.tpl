@@ -17,16 +17,16 @@
             <?php $sum = 0;?>
             <?php $sumthanhtien = 0;?>
             <?php foreach($medias as $media){ ?>
-            	<?php if((int)$media['tonkho']){ ?>
-                <?php $sum += (int)$media['tonkho'];?>
-                <?php $sumthanhtien += $media['priceimport']*$media['tonkho'];?>
+            	<?php if((int)$media['inventory']){ ?>
+                <?php $sum += (int)$media['inventory'];?>
+                <?php $sumthanhtien += $media['priceimport']*$media['inventory'];?>
 			<tr>
             	
                 <td><?php echo $this->document->productName($media['mediaid'])?></td>
                 
-                <td class="number"><?php echo $media['tonkho']?></td>
+                <td class="number"><?php echo $media['inventory']?></td>
                 <td class="number"><?php echo $this->string->numberFormate($media['priceimport'])?></td>
-                <td class="number"><?php echo $this->string->numberFormate($media['priceimport']*$media['tonkho'])?></td>
+                <td class="number"><?php echo $this->string->numberFormate($media['priceimport']*$media['inventory'])?></td>
             </tr>
             	<?php } ?>
             <?php } ?>

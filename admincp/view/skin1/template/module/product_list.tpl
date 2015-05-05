@@ -20,7 +20,7 @@
                     Giá: <?php echo $this->string->numberFormate($media['price'])?><?php if($media['noteprice']) echo "(".$this->document->getCategory($media['noteprice']).")";?><br />
                     Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />
                     <?php echo ($media['groupkeys']!="")?$media['groupkeys']."<br>":"" ?>
-                    <?php if($media['tonkho']) echo "Tồn: ".$media['tonkho']?>
+                    <?php if($media['inventory']) echo "Tồn: ".$media['inventory']?>
                     
                     <?php if(count($media['child'])==0){ ?>
                             
@@ -74,7 +74,7 @@
                             	<?php echo $child['sizes']?> <?php echo $child['color']?> <?php echo $child['material']?> : <?php echo $this->string->numberFormate($child['price'])?><?php if($child['noteprice']!="") echo "(".$this->document->getCategory($child['noteprice']).")";?><br />
                                 Giảm: <?php echo $this->string->numberFormate($child['discountpercent'])?>%<br />
                                 Giá khuyến mãi: <?php echo $this->string->numberFormate($child['pricepromotion'])?><br />
-                                <?php if($child['tonkho']) echo "Tồn: ".$child['tonkho']?>
+                                <?php if($child['inventory']) echo "Tồn: ".$child['inventory']?>
                             </td>
                             <td>
                             	Barcode: <?php echo $child['barcode']?><br />

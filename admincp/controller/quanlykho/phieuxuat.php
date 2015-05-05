@@ -324,6 +324,10 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
 				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
 				$index++;
+				//Cap nhat ton kho
+				$inventory = $this->model_core_media->getInventory($mediaid);
+				$this->model_core_media->updateCol($mediaid,'inventory',$inventory);
+				
 			}
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien- $this->string->toNumber($data['thanhtoan']));

@@ -132,7 +132,7 @@ function searchForm()
 	});
 <?php } ?>
 
-function viewTonKho(id)
+function viewinventory(id)
 {
 	$("#popup").attr('title','Tồn kho');
 				$( "#popup" ).dialog({
@@ -154,10 +154,10 @@ function viewTonKho(id)
 				});
 			
 				
-	$("#popup-content").load("?route=quanlykho/nguyenlieu/viewTonKho&id="+id,function(){
+	$("#popup-content").load("?route=quanlykho/nguyenlieu/viewinventory&id="+id,function(){
 		$("#popup").dialog("open");	
 	});
-	//openDialog("?route=quanlykho/nguyenlieu/viewTonKho&id="+id,1000,800);
+	//openDialog("?route=quanlykho/nguyenlieu/viewinventory&id="+id,1000,800);
 }
 function importNguyenLieu(id)
 {

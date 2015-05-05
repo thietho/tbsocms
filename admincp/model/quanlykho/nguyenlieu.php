@@ -334,7 +334,7 @@ class ModelQuanlykhoNguyenlieu extends ModelCoreFile
 		return $this->model_quanlykho_donvitinh->toText($data_soluong);
 	}
 	
-	public function getTonKho($nguyenlieuid)
+	public function getinventory($nguyenlieuid)
 	{
 		$nguyenlieu = $this->getItem($nguyenlieuid);
 		

@@ -652,7 +652,7 @@ function Notification()
 				{
 					
 					no.count++;
-					str += '<li>'+ data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].tonkho +'</li>';
+					str += '<li>'+ data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].inventory +'</li>';
 				}
 				str += '</ul>';
 				str += '</li>';
@@ -666,7 +666,7 @@ function Notification()
 				{
 					
 					no.count++;
-					str += '<li>'+ data.minsizehide[i].productName+' tồn: '+ data.minsizehide[i].tonkho +'</li>';
+					str += '<li>'+ data.minsizehide[i].productName+' tồn: '+ data.minsizehide[i].inventory +'</li>';
 				}
 				str += '</ul>';
 				str += '</li>';
@@ -713,7 +713,7 @@ function Notification()
 				{
 					
 					no.count++;
-					str += '<li>'+ data.productinventory[i].productName+' tồn: '+ data.productinventory[i].tonkho +'</li>';
+					str += '<li>'+ data.productinventory[i].productName+' tồn: '+ data.productinventory[i].inventory +'</li>';
 				}
 				str += '</ul>';
 				str += '</li>';

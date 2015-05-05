@@ -46,6 +46,7 @@
                 <a class="button" onclick="pro.viewListBaoGia()">Danh sách báo giá</a>
                 <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
                 <?php if($this->user->checkPermission("module/product/update")==true){ ?>
+                <a class="button" onclick="pro.updateInventory()">Cập nhật tồn kho</a>
                 <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>
                 <a class="button" href="?route=module/information&goback=module/product">Biên tập nội dung</a>
                 
@@ -556,6 +557,13 @@ function Product()
 	{
 		$.get("?route=module/product/export",function(data){
 			window.location = "download.php?url="+ encodeURI(data);
+		});	
+	}
+	this.updateInventory = function()
+	{
+		$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+		$.get("?route=module/product/updateInventory",function(data){
+			$.unblockUI();
 		});	
 	}
 	this.showListSort = function()

@@ -210,13 +210,13 @@ class ControllerModuleProduct extends Controller
 			if(count($arrstatus))
 				$this->data['medias'][$i]['groupkeys'] = implode(",",$arrstatus);
 			$mediaid = $this->data['medias'][$i]['mediaid'];
-			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
+			//$this->data['medias'][$i]['inventory'] = $this->model_core_media->getInventory($mediaid);
 			$data_child = $this->model_core_media->getListByParent($mediaid,"ORDER BY `position` ASC ");
 			foreach($data_child as $key =>$child)
 			{
 				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 				$data_child[$key]['saleprice'] = json_decode($child['saleprice']);
-				$data_child[$key]['tonkho'] = $this->model_core_media->getTonKho($child['mediaid']);
+				//$data_child[$key]['inventory'] = $this->model_core_media->getInventory($child['mediaid']);
 				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
 				$data_child[$key]['text_edit'] = "Edit";
 			}
@@ -339,13 +339,13 @@ class ControllerModuleProduct extends Controller
 			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
 			
 			$mediaid = $this->data['medias'][$i]['mediaid'];
-			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($mediaid);
+			//$this->data['medias'][$i]['inventory'] = $this->model_core_media->getInventory($mediaid);
 			$data_child = $this->model_core_media->getListByParent($mediaid);
 			foreach($data_child as $key =>$child)
 			{
 				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 				$data_child[$key]['saleprice'] = json_decode($child['saleprice']);
-				$data_child[$key]['tonkho'] = $this->model_core_media->getTonKho($child['mediaid']);
+				//$data_child[$key]['inventory'] = $this->model_core_media->getInventory($child['mediaid']);
 				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
 				$data_child[$key]['text_edit'] = "Edit";
 			}
@@ -913,6 +913,22 @@ class ControllerModuleProduct extends Controller
 		$this->template='module/product_baogia_view.tpl';
 		if($_GET['opendialog'] == 'print')
 			$this->layout="layout/print";
+		$this->render();
+	}
+	public function updateInventory()
+	{
+		$where = " AND mediatype = 'module/product'";
+		$where .= " Order by position, statusdate DESC";
+		$medias = $this->model_core_media->getList($where);
+		foreach($medias as $key => $media)
+		{
+			
+			$inventory = $this->model_core_media->getInventory($media['mediaid']);
+			$this->model_core_media->updateCol($media['mediaid'],'inventory',$inventory);
+		}
+		
+		$this->id='content';
+		$this->template='common/output.tpl';
 		$this->render();
 	}
 }

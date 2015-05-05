@@ -1,5 +1,5 @@
 <?php
-class ControllerThongkeTonkho extends Controller
+class ControllerThongkeinventory extends Controller
 {
 	private $error = array();
 	function __construct() 
@@ -17,7 +17,7 @@ class ControllerThongkeTonkho extends Controller
 	{
 		$this->thongke();
 		$this->id='content';
-		$this->template="thongke/tonkho.tpl";
+		$this->template="thongke/inventory.tpl";
 		$this->layout="layout/center";
 		$this->render();
 	}
@@ -31,7 +31,7 @@ class ControllerThongkeTonkho extends Controller
 		$this->data['medias'] = $this->model_core_media->getList($where);
 		foreach($this->data['medias'] as $i => $media)
 		{
-			$this->data['medias'][$i]['tonkho'] = $this->model_core_media->getTonKho($media['mediaid']);
+			//$this->data['medias'][$i]['inventory'] = $this->model_core_media->getInventory($media['mediaid']);
 			$this->data['medias'][$i]['priceimport'] = $this->model_quanlykho_phieunhapxuat->getAgvPrice($media['mediaid'],'NK');
 		}
 		

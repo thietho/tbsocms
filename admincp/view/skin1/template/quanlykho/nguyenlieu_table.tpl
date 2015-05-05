@@ -53,7 +53,7 @@
                         
                 		<td class="number">
                         	
-                            <a onclick="viewTonKho(<?php echo $item['id']?>)"><?php echo $this->string->numberFormate($item['soluongton'],2)?></a>
+                            <a onclick="viewinventory(<?php echo $item['id']?>)"><?php echo $this->string->numberFormate($item['soluongton'],2)?></a>
                             
                             
                             

@@ -11,7 +11,7 @@
                     <!--Giảm: <?php echo $this->string->numberFormate($media['discountpercent'])?>%<br />
                     Giá: <?php echo $this->string->numberFormate($media['price'])?><br />
                     Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />
-                    Tồn: <?php echo $media['tonkho']?>-->
+                    Tồn: <?php echo $media['inventory']?>-->
                 </td>
             </tr>
         </table>
