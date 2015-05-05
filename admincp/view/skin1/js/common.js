@@ -636,62 +636,101 @@ $.ajaxSetup({
         }
     }
 });
-function systemCheck()
+function Notification()
 {
-	$.getJSON("?route=core/notification/systemCheck",function(data){
-		var count = 0;
-		var str = '<ul class="notification-content">';
-		str += '<li><strong>Các sản phẩm mini size có tồn mà đang bị ẩn</strong>';
-		str += '<ul>';
-		for(i in data.minsizeactive)
-		{
+	this.count = 0;
+	this.systemCheck = function()
+	{
+		$.getJSON("?route=core/notification/systemCheckMinSize",function(data){
 			
-			count++;
-			str += '<li>'+ data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].tonkho +'</li>';
-		}
-		str += '</ul>';
-		str += '</li>';
-		
-		str += '<li><strong>Các sản phẩm mini size đã hết hàng chưa ẩn</strong>';
-		str += '<ul>';
-		for(i in data.minsizehide)
-		{
+			var str = '<ul class="notification-content">';
+			if(data.minsizeactive.length>0)
+			{
+				str += '<li><strong>Các sản phẩm mini size có tồn mà đang bị ẩn ('+ data.minsizeactive.length +')</strong>';
+				str += '<ul>';
+				for(i in data.minsizeactive)
+				{
+					
+					no.count++;
+					str += '<li>'+ data.minsizeactive[i].productName+' tồn: '+ data.minsizeactive[i].tonkho +'</li>';
+				}
+				str += '</ul>';
+				str += '</li>';
+			}
 			
-			count++;
-			str += '<li>'+ data.minsizehide[i].productName+' tồn: '+ data.minsizehide[i].tonkho +'</li>';
-		}
-		str += '</ul>';
-		str += '</li>';
-		
-		str += '<li><strong>Các sản phẩm chưa có giá</strong>';
-		str += '<ul>';
-		for(i in data.productprice)
-		{
+			if(data.minsizehide.length>0)
+			{
+				str += '<li><strong>Các sản phẩm mini size đã hết hàng chưa ẩn ('+ data.minsizehide.length +')</strong>';
+				str += '<ul>';
+				for(i in data.minsizehide)
+				{
+					
+					no.count++;
+					str += '<li>'+ data.minsizehide[i].productName+' tồn: '+ data.minsizehide[i].tonkho +'</li>';
+				}
+				str += '</ul>';
+				str += '</li>';
+			}
+			//
+			/*
 			
-			count++;
-			str += '<li>'+ data.productprice[i].productName +'</li>';
-		}
-		str += '</ul>';
-		str += '</li>';
-		
-		str += '<li><strong>Các sản phẩm đang active mà chưa có hình</strong>';
-		str += '<ul>';
-		for(i in data.productimage)
-		{
+			str += '<li><strong>Các sản phẩm chưa có giá</strong>';
+			str += '<ul>';
+			for(i in data.productprice)
+			{
+				
+				count++;
+				str += '<li>'+ data.productprice[i].productName +'</li>';
+			}
+			str += '</ul>';
+			str += '</li>';
 			
-			count++;
-			str += '<li>'+ data.productimage[i].productName +'</li>';
-		}
-		str += '</ul>';
-		str += '</li>';
-		
-		str += '</ul>';
-		$('#notification-content').html(str);
-		if(count)
-			$('#notification-number').html(count).show();
+			str += '<li><strong>Các sản phẩm đang active mà chưa có hình</strong>';
+			str += '<ul>';
+			for(i in data.productimage)
+			{
+				
+				count++;
+				str += '<li>'+ data.productimage[i].productName +'</li>';
+			}
+			str += '</ul>';
+			str += '</li>';*/
+			
+			str += '</ul>';
+			$('#notification-content').html(str);
+			no.checkAmKho();
+		});
+	}
+	this.systemCheckInventory = function()
+	{
+		//Các sản phẩm tồn âm kho
+		$.getJSON("?route=core/notification/systemCheckAmKho",function(data){
+			if(data.productinventory.length>0)
+			{
+				str = '<li><strong>Các sản phẩm tồn âm kho ('+ data.productinventory.length +')</strong>';
+				str += '<ul>';
+				for(i in data.productinventory)
+				{
+					
+					no.count++;
+					str += '<li>'+ data.productinventory[i].productName+' tồn: '+ data.productinventory[i].tonkho +'</li>';
+				}
+				str += '</ul>';
+				str += '</li>';
+			}
+			$('.notification-content').append(str);
+			
+			no.effect();
+	
+		});
+	}
+	this.effect = function()
+	{
+		if(no.count)
+			$('#notification-number').html(this.count).show();
 		$('.notification-content li ul').hide();
 		$('.notification-content li strong').click(function(e) {
-            //alert($('.notification-content li ul').html())
+			//alert($('.notification-content li ul').html())
 			
 			$(this).parent().children('ul').toggle(
 			function(e)
@@ -706,6 +745,7 @@ function systemCheck()
 				}
 			});
 			
-        });
-	});
+		});
+	}
 }
+var no = new Notification();

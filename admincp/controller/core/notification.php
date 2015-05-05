@@ -24,40 +24,118 @@ class ControllerCoreNotification extends Controller
 		foreach($medias as $key => $media)
 		{
 			$media['productName'] = $this->document->productName($media);
+			$tonkho = $this->model_core_media->getTonKho($media['mediaid']);
+			$media['tonkho'] = $tonkho;
+			$data = array();
+			$data['productName'] = $media['productName'];
+			$data['tonkho'] = $media['tonkho'];
 			if($media['noteprice'] == 'minisize')
 			{
 				//Cac san pham minisize co ton ma bi an			
-				$tonkho = $this->model_core_media->getTonKho($media['mediaid']);
 				
-				$media['tonkho'] = $tonkho;
+				
+				
 				if((int)$tonkho > 0 && $media['status'] == 'hide')
 				{
 					$media['tonkho'] = $tonkho;
-					$data_war['minsizeactive'][$key]['productName'] = $media['productName'];
-					$data_war['minsizeactive'][$key]['tonkho'] = $media['tonkho'];
+					$data_war['minsizeactive'][]=$data;
+					
 				}
 				//Cac san pham minisize het hang ma chua an
 				if((int)$tonkho == 0 && $media['status'] == 'active')
 				{
-					$data_war['minsizehide'][$key]['productName'] = $media['productName'];
-					$data_war['minsizehide'][$key]['tonkho'] = $media['tonkho'];
+					$data_war['minsizehide'][]=$data;
+					
 				}
 			}
 			//Cac san pham bi am trong kho
+			if((int)$tonkho < 0)
+			{
+				$data_war['productamkho'][]=$data;
+			}
 			//Cac san pham chua co gia
 			$child = $this->model_core_media->getListByParent($media['mediaid']);
 			if(count($child) == 0 && $media['status'] == 'active' && $media['price'] == 0)
 			{
-				$data_war['productprice'][$key]['productName'] = $media['productName'];
+				$data_war['productprice'][]=$data;
 			}
 			//Cac san pham dang active ma chua cap nhat hinh
 			if($media['status'] == 'active' && $media['imagepath'] == '')
 			{
-				$data_war['productimage'][$key]['mediaid'] = $media['mediaid'];
-				$data_war['productimage'][$key]['title'] = $media['title'];
-				
-				$data_war['productimage'][$key]['productName'] = $media['productName'];
+				$data_war['productimage'][]=$data;
 			}
+		}
+		$this->data['output'] = json_encode($data_war);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	public function systemCheckMinSize()
+	{
+		$where = " AND mediatype = 'module/product' AND noteprice = 'minisize'";
+		$where .= " Order by position, statusdate DESC";
+		$medias = $this->model_core_media->getList($where);
+		$data_war = array();
+		$data_war['minsizeactive'] = array();
+		$data_war['minsizehide'] = array();
+		foreach($medias as $key => $media)
+		{
+			$media['productName'] = $this->document->productName($media);
+			$tonkho = $this->model_core_media->getTonKho($media['mediaid']);
+			$media['tonkho'] = $tonkho;
+			$data = array();
+			
+			$data['productName'] = $media['productName'];
+			$data['tonkho'] = $media['tonkho'];
+			if($media['noteprice'] == 'minisize')
+			{
+				//Cac san pham minisize co ton ma bi an			
+				
+				
+				
+				if((int)$tonkho > 0 && $media['status'] == 'hide')
+				{
+					$media['tonkho'] = $tonkho;
+					$data_war['minsizeactive'][]=$data;
+					
+				}
+				//Cac san pham minisize het hang ma chua an
+				if((int)$tonkho == 0 && $media['status'] == 'active')
+				{
+					$data_war['minsizehide'][]=$data;
+					
+				}
+			}
+			
+		}
+		$this->data['output'] = json_encode($data_war);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
+	public function systemCheckInventory()
+	{
+		$where = " AND mediatype = 'module/product'";
+		$where .= " Order by position, statusdate DESC";
+		$medias = $this->model_core_media->getList($where);
+		$data_war = array();
+		$data_war['productinventory'] = array();
+		foreach($medias as $key => $media)
+		{
+			$media['productName'] = $this->document->productName($media);
+			$tonkho = $this->model_core_media->getTonKho($media['mediaid']);
+			$media['tonkho'] = $tonkho;
+			$data = array();
+			$data['productName'] = $media['productName'];
+			$data['tonkho'] = $media['tonkho'];
+			
+			//Cac san pham bi am trong kho
+			if((int)$tonkho < 0)
+			{
+				$data_war['productamkho'][]=$data;
+			}
+			
 		}
 		$this->data['output'] = json_encode($data_war);
 		$this->id='content';

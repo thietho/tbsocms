@@ -72,7 +72,7 @@ $('#hl-notification').hover(
 		$('#notification-content').hide();
 	});
 $(document).ready(function(e) {
-	setTimeout('systemCheck();',5000);
+	setTimeout('no.systemCheck();',5000);
     
 });
 </script>
