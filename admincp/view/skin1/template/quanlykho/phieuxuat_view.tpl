@@ -63,7 +63,7 @@
             
         </tr>
         <?php } ?>
-        <?php if($item['thuphi'] != 0){ ?>
+        <?php if($item['thuphi'] != 0 || $item['lydothu']!=''){ ?>
         <tr>
             
            	<td><center><?php echo $key+2?></center></td>
