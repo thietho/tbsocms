@@ -736,7 +736,7 @@ function Notification()
 					{
 						
 						no.count++;
-						str += '<li>'+ data.productprice[i].productName+' tồn: '+ data.productprice[i].inventory +'</li>';
+						str += '<li>'+ data.productprice[i].productName +'</li>';
 					}
 					str += '</ul>';
 					str += '</li>';
@@ -745,7 +745,7 @@ function Notification()
 			}
 			if(data.productimage.length>0)
 			{
-				str = '<li><strong>Các sản phẩm có tồn mà chưa có giá ('+ data.productimage.length +')</strong>';
+				str = '<li><strong>Các sản phẩm có tồn mà chưa có hình ('+ data.productimage.length +')</strong>';
 				if(data.productimage.length>0)
 				{
 					

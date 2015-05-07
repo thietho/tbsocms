@@ -130,23 +130,23 @@ class ControllerCoreNotification extends Controller
 				
 				//Cac san pham bi am trong kho
 				$media['productName'] = $this->document->productName($media);
-				$inventory = $this->model_core_media->getInventory($media['mediaid']);
-				
 				$data = array();
 				$data['productName'] = $media['productName'];
 				$data['inventory'] = $media['inventory'];
 				$data_war['productinventory'][]=$data;
 				
 			}
-			if((int)$media['inventory'] > 0 && $media['price']==0)
+			if((int)$media['inventory'] > 0 && $media['price']==0 && $media['status'] == 'active')
 			{
+				$media['productName'] = $this->document->productName($media);
 				$data = array();
 				$data['productName'] = $media['productName'];
 				$data['inventory'] = $media['inventory'];
 				$data_war['productprice'][]=$data;
 			}
-			if((int)$media['inventory'] > 0 && $media['imagepath']=='')
+			if((int)$media['inventory'] > 0 && $media['imagepath']=='' && $media['status'] == 'active')
 			{
+				$media['productName'] = $this->document->productName($media);
 				$data = array();
 				$data['productName'] = $media['productName'];
 				$data['inventory'] = $media['inventory'];
