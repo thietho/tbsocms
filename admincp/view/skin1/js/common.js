@@ -641,6 +641,7 @@ function Notification()
 	this.count = 0;
 	this.systemCheck = function()
 	{
+		this.count = 0;
 		$.getJSON("?route=core/notification/systemCheckMinSize",function(data){
 			
 			var str = '<ul class="notification-content">';
@@ -698,7 +699,7 @@ function Notification()
 			
 			str += '</ul>';
 			$('#notification-content').html(str);
-			//no.systemCheckInventory();
+			no.systemCheckInventory();
 		});
 	}
 	this.systemCheckInventory = function()
@@ -708,18 +709,58 @@ function Notification()
 			if(data.productinventory.length>0)
 			{
 				str = '<li><strong>Các sản phẩm tồn âm kho ('+ data.productinventory.length +')</strong>';
-				str += '<ul>';
-				for(i in data.productinventory)
+				if(data.productinventory.length>0)
 				{
 					
-					no.count++;
-					str += '<li>'+ data.productinventory[i].productName+' tồn: '+ data.productinventory[i].inventory +'</li>';
+					str += '<ul>';
+					for(i in data.productinventory)
+					{
+						
+						no.count++;
+						str += '<li>'+ data.productinventory[i].productName+' tồn: '+ data.productinventory[i].inventory +'</li>';
+					}
+					str += '</ul>';
+					str += '</li>';
 				}
-				str += '</ul>';
-				str += '</li>';
+				$('.notification-content').append(str);
 			}
-			$('.notification-content').append(str);
 			
+			if(data.productprice.length>0)
+			{
+				str = '<li><strong>Các sản phẩm có tồn mà chưa có giá ('+ data.productprice.length +')</strong>';
+				if(data.productprice.length>0)
+				{
+					
+					str += '<ul>';
+					for(i in data.productprice)
+					{
+						
+						no.count++;
+						str += '<li>'+ data.productprice[i].productName+' tồn: '+ data.productprice[i].inventory +'</li>';
+					}
+					str += '</ul>';
+					str += '</li>';
+				}
+				$('.notification-content').append(str);
+			}
+			if(data.productimage.length>0)
+			{
+				str = '<li><strong>Các sản phẩm có tồn mà chưa có giá ('+ data.productimage.length +')</strong>';
+				if(data.productimage.length>0)
+				{
+					
+					str += '<ul>';
+					for(i in data.productimage)
+					{
+						
+						no.count++;
+						str += '<li>'+ data.productimage[i].productName+' tồn: '+ data.productimage[i].inventory +'</li>';
+					}
+					str += '</ul>';
+					str += '</li>';
+				}
+				$('.notification-content').append(str);
+			}
 			no.effect();
 	
 		});

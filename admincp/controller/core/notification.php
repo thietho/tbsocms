@@ -116,30 +116,47 @@ class ControllerCoreNotification extends Controller
 	
 	public function systemCheckInventory()
 	{
-		$where = " AND mediatype = 'module/product'";
+		$where = " AND mediatype = 'module/product' AND `inventory` <>  ''";
 		$where .= " Order by position, statusdate DESC";
 		$medias = $this->model_core_media->getList($where);
 		$data_war = array();
 		$data_war['productinventory'] = array();
+		$data_war['productprice'] = array();
+		$data_war['productimage'] = array();
 		foreach($medias as $key => $media)
 		{
-			$media['productName'] = $this->document->productName($media);
-			$inventory = $this->model_core_media->getInventory($media['mediaid']);
-			$media['inventory'] = $inventory;
-			$data = array();
-			$data['productName'] = $media['productName'];
-			$data['inventory'] = $media['inventory'];
-			
-			//Cac san pham bi am trong kho
-			if((int)$inventory < 0)
+			if((int)$media['inventory']<0)
 			{
-				$data_war['productamkho'][]=$data;
+				
+				//Cac san pham bi am trong kho
+				$media['productName'] = $this->document->productName($media);
+				$inventory = $this->model_core_media->getInventory($media['mediaid']);
+				
+				$data = array();
+				$data['productName'] = $media['productName'];
+				$data['inventory'] = $media['inventory'];
+				$data_war['productinventory'][]=$data;
+				
 			}
-			
+			if((int)$media['inventory'] > 0 && $media['price']==0)
+			{
+				$data = array();
+				$data['productName'] = $media['productName'];
+				$data['inventory'] = $media['inventory'];
+				$data_war['productprice'][]=$data;
+			}
+			if((int)$media['inventory'] > 0 && $media['imagepath']=='')
+			{
+				$data = array();
+				$data['productName'] = $media['productName'];
+				$data['inventory'] = $media['inventory'];
+				$data_war['productimage'][]=$data;
+			}
 		}
 		$this->data['output'] = json_encode($data_war);
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
 	}
+	
 }
