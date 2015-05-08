@@ -92,7 +92,7 @@ function showProductForm(mediaid,mediaparentid,funcname)
 {
 	var eid = "mediaform";
 	$('body').append('<div id="'+eid+'" style="display:none"></div>');
-	
+	$('body').css('overflow','hidden');
 	$("#"+eid).attr('title','Thông tin sản phẩm');
 		$("#"+eid).dialog({
 			autoOpen: false,
@@ -104,6 +104,7 @@ function showProductForm(mediaid,mediaparentid,funcname)
 			close:function()
 				{
 					$("#"+eid).remove();
+					$('body').css('overflow','auto');
 				},
 			buttons: {
 				'Sưa với editor':function()
