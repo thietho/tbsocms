@@ -12,10 +12,8 @@
                         <th width="10px">STT</th>
                         <th>Mã phiếu</th>
                         <th>Ngày bán</th>
-                        <th>Người bán</th>
-                        <th>Khách hàng</th>
-                        <th>Số ĐT</th>
-                        <th>Địa chỉ</th>
+                        <th>Xuất cho</th>
+                        
                         <th>Tổng tiền bán</th>
                         <th>Thanh toán</th>
                         <th>Công nợ</th>
@@ -41,10 +39,25 @@
                         <td><center><?php echo $key+1 ?></center></td>
                         <td><a onclick="objdl.viewPX(<?php echo $item['id']?>,'')"><?php echo $item['maphieu']?></a></td>
                         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
-                       	<td><?php echo $item['nguoithuchien']?></td>
-                        <td><?php echo $item['tenkhachhang']?></td>
-                        <td><?php echo $item['dienthoai']?></td>
-                        <td><?php echo $item['diachi']?></td>
+                       	<td>
+                        	<?php echo $loaiphieu[$item['loaiphieu']]?>:
+                            <?php 
+                            	if($item['khachhangid'])
+                                {
+                                	echo $item['tenkhachhang'];
+                                    echo ($item['dienthoai'] != '') ?' - '.$item['dienthoai']:'';
+                                    echo ($item['diachi'] != '') ?' - '.$item['diachi']:'';
+                                }
+                                if($item['shopid'])
+                                {
+                                	echo $this->document->getShop($item['shopid']);
+                                }
+                                if($item['nhacungcapid'])
+                                {
+                                	echo $item['tennhacungcap'];
+                                }
+                            ?>
+                        </td>
                         <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>

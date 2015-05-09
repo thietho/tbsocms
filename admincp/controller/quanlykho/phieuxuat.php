@@ -2,7 +2,7 @@
 class ControllerQuanlykhoPhieuxuat extends Controller
 {
 	private $error = array();
-	private $loaiphieu = array('PBH','THNCC');
+	private $loaiphieu = array('PBH','XCH','THNCC');
 	function __construct() 
 	{
 		
@@ -16,7 +16,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		
 		$this->data['loaiphieu'] = array(
 								"PBH" => "Phiếu bán hàng",
-								//"XCH" => "Phiếu xuất ra cửa hàng",
+								"XCH" => "Phiếu xuất ra cửa hàng",
 								"THNCC" => "Phiếu xuất trả nhà cung cấp",
 								
 								);
@@ -25,6 +25,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$this->load->model("core/category");
 		$this->load->model("core/media");
 		$this->load->model("quanlykho/donvitinh");
+		$this->load->model("sales/shop");
 		
 		$this->data['loaisanpham'] = array();
 		$this->model_core_category->getTree("sanpham",$this->data['loaisanpham']);
@@ -32,6 +33,10 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
 		$where = " GROUP BY nguoithuchien";
 		$this->data['data_nguoithuchien'] = $this->model_quanlykho_phieunhapxuat->getList($where);
+		
+		$where = " GROUP BY shopname";
+		$this->data['data_shop'] = $this->model_sales_shop->getList($where);
+			
 		/*$where = " AND mediatype = 'module/product' ORDER BY `title` ASC";
 		$this->data['data_media'] = array();
 		$medias = $this->model_core_media->getList($where);
@@ -272,6 +277,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			//$data['loaiphieu'] = $this->loaiphieu;
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
 			$phieu = $this->model_quanlykho_phieunhapxuat->getItem($data['id']);
+			
 			//Xoa dinh luong
 			$delnhapkho = $data['delnhapkho'];
 			if($delnhapkho)
@@ -327,6 +333,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 				$dl['tennhacungcap'] = $phieu['tennhacungcap'];
 				$dl['khachhangid'] = $phieu['khachhangid'];
 				$dl['tenkhachhang'] = $phieu['tenkhachhang'];
+				$dl['shopid'] = $phieu['shopid'];
 				$dl['nguoigiao'] = $phieu['nguoigiao'];
 				$dl['nguoinhanid'] = $phieu['nguoinhanid'];
 				$dl['nguoinhan'] = $phieu['nguoinhan'];
@@ -361,14 +368,6 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	
 	private function validateForm($data)
 	{
-		
-		
-    	
-		if ($data['tenkhachhang'] == "") 
-		{
-      		$this->error['tenkhachhang'] = "Bạn chưa nhập khách hàng";
-    	}
-
 		if (count($this->error)==0) {
 	  		return TRUE;
 		} else {

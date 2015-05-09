@@ -16,7 +16,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		$this->data['loaiphieu'] = array(
 								"NK" => "Nhập từ nhà cung cấp",
 								"NK-KHTL" => "Khách hàng trả hàng",
-								//"NK-CH" => "Nhập kho từ cửa hàng",
+								"NK-CH" => "Nhập kho từ cửa hàng",
 								);
 		
 		$this->load->model("quanlykho/phieunhapxuat");
