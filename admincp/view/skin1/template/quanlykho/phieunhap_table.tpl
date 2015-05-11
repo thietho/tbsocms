@@ -13,8 +13,8 @@
                         <th>Mã phiếu</th>
                         <th>Ngày nhập</th>
                         
-                        <th>Nhà cung cấp</th>
-                        <th>Khách hàng</th>
+                        <th>Nhập bởi</th>
+                        
                         <th>Tổng tiền nhập</th>
                         <th>Thanh toán</th>
                         <th>Công nợ</th>
@@ -41,8 +41,27 @@
                         <td><a onclick="objdl.viewPN(<?php echo $item['id']?>)"><?php echo $item['maphieu']?></a></td>
                         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
                        	
-                        <td><?php echo $item['tennhacungcap']?></td>
-                        <td><?php echo $item['tenkhachhang']?></td>
+                        <td>
+                        	<?php echo $loaiphieu[$item['loaiphieu']]?>:
+                            <?php 
+                            	if($item['tenkhachhang'])
+                                {
+                                	echo $item['tenkhachhang'];
+                                    echo ($item['dienthoai'] != '') ?' - '.$item['dienthoai']:'';
+                                    echo ($item['diachi'] != '') ?' - '.$item['diachi']:'';
+                                }
+                                if($item['shopid'])
+                                {
+                                	echo $this->document->getShop($item['shopid']);
+                                }
+                                if($item['nhacungcapid'])
+                                {
+                                	echo $item['tennhacungcap'];
+                                }
+                            ?>
+                        
+                        </td>
+                        
                         <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
                         <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>

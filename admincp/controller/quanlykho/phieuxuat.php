@@ -2,7 +2,7 @@
 class ControllerQuanlykhoPhieuxuat extends Controller
 {
 	private $error = array();
-	private $loaiphieu = array('PBH','XCH','THNCC');
+	//private $loaiphieu = array('PBH','XCH','THNCC');
 	function __construct() 
 	{
 		
@@ -15,9 +15,9 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		}
 		
 		$this->data['loaiphieu'] = array(
-								"PBH" => "Phiếu bán hàng",
-								"XCH" => "Phiếu xuất ra cửa hàng",
-								"THNCC" => "Phiếu xuất trả nhà cung cấp",
+								"PX-PBH" => "Phiếu bán hàng",
+								"PX-XCH" => "Phiếu xuất ra cửa hàng",
+								"PX-THNCC" => "Phiếu xuất trả nhà cung cấp",
 								
 								);
 		$this->load->model("quanlykho/phieunhapxuat");
@@ -34,7 +34,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$where = " GROUP BY nguoithuchien";
 		$this->data['data_nguoithuchien'] = $this->model_quanlykho_phieunhapxuat->getList($where);
 		
-		$where = " GROUP BY shopname";
+		$where = " ORDER BY shopname";
 		$this->data['data_shop'] = $this->model_sales_shop->getList($where);
 			
 		/*$where = " AND mediatype = 'module/product' ORDER BY `title` ASC";

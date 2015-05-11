@@ -747,7 +747,7 @@ class ModelCoreMedia extends ModelCoreFile
 		
 		//Xuat kho
 		
-		$arrxuat = $this->getSoLuong($mediaid,'PBH');
+		$arrxuat = $this->getSoLuong($mediaid,'PX');
 		$soluongxuat = $this->model_quanlykho_donvitinh->toDonViTinh($arrxuat,$media['unit']);
 		
 		

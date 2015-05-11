@@ -77,13 +77,20 @@
                             
                         </p>
                     </div>
+                    <div id="f-NK-CH" class="nhapxuat">
+                    	
+                        <select id="shopid" name="shopid">
+                            <option value="">Chọn cửa hàng</option>
+                            <?php foreach($data_shop as $shop){ ?>
+                            <option value="<?php echo $shop['id']?>"><?php echo $shop['shopname']?></option>
+                            <?php }?>
+                        </select>
+                        <script language="javascript">
+                        $('#shopid').val("<?php echo $item['shopid']?>");
+                        </script>
+                       
+                    </div>
                     
-                    <p>
-                        <label>Người nhận</label><br />
-                        <input type="hidden" id="nguoinhanid" name="nguoinhanid" value="<?php echo $item['nguoinhanid']?>" value="<?php echo $item['nguoinhanid']?>">
-                        <input type="text" id="nguoinhan" name="nguoinhan" value="<?php echo $item['nguoinhan']?>" class="text" size=60 />
-                        <input type="button" class="button" id="btnSelectNhanVienNhan" value="Chọn nhân viên nhận"/>
-                    </p>
                     <p>
                     	<label>Tình trạng</label><br />
                         <select id="trangthai" name="trangthai">
@@ -477,26 +484,5 @@ function intSelectNhaCungCap()
 		$("#popup").dialog( "close" );
 	});
 }
-function intSelectNhanVien()
-{
-	switch(handle)
-	{
-		case "nguoithuchien":
-			$('.item').click(function(e) {
-				$("#nguoithuchienid").val($(this).attr('id'));
-				$("#nguoithuchien").val($(this).attr('hoten'));
-				$("#popup").dialog( "close" );
-			});
-			break;
-		case "nguoinhan":
-			$('.item').click(function(e) {
-				$("#nguoinhanid").val($(this).attr('id'));
-				$("#nguoinhan").val($(this).attr('hoten'));
-				
-				$("#popup").dialog( "close" );
-			});
-			break;	
-	}
-			
-}
+
 </script>

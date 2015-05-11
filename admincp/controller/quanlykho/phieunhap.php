@@ -23,13 +23,16 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		$this->load->helper('image');
 		$this->load->model("core/category");
 		$this->load->model("core/media");
-		
+		$this->load->model("sales/shop");
 		$this->load->model("quanlykho/donvitinh");
 		
 		$this->data['loaisanpham'] = array();
 		$this->model_core_category->getTree("sanpham",$this->data['loaisanpham']);
 		unset($this->data['loaisanpham'][0]);
 		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
+		
+		$where = " ORDER BY shopname";
+		$this->data['data_shop'] = $this->model_sales_shop->getList($where);
 		
    	}
 	public function index()
@@ -327,10 +330,10 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		{
       		$this->error['nguoigiao'] = "Bạn chưa nhập tên người giao";
     	}*/
-		if ($data['nguoinhan'] == "") 
+		/*if ($data['nguoinhan'] == "") 
 		{
       		$this->error['nguoinhan'] = "Bạn chưa nhập tên người nhận";
-    	}
+    	}*/
 
 		if (count($this->error)==0) {
 	  		return TRUE;

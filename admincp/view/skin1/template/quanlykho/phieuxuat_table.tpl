@@ -42,7 +42,7 @@
                        	<td>
                         	<?php echo $loaiphieu[$item['loaiphieu']]?>:
                             <?php 
-                            	if($item['khachhangid'])
+                            	if($item['tenkhachhang'])
                                 {
                                 	echo $item['tenkhachhang'];
                                     echo ($item['dienthoai'] != '') ?' - '.$item['dienthoai']:'';
