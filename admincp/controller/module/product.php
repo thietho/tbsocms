@@ -579,7 +579,7 @@ class ControllerModuleProduct extends Controller
 		$where = " AND mediaid = '".$mediaid."' AND loaiphieu like 'NK%'";
 		$data_nhapkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
 		//Xuat kho
-		$where = " AND mediaid = '".$mediaid."' AND loaiphieu = 'PBH'";
+		$where = " AND mediaid = '".$mediaid."' AND loaiphieu like 'PX%'";
 		$data_xuatkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
 		$arrdate = array();
 		foreach($data_nhapkho as $item)

@@ -47,7 +47,7 @@
                         </select>
                         
                     </p>
-                    <div id="f-PBH" class="nhapxuat">
+                    <div id="f-PX-PBH" class="nhapxuat">
                         <p>
                             <label>Khách hàng</label><br />
                             <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>">
@@ -63,7 +63,7 @@
                             <input type="text" id="diachi" name="diachi" value="<?php echo $item['diachi']?>" class="text" size=60 />
                         </p>
                     </div>
-                    <div id="f-XCH" class="nhapxuat">
+                    <div id="f-PX-XCH" class="nhapxuat">
                     	
                         <select id="shopid" name="shopid">
                             <option value="">Chọn cửa hàng</option>
@@ -76,7 +76,7 @@
                         </script>
                        
                     </div>
-                    <div id="f-THNCC" class="nhapxuat">
+                    <div id="f-PX-THNCC" class="nhapxuat">
                         <p>
                             <label>Nhà cung cấp</label><br />
                             <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
@@ -257,7 +257,13 @@ $('#loaiphieu').change(function(e) {
 		
 	});
 });
-
+$('.nhapxuat').hide();
+$("#f-<?php echo $item['loaiphieu']?>").show();
+<?php if($item['loaiphieu']){ ?>
+$('#loaiphieu').val("<?php echo $item['loaiphieu']?>");
+<?php } else{ ?>
+$('#loaiphieu').change();
+<?php }?>
 function savephieu(type)
 {
 	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
@@ -421,9 +427,7 @@ $(document).ready(function(e) {
 			});
 	});
 	
-	$('.nhapxuat').hide();
-	$("#f-<?php echo $item['loaiphieu']?>").show();
-	$('#loaiphieu').val("<?php echo $item['loaiphieu']?>");
+	
     if($('#ngaylap').val()=='')
 		$('#ngaylap').val(intToDate(Date.now()));
 });
