@@ -106,7 +106,11 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	private function loadData()
 	{
 		
-		$where = " AND loaiphieu in ('". implode("','", $this->loaiphieu) ."') ";
+		$arr = array();
+		foreach($this->data['loaiphieu'] as $key => $val)
+			$arr[] = $key;
+		$this->data['datas'] = array();
+		$where = " AND loaiphieu in ('". implode("','", $arr) ."')";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
 		$datasearchlike['trangthai'] = urldecode($this->request->get['trangthai']);
