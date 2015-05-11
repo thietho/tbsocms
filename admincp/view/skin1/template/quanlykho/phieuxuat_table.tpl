@@ -40,7 +40,7 @@
                         <td><a onclick="objdl.viewPX(<?php echo $item['id']?>,'')"><?php echo $item['maphieu']?></a></td>
                         <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
                        	<td>
-                        	<?php echo $loaiphieu[$item['loaiphieu']]?>:
+                        	<?php echo $this->document->getCategory($item['loaiphieu'])?>:
                             <?php 
                             	if($item['tenkhachhang'])
                                 {

@@ -14,12 +14,12 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$this->response->redirect('?route=page/home');
 		}
 		
-		$this->data['loaiphieu'] = array(
+		/*$this->data['loaiphieu'] = array(
 								"PX-PBH" => "Phiếu bán hàng",
 								"PX-XCH" => "Phiếu xuất ra cửa hàng",
 								"PX-THNCC" => "Phiếu xuất trả nhà cung cấp",
 								
-								);
+								);*/
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->helper('image');
 		$this->load->model("core/category");
@@ -30,6 +30,11 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$this->data['loaisanpham'] = array();
 		$this->model_core_category->getTree("sanpham",$this->data['loaisanpham']);
 		unset($this->data['loaisanpham'][0]);
+		
+		$this->data['loaiphieu'] = array();
+		$this->model_core_category->getTree("export",$this->data['loaiphieu']);
+		unset($this->data['loaiphieu'][0]);
+		
 		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
 		$where = " GROUP BY nguoithuchien";
 		$this->data['data_nguoithuchien'] = $this->model_quanlykho_phieunhapxuat->getList($where);
@@ -106,11 +111,9 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	private function loadData()
 	{
 		
-		$arr = array();
-		foreach($this->data['loaiphieu'] as $key => $val)
-			$arr[] = $key;
+		
 		$this->data['datas'] = array();
-		$where = " AND loaiphieu in ('". implode("','", $arr) ."')";
+		$where = " AND loaiphieu like 'PX%'";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
 		$datasearchlike['trangthai'] = urldecode($this->request->get['trangthai']);
@@ -138,7 +141,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		{
 			$where .= " AND ngaylap <= '".$denngay." 23:59:59'";
 		}
-		//echo $where;
+		
 		$rows = $this->model_quanlykho_phieunhapxuat->getList($where);
 		return $rows;	
 	}

@@ -4,7 +4,7 @@
         	<th width="80px">Ngày</th>
         	<th>Mã phiếu</th>
         	<th>Tên sản phẩm</th>
-            <th>Khách hàng</th>
+            <th>Xuất cho</th>
             <th>Số lượng</th>
             <th>Đơn vị</th>
             <th>Giá bán</th>
@@ -26,7 +26,25 @@
         	<td><a onclick="objdl.viewPX(<?php echo $item['phieuid']?>,'')"><?php echo $item['maphieu']?></a></td>
         	<td><?php echo $this->document->productName($item['mediaid'])?></td>
             
-            <td><?php echo $item['tenkhachhang']?></td>
+            <td>
+            	<?php echo $loaiphieu[$item['loaiphieu']]?>:
+                <?php 
+                    if($item['tenkhachhang'])
+                    {
+                        echo $item['tenkhachhang'];
+                        echo ($item['dienthoai'] != '') ?' - '.$item['dienthoai']:'';
+                        echo ($item['diachi'] != '') ?' - '.$item['diachi']:'';
+                    }
+                    if($item['shopid'])
+                    {
+                        echo $this->document->getShop($item['shopid']);
+                    }
+                    if($item['nhacungcapid'])
+                    {
+                        echo $item['tennhacungcap'];
+                    }
+                ?>
+            </td>
             <td class="number"><?php echo $this->string->numberFormate($item['soluong'])?></td>
             <td><?php echo $this->document->getDonViTinh($item['madonvi'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['giatien'])?></td>

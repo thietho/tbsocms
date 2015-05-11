@@ -13,11 +13,11 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		{
 			$this->response->redirect('?route=page/home');
 		}
-		$this->data['loaiphieu'] = array(
+		/*$this->data['loaiphieu'] = array(
 								"NK" => "Nhập từ nhà cung cấp",
 								"NK-KHTL" => "Khách hàng trả hàng",
 								"NK-CH" => "Nhập kho từ cửa hàng",
-								);
+								);*/
 		
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->helper('image');
@@ -26,9 +26,14 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		$this->load->model("sales/shop");
 		$this->load->model("quanlykho/donvitinh");
 		
+		$this->data['loaiphieu'] = array();
+		$this->model_core_category->getTree("import",$this->data['loaiphieu']);
+		unset($this->data['loaiphieu'][0]);
+		
 		$this->data['loaisanpham'] = array();
 		$this->model_core_category->getTree("sanpham",$this->data['loaisanpham']);
 		unset($this->data['loaisanpham'][0]);
+		
 		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
 		
 		$where = " ORDER BY shopname";
@@ -94,10 +99,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	{
 		
 		$arr = array();
-		foreach($this->data['loaiphieu'] as $key => $val)
-			$arr[] = $key;
-		$this->data['datas'] = array();
-		$where = " AND loaiphieu in ('". implode("','", $arr) ."')";
+		$where = " AND loaiphieu like 'NK%'";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
 		$datasearchlike['trangthai'] = urldecode($this->request->get['trangthai']);
@@ -122,6 +124,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		{
 			$where .= " AND ngaylap <= '".$denngay." 24:00:00'";
 		}
+		
 		$rows = $this->model_quanlykho_phieunhapxuat->getList($where);
 		//Page
 		$page = $this->request->get['page'];		

@@ -41,8 +41,8 @@
                     <p>
                     	<label>Loại phiếu</label><br />
                         <select id="loaiphieu" name="loaiphieu">
-                        <?php foreach($loaiphieu as $key =>  $val){ ?>
-                        	<option value="<?php echo $key?>"><?php echo $val?></option>
+                        <?php foreach($loaiphieu as $val){ ?>
+                        	<option value="<?php echo $val['categoryid']?>"><?php echo $val['categoryname']?></option>
                         <?php } ?>
                         </select>
                         
