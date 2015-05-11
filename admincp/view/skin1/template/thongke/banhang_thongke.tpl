@@ -27,7 +27,7 @@
         	<td><?php echo $this->document->productName($item['mediaid'])?></td>
             
             <td>
-            	<?php echo $loaiphieu[$item['loaiphieu']]?>:
+            	<?php echo $this->document->getCategory($item['loaiphieu'])?>:
                 <?php 
                     if($item['tenkhachhang'])
                     {

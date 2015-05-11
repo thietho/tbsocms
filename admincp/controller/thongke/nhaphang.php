@@ -12,6 +12,10 @@ class ControllerThongkeNhaphang extends Controller
 			$this->response->redirect('?route=page/home');
 		}
 		$this->load->model("quanlykho/donvitinh");
+		$this->load->model("core/category");
+		$this->data['loaiphieu'] = array();
+		$this->model_core_category->getTree("import",$this->data['loaiphieu']);
+		unset($this->data['loaiphieu'][0]);
 	}
 	public function index()
 	{
