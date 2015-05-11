@@ -35,6 +35,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$this->model_core_category->getTree("export",$this->data['loaiphieu']);
 		unset($this->data['loaiphieu'][0]);
 		
+		
 		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
 		$where = " GROUP BY nguoithuchien";
 		$this->data['data_nguoithuchien'] = $this->model_quanlykho_phieunhapxuat->getList($where);
