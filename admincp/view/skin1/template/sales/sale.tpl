@@ -11,4 +11,8 @@
     <div id="product-content"></div>
 </div>
 <script language="javascript">
+$('#shopid').change(function(e) {
+	$('#product-content').load('?route=sales/sale/listProduct&shopid='+this.value);
+    
+});
 </script>

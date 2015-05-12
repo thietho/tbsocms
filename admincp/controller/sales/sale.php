@@ -36,11 +36,10 @@ class ControllerSalesSale extends Controller
 		$data_nhapxuatmedia = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 		$arr_mediaid = $this->string->matrixToArray($data_nhapxuatmedia,'mediaid');
 		$where = " AND mediatype = 'module/product' AND mediaid in ('".implode("','",$arr_mediaid)."')";
-		$data_product = $this->model_core_media->getList($where);
+		$this->data['data_product'] = $this->model_core_media->getList($where);
 		print_r($data_product);
 		$this->id='content';
 		$this->template="sales/sale_product.tpl";
-		$this->layout="layout/center";
 		$this->render();	
 	}
 }
