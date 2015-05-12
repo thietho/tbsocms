@@ -48,4 +48,20 @@ $(document).ready(function(e) {
 	$('#product-content').load('?route=sales/sale/listProduct&shopid=' + $('#shopid').val());
     
 });
+
+function SaleOrder()
+{
+	this.index = 0;
+	
+	this.addRow = function(mediaid,title,qty,unit,price,discountpercent,discount)
+	{
+		var str = '<tr id="'+ this.index +'">';
+		str += '<td>'+ title +'</td>';
+		str += '<td><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number short soluong" ref="'+ this.index +'"/></td>';
+		str += '<td>'+ title +'</td>';
+		str += '<td>'+ title +'</td>';
+		str += '<td>'+ title +'</td>';
+		str += '</tr>';
+	}
+}
 </script>
