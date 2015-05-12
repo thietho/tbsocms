@@ -744,12 +744,9 @@ class ModelCoreMedia extends ModelCoreFile
 		//print_r($soluongnhap);
 		$int_nhap = $this->model_quanlykho_donvitinh->toInt($soluongnhap);
 		//$arr_nhap = $this->model_quanlykho_donvitinh->toDonVi($int_nhap,$media['unit']);
-		
 		//Xuat kho
-		
 		$arrxuat = $this->getSoLuong($mediaid,'PX');
 		$soluongxuat = $this->model_quanlykho_donvitinh->toDonViTinh($arrxuat,$media['unit']);
-		
 		
 		$int_xuat = $this->model_quanlykho_donvitinh->toInt($soluongxuat);
 		//$arr_xuat = $this->model_quanlykho_donvitinh->toDonVi($int_xuat,$media['unit']);

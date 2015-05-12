@@ -16,6 +16,8 @@ class ControllerSalesSale extends Controller
 		$this->load->model("quanlykho/nhanvien");
 		$this->load->model("core/media");
 		$this->load->model("quanlykho/phieunhapxuat");
+		$this->load->helper('image');
+		
 		$where = " ORDER BY shopname";
 		$this->data['data_shop'] = $this->model_sales_shop->getList($where);
 		
@@ -37,7 +39,11 @@ class ControllerSalesSale extends Controller
 		$arr_mediaid = $this->string->matrixToArray($data_nhapxuatmedia,'mediaid');
 		$where = " AND mediatype = 'module/product' AND mediaid in ('".implode("','",$arr_mediaid)."')";
 		$this->data['data_product'] = $this->model_core_media->getList($where);
-		print_r($data_product);
+		foreach($this->data['data_product'] as $i => $media)
+		{
+			$this->data['data_product'][$i]['icon'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);		
+		}
+
 		$this->id='content';
 		$this->template="sales/sale_product.tpl";
 		$this->render();	
