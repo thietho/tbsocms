@@ -1,5 +1,5 @@
 
-<div class="section" id="sitemaplist">
+<div class="section">
 
 	<div class="section-title"><?php echo $this->document->title?></div>
     

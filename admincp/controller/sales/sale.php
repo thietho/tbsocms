@@ -1,0 +1,47 @@
+<?php
+class ControllerSalesSale extends Controller
+{
+	private $error = array();
+	function __construct()
+	{
+		$this->load->model("core/module");
+		$moduleid = $_GET['route'];
+		$this->document->title = $this->model_core_module->getBreadcrumbs($moduleid);
+		if($this->user->checkPermission($moduleid)==false)
+		{
+			$this->response->redirect('?route=page/home');
+		}
+			
+		$this->load->model("sales/shop");
+		$this->load->model("quanlykho/nhanvien");
+		$this->load->model("core/media");
+		$this->load->model("quanlykho/phieunhapxuat");
+		$where = " ORDER BY shopname";
+		$this->data['data_shop'] = $this->model_sales_shop->getList($where);
+		
+	}
+	public function index()
+	{
+		
+		$this->id='content';
+		$this->template="sales/sale.tpl";
+		$this->layout="layout/center";
+		$this->render();
+	}
+	public function listProduct()
+	{
+		$shopid = $this->request->get['shopid'];
+		//Lay cac san pham co nhap cho shop
+		$where = " AND shopid = '".$shopid."' Group by mediaid ";
+		$data_nhapxuatmedia = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+		$arr_mediaid = $this->string->matrixToArray($data_nhapxuatmedia,'mediaid');
+		$where = " AND mediatype = 'module/product' AND mediaid in ('".implode("','",$arr_mediaid)."')";
+		$data_product = $this->model_core_media->getList($where);
+		print_r($data_product);
+		$this->id='content';
+		$this->template="sales/sale_product.tpl";
+		$this->layout="layout/center";
+		$this->render();	
+	}
+}
+?>
