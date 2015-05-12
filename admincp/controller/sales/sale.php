@@ -24,7 +24,9 @@ class ControllerSalesSale extends Controller
 	}
 	public function index()
 	{
-		
+		$nhanvien = $this->user->getNhanVien();
+		$staffshop = $this->model_sales_shop->getShopStaff($nhanvien['id']);
+		$this->data['shopid'] = $staffshop['shopid'];
 		$this->id='content';
 		$this->template="sales/sale.tpl";
 		$this->layout="layout/center";

@@ -6,10 +6,10 @@
         	<td>
             	<?php echo $this->document->productName($media)?>
             </td>
-            <td>
-            	
-            </td>
             <td><img src="<?php echo $media['icon']?>"></td>
+            <td>
+            	<input type="button" class="button" value="Đưa vào đơn hàng">
+            </td>
         </tr>
     <?php } ?>
     </table>
