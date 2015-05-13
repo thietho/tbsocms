@@ -48,6 +48,7 @@
                 </p>
                 <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
                 <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="viewAll()"/>
+                <input type="button" class="button" name="btnExport" value="Xuất ra excel" onclick="exportExcel()"/>
             </div>
             <div class="sitemap treeindex" id="memberlist">
                 
@@ -146,9 +147,16 @@ function viewAll()
 	
 	loadData(url);
 }
-function searchForm()
+function exportExcel()
 {
-	var url = "?route=core/member/getList";
+	var url = createParam();
+	$.get("?route=core/member/export"+url,function(data){
+			window.location = "download.php?url="+ encodeURI(data);
+		});		
+}
+function createParam()
+{
+	var url = "";
 	if($("#listmember #username").val() != "")
 		url += "&username=" + encodeURI($("#listmember #username").val());
 	if($("#listmember #fullname").val() != "")
@@ -163,12 +171,17 @@ function searchForm()
 		url += "&status="+ $("#listmember #status").val();
 	if($("#listmember #assignid").val() != "")
 		url += "&assignid="+ $("#listmember #assignid").val();
+	return url;
+}
+function searchForm()
+{
 	
+	var url = createParam();
 	if("<?php echo $_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
-	loadData(url);
+	loadData("?route=core/member/getList"+url);
 }
 
 $("#username").val("<?php echo $_GET['username']?>");

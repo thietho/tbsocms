@@ -388,6 +388,7 @@ final class Document {
 		$str = $this->httppost($url,$data);
 		$tb = json_decode($str);
 		$this->objectToArray($tb);
+		
 		return $tb;
 	}
 	public function insertData($table,$field,$value)

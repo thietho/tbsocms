@@ -112,10 +112,8 @@ class ControllerCoreMember extends Controller
 		$this->template="common/output.tpl";
 		$this->render();
   	}
-	
-	public function getList() 
+	private function loadData()
 	{
-		$this->data['users'] = array();
 		$where = "AND usertypeid = 'member'";
 		$data = $this->request->get;
 		foreach($data as $key =>$val)
@@ -154,6 +152,12 @@ class ControllerCoreMember extends Controller
 		
 		$where .= " Order by fullname";
 		$rows = $this->model_core_user->getList($where);
+		return $rows;
+	}
+	public function getList() 
+	{
+		$this->data['users'] = array();
+		$rows = $this->loadData();
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;		
@@ -644,6 +648,58 @@ class ControllerCoreMember extends Controller
 		$id = $this->request->get['id'];
 		$this->model_quanlykho_hoahong->delete($id);
 		$this->data['output'] = "Xóa thành công";
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	
+	//Cac ham xu ly tren form
+	public function export()
+	{
+		require_once DIR_COMPONENT.'PHPExcel/Classes/PHPExcel.php';
+		$objPHPExcel = new PHPExcel();
+		$objPHPExcel->getProperties()->setCreator("Ho Lan Solutions")
+							 ->setLastModifiedBy("Lư Thiết Hồ")
+							 ->setTitle("Export data")
+							 ->setSubject("Export data")
+							 ->setDescription("")
+							 ->setKeywords("Ho Lan Solutions")
+							 ->setCategory("Product");
+		$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'STT')
+			->setCellValue('B1', 'TÊN KHÁCH HÀNG')
+			->setCellValue('C1', 'SỐ ĐIỆN THOẠI')
+            ->setCellValue('D1', 'ĐỊA CHỈ')
+			->setCellValue('E1', 'EMAIL')
+			;
+		$objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFont()->setBold(true);
+		/*$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
+		$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
+		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
+		$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);*/
+		
+		
+		$key = 2;
+		$rows = $this->loadData();
+		foreach($rows as $i=> $item)
+		{
+			$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue('A'.$key, $i+1)
+				->setCellValue('B'.$key, $item['fullname'])
+				->setCellValue('C'.$key, '\''.$item['phone'])
+				->setCellValue('D'.$key, $item['address'])
+				->setCellValue('E'.$key, $item['email'])	
+				;
+			$key++;
+		}
+		$objPHPExcel->getActiveSheet()->setTitle('Danh Sach Khach Hang');
+		$objPHPExcel->setActiveSheetIndex(0);
+		//
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$filename = "DanhSachKhachHang".time().".xls";
+		$objWriter->save(DIR_CACHE.$filename);
+		$this->data['output'] = HTTP_IMAGE."cache/".$filename;
+		
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
