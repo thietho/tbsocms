@@ -23,21 +23,113 @@
                     <td><input type="text" class="text" id="address" name="address"></td>
                 </tr>
             </table>
-            <table class="data-table">
-            	<tr>
-                	<thead>
-                    	<th>Sản phẩm</th>
+            <table>
+                <thead>
+                    <tr>
+                        
+                        <th>Sản phẩm</th>
                         <th>Số lượng</th>
-                        <th>Giá</th>
-                        <th>Giảm(%)</th>
-                        <th>Giảm</th>
-                        <th>Giá đã giảm</th>
+                        <th>Đơn vị tính</th>
+                        <th>Đơn giá</th>
+                        <th>Giảm giá%</th>
+                        <th>Giảm giá</th>
+                        
                         <th>Thành tiền</th>
-                    </thead>
-                </tr>
-                <tbody id="saleorderdetail"></tbody>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="nhapkhonguyenlieu">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <input type="text" id="txt_ref" class="text" size="100"/>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            
+                            <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo $item['lydothu']?>"/>
+                        </td>
+                        <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo $this->string->numberFormate($item['thuphi'])?>"/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        
+                        <td class="number">Tổng số lượng</td>
+                        <td id="sumsoluong" class="number"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="number">
+                            Tổng cộng
+                            <input type="hidden" id="tongtien" name="tongtien" value="<?php echo $item['tongtien']?>"/>
+                        </td>
+                        <td class="number" id="tongcong"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+                        <td></td>
+                    </tr>
+                    
+                    <tr>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="number">Thanh toán</td>
+                        <td class="number"><input type="text" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo $this->string->numberFormate($item['thanhtoan'])?>"/></td>
+                        <td><input type="button" class="button" id="btnTrahet" value="Trả hết"/></td>
+                    </tr>
+                    <tr>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="number">Ngày thanh toán</td>
+                        <td class="number">
+                            <input type="text" class="text"  id="ngaythanhtoan" name="ngaythanhtoan" value="<?php echo $this->date->formatMySQLDate($item['ngaythanhtoan'])?>"/>
+                            <script language="javascript">
+                                $(function() {
+                                    $("#ngaythanhtoan").datepicker({
+                                            changeMonth: true,
+                                            changeYear: true,
+                                            dateFormat: 'dd-mm-yy'
+                                            });
+                                    });
+                             </script>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="number">
+                            Công nợ
+                            <input type="hidden" id="congno" name="congno" value="<?php echo $item['congno']?>"/>
+                        </td>
+                        <td class="number" id="lbl-congno"><?php echo $this->string->numberFormate($item['congno'])?></td>
+                        <td></td>
+                    </tr>
+                    
+                </tfoot>
             </table>
+            <input type="hidden" id="delnhapkho" name="delnhapkho" />
+            
         </form>
+        <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
         <div id="product-content"></div>
         <div class="clearer">&nbsp;</div>
 	</div>
@@ -48,20 +140,37 @@ $(document).ready(function(e) {
 	$('#product-content').load('?route=sales/sale/listProduct&shopid=' + $('#shopid').val());
     
 });
-
-function SaleOrder()
-{
-	this.index = 0;
+$('#btnAddRow').click(function(e) {
+	browseProduct();
+});
+$(function() {
+	var cache = {};
+	$( "#txt_ref" ).autocomplete({
+		minLength: 2,
+		select: function( event, ui ) {
+			//console.log(ui.item.id);
+			objdl.getProbyMediaId(ui.item.id);
+			/*var obj = ui.item.data
+			var giagiam = 0;
+			if(obj.pricepromotion > 0)
+			{
+				giagiam = obj.price - obj.pricepromotion;
+			}
+			objdl.addRow('',obj.mediaid,obj.code,obj.productName,1,obj.unit,obj.price,giagiam,obj.discountpercent);
+			setTimeout("$('#txt_ref').val('')",1000);*/
+		},
+		source: function( request, response ) {
+		var term = request.term;
+		if ( term in cache ) {
+			response( cache[ term ] );
+			return;
+		}
+		$.getJSON( "?route=core/media/getProduct", request, function( data, status, xhr ) {
+			cache[ term ] = data;
+			response( data );
+			});
+		}
+	});
 	
-	this.addRow = function(mediaid,title,qty,unit,price,discountpercent,discount)
-	{
-		var str = '<tr id="'+ this.index +'">';
-		str += '<td>'+ title +'</td>';
-		str += '<td><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number short soluong" ref="'+ this.index +'"/></td>';
-		str += '<td>'+ title +'</td>';
-		str += '<td>'+ title +'</td>';
-		str += '<td>'+ title +'</td>';
-		str += '</tr>';
-	}
-}
+});
 </script>
