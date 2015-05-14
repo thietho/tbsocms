@@ -1,7 +1,7 @@
 			
-            <table id="memberexport" class="data-table" cellpadding="0" cellspacing="0">
-                <tbody>
-                    <tr class="tr-head">
+            <table id="memberexport" class="table-data">
+            	<thead>
+                	<tr>
                         <th>STT</th>
                         
                         
@@ -12,6 +12,9 @@
                                                       
                         
                     </tr>
+                </thead>
+                <tbody>
+                    
                     
         
         
