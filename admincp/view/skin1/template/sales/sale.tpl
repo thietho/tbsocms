@@ -8,19 +8,37 @@
         <form id="saleorder">
         	<h3><center>Phiếu Bán Hàng</center></h3>
             <input type="hidden" id="shopid" name="shopid" value="<?php echo $shopid?>">
-            <input type="hidden" id="customerid" name="customerid">
+            <input type="hidden" name="id" value="<?php echo $item['id']?>">
+            <input type="hidden" id="khachhangid" name="khachhangid">
             <table>
+            	
+                        
+                <tr>
+                	<td><label>Ngày nhập</label></td>
+                    <td>
+                    	<input type="text" class="text"  id="ngaylap" name="ngaylap" value="<?php echo $this->date->formatMySQLDate($item['ngaylap'])?>"/>
+						<script language="javascript">
+                            $(function() {
+                                $("#ngaylap").datepicker({
+                                        changeMonth: true,
+                                        changeYear: true,
+                                        dateFormat: 'dd-mm-yy'
+                                        });
+                                });
+                         </script>
+                    </td>
+                </tr>
             	<tr>
                 	<td width="70px"><label>Khách hàng</label></td>
-                    <td><input type="text" class="text" id="customername" name="customername" value="Khách lẻ"></td>
+                    <td><input type="text" class="text" id="tenkhachhang" name="tenkhachhang" value="Khách lẻ"></td>
                 </tr>
                 <tr>
                 	<td><label>Điện thoại</label></td>
-                    <td><input type="text" class="text" id="phone" name="phone"></td>
+                    <td><input type="text" class="text" id="dienthoai" name="dienthoai"></td>
                 </tr>
                 <tr>
                 	<td><label>Địa chỉ</label></td>
-                    <td><input type="text" class="text" id="address" name="address"></td>
+                    <td><input type="text" class="text" id="diachi" name="diachi"></td>
                 </tr>
             </table>
             <table>
@@ -130,6 +148,7 @@
             
         </form>
         <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
+        <input type="button" class="button" id="btnSave" value="Lưu phiếu"/>
         <div id="product-content"></div>
         <div class="clearer">&nbsp;</div>
 	</div>
@@ -138,7 +157,9 @@
 <script language="javascript">
 $(document).ready(function(e) {
 	$('#product-content').load('?route=sales/sale/listProduct&shopid=' + $('#shopid').val());
-    
+	$("#nhapkhonguyenlieu").sortable();
+    if($('#ngaylap').val()=='')
+		$('#ngaylap').val(intToDate(Date.now()));
 });
 $('#btnAddRow').click(function(e) {
 	browseProduct();
@@ -173,4 +194,36 @@ $(function() {
 	});
 	
 });
+function save(type)
+{
+	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+	
+	$.post("?route=quanlykho/phieuxuat/save", $("#frm").serialize(),
+		function(data){
+			var arr = data.split("-");
+			if(arr[0] == "true")
+			{
+				switch(type)
+				{
+					case "":
+						window.location = "?route=quanlykho/phieuxuat";
+						break;
+					case "print":
+						$.unblockUI();
+						var id = arr[1];
+						objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
+						
+				}
+			}
+			else
+			{
+			
+				$('#error').html(data).show('slow');
+				$.unblockUI();
+				
+			}
+			
+		}
+	);
+}
 </script>
