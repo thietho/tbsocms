@@ -225,9 +225,7 @@ function PhieuNhapXuat()
 		});
 		$("#"+eid).dialog("open");
 		$("#"+eid).html(loading);
-		$("#"+eid).load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true",function(){
-			
-		});
+		$("#"+eid).load("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=true");
 	}
 	
 	this.viewPN = function(id)

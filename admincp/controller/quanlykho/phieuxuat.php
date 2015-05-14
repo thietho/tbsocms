@@ -229,7 +229,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		if($id) 
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
-			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
+			//$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
 			$where = " AND phieuid = '".$id."' ORDER BY `vitri` ASC";
 			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
     	}

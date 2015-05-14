@@ -41,7 +41,24 @@
                 	<td><label>Địa chỉ</label></td>
                     <td><input type="text" class="text" id="diachi" name="diachi"></td>
                 </tr>
+                <tr>
+                	<td><label>Tình trạng</label></td>
+                    <td>
+                    	<select id="trangthai" name="trangthai">
+                        	<?php foreach($this->document->status_phieunhapxuat as $key => $val){?>
+                            <option value="<?php echo $key?>"><?php echo $val?></option>
+                            <?php } ?>
+                        </select>
+                        <a class="button" id="btnSelectKhachHang" >Chọn khách hàng</a>
+                    </td>
+                </tr>
+                <tr>
+                	<td><label>Ghi chú</label></td>
+                    <td><textarea id="ghichu" name="ghichu"></textarea></td>
+                </tr>
             </table>
+            
+                    
             <table>
                 <thead>
                     <tr>
@@ -75,9 +92,9 @@
                         <td></td>
                         <td>
                             
-                            <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo $item['lydothu']?>"/>
+                            <input type="text" id="lydothu" name="lydothu" class="text"/>
                         </td>
-                        <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo $this->string->numberFormate($item['thuphi'])?>"/></td>
+                        <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" /></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -89,7 +106,7 @@
                         <td></td>
                         <td class="number">
                             Tổng cộng
-                            <input type="hidden" id="tongtien" name="tongtien" value="<?php echo $item['tongtien']?>"/>
+                            <input type="hidden" id="tongtien" name="tongtien"/>
                         </td>
                         <td class="number" id="tongcong"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
                         <td></td>
@@ -106,28 +123,7 @@
                         <td class="number"><input type="text" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo $this->string->numberFormate($item['thanhtoan'])?>"/></td>
                         <td><input type="button" class="button" id="btnTrahet" value="Trả hết"/></td>
                     </tr>
-                    <tr>
-                        
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="number">Ngày thanh toán</td>
-                        <td class="number">
-                            <input type="text" class="text"  id="ngaythanhtoan" name="ngaythanhtoan" value="<?php echo $this->date->formatMySQLDate($item['ngaythanhtoan'])?>"/>
-                            <script language="javascript">
-                                $(function() {
-                                    $("#ngaythanhtoan").datepicker({
-                                            changeMonth: true,
-                                            changeYear: true,
-                                            dateFormat: 'dd-mm-yy'
-                                            });
-                                    });
-                             </script>
-                        </td>
-                        <td></td>
-                    </tr>
+                    
                     <tr>
                         
                         <td></td>
@@ -150,7 +146,12 @@
         </form>
         <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
         <input type="button" class="button" id="btnSave" value="Lưu phiếu" onClick="saleOrder.save('')"/>
+        <input type="button" class="button" id="btnSavePrint" value="Lưu & in" onClick="saleOrder.save('print')"/>
+        <input type="button" class="button" id="btnNewOrder" value="Đơn hàng mới" onClick="saleOrder.newOrder()"/>
+        <input type="button" class="button" id="btnDelOrder" value="Xóa đơn hàng" onClick="saleOrder.delOrder($('#saleorder #id').val())"/>
+        
         <div id="listorder"></div>
+        
         <div id="product-content"></div>
         <div class="clearer">&nbsp;</div>
 	</div>
@@ -160,13 +161,56 @@
 $(document).ready(function(e) {
 	$('#product-content').load('?route=sales/sale/listProduct&shopid=' + $('#shopid').val());
 	$("#nhapkhonguyenlieu").sortable();
-    if($('#ngaylap').val()=='')
-		$('#ngaylap').val(intToDate(Date.now()));
+   
+		
 	saleOrder.listOrder();
+	saleOrder.newOrder();
+	$('#btnTrahet').click(function(e) {
+		$('#thanhtoan').val($('#tongcong').html());
+		$('#thanhtoan').keyup();
+	});
+	$('#thuphi').keyup(function(e) {
+		objdl.tinhtong(0);
+	});
+	$('#thanhtoan').keyup(function(e) {
+		var tongcong = Number(stringtoNumber($('#tongcong').html()));
+		var thanhtoan = Number(stringtoNumber($('#thanhtoan').val()));
+		var congno = tongcong - thanhtoan;
+		$('#congno').val(congno);
+		$('#lbl-congno').html(formateNumber(congno));
+	});
 });
 $('#btnAddRow').click(function(e) {
 	browseProduct();
 });
+$('#btnSelectKhachHang').click(function(e) {
+	$("#popup").attr('title','Chọn khách hàng');
+		$( "#popup" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: 1000,
+			height: window.innerHeight,
+			modal: true,
+		});
+	
+		$("#popup").dialog("open");
+		$("#popup-content").html(loading);
+		$("#popup-content").load("?route=core/member&opendialog=true",function(){
+			
+		});
+});
+function intSelectMember()
+{
+	$('.item').click(function(e) {
+		
+		$('#khachhangid').val($(this).attr('id'));
+		$('#tenkhachhang').val($(this).attr('fullname'));
+		$('#dienthoai').val($(this).attr('phone'));
+		$('#diachi').val($(this).attr('address'));
+		$("#popup").dialog( "close" );
+	});
+}
 $(function() {
 	var cache = {};
 	$( "#txt_ref" ).autocomplete({
@@ -199,6 +243,40 @@ $(function() {
 });
 function SaleOrder()
 {
+	this.newOrder = function()
+	{
+		$('#saleorder #id').val('');
+		$('#saleorder #ngaylap').val(intToDate(Date.now()));
+		$('#saleorder #khachhangid').val('');
+		$('#saleorder #tenkhachhang').val('');
+		$('#saleorder #dienthoai').val('');
+		$('#saleorder #diachi').val('');
+		
+		$('#saleorder #loaiphieu').val('');
+		$('#saleorder #trangthai').val('new');
+		$('#saleorder #ghichu').val('');
+		$('#saleorder #lydothu').val('');
+		$('#saleorder #thuphi').val('');
+		$('#saleorder #thanhtoan').val('');
+		$('#saleorder #tongtien').val('');
+		$('#nhapkhonguyenlieu').html('');
+		$('#tongcong').html('');
+		$('#sumsoluong').html('');
+		$('#lbl-congno').html('');
+		$('#btnDelOrder').hide();
+	}
+	this.delOrder = function(id)
+	{
+		$.get("?route=sales/sale/delOrder&id="+ id,function(html){
+			alert(html);
+			this.listOrder();
+		});
+	}
+	this.print = function(id)
+	{
+		openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print&show=giamgia",800,500);
+		
+	}
 	this.save = function(type)
 	{
 		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
@@ -219,7 +297,8 @@ function SaleOrder()
 							
 							//var id = arr[1];
 							//objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
-							
+							$('#saleorder #id').val(obj.id);
+							saleOrder.print(obj.id);
 					}
 				}
 				else
@@ -230,26 +309,34 @@ function SaleOrder()
 					
 				}
 				$.unblockUI();
+				saleOrder.listOrder();
 			}
 		);
 	}
 	this.listOrder = function()
 	{
 		$.getJSON("?route=sales/sale/listOrder&shopid="+ $('#shopid').val(),function(data){
-			var str = '<ul>';
+			var chuathanhtoan = '<h2>Đơn hàng chưa thanh toán</h2>';
+			chuathanhtoan += '<ul>';
+			var dathanhtoan = '<h2>Đơn hàng đã thanh toán</h2>';
+			dathanhtoan += '<ul>';
 			for(i in data)
 			{
-				
-				str += '<li><input type="button" class="button" value="'+ data[i].maphieu + '-' + data[i].tenkhachhang +'" onclick="saleOrder.editOrder('+ data[i].id +')"/></li>';
+				if(data[i].congno != 0 )
+					chuathanhtoan += '<li><input type="button" class="button" value="'+ data[i].maphieu + '-' + data[i].tenkhachhang +'" onclick="saleOrder.editOrder('+ data[i].id +')"/></li>';
+				if(data[i].congno == 0 )
+					dathanhtoan += '<li><input type="button" class="button" value="'+ data[i].maphieu + '-' + data[i].tenkhachhang +'" onclick="saleOrder.editOrder('+ data[i].id +')"/></li>';
 			}
-			str += '</ul>';
-			$('#listorder').html(str);
+			chuathanhtoan += '</ul>';
+			dathanhtoan += '</ul>';
+			$('#listorder').html(chuathanhtoan + dathanhtoan);
 		});
 			
 	}
 	this.editOrder = function(id)
 	{
 		$.getJSON("?route=sales/sale/getOrder&id="+ id,function(data){
+			$('#btnDelOrder').show();
 			$('#saleorder #id').val(data.id);
 			$('#saleorder #ngaylap').val(data.ngaylap);
 			$('#saleorder #khachhangid').val(data.khachhangid);
@@ -258,6 +345,21 @@ function SaleOrder()
 			$('#saleorder #diachi').val(data.diachi);
 			$('#saleorder #shopid').val(data.shopid);
 			$('#saleorder #loaiphieu').val(data.loaiphieu);
+			$('#saleorder #trangthai').val(data.trangthai);
+			$('#saleorder #ghichu').val(data.ghichu);
+			$('#saleorder #lydothu').val(data.lydothu);
+			$('#saleorder #thuphi').val(data.thuphi);
+			$('#saleorder #thanhtoan').val(data.thanhtoan);
+			$('#saleorder #tongtien').val(data.tongtien);
+			$('#nhapkhonguyenlieu').html('');
+			objdl.index = 0;
+			for(i in data.detail)
+			{
+				var obj = data.detail[i];
+				//alert(obj.title);
+				//objdl.addRow(obj.id,obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,giagiam,obj.discountpercent);
+				objdl.addRow(obj.id,obj.mediaid,obj.code,obj.title,obj.soluong,obj.madonvi,obj.giatien,obj.giamgia,obj.phantramgiamgia);	
+			}
 		});
 	}
 

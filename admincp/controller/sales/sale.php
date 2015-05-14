@@ -44,11 +44,25 @@ class ControllerSalesSale extends Controller
 		$this->render();
 		
 	}
+	public function delOrder() 
+	{
+		$id=$this->request->get['id'];
+		$this->model_quanlykho_phieunhapxuat->destroy($id);
+		$this->data['output'] = "Xóa thành công";
+		
+		$this->id="content";
+		$this->template="common/output.tpl";
+		$this->render();
+  	}
 	public function getOrder()
 	{
 		$id = $this->request->get['id'];
 		$data = $this->model_quanlykho_phieunhapxuat->getItem($id);
 		$data['ngaylap'] = $this->date->formatMySQLDate($data['ngaylap']);
+		//Lap chi tiet
+		$where = " AND phieuid = '".$id."' ORDER BY `vitri` ASC";
+		$data['detail'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+		
 		$this->data['output'] = json_encode($data);
 		$this->id='content';
 		$this->template='common/output.tpl';
