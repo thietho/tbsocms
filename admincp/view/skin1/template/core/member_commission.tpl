@@ -1,4 +1,4 @@
-<script src="<?php echo DIR_JS?>tabletoexcel.js" type="text/javascript"></script>
+
 <script language="javascript">
 function Commission(memberid)
 {

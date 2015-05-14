@@ -31,6 +31,7 @@
     <script src="<?php echo DIR_JS?>menu-collapsed.js" type="text/javascript"></script>
 	<script src="<?php echo DIR_JS?>order.js" type="text/javascript"></script>
 	<script src='<?php echo DIR_JS?>jquery.fileupload.js' type='text/javascript' language='javascript'> </script>
+    <script src="<?php echo DIR_JS?>tabletoexcel.js" type="text/javascript"></script>
 	<title>HL Solutions Content Management System</title>
 
 
