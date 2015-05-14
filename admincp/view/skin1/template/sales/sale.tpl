@@ -8,8 +8,9 @@
         <form id="saleorder">
         	<h3><center>Phiếu Bán Hàng</center></h3>
             <input type="hidden" id="shopid" name="shopid" value="<?php echo $shopid?>">
-            <input type="hidden" name="id" value="<?php echo $item['id']?>">
+            <input type="hidden" id="id" name="id" value="<?php echo $item['id']?>">
             <input type="hidden" id="khachhangid" name="khachhangid">
+            <input type="hidden" id="loaiphieu" name="loaiphieu" value="CH-BH">
             <table>
             	
                         
@@ -148,7 +149,8 @@
             
         </form>
         <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
-        <input type="button" class="button" id="btnSave" value="Lưu phiếu"/>
+        <input type="button" class="button" id="btnSave" value="Lưu phiếu" onClick="saleOrder.save('')"/>
+        <div id="listorder"></div>
         <div id="product-content"></div>
         <div class="clearer">&nbsp;</div>
 	</div>
@@ -160,6 +162,7 @@ $(document).ready(function(e) {
 	$("#nhapkhonguyenlieu").sortable();
     if($('#ngaylap').val()=='')
 		$('#ngaylap').val(intToDate(Date.now()));
+	saleOrder.listOrder();
 });
 $('#btnAddRow').click(function(e) {
 	browseProduct();
@@ -194,36 +197,70 @@ $(function() {
 	});
 	
 });
-function save(type)
+function SaleOrder()
 {
-	$.blockUI({ message: "<h1>Please wait...</h1>" }); 
-	
-	$.post("?route=quanlykho/phieuxuat/save", $("#frm").serialize(),
-		function(data){
-			var arr = data.split("-");
-			if(arr[0] == "true")
-			{
-				switch(type)
+	this.save = function(type)
+	{
+		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
+		
+		$.post("?route=sales/sale/save", $("#saleorder").serialize(),
+			function(data){
+				var obj = $.parseJSON(data);
+				if(obj.error == "")
 				{
-					case "":
-						window.location = "?route=quanlykho/phieuxuat";
-						break;
-					case "print":
-						$.unblockUI();
-						var id = arr[1];
-						objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
-						
+					switch(type)
+					{
+						case "":
+							//window.location = "?route=quanlykho/phieuxuat";
+							$('#saleorder #id').val(obj.id);
+							
+							break;
+						case "print":
+							
+							//var id = arr[1];
+							//objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
+							
+					}
 				}
-			}
-			else
-			{
-			
-				$('#error').html(data).show('slow');
-				$.unblockUI();
+				else
+				{
 				
+					$('#error').html(data).show('slow');
+					
+					
+				}
+				$.unblockUI();
 			}
+		);
+	}
+	this.listOrder = function()
+	{
+		$.getJSON("?route=sales/sale/listOrder&shopid="+ $('#shopid').val(),function(data){
+			var str = '<ul>';
+			for(i in data)
+			{
+				
+				str += '<li><input type="button" class="button" value="'+ data[i].maphieu + '-' + data[i].tenkhachhang +'" onclick="saleOrder.editOrder('+ data[i].id +')"/></li>';
+			}
+			str += '</ul>';
+			$('#listorder').html(str);
+		});
 			
-		}
-	);
+	}
+	this.editOrder = function(id)
+	{
+		$.getJSON("?route=sales/sale/getOrder&id="+ id,function(data){
+			$('#saleorder #id').val(data.id);
+			$('#saleorder #ngaylap').val(data.ngaylap);
+			$('#saleorder #khachhangid').val(data.khachhangid);
+			$('#saleorder #tenkhachhang').val(data.tenkhachhang);
+			$('#saleorder #dienthoai').val(data.dienthoai);
+			$('#saleorder #diachi').val(data.diachi);
+			$('#saleorder #shopid').val(data.shopid);
+			$('#saleorder #loaiphieu').val(data.loaiphieu);
+		});
+	}
+
 }
+var saleOrder = new SaleOrder();
 </script>

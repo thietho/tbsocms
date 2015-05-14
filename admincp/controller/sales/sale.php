@@ -32,6 +32,28 @@ class ControllerSalesSale extends Controller
 		$this->layout="layout/center";
 		$this->render();
 	}
+	public function listOrder()
+	{
+		$shopid = $this->request->get['shopid'];
+		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH'";
+		$data = $this->model_quanlykho_phieunhapxuat->getList($where);
+		
+		$this->data['output'] = json_encode($data);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+		
+	}
+	public function getOrder()
+	{
+		$id = $this->request->get['id'];
+		$data = $this->model_quanlykho_phieunhapxuat->getItem($id);
+		$data['ngaylap'] = $this->date->formatMySQLDate($data['ngaylap']);
+		$this->data['output'] = json_encode($data);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 	public function listProduct()
 	{
 		$shopid = $this->request->get['shopid'];
@@ -138,7 +160,8 @@ class ControllerSalesSale extends Controller
 			}
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien- $this->string->toNumber($data['thanhtoan']));
-			$this->data['output'] = "true-".$data['id'];
+			$phieu['error'] ='';
+			$this->data['output'] = json_encode($phieu);
 			if(isset($_SESSION['productlist']))
 			{
 				unset($_SESSION['productlist']);	
@@ -146,10 +169,12 @@ class ControllerSalesSale extends Controller
 		}
 		else
 		{
+			$phieu['error'] ='';
 			foreach($this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				$phieu['error'] .= $item."<br>";
 			}
+			$this->data['output'] = json_encode($phieu);
 		}
 		$this->id='content';
 		$this->template='common/output.tpl';
