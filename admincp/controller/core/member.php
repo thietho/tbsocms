@@ -702,6 +702,7 @@ class ControllerCoreMember extends Controller
 		
 		$this->id='content';
 		$this->template='common/output.tpl';
+		
 		$this->render();
 	}
 	public function exportTable()
@@ -710,6 +711,7 @@ class ControllerCoreMember extends Controller
 		$this->data['users'] = $this->loadData();
 		$this->id='content';
 		$this->template='core/member_export.tpl';
+		$this->layout="layout/print";
 		$this->render();
 	}
 }

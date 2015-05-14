@@ -53,7 +53,7 @@
             <div class="sitemap treeindex" id="memberlist">
                 
             </div>
-        	<div id="exportdata"></div>
+        	
         
         </form>
         
@@ -150,9 +150,10 @@ function viewAll()
 function exportExcel()
 {
 	var url = createParam();
-	$('#exportdata').load("?route=core/member/exportTable"+url,function(){
+	/*$('#exportdata').load("?route=core/member/exportTable"+url,function(){
 		tableToExcel('memberexport', 'Ho Lan Solutions');
-	});
+	});*/
+	openDialog("?route=core/member/exportTable"+url,800,500);
 	/*$.get("?route=core/member/export"+url,function(data){
 			window.location = "download.php?url="+ encodeURI(data);
 		});		*/
