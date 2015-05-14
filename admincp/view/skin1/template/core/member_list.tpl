@@ -48,7 +48,7 @@
                 </p>
                 <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
                 <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="viewAll()"/>
-                <input type="button" class="button" name="btnExport" value="Xuất ra excel" onclick="exportExcel()"/>
+                <input type="button" class="button" name="btnExport" value="In danh sách" onclick="exportExcel()"/>
             </div>
             <div class="sitemap treeindex" id="memberlist">
                 
