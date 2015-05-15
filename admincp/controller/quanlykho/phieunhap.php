@@ -246,10 +246,10 @@ class ControllerQuanlykhoPhieunhap extends Controller
 					
 					foreach($arr_nhapkhoid as $nhapkhoid)
 					{
-						$phieu = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMedia($nhapkhoid);
+						$ph = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMedia($nhapkhoid);
 						$this->model_quanlykho_phieunhapxuat->deletePhieuNhapXuatMedia($nhapkhoid);
 						
-						$mediaid = $phieu['mediaid'];
+						$mediaid = $ph['mediaid'];
 						//Cap nhat ton kho
 						$inventory = $this->model_core_media->getInventory($mediaid);
 						$this->model_core_media->updateCol($mediaid,'inventory',$inventory);
@@ -290,6 +290,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 				$dl['tennhacungcap'] = $phieu['tennhacungcap'];
 				$dl['khachhangid'] = $phieu['khachhangid'];
 				$dl['tenkhachhang'] = $phieu['tenkhachhang'];
+				$dl['shopid'] = $phieu['shopid'];
 				$dl['nguoigiao'] = $phieu['nguoigiao'];
 				$dl['nguoinhanid'] = $phieu['nguoinhanid'];
 				$dl['nguoinhan'] = $phieu['nguoinhan'];

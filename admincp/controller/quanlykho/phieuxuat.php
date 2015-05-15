@@ -296,10 +296,10 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 					
 					foreach($arr_nhapkhoid as $nhapkhoid)
 					{
-						$phieu = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMedia($nhapkhoid);
+						$ph = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMedia($nhapkhoid);
 						$this->model_quanlykho_phieunhapxuat->deletePhieuNhapXuatMedia($nhapkhoid);
 						
-						$mediaid = $phieu['mediaid'];
+						$mediaid = $ph['mediaid'];
 						//Cap nhat ton kho
 						$inventory = $this->model_core_media->getInventory($mediaid);
 						$this->model_core_media->updateCol($mediaid,'inventory',$inventory);

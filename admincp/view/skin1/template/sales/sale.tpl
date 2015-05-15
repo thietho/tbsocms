@@ -159,7 +159,7 @@
 </div>
 <script language="javascript">
 $(document).ready(function(e) {
-	$('#product-content').load('?route=sales/sale/listProduct&shopid=' + $('#shopid').val());
+	saleOrder.loadProduct();
 	$("#nhapkhonguyenlieu").sortable();
    
 		
@@ -241,18 +241,19 @@ $(function() {
 	});
 	
 });
-function SaleOrder()
+function SaleOrder(shopid)
 {
+	this.shopid = shopid
 	this.newOrder = function()
 	{
 		$('#saleorder #id').val('');
 		$('#saleorder #ngaylap').val(intToDate(Date.now()));
 		$('#saleorder #khachhangid').val('');
-		$('#saleorder #tenkhachhang').val('');
+		$('#saleorder #tenkhachhang').val('Khách lẻ');
 		$('#saleorder #dienthoai').val('');
 		$('#saleorder #diachi').val('');
 		
-		$('#saleorder #loaiphieu').val('');
+		$('#saleorder #loaiphieu').val('CH-BH');
 		$('#saleorder #trangthai').val('new');
 		$('#saleorder #ghichu').val('');
 		$('#saleorder #lydothu').val('');
@@ -269,7 +270,8 @@ function SaleOrder()
 	{
 		$.get("?route=sales/sale/delOrder&id="+ id,function(html){
 			alert(html);
-			this.listOrder();
+			saleOrder.listOrder();
+			saleOrder.loadProduct();
 		});
 	}
 	this.print = function(id)
@@ -310,12 +312,13 @@ function SaleOrder()
 				}
 				$.unblockUI();
 				saleOrder.listOrder();
+				saleOrder.loadProduct();
 			}
 		);
 	}
 	this.listOrder = function()
 	{
-		$.getJSON("?route=sales/sale/listOrder&shopid="+ $('#shopid').val(),function(data){
+		$.getJSON("?route=sales/sale/listOrder&shopid="+ this.shopid,function(data){
 			var chuathanhtoan = '<h2>Đơn hàng chưa thanh toán</h2>';
 			chuathanhtoan += '<ul>';
 			var dathanhtoan = '<h2>Đơn hàng đã thanh toán</h2>';
@@ -362,7 +365,10 @@ function SaleOrder()
 			}
 		});
 	}
-
+	this.loadProduct = function()
+	{
+		$('#product-content').load('?route=sales/sale/listProduct&shopid=' + this.shopid);
+	}
 }
-var saleOrder = new SaleOrder();
+var saleOrder = new SaleOrder($('#shopid').val());
 </script>
