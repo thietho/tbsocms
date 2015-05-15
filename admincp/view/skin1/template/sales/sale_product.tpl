@@ -1,11 +1,20 @@
 <h2>Các sản phẩm đang có ở shop</h2>
 <div>
-	<table>
+	<table class="data-table">
+    	<thead>
+            <tr>
+            	<th>Sản phẩm</th>
+                <th>Số lượng tồn</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
         <?php foreach($data_product as $media){ ?>
         <tr>
         	<td>
             	<?php echo $this->document->productName($media)?>
             </td>
+            <td></td>
             <td><img src="<?php echo $media['icon']?>"></td>
             <td>
             	<input type="button" class="button selectProduct" value="Chọn" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $this->document->productName($media)?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>" discountpercent="<?php echo $media['discountpercent']?>" productname="<?php echo $this->document->productName($media)?>" brandname="<?php echo $this->document->getCategory($media['brand'])?>"/>

@@ -721,7 +721,7 @@ class ModelCoreMedia extends ModelCoreFile
 		return $query->rows;
 	}
 	
-	public function getTongKho($mediaid,$loaiphieu)
+	/*public function getTongKho($mediaid,$loaiphieu)
 	{
 		$media = $this->getItem($mediaid);
 		$arr_soluong = $this->getSoLuong($mediaid,$loaiphieu);
@@ -729,7 +729,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$intsoluong = $this->model_quanlykho_donvitinh->toInt($soluong);
 		$data_soluong = $this->model_quanlykho_donvitinh->toDonVi($intsoluong,$media['unit']);
 		return $this->model_quanlykho_donvitinh->toText($data_soluong);
-	}
+	}*/
 	
 	public function getInventory($mediaid)
 	{
@@ -756,6 +756,42 @@ class ModelCoreMedia extends ModelCoreFile
 		return $this->model_quanlykho_donvitinh->toText($arr_ton);
 	}
 	
+	public function getShopSoLuong($shopid,$mediaid,$loaiphieu)
+	{
+		$sql = "SELECT sum(soluong) as soluong, madonvi
+				FROM  `qlkphieunhapxuat_media` 
+				WHERE mediaid = '".$mediaid."' AND shopid = '".$shopid."' AND loaiphieu like '".$loaiphieu."'
+				Group by madonvi
+				";
+		//$tb = $this->document->select($sql);
+		//return $tb;
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
 	
+	public function getShopInventory($shopid,$mediaid)
+	{
+		$media = $this->getItem($mediaid);
+		
+		//Nhap tu kho
+		$arrnhap = $this->getShopSoLuong($shopid,$mediaid,'PX-XCH');
+		$soluongnhap = $this->model_quanlykho_donvitinh->toDonViTinh($arrnhap,$media['unit']);
+		$int_nhap = $this->model_quanlykho_donvitinh->toInt($soluongnhap);
+		//$arr_nhap = $this->model_quanlykho_donvitinh->toDonVi($int_nhap,$media['unit']);
+		//Xuat ban
+		$arrxuatban = $this->getShopSoLuong($shopid,$mediaid,'CH-BH');
+		$soluongxuatban = $this->model_quanlykho_donvitinh->toDonViTinh($arrxuatban,$media['unit']);
+		$int_xuatban = $this->model_quanlykho_donvitinh->toInt($soluongxuatban);
+		//Xuat ve kho
+		$arrxuatvekho = $this->getShopSoLuong($shopid,$mediaid,'NK-CH');
+		$soluongxuatvekho = $this->model_quanlykho_donvitinh->toDonViTinh($arrxuatvekho,$media['unit']);
+		$int_xuatvekho = $this->model_quanlykho_donvitinh->toInt($soluongxuatvekho);
+		
+		//$arr_xuat = $this->model_quanlykho_donvitinh->toDonVi($int_xuat,$media['unit']);
+		$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap - $int_xuatban - $int_xuatvekho,$media['unit']);
+		//print_r($arr_ton);
+		//echo "<br>";
+		return $this->model_quanlykho_donvitinh->toText($arr_ton);
+	}
 }
 ?>

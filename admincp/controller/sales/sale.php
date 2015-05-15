@@ -79,6 +79,7 @@ class ControllerSalesSale extends Controller
 		$this->data['data_product'] = $this->model_core_media->getList($where);
 		foreach($this->data['data_product'] as $i => $media)
 		{
+			$this->data['data_product'][$i]['shopinve'] = $this->model_core_media->getShopInventory($shopid,$media['mediaid']);
 			$this->data['data_product'][$i]['icon'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);		
 		}
 
