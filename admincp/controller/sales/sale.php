@@ -16,11 +16,23 @@ class ControllerSalesSale extends Controller
 		$this->load->model("quanlykho/nhanvien");
 		$this->load->model("core/media");
 		$this->load->model("core/category");
+		$this->load->model("core/sitemap");
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->helper('image');
 		
 		$where = " ORDER BY shopname";
 		$this->data['data_shop'] = $this->model_sales_shop->getList($where);
+		
+		$this->data['nhanhieu'] = array();
+		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
+		unset($this->data['nhanhieu'][0]);
+		
+		$this->data['status'] = array();
+		$this->model_core_category->getTree("status",$this->data['status']);
+		unset($this->data['status'][0]);
+		
+		$this->data['sitemaps'] = array();
+		$this->model_core_sitemap->getTreeSitemap("", $this->data['sitemaps']);
 		
 	}
 	public function index()
@@ -36,7 +48,7 @@ class ControllerSalesSale extends Controller
 	public function listOrder()
 	{
 		$shopid = $this->request->get['shopid'];
-		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH'";
+		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai = 'new'";
 		$data = $this->model_quanlykho_phieunhapxuat->getList($where);
 		
 		$this->data['output'] = json_encode($data);
@@ -76,7 +88,86 @@ class ControllerSalesSale extends Controller
 		$where = " AND shopid = '".$shopid."' Group by mediaid ";
 		$data_nhapxuatmedia = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 		$arr_mediaid = $this->string->matrixToArray($data_nhapxuatmedia,'mediaid');
+		
 		$where = " AND mediatype = 'module/product' AND mediaid in ('".implode("','",$arr_mediaid)."')";
+		$sitemapid = urldecode($this->request->get['sitemapid']);
+		$this->data['sitemapid'] = $sitemapid;
+		$siteid = $this->user->getSiteId();
+		if($sitemapid != "")
+		{
+			$data = array();
+			$sitemaps = $this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);
+			$arrsitemapid = $this->string->matrixToArray($data,"sitemapid");
+		}
+		$arr = array();
+		if($sitemapid)
+			foreach($arrsitemapid as $sitemapid)
+			{
+				$arr[] = " refersitemap like '%[".$sitemapid."]%'";
+			}
+		if(count($arr))
+			$where .= "AND (". implode($arr," OR ").")";
+		
+		$keyword = urldecode($this->request->get['keyword']);
+		@$arrkey = split(' ', $keyword);
+		
+		if($keyword !="")
+		{
+			$arr = array();
+			$arrcode = array();
+			$arrbarcode = array();
+			$arrref = array();
+			$arrcolor = array();
+			$arrsizes = array();
+			$arrmaterial = array();
+			foreach($arrkey as $key)
+			{
+				$arr[] = "title like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrcode[] = "code like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrbarcode[] = "barcode like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrref[] = "ref like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrref[] = "ref like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrcolor[] = "color like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrsizes[] = "sizes like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrmaterial[] = "material like '%".$key."%'";
+			}
+			$where .= " AND ((". implode(" AND ",$arr). ") 
+									OR (". implode(" AND ",$arrcode). ") 
+									OR (". implode(" AND ",$arrbarcode). ") 
+									OR (". implode(" AND ",$arrref). ") 
+									OR (". implode(" AND ",$arrcolor). ") 
+									OR (". implode(" AND ",$arrsizes). ") 
+									OR (". implode(" AND ",$arrmaterial). ") 
+							)";
+			
+		}
+		$brand = urldecode($this->request->get['brand']);
+		if($brand !="")
+		{
+			$where .= " AND brand like '".$brand."'";
+		}
+		
 		$data_product = $this->model_core_media->getList($where);
 		$arr_brand = array();
 		$this->data['data_product'] = array();
@@ -89,10 +180,6 @@ class ControllerSalesSale extends Controller
 			$this->data['data_product'][$media['brand']][]=$media;
 		}
 		
-		$this->data['nhanhieu'] = array();
-		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
-		unset($this->data['nhanhieu'][0]);
-		//print_r($this->data['nhanhieu']);
 		$cat = array(
 					'categoryid'=>'',
 					'categoryname' => 'Chưa có nhãn hiệu'
@@ -210,6 +297,10 @@ class ControllerSalesSale extends Controller
 	
 	private function validateForm($data)
 	{
+		if($data['congno']!=0 && $data['trangthai'] == 'delivered')
+		{
+			$this->error['trangthai'] = 'Đơn hàng chưa thanh toán!';
+		}
 		if (count($this->error)==0) {
 	  		return TRUE;
 		} else {

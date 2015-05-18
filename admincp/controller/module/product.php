@@ -50,11 +50,7 @@ class ControllerModuleProduct extends Controller
 		$sitemapid = urldecode($this->request->get['sitemapid']);
 		$this->data['sitemapid'] = $sitemapid;
 		$siteid = $this->user->getSiteId();
-		if($sitemapid == "")
-		{
-			
-		}
-		else
+		if($sitemapid != "")
 		{
 			$data = array();
 			$sitemaps = $this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);

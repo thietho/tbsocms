@@ -9,7 +9,7 @@
             
         	<div id="search">
             	<label>Từ khóa:</label>
-                <input type="text" class="text" id="keyword" size="100"/>
+                <input type="text" class="text" id="keyword" size="100" placeholder="Tìm kiếm sản phẩm"/>
                 <select id="brand">
                 	<option value="">Tất cả nhản hiệu</option>
                     <?php foreach($nhanhieu as $it){ ?>

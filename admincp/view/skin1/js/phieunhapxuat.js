@@ -14,7 +14,7 @@ function PhieuNhapXuat()
 		row +='<td class="number"><input type="text" id="giamgia-'+ this.index +'" name="giamgia['+ this.index +']" value="'+ giamgia +'" class="text number short giamgia" ref="'+ this.index +'"/></td>';
 		
 		row += '<td class="number thanhtien" id="thanhtien-'+ this.index +'"></td>';
-		row +='<td><input type="button" class="button" value="Xóa" onclick="objdl.removeRow('+ this.index +')"/></td>';
+		row +='<td><input type="button" class="button" value="X" onclick="objdl.removeRow('+ this.index +')"/></td>';
 		row+='</tr>'
 		$('#nhapkhonguyenlieu').append(row);
 		var str = '#madonvi-'+ this.index;

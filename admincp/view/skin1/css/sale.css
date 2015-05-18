@@ -1,16 +1,24 @@
+#saleorder
+{
+	width:70%;	
+}
+#listorder
+{
+	width:30%;
+}
 #product-content
 {
 	
 }
-#saleorder
+#frmSaleOrder
 {
 	
 }
-#saleorder input
+#frmSaleOrder input
 {
 	width:98%;	
 }
-#saleorder textarea
+#frmSaleOrder textarea
 {
 	width:98%;	
 }
