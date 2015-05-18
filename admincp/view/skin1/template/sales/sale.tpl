@@ -170,6 +170,7 @@
                 <?php } ?>
                 <?php } ?>
             </select>
+            <input type="checkbox" id="empty" value="empty"> Các sản phẩm đang hết hàng
         </div>
         <div id="product-content"></div>
         
@@ -181,6 +182,9 @@ $('#shopsearch input').keyup(function(e) {
     saleOrder.loadProduct();
 });
 $('#shopsearch select').change(function(e) {
+    saleOrder.loadProduct();
+});
+$('#shopsearch #empty').click(function(e) {
     saleOrder.loadProduct();
 });
 $(document).ready(function(e) {
@@ -433,9 +437,7 @@ function SaleOrder(shopid)
 		{
 			url += "&sitemapid="+encodeURI($('#shopsearch #sitemapid').val());
 		}
-		
-		
-		url += "&page=" + Number(control.getParam("page",control.getUrl()));
+		alert(document.getElementById('empty').checked);
 		return url
 	}
 	this.loadProduct = function()
