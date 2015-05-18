@@ -265,6 +265,7 @@ function SaleOrder(shopid)
 		$('#sumsoluong').html('');
 		$('#lbl-congno').html('');
 		$('#btnDelOrder').hide();
+		$('.listorder').removeClass('ordercurrent');
 	}
 	this.delOrder = function(id)
 	{
@@ -323,16 +324,25 @@ function SaleOrder(shopid)
 			chuathanhtoan += '<ul>';
 			var dathanhtoan = '<h2>Đơn hàng đã thanh toán</h2>';
 			dathanhtoan += '<ul>';
+			var stype = 'style="background:red"';
 			for(i in data)
 			{
 				if(data[i].congno != 0 )
-					chuathanhtoan += '<li><input type="button" class="button" value="'+ data[i].maphieu + '-' + data[i].tenkhachhang +'" onclick="saleOrder.editOrder('+ data[i].id +')"/></li>';
+					chuathanhtoan += '<li><input type="button" class="button listorder" value="'+ data[i].maphieu + '-' + data[i].tenkhachhang +'" onclick="saleOrder.editOrder('+ data[i].id +')" ref="'+ data[i].id +'"/></li>';
 				if(data[i].congno == 0 )
-					dathanhtoan += '<li><input type="button" class="button" value="'+ data[i].maphieu + '-' + data[i].tenkhachhang +'" onclick="saleOrder.editOrder('+ data[i].id +')"/></li>';
+					dathanhtoan += '<li><input type="button" class="button listorder" value="'+ data[i].maphieu + '-' + data[i].tenkhachhang +'" onclick="saleOrder.editOrder('+ data[i].id +')" ref="'+ data[i].id +'"/></li>';
 			}
 			chuathanhtoan += '</ul>';
 			dathanhtoan += '</ul>';
 			$('#listorder').html(chuathanhtoan + dathanhtoan);
+			$('.listorder').click(function(e) {
+				$('.listorder').removeClass('ordercurrent');
+                $(this).addClass('ordercurrent');
+            });
+			$('.listorder').each(function(index, element) {
+                if($(this).attr('ref') == $('#saleorder #id').val())
+					$(this).addClass('ordercurrent');
+            });
 		});
 			
 	}
@@ -363,6 +373,7 @@ function SaleOrder(shopid)
 				//objdl.addRow(obj.id,obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,giagiam,obj.discountpercent);
 				objdl.addRow(obj.id,obj.mediaid,obj.code,obj.title,obj.soluong,obj.madonvi,obj.giatien,obj.giamgia,obj.phantramgiamgia);	
 			}
+			
 		});
 	}
 	this.loadProduct = function()

@@ -9,7 +9,12 @@
                 <th></th>
             </tr>
         </thead>
-        <?php foreach($data_product as $media){ ?>
+        <?php foreach($nhanhieu as $brand){ ?>
+        	<?php if(count($data_product[$brand['categoryid']])) {?>
+        <tr>
+        	<td colspan="4"><strong><?php echo $brand['categoryname']?></strong></td>
+        </tr>
+        		<?php foreach($data_product[$brand['categoryid']] as $media){ ?>
         <tr>
         	<td>
             	<?php echo $this->document->productName($media)?>
@@ -20,7 +25,10 @@
             	<input type="button" class="button selectProduct" value="Chọn" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $this->document->productName($media)?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>" discountpercent="<?php echo $media['discountpercent']?>" productname="<?php echo $this->document->productName($media)?>" brandname="<?php echo $this->document->getCategory($media['brand'])?>"/>
             </td>
         </tr>
-    <?php } ?>
+        		<?php } ?>
+            <?php } ?>
+    	<?php } ?>
+        
     </table>
 </div>
 <script language="javascript">

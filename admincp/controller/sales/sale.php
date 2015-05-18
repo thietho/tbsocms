@@ -15,6 +15,7 @@ class ControllerSalesSale extends Controller
 		$this->load->model("sales/shop");
 		$this->load->model("quanlykho/nhanvien");
 		$this->load->model("core/media");
+		$this->load->model("core/category");
 		$this->load->model("quanlykho/phieunhapxuat");
 		$this->load->helper('image');
 		
@@ -76,13 +77,27 @@ class ControllerSalesSale extends Controller
 		$data_nhapxuatmedia = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 		$arr_mediaid = $this->string->matrixToArray($data_nhapxuatmedia,'mediaid');
 		$where = " AND mediatype = 'module/product' AND mediaid in ('".implode("','",$arr_mediaid)."')";
-		$this->data['data_product'] = $this->model_core_media->getList($where);
-		foreach($this->data['data_product'] as $i => $media)
+		$data_product = $this->model_core_media->getList($where);
+		$arr_brand = array();
+		$this->data['data_product'] = array();
+		foreach($data_product as $i => $media)
 		{
-			$this->data['data_product'][$i]['Inventory'] = $this->model_core_media->getShopInventory($shopid,$media['mediaid']);
-			$this->data['data_product'][$i]['icon'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);		
+			$media['Inventory'] = $this->model_core_media->getShopInventory($shopid,$media['mediaid']);
+			$media['icon'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);		
+			/*if(!in_array($media['brand'],$arr_brand))
+				$arr_brand[]=$media['brand'];*/
+			$this->data['data_product'][$media['brand']][]=$media;
 		}
-
+		
+		$this->data['nhanhieu'] = array();
+		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
+		unset($this->data['nhanhieu'][0]);
+		//print_r($this->data['nhanhieu']);
+		$cat = array(
+					'categoryid'=>'',
+					'categoryname' => 'Chưa có nhãn hiệu'
+					);
+		$this->data['nhanhieu'][] = $cat;
 		$this->id='content';
 		$this->template="sales/sale_product.tpl";
 		$this->render();	
