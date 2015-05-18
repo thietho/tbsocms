@@ -170,7 +170,7 @@
                 <?php } ?>
                 <?php } ?>
             </select>
-            <input type="checkbox" id="empty" value="empty"> Các sản phẩm đang hết hàng
+            
         </div>
         <div id="product-content"></div>
         
@@ -437,7 +437,7 @@ function SaleOrder(shopid)
 		{
 			url += "&sitemapid="+encodeURI($('#shopsearch #sitemapid').val());
 		}
-		alert(document.getElementById('empty').checked);
+		
 		return url
 	}
 	this.loadProduct = function()
