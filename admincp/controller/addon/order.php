@@ -62,7 +62,7 @@ class ControllerAddonOrder extends Controller
 			$member = $this->model_core_user->getItem($order['order']['userid']);
 		$tongtien = 0;
 		
-		$data['loaiphieu'] = "PBH";
+		$data['loaiphieu'] = "PX-PBH";
 		$data['nguoithuchienid'] = $nhanvien['id'];
 		$data['nguoithuchien'] = $nhanvien['hoten'];
 		$data['nhacungcapid'] = "";

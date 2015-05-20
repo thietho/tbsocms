@@ -11,7 +11,12 @@ class ControllerSalesSale extends Controller
 		{
 			$this->response->redirect('?route=page/home');
 		}
-			
+		
+		$this->data['loaiphieu'] = array(
+											'NK-CH' => 'Trả hàng về kho',
+											'CH-BH' => 'Phiếu bán hàng'
+										);
+		
 		$this->load->model("sales/shop");
 		$this->load->model("quanlykho/nhanvien");
 		$this->load->model("core/media");
@@ -54,6 +59,18 @@ class ControllerSalesSale extends Controller
 		$this->data['output'] = json_encode($data);
 		$this->id='content';
 		$this->template='common/output.tpl';
+		$this->render();
+		
+	}
+	public function listOrderComplete()
+	{
+		$shopid = $this->request->get['shopid'];
+		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai = 'delivered'";
+		$this->data['data_order'] = $this->model_quanlykho_phieunhapxuat->getList($where);
+		
+		
+		$this->id='content';
+		$this->template='sales/sale_order.tpl';
 		$this->render();
 		
 	}
@@ -359,7 +376,7 @@ class ControllerSalesSale extends Controller
 			}
 			
 		}
-		print_r($this->data['nhapxuat']);
+		//print_r($this->data['nhapxuat']);
 		$this->id='content';
 		$this->template="sales/sale_product_history.tpl";
 		$this->render();
