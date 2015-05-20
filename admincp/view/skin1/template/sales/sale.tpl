@@ -449,6 +449,31 @@ function SaleOrder(shopid)
 	{
 		$('#product-content').load('?route=sales/sale/listProduct&shopid=' + this.shopid+ this.getUrl());
 	}
+	this.history = function(mediaid)
+	{
+		var eid = "history";
+		$('body').append('<div id="'+eid+'" style="display:none"></div>');
+		$('body').css('overflow','hidden');
+		$("#"+eid).attr('title','Thông tin sản phẩm');
+			$("#"+eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				modal: true,
+				close:function()
+					{
+						$("#"+eid).remove();
+						$('body').css('overflow','auto');
+					},
+				
+			});
+		
+			$("#"+eid).dialog("open");
+			$("#"+eid).html(loading);
+			$("#"+eid).load('?route=sales/sale/history&shopid=' + this.shopid+'&mediaid='+mediaid);
+	}
 }
 var saleOrder = new SaleOrder($('#shopid').val());
 </script>

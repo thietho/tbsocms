@@ -307,5 +307,62 @@ class ControllerSalesSale extends Controller
 	  		return FALSE;
 		}
 	}
+	public function history()
+	{
+		$shopid = $this->request->get['shopid'];
+		$mediaid = $this->request->get['mediaid'];
+		//Nhap
+		$where = " AND shopid = '".$shopid."' AND mediaid = '".$mediaid."' AND loaiphieu = 'PX-XCH' ORDER BY `ngaylap` DESC";
+		$data_nhap = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+		//Xuat
+		
+		$where = " AND shopid = '".$shopid."' AND mediaid = '".$mediaid."' AND loaiphieu in ('CH-BH','NK-CH') ORDER BY `ngaylap` DESC";
+		$data_xuat = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+		
+		
+		$arrdate = array();
+		foreach($data_nhap as $item)
+		{
+			$ngaylap = $this->date->getDate($item['ngaylap']);
+			if(!in_array($ngaylap,$arrdate))
+			{
+				$arrdate[] = $this->date->getDate($item['ngaylap']);
+			}
+		}
+		foreach($data_xuat as $item)
+		{
+			$ngaylap = $this->date->getDate($item['ngaylap']);
+			if(!in_array($ngaylap,$arrdate))
+			{
+				$arrdate[] = $this->date->getDate($item['ngaylap']);
+			}
+		}
+		
+		sort($arrdate);
+		foreach($arrdate as $date)
+		{
+			foreach($data_nhap as $item)
+			{
+				$ngaylap = $this->date->getDate($item['ngaylap']);
+				if($ngaylap == $date)
+				{
+					$this->data['nhapxuat'][$date]['nhap'][] = $item;
+				}
+			}
+			foreach($data_xuat as $item)
+			{
+				$ngaylap = $this->date->getDate($item['ngaylap']);
+				if($ngaylap == $date)
+				{
+					$this->data['nhapxuat'][$date]['xuat'][] = $item;
+				}
+			}
+			
+		}
+		print_r($this->data['nhapxuat']);
+		$this->id='content';
+		$this->template="sales/sale_product_history.tpl";
+		$this->render();
+	}
 }
 ?>
