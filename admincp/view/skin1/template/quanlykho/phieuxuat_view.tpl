@@ -6,7 +6,8 @@
 	<tr>
     	<td>
             <div class="cusinfo">
-                <label>Khách hàng:</label> <?php echo $item['tenkhachhang']?> - <label>ĐT:</label> <?php echo $item['dienthoai']?>
+                <label>Khách hàng:</label> <?php echo $item['tenkhachhang']?><?php echo $this->document->getShop($item['shopid']);?>
+                - <label>ĐT:</label> <?php echo $item['dienthoai']?>
             </div>
             <div class="cusinfo">
                 <label>Địa chỉ:</label> <?php echo $item['diachi']?>

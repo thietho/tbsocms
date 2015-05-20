@@ -33,7 +33,7 @@
     		<?php $max = max(count($item['nhap']),count($item['xuat']))?>
         	<?php for($i=0;$i < $max;$i++){ ?>
         <tr class="item">
-        	<td><?php echo $item['nhap'][$i]['maphieu']?></td>
+        	<td><a onclick="objdl.viewPX(<?php echo $item['nhap'][$i]['phieuid']?>,'')"><?php echo $item['nhap'][$i]['maphieu']?></a></td>
             <td>
             	<?php echo $this->document->getCategory($item['nhap'][$i]['loaiphieu'])?>:
                 <?php 
@@ -58,7 +58,7 @@
             <td class="number"><?php echo $this->string->numberFormate($item['nhap'][$i]['giatien'])?></td>
             <td class="number"><?php echo $this->string->numberFormate($item['nhap'][$i]['phantramgiamgia'])?>%</td>
             <td class="number"><?php echo $this->string->numberFormate($item['nhap'][$i]['thanhtien'])?></td>
-            <td><a onclick="objdl.viewPX(<?php echo $item['id']?>,'')"><?php echo $item['xuat'][$i]['maphieu']?></a></td>
+            <td><a onclick="objdl.viewPX(<?php echo $item['xuat'][$i]['phieuid']?>,'')"><?php echo $item['xuat'][$i]['maphieu']?></a></td>
             <td>
             	
             	<?php 
