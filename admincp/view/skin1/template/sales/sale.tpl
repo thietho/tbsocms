@@ -314,7 +314,7 @@ function SaleOrder(shopid)
 	{
 		
 		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
-		
+		$('#error').hide();
 		$.post("?route=sales/sale/save", $("#frmSaleOrder").serialize(),
 			function(data){
 				var obj = $.parseJSON(data);
@@ -334,6 +334,11 @@ function SaleOrder(shopid)
 							$('#frmSaleOrder #id').val(obj.id);
 							saleOrder.print(obj.id);
 					}
+					if($('#trangthai').val()=='delivered')
+					{
+						saleOrder.newOrder();
+					}
+						
 				}
 				else
 				{
