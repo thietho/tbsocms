@@ -215,7 +215,7 @@ class ControllerSalesSale extends Controller
 			$where .= " AND brand like '".$brand."'";
 		}
 		
-		$data_product = $this->model_core_media->getList($where);
+		$data_product = $this->model_core_media->getList($where." Order by `title`");
 		$arr_brand = array();
 		$this->data['data_product'] = array();
 		
