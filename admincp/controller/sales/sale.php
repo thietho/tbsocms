@@ -218,10 +218,11 @@ class ControllerSalesSale extends Controller
 		$data_product = $this->model_core_media->getList($where);
 		$arr_brand = array();
 		$this->data['data_product'] = array();
+		
 		foreach($data_product as $i => $media)
 		{
 			$media['Inventory'] = $this->model_core_media->getShopInventory($shopid,$media['mediaid']);
-			$media['icon'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);		
+			$media['icon'] = HelperImage::resizePNG($media['imagepath'], 100, 100);		
 			/*if(!in_array($media['brand'],$arr_brand))
 				$arr_brand[]=$media['brand'];*/
 			$this->data['data_product'][$media['brand']][]=$media;
@@ -232,6 +233,7 @@ class ControllerSalesSale extends Controller
 					'categoryname' => 'Chưa có nhãn hiệu'
 					);
 		$this->data['nhanhieu'][] = $cat;
+		
 		$this->id='content';
 		$this->template="sales/sale_product.tpl";
 		$this->render();	
