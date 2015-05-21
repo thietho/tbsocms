@@ -324,21 +324,20 @@ function SaleOrder(shopid)
 					switch(type)
 					{
 						case "":
-							//window.location = "?route=quanlykho/phieuxuat";
-							$('#frmSaleOrder #id').val(obj.id);
 							
 							break;
 						case "print":
 							
 							//var id = arr[1];
 							//objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
-							$('#frmSaleOrder #id').val(obj.id);
+							
 							saleOrder.print(obj.id);
 					}
 					if($('#trangthai').val()=='delivered')
 					{
 						saleOrder.newOrder();
 					}
+					saleOrder.editOrder(obj.id);
 						
 				}
 				else
