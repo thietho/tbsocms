@@ -49,7 +49,9 @@
                                 <option value="<?php echo $key?>"><?php echo $val?></option>
                                 <?php } ?>
                             </select>
+                            <?php if($this->user->getUserTypeId()=='admin'){ ?>
                             <a class="button" id="btnSelectKhachHang" >Chọn khách hàng</a>
+                            <?php } ?>
                         </td>
                     </tr>
                     <tr>
@@ -499,6 +501,12 @@ function SaleOrder(shopid)
 			$("#"+eid).html(loading);
 			$("#"+eid).load('?route=sales/sale/listOrderComplete&shopid=' + this.shopid);	
 	}
+	this.listOrderCompleteData = function(para)
+	{
+		$('#listordercomlete').html(loading);
+		$('#listordercomlete').load('?route=sales/sale/listOrderCompleteData&shopid=' + this.shopid+para);
+	}
+	
 }
 var saleOrder = new SaleOrder($('#shopid').val());
 </script>

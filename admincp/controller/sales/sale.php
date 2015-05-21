@@ -65,14 +65,44 @@ class ControllerSalesSale extends Controller
 	public function listOrderComplete()
 	{
 		$shopid = $this->request->get['shopid'];
-		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai = 'delivered'";
-		$this->data['data_order'] = $this->model_quanlykho_phieunhapxuat->getList($where);
-		
 		
 		$this->id='content';
 		$this->template='sales/sale_order.tpl';
 		$this->render();
 		
+	}
+	public function listOrderCompleteData()
+	{
+		$shopid = $this->request->get['shopid'];
+		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
+		$datasearchlike['tenkhachhang'] = urldecode($this->request->get['tenkhachhang']);
+		$datasearchlike['dienthoai'] = urldecode($this->request->get['dienthoai']);
+		$datasearchlike['diachi'] = urldecode($this->request->get['diachi']);
+		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai = 'delivered'";
+		
+		$arr = array();
+		foreach($datasearchlike as $key => $item)
+		{
+			if($item !="")
+				$arr[] = " AND " . $key ." like '%".$item."%'";
+		}
+		
+		$where .= implode("",$arr);
+		$tungay = $this->date->formatViewDate(urldecode($this->request->get['tungay']));
+		if($tungay !="")
+		{
+			$where .= " AND ngaylap >= '".$tungay."'";
+		}
+		$denngay = $this->date->formatViewDate(urldecode($this->request->get['denngay']));
+		if($denngay !="")
+		{
+			$where .= " AND ngaylap <= '".$denngay." 23:59:59'";
+		}
+		
+		$this->data['data_order'] = $this->model_quanlykho_phieunhapxuat->getList($where);
+		$this->id='content';
+		$this->template='sales/sale_order_data.tpl';
+		$this->render();
 	}
 	public function delOrder() 
 	{
