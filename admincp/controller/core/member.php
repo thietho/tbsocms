@@ -259,7 +259,7 @@ class ControllerCoreMember extends Controller
 		}
 		
 		//Lay tat ca phieu ban hang
-		$where = " AND loaiphieu = 'PBH' AND khachhangid = '".$id."'";
+		$where = " AND loaiphieu in ('PX-PBH','CH-BH') AND khachhangid = '".$id."'";
 		if($tungay != "")
 		{
 			$where .= " AND ngaylap > '".$tungay."'";
