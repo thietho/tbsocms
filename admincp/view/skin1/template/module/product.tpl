@@ -630,7 +630,7 @@ $(document).ready(function(e) {
 		pro.searchForm();
 		//window.location = "?route=module/product";
     });
-	$('#keyword').keyup(function(e) {
+	$('#search #keyword').keyup(function(e) {
         if(e.keyCode == 13)
 			pro.searchForm();
     });

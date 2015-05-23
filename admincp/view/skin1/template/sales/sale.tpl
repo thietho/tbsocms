@@ -181,15 +181,14 @@
     
 </div>
 <script language="javascript">
-$('#shopsearch input').keyup(function(e) {
-    saleOrder.loadProduct();
+$('#shopsearch #keyword').keyup(function(e) {
+    if(e.keyCode == 13)
+		saleOrder.loadProduct();
 });
 $('#shopsearch select').change(function(e) {
     saleOrder.loadProduct();
 });
-$('#shopsearch #empty').click(function(e) {
-    saleOrder.loadProduct();
-});
+
 $(document).ready(function(e) {
 	saleOrder.loadProduct();
 	$("#nhapkhonguyenlieu").sortable();
@@ -309,6 +308,7 @@ function SaleOrder(shopid)
 				alert(html);
 				saleOrder.listOrder();
 				saleOrder.loadProduct();
+				saleOrder.newOrder();
 			});
 		}
 	}
@@ -361,6 +361,7 @@ function SaleOrder(shopid)
 	}
 	this.listOrder = function()
 	{
+		$('#listorder').html(loading);
 		$.getJSON("?route=sales/sale/listOrder&shopid="+ this.shopid,function(data){
 			var countchuathanhtoan = 0;
 			var countdathanhtoan = 0;
@@ -453,6 +454,7 @@ function SaleOrder(shopid)
 	}
 	this.loadProduct = function()
 	{
+		$('#product-content').html(loading);
 		$('#product-content').load('?route=sales/sale/listProduct&shopid=' + this.shopid+ this.getUrl());
 	}
 	this.history = function(mediaid)
