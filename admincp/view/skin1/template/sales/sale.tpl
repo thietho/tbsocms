@@ -302,11 +302,15 @@ function SaleOrder(shopid)
 	}
 	this.delOrder = function(id)
 	{
-		$.get("?route=sales/sale/delOrder&id="+ id,function(html){
-			alert(html);
-			saleOrder.listOrder();
-			saleOrder.loadProduct();
-		});
+		var ans = confirm("Bạn có muốn xóa đơn hàng của "+ $('#frmSaleOrder #tenkhachhang').val() +" không?");
+		if(ans == true)
+		{
+			$.get("?route=sales/sale/delOrder&id="+ id,function(html){
+				alert(html);
+				saleOrder.listOrder();
+				saleOrder.loadProduct();
+			});
+		}
 	}
 	this.print = function(id)
 	{

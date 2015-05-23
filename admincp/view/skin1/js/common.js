@@ -399,6 +399,7 @@ function browserFile(eid,type)
 	$('#outputtype').val(type);
 	var eid = "fileform";
 	$('body').append('<div id="'+eid+'" style="display:none"></div>');
+	$('body').css('overflow','hidden');
 	$("#"+eid).attr('title','Chọn hình');
 	
 	switch(type)
@@ -426,6 +427,7 @@ function browserFile(eid,type)
 			close:function()
 			{
 				$("#"+eid).remove();
+				$('body').css('overflow','auto');
 			},
 			buttons:
 			{

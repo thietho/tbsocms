@@ -1,6 +1,7 @@
 function showFile(filepath)
 {
 	$('body').append('<div id="fileinfor" style="display:none"></div>');
+	$('body').css('overflow','hidden');
 		var eid = "#fileinfor";
 		$(eid).attr('title','Thông tin file');
 			$(eid).dialog({
@@ -12,6 +13,7 @@ function showFile(filepath)
 				close:function()
 				{
 					$(eid).remove();
+					$('body').css('overflow','auto');
 				},
 				modal: true,
 				buttons: {
@@ -39,7 +41,7 @@ function showMediaForm(fileid)
 {
 	var eid = "mediaform";
 	$('body').append('<div id="'+eid+'" style="display:none"></div>');
-	
+	$('body').css('overflow','hidden');
 	$("#"+eid).attr('title','Thông tin file');
 		$("#"+eid).dialog({
 			autoOpen: false,
@@ -51,6 +53,7 @@ function showMediaForm(fileid)
 			close:function()
 				{
 					$("#"+eid).remove();
+					$('body').css('overflow','auto');
 				},
 			buttons: {
 				
@@ -554,6 +557,7 @@ function saveMedia()
 function browseProduct()
 {
 	$('body').append('<div id="popupbrowseproduct" style="display:none"></div>');
+	$('body').css('overflow','hidden');
 	$("#popupbrowseproduct").attr('title','Chọn sản phẩm');
 		$("#popupbrowseproduct").dialog({
 			autoOpen: false,
@@ -565,6 +569,7 @@ function browseProduct()
 			close:function()
 				{
 					$('#popupbrowseproduct').remove();
+					$('body').css('overflow','auto');
 				},
 			
 		});
