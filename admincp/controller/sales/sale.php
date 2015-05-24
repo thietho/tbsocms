@@ -53,7 +53,7 @@ class ControllerSalesSale extends Controller
 	public function listOrder()
 	{
 		$shopid = $this->request->get['shopid'];
-		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai = 'new'";
+		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH'";
 		$data = $this->model_quanlykho_phieunhapxuat->getList($where);
 		
 		$this->data['output'] = json_encode($data);
@@ -346,10 +346,10 @@ class ControllerSalesSale extends Controller
 	
 	private function validateForm($data)
 	{
-		if($data['congno']!=0 && $data['trangthai'] == 'delivered')
+		/*if($data['congno']!=0 && $data['trangthai'] == 'delivered')
 		{
 			$this->error['trangthai'] = 'Đơn hàng chưa thanh toán!';
-		}
+		}*/
 		if (count($this->error)==0) {
 	  		return TRUE;
 		} else {

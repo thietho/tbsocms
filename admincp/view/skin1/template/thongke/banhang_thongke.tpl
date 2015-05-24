@@ -27,6 +27,12 @@
         	<td><?php echo $this->document->productName($item['mediaid'])?></td>
             
             <td>
+            	<?php
+                	if($item['shopid'])
+                    {
+                        echo $this->document->getShop($item['shopid']);
+                    }
+                ?>
             	<?php echo $this->document->getCategory($item['loaiphieu'])?>:
                 <?php 
                     if($item['tenkhachhang'])
@@ -35,10 +41,7 @@
                         echo ($item['dienthoai'] != '') ?' - '.$item['dienthoai']:'';
                         echo ($item['diachi'] != '') ?' - '.$item['diachi']:'';
                     }
-                    if($item['shopid'])
-                    {
-                        echo $this->document->getShop($item['shopid']);
-                    }
+                    
                     if($item['nhacungcapid'])
                     {
                         echo $item['tennhacungcap'];

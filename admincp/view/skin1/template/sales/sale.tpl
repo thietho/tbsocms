@@ -363,7 +363,7 @@ function SaleOrder(shopid)
 	{
 		$('#listorder').html(loading);
 		$.getJSON("?route=sales/sale/listOrder&shopid="+ this.shopid,function(data){
-			var countchuathanhtoan = 0;
+			/*var countchuathanhtoan = 0;
 			var countdathanhtoan = 0;
 			var chuathanhtoan = '<h2>Đơn hàng chưa thanh toán</h2>';
 			chuathanhtoan += '<ul>';
@@ -385,13 +385,19 @@ function SaleOrder(shopid)
 			}
 			
 			chuathanhtoan += '</ul>';
-			dathanhtoan += '</ul>';
+			dathanhtoan += '</ul>';*/
+			var str = '<table>';
+			for(i in data)
+			{
+				str += '<tr class="listorder" ref="'+ data[i].id +'">';
+					str += '<td>'+data[i].maphieu+'</td>';
+					str += '<td>'+data[i].tenkhachhang+'</td>';
+					str += '<td>'+data[i].trangthai+'</td>';
+				str += '</tr>';
+			}
+			str += '</table>';
+			$('#listorder').html(str);
 			
-			$('#listorder').html('');
-			if(countchuathanhtoan)
-				$('#listorder').append(chuathanhtoan);
-			if(countdathanhtoan)
-				$('#listorder').append(dathanhtoan);
 			$('.listorder').click(function(e) {
 				$('.listorder').removeClass('ordercurrent');
                 $(this).addClass('ordercurrent');

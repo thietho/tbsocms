@@ -31,7 +31,7 @@ class ControllerThongkeBanhang extends Controller
 		$data = $this->request->post;
 		$tungay = $this->date->formatViewDate($data['tungay']);
 		$denngay = $this->date->formatViewDate($data['denngay']);
-		$where = " AND loaiphieu like 'PX%'";
+		$where = " AND loaiphieu in ('PX-PBH','CH-BH')";
 		if($tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
