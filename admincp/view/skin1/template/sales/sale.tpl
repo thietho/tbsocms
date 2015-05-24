@@ -339,11 +339,16 @@ function SaleOrder(shopid)
 							
 							saleOrder.print(obj.id);
 					}
-					if($('#trangthai').val()=='delivered')
+					
+					
+					if($('#congno').val()=='0')
 					{
 						saleOrder.newOrder();
 					}
-					saleOrder.editOrder(obj.id);
+					else
+					{
+						saleOrder.editOrder(obj.id);
+					}
 						
 				}
 				else
@@ -389,10 +394,10 @@ function SaleOrder(shopid)
 			var str = '<table>';
 			for(i in data)
 			{
-				str += '<tr class="listorder" ref="'+ data[i].id +'">';
+				str += '<tr class="listorder '+data[i].trangthai+'" ref="'+ data[i].id +'">';
 					str += '<td>'+data[i].maphieu+'</td>';
 					str += '<td>'+data[i].tenkhachhang+'</td>';
-					str += '<td>'+data[i].trangthai+'</td>';
+					str += '<td class="number">'+formateNumber(data[i].tongtien)+'</td>';
 				str += '</tr>';
 			}
 			str += '</table>';
@@ -401,11 +406,13 @@ function SaleOrder(shopid)
 			$('.listorder').click(function(e) {
 				$('.listorder').removeClass('ordercurrent');
                 $(this).addClass('ordercurrent');
+				saleOrder.editOrder($(this).attr('ref'));
             });
 			$('.listorder').each(function(index, element) {
                 if($(this).attr('ref') == $('#frmSaleOrder #id').val())
 					$(this).addClass('ordercurrent');
             });
+			
 		});
 			
 	}

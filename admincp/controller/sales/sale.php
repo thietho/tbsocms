@@ -53,7 +53,7 @@ class ControllerSalesSale extends Controller
 	public function listOrder()
 	{
 		$shopid = $this->request->get['shopid'];
-		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH'";
+		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND congno != 0";
 		$data = $this->model_quanlykho_phieunhapxuat->getList($where);
 		
 		$this->data['output'] = json_encode($data);
@@ -78,7 +78,7 @@ class ControllerSalesSale extends Controller
 		$datasearchlike['tenkhachhang'] = urldecode($this->request->get['tenkhachhang']);
 		$datasearchlike['dienthoai'] = urldecode($this->request->get['dienthoai']);
 		$datasearchlike['diachi'] = urldecode($this->request->get['diachi']);
-		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai = 'delivered'";
+		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND congno = 0";
 		
 		$arr = array();
 		foreach($datasearchlike as $key => $item)

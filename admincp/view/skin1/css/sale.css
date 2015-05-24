@@ -24,5 +24,14 @@
 }
 .ordercurrent
 {
-	background:red !important;	
+	background:red !important;
+	font-weight:bold
+}
+.new
+{
+	background:#FF0;
+}
+.delivered
+{
+	
 }
