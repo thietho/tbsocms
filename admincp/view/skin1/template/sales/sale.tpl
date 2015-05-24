@@ -314,8 +314,8 @@ function SaleOrder(shopid)
 	}
 	this.print = function(id)
 	{
-		openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print&show=giamgia",800,500);
-		
+		//openDialog("?route=quanlykho/phieuxuat/view&id="+id+"&opendialog=print&show=giamgia",800,500);
+		objdl.viewPX(id,'')
 	}
 	this.save = function(type)
 	{
