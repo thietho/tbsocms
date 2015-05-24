@@ -189,6 +189,7 @@ function PhieuNhapXuat()
 		
 		var eid = "popupviewphieu";
 		$('body').append('<div id="'+eid+'" style="display:none"></div>');
+		$('body').css('overflow','hidden');
 		$("#"+eid).attr('title','Phiếu bán hàng');
 		$( "#"+eid ).dialog({
 			autoOpen: false,
@@ -200,6 +201,7 @@ function PhieuNhapXuat()
 			close:function()
 				{
 					$('#'+eid).remove();
+					$('body').css('overflow','auto');
 					if(callback!="")
 					{
 						setTimeout(callback,100);
@@ -232,6 +234,7 @@ function PhieuNhapXuat()
 	{
 		var eid = "popupviewphieu";
 		$('body').append('<div id="'+eid+'" style="display:none"></div>');
+		$('body').css('overflow','hidden');
 		$("#"+eid).attr('title','Phiếu nhập kho');
 		$( "#"+eid ).dialog({
 			autoOpen: false,
@@ -243,6 +246,7 @@ function PhieuNhapXuat()
 			close:function()
 				{
 					$('#'+eid).remove();
+					$('body').css('overflow','auto');
 				},
 			buttons: {
 				
