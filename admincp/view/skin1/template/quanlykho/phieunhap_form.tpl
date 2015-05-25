@@ -46,7 +46,7 @@
                         </select>
                         
                     </p>
-                    <div id="f-NK-KHTL" class="nhapxuat">
+                    <div id="f-NK-KHTL">
                         <p>
                             <label>Khách hàng</label><br />
                             <input type="hidden" id="khachhangid" name="khachhangid" value="<?php echo $item['khachhangid']?>" >
@@ -62,7 +62,7 @@
                             <input type="text" id="diachi" name="diachi" value="<?php echo $item['diachi']?>" class="text" size=60 />
                         </p>
                     </div>
-                    <div id="f-NK" class="nhapxuat">
+                    <div id="f-NK">
                     	<p>
                             <label>Nhà cung cấp</label><br />
                             <span id="nhacungcapview"><?php echo $item['tennhacungcap']?></span>
@@ -77,7 +77,7 @@
                             
                         </p>
                     </div>
-                    <div id="f-NK-CH" class="nhapxuat">
+                    <div id="f-NK-CH">
                     	
                         <select id="shopid" name="shopid">
                             <option value="">Chọn cửa hàng</option>

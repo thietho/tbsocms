@@ -361,7 +361,7 @@ class ControllerSalesSale extends Controller
 		$shopid = $this->request->get['shopid'];
 		$mediaid = $this->request->get['mediaid'];
 		//Nhap
-		$where = " AND shopid = '".$shopid."' AND mediaid = '".$mediaid."' AND loaiphieu = 'PX-XCH' ORDER BY `ngaylap` DESC";
+		$where = " AND shopid = '".$shopid."' AND mediaid = '".$mediaid."' AND loaiphieu in ('PX-XCH','CH-NK') ORDER BY `ngaylap` DESC";
 		$data_nhap = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 		//Xuat
 		

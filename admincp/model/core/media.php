@@ -777,6 +777,10 @@ class ModelCoreMedia extends ModelCoreFile
 		$arrnhap = $this->getShopSoLuong($shopid,$mediaid,'PX-XCH');
 		$soluongnhap = $this->model_quanlykho_donvitinh->toDonViTinh($arrnhap,$media['unit']);
 		$int_nhap = $this->model_quanlykho_donvitinh->toInt($soluongnhap);
+		//Nhap tu NCC
+		$arrnhapncc = $this->getShopSoLuong($shopid,$mediaid,'CH-NK');
+		$soluongnhapncc = $this->model_quanlykho_donvitinh->toDonViTinh($arrnhapncc,$media['unit']);
+		$int_nhapncc = $this->model_quanlykho_donvitinh->toInt($soluongnhapncc);
 		//$arr_nhap = $this->model_quanlykho_donvitinh->toDonVi($int_nhap,$media['unit']);
 		//Xuat ban
 		$arrxuatban = $this->getShopSoLuong($shopid,$mediaid,'CH-BH');
@@ -788,7 +792,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$int_xuatvekho = $this->model_quanlykho_donvitinh->toInt($soluongxuatvekho);
 		
 		//$arr_xuat = $this->model_quanlykho_donvitinh->toDonVi($int_xuat,$media['unit']);
-		$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap - $int_xuatban - $int_xuatvekho,$media['unit']);
+		$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap + $int_nhapncc - $int_xuatban - $int_xuatvekho,$media['unit']);
 		//print_r($arr_ton);
 		//echo "<br>";
 		return $this->model_quanlykho_donvitinh->toText($arr_ton);
