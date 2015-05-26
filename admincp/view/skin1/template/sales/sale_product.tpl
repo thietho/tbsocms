@@ -15,7 +15,7 @@
     	<thead>
             <tr>
             	<th>Sản phẩm</th>
-                
+                <th>Code</th>
                 <th>Số lượng tồn</th>
                 <th>Giá</th>
                 <th>Giảm%</th>
@@ -28,6 +28,10 @@
         <tr>
         	<td>
             	<?php echo $this->document->productName($media)?>
+            </td>
+            <td>
+            	<?php echo $media['barcode']?><br>
+                Ref: <?php echo $media['ref']?>
             </td>
             <td><?php echo $media['Inventory']?></td>
             <td class="number"><?php echo $this->string->numberFormate($media['price'])?></td>

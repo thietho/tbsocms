@@ -398,6 +398,7 @@ function SaleOrder(shopid)
 					str += '<td>'+data[i].maphieu+'</td>';
 					str += '<td>'+data[i].tenkhachhang+'</td>';
 					str += '<td class="number">'+formateNumber(data[i].tongtien)+'</td>';
+					str += '<td>'+data[i].ghichu+'</td>';
 				str += '</tr>';
 			}
 			str += '</table>';

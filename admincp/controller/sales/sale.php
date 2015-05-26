@@ -183,10 +183,7 @@ class ControllerSalesSale extends Controller
 			{
 				$arrref[] = "ref like '%".$key."%'";
 			}
-			foreach($arrkey as $key)
-			{
-				$arrref[] = "ref like '%".$key."%'";
-			}
+			
 			foreach($arrkey as $key)
 			{
 				$arrcolor[] = "color like '%".$key."%'";
