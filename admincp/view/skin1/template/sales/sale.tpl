@@ -461,7 +461,7 @@ function SaleOrder(shopid)
 				autoOpen: false,
 				show: "blind",
 				hide: "explode",
-				width: $(document).width()-100,
+				width: $(document).width(),
 				height: window.innerHeight,
 				modal: true,
 				close:function()
@@ -474,7 +474,7 @@ function SaleOrder(shopid)
 		
 			$("#"+eid).dialog("open");
 			$("#"+eid).html(loading);
-			$("#"+eid).load('?route=sales/sale/productShop&shopid=' + this.shopid+'&mediaid='+mediaid);
+			$("#"+eid).load('?route=sales/sale/productShop&shopid=' + this.shopid);
 	}
 	this.history = function(mediaid)
 	{
