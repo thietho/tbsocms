@@ -410,5 +410,11 @@ class ControllerSalesSale extends Controller
 		$this->template="sales/sale_product_history.tpl";
 		$this->render();
 	}
+	public function productShop()
+	{
+		$this->id='content';
+		$this->template="sales/sale_product_shop.tpl";
+		$this->render();
+	}
 }
 ?>

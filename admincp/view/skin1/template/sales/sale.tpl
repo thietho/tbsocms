@@ -147,6 +147,7 @@
                 
             </form>
 			<input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
+            <input type="button" class="button" id="btnListProducShop" value="Các sản phẩm đang có tại shop"/>
             <input type="button" class="button" id="btnSave" value="Lưu phiếu" onClick="saleOrder.save('')"/>
             <input type="button" class="button" id="btnSavePrint" value="Lưu & in" onClick="saleOrder.save('print')"/>
             <input type="button" class="button" id="btnNewOrder" value="Đơn hàng mới" onClick="saleOrder.newOrder()"/>
@@ -157,40 +158,15 @@
         
         <div id="listorder" class="right"></div>
         <div class="clearer">&nbsp;</div>
-        <div id="shopsearch">
-            <input type="text" class="text" id="keyword" size="100" placeholder="Tìm kiếm sản phẩm"/>
-            <select id="brand">
-                <option value="">Tất cả nhản hiệu</option>
-                <?php foreach($nhanhieu as $it){ ?>
-                <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
-                <?php } ?>
-            </select>
-            <select id="sitemapid">
-                <option value="">Tất cả danh mục</option>
-                <?php foreach($sitemaps as $sitemap){ ?>
-                <?php if($sitemap['moduleid'] == 'module/product'){ ?>
-                <option value="<?php echo $sitemap['sitemapid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$sitemap['level']) ?><?php echo $sitemap['sitemapname']?></option>
-                <?php } ?>
-                <?php } ?>
-            </select>
-            
-        </div>
-        <div id="product-content"></div>
+        
         
 	</div>
     
 </div>
 <script language="javascript">
-$('#shopsearch #keyword').keyup(function(e) {
-    if(e.keyCode == 13)
-		saleOrder.loadProduct();
-});
-$('#shopsearch select').change(function(e) {
-    saleOrder.loadProduct();
-});
 
 $(document).ready(function(e) {
-	saleOrder.loadProduct();
+	
 	$("#nhapkhonguyenlieu").sortable();
    
 		
@@ -213,6 +189,9 @@ $(document).ready(function(e) {
 });
 $('#btnAddRow').click(function(e) {
 	browseProduct();
+});
+$('#btnListProducShop').click(function(e) {
+    saleOrder.showShopProduct();
 });
 $('#btnSelectKhachHang').click(function(e) {
 	$("#popup").attr('title','Chọn khách hàng');
@@ -307,7 +286,7 @@ function SaleOrder(shopid)
 			$.get("?route=sales/sale/delOrder&id="+ id,function(html){
 				alert(html);
 				saleOrder.listOrder();
-				saleOrder.loadProduct();
+				
 				saleOrder.newOrder();
 			});
 		}
@@ -360,7 +339,7 @@ function SaleOrder(shopid)
 				}
 				$.unblockUI();
 				saleOrder.listOrder();
-				saleOrder.loadProduct();
+				
 			}
 		);
 	}
@@ -471,6 +450,31 @@ function SaleOrder(shopid)
 	{
 		$('#product-content').html(loading);
 		$('#product-content').load('?route=sales/sale/listProduct&shopid=' + this.shopid+ this.getUrl());
+	}
+	this.showShopProduct = function()
+	{
+		var eid = "searchproductpopup";
+		$('body').append('<div id="'+eid+'" style="display:none"></div>');
+		$('body').css('overflow','hidden');
+		$("#"+eid).attr('title','Thông tin sản phẩm');
+			$("#"+eid).dialog({
+				autoOpen: false,
+				show: "blind",
+				hide: "explode",
+				width: $(document).width()-100,
+				height: window.innerHeight,
+				modal: true,
+				close:function()
+					{
+						$("#"+eid).remove();
+						$('body').css('overflow','auto');
+					},
+				
+			});
+		
+			$("#"+eid).dialog("open");
+			$("#"+eid).html(loading);
+			$("#"+eid).load('?route=sales/sale/productShop&shopid=' + this.shopid+'&mediaid='+mediaid);
 	}
 	this.history = function(mediaid)
 	{
