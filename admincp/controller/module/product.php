@@ -19,6 +19,10 @@ class ControllerModuleProduct extends Controller
 		$this->load->model("core/user");
 		$this->load->helper('image');
 		$this->load->model("core/category");
+		$this->load->model("sales/shop");
+		
+		$where = " ORDER BY shopname";
+		$this->data['data_shop'] = $this->model_sales_shop->getList($where);
 	}
 	
 	function index()
@@ -207,12 +211,28 @@ class ControllerModuleProduct extends Controller
 				$this->data['medias'][$i]['groupkeys'] = implode(",",$arrstatus);
 			$mediaid = $this->data['medias'][$i]['mediaid'];
 			//$this->data['medias'][$i]['inventory'] = $this->model_core_media->getInventory($mediaid);
+			$this->data['medias'][$i]['shopinventory'] = '';
+			foreach($this->data['data_shop'] as $shop)
+			{
+				$shopinventory = $this->model_core_media->getShopInventory($shop['id'],$mediaid);
+				if($shopinventory)
+					$str = $shop['shopname']." Tồn: ". $shopinventory;
+				$this->data['medias'][$i]['shopinventory'] .= $str;
+			}
 			$data_child = $this->model_core_media->getListByParent($mediaid,"ORDER BY `position` ASC ");
 			foreach($data_child as $key =>$child)
 			{
 				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 				$data_child[$key]['saleprice'] = json_decode($child['saleprice']);
 				//$data_child[$key]['inventory'] = $this->model_core_media->getInventory($child['mediaid']);
+				$data_child[$key]['shopinventory'] = '';
+				foreach($this->data['data_shop'] as $shop)
+				{
+					$shopinventory = $this->model_core_media->getShopInventory($shop['id'],$child['mediaid']);
+					if($shopinventory)
+						$str = $shop['shopname']." Tồn: ". $shopinventory;
+					$data_child[$key]['shopinventory'] .= $str;
+				}
 				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
 				$data_child[$key]['text_edit'] = "Edit";
 			}
@@ -572,10 +592,10 @@ class ControllerModuleProduct extends Controller
 		$mediaid = $this->request->get['mediaid'];
 		$this->data['media'] = $this->model_core_media->getItem($mediaid);
 		//Nhap kho
-		$where = " AND mediaid = '".$mediaid."' AND loaiphieu like 'NK%'";
+		$where = " AND mediaid = '".$mediaid."' AND (loaiphieu like 'NK%' OR loaiphieu like 'CH-NK')";
 		$data_nhapkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
 		//Xuat kho
-		$where = " AND mediaid = '".$mediaid."' AND loaiphieu like 'PX%'";
+		$where = " AND mediaid = '".$mediaid."' AND (loaiphieu like 'PX%' OR loaiphieu like 'CH-BH')";
 		$data_xuatkho = $this->model_quanlykho_phieunhapxuat->thongke($where);
 		$arrdate = array();
 		foreach($data_nhapkho as $item)
