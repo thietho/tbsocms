@@ -405,7 +405,7 @@ function browserFile(eid,type)
 	switch(type)
 	{
 		case "single":
-		case "editor":
+		
 		case "video":
 		
 		$("#"+eid).dialog({
@@ -414,6 +414,55 @@ function browserFile(eid,type)
 			height: window.innerHeight,
 			
 			
+		});
+		break;
+		case "editor":
+		$("#"+eid).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			width: $(document).width()-100,
+			height: window.innerHeight,
+			modal: true,
+			close:function()
+			{
+				$("#"+eid).remove();
+				$('body').css('overflow','auto');
+			},
+			buttons:
+			{
+				"Chọn":function()
+				{
+					var value = "";
+					$('.selectfile').each(function(index, element) {
+						width = "";
+							
+						value += "<img src='"+ HTTP_IMAGE+$(this).attr('filepath')+"'/>";
+						
+					});
+					
+					
+					var oEditor = CKEDITOR.instances[''+$('#handler').val()] ;
+					
+					
+					// Check the active editing mode.
+					if (oEditor.mode == 'wysiwyg' )
+					{
+						// Insert the desired HTML.
+						oEditor.insertHtml( value ) ;
+						
+						var temp = oEditor.getData()
+						oEditor.setData( temp );
+					}
+					else
+						alert( 'You must be on WYSIWYG mode!' ) ;
+					$("#"+eid).dialog( "close" );
+				},
+				"Bỏ qua":function()
+				{
+					$("#"+eid).dialog( "close" );
+				}
+			}
 		});
 		break;
 		case "multi":

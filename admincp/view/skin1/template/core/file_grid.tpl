@@ -24,7 +24,7 @@
 	if(count($files))
    		foreach($files as $file){ ?>
 	<div class="left">
-        <div class="filelist fileitem text-center" id="<?php echo $file['fileid']?>" imagethumbnail="<?php echo $file['imagethumbnail']?>" filename="<?php echo $file['filename']?>" filepath="<?php echo $file['filepath']?>" style="background:url('<?php echo $file['imagethumbnail']?>') no-repeat center center" title="<?php echo $file['filename']?>">
+        <div class="filelist fileitem text-center" id="<?php echo $file['fileid']?>" imagethumbnail="<?php echo $file['imagethumbnail']?>" filename="<?php echo $file['filename']?>" filepath="<?php echo str_replace(DIR_FILE,'',$file['filepath'])?>" style="background:url('<?php echo $file['imagethumbnail']?>') no-repeat center center" title="<?php echo $file['filename']?>">
             
             <p class="filename"><?php echo substr($file['filename'],0,20)?></p>
                 

@@ -223,7 +223,7 @@ final class String
 	{
 		
 		$image = array('jpg','png','gif');
-		if(in_array($ext,$image))
+		if(in_array(strtolower($ext),$image))
 			return true;
 		else
 			return false;
