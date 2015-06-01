@@ -36,6 +36,10 @@ class ControllerSalesSale extends Controller
 		$this->model_core_category->getTree("status",$this->data['status']);
 		unset($this->data['status'][0]);
 		
+		$this->data['orderstatus'] = array();
+		$this->model_core_category->getTree("orderstatus",$this->data['orderstatus']);
+		unset($this->data['orderstatus'][0]);
+		
 		$this->data['sitemaps'] = array();
 		$this->model_core_sitemap->getTreeSitemap("", $this->data['sitemaps']);
 		
@@ -53,7 +57,7 @@ class ControllerSalesSale extends Controller
 	public function listOrder()
 	{
 		$shopid = $this->request->get['shopid'];
-		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND congno != 0";
+		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai  <> 'paid'";
 		$data = $this->model_quanlykho_phieunhapxuat->getList($where);
 		
 		$this->data['output'] = json_encode($data);
@@ -78,7 +82,7 @@ class ControllerSalesSale extends Controller
 		$datasearchlike['tenkhachhang'] = urldecode($this->request->get['tenkhachhang']);
 		$datasearchlike['dienthoai'] = urldecode($this->request->get['dienthoai']);
 		$datasearchlike['diachi'] = urldecode($this->request->get['diachi']);
-		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND congno = 0";
+		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai like 'paid'";
 		
 		$arr = array();
 		foreach($datasearchlike as $key => $item)

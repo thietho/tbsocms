@@ -45,9 +45,10 @@
                         <td><label>Tình trạng</label></td>
                         <td>
                             <select id="trangthai" name="trangthai">
-                                <?php foreach($this->document->status_phieunhapxuat as $key => $val){?>
-                                <option value="<?php echo $key?>"><?php echo $val?></option>
+                            	<?php foreach($orderstatus as $it){ ?>
+                                <option value="<?php echo $it['categoryid']?>"><?php echo $it['categoryname']?></option>
                                 <?php } ?>
+                                
                             </select>
                             <?php if($this->user->getUserTypeId()=='admin'){ ?>
                             <a class="button" id="btnSelectKhachHang" >Chọn khách hàng</a>
@@ -320,7 +321,7 @@ function SaleOrder(shopid)
 					}
 					
 					
-					if($('#congno').val()=='0')
+					if($('#trangthai').val()=='paid')
 					{
 						saleOrder.newOrder();
 					}
