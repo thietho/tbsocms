@@ -148,7 +148,7 @@
                 
             </form>
 			<input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
-            <input type="button" class="button" id="btnListProducShop" value="Các sản phẩm đang có tại shop"/>
+            <!--<input type="button" class="button" id="btnListProducShop" value="Các sản phẩm đang có tại shop"/>-->
             <input type="button" class="button" id="btnSave" value="Lưu phiếu" onClick="saleOrder.save('')"/>
             <input type="button" class="button" id="btnSavePrint" value="Lưu & in" onClick="saleOrder.save('print')"/>
             <input type="button" class="button" id="btnNewOrder" value="Đơn hàng mới" onClick="saleOrder.newOrder()"/>
@@ -159,8 +159,38 @@
         
         <div id="listorder" class="right"></div>
         <div class="clearer">&nbsp;</div>
+        <div id="shopsearch">
+            <input type="text" class="text" id="keyword" size="100" placeholder="Tìm kiếm sản phẩm"/>
+            <select id="brand">
+                <option value="">Tất cả nhản hiệu</option>
+                <?php foreach($nhanhieu as $it){ ?>
+                <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                <?php } ?>
+            </select>
+            <select id="sitemapid">
+                <option value="">Tất cả danh mục</option>
+                <?php foreach($sitemaps as $sitemap){ ?>
+                <?php if($sitemap['moduleid'] == 'module/product'){ ?>
+                <option value="<?php echo $sitemap['sitemapid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$sitemap['level']) ?><?php echo $sitemap['sitemapname']?></option>
+                <?php } ?>
+                <?php } ?>
+            </select>
+            
+        </div>
+        <div id="product-content"></div>
+		<script language="javascript">
+        $(document).ready(function(e) {
+            saleOrder.loadProduct();
+        });
+        $('#shopsearch #keyword').keyup(function(e) {
+            if(e.keyCode == 13)
+                saleOrder.loadProduct();
+        });
+        $('#shopsearch select').change(function(e) {
+            saleOrder.loadProduct();
+        });
         
-        
+        </script>
 	</div>
     
 </div>
@@ -255,6 +285,9 @@ $(function() {
 function SaleOrder(shopid)
 {
 	this.shopid = shopid
+	this.page = 0;
+	this.limt = 20;
+	
 	this.newOrder = function()
 	{
 		$('#frmSaleOrder #id').val('');
@@ -347,7 +380,7 @@ function SaleOrder(shopid)
 	this.listOrder = function()
 	{
 		$('#listorder').html(loading);
-		$.getJSON("?route=sales/sale/listOrder&shopid="+ this.shopid,function(data){
+		$.getJSON("?route=sales/sale/listOrder&shopid="+ this.shopid,function(dataorder){
 			/*var countchuathanhtoan = 0;
 			var countdathanhtoan = 0;
 			var chuathanhtoan = '<h2>Đơn hàng chưa thanh toán</h2>';
@@ -372,15 +405,25 @@ function SaleOrder(shopid)
 			chuathanhtoan += '</ul>';
 			dathanhtoan += '</ul>';*/
 			var str = '<table>';
-			for(i in data)
+			for(j in dataorder)
 			{
-				str += '<tr class="listorder '+data[i].trangthai+'" ref="'+ data[i].id +'">';
-					str += '<td>'+data[i].maphieu+'</td>';
-					str += '<td>'+data[i].tenkhachhang+'</td>';
-					str += '<td>'+ data[i].ghichu +'</td>';
-					str += '<td class="number">'+formateNumber(data[i].tongtien)+'</td>';
-					
+				
+				str += '<tr>';
+				str += '<td><strong>'+ j +'</strong></td>';
 				str += '</tr>';
+				data = dataorder[j];
+				
+				for(i in data)
+				{
+					
+					str += '<tr class="listorder '+data[i].trangthai+'" ref="'+ data[i].id +'">';
+						str += '<td>'+data[i].maphieu+'</td>';
+						str += '<td>'+data[i].tenkhachhang+'</td>';
+						str += '<td>'+ data[i].ghichu +'</td>';
+						str += '<td class="number">'+formateNumber(data[i].tongtien)+'</td>';
+						
+					str += '</tr>';
+				}
 			}
 			str += '</table>';
 			$('#listorder').html(str);
@@ -444,7 +487,7 @@ function SaleOrder(shopid)
 		{
 			url += "&sitemapid="+encodeURI($('#shopsearch #sitemapid').val());
 		}
-		
+		url += "&form="+ (this.page*this.limt) + "to="+ (this.page + 1)*this.limt;
 		return url
 	}
 	this.loadProduct = function()

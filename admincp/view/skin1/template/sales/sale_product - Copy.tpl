@@ -1,8 +1,16 @@
 <h2>Các sản phẩm đang có ở shop</h2>
 
 <div id="tabs">
-  
-  	
+  <ul>
+  	<?php foreach($nhanhieu as $brand){ ?>
+        <?php if(count($data_product[$brand['categoryid']])) {?>
+    <li><a href="#tabs-<?php echo $brand['categoryid']?>"><?php echo $brand['categoryname']?></a></li>
+    	<?php } ?>
+    <?php } ?>
+  </ul>
+  <?php foreach($nhanhieu as $brand){ ?>
+        <?php if(count($data_product[$brand['categoryid']])) {?>
+  <div id="tabs-<?php echo $brand['categoryid']?>">
 	<table class="data-table">
     	<thead>
             <tr>
@@ -16,7 +24,7 @@
             </tr>
         </thead>
        
-       	<?php foreach($data_product as $media){ ?>
+        		<?php foreach($data_product[$brand['categoryid']] as $media){ ?>
         <tr>
         	<td>
             	<?php echo $this->document->productName($media)?>
@@ -34,17 +42,21 @@
                 <input type="button" class="button historyProduct" value="Lịch sử" ref="<?php echo $media['mediaid']?>" />
             </td>
         </tr>
-        <?php } ?>
+        		<?php } ?>
             
         
     </table>
-  		
+  </div>
+  		<?php } ?>
+   <?php } ?>
 </div>
-
+<div>
+	
+</div>
 <script language="javascript">
 $(document).ready(function(e) {
-    //$( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-    //$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+    $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+    $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 });
 $('.selectProduct').click(function(e) {
 	var obj = new Object();

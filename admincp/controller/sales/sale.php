@@ -59,8 +59,32 @@ class ControllerSalesSale extends Controller
 		$shopid = $this->request->get['shopid'];
 		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai  <> 'paid'";
 		$data = $this->model_quanlykho_phieunhapxuat->getList($where);
-		
-		$this->data['output'] = json_encode($data);
+		$arrdate = array();
+		$data_order = array();
+		foreach($data as $key => $item)
+		{
+			$ngaylap = $this->date->getDate($item['ngaylap']);
+			if(!in_array($ngaylap,$arrdate))
+			{
+				$arrdate[] = $ngaylap;
+			}
+		}
+		rsort($arrdate);
+		foreach($arrdate as $date)
+		{
+			foreach($data as $item)
+			{
+				$ngaylap = $this->date->getDate($item['ngaylap']);
+				if($ngaylap == $date)
+				{
+					$data_order[$date][] = $item;
+				}
+				 	
+			}
+			
+				
+		}
+		$this->data['output'] = json_encode($data_order);
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
@@ -215,17 +239,24 @@ class ControllerSalesSale extends Controller
 		{
 			$where .= " AND brand like '".$brand."'";
 		}
-		
-		$data_product = $this->model_core_media->getList($where." Order by `title`");
-		$arr_brand = array();
+		$form = urldecode($this->request->get['form']);
+		$to = urldecode($this->request->get['to']);
+		$data_product = $this->model_core_media->getList($where." Order by `title` LIMIT 0, 10");
 		$this->data['data_product'] = array();
+		foreach($data_product as $i => $media)
+		{
+			$media['Inventory'] = $this->model_core_media->getShopInventory($shopid,$media['mediaid']);
+			$media['icon'] = HelperImage::resizePNG($media['imagepath'], 100, 100);		
+			$this->data['data_product'][]=$media;
+		}
+		
+		$arr_brand = array();
+		/*
 		
 		foreach($data_product as $i => $media)
 		{
 			$media['Inventory'] = $this->model_core_media->getShopInventory($shopid,$media['mediaid']);
 			$media['icon'] = HelperImage::resizePNG($media['imagepath'], 100, 100);		
-			/*if(!in_array($media['brand'],$arr_brand))
-				$arr_brand[]=$media['brand'];*/
 			$this->data['data_product'][$media['brand']][]=$media;
 		}
 		
@@ -233,7 +264,7 @@ class ControllerSalesSale extends Controller
 					'categoryid'=>'',
 					'categoryname' => 'Chưa có nhãn hiệu'
 					);
-		$this->data['nhanhieu'][] = $cat;
+		$this->data['nhanhieu'][] = $cat;*/
 		
 		$this->id='content';
 		$this->template="sales/sale_product.tpl";

@@ -19,7 +19,7 @@
 <div id="product-content"></div>
 <script language="javascript">
 $(document).ready(function(e) {
-    //saleOrder.loadProduct();
+    saleOrder.loadProduct();
 });
 $('#shopsearch #keyword').keyup(function(e) {
     if(e.keyCode == 13)
