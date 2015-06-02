@@ -372,7 +372,7 @@ function SaleOrder(shopid)
 							
 							saleOrder.print(obj.id);
 					}
-					
+					saleOrder.search();
 					
 					if($('#trangthai').val()=='paid')
 					{
