@@ -239,9 +239,9 @@ class ControllerSalesSale extends Controller
 		{
 			$where .= " AND brand like '".$brand."'";
 		}
-		$form = urldecode($this->request->get['form']);
-		$to = urldecode($this->request->get['to']);
-		$data_product = $this->model_core_media->getList($where." Order by `title` LIMIT 0, 10");
+		$page = urldecode($this->request->get['page']);
+		$limt = urldecode($this->request->get['limt']);
+		$data_product = $this->model_core_media->getList($where." Order by `title` LIMIT ".$page * $limt. ", ".$limt);
 		$this->data['data_product'] = array();
 		foreach($data_product as $i => $media)
 		{

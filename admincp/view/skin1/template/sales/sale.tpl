@@ -177,17 +177,37 @@
             </select>
             
         </div>
-        <div id="product-content"></div>
+        <h2>Các sản phẩm đang có ở shop</h2>
+
+        <div id="tabs">
+          
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Code</th>
+                        <th>Số lượng tồn</th>
+                        <th>Giá</th>
+                        <th>Giảm%</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="product-content"></tbody>
+           </table>
+        
+        <div id="product-loading"></div>
 		<script language="javascript">
         $(document).ready(function(e) {
-            saleOrder.loadProduct();
+            saleOrder.search();
         });
         $('#shopsearch #keyword').keyup(function(e) {
             if(e.keyCode == 13)
-                saleOrder.loadProduct();
+                saleOrder.search();
         });
         $('#shopsearch select').change(function(e) {
-            saleOrder.loadProduct();
+            saleOrder.search();
         });
         
         </script>
@@ -287,7 +307,7 @@ function SaleOrder(shopid)
 	this.shopid = shopid
 	this.page = 0;
 	this.limt = 20;
-	
+	this.load = true
 	this.newOrder = function()
 	{
 		$('#frmSaleOrder #id').val('');
@@ -487,13 +507,62 @@ function SaleOrder(shopid)
 		{
 			url += "&sitemapid="+encodeURI($('#shopsearch #sitemapid').val());
 		}
-		url += "&form="+ (this.page*this.limt) + "to="+ (this.page + 1)*this.limt;
+		url += "&page="+ this.page + "&limt="+ this.limt;
 		return url
+	}
+	this.search = function()
+	{
+		this.page = 0;
+		$('#product-content').html('');
+		this.loadProduct();
 	}
 	this.loadProduct = function()
 	{
-		$('#product-content').html(loading);
-		$('#product-content').load('?route=sales/sale/listProduct&shopid=' + this.shopid+ this.getUrl());
+		if(this.load == true)
+		{
+			$('#product-loading').append(loading);
+			$.get('?route=sales/sale/listProduct&shopid=' + this.shopid+ this.getUrl(),function(html)
+			{
+				$('#product-loading').html('')
+				if(html!='')
+				{
+					$('#product-content').append(html);
+					$('.selectProduct').click(function(e) {
+						var obj = new Object();
+						obj.id = 0;
+						obj.mediaid = $(this).attr('ref');
+						obj.imagepath = $(this).attr('image');
+						obj.title = $(this).attr('title');
+						obj.code = $(this).attr('code');
+						obj.unit = $(this).attr('unit');
+						//console.log(obj.mediaid);
+						obj.price = $(this).attr('price');
+						
+						obj.pricepromotion = $(this).attr('pricepromotion');
+						obj.discountpercent = $(this).attr('discountpercent');
+						obj.productname = $(this).attr('productname');
+						obj.brandname = $(this).attr('brandname');
+						
+						var giagiam = 0;
+						if(obj.pricepromotion > 0)
+						{
+							giagiam = obj.price - obj.pricepromotion;
+						}
+						if($('#nhapkhonguyenlieu').length)
+							objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,giagiam,obj.discountpercent);
+						
+						
+						
+					});
+					$('.historyProduct').click(function(e) {
+						saleOrder.history($(this).attr('ref'));
+					});
+					saleOrder.page++;
+					saleOrder.load = true;
+				}
+			});
+		}
+		this.load = false;
 	}
 	this.showShopProduct = function()
 	{
@@ -578,4 +647,16 @@ function SaleOrder(shopid)
 	
 }
 var saleOrder = new SaleOrder($('#shopid').val());
+$(document).scroll(function(e) {
+	//alert($(document).scrollTop() + window.innerHeight);
+	//console.log();
+	if($(document).scrollTop() + window.innerHeight > $('#product-content').offset().top+$('#product-content').innerHeight())
+	{
+		
+		
+		saleOrder.loadProduct();
+		
+		
+	}
+});
 </script>
