@@ -513,6 +513,7 @@ function SaleOrder(shopid)
 	this.search = function()
 	{
 		this.page = 0;
+		this.load = true;
 		$('#product-content').html('');
 		this.loadProduct();
 	}
