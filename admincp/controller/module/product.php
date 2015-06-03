@@ -212,9 +212,11 @@ class ControllerModuleProduct extends Controller
 			$mediaid = $this->data['medias'][$i]['mediaid'];
 			//$this->data['medias'][$i]['inventory'] = $this->model_core_media->getInventory($mediaid);
 			$this->data['medias'][$i]['shopinventory'] = '';
+			
 			foreach($this->data['data_shop'] as $shop)
 			{
 				$shopinventory = $this->model_core_media->getShopInventory($shop['id'],$mediaid);
+				$str = '';
 				if($shopinventory)
 					$str = $shop['shopname']." Tồn: ". $shopinventory;
 				$this->data['medias'][$i]['shopinventory'] .= $str;
@@ -229,6 +231,7 @@ class ControllerModuleProduct extends Controller
 				foreach($this->data['data_shop'] as $shop)
 				{
 					$shopinventory = $this->model_core_media->getShopInventory($shop['id'],$child['mediaid']);
+					$str = '';
 					if($shopinventory)
 						$str = $shop['shopname']." Tồn: ". $shopinventory;
 					$data_child[$key]['shopinventory'] .= $str;
