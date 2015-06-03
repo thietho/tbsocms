@@ -217,10 +217,11 @@ class ControllerCoreFile extends Controller
 		$desdir = DIR_FILE."upload/".$data['desdir']."/";
 		foreach($arrfilepath as $filepath)
 		{
-			if(is_file($filepath))
+			$filepath1 = DIR_FILE.$filepath;
+			if(is_file($filepath1))
 			{
-				$file = pathinfo($filepath);
-				copy($filepath,$desdir.$file['basename']);
+				$file = pathinfo($filepath1);
+				copy($filepath1,$desdir.$file['basename']);
 			}
 			if(is_dir($filepath))
 			{
@@ -301,8 +302,9 @@ class ControllerCoreFile extends Controller
 			$this->model_core_file->deleteFile($fileid);*/
 		foreach($listpath as $path)
 		{	
-			if(is_file($path))
-				unlink($path);
+			$p = DIR_FILE.$path;
+			if(is_file($p))
+				unlink($p);
 			if(is_dir($path))
 				$this->rrmdir($path);
 		}
