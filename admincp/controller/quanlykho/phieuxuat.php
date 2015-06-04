@@ -271,7 +271,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	public function save()
 	{
 		$data = $this->request->post;
-		print_r($data);
+		//print_r($data);
 		if($this->validateForm($data))
 		{
 			$nhanvien = $this->user->getNhanVien();
