@@ -347,7 +347,7 @@ class ControllerCoreFile extends Controller
 	public function rename()
 	{
 		$data = $this->request->post;
-		$oldname = $data['oldname'];
+		$oldname = DIR_FILE.$data['oldname'];
 		$newname = $data['newname'];
 		$fileinfo = pathinfo($oldname);
 		rename($oldname,$fileinfo['dirname']."/".$newname);
