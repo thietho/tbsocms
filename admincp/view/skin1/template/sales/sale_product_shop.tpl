@@ -52,7 +52,7 @@ $(document).ready(function(e) {
 	saleOrder.search();
 });
 $('#shopsearch #keyword').keyup(function(e) {
-	//if(e.keyCode == 13)
+	if(e.keyCode == 13)
 		saleOrder.search();
 });
 $('#shopsearch select').change(function(e) {

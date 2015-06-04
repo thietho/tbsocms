@@ -518,19 +518,19 @@ function SaleOrder(shopid)
 	{
 		var eid = "searchproductpopup";
 		$('body').append('<div id="'+eid+'" style="display:none"></div>');
-		$('body').css('overflow','hidden');
+		//$('body').css('overflow','hidden');
 		$("#"+eid).attr('title','Thông tin sản phẩm');
 			$("#"+eid).dialog({
 				autoOpen: false,
 				show: "blind",
 				hide: "explode",
-				width: $(document).width(),
+				width: $(document).width() - 100,
 				height: window.innerHeight,
 				modal: true,
 				close:function()
 					{
 						$("#"+eid).remove();
-						$('body').css('overflow','auto');
+						//$('body').css('overflow','auto');
 					},
 				
 			});
@@ -538,12 +538,15 @@ function SaleOrder(shopid)
 			$("#"+eid).dialog("open");
 			$("#"+eid).html(loading);
 			$("#"+eid).load('?route=sales/sale/productShop&shopid=' + this.shopid);
+			$(document).scroll(function(e) {
+				$("#"+eid).dialog( "option", "position", { my: "center", at: "center", of: window } );
+			});
 	}
 	this.history = function(mediaid)
 	{
 		var eid = "history";
 		$('body').append('<div id="'+eid+'" style="display:none"></div>');
-		$('body').css('overflow','hidden');
+		//$('body').css('overflow','hidden');
 		$("#"+eid).attr('title','Thông tin sản phẩm');
 			$("#"+eid).dialog({
 				autoOpen: false,
@@ -552,17 +555,22 @@ function SaleOrder(shopid)
 				width: $(document).width()-100,
 				height: window.innerHeight,
 				modal: true,
+				//position: { my: "left top", at: "left bottom", of: window },
 				close:function()
 					{
 						$("#"+eid).remove();
-						$('body').css('overflow','auto');
+						//$('body').css('overflow','auto');
 					},
+				
 				
 			});
 		
 			$("#"+eid).dialog("open");
 			$("#"+eid).html(loading);
 			$("#"+eid).load('?route=sales/sale/history&shopid=' + this.shopid+'&mediaid='+mediaid);
+			$(document).scroll(function(e) {
+				$("#"+eid).dialog( "option", "position", { my: "center", at: "center", of: window } );
+			});
 	}
 	this.listOrderComplete = function()
 	{
@@ -584,7 +592,7 @@ function SaleOrder(shopid)
 					},
 				
 			});
-		
+			
 			$("#"+eid).dialog("open");
 			$("#"+eid).html(loading);
 			$("#"+eid).load('?route=sales/sale/listOrderComplete&shopid=' + this.shopid);	
