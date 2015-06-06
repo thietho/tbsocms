@@ -346,52 +346,23 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	{
 		//Save chi tiet phieu nhap
 		$data = $this->request->post;
-		$tongtien = 0;
-		$nhapkhoid = $data['nhapkhoid'];
-		$phieuid = $data['id'];
-		$arr_mediaid = $data['mediaid'];
-		$arr_code = $data['code'];
-		$arr_title = $data['title'];
-		$arr_soluong = $data['soluong'];
-		$arr_madonvi = $data['dlmadonvi'];
-		$arr_giatien = $data['giatien'];
-		$arr_giamgia = $data['giamgia'];
-		$arr_phantramgiamgia = $data['phantramgiamgia'];
-		$index = 0;
-		foreach($arr_mediaid as $i => $mediaid)
+		if($data['mediaid'])
 		{
-			$dl['id'] = $nhapkhoid[$i];
-			$dl['phieuid'] = $phieuid;
-			$dl['mediaid'] = $mediaid;
-			$dl['code'] = $arr_code[$i];
-			$dl['title'] = $arr_title[$i];
-			$dl['soluong'] = $arr_soluong[$i];
-			$dl['madonvi'] = $arr_madonvi[$i];
-			$dl['giatien'] = $arr_giatien[$i];
-			$dl['giamgia'] = $arr_giamgia[$i];
-			$dl['phantramgiamgia'] = $arr_phantramgiamgia[$i];
-			$dl['loaiphieu'] = $phieu['loaiphieu'];
+			$data['id'] = $this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($data);
+			$data['error'] = '';
 			
-			$dl['maphieu'] = $phieu['maphieu'];
-			$dl['ngaylap'] = $phieu['ngaylap'];
-			$dl['nguoilap'] = $phieu['nguoilap'];
-			$dl['nhacungcapid'] = $phieu['nhacungcapid'];
-			$dl['tennhacungcap'] = $phieu['tennhacungcap'];
-			$dl['khachhangid'] = $phieu['khachhangid'];
-			$dl['tenkhachhang'] = $phieu['tenkhachhang'];
-			$dl['shopid'] = $phieu['shopid'];
-			$dl['nguoigiao'] = $phieu['nguoigiao'];
-			$dl['nguoinhanid'] = $phieu['nguoinhanid'];
-			$dl['nguoinhan'] = $phieu['nguoinhan'];
-			$dl['vitri'] = $index;
-			$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
-			$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
-			$index++;
 			//Cap nhat ton kho
-			$inventory = $this->model_core_media->getInventory($mediaid);
-			$this->model_core_media->updateCol($mediaid,'inventory',$inventory);
-			
+			$inventory = $this->model_core_media->getInventory($data['mediaid']);
+			$this->model_core_media->updateCol($data['mediaid'],'inventory',$inventory);
 		}
+		else
+		{
+			$data['error'] = 'false';	
+		}
+		$this->data['output'] = json_encode($data);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
 	}
 	//Cac ham xu ly tren form
 	public function export()

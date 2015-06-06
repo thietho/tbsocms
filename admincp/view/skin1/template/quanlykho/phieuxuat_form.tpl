@@ -274,7 +274,8 @@ function savephieu(type)
 			if(obj.error == "")
 			{
 				phieuid = obj.id;
-				alert(phieuid);
+				objdl.delDetail($('#delnhapkho').val());
+				objdl.saveDetail(obj);
 				/*switch(type)
 				{
 					case "":

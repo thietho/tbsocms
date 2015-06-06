@@ -321,42 +321,60 @@ function PhieuNhapXuat()
 				
 			});
 	}
-	this.delDetail = function()
+	this.delDetail = function(listid)
+	{
+		$.post("?route=quanlykho/phieuxuat/delDetail",
+			{
+				delnhapkho:listid	
+			});
+	}
+	this.saveItem = function(obj,pos)
 	{
 		
+		if($('#mediaid-'+pos).val() != undefined)
+		{
+			$.post("?route=quanlykho/phieuxuat/saveDetail",
+			{
+				id:$('#nhapkhoid-'+pos).val(),
+				phieuid:obj.id,
+				maphieu:obj.maphieu,
+				ngaylap:obj.ngaylap,
+				nguoilap:obj.nguoilap,
+				nhacungcapid:obj.nhacungcapid,
+				tennhacungcap:obj.tennhacungcap,
+				khachhangid:obj.khachhangid,
+				tenkhachhang:obj.nhacungcapid,
+				nhacungcapid:obj.tenkhachhang,
+				shopid:obj.shopid,
+				mediaid:$('#mediaid-'+pos).val(),
+				title:$('#title-'+pos).val(),
+				soluong:$('#soluong-'+pos).val(),
+				madonvi:$('#madonvi-'+pos).val(),
+				giatien:$('#giatien-'+pos).val(),
+				phantramgiamgia:$('#phantramgiamgia-'+pos).val(),
+				giamgia:$('#giamgia-'+pos).val(),
+				vitri:pos
+			},
+			function(data)
+			{
+				if(pos <= objdl.index)
+				{
+					objdl.saveItem(obj,pos+1);
+				}
+			});
+		}
+		else
+		{
+			if(pos <= this.index)
+			{
+				this.saveItem(obj,pos+1);
+			}
+		}
+		
 	}
-	this.saveDetail = function(obj,pos)
+	this.saveDetail = function(obj)
 	{
-		$('.itemdetail').each(function(index, element) {
-            $.post("?route=quanlykho/phieuxuat/saveDetail",
-				{
-					id:$('#nhapkhoid-'+pos).val(),
-					phieuid:obj.id,
-					maphieu:obj.maphieu,
-					ngaylap:obj.ngaylap,
-					nguoilap:obj.nguoilap,
-					nhacungcapid:obj.nhacungcapid,
-					tennhacungcap:obj.tennhacungcap,
-					khachhangid:obj.khachhangid,
-					tenkhachhang:obj.nhacungcapid,
-					nhacungcapid:obj.tenkhachhang,
-					shopid:obj.shopid,
-					mediaid:$('#mediaid-'+pos).val(),
-					title:$('#title-'+pos).val(),
-					soluong:$('#soluong-'+pos).val(),
-					madonvi:$('#madonvi-'+pos).val(),
-					giatien:$('#giatien-'+pos).val(),
-					phantramgiamgia:$('#phantramgiamgia-'+pos).val(),
-					giamgia:$('#giamgia-'+pos).val(),
-					giamgia:$('#giamgia-'+pos).val(),
-					giamgia:$('#giamgia-'+pos).val(),
-					giamgia:$('#giamgia-'+pos).val()
-				},
-				function(data)
-				{
-					
-				});
-        });
+		this.saveItem(obj,0);
 	}
 	this.getProbyMediaId = function(str)
 	{
