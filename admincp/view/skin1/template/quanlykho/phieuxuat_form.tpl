@@ -276,7 +276,7 @@ function savephieu(type)
 				phieuid = obj.id;
 				objdl.delDetail($('#delnhapkho').val());
 				objdl.saveDetail(obj);
-				/*switch(type)
+				switch(type)
 				{
 					case "":
 						window.location = "?route=quanlykho/phieuxuat";
@@ -286,7 +286,7 @@ function savephieu(type)
 						var id = arr[1];
 						objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
 						
-				}*/
+				}
 				
 			}
 			else
@@ -294,9 +294,9 @@ function savephieu(type)
 			
 				$('#error').html(data).show('slow');
 				
-				
+				$.unblockUI();
 			}
-			$.unblockUI();
+			
 		}
 	);
 }

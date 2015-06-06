@@ -333,6 +333,7 @@ function PhieuNhapXuat()
 		
 		if($('#mediaid-'+pos).val() != undefined)
 		{
+			$.blockUI({ message: "<h1>Please wait..."+pos+"</h1>" }); 
 			$.post("?route=quanlykho/phieuxuat/saveDetail",
 			{
 				id:$('#nhapkhoid-'+pos).val(),
@@ -361,6 +362,7 @@ function PhieuNhapXuat()
 				{
 					objdl.saveItem(obj,pos+1);
 				}
+				
 			});
 		}
 		else
@@ -368,6 +370,10 @@ function PhieuNhapXuat()
 			if(pos <= this.index)
 			{
 				this.saveItem(obj,pos+1);
+			}
+			else
+			{
+				$.unblockUI();
 			}
 		}
 		
