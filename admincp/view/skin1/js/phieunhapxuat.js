@@ -328,24 +328,26 @@ function PhieuNhapXuat()
 				delnhapkho:listid	
 			});
 	}
-	this.saveItem = function(obj,pos)
+	this.saveItem = function(obj,pos,callback)
 	{
 		
 		if($('#mediaid-'+pos).val() != undefined)
 		{
-			$.blockUI({ message: "<h1>Please wait..."+pos+"</h1>" }); 
+			//$.blockUI({ message: "<h1>Please wait..."+pos+"</h1>" }); 
+			var percent = Math.round( (pos + 1) / Number(objdl.index)*100 );
+			$('.blockMsg').html("<h1>Please wait..."+ percent +"%</h1>");
 			$.post("?route=quanlykho/phieuxuat/saveDetail",
 			{
 				id:$('#nhapkhoid-'+pos).val(),
 				phieuid:obj.id,
 				maphieu:obj.maphieu,
+				loaiphieu:obj.loaiphieu,
 				ngaylap:obj.ngaylap,
 				nguoilap:obj.nguoilap,
 				nhacungcapid:obj.nhacungcapid,
 				tennhacungcap:obj.tennhacungcap,
 				khachhangid:obj.khachhangid,
-				tenkhachhang:obj.nhacungcapid,
-				nhacungcapid:obj.tenkhachhang,
+				tenkhachhang:obj.tenkhachhang,
 				shopid:obj.shopid,
 				mediaid:$('#mediaid-'+pos).val(),
 				title:$('#title-'+pos).val(),
@@ -360,7 +362,7 @@ function PhieuNhapXuat()
 			{
 				if(pos <= objdl.index)
 				{
-					objdl.saveItem(obj,pos+1);
+					objdl.saveItem(obj,pos+1,callback);
 				}
 				
 			});
@@ -369,18 +371,21 @@ function PhieuNhapXuat()
 		{
 			if(pos <= this.index)
 			{
-				this.saveItem(obj,pos+1);
+				this.saveItem(obj,pos+1,callback);
 			}
 			else
 			{
 				$.unblockUI();
+				
+				setTimeout(callback,500);
 			}
 		}
 		
 	}
-	this.saveDetail = function(obj)
+	this.saveDetail = function(obj,callback)
 	{
-		this.saveItem(obj,0);
+		
+		this.saveItem(obj,0,callback);
 	}
 	this.getProbyMediaId = function(str)
 	{

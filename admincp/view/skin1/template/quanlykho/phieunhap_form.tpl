@@ -267,27 +267,34 @@ function savephieu(type)
 	
 	$.post("?route=quanlykho/phieunhap/save", $("#frm").serialize(),
 		function(data){
-			var arr = data.split("-");
-			if(arr[0] == "true")
+			var obj = $.parseJSON(data);
+			if(obj.error == "")
 			{
+				phieuid = obj.id;
+				objdl.delDetail($('#delnhapkho').val());
+				
 				switch(type)
 				{
 					case "":
-						window.location = "?route=quanlykho/phieunhap";
+						objdl.saveDetail(obj,'window.location = "?route=quanlykho/phieunhap";');
+						
 						break;
 					case "print":
-						$.unblockUI();
-						var id = arr[1];
-						objdl.viewPX(id,"window.location = '?route=quanlykho/phieunhap'");
+						objdl.saveDetail(obj,function(){
+							var id = obj.id;
+							objdl.viewPN(id,"window.location = '?route=quanlykho/phieunhap'");
+						});
+						
 						
 				}
+				
 			}
 			else
 			{
 			
 				$('#error').html(data).show('slow');
-				$.unblockUI();
 				
+				$.unblockUI();
 			}
 			
 		}

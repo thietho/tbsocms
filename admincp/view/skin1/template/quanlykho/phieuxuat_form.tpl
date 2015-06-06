@@ -275,16 +275,19 @@ function savephieu(type)
 			{
 				phieuid = obj.id;
 				objdl.delDetail($('#delnhapkho').val());
-				objdl.saveDetail(obj);
+				
 				switch(type)
 				{
 					case "":
-						window.location = "?route=quanlykho/phieuxuat";
+						objdl.saveDetail(obj,'window.location = "?route=quanlykho/phieuxuat";');
+						
 						break;
 					case "print":
-						$.unblockUI();
-						var id = arr[1];
-						objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
+						objdl.saveDetail(obj,function(){
+							var id = obj.id;
+							objdl.viewPX(id,"window.location = '?route=quanlykho/phieuxuat'");
+						});
+						
 						
 				}
 				

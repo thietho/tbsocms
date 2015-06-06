@@ -226,84 +226,26 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	public function save()
 	{
 		$data = $this->request->post;
-		
+		//print_r($data);
 		if($this->validateForm($data))
 		{
-			
-			//$data['loaiphieu'] = $this->loaiphieu;
+			$nhanvien = $this->user->getNhanVien();
 			$data['ngaylap'] = $this->date->formatViewDate($data['ngaylap']);
 			$data['ngaythanhtoan'] = $this->date->formatViewDate($data['ngaythanhtoan']);
+			if($data['nguoithuchien']=="")
+			{
+				$data['nguoithuchienid'] = $nhanvien['id'];
+				$data['nguoithuchien'] = $nhanvien['hoten'];
+			}
+			//$data['loaiphieu'] = $this->loaiphieu;
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
-			
 			$phieu = $this->model_quanlykho_phieunhapxuat->getItem($data['id']);
-			//Xoa dinh luong
-			$delnhapkho = $data['delnhapkho'];
-			if($delnhapkho)
-			{
-				@$arr_nhapkhoid = split(",",$delnhapkho);
-				if(count($arr_nhapkhoid))
-				{
-					
-					foreach($arr_nhapkhoid as $nhapkhoid)
-					{
-						$ph = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMedia($nhapkhoid);
-						$this->model_quanlykho_phieunhapxuat->deletePhieuNhapXuatMedia($nhapkhoid);
-						
-						$mediaid = $ph['mediaid'];
-						//Cap nhat ton kho
-						$inventory = $this->model_core_media->getInventory($mediaid);
-						$this->model_core_media->updateCol($mediaid,'inventory',$inventory);
-					}
-					
-				}
-			}
-			//Save chi tiet phieu nhap
-			$tongtien = 0;
-			$nhapkhoid = $data['nhapkhoid'];
-			$phieuid = $data['id'];
-			$arr_mediaid = $data['mediaid'];
-			$arr_code = $data['code'];
-			$arr_title = $data['title'];
-			$arr_soluong = $data['soluong'];
-			$arr_madonvi = $data['dlmadonvi'];
-			$arr_giatien = $data['giatien'];
-			$arr_giamgia = $data['giamgia'];
-			$arr_phantramgiamgia = $data['phantramgiamgia'];
-			foreach($arr_mediaid as $i => $mediaid)
-			{
-				$dl['id'] = $nhapkhoid[$i];
-				$dl['phieuid'] = $phieuid;
-				$dl['mediaid'] = $mediaid;
-				$dl['code'] = $arr_code[$i];
-				$dl['title'] = $arr_title[$i];
-				$dl['soluong'] = $arr_soluong[$i];
-				$dl['madonvi'] = $arr_madonvi[$i];
-				$dl['giatien'] = $arr_giatien[$i];
-				$dl['giamgia'] = $arr_giamgia[$i];
-				$dl['phantramgiamgia'] = $arr_phantramgiamgia[$i];
-				$dl['loaiphieu'] = $phieu['loaiphieu'];
-				
-				$dl['maphieu'] = $phieu['maphieu'];
-				$dl['ngaylap'] = $phieu['ngaylap'];
-				$dl['nguoilap'] = $phieu['nguoilap'];
-				$dl['nhacungcapid'] = $phieu['nhacungcapid'];
-				$dl['tennhacungcap'] = $phieu['tennhacungcap'];
-				$dl['khachhangid'] = $phieu['khachhangid'];
-				$dl['tenkhachhang'] = $phieu['tenkhachhang'];
-				$dl['shopid'] = $phieu['shopid'];
-				$dl['nguoigiao'] = $phieu['nguoigiao'];
-				$dl['nguoinhanid'] = $phieu['nguoinhanid'];
-				$dl['nguoinhan'] = $phieu['nguoinhan'];
-				
-				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
-				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
-				//Cap nhat ton kho
-				$inventory = $this->model_core_media->getInventory($mediaid);
-				$this->model_core_media->updateCol($mediaid,'inventory',$inventory);
-				
-			}
+			
+			
+			$phieu['error'] = '';
 			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
-			$this->data['output'] = "true-".$data['id'];
+			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien- $this->string->toNumber($data['thanhtoan']));
+			$this->data['output'] = json_encode($phieu);
 			if(isset($_SESSION['productlist']))
 			{
 				unset($_SESSION['productlist']);	
@@ -313,8 +255,9 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		{
 			foreach($this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				$phieu['error'] .= $item."<br>";
 			}
+			$this->data['output'] = json_encode($phieu);
 		}
 		$this->id='content';
 		$this->template='common/output.tpl';
