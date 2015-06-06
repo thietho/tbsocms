@@ -4,7 +4,7 @@ function PhieuNhapXuat()
 	this.addRow = function(id,mediaid,code,title,soluong,madonvi,giatien,giamgia,phantramgiamgia)
 	{
 		
-		var row = '<tr id="row'+ this.index +'">';
+		var row = '<tr class="itemdetail" id="row'+ this.index +'" index="'+ this.index +'">';
 		row +='<td><input type="hidden" id="nhapkhoid-'+ this.index +'" name="nhapkhoid['+ this.index +']" value="'+ id +'" /><input type="hidden" id="mediaid-'+ this.index +'" name="mediaid['+ this.index +']" value="'+ mediaid +'" /><input type="hidden" id="title-'+ this.index +'" name="title['+ this.index +']" value="'+ title +'" />'+ title +'</td>';
 		
 		row +='<td class="number"><input type="text" id="soluong-'+ this.index +'" name="soluong['+ this.index +']" value="'+soluong+'" class="text number short soluong" ref="'+ this.index +'"/></td>';
@@ -321,9 +321,42 @@ function PhieuNhapXuat()
 				
 			});
 	}
-	this.save = function(type)
+	this.delDetail = function()
 	{
 		
+	}
+	this.saveDetail = function(obj,pos)
+	{
+		$('.itemdetail').each(function(index, element) {
+            $.post("?route=quanlykho/phieuxuat/saveDetail",
+				{
+					id:$('#nhapkhoid-'+pos).val(),
+					phieuid:obj.id,
+					maphieu:obj.maphieu,
+					ngaylap:obj.ngaylap,
+					nguoilap:obj.nguoilap,
+					nhacungcapid:obj.nhacungcapid,
+					tennhacungcap:obj.tennhacungcap,
+					khachhangid:obj.khachhangid,
+					tenkhachhang:obj.nhacungcapid,
+					nhacungcapid:obj.tenkhachhang,
+					shopid:obj.shopid,
+					mediaid:$('#mediaid-'+pos).val(),
+					title:$('#title-'+pos).val(),
+					soluong:$('#soluong-'+pos).val(),
+					madonvi:$('#madonvi-'+pos).val(),
+					giatien:$('#giatien-'+pos).val(),
+					phantramgiamgia:$('#phantramgiamgia-'+pos).val(),
+					giamgia:$('#giamgia-'+pos).val(),
+					giamgia:$('#giamgia-'+pos).val(),
+					giamgia:$('#giamgia-'+pos).val(),
+					giamgia:$('#giamgia-'+pos).val()
+				},
+				function(data)
+				{
+					
+				});
+        });
 	}
 	this.getProbyMediaId = function(str)
 	{
