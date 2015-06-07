@@ -328,17 +328,18 @@ function PhieuNhapXuat()
 				delnhapkho:listid	
 			});
 	}
-	this.saveItem = function(obj,pos,callback)
+	this.saveItem = function(obj,p,callback)
 	{
 		
-		if($('#mediaid-'+pos).val() != undefined)
+		if(p < this.listrows.length)
 		{
+			pos = this.listrows[p];
 			//$.blockUI({ message: "<h1>Please wait..."+pos+"</h1>" }); 
-			var percent = Math.round( (pos + 1) / Number(objdl.index)*100 );
+			var percent = Math.round( (p + 1) / Number(this.listrows.length)*100 );
 			$('.blockMsg').html("<h1>Please wait..."+ percent +"%</h1>");
 			$.post("?route=quanlykho/phieuxuat/saveDetail",
 			{
-				id:$('#nhapkhoid-'+pos).val(),
+				id:$('#nhapkhoid-'+ pos).val(),
 				phieuid:obj.id,
 				maphieu:obj.maphieu,
 				loaiphieu:obj.loaiphieu,
@@ -356,35 +357,33 @@ function PhieuNhapXuat()
 				giatien:$('#giatien-'+pos).val(),
 				phantramgiamgia:$('#phantramgiamgia-'+pos).val(),
 				giamgia:$('#giamgia-'+pos).val(),
-				vitri:pos
+				vitri:p
 			},
 			function(data)
 			{
-				if(pos <= objdl.index)
-				{
-					objdl.saveItem(obj,pos+1,callback);
-				}
+				
+				objdl.saveItem(obj,p+1,callback);
+				
 				
 			});
 		}
 		else
 		{
-			if(pos <= this.index)
-			{
-				this.saveItem(obj,pos+1,callback);
-			}
-			else
-			{
-				$.unblockUI();
-				
-				setTimeout(callback,500);
-			}
+			$.unblockUI();
+			if(callback !='')
+				setTimeout(callback,0);
 		}
 		
 	}
+	this.listrows = new Array();
 	this.saveDetail = function(obj,callback)
 	{
+		var arr = new Array();
 		
+		$('.itemdetail').each(function(index, element) {
+            arr.push($(this).attr('index'));
+        });
+		this.listrows = arr;
 		this.saveItem(obj,0,callback);
 	}
 	this.getProbyMediaId = function(str)

@@ -188,7 +188,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		{
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
 			
-			$where = " AND phieuid = '".$id."'";
+			$where = " AND phieuid = '".$id."'  ORDER BY `vitri` ASC";
 			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
     	}
 		else
