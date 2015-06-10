@@ -364,10 +364,10 @@ class ControllerCorePostcontent extends Controller
 					$this->error['mediaid'] ="ID đã được sử dụng";	
 			}
 		}
-		if($data['title'] == "")
+		/*if($data['title'] == "")
 		{
 			$this->error['title'] ="Bạn chưa nhập tiêu đề";
-		}
+		}*/
 		
 		if(count($data['listrefersitemap']) == 0 && $data['mediatype'] == "module/product")
 		{
