@@ -6,7 +6,7 @@ final class Member {
 	private $usertypeid;
   	private $permission = array();
 	private $Control = array();
-	
+	public $data = array();
 	public $go_country;
   	
 	public function __construct() {
@@ -53,24 +53,17 @@ final class Member {
 		{
 			@$this->login($_COOKIE['username'],$_COOKIE['password']);	
 		}
-    	if (isset($this->session->data['memberid'])) {
-			$query = $this->db->query("SELECT * FROM user WHERE userid = '" . $this->db->escape($this->session->data['memberid']) . "'");
+		
+		if(count($this->session->data['member']))
+		{
+			print_r($this->session->data['member']);
+			$this->userid = $this->session->data['member']['userid'];
+			$this->username = $this->session->data['member']['username'];
+			$this->usertypeid = $this->session->data['member']['usertypeid'];
 			
-			if ($query->num_rows) {
-				$this->userid = $query->row['userid'];
-				$this->username = $query->row['username'];
-				
-      			$this->db->query("UPDATE user SET userip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "' WHERE userid = '" . $this->session->data['memberid'] . "'");
-				$sql = "SELECT permission FROM usertype where usertypeid = (Select usertypeid from user where userid = '" . $this->db->escape($this->session->data['memberid']) . "')";
-      			$query = $this->db->query($sql);
-				$this->setPermission($query->row['permission']);
-			}elseif(isset($this->session->data['safemode'])){
-				$this->userid = $this->session->data['memberid'];
-				$this->username = $this->session->data['membername'];
-			} else {
-				$this->logout();
-			}
-    	}
+			$this->data = $this->session->data['member'];
+		}
+    	
 		//$this->updatelistonline();
 		//$this->writelog();
   	}
@@ -155,20 +148,10 @@ final class Member {
 	}
   
   	public function isLogged() {
-    	if(@$this->session->data['memberid']){
-			$this->usertypeid = $this->session->data['membertypeid'];
-			$this->userid = $this->session->data['memberid'];
-			$this->username = $this->session->data['membername'];	
-			$this->siteid = $this->session->data['siteid'];		
+    	if(count($this->session->data['member'])){	
 			return true;
 		}
-		elseif(@$this->session->data['safemode']){
-			$this->usertypeid = $this->session->data['membertypeid'];
-			$this->userid = $this->session->data['memberid'];
-			$this->username = $this->session->data['membername'];	
-			$this->siteid = $this->session->data['siteid'];		
-			return true;
-		}
+		
 		return false;
   	}
   
@@ -185,6 +168,7 @@ final class Member {
   	}
 	
   	public function getUserName() {
+		
     	return $this->username;
   	}
 	
