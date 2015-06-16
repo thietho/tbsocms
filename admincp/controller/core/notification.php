@@ -24,8 +24,7 @@ class ControllerCoreNotification extends Controller
 		foreach($medias as $key => $media)
 		{
 			$media['productName'] = $this->document->productName($media);
-			//$inventory = $this->model_core_media->getInventory($media['mediaid']);
-			//$media['inventory'] = $inventory;
+			
 			$data = array();
 			$data['productName'] = $media['productName'];
 			$data['inventory'] = $media['inventory'];
@@ -81,8 +80,7 @@ class ControllerCoreNotification extends Controller
 		foreach($medias as $key => $media)
 		{
 			$media['productName'] = $this->document->productName($media);
-			//$inventory = $this->model_core_media->getInventory($media['mediaid']);
-			//$media['inventory'] = $inventory;
+			
 			$data = array();
 			
 			$data['productName'] = $media['productName'];

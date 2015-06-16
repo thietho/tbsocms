@@ -210,7 +210,7 @@ class ControllerModuleProduct extends Controller
 			if(count($arrstatus))
 				$this->data['medias'][$i]['groupkeys'] = implode(",",$arrstatus);
 			$mediaid = $this->data['medias'][$i]['mediaid'];
-			//$this->data['medias'][$i]['inventory'] = $this->model_core_media->getInventory($mediaid);
+			
 			$this->data['medias'][$i]['shopinventory'] = '';
 			
 			foreach($this->data['data_shop'] as $shop)
@@ -226,7 +226,7 @@ class ControllerModuleProduct extends Controller
 			{
 				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 				$data_child[$key]['saleprice'] = json_decode($child['saleprice']);
-				//$data_child[$key]['inventory'] = $this->model_core_media->getInventory($child['mediaid']);
+				
 				$data_child[$key]['shopinventory'] = '';
 				foreach($this->data['data_shop'] as $shop)
 				{
@@ -358,13 +358,13 @@ class ControllerModuleProduct extends Controller
 			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
 			
 			$mediaid = $this->data['medias'][$i]['mediaid'];
-			//$this->data['medias'][$i]['inventory'] = $this->model_core_media->getInventory($mediaid);
+			
 			$data_child = $this->model_core_media->getListByParent($mediaid);
 			foreach($data_child as $key =>$child)
 			{
 				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 				$data_child[$key]['saleprice'] = json_decode($child['saleprice']);
-				//$data_child[$key]['inventory'] = $this->model_core_media->getInventory($child['mediaid']);
+				
 				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
 				$data_child[$key]['text_edit'] = "Edit";
 			}

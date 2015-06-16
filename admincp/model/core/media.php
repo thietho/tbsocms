@@ -750,10 +750,11 @@ class ModelCoreMedia extends ModelCoreFile
 		
 		$int_xuat = $this->model_quanlykho_donvitinh->toInt($soluongxuat);
 		//$arr_xuat = $this->model_quanlykho_donvitinh->toDonVi($int_xuat,$media['unit']);
-		$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap - $int_xuat,$media['unit']);
+		return $int_nhap - $int_xuat;
+		/*$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap - $int_xuat,$media['unit']);
 		//print_r($arr_ton);
 		//echo "<br>";
-		return $this->model_quanlykho_donvitinh->toText($arr_ton);
+		return $this->model_quanlykho_donvitinh->toText($arr_ton);*/
 	}
 	
 	public function getShopSoLuong($shopid,$mediaid,$loaiphieu)
@@ -791,11 +792,13 @@ class ModelCoreMedia extends ModelCoreFile
 		$soluongxuatvekho = $this->model_quanlykho_donvitinh->toDonViTinh($arrxuatvekho,$media['unit']);
 		$int_xuatvekho = $this->model_quanlykho_donvitinh->toInt($soluongxuatvekho);
 		
+		return $int_nhap + $int_nhapncc - $int_xuatban - $int_xuatvekho;
+		
 		//$arr_xuat = $this->model_quanlykho_donvitinh->toDonVi($int_xuat,$media['unit']);
-		$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap + $int_nhapncc - $int_xuatban - $int_xuatvekho,$media['unit']);
+		/*$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap + $int_nhapncc - $int_xuatban - $int_xuatvekho,$media['unit']);
 		//print_r($arr_ton);
 		//echo "<br>";
-		return $this->model_quanlykho_donvitinh->toText($arr_ton);
+		return $this->model_quanlykho_donvitinh->toText($arr_ton);*/
 	}
 }
 ?>

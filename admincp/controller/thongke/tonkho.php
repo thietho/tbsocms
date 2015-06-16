@@ -31,7 +31,6 @@ class ControllerThongkeinventory extends Controller
 		$this->data['medias'] = $this->model_core_media->getList($where);
 		foreach($this->data['medias'] as $i => $media)
 		{
-			//$this->data['medias'][$i]['inventory'] = $this->model_core_media->getInventory($media['mediaid']);
 			$this->data['medias'][$i]['priceimport'] = $this->model_quanlykho_phieunhapxuat->getAgvPrice($media['mediaid'],'NK');
 		}
 		
