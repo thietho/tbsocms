@@ -68,42 +68,11 @@ final class Member {
 		//$this->writelog();
   	}
 		
-  	public function login($username, $password) 
-	{
-		
-		if($username=="" || $password=="")
-			return false;
-		$sql="SELECT * FROM user WHERE username = '" . $this->db->escape($username) . "' AND password = '" . $this->db->escape(md5($password)) . "' AND status = 'active' AND deletedby = ''";
-	   	$query = $this->db->query($sql);
-		
-    	if ($query->num_rows) 
-		{
-			$this->session->set('membertypeid',$query->row['usertypeid']);
-			$this->session->set('memberid',$query->row['userid']);
-			$this->session->set('membername',$query->row['username']);	
-				
-      		return TRUE;
-    	} 
-		else 
-		{
-      		return FALSE;
-    	}
-  	}
-
-	public function loginByProgram($user) 
-	{
-		$this->session->set('membertypeid',$user['usertypeid']);
-		$this->session->set('memberid',$user['userid']);
-		$this->session->set('membername',$user['username']);	
-			
-		return TRUE;
-    	
-  	}
+  	
 	
   	public function logout() {
-		unset($_SESSION['safemode']);
-		unset($_SESSION['memberid']);
-		unset($this->session->data['memberid']);	
+		unset($this->session->data['member']);
+			
 		$this->userid = '';
 		$this->username = '';
 		$this->safemode = false;

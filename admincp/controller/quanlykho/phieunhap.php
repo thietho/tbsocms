@@ -99,7 +99,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	{
 		
 		$arr = array();
-		$where = " AND loaiphieu like 'NK%' Or loaiphieu like 'CH-NK'";
+		$where = " AND (loaiphieu like 'NK%' Or loaiphieu like 'CH-NK')";
 		
 		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
 		$datasearchlike['trangthai'] = urldecode($this->request->get['trangthai']);
