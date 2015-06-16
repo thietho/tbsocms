@@ -194,8 +194,10 @@ class ControllerModuleProduct extends Controller
 			
 			
 			$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
-				
-			
+			echo $this->data['medias'][$i]['inventory'].':';
+			$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($this->data['medias'][$i]['inventory'],$this->data['medias'][$i]['unit']);
+			$this->data['medias'][$i]['inventorytext'] = $this->model_quanlykho_donvitinh->toText($arr_ton);	
+			print_r($arr_ton);
 			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
 			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['groupkeys']);
 			$arrstatus = array();
@@ -218,7 +220,11 @@ class ControllerModuleProduct extends Controller
 				$shopinventory = $this->model_core_media->getShopInventory($shop['id'],$mediaid);
 				$str = '';
 				if($shopinventory)
-					$str = $shop['shopname']." Tồn: ". $shopinventory;
+				{
+					$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($shopinventory,$this->data['medias'][$i]['unit']);
+					$inventorytext = $this->model_quanlykho_donvitinh->toText($arr_ton);
+					$str = $shop['shopname']." Tồn: ". $inventorytext;
+				}
 				$this->data['medias'][$i]['shopinventory'] .= $str;
 			}
 			$data_child = $this->model_core_media->getListByParent($mediaid,"ORDER BY `position` ASC ");
@@ -226,14 +232,19 @@ class ControllerModuleProduct extends Controller
 			{
 				$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 				$data_child[$key]['saleprice'] = json_decode($child['saleprice']);
-				
+				$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($data_child[$key]['inventory'],$data_child[$key]['unit']);
+				$data_child[$key]['inventorytext'] = $this->model_quanlykho_donvitinh->toText($arr_ton);
 				$data_child[$key]['shopinventory'] = '';
 				foreach($this->data['data_shop'] as $shop)
 				{
 					$shopinventory = $this->model_core_media->getShopInventory($shop['id'],$child['mediaid']);
 					$str = '';
 					if($shopinventory)
-						$str = $shop['shopname']." Tồn: ". $shopinventory;
+					{
+						$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($shopinventory,$data_child[$key]['unit']);
+						$inventorytext = $this->model_quanlykho_donvitinh->toText($arr_ton);
+						$str = $shop['shopname']." Tồn: ". $inventorytext;
+					}
 					$data_child[$key]['shopinventory'] .= $str;
 				}
 				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
