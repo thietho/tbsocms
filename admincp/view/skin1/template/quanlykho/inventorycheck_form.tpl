@@ -7,8 +7,8 @@
     	<form id="frm_inventorycheck" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="Lưu" class="button" onClick="save()"/>
-                  
+            	<input type="button" value="Lưu" class="button" onClick="inven.save()"/>
+                <input type="button" value="Trở về" class="button" onClick="window.location = '?route=quanlykho/inventorycheck';"/>
      	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
                 <input type="hidden" name="nhanvienid" value="<?php echo $item['nhanvienid']?>">
                 
@@ -45,8 +45,19 @@ function Inventory()
 	{
 		$.blockUI({ message: "<h1>Please wait...</h1>" });
 		$.post("?route=quanlykho/inventorycheck/save",$('#frm_inventorycheck').serialize(),function(data){
-			
+			var obj = $.parseJSON(data);
+			if(obj.error == '')
+			{
+				//$('#error').html('').hide('slow');
+				window.location = '?route=quanlykho/inventorycheck/update&id='+obj.id;
+			}
+			else
+			{
+				$('#error').html(obj.error).show('slow');	
+			}
+			$.unblockUI();
 		});	
 	}
 }
+var inven = new Inventory();
 </script>

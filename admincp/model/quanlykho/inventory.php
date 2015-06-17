@@ -1,5 +1,5 @@
 <?php
-class ModelModuleBaogia extends ModelCoreFile 
+class ModelQuanlykhoInventory extends Model
 { 
 	private $arr_col = array(
 							'datecheck',

@@ -29,7 +29,7 @@ final class User {
 		
 		$this->siteid = $this->session->data['siteid'];
 		
-	
+		$this->nhanvien = $this->getNhanVien();
     	/*if (isset($this->session->data['userid'])) {
 			$query = $this->db->query("SELECT * FROM user WHERE userid = '" . $this->db->escape($this->session->data['userid']) . "'");
 			

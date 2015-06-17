@@ -16,6 +16,12 @@
                 
             </div>
             <div class="clearer">^&nbsp;</div>
+            <div id="listinventory"></div>
         </div>
     </div>
 </div>
+<script language="javascript">
+$(document).ready(function(e) {
+    $('#listinventory').load("?route=quanlykho/inventorycheck/getList");
+});
+</script>

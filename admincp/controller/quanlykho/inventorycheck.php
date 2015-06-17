@@ -12,10 +12,10 @@ class ControllerQuanlykhoInventorycheck extends Controller
 			$this->response->redirect('?route=page/home');
 		}
 		$this->load->model("quanlykho/donvitinh");
-		$this->load->model("quanlykho/phieunhapxuat");
+		$this->load->model("quanlykho/inventory");
 		$this->load->model("core/sitemap");
 		$this->load->model("core/media");
-		$this->load->model("module/baogia");
+		
 		$this->load->model("core/user");
 		$this->load->helper('image');
 		$this->load->model("core/category");
@@ -69,36 +69,17 @@ class ControllerQuanlykhoInventorycheck extends Controller
 	public function getList() 
 	{
 		
-		$this->load->model("core/user");
-		
-		$this->data['insert'] = $this->url->http('sales/shop/insert');
-		$this->data['delete'] = $this->url->http('sales/shop/delete');		
-		
 		$this->data['datas'] = array();
 		$where = "";
 		
-		
-		$datasearchlike['shopname'] = urldecode($this->request->get['shopname']);
-		
-		$arr = array();
-		foreach($datasearchlike as $key => $item)
-		{
-			if($item !="")
-				$arr[] = " AND " . $key ." like '%".$item."%'";
-		}
-		
-		
-		
-		$where = implode("",$arr);
-		
-		$rows = $this->model_sales_shop->getList($where);
+		$rows = $this->model_quanlykho_inventory->getList($where);
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;		
 		$limit = 20;
 		$total = count($rows); 
 		// work out the pager values 
-		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page,"#listshop");
+		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page,"#listinventory");
 		
 		$pager  = $this->pager->getPagerData($total, $limit, $page); 
 		$offset = $pager->offset; 
@@ -107,27 +88,13 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		for($i=$offset;$i < $offset + $limit && count($rows[$i])>0;$i++)
 		{
 			$this->data['datas'][$i] = $rows[$i];
-			
 			$this->data['datas'][$i]['link_edit'] = $this->url->http('sales/shop/update&id='.$this->data['datas'][$i]['id']);
 			$this->data['datas'][$i]['text_edit'] = "Sửa";
-			//Lay nhan vien cua của hang
-			$where = " AND shopid =". $this->data['datas'][$i]['id'];
-			$data_shopstaff = $this->model_sales_shop->getShopStaffList($where);
-			$arr_staffid = $this->string->matrixToArray($data_shopstaff,'staffid');
-			
-			$this->data['datas'][$i]['arr_staffid'] =$arr_staffid;
 			
 		}
 		$this->data['refres']=$_SERVER['QUERY_STRING'];
 		$this->id='content';
-		$this->template="sales/shop_table.tpl";
-		
-		if($this->request->get['opendialog']=='true')
-		{
-			$this->layout="";
-			$this->data['dialog'] = true;
-			
-		}
+		$this->template="quanlykho/inventorycheck_table.tpl";
 		$this->render();
 	}
 	
@@ -140,6 +107,10 @@ class ControllerQuanlykhoInventorycheck extends Controller
       		$this->data['item'] = $this->model_quanlykho_inventory->getItem($this->request->get['id']);
 			
     	}
+		else
+		{
+			$this->data['item']['nhanvienid'] = $this->user->nhanvien['id'];
+		}
 		
 		$this->id='content';
 		$this->template='quanlykho/inventorycheck_form.tpl';
@@ -154,25 +125,18 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		
 		if($this->validateForm($data))
 		{
-			
-			if($data['id']=="")
-			{
-				$data['id']=$this->model_sales_shop->insert($data);
-			}
-			else
-			{
-				$this->model_sales_shop->update($data);
-			}
-			
-			$this->data['output'] = "true";
+			$data['datecheck'] = $this->date->formatViewDate($data['datecheck']);
+			$data = $this->model_quanlykho_inventory->save($data);
+			$data['error'] = "";
 		}
 		else
 		{
 			foreach($this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				$data['error'] .= $item."<br>";
 			}
 		}
+		$this->data['output'] = json_encode($data);
 		$this->id='content';
 		$this->template='common/output.tpl';
 		$this->render();
@@ -182,9 +146,9 @@ class ControllerQuanlykhoInventorycheck extends Controller
 	{
     	
 		
-		if ($data['shopname'] == "") 
+		if ($data['datecheck'] == "") 
 		{
-      		$this->error['shopname'] = "Bạn chưa nhập tên của hàng";
+      		$this->error['datecheck'] = "Bạn chưa chọn ngày";
     	}
 		
 		
