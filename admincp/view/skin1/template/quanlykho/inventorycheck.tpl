@@ -6,11 +6,11 @@
     	
         <div>
         	<div class="right">
-                <?php if($this->user->checkPermission("module/inventorycheck/insert")==true){ ?>
-                <a class="button" onclick="">Tạo đợt kiểm kho</a>
+                <?php if($this->user->checkPermission("quanlykho/inventorycheck/insert")==true){ ?>
+                <a class="button" href="?route=quanlykho/inventorycheck/insert">Tạo đợt kiểm kho</a>
 				<?php } ?>
                 
-                <?php if($this->user->checkPermission("module/inventorycheck/deleted")==true){ ?>
+                <?php if($this->user->checkPermission("quanlykho/inventorycheck/deleted")==true){ ?>
                 <a class="button" onclick="pro.deleteProduct()">Xóa</a>&nbsp;
                 <?php } ?>
                 
