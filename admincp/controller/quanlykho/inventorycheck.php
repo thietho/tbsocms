@@ -88,7 +88,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		for($i=$offset;$i < $offset + $limit && count($rows[$i])>0;$i++)
 		{
 			$this->data['datas'][$i] = $rows[$i];
-			$this->data['datas'][$i]['link_edit'] = $this->url->http('sales/shop/update&id='.$this->data['datas'][$i]['id']);
+			$this->data['datas'][$i]['link_edit'] = $this->url->http('quanlykho/inventorycheck/update&id='.$this->data['datas'][$i]['id']);
 			$this->data['datas'][$i]['text_edit'] = "Sửa";
 			
 		}

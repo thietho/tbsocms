@@ -27,7 +27,7 @@
                         <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['id']?>]" value="<?php echo $item['id']?>" ></td>
                         <?php } ?>
                         <td><?php echo $key+1 ?></td>
-                        <td><?php echo $item['datecheck']?></td>
+                        <td><?php echo $this->date->formatMySQLDate($item['datecheck'])?></td>
                         <td><?php echo $item['note']?></td>
                        	
                         <?php if($dialog==false){ ?>
