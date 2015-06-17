@@ -194,10 +194,10 @@ class ControllerModuleProduct extends Controller
 			
 			
 			$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
-			echo $this->data['medias'][$i]['inventory'].':';
+			
 			$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($this->data['medias'][$i]['inventory'],$this->data['medias'][$i]['unit']);
 			$this->data['medias'][$i]['inventorytext'] = $this->model_quanlykho_donvitinh->toText($arr_ton);	
-			print_r($arr_ton);
+			
 			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
 			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['groupkeys']);
 			$arrstatus = array();

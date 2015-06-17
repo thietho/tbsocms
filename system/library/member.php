@@ -56,7 +56,9 @@ final class Member {
 		
 		if(count($this->session->data['member']))
 		{
-			print_r($this->session->data['member']);
+			$sql="SELECT * FROM user WHERE id = '" . $this->session->data['member']['id'] . "' AND status = 'active' AND deletedby = ''";
+	   		$query = $this->db->query($sql);
+			$this->session->set('member',$query->row);
 			$this->userid = $this->session->data['member']['userid'];
 			$this->username = $this->session->data['member']['username'];
 			$this->usertypeid = $this->session->data['member']['usertypeid'];
@@ -68,11 +70,41 @@ final class Member {
 		//$this->writelog();
   	}
 		
-  	
+  	public function login($username, $password) 
+	{
+		
+		if($username=="" || $password=="")
+			return false;
+		$sql="SELECT * FROM user WHERE username = '" . $this->db->escape($username) . "' AND password = '" . $this->db->escape(md5($password)) . "' AND status = 'active' AND deletedby = ''";
+	   	$query = $this->db->query($sql);
+		
+    	if ($query->num_rows) 
+		{
+			$this->session->set('membertypeid',$query->row['usertypeid']);
+			$this->session->set('memberid',$query->row['userid']);
+			$this->session->set('membername',$query->row['username']);	
+				
+      		return TRUE;
+    	} 
+		else 
+		{
+      		return FALSE;
+    	}
+  	}
+
+	public function loginByProgram($user) 
+	{
+		$this->session->set('membertypeid',$user['usertypeid']);
+		$this->session->set('memberid',$user['userid']);
+		$this->session->set('membername',$user['username']);	
+			
+		return TRUE;
+    	
+  	}
 	
   	public function logout() {
-		unset($this->session->data['member']);
-			
+		//$this->session->data['member'] = array();
+		$this->session->set('member',array());
 		$this->userid = '';
 		$this->username = '';
 		$this->safemode = false;

@@ -160,7 +160,7 @@ class ModelQuanlykhoDonvitinh extends Model
 	
 	public function toDonVi($int,$madonvi)
 	{
-		echo $madonvi;
+		
 		$data_donvitinh = $this->getDonViQuyDoi($madonvi);
 		//$data_donvitinh = $this->string->swapArray($data_donvitinh);
 		foreach($data_donvitinh as $i => $donvitinh)
