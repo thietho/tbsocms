@@ -186,6 +186,8 @@ $(document).ready(function(e) {
 		$('#congno').val(congno);
 		$('#lbl-congno').html(formateNumber(congno));
 	});
+	var h = $(document).innerHeight() - $('#listorder').offset().top;
+	$('#listorder').height(h)
 });
 $('#btnAddRow').click(function(e) {
 	browseProduct();
@@ -499,8 +501,10 @@ function SaleOrder(shopid)
 							giagiam = obj.price - obj.pricepromotion;
 						}
 						if($('#nhapkhonguyenlieu').length)
+						{
 							objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,giagiam,obj.discountpercent);
-						
+							$('#searchproductpopup').dialog('close');
+						}
 						
 						
 					});
