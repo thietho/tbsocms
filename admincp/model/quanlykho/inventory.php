@@ -79,7 +79,8 @@ class ModelQuanlykhoInventory extends Model
 							
 							'inventoryid',
 							'mediaid',
-							'quantity'
+							'quantity',
+							'unit'
 							);
 	public function getInventoryDetail($id)
 	{
