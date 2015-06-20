@@ -104,7 +104,10 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		
 		if ((isset($this->request->get['id'])) ) 
 		{
-      		$this->data['item'] = $this->model_quanlykho_inventory->getItem($this->request->get['id']);
+			$id = $this->request->get['id'];
+      		$this->data['item'] = $this->model_quanlykho_inventory->getItem($id);
+			$where = " AND inventoryid = '".$id."' ORDER BY `position` ASC";
+			$this->data['data_detail'] = $this->model_quanlykho_inventory->getInventoryDetailList($where);
 			
     	}
 		else
@@ -145,21 +148,25 @@ class ControllerQuanlykhoInventorycheck extends Controller
 	{
 		//Xoa dinh luong
 		$data = $this->request->post;
-		$delid = $data['delinventoryid'];
+		echo $delid = $data['delinventoryid'];
 		if($delid)
 		{
 			@$arr_id = split(",",$delid);
+			print_r($arr_id);
 			if(count($arr_id))
 			{
 				
 				foreach($arr_id as $id)
 				{
-					
+					echo $id;
 					$this->model_quanlykho_inventory->deleteInventoryDetail($id);
 				}
 				
 			}
 		}
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
 	}
 	public function saveDetail()
 	{
@@ -167,7 +174,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		$data = $this->request->post;
 		if($data['mediaid'])
 		{
-			$data['id'] = $this->model_quanlykho_inventory->saveInventoryDetail($data);
+			$data = $this->model_quanlykho_inventory->saveInventoryDetail($data);
 			$data['error'] = '';
 		}
 		else

@@ -73,6 +73,7 @@
 		</form>
     </div>
 </div>
+
 <script language="javascript">
 $(document).ready(function(e) {
 	$('#inventorycheck').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
@@ -122,7 +123,8 @@ function Inventory()
 			{
 				
 				inven.delDetail($('#delinventoryid').val());
-				inven.saveDetail(obj,'window.location = "?route=quanlykho/inventorycheck";');
+				inven.saveDetail(obj,'');
+				//inven.saveDetail(obj,'window.location = "?route=quanlykho/inventorycheck";');
 			}
 			else
 			{
@@ -137,11 +139,11 @@ function Inventory()
 		var row = '<tr class="itemdetail" id="row'+ this.index +'" index="'+ this.index +'">';
 		row += '<td><input type="hidden" id="id-'+ this.index +'" value="'+ id +'"><input type="hidden" id="mediaid-'+ this.index +'" value="'+ mediaid +'">'+title+'</td>';
 		row += '<td class="number"><input type="text" class="text number short soluong" id="quantity-'+ this.index +'" value="'+quantity+'"></td>';
-		row += '<td class="number"><select mediaid="'+mediaid+'" class="madonvi" id="madonvi-'+ this.index +'" value="'+unit+'" ref="'+ this.index +'"></select></td>';
+		row += '<td class="number"><select mediaid="'+mediaid+'" class="madonvi" id="unit-'+ this.index +'" value="'+unit+'" ref="'+ this.index +'"></select></td>';
 		row +='<td><input type="button" class="button" value="X" onclick="inven.removeRow('+ this.index +')"/></td>';
 		row += '</tr>';
 		$('#listproduct').append(row);
-		var str = '#madonvi-'+ this.index;
+		var str = '#unit-'+ this.index;
 		this.index++;
 		$.getJSON("?route=core/media/getListDonVi&mediaid="+ mediaid,
 			function(data){
@@ -159,7 +161,7 @@ function Inventory()
 	this.removeRow = function(pos)
 	{
 		var delid = $('#id-'+pos).val();
-		$('#delinventoryid').val(delid + "," +$('#delnhapkho').val());
+		$('#delinventoryid').val(delid + "," +$('#delinventoryid').val());
 		$('#row'+pos).remove();
 		
 	}
@@ -177,9 +179,9 @@ function Inventory()
 	}
 	this.delDetail = function(listid)
 	{
-		$.post("?route=quanlykho/phieuxuat/delDetail",
+		$.post("?route=quanlykho/inventorycheck/delDetail",
 			{
-				delnhapkho:listid	
+				delinventoryid:listid	
 			});
 	}
 	this.saveItem = function(obj,p,callback)
@@ -193,17 +195,17 @@ function Inventory()
 			$('.blockMsg').html("<h1>Please wait..."+ percent +"%</h1>");
 			$.post("?route=quanlykho/inventorycheck/saveDetail",
 			{
-				id:$('#nhapkhoid-'+ pos).val(),
+				id:$('#id-'+ pos).val(),
 				inventoryid:obj.id,
 				mediaid:$('#mediaid-'+pos).val(),
-				soluong:$('#soluong-'+pos).val(),
-				madonvi:$('#madonvi-'+pos).val(),
+				quantity:$('#quantity-'+pos).val(),
+				unit:$('#unit-'+pos).val(),
 				position:p
 			},
 			function(data)
 			{
 				
-				objdl.saveItem(obj,p+1,callback);
+				inven.saveItem(obj,p+1,callback);
 				
 				
 			});
@@ -260,3 +262,8 @@ function Inventory()
 }
 var inven = new Inventory();
 </script>
+<?php foreach($data_detail as $detail){ ?>
+<script language="javascript">
+inven.addRow("<?php echo $detail['id']?>","<?php echo $detail['mediaid']?>","<?php echo $this->document->productName($detail['mediaid'])?>","<?php echo $detail['quantity']?>","<?php echo $detail['unit']?>");
+</script>
+<?php } ?>

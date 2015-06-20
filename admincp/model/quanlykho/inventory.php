@@ -72,7 +72,7 @@ class ModelQuanlykhoInventory extends Model
 		$where="id = '".$id."'";
 		$this->db->deleteData("inventory",$where);
 		$where="inventoryid = '".$id."'";
-		$this->db->deleteData("inventory_media",$where);
+		$this->db->deleteData("inventory_detail",$where);
 	}
 	//Detail
 	private $arr_coldetail = array(
@@ -80,12 +80,13 @@ class ModelQuanlykhoInventory extends Model
 							'inventoryid',
 							'mediaid',
 							'quantity',
-							'unit'
+							'unit',
+							'position'
 							);
 	public function getInventoryDetail($id)
 	{
-		$query = $this->db->query("Select `inventory_media`.* 
-									from `inventory_media` 
+		$query = $this->db->query("Select `inventory_detail`.* 
+									from `inventory_detail` 
 									where id ='".$id."'");
 		return $query->row;
 	}
@@ -95,8 +96,8 @@ class ModelQuanlykhoInventory extends Model
 	public function getInventoryDetailList($where="", $from=0, $to=0)
 	{
 		
-		$sql = "Select `inventory_media`.* 
-									from `inventory_media` 
+		$sql = "Select `inventory_detail`.* 
+									from `inventory_detail` 
 									where 1=1 " . $where ;
 		if($to > 0)
 		{
@@ -132,12 +133,12 @@ class ModelQuanlykhoInventory extends Model
 		
 		if(count($obj) == 0)
 		{
-			$data['id'] = $this->db->insertData("inventory_media",$field,$value);
+			$data['id'] = $this->db->insertData("inventory_detail",$field,$value);
 		}
 		else
 		{
 			$where="id = '".$data['id']."'";
-			$this->db->updateData("inventory_media",$field,$value,$where);
+			$this->db->updateData("inventory_detail",$field,$value,$where);
 		}
 		
 		return $data;
@@ -145,7 +146,7 @@ class ModelQuanlykhoInventory extends Model
 	public function deleteInventoryDetail($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("inventory_media",$where);
+		$this->db->deleteData("inventory_detail",$where);
 	}
 	
 }
