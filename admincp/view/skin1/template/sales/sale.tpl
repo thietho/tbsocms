@@ -190,7 +190,7 @@ $(document).ready(function(e) {
 	$('#listorder').height(h)
 });
 $('#btnAddRow').click(function(e) {
-	browseProduct();
+	browseProduct('objdl.addFunction()');
 });
 $('#btnListProducShop').click(function(e) {
     saleOrder.showShopProduct();

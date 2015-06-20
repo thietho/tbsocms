@@ -56,6 +56,14 @@
                         <tbody id="listproduct">
                         	
                         </tbody>
+                        <tfoot>
+                        	<tr>
+                            	<td colspan="8">
+                                	<input type="text" id="txt_ref" class="text" size="100"/>
+                                    
+                                </td>
+                            </tr>
+                    	</tfoot>
                 	</table>
                     <input type="hidden" id="delinventoryid" />
                     <input type="button" class="button" id="btnAddRow" value="Thêm dòng"/>
@@ -70,6 +78,38 @@ $(document).ready(function(e) {
 	$('#inventorycheck').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 	$("#listproduct").sortable();
 });
+$('#btnAddRow').click(function(e) {
+	browseProduct('inven.addFunction()');
+});
+$(function() {
+	var cache = {};
+	$( "#txt_ref" ).autocomplete({
+		minLength: 2,
+		select: function( event, ui ) {
+			//console.log(ui.item.id);
+			inven.getProbyMediaId(ui.item.id);
+			/*var obj = ui.item.data
+			var giagiam = 0;
+			if(obj.pricepromotion > 0)
+			{
+				giagiam = obj.price - obj.pricepromotion;
+			}
+			objdl.addRow('',obj.mediaid,obj.code,obj.productName,1,obj.unit,obj.price,giagiam,obj.discountpercent);
+			setTimeout("$('#txt_ref').val('')",1000);*/
+		},
+		source: function( request, response ) {
+		var term = request.term;
+		if ( term in cache ) {
+			response( cache[ term ] );
+			return;
+		}
+		$.getJSON( "?route=core/media/getProduct", request, function( data, status, xhr ) {
+			cache[ term ] = data;
+			response( data );
+			});
+		}
+	});
+});
 function Inventory()
 {
 	this.index = 0;
@@ -80,24 +120,29 @@ function Inventory()
 			var obj = $.parseJSON(data);
 			if(obj.error == '')
 			{
-				//$('#error').html('').hide('slow');
-				window.location = '?route=quanlykho/inventorycheck/update&id='+obj.id;
+				
+				inven.delDetail($('#delinventoryid').val());
+				inven.saveDetail(obj,'window.location = "?route=quanlykho/inventorycheck";');
 			}
 			else
 			{
 				$('#error').html(obj.error).show('slow');	
+				$.unblockUI();
 			}
-			$.unblockUI();
+			
 		});	
 	}
-	this.addRow = function(id,mediaid,title,quantity)
+	this.addRow = function(id,mediaid,title,quantity,unit)
 	{
-		var str = '<tr>';
-		str += '<td><input type="hidden" id="id-'+ this.index +'" value="'+ id +'"><input type="hidden" id="mediaid-'+ this.index +'" value="'+ mediaid +'">'+title+'</td>';
-		str += '<td><input type="number" id="quantity-'+ this.index +'" value="'+quantity+'"></td>';
-		str += '<td class="number"><select mediaid="'+mediaid+'" class="madonvi" id="madonvi-'+ this.index +'" value="'+madonvi+'" ref="'+ this.index +'"></select></td>';
-		str += '</tr>';
-		$('#listproduct').append(str);
+		var row = '<tr class="itemdetail" id="row'+ this.index +'" index="'+ this.index +'">';
+		row += '<td><input type="hidden" id="id-'+ this.index +'" value="'+ id +'"><input type="hidden" id="mediaid-'+ this.index +'" value="'+ mediaid +'">'+title+'</td>';
+		row += '<td class="number"><input type="text" class="text number short soluong" id="quantity-'+ this.index +'" value="'+quantity+'"></td>';
+		row += '<td class="number"><select mediaid="'+mediaid+'" class="madonvi" id="madonvi-'+ this.index +'" value="'+unit+'" ref="'+ this.index +'"></select></td>';
+		row +='<td><input type="button" class="button" value="X" onclick="inven.removeRow('+ this.index +')"/></td>';
+		row += '</tr>';
+		$('#listproduct').append(row);
+		var str = '#madonvi-'+ this.index;
+		this.index++;
 		$.getJSON("?route=core/media/getListDonVi&mediaid="+ mediaid,
 			function(data){
 				html = "";
@@ -107,8 +152,110 @@ function Inventory()
 					html += '<option value="'+data[i].madonvi+'">'+data[i].tendonvitinh+'</option>';
 				}
 				$(str).html(html);
-				$(str).val(madonvi);
+				$(str).val(unit);
 			});
+		numberReady();
+	}
+	this.removeRow = function(pos)
+	{
+		var delid = $('#id-'+pos).val();
+		$('#delinventoryid').val(delid + "," +$('#delnhapkho').val());
+		$('#row'+pos).remove();
+		
+	}
+	this.getProbyMediaId = function(str)
+	{
+		
+		arr = str.split("-");
+		$.getJSON("?route=core/media/getMedia&col=mediaid&val="+encodeURI(arr[0]),function(data)
+		{			
+			
+			inven.addRow(0,data.medias[0].mediaid,data.medias[0].title,1,data.medias[0].unit);
+			
+			$('#txt_ref').val('');
+		});
+	}
+	this.delDetail = function(listid)
+	{
+		$.post("?route=quanlykho/phieuxuat/delDetail",
+			{
+				delnhapkho:listid	
+			});
+	}
+	this.saveItem = function(obj,p,callback)
+	{
+		
+		if(p < this.listrows.length)
+		{
+			pos = this.listrows[p];
+			//$.blockUI({ message: "<h1>Please wait..."+pos+"</h1>" }); 
+			var percent = Math.round( (p + 1) / Number(this.listrows.length)*100 );
+			$('.blockMsg').html("<h1>Please wait..."+ percent +"%</h1>");
+			$.post("?route=quanlykho/inventorycheck/saveDetail",
+			{
+				id:$('#nhapkhoid-'+ pos).val(),
+				inventoryid:obj.id,
+				mediaid:$('#mediaid-'+pos).val(),
+				soluong:$('#soluong-'+pos).val(),
+				madonvi:$('#madonvi-'+pos).val(),
+				position:p
+			},
+			function(data)
+			{
+				
+				objdl.saveItem(obj,p+1,callback);
+				
+				
+			});
+		}
+		else
+		{
+			$.unblockUI();
+			if(callback !='')
+				setTimeout(callback,0);
+		}
+		
+	}
+	this.listrows = new Array();
+	this.saveDetail = function(obj,callback)
+	{
+		var arr = new Array();
+		
+		$('.itemdetail').each(function(index, element) {
+            arr.push($(this).attr('index'));
+        });
+		this.listrows = arr;
+		this.saveItem(obj,0,callback);
+	}
+	this.addFunction = function()
+	{
+		$('.selectProduct').click(function(e) {
+			var obj = new Object();
+			obj.id = 0;
+			obj.mediaid = $(this).attr('ref');
+			obj.imagepath = $(this).attr('image');
+			obj.title = $(this).attr('title');
+			obj.code = $(this).attr('code');
+			obj.unit = $(this).attr('unit');
+			//console.log(obj.mediaid);
+			obj.price = $(this).attr('price');
+			
+			obj.pricepromotion = $(this).attr('pricepromotion');
+			obj.discountpercent = $(this).attr('discountpercent');
+			obj.productname = $(this).attr('productname');
+			obj.brandname = $(this).attr('brandname');
+			
+			var giagiam = 0;
+			if(obj.pricepromotion > 0)
+			{
+				giagiam = obj.price - obj.pricepromotion;
+			}
+			
+			inven.addRow(0,obj.mediaid,obj.title,1,obj.unit);
+			
+			
+			$("#popupbrowseproduct").dialog("close");
+		});
 	}
 }
 var inven = new Inventory();

@@ -141,7 +141,44 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
-	
+	public function delDetail()
+	{
+		//Xoa dinh luong
+		$data = $this->request->post;
+		$delid = $data['delinventoryid'];
+		if($delid)
+		{
+			@$arr_id = split(",",$delid);
+			if(count($arr_id))
+			{
+				
+				foreach($arr_id as $id)
+				{
+					
+					$this->model_quanlykho_inventory->deleteInventoryDetail($id);
+				}
+				
+			}
+		}
+	}
+	public function saveDetail()
+	{
+		//Save chi tiet phieu nhap
+		$data = $this->request->post;
+		if($data['mediaid'])
+		{
+			$data['id'] = $this->model_quanlykho_inventory->saveInventoryDetail($data);
+			$data['error'] = '';
+		}
+		else
+		{
+			$data['error'] = 'false';	
+		}
+		$this->data['output'] = json_encode($data);
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 	private function validateForm($data)
 	{
     	

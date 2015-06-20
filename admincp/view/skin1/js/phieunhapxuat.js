@@ -402,6 +402,37 @@ function PhieuNhapXuat()
 			$('#txt_ref').val('');
 		});
 	}
+	this.addFunction = function()
+	{
+		$('.selectProduct').click(function(e) {
+			var obj = new Object();
+			obj.id = 0;
+			obj.mediaid = $(this).attr('ref');
+			obj.imagepath = $(this).attr('image');
+			obj.title = $(this).attr('title');
+			obj.code = $(this).attr('code');
+			obj.unit = $(this).attr('unit');
+			//console.log(obj.mediaid);
+			obj.price = $(this).attr('price');
+			
+			obj.pricepromotion = $(this).attr('pricepromotion');
+			obj.discountpercent = $(this).attr('discountpercent');
+			obj.productname = $(this).attr('productname');
+			obj.brandname = $(this).attr('brandname');
+			
+			var giagiam = 0;
+			if(obj.pricepromotion > 0)
+			{
+				giagiam = obj.price - obj.pricepromotion;
+			}
+			if($('#nhapkhonguyenlieu').length)
+				objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,giagiam,obj.discountpercent);
+			if($('#baogialistproduct').length)
+				$('#baogialistproduct').append(bg.newRow(obj));
+			
+			$("#popupbrowseproduct").dialog("close");
+		});		
+	}
 }
 
 var objdl = new PhieuNhapXuat();

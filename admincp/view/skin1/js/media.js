@@ -554,7 +554,7 @@ function saveMedia()
 			
 		});	
 }
-function browseProduct()
+function browseProduct(callfunc)
 {
 	$('body').append('<div id="popupbrowseproduct" style="display:none"></div>');
 	$('body').css('overflow','hidden');
@@ -576,9 +576,7 @@ function browseProduct()
 	
 		$("#popupbrowseproduct").dialog("open");
 		$("#popupbrowseproduct").html(loading);
-		$("#popupbrowseproduct").load("?route=module/product&open=dialog",function(){
-
-		});
+		$("#popupbrowseproduct").load("?route=module/product&open=dialog&callfunc="+callfunc);
 }
 function showMemberForm(memberid,strFun)
 {

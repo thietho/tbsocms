@@ -110,7 +110,10 @@ function Product()
 	{
 		//$('#showsanpham').html(loading);
 		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
-		$('#showsanpham').load(url,function(){$.unblockUI();});
+		$('#showsanpham').load(url,function(){
+			$.unblockUI();
+			<?php echo $this->request->get['callfunc']?>
+		});
 	}
 	this.add = function(parent,sitemapid)
 	{

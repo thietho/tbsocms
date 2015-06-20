@@ -411,7 +411,7 @@ $(document).ready(function(e) {
 	});
 	
 	$('#btnAddRow').click(function(e) {
-		browseProduct();
+		browseProduct('objdl.addFunction()');
 	});
 	$('#btnAddGroup').click(function(e) {
         objdl.addGroup('','',0,'',0,0,0);

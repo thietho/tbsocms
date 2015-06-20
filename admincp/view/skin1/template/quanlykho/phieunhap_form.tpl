@@ -443,7 +443,7 @@ $(document).ready(function(e) {
 	});
 	
 	$('#btnAddRow').click(function(e) {
-		browseProduct();
+		browseProduct('objdl.addFunction()');
 	});
 	
 	$('#btnSeleteNhaCungCap').click(function(e) {

@@ -140,7 +140,7 @@ class ModelQuanlykhoInventory extends Model
 			$this->db->updateData("inventory_media",$field,$value,$where);
 		}
 		
-		return $data['id'];
+		return $data;
 	}
 	public function deleteInventoryDetail($id)
 	{
