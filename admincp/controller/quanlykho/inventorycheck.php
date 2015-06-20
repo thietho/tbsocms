@@ -148,7 +148,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 	{
 		//Xoa dinh luong
 		$data = $this->request->post;
-		echo $delid = $data['delinventoryid'];
+		$delid = $data['delinventoryid'];
 		if($delid)
 		{
 			@$arr_id = split(",",$delid);
@@ -158,8 +158,8 @@ class ControllerQuanlykhoInventorycheck extends Controller
 				
 				foreach($arr_id as $id)
 				{
-					echo $id;
-					$this->model_quanlykho_inventory->deleteInventoryDetail($id);
+					if($id)
+						$this->model_quanlykho_inventory->deleteInventoryDetail($id);
 				}
 				
 			}
