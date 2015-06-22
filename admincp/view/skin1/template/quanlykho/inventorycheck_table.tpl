@@ -8,7 +8,7 @@
                         <input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);">
                         </th>
                         <?php } ?>
-                        <th>STT</th>
+                        <th width="1%">STT</th>
                         <th>Ngày kiểm</th>
                         <th>Ghi chú</th>
                         
@@ -27,7 +27,7 @@
                     	<?php if($dialog!=true){ ?>
                         <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['id']?>]" value="<?php echo $item['id']?>" ></td>
                         <?php } ?>
-                        <td><?php echo $key+1 ?></td>
+                        <td align="center"><?php echo $key+1 ?></td>
                         <td><?php echo $this->date->formatMySQLDate($item['datecheck'])?></td>
                         <td><?php echo $item['note']?></td>
                        	

@@ -70,7 +70,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		$this->data['datas'] = array();
 		$where = "";
 		
-		$rows = $this->model_quanlykho_inventory->getList($where);
+		$rows = $this->model_quanlykho_inventory->getList($where.'ORDER BY `datecheck` DESC');
 		//Page
 		$page = $this->request->get['page'];		
 		$x=$page;		

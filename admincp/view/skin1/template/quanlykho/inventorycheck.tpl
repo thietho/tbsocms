@@ -7,9 +7,11 @@
         <div>
         	<div class="right">
                 <?php if($this->user->checkPermission("quanlykho/inventorycheck/insert")==true){ ?>
+                <a class="button" href="?route=quanlykho/inventorycheck/insert">Đối chiếu tồn kho</a>
+				<?php } ?>
+                <?php if($this->user->checkPermission("quanlykho/inventorycheck/insert")==true){ ?>
                 <a class="button" href="?route=quanlykho/inventorycheck/insert">Tạo đợt kiểm kho</a>
 				<?php } ?>
-                
                 <?php if($this->user->checkPermission("quanlykho/inventorycheck/deleted")==true){ ?>
                 <a class="button" onclick="deleteitem()">Xóa</a>&nbsp;
                 <?php } ?>

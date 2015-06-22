@@ -78,6 +78,8 @@
 $(document).ready(function(e) {
 	$('#inventorycheck').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
 	$("#listproduct").sortable();
+	if($('#datecheck').val()=='')
+		$('#datecheck').val(intToDate(Date.now()));
 });
 $('#btnAddRow').click(function(e) {
 	browseProduct('inven.addFunction()');
