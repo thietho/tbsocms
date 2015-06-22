@@ -1,4 +1,5 @@
 				<?php echo $pager?>
+<form id="frm_listinventory">
                 <table class="data-table" cellpadding="0" cellspacing="0">
                 <thead>
                     <tr class="tr-head">
@@ -46,4 +47,5 @@
                                                     
                 </tbody>
                 </table>
+</form>
                 <?php echo $pager?>

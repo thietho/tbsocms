@@ -348,6 +348,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$data = $this->request->post;
 		if($data['mediaid'])
 		{
+			
 			$data['id'] = $this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($data);
 			$data['error'] = '';
 			

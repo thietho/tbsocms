@@ -50,13 +50,11 @@ class ControllerQuanlykhoInventorycheck extends Controller
 	public function delete() 
 	{
 		$listid=$this->request->post['delete'];
-		//$listmadonvi=$_POST['delete'];
-		$this->load->model("sales/shop");
 		if(count($listid))
 		{
 			foreach($listid as $id)
 			{
-				$this->model_sales_shop->delete($id);	
+				$this->model_quanlykho_inventory->delete($id);	
 			}
 			
 			$this->data['output'] = "Xóa thành công";
@@ -174,6 +172,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		$data = $this->request->post;
 		if($data['mediaid'])
 		{
+			$data['quantity'] = $this->string->toNumber($data['quantity']);
 			$data = $this->model_quanlykho_inventory->saveInventoryDetail($data);
 			$data['error'] = '';
 		}

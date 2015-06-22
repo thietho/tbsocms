@@ -123,8 +123,8 @@ function Inventory()
 			{
 				
 				inven.delDetail($('#delinventoryid').val());
-				inven.saveDetail(obj,'');
-				//inven.saveDetail(obj,'window.location = "?route=quanlykho/inventorycheck";');
+				//inven.saveDetail(obj,'');
+				inven.saveDetail(obj,'window.location = "?route=quanlykho/inventorycheck";');
 			}
 			else
 			{

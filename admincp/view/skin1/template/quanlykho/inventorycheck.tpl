@@ -11,7 +11,7 @@
 				<?php } ?>
                 
                 <?php if($this->user->checkPermission("quanlykho/inventorycheck/deleted")==true){ ?>
-                <a class="button" onclick="pro.deleteProduct()">Xóa</a>&nbsp;
+                <a class="button" onclick="deleteitem()">Xóa</a>&nbsp;
                 <?php } ?>
                 
             </div>
@@ -24,4 +24,22 @@
 $(document).ready(function(e) {
     $('#listinventory').load("?route=quanlykho/inventorycheck/getList");
 });
+function deleteitem()
+{
+	var answer = confirm("Bạn có muốn xóa không?")
+	if (answer)
+	{
+		$.post("?route=quanlykho/inventorycheck/delete", 
+				$("#frm_listinventory").serialize(), 
+				function(data)
+				{
+					if(data!="")
+					{
+						alert(data)
+						window.location.reload();
+					}
+				}
+		);
+	}
+}
 </script>
