@@ -20,6 +20,8 @@
             	<ul class="tabs-nav">
                     <li class="tabs-selected"><a href="#fragment-thongtin"><span>Thông tin kiềm kho</span></a></li>
                     <li class="tabs"><a href="#fragment-sanpham"><span>Sản phẩm</span></a></li>
+                    <li class="tabs"><a href="#fragment-inlist"><span>Sản phẩm có trong kiểm kho mà không khớp số lượng</span></a></li>
+                    <li class="tabs"><a href="#fragment-outlist"><span>Sản phẩm không có trong kiểm kho</span></a></li>
                 </ul>
                 <div id="fragment-thongtin">
                 	<p>
@@ -52,6 +54,62 @@
                                 <td><?php echo $this->document->productName($detail['mediaid'])?></td>
                                 <td><?php echo $this->string->numberFormate($detail['quantity'])?></td>
                                 <td><?php echo $this->document->getDonViTinh($detail['unit'])?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                        
+                	</table>
+                    
+                </div>
+                <div id="fragment-inlist">
+                	<table>
+                    	<thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Đơn vị tính</th>
+                                <th>Số lượng thực tế</th>
+                                <th>Đơn vị tính</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listproduct">
+                        	<?php foreach($inlist as $key => $media){ ?>
+                            <tr>
+                            	<td><?php echo $key +1 ?></td>
+                                <td><?php echo $this->document->productName($media)?></td>
+                                <td><?php echo $this->string->numberFormate($media['inventory'])?></td>
+                                <td><?php echo $this->document->getDonViTinh($media['unit'])?></td>
+                                <td><?php echo $this->string->numberFormate($media['quantity'])?></td>
+                                <td><?php echo $this->document->getDonViTinh($media['unit'])?></td>
+                                <td><?php echo $this->document->getDonViTinh($media['unitdetail'])?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                        
+                	</table>
+                    
+                </div>
+                <div id="fragment-outlist">
+                	<table>
+                    	<thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Đơn vị tính</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody id="listproduct">
+                        	<?php foreach($outlist as $key => $media){ ?>
+                            <tr>
+                            	<td><?php echo $key +1 ?></td>
+                                <td><?php echo $this->document->productName($media)?></td>
+                                <td><?php echo $this->string->numberFormate($media['inventory'])?></td>
+                                <td><?php echo $this->document->getDonViTinh($media['unit'])?></td>
+                                
+                                
                             </tr>
                             <?php } ?>
                         </tbody>
