@@ -205,4 +205,18 @@ class ControllerQuanlykhoInventorycheck extends Controller
 	  		return FALSE;
 		}
 	}
+	public function check()
+	{
+		$where = " ORDER BY `datecheck` DESC";
+		$data = $this->model_quanlykho_inventory->getList($where);
+		$id = $data[0]['id'];
+		$this->data['item'] = $this->model_quanlykho_inventory->getItem($id);
+		$where = " AND inventoryid = '".$id."' ORDER BY `position` ASC";
+		$this->data['data_detail'] = $this->model_quanlykho_inventory->getInventoryDetailList($where);
+
+		$this->id='content';
+		$this->template='quanlykho/inventorycheck_check.tpl';
+		$this->layout='layout/center';
+		$this->render();
+	}
 }

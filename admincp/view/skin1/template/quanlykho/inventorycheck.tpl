@@ -6,8 +6,8 @@
     	
         <div>
         	<div class="right">
-                <?php if($this->user->checkPermission("quanlykho/inventorycheck/insert")==true){ ?>
-                <a class="button" href="?route=quanlykho/inventorycheck/insert">Đối chiếu tồn kho</a>
+                <?php if($this->user->checkPermission("quanlykho/inventorycheck/check")==true){ ?>
+                <a class="button" href="?route=quanlykho/inventorycheck/check">Đối chiếu tồn kho</a>
 				<?php } ?>
                 <?php if($this->user->checkPermission("quanlykho/inventorycheck/insert")==true){ ?>
                 <a class="button" href="?route=quanlykho/inventorycheck/insert">Tạo đợt kiểm kho</a>
