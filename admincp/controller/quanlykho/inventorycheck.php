@@ -213,22 +213,24 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		$this->data['item'] = $this->model_quanlykho_inventory->getItem($id);
 		$where = " AND inventoryid = '".$id."' ORDER BY `position` ASC";
 		$this->data['data_detail'] = $this->model_quanlykho_inventory->getInventoryDetailList($where);
+		
 		$where = " AND mediatype = 'module/product' AND inventory <> 0";
 		$where .= " Order by code";
 		$rows = $this->model_core_media->getList($where);
 		$this->data['inlist'] = array();
 		$this->data['outlist'] = array();
-		print_r($rows);
-		foreach($rows as $media)
+		//echo count($rows);
+		foreach($rows as $key => $media)
 		{
-			foreach($this->data['data_detail'] as $key => $detail)
+			
+			foreach($this->data['data_detail'] as  $detail)
 			{
-				/*if($media['mediaid'] == $detail['mediaid'] && $media['inventory']!=$detail['quantity'])
+				if($media['mediaid'] == $detail['mediaid'] && $media['inventory']!=$detail['quantity'])
 				{
 					$this->data['inlist'][$key] = $media;
 					$this->data['inlist'][$key]['quantity'] = $detail['quantity'];
 					$this->data['inlist'][$key]['unitdetail'] = $detail['unit'];
-				}*/
+				}
 				
 				if($media['mediaid'] != $detail['mediaid'])
 				{
@@ -236,6 +238,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 				}
 			}
 		}
+		
 		//Cac san pham trong list khiem kho ma so luong ton khong khop
 		
 		//Cac san pham co ton ma ko co trong list kiem kho

@@ -78,10 +78,9 @@
                             <tr>
                             	<td><?php echo $key +1 ?></td>
                                 <td><?php echo $this->document->productName($media)?></td>
-                                <td><?php echo $this->string->numberFormate($media['inventory'])?></td>
+                                <td class="number"><?php echo $this->string->numberFormate($media['inventory'])?></td>
                                 <td><?php echo $this->document->getDonViTinh($media['unit'])?></td>
-                                <td><?php echo $this->string->numberFormate($media['quantity'])?></td>
-                                <td><?php echo $this->document->getDonViTinh($media['unit'])?></td>
+                                <td class="number"><?php echo $this->string->numberFormate($media['quantity'])?></td>
                                 <td><?php echo $this->document->getDonViTinh($media['unitdetail'])?></td>
                             </tr>
                             <?php } ?>
@@ -106,7 +105,7 @@
                             <tr>
                             	<td><?php echo $key +1 ?></td>
                                 <td><?php echo $this->document->productName($media)?></td>
-                                <td><?php echo $this->string->numberFormate($media['inventory'])?></td>
+                                <td class="number"><?php echo $this->string->numberFormate($media['inventory'])?></td>
                                 <td><?php echo $this->document->getDonViTinh($media['unit'])?></td>
                                 
                                 
