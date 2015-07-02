@@ -37,7 +37,7 @@
                     </p>
                 </div>
                 <div id="fragment-sanpham">
-                	<table>
+                	<table class="data-table">
                     	<thead>
                             <tr>
                                 <th>STT</th>
@@ -49,7 +49,7 @@
                         </thead>
                         <tbody id="listproduct">
                         	<?php foreach($data_detail as $key => $detail){ ?>
-                            <tr>
+                            <tr class="item">
                             	<td><?php echo $key +1 ?></td>
                                 <td><?php echo $this->document->productName($detail['mediaid'])?></td>
                                 <td><?php echo $this->string->numberFormate($detail['quantity'])?></td>
@@ -62,7 +62,7 @@
                     
                 </div>
                 <div id="fragment-inlist">
-                	<table>
+                	<table class="data-table">
                     	<thead>
                             <tr>
                                 <th>STT</th>
@@ -75,7 +75,7 @@
                         </thead>
                         <tbody id="listproduct">
                         	<?php foreach($inlist as $key => $media){ ?>
-                            <tr>
+                            <tr class="item">
                             	<td><?php echo $key +1 ?></td>
                                 <td><?php echo $this->document->productName($media)?></td>
                                 <td class="number"><?php echo $this->string->numberFormate($media['inventory'])?></td>
@@ -90,7 +90,7 @@
                     
                 </div>
                 <div id="fragment-outlist">
-                	<table>
+                	<table class="data-table">
                     	<thead>
                             <tr>
                                 <th>STT</th>
@@ -102,7 +102,7 @@
                         </thead>
                         <tbody id="listproduct">
                         	<?php foreach($outlist as $key => $media){ ?>
-                            <tr>
+                            <tr class="item">
                             	<td><?php echo $key +1 ?></td>
                                 <td><?php echo $this->document->productName($media)?></td>
                                 <td class="number"><?php echo $this->string->numberFormate($media['inventory'])?></td>
