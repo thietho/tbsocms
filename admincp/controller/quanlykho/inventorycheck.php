@@ -222,27 +222,26 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		//echo count($rows);
 		foreach($rows as $key => $media)
 		{
-			
-			foreach($this->data['data_detail'] as  $detail)
+			$flag = false;
+			foreach($this->data['data_detail'] as $detail)
 			{
+				//Cac san pham trong list khiem kho ma so luong ton khong khop
 				if($media['mediaid'] == $detail['mediaid'] && $media['inventory']!=$detail['quantity'])
 				{
 					$this->data['inlist'][$key] = $media;
 					$this->data['inlist'][$key]['quantity'] = $detail['quantity'];
 					$this->data['inlist'][$key]['unitdetail'] = $detail['unit'];
 				}
-				
-				if($media['mediaid'] != $detail['mediaid'])
-				{
-					$this->data['outlist'][$key] = $media;	
-				}
+				if($media['mediaid'] == $detail['mediaid'])
+					$flag = true;
+			}
+			//Cac san pham co ton ma ko co trong list kiem kho
+			
+			if($flag == false)
+			{
+				$this->data['outlist'][$key] = $media;	
 			}
 		}
-		
-		//Cac san pham trong list khiem kho ma so luong ton khong khop
-		
-		//Cac san pham co ton ma ko co trong list kiem kho
-		
 		
 		$this->id='content';
 		$this->template='quanlykho/inventorycheck_check.tpl';
