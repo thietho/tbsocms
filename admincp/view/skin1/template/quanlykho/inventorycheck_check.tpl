@@ -66,6 +66,7 @@
                     	<thead>
                             <tr>
                                 <th>STT</th>
+                                <th>ID</th>
                                 <th>Sản phẩm</th>
                                 <th>Số lượng</th>
                                 <th>Đơn vị tính</th>
@@ -77,6 +78,7 @@
                         	<?php foreach($inlist as $key => $media){ ?>
                             <tr class="item">
                             	<td><?php echo $key +1 ?></td>
+                                <td><?php echo $media['mediaid']?></td>
                                 <td><?php echo $this->document->productName($media)?></td>
                                 <td class="number"><?php echo $this->string->numberFormate($media['inventory'])?></td>
                                 <td><?php echo $this->document->getDonViTinh($media['unit'])?></td>
@@ -94,6 +96,7 @@
                     	<thead>
                             <tr>
                                 <th>STT</th>
+                                <th>ID</th>
                                 <th>Sản phẩm</th>
                                 <th>Số lượng</th>
                                 <th>Đơn vị tính</th>
@@ -104,6 +107,7 @@
                         	<?php foreach($outlist as $key => $media){ ?>
                             <tr class="item">
                             	<td><?php echo $key +1 ?></td>
+                                <td><?php echo $media['mediaid']?></td>
                                 <td><?php echo $this->document->productName($media)?></td>
                                 <td class="number"><?php echo $this->string->numberFormate($media['inventory'])?></td>
                                 <td><?php echo $this->document->getDonViTinh($media['unit'])?></td>
