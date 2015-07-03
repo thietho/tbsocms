@@ -482,6 +482,7 @@ class ControllerCoreMedia extends Controller
 		if($keyword !="")
 		{
 			$arr = array();
+			$arrid = array();
 			$arrcode = array();
 			$arrbarcode = array();
 			$arrref = array();
@@ -491,6 +492,10 @@ class ControllerCoreMedia extends Controller
 			foreach($arrkey as $key)
 			{
 				$arr[] = "title like '%".$key."%'";
+			}
+			foreach($arrkey as $key)
+			{
+				$arrid[] = "mediaid like '".$key."'";
 			}
 			foreach($arrkey as $key)
 			{
@@ -521,6 +526,7 @@ class ControllerCoreMedia extends Controller
 				$arrmaterial[] = "material like '%".$key."%'";
 			}
 			$where .= " AND ((". implode(" AND ",$arr). ") 
+									OR (". implode(" AND ",$arrid). ") 
 									OR (". implode(" AND ",$arrcode). ") 
 									OR (". implode(" AND ",$arrbarcode). ") 
 									OR (". implode(" AND ",$arrref). ") 
