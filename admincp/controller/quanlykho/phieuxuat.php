@@ -193,9 +193,37 @@ class ControllerQuanlykhoPhieuxuat extends Controller
       		$this->data['item'] = $this->model_quanlykho_phieunhapxuat->getItem($id);
 			
 			$where = " AND phieuid = '".$id."' ORDER BY `vitri` ASC";
-			$this->data['data_nhapkho'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
-			
-			
+			$this->data['data_nhapkho'] = array();
+			$data = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+			foreach($data as $key => $item)
+			{
+				if($item['xuattu'] == '')
+				{
+					$this->data['data_nhapkho'][]=$item;
+					unset($data[$key]);
+				}
+			}
+			if(count($data))
+			{
+				foreach($this->data['data_nhapkho'] as $key => $item)
+				{
+					
+					foreach($data as $k =>$da)
+					{
+						if($da['mediaid'] == $item['mediaid'] && $da['giatien'] == $item['giatien'])
+						{
+							$this->data['data_nhapkho'][$key]['soluong'] += $da['soluong'];
+							unset($data[$k]);
+						}
+					}
+					
+				}
+				if(count($data))
+					foreach($data as $item)
+					{
+						$this->data['data_nhapkho'][]=$item;	
+					}
+			}
     	}
 		
 		$this->id='content';

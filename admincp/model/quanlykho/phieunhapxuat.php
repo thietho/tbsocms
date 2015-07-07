@@ -242,6 +242,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$nguoinhanid=$this->db->escape(@$data['nguoinhanid']);
 		$nguoinhan=$this->db->escape(@$data['nguoinhan']);
 		$vitri=$this->string->toNumber($this->db->escape(@$data['vitri']));
+		$xuattu=$this->db->escape(@$data['xuattu']);
 		$field=array(
 						'phieuid',
 						'mediaid',
@@ -265,7 +266,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						'nguoigiao',
 						'nguoinhanid',
 						'nguoinhan',
-						'vitri'
+						'vitri',
+						'xuattu'
 						);
 		$value=array(
 						$phieuid,
@@ -290,7 +292,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 						$nguoigiao,
 						$nguoinhanid,
 						$nguoinhan,
-						$vitri
+						$vitri,
+						$xuattu
 						);
 
 		if((int)@$data['id'] == 0 )

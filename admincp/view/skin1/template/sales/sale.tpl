@@ -72,7 +72,7 @@
                             <th>Đơn giá</th>
                             <th>Giảm giá%</th>
                             <th>Giảm giá</th>
-                            
+                            <th>Xuất từ</th>
                             <th>Thành tiền</th>
                             <th></th>
                         </tr>
@@ -229,7 +229,7 @@ $(function() {
 		minLength: 2,
 		select: function( event, ui ) {
 			//console.log(ui.item.id);
-			objdl.getProbyMediaId(ui.item.id);
+			objdl.getProbyMediaIdSale(ui.item.id);
 			/*var obj = ui.item.data
 			var giagiam = 0;
 			if(obj.pricepromotion > 0)
@@ -438,7 +438,7 @@ function SaleOrder(shopid)
 				var obj = data.detail[i];
 				//alert(obj.title);
 				//objdl.addRow(obj.id,obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,giagiam,obj.discountpercent);
-				objdl.addRow(obj.id,obj.mediaid,obj.code,obj.title,obj.soluong,obj.madonvi,obj.giatien,obj.giamgia,obj.phantramgiamgia);	
+				objdl.addRowSale(obj.id,obj.mediaid,obj.code,obj.title,obj.soluong,obj.madonvi,obj.giatien,obj.giamgia,obj.phantramgiamgia,obj.xuattu);	
 			}
 			
 		});
@@ -502,7 +502,7 @@ function SaleOrder(shopid)
 						}
 						if($('#nhapkhonguyenlieu').length)
 						{
-							objdl.addRow('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,giagiam,obj.discountpercent);
+							objdl.addRowSale('',obj.mediaid,obj.code,obj.title,1,obj.unit,obj.price,giagiam,obj.discountpercent);
 							$('#searchproductpopup').dialog('close');
 						}
 						

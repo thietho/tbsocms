@@ -318,6 +318,7 @@ class ControllerSalesSale extends Controller
 			$arr_giatien = $data['giatien'];
 			$arr_giamgia = $data['giamgia'];
 			$arr_phantramgiamgia = $data['phantramgiamgia'];
+			$arr_xuattu = $data['xuattu'];
 			$index = 0;
 			foreach($arr_mediaid as $i => $mediaid)
 			{
@@ -331,6 +332,7 @@ class ControllerSalesSale extends Controller
 				$dl['giatien'] = $arr_giatien[$i];
 				$dl['giamgia'] = $arr_giamgia[$i];
 				$dl['phantramgiamgia'] = $arr_phantramgiamgia[$i];
+				$dl['xuattu'] = $arr_xuattu[$i];
 				$dl['loaiphieu'] = $phieu['loaiphieu'];
 				
 				$dl['maphieu'] = $phieu['maphieu'];

@@ -720,7 +720,18 @@ class ModelCoreMedia extends ModelCoreFile
 		$query = $this->db->query($sql);
 		return $query->rows;
 	}
-	
+	public function getSoLuongTuKho($mediaid)
+	{
+		$sql = "SELECT sum(soluong) as soluong, madonvi
+				FROM  `qlkphieunhapxuat_media` 
+				WHERE mediaid = '".$mediaid."' AND xuattu like 'kho'
+				Group by madonvi
+				";
+		//$tb = $this->document->select($sql);
+		//return $tb;
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
 	/*public function getTongKho($mediaid,$loaiphieu)
 	{
 		$media = $this->getItem($mediaid);
@@ -747,10 +758,13 @@ class ModelCoreMedia extends ModelCoreFile
 		//Xuat kho
 		$arrxuat = $this->getSoLuong($mediaid,'PX');
 		$soluongxuat = $this->model_quanlykho_donvitinh->toDonViTinh($arrxuat,$media['unit']);
-		
 		$int_xuat = $this->model_quanlykho_donvitinh->toInt($soluongxuat);
+		//Xuat ban tren phieu ban hang
+		$arrxuattukho = $this->getSoLuongTuKho($mediaid);
+		$soluongxuattukho = $this->model_quanlykho_donvitinh->toDonViTinh($arrxuattukho,$media['unit']);
+		$int_xuattukho = $this->model_quanlykho_donvitinh->toInt($soluongxuattukho);
 		//$arr_xuat = $this->model_quanlykho_donvitinh->toDonVi($int_xuat,$media['unit']);
-		return $int_nhap - $int_xuat;
+		return $int_nhap - $int_xuat - $int_xuattukho;
 		/*$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($int_nhap - $int_xuat,$media['unit']);
 		//print_r($arr_ton);
 		//echo "<br>";
@@ -762,6 +776,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$sql = "SELECT sum(soluong) as soluong, madonvi
 				FROM  `qlkphieunhapxuat_media` 
 				WHERE mediaid = '".$mediaid."' AND shopid = '".$shopid."' AND loaiphieu like '".$loaiphieu."'
+				AND xuattu like ''
 				Group by madonvi
 				";
 		//$tb = $this->document->select($sql);
