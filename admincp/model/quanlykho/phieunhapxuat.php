@@ -178,7 +178,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
 		//$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
 		$where="phieuid = '".$id."'";
-		$this->db->updateData("qlkphieunhapxuat",$field,$value,$where);
+		$this->db->updateData("qlkphieunhapxuat_media",$field,$value,$where);
 		//$this->document->updateData("qlkphieunhapxuat",$field,$value,$where);
 	}
 	
@@ -188,8 +188,8 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$this->db->deleteData("qlkphieunhapxuat",$where);
 		//$this->document->deleteData("qlkphieunhapxuat",$where);
 		$where="phieuid = '".$id."'";
-		//$this->db->deleteData("qlkphieunhapxuat_media",$where);
-		$this->document->deleteData("qlkphieunhapxuat_media",$where);
+		$this->db->deleteData("qlkphieunhapxuat_media",$where);
+		//$this->document->deleteData("qlkphieunhapxuat_media",$where);
 	}
 	//Chi tiet phieu nhap
 	public function getPhieuNhapXuatMedia($id)
