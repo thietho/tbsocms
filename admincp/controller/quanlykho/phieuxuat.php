@@ -213,6 +213,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 						if($da['mediaid'] == $item['mediaid'] && $da['giatien'] == $item['giatien'])
 						{
 							$this->data['data_nhapkho'][$key]['soluong'] += $da['soluong'];
+							$this->data['data_nhapkho'][$key]['thanhtien'] += $da['thanhtien'];
 							unset($data[$k]);
 						}
 					}
