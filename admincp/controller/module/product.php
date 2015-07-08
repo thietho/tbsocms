@@ -202,6 +202,7 @@ class ControllerModuleProduct extends Controller
 			$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
 			
 			$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($this->data['medias'][$i]['inventory'],$this->data['medias'][$i]['unit']);
+			
 			$this->data['medias'][$i]['inventorytext'] = $this->model_quanlykho_donvitinh->toText($arr_ton);	
 			
 			$this->data['medias'][$i]['saleprice'] = json_decode($this->data['medias'][$i]['saleprice']);
@@ -220,11 +221,12 @@ class ControllerModuleProduct extends Controller
 			$mediaid = $this->data['medias'][$i]['mediaid'];
 			
 			$this->data['medias'][$i]['shopinventory'] = '';
-			
+			$suminvetoryshop = 0;
 			foreach($this->data['data_shop'] as $shop)
 			{
 				$shopinventory = $this->model_core_media->getShopInventory($shop['id'],$mediaid);
 				$str = '';
+				$suminvetoryshop += $shopinventory;
 				if($shopinventory)
 				{
 					$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($shopinventory,$this->data['medias'][$i]['unit']);
@@ -233,6 +235,10 @@ class ControllerModuleProduct extends Controller
 				}
 				$this->data['medias'][$i]['shopinventory'] .= $str;
 			}
+			$totalinventory = $this->data['medias'][$i]['inventory'] + $suminvetoryshop;
+			$arr_total = $this->model_quanlykho_donvitinh->toDonVi($totalinventory,$this->data['medias'][$i]['unit']);
+			$this->data['medias'][$i]['totalinventorytext'] = $this->model_quanlykho_donvitinh->toText($arr_total);
+			
 			$data_child = $this->model_core_media->getListByParent($mediaid,"ORDER BY `position` ASC ");
 			foreach($data_child as $key =>$child)
 			{
@@ -241,10 +247,12 @@ class ControllerModuleProduct extends Controller
 				$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($data_child[$key]['inventory'],$data_child[$key]['unit']);
 				$data_child[$key]['inventorytext'] = $this->model_quanlykho_donvitinh->toText($arr_ton);
 				$data_child[$key]['shopinventory'] = '';
+				$suminvetoryshop = 0;
 				foreach($this->data['data_shop'] as $shop)
 				{
 					$shopinventory = $this->model_core_media->getShopInventory($shop['id'],$child['mediaid']);
 					$str = '';
+					$suminvetoryshop += $shopinventory;
 					if($shopinventory)
 					{
 						$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($shopinventory,$data_child[$key]['unit']);
@@ -253,6 +261,10 @@ class ControllerModuleProduct extends Controller
 					}
 					$data_child[$key]['shopinventory'] .= $str;
 				}
+				$totalinventory = $data_child[$key]['inventory'] + $suminvetoryshop;
+				$arr_total = $this->model_quanlykho_donvitinh->toDonVi($totalinventory,$data_child[$key]['unit']);
+				$data_child[$key]['totalinventorytext'] = $this->model_quanlykho_donvitinh->toText($arr_total);
+				
 				$data_child[$key]['link_edit'] = $this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.$child['mediaid'].$parapage);
 				$data_child[$key]['text_edit'] = "Edit";
 			}

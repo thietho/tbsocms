@@ -20,6 +20,7 @@
                     Giá: <?php echo $this->string->numberFormate($media['price'])?><?php if($media['noteprice']) echo "(".$this->document->getCategory($media['noteprice']).")";?><br />
                     Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />
                     <?php echo ($media['groupkeys']!="")?$media['groupkeys']."<br>":"" ?>
+                    <?php if($media['totalinventorytext']) echo "Tổng tồn: ".$media['totalinventorytext']."<br>"?>
                     <?php if($media['inventory']) echo "Tồn tại kho: ".$media['inventorytext']?>
                     <?php if($media['shopinventory']) echo $media['shopinventory']?>
                     <?php if(count($media['child'])==0){ ?>
@@ -74,6 +75,7 @@
                             	<?php echo $child['sizes']?> <?php echo $child['color']?> <?php echo $child['material']?> : <?php echo $this->string->numberFormate($child['price'])?><?php if($child['noteprice']!="") echo "(".$this->document->getCategory($child['noteprice']).")";?><br />
                                 Giảm: <?php echo $this->string->numberFormate($child['discountpercent'])?>%<br />
                                 Giá khuyến mãi: <?php echo $this->string->numberFormate($child['pricepromotion'])?><br />
+                                <?php if($child['totalinventorytext']!='') echo "Tổng tồn: ".$child['totalinventorytext']."<br>"?>
                                 <?php if($child['inventory']) echo "Tồn tại kho: ".$child['inventorytext']?>
                                 <?php if($child['shopinventory']) echo $child['shopinventory']?>
                             </td>
