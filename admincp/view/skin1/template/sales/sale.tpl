@@ -93,6 +93,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                             <td>
                                 
                                 <input type="text" id="lydothu" name="lydothu" class="text"/>
@@ -104,6 +105,7 @@
                             
                             <td class="number">Tổng số lượng</td>
                             <td id="sumsoluong" class="number"></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -121,6 +123,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                             <td><input type="button" class="button" id="btnTrahet" value="Trả hết"/></td>
                             <td class="number">Thanh toán</td>
                             <td class="number"><input type="text" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo $this->string->numberFormate($item['thanhtoan'])?>"/></td>
@@ -129,6 +132,7 @@
                         
                         <tr>
                             
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

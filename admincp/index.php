@@ -1,5 +1,5 @@
 <?php
-	ini_set("memory_limit","1500M");
+	@ini_set("memory_limit","1500M");
 	include('directory.php');
 	include(DIR_SYSTEM.'config/config.php');
 	include(DIR_SYSTEM.'config/startup.php');
