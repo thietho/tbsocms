@@ -11,6 +11,7 @@ class ModelCoreMedia extends ModelCoreFile
 							'sizes',
 							'unit',
 							'color',
+							'colorcode',
 							'material',
 							'brand',
 							'mediaparent',
@@ -404,6 +405,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$sizes = $this->db->escape(@$data['sizes']);
 		$unit = $this->db->escape(@$data['unit']);
 		$color = $this->db->escape(@$data['color']);
+		$colorcode = $this->db->escape(@$data['colorcode']);
 		$brand = $this->db->escape(@$data['brand']);
 		$mediaparent=$this->db->escape(@$data['mediaparent']);
 		$mediatype=$this->db->escape(@$data['mediatype']);
@@ -441,6 +443,7 @@ class ModelCoreMedia extends ModelCoreFile
 						'sizes',
 						'unit',
 						'color',
+						'colorcode',
 						'brand',
 						'mediaparent',
 						'mediatype',
@@ -471,6 +474,7 @@ class ModelCoreMedia extends ModelCoreFile
 						$sizes,
 						$unit,
 						$color,
+						$colorcode,
 						$brand,
 						$mediaparent,
 						$mediatype,

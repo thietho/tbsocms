@@ -144,6 +144,16 @@ $('#title').change(function(e) {
                          	
                         </p>
                         <p>
+                        	<label>Mã màu sắc</label><br>
+                            <input class="text" type="text" id="colorcodetext" name="colorcodetext" value="<?php echo $post['colorcode']?>"/>
+                            <input class="text" type="color" id="colorcode" name="colorcode" value="<?php echo $post['colorcode']?>"  />
+                         	<script language="javascript">
+								$('#colorcodetext').change(function(e) {
+                                    $('#colorcode').val(this.value);
+                                });
+							</script>
+                        </p>
+                        <p>
                         	<label>Chất liệu</label><br>
                             <input class="text" type="text" id="material" name="material" value="<?php echo $post['material']?>" size="60" />
                          	
