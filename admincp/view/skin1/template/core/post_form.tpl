@@ -145,11 +145,14 @@ $('#title').change(function(e) {
                         </p>
                         <p>
                         	<label>Mã màu sắc</label><br>
-                            <input class="text" type="text" id="colorcodetext" name="colorcodetext" value="<?php echo $post['colorcode']?>"/>
-                            <input class="text" type="color" id="colorcode" name="colorcode" value="<?php echo $post['colorcode']?>"  />
+                            <input class="text" type="text" id="colorcode" name="colorcode" value="<?php echo $post['colorcode']?>"/>
+                            <input class="text" type="color" id="colorcodetext" name="colorcodetext" value="<?php echo $post['colorcode']?>"  />
                          	<script language="javascript">
 								$('#colorcodetext').change(function(e) {
                                     $('#colorcode').val(this.value);
+                                });
+								$('#colorcode').change(function(e) {
+                                    $('#colorcodetext').val(this.value);
                                 });
 							</script>
                         </p>
