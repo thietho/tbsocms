@@ -72,7 +72,11 @@
                     <table id="child<?php echo $child['mediaid']?>" mediaid="<?php echo $child['mediaid']?>" position="<?php echo $k?>">
                     	<tr>
                         	<td>
-                            	<?php echo $child['sizes']?> <?php echo $child['color']?> <?php echo $child['material']?> : <?php echo $this->string->numberFormate($child['price'])?><?php if($child['noteprice']!="") echo "(".$this->document->getCategory($child['noteprice']).")";?><br />
+                            	<?php echo $child['sizes']?> <?php echo $child['color']?> 
+                                <?php if($child['colorcode']){ ?>
+                                <img class="hl-color-icon" style="background-color:<?php echo $child['colorcode']?>">
+                                <?php } ?>
+                                <?php echo $child['material']?> : <?php echo $this->string->numberFormate($child['price'])?><?php if($child['noteprice']!="") echo "(".$this->document->getCategory($child['noteprice']).")";?><br />
                                 Giảm: <?php echo $this->string->numberFormate($child['discountpercent'])?>%<br />
                                 Giá khuyến mãi: <?php echo $this->string->numberFormate($child['pricepromotion'])?><br />
                                 <?php if($child['totalinventorytext']!='') echo "Tổng tồn: ".$child['totalinventorytext']."<br>"?>

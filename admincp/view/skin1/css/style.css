@@ -1477,3 +1477,9 @@ ul.autocomplete {
 	padding:5px;
 	border-radius:5px;
 }
+.hl-color-icon
+{
+	width: 1em;
+    height: 1em;
+    border-radius: 1em;
+}
