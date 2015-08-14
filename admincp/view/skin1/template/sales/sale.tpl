@@ -172,8 +172,8 @@
 $(document).ready(function(e) {
 	
 	$("#nhapkhonguyenlieu").sortable();
-   
-		
+	
+	
 	saleOrder.listOrder();
 	saleOrder.newOrder();
 	$('#btnTrahet').click(function(e) {
@@ -391,7 +391,7 @@ function SaleOrder(shopid)
 				for(i in data)
 				{
 					
-					str += '<tr class="listorder '+data[i].trangthai+'" ref="'+ data[i].id +'">';
+					str += '<tr id="order-'+data[i].id+'" class="listorder '+data[i].trangthai+'" ref="'+ data[i].id +'">';
 						str += '<td>'+data[i].maphieu+'</td>';
 						str += '<td>'+data[i].tenkhachhang+'</td>';
 						str += '<td>'+ data[i].ghichu +'</td>';
@@ -399,10 +399,17 @@ function SaleOrder(shopid)
 						
 					str += '</tr>';
 				}
+				
 			}
 			str += '</table>';
 			$('#listorder').html(str);
-			
+			//alert('aa');
+			$(".listorder").droppable({
+				accept: ".itemdetail",
+				drop: function( event, ui ) {
+					alert('ttt')
+				}
+			});
 			$('.listorder').click(function(e) {
 				$('.listorder').removeClass('ordercurrent');
                 $(this).addClass('ordercurrent');
