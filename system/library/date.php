@@ -261,7 +261,7 @@ final class Date{
 	//CAC HAM CHUYEN DOI NGAY CHUAN THANH DANG NGAY KHAC
 	public function formatMySQLDate($date, $format='DMY', $character='-')
 	{
-		if($date == '' || $date =="0000-00-00 00:00:00" || $date == "0000-00-00")
+		if($date == '' || $date =="0000-00-00 00:00:00")
 			return '';
 		
 		switch($format)
@@ -308,7 +308,6 @@ final class Date{
 	//CAC HAM PRIVATE CAN CHO MODULE
 	public function numberFormate($n)
 	{
-		$n = (int)$n;
 		if($n<10)
 			return "0".$n;
 		else

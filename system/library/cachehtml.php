@@ -1,6 +1,6 @@
 <?php
 final class Cachehtml { 
-	private $expire = 30;
+	private $expire = 3600;
 
   	public function __construct() {
 		$files = glob(DIR_CACHEHTML . '*');
@@ -52,7 +52,7 @@ final class Cachehtml {
 
   	public function set($key, $value) {
 		
-    	$key = eregi_replace('[/]', '_', $key);
+    	@$key = eregi_replace('[/]', '_', $key);
 		
 		if (!is_dir(DIR_CACHEHTML))
 			mkdir( DIR_CACHEHTML , 0777 );
