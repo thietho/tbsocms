@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     	<?php foreach($data_order as $key => $item){ ?>
-        <tr>
+        <tr id="order-<?php echo $item['id']?>" orderid="<?php echo $item['id']?>">
         	<td><center><?php echo $key+1 ?></center></td>
             <td>
             	<a onclick="objdl.viewPX(<?php echo $item['id']?>,'')"><?php echo $item['maphieu']?></a>
