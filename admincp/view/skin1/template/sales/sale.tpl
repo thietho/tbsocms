@@ -255,6 +255,28 @@ $(function() {
 			});
 		}
 	});
+	$("#tenkhachhang").autocomplete({
+		minLength: 2,
+		select: function( event, ui ) {
+			//console.log(ui.item.id);
+			//objdl.getProbyMediaId(ui.item.id);
+			//alert(ui.item.data.fullname);
+			$('#khachhangid').val(ui.item.id);
+			$('#dienthoai').val(ui.item.data.phone);
+			$('#diachi').val(ui.item.data.address);
+		},
+		source: function( request, response ) {
+		var term = request.term;
+		if ( term in cache ) {
+			response( cache[ term ] );
+			return;
+		}
+		$.getJSON( "?route=core/member/getMember", request, function( data, status, xhr ) {
+			cache[ term ] = data;
+			response( data );
+			});
+		}
+	});
 	
 });
 function SaleOrder(shopid)
