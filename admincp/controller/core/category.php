@@ -140,7 +140,10 @@ class ControllerCoreCategory extends Controller
 		$this->render();
 		
 	}
-	
+	private function getTree()
+	{
+		
+	}
 	private function getList() 
 	{
 		$this->data['insert'] = $this->url->http('core/category/insert');

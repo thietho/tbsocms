@@ -1,79 +1,82 @@
-<div class="section">
-
-	<div class="section-title"><?php echo $header_category ?></div>
+<div id="page-wrapper">
     
-    <div class="section-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+            	<?php echo $this->document->title?>
+                <?php if($this->user->checkPermission("quanlykho/donvitinh/insert")==true){ ?>
+                <input class="btn btn-primary" value="Thêm" type="button"  onclick="window.location = '<?php echo $insert?>'">
+                <?php } ?>
+                <?php if($this->user->checkPermission("quanlykho/donvitinh/delete")==true){ ?>
+                <input class="btn btn-danger" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>
+                <?php } ?>
+            </h1>
+        </div>
+        
+        <!-- /.col-lg-12 -->
+    </div>
+        <!-- /.row -->
+    <div class="row">
     	
-        <form action="" method="post" id="listitem" name="listitem">
-        
-        	<div class="button right">
-            	<input class="button" type="button" name="btnUpdate" value="<?php echo $button_updateposition ?>" onclick="updateposition()"/>
-                <input class="button" value="<?php echo $button_add ?>" type="button" onclick="linkto('<?php echo $insert?>')">
-            	<input class="button" type="button" name="delete_all" value="<?php echo $button_delete ?>" onclick="deleteitem()"/>  
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                    	<form action="" method="post" id="listitem" name="listitem">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
+                                    <th>Mã đơn vị</th>
+                                    <th>Tên đơn vị</th>
+                                    <th>Quy đổi</th>
+                                    <th>Đơn vị qui đổi</th>
+                                    <th>Control</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach($datas as $item)
+                                    {
+                                ?>
+                                <tr class="odd gradeX">
+                                    <td><input class="inputchk" type="checkbox" name="delete[<?php echo $item['madonvi']?>]" value="<?php echo $item['madonvi']?>" ></td>
+                                    <td><?php echo $item['madonvi']?></td>
+                                    <td><?php echo $item['tendonvitinh']?></td>
+                                    <td><?php echo $this->string->numberFormate($item['quidoi'])?></td>
+                                    <td class="center">
+                                        <?php echo $this->document->getDonViTinh($item['madonviquydoi'])?>
+                                        <?php if($item['madonviquydoi']!=""){ ?>
+                                        (<?php echo $item['madonviquydoi']?>)
+                                        <?php } ?>
+                                    </td>
+                                    <td class="center">
+                                        <?php if($this->user->checkPermission("quanlykho/donvitinh/update")==true){ ?>
+                                        <a class="btn btn-default" href="<?php echo $item['link_edit']?>" title="<?php echo $item['text_edit']?>"><?php echo $item['text_edit']?></a>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                                
+                               <?php } ?>
+                                
+                            </tbody>
+                        </table>
+                        </form>
+                    </div>
+                    <!-- /.table-responsive -->
+                
+                </div>
+                <!-- /.panel-body -->
             </div>
-            <div class="clearer">^&nbsp;</div>
-            
-            <div class="sitemap treeindex">
-            	<link href="<?php echo DIR_VIEW?>css/jquery.treeTable.css" rel="stylesheet" type="text/css" />
-                  <script type="text/javascript" src="<?php echo DIR_VIEW?>js/jquery.treeTable.js"></script>
-                  <script type="text/javascript">
-                  $(document).ready(function() {
-                    // TODO Fix issue with multiple treeTables on one page, each with different options
-                    // Moving the #example3 treeeTable call down will break other treeTables that are expandable...
-                    $(".example").treeTable();
-                  });
-                  
-                  </script>
-                <table class="example data-table" width="100%">
-                <thead>
-                    <tr class="tr-head">
-                        
-                        
-                        <th><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"> <?php echo $text_categoryID ?></th>
-                        <th><?php echo $text_categroyname ?></th>
-                        <th><?php echo $text_position ?></th>
-                                     
-                        <th><?php echo $text_control ?></th>                                  
-                    </tr>
-        		</thead>
-                <tbody>
-        
-        <?php
-        	
-            foreach($datas as $item)
-            {
-        ?>
-                    <tr  id="<?php echo $item['eid']?>" class="<?php echo $item['class']?>">
-                        
-                        
-                        <td>
-                        	<?php echo $item['tab']?><input class="inputchk" type="checkbox" name="delete[<?php echo $item['categoryid']?>]" value="<?php echo $item['categoryid']?>" >
-                        	<?php echo $item['categoryid']?>
-                        </td>
-                        <td><?php echo $item['categoryname']?></td>
-                        <td><input type="text" name="position[<?php echo $item['categoryid']?>]" value="<?php echo $item['position']?>" size=3 class="text number"/></td>
-                        <td class="link-control">
-                            <a class="button" href="<?php echo $item['link_edit']?>" title="<?php echo $item['text_edit']?>"><?php echo $button_edit?></a>
-                            <a class="button" href="<?php echo $item['link_editcontent']?>" title="<?php echo $item['text_editcontent']?>"><?php echo $button_editcontent?></a>
-                            <a class="button" href="<?php echo $item['link_addchild']?>" title="<?php echo $item['text_edit']?>"><?php echo $button_addchild ?></a>
-                           
-                        </td>
-                    </tr>
-        <?php
-            }
-        ?>
-                        
-                                                    
-                </tbody>
-                </table>
-            </div>
-        	
-        
-        </form>
-        
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
     </div>
     
+    
 </div>
+
 <script language="javascript">
 
 function deleteitem()

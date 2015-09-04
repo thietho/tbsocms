@@ -1,11 +1,11 @@
- <!-- DataTables CSS -->
-<link href="<?php echo DIR_CSS?>dataTables.bootstrap.css" rel="stylesheet">
 
-<!-- DataTables Responsive CSS -->
+<!--<link href="<?php echo DIR_CSS?>dataTables.bootstrap.css" rel="stylesheet">
+
+
 <link href="<?php echo DIR_CSS?>dataTables.responsive.css" rel="stylesheet">
-<!-- DataTables JavaScript -->
+
 <script src="<?php echo DIR_JS?>jquery.dataTables.js"></script>
-<script src="<?php echo DIR_JS?>dataTables.bootstrap.js"></script>
+<script src="<?php echo DIR_JS?>dataTables.bootstrap.js"></script>-->
 
 <div id="page-wrapper">
     
@@ -87,11 +87,11 @@
 </div>
 <script language="javascript">
 
-$(document).ready(function() {
+/*$(document).ready(function() {
 	$('#dataTables-example').DataTable({
 			responsive: true
 	});
-});
+});*/
 
 function deleteitem()
 {
