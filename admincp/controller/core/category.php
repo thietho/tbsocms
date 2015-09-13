@@ -11,7 +11,7 @@ class ControllerCoreCategory extends Controller
 		{
 			$this->response->redirect('?route=page/home');
 		}
-		
+		$this->data['tree'] = $this->getTree('category');
 	 	$this->load->model("core/user");
 		$this->load->model("core/media");
 		$this->load->model("core/sitemap");
@@ -140,9 +140,33 @@ class ControllerCoreCategory extends Controller
 		$this->render();
 		
 	}
-	private function getTree()
+	private function getTree($id)
 	{
-		
+		$this->load->model("core/category");
+		$data_childs = $this->model_core_category->getChild($id);
+		$str = "";
+		$cat = $this->model_core_category->getItem($id);
+		if(count($data_childs))
+		{
+			$str .= '<div class="dd-handle">'.$cat['categoryname'].'</div>';
+			$str .= '<ol>';
+			foreach($data_childs as $child)
+			{
+				
+				$str .= $this->getTree($child['categoryid']);
+				
+			}
+			$str.='</ol>';
+			
+		}
+		else
+		{
+			
+			$str ='<li class="dd-item" data-id="'.$cat['categoryid'].'">';
+			$str .= '<div class="dd-handle">'.$cat['categoryname'].'</div>';
+		}
+		$str .= '</li>';
+		return $str;
 	}
 	private function getList() 
 	{

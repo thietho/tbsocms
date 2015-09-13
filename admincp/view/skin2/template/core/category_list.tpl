@@ -1,3 +1,5 @@
+<link href="<?php echo DIR_CSS?>jquery.nestable.css" rel="stylesheet">
+<script src="<?php echo DIR_JS?>jquery.nestable.js"></script>
 <div id="page-wrapper">
     
     <div class="row">
@@ -24,44 +26,11 @@
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
                     	<form action="" method="post" id="listitem" name="listitem">
-                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                                <tr>
-                                    <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
-                                    <th>Mã đơn vị</th>
-                                    <th>Tên đơn vị</th>
-                                    <th>Quy đổi</th>
-                                    <th>Đơn vị qui đổi</th>
-                                    <th>Control</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                    foreach($datas as $item)
-                                    {
-                                ?>
-                                <tr class="odd gradeX">
-                                    <td><input class="inputchk" type="checkbox" name="delete[<?php echo $item['madonvi']?>]" value="<?php echo $item['madonvi']?>" ></td>
-                                    <td><?php echo $item['madonvi']?></td>
-                                    <td><?php echo $item['tendonvitinh']?></td>
-                                    <td><?php echo $this->string->numberFormate($item['quidoi'])?></td>
-                                    <td class="center">
-                                        <?php echo $this->document->getDonViTinh($item['madonviquydoi'])?>
-                                        <?php if($item['madonviquydoi']!=""){ ?>
-                                        (<?php echo $item['madonviquydoi']?>)
-                                        <?php } ?>
-                                    </td>
-                                    <td class="center">
-                                        <?php if($this->user->checkPermission("quanlykho/donvitinh/update")==true){ ?>
-                                        <a class="btn btn-default" href="<?php echo $item['link_edit']?>" title="<?php echo $item['text_edit']?>"><?php echo $item['text_edit']?></a>
-                                        <?php } ?>
-                                    </td>
-                                </tr>
+                            <div class="dd" id="nestable">
                                 
-                               <?php } ?>
+                            	<?php echo $tree?>
                                 
-                            </tbody>
-                        </table>
+                            </div>
                         </form>
                     </div>
                     <!-- /.table-responsive -->
@@ -78,7 +47,12 @@
 </div>
 
 <script language="javascript">
-
+$(document).ready(function(e) {
+    $('#nestable').nestable({
+        group: 1
+    })
+    .on('change', updateOutput);
+});
 function deleteitem()
 {
 	var answer = confirm("<?php echo $announ_del ?>")
