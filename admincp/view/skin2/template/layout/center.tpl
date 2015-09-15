@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+	<link type="image/x-icon" href="<?php echo HTTP_SERVER.DIR_IMAGE?>logo-icon.png" rel="icon">
+	<link type="image/x-icon" href="<?php echo HTTP_SERVER.DIR_IMAGE?>logo-icon.png" rel="shortcut icon">
+    <title>Ho Lan Solutions</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo DIR_CSS?>bootstrap.css" rel="stylesheet">

@@ -27,9 +27,9 @@
                     <div class="dataTable_wrapper">
                     	<form action="" method="post" id="listitem" name="listitem">
                             <div class="dd" id="nestable">
-                                
+                                <ol class="dd-list">
                             	<?php echo $tree?>
-                                
+                                </ol>
                             </div>
                         </form>
                     </div>
@@ -45,11 +45,20 @@
     
     
 </div>
-
+<textarea id="nestable-output"></textarea>
 <script language="javascript">
+var updateOutput = function(e)
+{
+	var list   = e.length ? e : $(e.target),output = list.data('output');
+	if (window.JSON) {
+		$('#nestable-output').val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+	} else {
+		$('#nestable-output').val('JSON browser support required for this demo.');
+	}
+};
 $(document).ready(function(e) {
     $('#nestable').nestable({
-        group: 1
+       
     })
     .on('change', updateOutput);
 });

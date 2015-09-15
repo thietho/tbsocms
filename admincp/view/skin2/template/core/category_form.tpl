@@ -1,3 +1,18 @@
+<div id="page-wrapper">
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+            	<?php echo $this->document->title?>
+                <input type="button" value="<?php echo $button_save ?>" class="button" onClick="save()"/>
+     	        <input type="button" value="<?php echo $button_cancel ?>" class="button" onclick="linkto('?route=core/category')"/>   
+            </h1>
+        </div>
+        
+        <!-- /.col-lg-12 -->
+    </div>
+    
+</div>
 <div class="section" id="sitemaplist">
 
 	<div class="section-title"><?php echo $header_category ?></div>

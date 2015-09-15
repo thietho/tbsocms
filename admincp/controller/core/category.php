@@ -5,19 +5,27 @@ class ControllerCoreCategory extends Controller
    	function __construct() 
 	{
 		$this->load->model("core/module");
+		
 		$moduleid = $_GET['route'];
 		$this->document->title = $this->model_core_module->getBreadcrumbs($moduleid);
 		if($this->user->checkPermission($moduleid)==false)
 		{
 			$this->response->redirect('?route=page/home');
 		}
-		$this->data['tree'] = $this->getTree('category');
-	 	$this->load->model("core/user");
+		$this->load->model("core/user");
 		$this->load->model("core/media");
 		$this->load->model("core/sitemap");
 		$this->load->model("core/file");
 		$this->load->model("core/category");
 		$this->load->helper('image');
+		$data_childs = $this->model_core_category->getChild('category');
+		$this->data['tree'] ="";
+		foreach($data_childs as $child)
+		{
+			$this->data['tree'] .= $this->getTree($child['categoryid']);
+		}
+		 
+	 	
    	}
 	
 	public function index()
@@ -25,10 +33,6 @@ class ControllerCoreCategory extends Controller
 		
 		//$this->load->language('core/category');
 		//$this->data = array_merge($this->data, $this->language->getData());
-		
-		$this->document->title = $this->language->get('heading_title');
-		
-		
 		$this->getList();
 	}
 	
@@ -142,10 +146,11 @@ class ControllerCoreCategory extends Controller
 	}
 	private function getTree($id)
 	{
-		$this->load->model("core/category");
+		
 		$data_childs = $this->model_core_category->getChild($id);
 		$str = "";
 		$cat = $this->model_core_category->getItem($id);
+		$str ='<li class="dd-item" data-id="'.$cat['categoryid'].'">';
 		if(count($data_childs))
 		{
 			$str .= '<div class="dd-handle">'.$cat['categoryname'].'</div>';
@@ -162,7 +167,7 @@ class ControllerCoreCategory extends Controller
 		else
 		{
 			
-			$str ='<li class="dd-item" data-id="'.$cat['categoryid'].'">';
+			
 			$str .= '<div class="dd-handle">'.$cat['categoryname'].'</div>';
 		}
 		$str .= '</li>';
