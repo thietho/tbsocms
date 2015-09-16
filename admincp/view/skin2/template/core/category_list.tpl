@@ -9,8 +9,8 @@
                 <?php if($this->user->checkPermission("quanlykho/donvitinh/insert")==true){ ?>
                 <input class="btn btn-primary" value="Thêm" type="button"  onclick="window.location = '<?php echo $insert?>'">
                 <?php } ?>
-                <?php if($this->user->checkPermission("quanlykho/donvitinh/delete")==true){ ?>
-                <input class="btn btn-danger" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>
+                <?php if($this->user->checkPermission("quanlykho/donvitinh/update")==true){ ?>
+                <input class="btn btn-primary" type="button" name="btnUpdateTree" value="Update" onclick="updateTree()"/>
                 <?php } ?>
             </h1>
         </div>
@@ -81,16 +81,16 @@ function deleteitem()
 	}
 }
 
-function updateposition()
+function updateTree()
 {
-	$.post("?route=core/category/updateposition", 
-			$("#listitem").serialize(), 
+	$.post("?route=core/category/updateTree", 
+			{data:encodeURI($('#nestable-output').val())}, 
 			function(data)
 			{
 				if(data!="")
 				{
 					alert(data)
-					window.location.reload();
+					//window.location.reload();
 				}
 			}
 	);

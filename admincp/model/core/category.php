@@ -133,7 +133,23 @@ class ModelCoreCategory extends Model
 		
 		return true;
 	}
-	
+	public function updateCol($categoryid,$col,$val)
+	{
+		$mediaid = $mediaid;
+		$col = $col;
+		$val = $val;
+		
+		
+		$field=array(
+						$col
+					);
+		$value=array(
+						$val
+					);
+		
+		$where="categoryid = '".$categoryid."'";
+		$this->db->updateData("category",$field,$value,$where);
+	}
 	public function save($data)
 	{
 		$item = $this->getItem($data['categoryid']);

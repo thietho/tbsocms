@@ -148,12 +148,18 @@ class ControllerCoreCategory extends Controller
 	{
 		
 		$data_childs = $this->model_core_category->getChild($id);
-		$str = "";
 		$cat = $this->model_core_category->getItem($id);
 		$str ='<li class="dd-item" data-id="'.$cat['categoryid'].'">';
+		$btnEdit = '<a href="?route=core/category/update&categoryid='.$cat['categoryid'].'">Edit</a>';
+		$btnAddChild = '<a href="?route=core/category/insert&parent='.$cat['categoryid'].'">Add child</a>';
+		$btnEditContent = '<a href="?route=module/information&sitemapid=cat'.$cat['categoryid'].'">Edit content</a>';
+		$btnRemove = '<a>Remove</a>';
+		//$str .= '<div class="dd-handle">'.$cat['categoryname']." ".$btnEdit." ".$btnAddChild." ".$btnEditContent.'</div>';
+		$str .= '<div class="dd-handle dd3-handle"></div><div class="dd3-content">'.$cat['categoryname']." ".$btnEdit." ".$btnAddChild." ".$btnEditContent." ".$btnRemove.'</div>';
+		
 		if(count($data_childs))
 		{
-			$str .= '<div class="dd-handle">'.$cat['categoryname'].'</div>';
+			
 			$str .= '<ol>';
 			foreach($data_childs as $child)
 			{
@@ -164,14 +170,39 @@ class ControllerCoreCategory extends Controller
 			$str.='</ol>';
 			
 		}
-		else
-		{
-			
-			
-			$str .= '<div class="dd-handle">'.$cat['categoryname'].'</div>';
-		}
 		$str .= '</li>';
 		return $str;
+	}
+	public function updateTree()
+	{
+		$data = urldecode($this->request->post['data']);
+		$dataobj = json_decode($data);
+		//print_r($obj[0]->id);
+		foreach($dataobj as $key => $obj)
+		{
+			$this->model_core_category->updateCol($obj->id,'parent','category');
+			$this->model_core_category->updateCol($obj->id,'position',$key);
+			$this->travelTree($obj);
+		}
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
+	private function travelTree($note)
+	{
+		echo "id:".$note->id;
+		if(count($note->children))
+		{
+			echo "<br>childs:";
+			foreach($note->children as $key => $child)
+			{
+				echo $child->id;
+				$this->model_core_category->updateCol($child->id,'parent',$note->id);
+				$this->model_core_category->updateCol($child->id,'position',$key);
+				$this->travelTree($child);
+			}
+		}
+		
 	}
 	private function getList() 
 	{
