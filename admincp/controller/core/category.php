@@ -154,8 +154,9 @@ class ControllerCoreCategory extends Controller
 		$btnAddChild = '<a href="?route=core/category/insert&parent='.$cat['categoryid'].'">Add child</a>';
 		$btnEditContent = '<a href="?route=module/information&sitemapid=cat'.$cat['categoryid'].'">Edit content</a>';
 		$btnRemove = '<a>Remove</a>';
-		//$str .= '<div class="dd-handle">'.$cat['categoryname']." ".$btnEdit." ".$btnAddChild." ".$btnEditContent.'</div>';
-		$str .= '<div class="dd-handle dd3-handle"></div><div class="dd3-content">'.$cat['categoryname']." ".$btnEdit." ".$btnAddChild." ".$btnEditContent." ".$btnRemove.'</div>';
+		//$str .= '<div class="dd-handle">'.$cat['categoryname']." ".$btnEdit." ".$btnAddChild." ".$btnEditContent." ".$btnRemove.'</div>';
+		$str .= '<div class="dd-handle hl-cat" data-toggle="modal" data-target="#myModal" catid="'.$cat['categoryid'].'" catname="'.$cat['categoryname'].'">'.$cat['categoryname'].'</div>';
+		//$str .= '<div class="dd-handle dd3-handle"></div><div class="dd3-content">'.$cat['categoryname']." ".$btnEdit." ".$btnAddChild." ".$btnEditContent." ".$btnRemove.'</div>';
 		
 		if(count($data_childs))
 		{

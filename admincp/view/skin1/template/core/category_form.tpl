@@ -47,7 +47,7 @@
 <script language="javascript">
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<div class='hl-message'><?php echo $announ_infor ?></div>" }); 
 	
 	$.post("?route=core/category/save", $("#frm").serialize(),
 		function(data){

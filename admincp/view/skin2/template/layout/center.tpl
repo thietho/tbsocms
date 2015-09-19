@@ -24,7 +24,7 @@
     <link href="<?php echo DIR_CSS?>sb-admin-2.css" rel="stylesheet">
 
     <link href="<?php echo DIR_CSS?>blockui.css" rel="stylesheet">
-
+	<link href="<?php echo DIR_CSS?>hl.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="<?php echo DIR_CSS?>font-awesome.css" rel="stylesheet" type="text/css">
 

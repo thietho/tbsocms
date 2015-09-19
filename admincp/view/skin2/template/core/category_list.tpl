@@ -10,7 +10,8 @@
                 <input class="btn btn-primary" value="Thêm" type="button"  onclick="window.location = '<?php echo $insert?>'">
                 <?php } ?>
                 <?php if($this->user->checkPermission("quanlykho/donvitinh/update")==true){ ?>
-                <input class="btn btn-primary" type="button" name="btnUpdateTree" value="Update" onclick="updateTree()"/>
+                <input class="btn btn-primary" type="button" id="btnEditPosition" name="btnEditPosition" value="Sắp sếp thứ tự"/>
+                <input class="btn btn-primary" type="button" id="btnUpdateTree" name="btnUpdateTree" value="Lưu" onclick="updateTree()" style="display:none"/>
                 <?php } ?>
             </h1>
         </div>
@@ -46,6 +47,29 @@
     
 </div>
 <textarea id="nestable-output"></textarea>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Lựa chọn phương thức</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-default" id="btnCatEdit">Chỉnh sửa</button>
+        <button type="button" class="btn btn-default" id="btnCatAddChild">Thêm con</button>
+        <button type="button" class="btn btn-default" id="btnCatEditConten">Biên tập nội dung</button>
+        <button type="button" class="btn btn-default" id="btnCatDel">Xóa</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 <script language="javascript">
 var updateOutput = function(e)
 {
@@ -57,10 +81,35 @@ var updateOutput = function(e)
 	}
 };
 $(document).ready(function(e) {
+   /* $('#nestable').nestable({
+       
+    })
+    .on('change', updateOutput);*/
+	$('[data-toggle="popover"]').popover(); 
+});
+$('.hl-cat').click(function(e) {
+    $('.modal-body').html($(this).attr('catname'));
+	$('#btnCatEdit').attr('catid',$(this).attr('catid'));
+	$('#btnCatAddChild').attr('catid',$(this).attr('catid'));
+	$('#btnCatEditConten').attr('catid',$(this).attr('catid'));
+	$('#btnCatDel').attr('catid',$(this).attr('catid'));
+});
+$('#btnCatEdit').click(function(e) {
+    window.location = '?route=core/category/update&categoryid='+ $(this).attr('catid');
+});
+$('#btnCatAddChild').click(function(e) {
+    window.location = '?route=core/category/insert&parent='+ $(this).attr('catid');
+});
+$('#btnCatEditConten').click(function(e) {
+    window.location = '?route=module/information&sitemapid=cat'+ $(this).attr('catid');
+});
+$('#btnEditPosition').click(function(e) {
     $('#nestable').nestable({
        
     })
     .on('change', updateOutput);
+	$('#btnUpdateTree').show();
+	$('#btnEditPosition').hide();
 });
 function deleteitem()
 {
@@ -83,16 +132,21 @@ function deleteitem()
 
 function updateTree()
 {
+	$.blockUI({ message: "<div class='hl-message'><?php echo $announ_infor ?></div>" });
+	
 	$.post("?route=core/category/updateTree", 
 			{data:encodeURI($('#nestable-output').val())}, 
 			function(data)
 			{
 				if(data!="")
 				{
-					alert(data)
-					//window.location.reload();
+					$('.hl-message').html('Lưu thành công!!!');
+					
 				}
+				window.location.reload();
+				//$.unblockUI();
 			}
+			
 	);
 	
 }
