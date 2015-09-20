@@ -35,6 +35,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	 <!-- jQuery -->
+     
     <script src="<?php echo DIR_JS?>jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -46,6 +47,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo DIR_JS?>sb-admin-2.js"></script>
     <script src="<?php echo DIR_JS?>jquery.blockUI.js"></script>
+    <script src="<?php echo DIR_JS?>common.js"></script>
 </head>
 
 <body>

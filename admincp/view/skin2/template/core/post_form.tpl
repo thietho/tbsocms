@@ -164,7 +164,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nhãn hiệu</label>
-                                    <select id="brand" name="brand">
+                                    <select id="brand" name="brand" class="form-control">
                                         <option value=""></option>
                                         <?php foreach($nhanhieu as $it){ ?>
                                         <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
@@ -322,7 +322,7 @@
                                 <div class="form-group">
                                     <label>Trang thái:</label>
                                     
-                                    <select id="status" name="status">
+                                    <select id="status" name="status" class="form-control">
                                         <?php foreach($this->document->status_media as $key =>$val){ ?>
                                         <option value="<?php echo $key?>"?><?php echo $val?></option>
                                         <?php } ?>
@@ -726,9 +726,7 @@ function save()
 {
 	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" });
 	<?php if($hasDetail){ ?>
-	var oEditor = CKEDITOR.instances['description'] ;
-	var pageValue = oEditor.getData();
-	$('textarea#description').val(pageValue);
+	
 	<?php } ?>
 	
 	<?php if($hasSummary) {?>
