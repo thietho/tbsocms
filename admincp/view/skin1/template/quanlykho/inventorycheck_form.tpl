@@ -48,8 +48,10 @@
                             <tr>
                                 
                                 <th>Sản phẩm</th>
-                                <th>Số lượng</th>
+                                <th>Số lượng hiện tại</th>
                                 <th>Đơn vị tính</th>
+                                <th>Số lượng tồn</th>
+                               
                                 <th></th>
                             </tr>
                         </thead>
@@ -142,11 +144,12 @@ function Inventory()
 		row += '<td><input type="hidden" id="id-'+ this.index +'" value="'+ id +'"><input type="hidden" id="mediaid-'+ this.index +'" value="'+ mediaid +'">'+title+'</td>';
 		row += '<td class="number"><input type="text" class="text number short soluong" id="quantity-'+ this.index +'" value="'+quantity+'"></td>';
 		row += '<td class="number"><select mediaid="'+mediaid+'" class="madonvi" id="unit-'+ this.index +'" value="'+unit+'" ref="'+ this.index +'"></select></td>';
+		row += '<td class="number" id="inventory-'+ this.index +'"></td>';		
 		row +='<td><input type="button" class="button" value="X" onclick="inven.removeRow('+ this.index +')"/></td>';
 		row += '</tr>';
 		$('#listproduct').append(row);
 		var str = '#unit-'+ this.index;
-		this.index++;
+		
 		$.getJSON("?route=core/media/getListDonVi&mediaid="+ mediaid,
 			function(data){
 				html = "";
@@ -158,6 +161,13 @@ function Inventory()
 				$(str).html(html);
 				$(str).val(unit);
 			});
+		var inventory = '#inventory-'+ this.index;
+		$.get("?route=module/product/getInventory&mediaid="+ mediaid,
+			function(html)
+			{
+				$(inventory).html(html);
+			});
+		this.index++;
 		numberReady();
 	}
 	this.removeRow = function(pos)
@@ -174,7 +184,7 @@ function Inventory()
 		$.getJSON("?route=core/media/getMedia&col=mediaid&val="+encodeURI(arr[0]),function(data)
 		{			
 			
-			inven.addRow(0,data.medias[0].mediaid,data.medias[0].title,1,data.medias[0].unit);
+			inven.addRow(0,data.medias[0].mediaid,data.medias[0].productName,1,data.medias[0].unit);
 			
 			$('#txt_ref').val('');
 		});

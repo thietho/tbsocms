@@ -979,5 +979,16 @@ class ControllerModuleProduct extends Controller
 		$this->template='common/output.tpl';
 		$this->render();
 	}
+	public function getInventory()
+	{
+		$mediaid = $this->request->get['mediaid'];
+		$media = $this->model_core_media->getItem($mediaid);
+		$arr_ton = $this->model_quanlykho_donvitinh->toDonVi($media['inventory'],$media['unit']);
+		$inventorytext = $this->model_quanlykho_donvitinh->toText($arr_ton);
+		$this->data['output'] = $inventorytext;
+		$this->id='content';
+		$this->template='common/output.tpl';
+		$this->render();
+	}
 }
 ?>
