@@ -76,6 +76,11 @@
                     {
                         echo $item['xuatkho'][$i]['tennhacungcap'];
                     }
+                    if($item['xuatkho'][$i]['xuattu'])
+                    {
+                        echo ", Bán từ ".$item['xuat'][$i]['xuattu'];
+                    }
+                    
                 ?>
             </td>
             <td><?php echo $item['xuatkho'][$i]['soluong']?></td>
