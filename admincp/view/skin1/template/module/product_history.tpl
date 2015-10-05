@@ -60,7 +60,13 @@
             <td class="number"><?php echo $this->string->numberFormate($item['nhapkho'][$i]['thanhtien'])?></td>
             <td><a onclick="objdl.viewPX(<?php echo $item['xuatkho'][$i]['phieuid']?>,'')"><?php echo $item['xuatkho'][$i]['maphieu']?></a></td>
             <td>
-            	<?php echo $this->document->getCategory($item['xuatkho'][$i]['loaiphieu'])?>:
+            	<?php echo $this->document->getCategory($item['xuatkho'][$i]['loaiphieu'])?>
+                <?php
+                if($item['xuatkho'][$i]['shopid'])
+                    {
+                        echo " ".$this->document->getShop($item['xuatkho'][$i]['shopid']);
+                    }
+                ?>:
                 <?php 
                     if($item['xuatkho'][$i]['tenkhachhang'])
                     {
@@ -68,10 +74,7 @@
                         echo ($item['xuatkho'][$i]['dienthoai'] != '') ?' - '.$item['xuatkho'][$i]['dienthoai']:'';
                         echo ($item['xuatkho'][$i]['diachi'] != '') ?' - '.$item['xuatkho'][$i]['diachi']:'';
                     }
-                    if($item['xuatkho'][$i]['shopid'])
-                    {
-                        echo $this->document->getShop($item['xuatkho'][$i]['shopid']);
-                    }
+                    
                     if($item['xuatkho'][$i]['nhacungcapid'])
                     {
                         echo $item['xuatkho'][$i]['tennhacungcap'];
