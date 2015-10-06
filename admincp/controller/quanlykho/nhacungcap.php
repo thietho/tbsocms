@@ -22,8 +22,8 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		@$this->load->model("addon/thuchi");
 		@$this->load->model("quanlykho/phieunhapxuat");
 		
-		@$this->data['loaisanpham'] = array();
-		@$this->model_core_category->getTree("sanpham",@$this->data['loaisanpham']);
+		$this->data['loaisanpham'] = array();
+		$this->model_core_category->getTree("sanpham",$this->data['loaisanpham']);
 		unset($this->data['loaisanpham'][0]);
 		@$this->data['donvitinh'] = @$this->model_quanlykho_donvitinh->getList();
 		

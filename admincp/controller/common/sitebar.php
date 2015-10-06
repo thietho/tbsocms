@@ -19,7 +19,7 @@ class ControllerCommonSitebar extends Controller
 		
 		
 		@$this->data['nhanhieu'] = array();
-		@$this->model_core_category->getTree("nhanhieu",@$this->data['nhanhieu']);
+		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
 		unset($this->data['nhanhieu'][0]);
 		$nuochoanu = @$this->model_core_media->getInformation(@$this->data['item']['mediaid'], 'nuochoanu');
 		$nuochoanam = @$this->model_core_media->getInformation(@$this->data['item']['mediaid'], 'nuochoanam');

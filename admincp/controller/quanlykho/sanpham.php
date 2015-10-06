@@ -20,8 +20,8 @@ class ControllerQuanlykhoSanpham extends Controller
 		
 		@$this->load->model("quanlykho/donvitinh");
 		
-		@$this->data['loaisanpham'] = array();
-		@$this->model_core_category->getTree("sanpham",@$this->data['loaisanpham']);
+		$this->data['loaisanpham'] = array();
+		$this->model_core_category->getTree("sanpham",$this->data['loaisanpham']);
 		unset($this->data['loaisanpham'][0]);
 		@$this->data['donvitinh'] = @$this->model_quanlykho_donvitinh->getList();
 		

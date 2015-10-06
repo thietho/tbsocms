@@ -15,8 +15,8 @@ class ControllerQuanlykhoNhanVien extends Controller
 		@$this->load->model("quanlykho/nhanvien");
 		@$this->load->model("core/category");
 		
-		@$this->data['loainhanvien'] = array();
-		@$this->model_core_category->getTree("loainhanvien",@$this->data['loainhanvien']);
+		$this->data['loainhanvien'] = array();
+		$this->model_core_category->getTree("loainhanvien",$this->data['loainhanvien']);
 		unset($this->data['loainhanvien'][0]);
 	}
 	public function index()

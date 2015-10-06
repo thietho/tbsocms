@@ -28,20 +28,20 @@ class ControllerSalesSale extends Controller
 		$where = " ORDER BY shopname";
 		@$this->data['data_shop'] = @$this->model_sales_shop->getList($where);
 		
-		@$this->data['nhanhieu'] = array();
-		@$this->model_core_category->getTree("nhanhieu",@$this->data['nhanhieu']);
+		$this->data['nhanhieu'] = array();
+		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
 		unset($this->data['nhanhieu'][0]);
 		
-		@$this->data['status'] = array();
-		@$this->model_core_category->getTree("status",@$this->data['status']);
+		$this->data['status'] = array();
+		$this->model_core_category->getTree("status",$this->data['status']);
 		unset($this->data['status'][0]);
 		
-		@$this->data['orderstatus'] = array();
-		@$this->model_core_category->getTree("orderstatus",@$this->data['orderstatus']);
+		$this->data['orderstatus'] = array();
+		$this->model_core_category->getTree("orderstatus",$this->data['orderstatus']);
 		unset($this->data['orderstatus'][0]);
 		
-		@$this->data['sitemaps'] = array();
-		@$this->model_core_sitemap->getTreeSitemap("", @$this->data['sitemaps']);
+		$this->data['sitemaps'] = array();
+		$this->model_core_sitemap->getTreeSitemap("", $this->data['sitemaps']);
 		
 	}
 	public function index()

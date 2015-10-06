@@ -45,27 +45,27 @@ class ControllerCorePostcontent extends Controller
 		$sitemap = @$this->model_core_sitemap->getItem($sitemapid, $siteid);	
 		
 		@$this->data['color'] = array();
-		@$this->model_core_category->getTree("color",@$this->data['color']);
+		$this->model_core_category->getTree("color",@$this->data['color']);
 		unset($this->data['color'][0]);
 		
-		@$this->data['size'] = array();
-		@$this->model_core_category->getTree("size",@$this->data['size']);
+		$this->data['size'] = array();
+		$this->model_core_category->getTree("size",$this->data['size']);
 		unset($this->data['size'][0]);
 		
-		@$this->data['nhomhuong'] = array();
-		@$this->model_core_category->getTree("nhomhuong",@$this->data['nhomhuong']);
+		$this->data['nhomhuong'] = array();
+		$this->model_core_category->getTree("nhomhuong",$this->data['nhomhuong']);
 		unset($this->data['nhomhuong'][0]);
 		
-		@$this->data['nhanhieu'] = array();
-		@$this->model_core_category->getTree("nhanhieu",@$this->data['nhanhieu']);
+		$this->data['nhanhieu'] = array();
+		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
 		unset($this->data['nhanhieu'][0]);
 		//print_r(@$this->data['nhanhieu']);
-		@$this->data['statuspro'] = array();
-		@$this->model_core_category->getTree("status",@$this->data['statuspro']);
+		$this->data['statuspro'] = array();
+		$this->model_core_category->getTree("status",$this->data['statuspro']);
 		unset($this->data['statuspro'][0]);
 		
-		@$this->data['producttype'] = array();
-		@$this->model_core_category->getTree("producttype",@$this->data['producttype']);
+		$this->data['producttype'] = array();
+		$this->model_core_category->getTree("producttype",$this->data['producttype']);
 		unset($this->data['producttype'][0]);
 		
 		@$this->data['post'] =array();

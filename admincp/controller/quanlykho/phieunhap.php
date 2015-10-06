@@ -26,12 +26,12 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		@$this->load->model("sales/shop");
 		@$this->load->model("quanlykho/donvitinh");
 		
-		@$this->data['loaiphieu'] = array();
-		@$this->model_core_category->getTree("import",@$this->data['loaiphieu']);
+		$this->data['loaiphieu'] = array();
+		$this->model_core_category->getTree("import",$this->data['loaiphieu']);
 		unset($this->data['loaiphieu'][0]);
 		
-		@$this->data['loaisanpham'] = array();
-		@$this->model_core_category->getTree("sanpham",@$this->data['loaisanpham']);
+		$this->data['loaisanpham'] = array();
+		$this->model_core_category->getTree("sanpham",$this->data['loaisanpham']);
 		unset($this->data['loaisanpham'][0]);
 		
 		@$this->data['donvitinh'] = @$this->model_quanlykho_donvitinh->getList();

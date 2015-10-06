@@ -424,8 +424,8 @@ class ControllerCoreMember extends Controller
 		$id = @$this->request->get['id'];
 		@$this->data['member'] = @$this->model_core_user->getId($id);
 		
-		@$this->data['commissionway'] = array();
-		@$this->model_core_category->getTree("commissionway",@$this->data['commissionway']);
+		$this->data['commissionway'] = array();
+		$this->model_core_category->getTree("commissionway",$this->data['commissionway']);
 		unset($this->data['commissionway'][0]);
 		
 		@$this->id='content';

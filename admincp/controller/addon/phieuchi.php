@@ -14,8 +14,8 @@ class ControllerAddonPhieuchi extends Controller
 		
 	 	@$this->load->model("addon/thuchi");
 		@$this->load->model("core/category");
-		@$this->data['chiphi'] = array();
-		@$this->model_core_category->getTree("chiphi",@$this->data['chiphi']);
+		$this->data['chiphi'] = array();
+		$this->model_core_category->getTree("chiphi",$this->data['chiphi']);
 		unset($this->data['chiphi'][0]);
    	}
 	
