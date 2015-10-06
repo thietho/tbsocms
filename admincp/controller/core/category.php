@@ -4,25 +4,25 @@ class ControllerCoreCategory extends Controller
 	private $error = array();
    	function __construct() 
 	{
-		$this->load->model("core/module");
+		@$this->load->model("core/module");
 		
 		$moduleid = $_GET['route'];
-		$this->document->title = $this->model_core_module->getBreadcrumbs($moduleid);
-		if($this->user->checkPermission($moduleid)==false)
+		@$this->document->title = @$this->model_core_module->getBreadcrumbs($moduleid);
+		if(@$this->user->checkPermission($moduleid)==false)
 		{
-			$this->response->redirect('?route=page/home');
+			@$this->response->redirect('?route=page/home');
 		}
-		$this->load->model("core/user");
-		$this->load->model("core/media");
-		$this->load->model("core/sitemap");
-		$this->load->model("core/file");
-		$this->load->model("core/category");
-		$this->load->helper('image');
-		$data_childs = $this->model_core_category->getChild('category');
-		$this->data['tree'] ="";
+		@$this->load->model("core/user");
+		@$this->load->model("core/media");
+		@$this->load->model("core/sitemap");
+		@$this->load->model("core/file");
+		@$this->load->model("core/category");
+		@$this->load->helper('image');
+		$data_childs = @$this->model_core_category->getChild('category');
+		@$this->data['tree'] ="";
 		foreach($data_childs as $child)
 		{
-			$this->data['tree'] .= $this->getTree($child['categoryid']);
+			@$this->data['tree'] .= @$this->getTree($child['categoryid']);
 		}
 		 
 	 	
@@ -31,124 +31,124 @@ class ControllerCoreCategory extends Controller
 	public function index()
 	{
 		
-		//$this->load->language('core/category');
-		//$this->data = array_merge($this->data, $this->language->getData());
-		$this->getList();
+		//@$this->load->language('core/category');
+		//@$this->data = array_merge(@$this->data, @$this->language->getData());
+		@$this->getList();
 	}
 	
 	public function insert()
 	{
-		if(!$this->user->hasPermission($this->getRoute(), "add"))
+		if(!@$this->user->hasPermission(@$this->getRoute(), "add"))
 		{
-			$this->response->redirect("?route=common/permission");
+			@$this->response->redirect("?route=common/permission");
 		}
 		
-    	$this->getForm();
+    	@$this->getForm();
 	}
 	
 	public function update()
 	{
-		if(!$this->user->hasPermission($this->getRoute(), "edit"))
+		if(!@$this->user->hasPermission(@$this->getRoute(), "edit"))
 		{
-			$this->response->redirect("?route=common/permission");
+			@$this->response->redirect("?route=common/permission");
 		}
 		else
 		{
-			//$this->load->language('core/category');
-			//$this->data = array_merge($this->data, $this->language->getData());
+			//@$this->load->language('core/category');
+			//@$this->data = array_merge(@$this->data, @$this->language->getData());
 			
 			
 			
-			$this->data['haspass'] = false;
-			$this->data['readonly'] = 'readonly="readonly"';
+			@$this->data['haspass'] = false;
+			@$this->data['readonly'] = 'readonly="readonly"';
 		
 		
-			$this->getForm();
+			@$this->getForm();
 		}
 		
   	}
 	
 	public function edit()
 	{
-		if(!$this->user->hasPermission($this->getRoute(), "edit"))
+		if(!@$this->user->hasPermission(@$this->getRoute(), "edit"))
 		{
-			$this->response->redirect("?route=common/permission");
+			@$this->response->redirect("?route=common/permission");
 		}
 		else
 		{
 			
-			//$this->load->language('core/category');
-			//$this->data = array_merge($this->data, $this->language->getData());
-			/*$categoryid = $this->request->get['categoryid'];
-			$category = $this->model_core_category->getItem($this->request->get['categoryid']);
+			//@$this->load->language('core/category');
+			//@$this->data = array_merge(@$this->data, @$this->language->getData());
+			/*$categoryid = @$this->request->get['categoryid'];
+			$category = @$this->model_core_category->getItem(@$this->request->get['categoryid']);
 			
-			$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
-			$this->data['DIR_UPLOADATTACHMENT'] = HTTP_SERVER."index.php?route=common/uploadattachment";
-			$this->data['post']['mediaid'] = $this->user->getSiteId()."cat".$categoryid;
-			$this->data['post']['mediatype'] = "information";
+			@$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
+			@$this->data['DIR_UPLOADATTACHMENT'] = HTTP_SERVER."index.php?route=common/uploadattachment";
+			@$this->data['post']['mediaid'] = @$this->user->getSiteId()."cat".$categoryid;
+			@$this->data['post']['mediatype'] = "information";
 			
-			$this->data['post']=$this->model_core_media->initialization($this->data['post']['mediaid'],$this->data['post']['mediatype']);
-			$this->data['post'] = $this->model_core_media->getItem($this->data['post']['mediaid']);
+			@$this->data['post']=@$this->model_core_media->initialization(@$this->data['post']['mediaid'],@$this->data['post']['mediatype']);
+			@$this->data['post'] = @$this->model_core_media->getItem(@$this->data['post']['mediaid']);
 			
-			if($this->data['post']['title'] == '' && $route='module/information')
+			if(@$this->data['post']['title'] == '' && $route='module/information')
 			{
-				$this->data['post']['mediaid'] = $this->user->getSiteId()."cat".$categoryid;
-				$this->data['post']['title'] = $category['categoryname'];
+				@$this->data['post']['mediaid'] = @$this->user->getSiteId()."cat".$categoryid;
+				@$this->data['post']['title'] = $category['categoryname'];
 			}
-			if($this->data['post']['imagepath'] != "")
+			if(@$this->data['post']['imagepath'] != "")
 			{
-				$this->data['post']['imagethumbnail'] = HelperImage::resizePNG($this->data['post']['imagepath'], 200, 200);
+				@$this->data['post']['imagethumbnail'] = HelperImage::resizePNG(@$this->data['post']['imagepath'], 200, 200);
 			}*/
-			$this->id='content';
-			$this->data['output'] = $this->loadModule('core/postcontent');
-			$this->template='common/output.tpl';
-			$this->layout="layout/center";
-			$this->render();
+			@$this->id='content';
+			@$this->data['output'] = @$this->loadModule('core/postcontent');
+			@$this->template='common/output.tpl';
+			@$this->layout="layout/center";
+			@$this->render();
 		}
 		
   	}
 	
 	public function delete() 
 	{
-		$listcategoryid=$this->request->post['delete'];
+		$listcategoryid=@$this->request->post['delete'];
 		//$listcategoryid=$_POST['delete'];
-		$this->load->model("core/category");
+		@$this->load->model("core/category");
 		if(count($listcategoryid))
 		{
-			$this->model_core_category->deletedatas($listcategoryid);
-			$this->data['output'] = "Xóa thành công";
+			@$this->model_core_category->deletedatas($listcategoryid);
+			@$this->data['output'] = "Xóa thành công";
 		}
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
   	}
 	
 	public function updateposition()
 	{
-		$listposition=$this->request->post['position'];
+		$listposition=@$this->request->post['position'];
 		//$listcategoryid=$_POST['delete'];
-		$this->load->model("core/category");
+		@$this->load->model("core/category");
 		if(count($listposition))
 		{
 			foreach($listposition as $key => $item)
 			{
 				$data['categoryid'] = $key;
 				$data['position'] = $item;
-				$this->model_core_category->updateposition($data);		
+				@$this->model_core_category->updateposition($data);		
 			}
 			
-			$this->data['output'] = "Cập nhật thành công";
+			@$this->data['output'] = "Cập nhật thành công";
 		}
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 		
 	}
 	private function getTree($id)
 	{
 		
-		$data_childs = $this->model_core_category->getChild($id);
-		$cat = $this->model_core_category->getItem($id);
+		$data_childs = @$this->model_core_category->getChild($id);
+		$cat = @$this->model_core_category->getItem($id);
 		$str ='<li class="dd-item" data-id="'.$cat['categoryid'].'">';
 		$btnEdit = '<a href="?route=core/category/update&categoryid='.$cat['categoryid'].'">Edit</a>';
 		$btnAddChild = '<a href="?route=core/category/insert&parent='.$cat['categoryid'].'">Add child</a>';
@@ -165,7 +165,7 @@ class ControllerCoreCategory extends Controller
 			foreach($data_childs as $child)
 			{
 				
-				$str .= $this->getTree($child['categoryid']);
+				$str .= @$this->getTree($child['categoryid']);
 				
 			}
 			$str.='</ol>';
@@ -176,18 +176,18 @@ class ControllerCoreCategory extends Controller
 	}
 	public function updateTree()
 	{
-		$data = urldecode($this->request->post['data']);
+		$data = urldecode(@$this->request->post['data']);
 		$dataobj = json_decode($data);
 		//print_r($obj[0]->id);
 		foreach($dataobj as $key => $obj)
 		{
-			$this->model_core_category->updateCol($obj->id,'parent','category');
-			$this->model_core_category->updateCol($obj->id,'position',$key);
-			$this->travelTree($obj);
+			@$this->model_core_category->updateCol($obj->id,'parent','category');
+			@$this->model_core_category->updateCol($obj->id,'position',$key);
+			@$this->travelTree($obj);
 		}
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	private function travelTree($note)
 	{
@@ -198,22 +198,22 @@ class ControllerCoreCategory extends Controller
 			foreach($note->children as $key => $child)
 			{
 				echo $child->id;
-				$this->model_core_category->updateCol($child->id,'parent',$note->id);
-				$this->model_core_category->updateCol($child->id,'position',$key);
-				$this->travelTree($child);
+				@$this->model_core_category->updateCol($child->id,'parent',$note->id);
+				@$this->model_core_category->updateCol($child->id,'position',$key);
+				@$this->travelTree($child);
 			}
 		}
 		
 	}
 	private function getList() 
 	{
-		$this->data['insert'] = $this->url->http('core/category/insert');
-		$this->data['delete'] = $this->url->http('core/category/delete');		
+		@$this->data['insert'] = @$this->url->http('core/category/insert');
+		@$this->data['delete'] = @$this->url->http('core/category/delete');		
 		
-		$this->data['datas'] = array();
-		$rows = $this->model_core_category->getDanhMucPhanLoai();
+		@$this->data['datas'] = array();
+		$rows = @$this->model_core_category->getDanhMucPhanLoai();
 		unset($rows[0]);
-		$this->data['datas'] = array();
+		@$this->data['datas'] = array();
 		
 				
 		$eid="ex0-node";
@@ -222,13 +222,13 @@ class ControllerCoreCategory extends Controller
 		{
 			
 			$deep = $item['level'];
-			$link_edit = $this->url->http('core/category/update&categoryid='.$item['categoryid']);
+			$link_edit = @$this->url->http('core/category/update&categoryid='.$item['categoryid']);
 			$text_edit = "Edit";
 			
-			$link_addchild = $this->url->http('core/category/update&parent='.$item['categoryid']);
+			$link_addchild = @$this->url->http('core/category/update&parent='.$item['categoryid']);
 			$text_addchild = "Add child";
 			
-			$link_editcontent = $this->url->http('module/information&sitemapid=cat'.$item['categoryid']."&goback=core/category");
+			$link_editcontent = @$this->url->http('module/information&sitemapid=cat'.$item['categoryid']."&goback=core/category");
 			$text_editcontent = "Edit Content";
 			
 			$tab="";
@@ -239,9 +239,9 @@ class ControllerCoreCategory extends Controller
 			if($item['parentpath']!="")
 				$class=$eclass.$item['parentpath'];
 				
-			$this->data["datas"][]=array(
+			@$this->data["datas"][]=array(
 										'categoryid'=>$item['categoryid'],
-										'prefix'=>$this->string->getPrefix("--",$deep),
+										'prefix'=>@$this->string->getPrefix("--",$deep),
 										'deep'=>$deep + 1,
 										'eid' =>$eid . $item['path'] ,
 										'class' =>$class,
@@ -260,82 +260,82 @@ class ControllerCoreCategory extends Controller
 			
 		}
 		
-		$this->data['refres']=$_SERVER['QUERY_STRING'];
-		$this->id='content';
-		$this->template="core/category_list.tpl";
-		$this->layout="layout/center";
+		@$this->data['refres']=$_SERVER['QUERY_STRING'];
+		@$this->id='content';
+		@$this->template="core/category_list.tpl";
+		@$this->layout="layout/center";
 		
-		$this->render();
+		@$this->render();
 	}
 	
 	
 	private function getForm()
 	{
-		$this->data['error'] = @$this->error;
-		$this->load->model("core/category");
+		@$this->data['error'] = @$this->error;
+		@$this->load->model("core/category");
 		
-		$this->data['datas'] = array();
-		$this->data['datas'] = $this->model_core_category->getDanhMucPhanLoai();
+		@$this->data['datas'] = array();
+		@$this->data['datas'] = @$this->model_core_category->getDanhMucPhanLoai();
 		
 		if ((isset($this->request->get['categoryid'])) ) 
 		{
-      		$this->data['item'] = $this->model_core_category->getItem($this->request->get['categoryid']);
+      		@$this->data['item'] = @$this->model_core_category->getItem(@$this->request->get['categoryid']);
     	}
 		
-		$this->id='content';
-		$this->template='core/category_form.tpl';
-		$this->layout="layout/center";
+		@$this->id='content';
+		@$this->template='core/category_form.tpl';
+		@$this->layout="layout/center";
 		
-		$this->render();
+		@$this->render();
 	}
 	
 	public function save()
 	{
-		$data = $this->request->post;
-		if($this->validateForm($data))
+		$data = @$this->request->post;
+		if(@$this->validateForm($data))
 		{
-			$this->load->model("core/category");
-			$this->model_core_category->save($data);
-			$this->data['output'] = "true";
+			@$this->load->model("core/category");
+			@$this->model_core_category->save($data);
+			@$this->data['output'] = "true";
 		}
 		else
 		{
-			foreach($this->error as $item)
+			foreach(@$this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				@$this->data['output'] .= $item."<br>";
 			}
 		}
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	
 	private function validateForm($data)
 	{
 		if($data['id'] == "")
 		{
-			if($this->validation->_isId(trim($data['categoryid'])) == false)
+			if(@$this->validation->_isId(trim($data['categoryid'])) == false)
 			{
-				$this->error['categoryid'] = "Mã danh mục không hợp lệ";
+				@$this->error['categoryid'] = "Mã danh mục không hợp lệ";
 			}
 			else
 			{
-				$this->load->model("core/category");
-				$item = $this->model_core_category->getItem($data['categoryid']);
+				@$this->load->model("core/category");
+				$item = @$this->model_core_category->getItem($data['categoryid']);
 				if(count($item)>0)
-					$this->error['categoryid'] = "Mã danh mục đã được sử dụng";
+					@$this->error['categoryid'] = "Mã danh mục đã được sử dụng";
 			}
 		}
 		if ((strlen($data['categoryid']) == 0)) 
 		{
-      		$this->error['categoryid'] = "Mã danh mục không được rỗng";
+      		@$this->error['categoryid'] = "Mã danh mục không được rỗng";
     	}
 		if ((strlen($data['categoryname']) == 0)) 
 		{
-      		$this->error['categoryname'] = "Tên danh mục không được rỗng";
+      		@$this->error['categoryname'] = "Tên danh mục không được rỗng";
     	}
 
-		if (count($this->error)==0) {
+		if (count(@$this->error)==0) {
 	  		return TRUE;
 		} else {
 	  		return FALSE;

@@ -1,5 +1,5 @@
 <div class="section" id="sitemaplist">
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     <div class="section-content padding1">
     
     	<form id="frm_baogia">
@@ -8,7 +8,7 @@
             	<input type="button" value="Lưu" class="button" onClick="bg.save('')"/>
                 <input type="button" value="Lưu & In" class="button" onClick="bg.save('print')"/>
      	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/phieuxuat')"/>   
-     	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
+     	        <input type="hidden" name="id" value="<?php echo @$item['id']?>">
                 
                 
             </div>
@@ -32,11 +32,11 @@
                                         });
                                 });
                          </script>
-                        <input type="text" id="ngaybaogia" name="ngaybaogia" value="<?php echo $this->date->formatMySQLDate($item['ngaybaogia'])?>" class="text" />
+                        <input type="text" id="ngaybaogia" name="ngaybaogia" value="<?php echo @$this->date->formatMySQLDate($item['ngaybaogia'])?>" class="text" />
                     </p>
                     <p>
                         <label>Ghi chú</label><br>
-                        <textarea id="ghichu" name="ghichu"><?php echo $item['ghichu']?></textarea>
+                        <textarea id="ghichu" name="ghichu"><?php echo @$item['ghichu']?></textarea>
                     </p>
                 </div>
                 <div id="fragment-detail">
@@ -176,11 +176,11 @@ $('#btnDel').click(function(e) {
 <script language="javascript">
 	var obj = new Object();
 	obj.id = 0;
-	obj.mediaid = "<?php echo $media['mediaid']?>";
-	obj.productname = "<?php echo $this->document->productName($media)?>";
-	obj.brandname = "<?php echo $this->document->getCategory($media['brand'])?>";
-	obj.price = "<?php echo $media['price']?>";
-	obj.pricepromotion = "<?php echo $media['pricepromotion']?>";
+	obj.mediaid = "<?php echo @$media['mediaid']?>";
+	obj.productname = "<?php echo @$this->document->productName($media)?>";
+	obj.brandname = "<?php echo @$this->document->getCategory($media['brand'])?>";
+	obj.price = "<?php echo @$media['price']?>";
+	obj.pricepromotion = "<?php echo @$media['pricepromotion']?>";
 	
 	bg.newRow(obj);
 	numberReady();
@@ -189,13 +189,13 @@ $('#btnDel').click(function(e) {
 <?php foreach($detail as $media){ ?>
 <script language="javascript">
 	var obj = new Object();
-	obj.id = "<?php echo $media['id']?>";
-	obj.mediaid = "<?php echo $media['mediaid']?>";
-	obj.productname = "<?php echo $this->document->productName($media)?>";
-	obj.brandname = "<?php echo $this->document->getCategory($media['brand'])?>";
-	obj.price = "<?php echo $media['gia']?>";
+	obj.id = "<?php echo @$media['id']?>";
+	obj.mediaid = "<?php echo @$media['mediaid']?>";
+	obj.productname = "<?php echo @$this->document->productName($media)?>";
+	obj.brandname = "<?php echo @$this->document->getCategory($media['brand'])?>";
+	obj.price = "<?php echo @$media['gia']?>";
 	obj.pricepromotion = 0;
-	obj.ghichu = "<?php echo $media['ghichu']?>";
+	obj.ghichu = "<?php echo @$media['ghichu']?>";
 	bg.newRow(obj);
 	numberReady();
 </script>

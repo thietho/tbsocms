@@ -5,13 +5,13 @@ class ControllerCoreMedia extends Controller
 	private $route;
 	public function __construct() 
 	{
-		$this->load->model("core/media");
-		$this->load->model("quanlykho/donvitinh");
-		$this->load->model("core/sitemap");
-		$this->load->model("core/category");
-		$this->load->helper('image');
+		@$this->load->model("core/media");
+		@$this->load->model("quanlykho/donvitinh");
+		@$this->load->model("core/sitemap");
+		@$this->load->model("core/category");
+		@$this->load->helper('image');
 		
-		$this->data['module'] = array(
+		@$this->data['module'] = array(
 										
 							'module/news'=>'News',
 							'module/event' => 'Event',
@@ -26,21 +26,21 @@ class ControllerCoreMedia extends Controller
 							'module/location'=>'Location'
 							
 										);
-		$this->load->model('core/user');
+		@$this->load->model('core/user');
 		$where = " AND usertypeid <> 'member'";
-		$this->data['users'] = $this->model_core_user->getList($where);
+		@$this->data['users'] = @$this->model_core_user->getList($where);
 	}
 	
 	public function index()
 	{
-		$this->document->title = $this->language->get('heading_title');
+		@$this->document->title = @$this->language->get('heading_title');
 		
 		
-		$this->id='content';
-		$this->template="core/media_list.tpl";
-		$this->layout="layout/center";
+		@$this->id='content';
+		@$this->template="core/media_list.tpl";
+		@$this->layout="layout/center";
 		
-		$this->render();
+		@$this->render();
 	}
 	
 	public function getList()
@@ -48,12 +48,12 @@ class ControllerCoreMedia extends Controller
 		
 		$where = " AND mediaparent = '' AND mediatype = ''";
 		
-		$keyword = urldecode($this->request->get['keyword']);
-		$type = urldecode($this->request->get['type']);
-		$sitemapid = urldecode($this->request->get['sitemapid']);
-		$userid = urldecode($this->request->get['userid']);
-		$tungay = urldecode($this->request->get['tungay']);
-		$denngay = urldecode($this->request->get['denngay']);
+		$keyword = urldecode(@$this->request->get['keyword']);
+		$type = urldecode(@$this->request->get['type']);
+		$sitemapid = urldecode(@$this->request->get['sitemapid']);
+		$userid = urldecode(@$this->request->get['userid']);
+		$tungay = urldecode(@$this->request->get['tungay']);
+		$denngay = urldecode(@$this->request->get['denngay']);
 		
 		/*if($keyword != '')
 		{
@@ -79,7 +79,7 @@ class ControllerCoreMedia extends Controller
 		if($type!="")
 		{
 			$arr = array();
-			$sitemaps = $this->model_core_sitemap->getListByModule($type,$this->user->getSiteId());
+			$sitemaps = @$this->model_core_sitemap->getListByModule($type,@$this->user->getSiteId());
 			foreach($sitemaps as $item)
 			{
 				$arr[] = " refersitemap like '%[".$item['sitemapid']."]%'";
@@ -96,47 +96,47 @@ class ControllerCoreMedia extends Controller
 		}
 		if($tungay!="")
 		{
-			$where .= " AND statusdate >= '".$this->date->formatViewDate($tungay)."'";	
+			$where .= " AND statusdate >= '".@$this->date->formatViewDate($tungay)."'";	
 		}
 		if($denngay!="")
 		{
-			$where .= " AND statusdate < '".$this->date->formatViewDate($denngay)." 24:00:00'";	
+			$where .= " AND statusdate < '".@$this->date->formatViewDate($denngay)." 24:00:00'";	
 		}
 		
-		$rows = $this->model_core_media->getList($where);
+		$rows = @$this->model_core_media->getList($where);
 		//Page
-		$page = $this->request->get['page'];		
+		@$page = @$this->request->get['page'];		
 		$x=$page;		
 		$limit = 20;
 		$total = count($rows); 
 		// work out the pager values 
-		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page,"#listmedia");
+		@$this->data['pager']  = @$this->pager->pageLayoutAjax($total, $limit, $page,"#listmedia");
 		
-		$pager  = $this->pager->getPagerData($total, $limit, $page); 
+		$pager  = @$this->pager->getPagerData($total, $limit, $page); 
 		$offset = $pager->offset; 
 		$limit  = $pager->limit; 
 		$page   = $pager->page;
-		$this->data['medias'] = array();
-		for($i=$offset;$i < $offset + $limit && count($rows[$i])>0;$i++)
+		@$this->data['medias'] = array();
+		for($i=$offset;$i < $offset + $limit && @count(@$rows[$i])>0;$i++)
 		{
-			$this->data['medias'][$i] = $rows[$i];
-			$user = $this->model_core_user->getItem($this->data['medias'][$i]['userid']);
-			$this->data['medias'][$i]['fullname'] =$user['fullname'];
-			$arr = $this->string->referSiteMapToArray($this->data['medias'][$i]['refersitemap']);
+			@$this->data['medias'][$i] = $rows[$i];
+			$user = @$this->model_core_user->getItem(@$this->data['medias'][$i]['userid']);
+			@$this->data['medias'][$i]['fullname'] =$user['fullname'];
+			$arr = @$this->string->referSiteMapToArray(@$this->data['medias'][$i]['refersitemap']);
 			$sitemapid = $arr[0];
-			$sitemap = $this->model_core_sitemap->getItem($sitemapid,$this->user->getSiteId());
-			if($this->data['medias'][$i]['imagepath'] != "")
+			$sitemap = @$this->model_core_sitemap->getItem($sitemapid,@$this->user->getSiteId());
+			if(@$this->data['medias'][$i]['imagepath'] != "")
 			{
-				$this->data['medias'][$i]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100)."' >";
+				@$this->data['medias'][$i]['imagepreview'] = "<img width=100 src='".HelperImage::resizePNG(@$this->data['medias'][$i]['imagepath'], 100, 100)."' >";
 				
 			}
 			
 			
-			$this->data['medias'][$i]['link_edit'] = $this->url->http($this->data['medias'][$i]['mediatype'].'/update&mediaid='.$this->data['medias'][$i]['mediaid']);
-				$this->data['medias'][$i]['text_edit'] = "Edit";	
+			@$this->data['medias'][$i]['link_edit'] = @$this->url->http(@$this->data['medias'][$i]['mediatype'].'/update&mediaid='.@$this->data['medias'][$i]['mediaid']);
+				@$this->data['medias'][$i]['text_edit'] = "Edit";	
 			
-			//$this->data['medias'][$i]['type'] = $sitemap['moduleid'];
-			$this->data['medias'][$i]['typename'] = $this->model_core_sitemap->getModuleName($sitemap['moduleid']);
+			//@$this->data['medias'][$i]['type'] = $sitemap['moduleid'];
+			@$this->data['medias'][$i]['typename'] = @$this->model_core_sitemap->getModuleName($sitemap['moduleid']);
 			
 			
 			if($sitemap['moduleid']!="")
@@ -144,77 +144,77 @@ class ControllerCoreMedia extends Controller
 				$listsitemapname = array();
 				foreach($arr as $item)
 				{
-					$sitemap = $this->model_core_sitemap->getItem($item,$this->user->getSiteId());
+					$sitemap = @$this->model_core_sitemap->getItem($item,@$this->user->getSiteId());
 					$listsitemapname[] = $sitemap['sitemapname'];
 				}
-				$this->data['medias'][$i]['sitemapnames'] = implode(",",$listsitemapname);
+				@$this->data['medias'][$i]['sitemapnames'] = implode(",",$listsitemapname);
 			}
 			
-			$this->data['medias'][$i]['btnMap'] = '<input type="button" class="button" value="Chọn danh mục" onclick="selectSiteMap(\''.$this->data['medias'][$i]['mediaid'].'\',\''.$sitemap['moduleid'].'\')">';
+			@$this->data['medias'][$i]['btnMap'] = '<input type="button" class="button" value="Chọn danh mục" onclick="selectSiteMap(\''.@$this->data['medias'][$i]['mediaid'].'\',\''.$sitemap['moduleid'].'\')">';
 			
 		}
-		$this->data['refres']=$_SERVER['QUERY_STRING'];
-		$this->id='content';
-		$this->template="core/media_table.tpl";
+		@$this->data['refres']=$_SERVER['QUERY_STRING'];
+		@$this->id='content';
+		@$this->template="core/media_table.tpl";
 		
 		
-		$this->render();
+		@$this->render();
 	}
 	
 	public function delete()
 	{
-		$arr=$this->request->post['delete'];
+		$arr=@$this->request->post['delete'];
 		if(count($arr))
 		{
 			
 			
 			foreach($arr as $key=>$val)
 			{
-				$this->model_core_media->delete($val);
+				@$this->model_core_media->delete($val);
 				
 			}
-			$this->data['output'] = "Xóa thành công";
+			@$this->data['output'] = "Xóa thành công";
 		}
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	public function mediaUse()
 	{
-		$fileid = $this->request->get['fileid'];
+		$fileid = @$this->request->get['fileid'];
 		$where = " AND imageid = '".$fileid."'";
-		$this->data['medias'] = $this->model_core_media->getList($where);
-		$this->id="content";
-		$this->template="core/media_usefile.tpl";
-		$this->render();
+		@$this->data['medias'] = @$this->model_core_media->getList($where);
+		@$this->id="content";
+		@$this->template="core/media_usefile.tpl";
+		@$this->render();
 	}
 	public function addMediaQuick()
 	{
-		$data = $this->request->post;
-		if($this->validateAddProductQuick($data))
+		$data = @$this->request->post;
+		if(@$this->validateAddProductQuick($data))
 		{
-			$mediaid = $this->model_core_media->insert($data);
-			$this->model_core_media->updateStatus($mediaid, "active");
+			$mediaid = @$this->model_core_media->insert($data);
+			@$this->model_core_media->updateStatus($mediaid, "active");
 			$data['error'] = "";
 			
 		}
 		else
 		{
-			foreach($this->error as $item)
+			foreach(@$this->error as $item)
 			{
 				$data['error'] .= $item."\n";
 			}
 		}
-		$this->data['output'] = json_encode($data);
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->data['output'] = json_encode($data);
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	
 	public function importProduct()
 	{
-		$data = $this->request->post;
-		if($this->validateImportProduct($data))
+		$data = @$this->request->post;
+		if(@$this->validateImportProduct($data))
 		{
 			//Lay lai danh muc
 			$refersitemap = $data['refersitemap'];
@@ -225,10 +225,10 @@ class ControllerCoreMedia extends Controller
 				foreach($arrsitemapname as $sitemapname)
 				{
 					$where = " AND sitemapname = '".$sitemapname."'";
-					$sitemap = $this->model_core_sitemap->getList($this->user->getSiteId(), $where);
+					$sitemap = @$this->model_core_sitemap->getList(@$this->user->getSiteId(), $where);
 					$arrsitemapid[] = $sitemap[0]['sitemapid'];
 				}
-				$refersitemap = $this->string->arrayToString($arrsitemapid);
+				$refersitemap = @$this->string->arrayToString($arrsitemapid);
 				
 			}
 			$data['refersitemap'] = $refersitemap;
@@ -237,7 +237,7 @@ class ControllerCoreMedia extends Controller
 			if($brand!="")
 			{
 				$where = " AND categoryname = '".$brand."'";
-				$data_ca = $this->model_core_category->getList($where);
+				$data_ca = @$this->model_core_category->getList($where);
 				$brand = $data_ca[0]['categoryid'];
 			}
 			$data['brand'] = $brand;
@@ -246,7 +246,7 @@ class ControllerCoreMedia extends Controller
 			if($unit!="")
 			{
 				$where = " AND tendonvitinh	 = '".$unit."'";
-				$data_unit = $this->model_quanlykho_donvitinh->getList($where);
+				$data_unit = @$this->model_quanlykho_donvitinh->getList($where);
 				$unit = $data_unit[0]['madonvi'];
 			}
 			$data['unit'] = $unit;
@@ -266,7 +266,7 @@ class ControllerCoreMedia extends Controller
 						$donvi = $ar[0];
 						$price = $ar[1];
 						$where = " AND tendonvitinh	 = '".$donvi."'";
-						$data_unit = $this->model_quanlykho_donvitinh->getList($where);
+						$data_unit = @$this->model_quanlykho_donvitinh->getList($where);
 						$unit = $data_unit[0]['madonvi'];
 						$arrsaleprice[$unit]=$price;
 					}
@@ -275,45 +275,45 @@ class ControllerCoreMedia extends Controller
 			}
 			echo $data['saleprice'] = $saleprice;
 			
-			$media = $this->model_core_media->getItem($data['mediaid']);
+			$media = @$this->model_core_media->getItem($data['mediaid']);
 			$data['mediatype'] = "module/product";
 			if(count($media)==0)
 			{
 				
-				$mediaid = $this->model_core_media->insert($data);
+				$mediaid = @$this->model_core_media->insert($data);
 			}
 			else
 			{
 				$mediaid = $data['mediaid'];
 				foreach($data as $key => $val)
 				{
-					$this->model_core_media->updateCol($mediaid,$key,$val);
+					@$this->model_core_media->updateCol($mediaid,$key,$val);
 				}
 			}
-			//$mediaid = $this->model_core_media->insert($data);
-			//$this->model_core_media->updateStatus($mediaid, "active");
+			//$mediaid = @$this->model_core_media->insert($data);
+			//@$this->model_core_media->updateStatus($mediaid, "active");
 			$data['error'] = "";
 			
 		}
 		else
 		{
-			foreach($this->error as $item)
+			foreach(@$this->error as $item)
 			{
 				$data['error'] .= $item."\n";
 			}
 		}
-		$this->data['output'] = json_encode($data);
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->data['output'] = json_encode($data);
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	private function validateImportProduct($data)
 	{
 		if ($data['title'] == "")
 		{
-			$this->error['title'] = "Bạn chưa nhập tên sản phẩm";
+			@$this->error['title'] = "Bạn chưa nhập tên sản phẩm";
 		}
-		if (count($this->error)==0) {
+		if (count(@$this->error)==0) {
 			return TRUE;
 		} else {
 			return FALSE;
@@ -323,15 +323,15 @@ class ControllerCoreMedia extends Controller
 	{
 		if ($data['title'] == "")
 		{
-			$this->error['title'] = "Bạn chưa nhập tên sản phẩm";
+			@$this->error['title'] = "Bạn chưa nhập tên sản phẩm";
 		}
 		if ($data['unit'] == "")
 		{
-			$this->error['unit'] = "Bạn chưa chọn đơn vị tính";
+			@$this->error['unit'] = "Bạn chưa chọn đơn vị tính";
 		}
 		
 
-		if (count($this->error)==0) {
+		if (count(@$this->error)==0) {
 			return TRUE;
 		} else {
 			return FALSE;
@@ -340,12 +340,12 @@ class ControllerCoreMedia extends Controller
 	
 	public function mapmoduleform()
 	{
-		$this->data['mediaid'] = $this->request->get['mediaid'];	
-		$this->data['moduleid'] = $this->request->get['moduleid'];
-		$media = $this->model_core_media->getitem($this->data['mediaid']);
-		$this->data['listsitemapid'] = $this->string->referSiteMapToArray($media['refersitemap']);
+		@$this->data['mediaid'] = @$this->request->get['mediaid'];	
+		@$this->data['moduleid'] = @$this->request->get['moduleid'];
+		$media = @$this->model_core_media->getitem(@$this->data['mediaid']);
+		@$this->data['listsitemapid'] = @$this->string->referSiteMapToArray($media['refersitemap']);
 		
-		$this->data['modules'] = array(
+		@$this->data['modules'] = array(
 							'module/news'=>'News',
 							'module/banner'=>'Banner',
 							'module/album'=>'Album',
@@ -358,88 +358,88 @@ class ControllerCoreMedia extends Controller
 							
 									);
 		
-		$this->id='content';
-		$this->template="core/media_map.tpl";
-		$this->render();
+		@$this->id='content';
+		@$this->template="core/media_map.tpl";
+		@$this->render();
 	}
 	
 	public function getListSiteMap()
 	{
-		$module = $this->request->get['module'];
+		$module = @$this->request->get['module'];
 		
-		$datas = $this->model_core_sitemap->getListByModule($module,$this->user->getSiteId());
+		$datas = @$this->model_core_sitemap->getListByModule($module,@$this->user->getSiteId());
 		
-		$this->data['output'] = json_encode(array('sitemaps' => $datas));
-		$this->id="sitemap";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->data['output'] = json_encode(array('sitemaps' => $datas));
+		@$this->id="sitemap";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	
 	public function savemap()
 	{
 		
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		
 		$mediaid = $data['mediaid'];
 		$listsitemapid = $data['sitemaplist'];
 		
 		if(count($listsitemapid))
 		{
-			$refersitemap = $this->string->arrayToString($listsitemapid);	
-			$this->model_core_media->updateCol($mediaid,'refersitemap',$refersitemap);
+			$refersitemap = @$this->string->arrayToString($listsitemapid);	
+			@$this->model_core_media->updateCol($mediaid,'refersitemap',$refersitemap);
 		}
 		
-		$this->data['output'] = 'true';
-		$this->id="sitemap";
-		$this->template="common/output.tpl";
-		$this->render();	
+		@$this->data['output'] = 'true';
+		@$this->id="sitemap";
+		@$this->template="common/output.tpl";
+		@$this->render();	
 	}
 	public function updateCol()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		$mediaid =$data['mediaid'];
 		$col = $data['col'];
 		$val = $data['val'];
-		$this->model_core_media->updateCol($mediaid,$col,$val);
-		$this->data['output'] = 'true';
-		$this->id="sitemap";
-		$this->template="common/output.tpl";
-		$this->render();	
+		@$this->model_core_media->updateCol($mediaid,$col,$val);
+		@$this->data['output'] = 'true';
+		@$this->id="sitemap";
+		@$this->template="common/output.tpl";
+		@$this->render();	
 	}
 	public function enterGroup()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		$mediaid =$data['mediaid'];
 		$col = $data['col'];
 		$val = $data['val'];
-		$this->model_core_media->updateCol($mediaid,$col,$val);
-		$this->model_core_media->updateInforChild($val);
-		$this->data['output'] = 'true';
-		$this->id="sitemap";
-		$this->template="common/output.tpl";
-		$this->render();	
+		@$this->model_core_media->updateCol($mediaid,$col,$val);
+		@$this->model_core_media->updateInforChild($val);
+		@$this->data['output'] = 'true';
+		@$this->id="sitemap";
+		@$this->template="common/output.tpl";
+		@$this->render();	
 	}
 	public function outGroup()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		$mediaid =$data['mediaid'];
-		$media = $this->model_core_media->getItem($mediaid);
+		$media = @$this->model_core_media->getItem($mediaid);
 		$col = $data['col'];
 		$val = $data['val'];
-		$this->model_core_media->updateCol($mediaid,$col,$val);
+		@$this->model_core_media->updateCol($mediaid,$col,$val);
 		
-		$this->model_core_media->updateInforChild($media['mediaparent']);
-		$this->data['output'] = 'true';
-		$this->id="sitemap";
-		$this->template="common/output.tpl";
-		$this->render();	
+		@$this->model_core_media->updateInforChild($media['mediaparent']);
+		@$this->data['output'] = 'true';
+		@$this->id="sitemap";
+		@$this->template="common/output.tpl";
+		@$this->render();	
 	}
 	//Cac ham xu ly tren form
 	public function getMedia()
 	{
-		$col = urldecode($this->request->get['col']);
-		$val = urldecode($this->request->get['val']);
-		$operator = $this->request->get['operator'];
+		@$col = urldecode(@$this->request->get['col']);
+		@$val = urldecode(@$this->request->get['val']);
+		@$operator = @$this->request->get['operator'];
 		if($operator == "")
 			$operator = "equal";
 		
@@ -461,22 +461,22 @@ class ControllerCoreMedia extends Controller
 			
 		}
 			
-		$datas = $this->model_core_media->getList($where);
+		$datas = @$this->model_core_media->getList($where);
 		foreach($datas as $key => $media)
 		{
 			$imagepreview = "<img width=100 src='".HelperImage::resizePNG($media['imagepath'], 180, 180)."' >";
-			$datas[$key]['imagepreview'] = $imagepreview;
-			$datas[$key]['productName'] = $this->document->productName($media);
+			@$datas[$key]['imagepreview'] = $imagepreview;
+			@$datas[$key]['productName'] = @$this->document->productName($media);
 		}
-		$this->data['output'] = json_encode(array('medias' => $datas));
-		$this->id="media";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->data['output'] = json_encode(array('medias' => $datas));
+		@$this->id="media";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	public function getProduct()
 	{
 		
-		$keyword = urldecode($this->request->get['term']);
+		$keyword = urldecode(@$this->request->get['term']);
 		@$arrkey = split(' ', $keyword);
 		$where = " AND mediatype = 'module/product' ";
 		if($keyword !="")
@@ -491,39 +491,39 @@ class ControllerCoreMedia extends Controller
 			$arrmaterial = array();
 			foreach($arrkey as $key)
 			{
-				$arr[] = "title like '%".$key."%'";
+				@$arr[] = "title like '%".$key."%'";
 			}
 			foreach($arrkey as $key)
 			{
-				$arrid[] = "mediaid like '".$key."'";
+				@$arrid[] = "mediaid like '".$key."'";
 			}
 			foreach($arrkey as $key)
 			{
-				$arrcode[] = "code like '%".$key."%'";
+				@$arrcode[] = "code like '%".$key."%'";
 			}
 			foreach($arrkey as $key)
 			{
-				$arrbarcode[] = "barcode like '%".$key."%'";
+				@$arrbarcode[] = "barcode like '%".$key."%'";
 			}
 			foreach($arrkey as $key)
 			{
-				$arrref[] = "ref like '%".$key."%'";
+				@$arrref[] = "ref like '%".$key."%'";
 			}
 			foreach($arrkey as $key)
 			{
-				$arrref[] = "ref like '%".$key."%'";
+				@$arrref[] = "ref like '%".$key."%'";
 			}
 			foreach($arrkey as $key)
 			{
-				$arrcolor[] = "color like '%".$key."%'";
+				@$arrcolor[] = "color like '%".$key."%'";
 			}
 			foreach($arrkey as $key)
 			{
-				$arrsizes[] = "sizes like '%".$key."%'";
+				@$arrsizes[] = "sizes like '%".$key."%'";
 			}
 			foreach($arrkey as $key)
 			{
-				$arrmaterial[] = "material like '%".$key."%'";
+				@$arrmaterial[] = "material like '%".$key."%'";
 			}
 			$where .= " AND ((". implode(" AND ",$arr). ") 
 									OR (". implode(" AND ",$arrid). ") 
@@ -537,48 +537,48 @@ class ControllerCoreMedia extends Controller
 			
 		}
 		
-		$medias = $this->model_core_media->getList($where);
+		$medias = @$this->model_core_media->getList($where);
 		$data = array();
 		foreach($medias as $media)
 		{
-			$child = $this->model_core_media->getListByParent($media['mediaid']);
+			$child = @$this->model_core_media->getListByParent($media['mediaid']);
 			if(count($child) == 0)
 			{
 				$arr = array(
 							"id" => $media['mediaid'],
-							"label" => "(".$media['brand'].") -".$media['ref']."-".$this->document->productName($media),
-							"value" => $this->document->productName($media),
+							"label" => "(".$media['brand'].") -".$media['ref']."-".@$this->document->productName($media),
+							"value" => @$this->document->productName($media),
 							
 						);
 				$data[] = $arr;
 			}
 		}
-		$this->data['output'] = json_encode($data);
-		$this->id="media";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->data['output'] = json_encode($data);
+		@$this->id="media";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	public function getListDonVi()
 	{
-		$mediaid = $this->request->get['mediaid'];
-		$media = $this->model_core_media->getItem($mediaid);
-		$data_donvi = $this->model_quanlykho_donvitinh->getDonViQuyDoi($media['unit']);
-		$this->data['output'] = json_encode($data_donvi);
+		$mediaid = @$this->request->get['mediaid'];
+		$media = @$this->model_core_media->getItem($mediaid);
+		$data_donvi = @$this->model_quanlykho_donvitinh->getDonViQuyDoi($media['unit']);
+		@$this->data['output'] = json_encode($data_donvi);
 		
-		$this->id="donvi";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="donvi";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	
 	function fileToMedia()
 	{
-		$fileid = $this->request->get['fileid'];
-		$this->data['item']=$this->model_core_file->getFile($fileid);
-		$this->load->model("quanlykho/donvitinh");
-		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
-		$this->id='file';
-		$this->template = "core/media_form.tpl";
-		$this->render();
+		$fileid = @$this->request->get['fileid'];
+		@$this->data['item']=@$this->model_core_file->getFile($fileid);
+		@$this->load->model("quanlykho/donvitinh");
+		@$this->data['donvitinh'] = @$this->model_quanlykho_donvitinh->getList();
+		@$this->id='file';
+		@$this->template = "core/media_form.tpl";
+		@$this->render();
 	}
 }
 ?>

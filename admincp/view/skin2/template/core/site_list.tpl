@@ -7,8 +7,8 @@
         <form action="" name="formlist" id="formlist" method="post">
         
         	<div class="button right">
-                <input class="button" value="<?php echo $button_add ?>" type="button" onclick="linkto('<?php echo $insert?>')">
-            	<input class="button" type="button" name="delete_all" value="<?php echo $button_delete ?>" onclick="deleteList()"/>  
+                <input class="button" value="<?php echo @$button_add ?>" type="button" onclick="linkto('<?php echo @$insert?>')">
+            	<input class="button" type="button" name="delete_all" value="<?php echo @$button_delete ?>" onclick="deleteList()"/>  
             </div>
             <div class="clearer">^&nbsp;</div>
             
@@ -17,10 +17,10 @@
                 <tbody>
                     <tr class="tr-head">
                         <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
-                        <th width="10%"><?php echo $column_siteid?></th>
-                        <th width="25%"><?php echo $column_sitename?></th>
-                        <th width="25%"><?php echo $column_status?></th>                    
-                        <th widht="10%"><?php echo $text_control ?></th>                                  
+                        <th width="10%"><?php echo @$column_siteid?></th>
+                        <th width="25%"><?php echo @$column_sitename?></th>
+                        <th width="25%"><?php echo @$column_status?></th>                    
+                        <th widht="10%"><?php echo @$text_control ?></th>                                  
                     </tr>
         
         
@@ -29,15 +29,15 @@
             {
         ?>
                     <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $site['siteid']?>]" value="<?php echo $site['siteid']?>" ></td>
-                        <td><?php echo $site['siteid']?></td>
-                        <td><?php echo $site['sitename']?></td>
-                        <td><?php echo $site['status']?></td>
+                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo @$site['siteid']?>]" value="<?php echo @$site['siteid']?>" ></td>
+                        <td><?php echo @$site['siteid']?></td>
+                        <td><?php echo @$site['sitename']?></td>
+                        <td><?php echo @$site['status']?></td>
                 
                         <td class="link-control">
-                            <a class="button" href="<?php echo $site['link_edit']?>" title="<?php echo $site['text_edit']?>">Edit</a>
-                            <?php if($site['siteid']!="default"){ ?>
-                            <a class="button" onclick="copySite('<?php echo $site['siteid']?>')">Copy default</a>
+                            <a class="button" href="<?php echo @$site['link_edit']?>" title="<?php echo @$site['text_edit']?>">Edit</a>
+                            <?php if(@$site['siteid']!="default"){ ?>
+                            <a class="button" onclick="copySite('<?php echo @$site['siteid']?>')">Copy default</a>
                             <?php }?>
                         </td>
                     </tr>
@@ -66,7 +66,7 @@ function deleteList()
 				if(data!="")
 				{
 					alert(data)
-					linkto("?<?php echo $refres?>")
+					linkto("?<?php echo @$refres?>")
 				}
 			}
 	);

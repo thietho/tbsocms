@@ -1,7 +1,7 @@
 <div class="section">
 
 	<div class="section-title">
-    	<?php echo $breadcrumb?>
+    	<?php echo @$breadcrumb?>
     </div>
     
     <div class="section-content padding1">
@@ -10,12 +10,12 @@
     
     	<div class="left">
             
-            <h3><?php echo $heading_title?>Message</h3>
+            <h3><?php echo @$heading_title?>Message</h3>
         
         </div>
         
     	<div class="right">
-            <a class="button" href="<?php echo $reply?>"/>Reply</a>
+            <a class="button" href="<?php echo @$reply?>"/>Reply</a>
             <a class="button" href="#" onclick="javascript:history.go(-1)"/>Cancel</a>
         </div>
         <div class="clearer">&nbsp;</div>
@@ -25,20 +25,20 @@
             
             <div id="fragment-1">
             	
-                <div style="<?php echo $displaynews?>">
+                <div style="<?php echo @$displaynews?>">
         			
                     <div>
                         <p>
                             <label>From:</label><br>
-                            <?php echo $from?>
+                            <?php echo @$from?>
                         </p>
                         <p>
                             <label>To:</label><br>
-                            <?php echo $to?>
+                            <?php echo @$to?>
                         </p>
                         <p>
                             <label>Subject:</label><br>
-                            <?php echo $title?>
+                            <?php echo @$title?>
                         </p>
                     </div>                
                 </div>
@@ -54,9 +54,9 @@
 				{
 ?>
 					<p>
-						<img src="<?php echo $item['imagethumbnail']?>" />
-                        <?php echo $item['filename']?>
-                        <a href="<?php echo DIR_FILE?><?php echo $item['filepath']?>" target="_blank">Download</a>
+						<img src="<?php echo @$item['imagethumbnail']?>" />
+                        <?php echo @$item['filename']?>
+                        <a href="<?php echo DIR_FILE?><?php echo @$item['filepath']?>" target="_blank">Download</a>
                     </p>
 <?php
 				}
@@ -84,7 +84,7 @@
 <script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
 
 <script type="text/javascript" charset="utf-8">
-var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
+var DIR_UPLOADATTACHMENT = "<?php echo @$DIR_UPLOADATTACHMENT?>";
 </script>
 
 <script src="<?php echo DIR_JS?>uploadattament.js" type="text/javascript"></script>

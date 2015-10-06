@@ -1,5 +1,5 @@
 <form id="frmDelivery">
-	<input type="hidden" name="orderid" value="<?php echo $_GET['orderid']?>" />
+	<input type="hidden" name="orderid" value="<?php echo @$_GET['orderid']?>" />
 	<table class="ben-form">
         <tr>
             <td>Người nhận hàng</td>
@@ -7,7 +7,7 @@
         </tr>
         <tr>
             <td>Số điện thoại</td>
-            <td><input type="text" id="receiverphone" name="receiverphone" class="text" size="40" <?php echo $readonly?>></td>
+            <td><input type="text" id="receiverphone" name="receiverphone" class="text" size="40" <?php echo @$readonly?>></td>
         </tr>
         <tr>
             <td>Địa chỉ giao hàng</td>

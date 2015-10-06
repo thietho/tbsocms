@@ -1,6 +1,6 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content">
     	
@@ -41,8 +41,8 @@
                 <label>Tình trạng</label>
                 <select id="trangthai" name="trangthai">
                 	<option value=""></option>
-                    <?php foreach($this->document->status_phieunhapxuat as $key => $val){?>
-                    <option value="<?php echo $key?>"><?php echo $val?></option>
+                    <?php foreach(@$this->document->status_phieunhapxuat as $key => $val){?>
+                    <option value="<?php echo @$key?>"><?php echo @$val?></option>
                     <?php } ?>
                 </select>
                 <br />
@@ -51,15 +51,15 @@
                 <input type="button" class="button" name="btnExport" value="Xuất ra excel" onclick="exportExcel()"/>
             </div>
         	<div class="button right">
-            	<?php if($dialog==true){ ?>
+            	<?php if(@$dialog==true){ ?>
             	
                 <?php }else{ ?>
                 <input class="button" id="btnPrint" value="In" type="button">
                 <input class="button" id="btnPrintDiscount" value="In giảm giá" type="button">
-                <?php if($this->user->checkPermission("quanlykho/phieuxuat/insert")==true){ ?>
-                <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo $insert?>')">
+                <?php if(@$this->user->checkPermission("quanlykho/phieuxuat/insert")==true){ ?>
+                <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo @$insert?>')">
                 <?php } ?>
-                <?php if($this->user->checkPermission("quanlykho/phieuxuat/delete")==true){ ?>
+                <?php if(@$this->user->checkPermission("quanlykho/phieuxuat/delete")==true){ ?>
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>
                 <?php } ?>
                 <?php } ?>
@@ -138,7 +138,7 @@ function loadData(url)
 function viewAll()
 {
 	url = "?route=quanlykho/phieuxuat/getList";
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
@@ -175,7 +175,7 @@ function createParam()
 function searchForm()
 {
 	var url = createParam();
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
@@ -183,7 +183,7 @@ function searchForm()
 	loadData("?route=quanlykho/phieuxuat/getList"+url);
 }
 
-<?php if($dialog==true){ ?>
+<?php if(@$dialog==true){ ?>
 	$(".inputchk").click(function()
 	{
 		$("#selectnguyenlieu").val('');

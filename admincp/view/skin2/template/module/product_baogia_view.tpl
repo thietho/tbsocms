@@ -5,16 +5,16 @@
 	<tr>
         <td align="right">
         	<p>
-            	Ngày <?php echo $this->date->getDay($item['ngaybaogia'])?> tháng <?php echo $this->date->getMonth($item['ngaybaogia'])?> năm <?php echo $this->date->getYear($item['ngaybaogia'])?>
+            	Ngày <?php echo @$this->date->getDay($item['ngaybaogia'])?> tháng <?php echo @$this->date->getMonth($item['ngaybaogia'])?> năm <?php echo @$this->date->getYear($item['ngaybaogia'])?>
             </p>
             
         </td>
     </tr>
-    <?php if($item['ghichu']!=""){ ?>
+    <?php if(@$item['ghichu']!=""){ ?>
     <tr>
     	<td>
             <div class="cusinfo">
-                <?php echo $item['ghichu']?>
+                <?php echo @$item['ghichu']?>
             </div>
         </td>
 	</tr>
@@ -36,21 +36,21 @@
     <?php foreach($sitemaps as $sitemap => $medias){ ?>
     	<?php if(count($medias)){ ?>
     	<tr>
-        	<td colspan="5"><strong><?php echo $this->document->getSiteMap($sitemap,SITEID)?></strong></td>
+        	<td colspan="5"><strong><?php echo @$this->document->getSiteMap($sitemap,SITEID)?></strong></td>
         </tr>
         <?php foreach($medias as $media){?>
         <tr>
-        	<td align="center"><?php echo $index++?></td>
+        	<td align="center"><?php echo @$index++?></td>
             <td>
-            	<?php echo $this->document->productName($media)?>
-                <?php if($media['ghichu']){ ?>
-                (<?php echo $media['ghichu']?>)
+            	<?php echo @$this->document->productName($media)?>
+                <?php if(@$media['ghichu']){ ?>
+                (<?php echo @$media['ghichu']?>)
                 <?php } ?>
             </td>
-            <td><font style="text-transform:uppercase"><?php echo $this->document->getCategory($this->document->getMedia($media['mediaid'],'brand'))?></font></td>
+            <td><font style="text-transform:uppercase"><?php echo @$this->document->getCategory(@$this->document->getMedia($media['mediaid'],'brand'))?></font></td>
             
-            <td class="number"><?php echo $this->string->numberFormate($media['gia'])?></td>
-            <td><img src="<?php echo $media['imagepreview']?>" /></td>
+            <td class="number"><?php echo @$this->string->numberFormate($media['gia'])?></td>
+            <td><img src="<?php echo @$media['imagepreview']?>" /></td>
         </tr>
         <?php }?>
         <?php } ?>

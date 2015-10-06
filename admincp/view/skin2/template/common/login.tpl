@@ -1,4 +1,4 @@
-<div class="error"><?php echo $error_warning?></div>
+<div class="error"><?php echo @$error_warning?></div>
 <form role="form" method="post">
     <fieldset>
         <div class="form-group">

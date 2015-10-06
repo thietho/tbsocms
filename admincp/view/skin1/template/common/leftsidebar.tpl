@@ -1,1 +1,1 @@
-<?php echo $sitemapmenu?>
+<?php echo @$sitemapmenu?>

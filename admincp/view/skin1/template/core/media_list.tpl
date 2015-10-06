@@ -1,19 +1,19 @@
 
 <div class="section">
 
-	<div class="section-title"><?php echo $menu_media ?></div>
+	<div class="section-title"><?php echo @$menu_media ?></div>
     
     <div class="section-content">
     	
         <form action="" method="post" id="listitem" name="listitem">
         	<div id="ben-search">
-            	<label><?php echo $lbl_key ?></label>
+            	<label><?php echo @$lbl_key ?></label>
                 <input type="text" id="keyword" name="keyword" class="text" value="" />
                	<label>Loại</label>
                 <select id="type" name="type">
                     <option value=""></option>
                     <?php foreach($module as $key => $val){ ?>
-                    <option value="<?php echo $key?>"><?php echo $val?></option>
+                    <option value="<?php echo @$key?>"><?php echo @$val?></option>
                     <?php } ?>
                 </select>
                 <label>Danh mục</label>
@@ -25,10 +25,10 @@
                 <select id="userid" name="userid">
                     <option value=""></option>
                     <?php foreach($users as $key => $val){ ?>
-                    <option value="<?php echo $val['userid']?>"><?php echo $val['fullname']?></option>
+                    <option value="<?php echo @$val['userid']?>"><?php echo @$val['fullname']?></option>
                     <?php } ?>
                 </select>
-                <label><?php echo $lbl_fromdate ?></label>
+                <label><?php echo @$lbl_fromdate ?></label>
                 <script language="javascript">
 					$(function() {
 						$("#tungay").datepicker({
@@ -39,7 +39,7 @@
 						});
 				 </script>
                 <input id="tungay" name="tungay" type="text" class="text" />
-                <label><?php echo $lbl_todate ?></label>
+                <label><?php echo @$lbl_todate ?></label>
                 <script language="javascript">
 					$(function() {
 						$("#denngay").datepicker({
@@ -51,12 +51,12 @@
 				 </script>
                 <input id="denngay" name="denngay" type="text" class="text" />
                
-                <input type="button" class="button" name="btnSearch" value="<?php echo $button_search ?>" onclick="searchForm()"/>
-                <input type="button" class="button" name="btnSearch" value="<?php echo $button_viewall ?>" onclick="viewAll()"/>
+                <input type="button" class="button" name="btnSearch" value="<?php echo @$button_search ?>" onclick="searchForm()"/>
+                <input type="button" class="button" name="btnSearch" value="<?php echo @$button_viewall ?>" onclick="viewAll()"/>
             </div>
         	<div class="button right">
                
-            	<input class="button" type="button" name="delete_all" value="<?php echo $button_delete ?>" onclick="deleteItem()"/>  
+            	<input class="button" type="button" name="delete_all" value="<?php echo @$button_delete ?>" onclick="deleteItem()"/>  
             </div>
             <div class="clearer">^&nbsp;</div>
             
@@ -74,7 +74,7 @@
 
 function deleteItem()
 {
-	var answer = confirm("<?php echo $announ_del ?>")
+	var answer = confirm("<?php echo @$announ_del ?>")
 	if (answer)
 	{
 		$.post("?route=core/media/delete", 
@@ -84,7 +84,7 @@ function deleteItem()
 					if(data!="")
 					{
 						alert(data)
-						linkto("?<?php echo $refres?>")
+						linkto("?<?php echo @$refres?>")
 					}
 				}
 		);
@@ -137,7 +137,7 @@ function searchForm()
 		url += "&tungay=" + encodeURI($("#tungay").val());
 	if($("#denngay").val() != "")
 		url += "&denngay=" + encodeURI($("#denngay").val());
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
@@ -160,14 +160,14 @@ $('#type').change(function(e) {
 			
 			$('#sitemapid').append(str);
 		}
-		$("#sitemapid").val("<?php echo $_GET['sitemapid']?>");
+		$("#sitemapid").val("<?php echo @$_GET['sitemapid']?>");
 	});
 });
-$("#keyword").val("<?php echo $_GET['keyword']?>");
-$("#type").val("<?php echo $_GET['type']?>");
-$("#userid").val("<?php echo $_GET['userid']?>");
-$("#tungay").val("<?php echo $_GET['tungay']?>");
-$("#denngay").val("<?php echo $_GET['denngay']?>");
+$("#keyword").val("<?php echo @$_GET['keyword']?>");
+$("#type").val("<?php echo @$_GET['type']?>");
+$("#userid").val("<?php echo @$_GET['userid']?>");
+$("#tungay").val("<?php echo @$_GET['tungay']?>");
+$("#denngay").val("<?php echo @$_GET['denngay']?>");
 $(document).ready(function(e) {
     $('#type').change();
 	

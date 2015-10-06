@@ -1,7 +1,7 @@
 		<div>
         	<div class="left" id="sidebar" style="width:20%">
         
-                <?php echo $sidebar?>
+                <?php echo @$sidebar?>
                 
                 <div class="clearer">&nbsp;</div>
                 

@@ -5,265 +5,265 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	function __construct() 
 	{
 		
-		$this->load->model("core/module");
+		@$this->load->model("core/module");
 		$moduleid = $_GET['route'];
-		$this->document->title = $this->model_core_module->getBreadcrumbs($moduleid);
-		if($this->user->checkPermission($moduleid)==false)
+		@$this->document->title = @$this->model_core_module->getBreadcrumbs($moduleid);
+		if(@$this->user->checkPermission($moduleid)==false)
 		{
-			$this->response->redirect('?route=page/home');
+			@$this->response->redirect('?route=page/home');
 		}
 		
-		$this->load->model("quanlykho/nguyenlieu");
-		$this->load->model("quanlykho/nhacungcap");
-		$this->load->helper('image');
-		$this->load->model("core/category");
+		@$this->load->model("quanlykho/nguyenlieu");
+		@$this->load->model("quanlykho/nhacungcap");
+		@$this->load->helper('image');
+		@$this->load->model("core/category");
 		
-		$this->load->model("quanlykho/donvitinh");
-		$this->load->model("quanlykho/phieunhapxuat");
-		$this->data['loainguyenlieu'] = array();
-		$this->model_core_category->getTree("nguyenlieu",$this->data['loainguyenlieu']);
+		@$this->load->model("quanlykho/donvitinh");
+		@$this->load->model("quanlykho/phieunhapxuat");
+		@$this->data['loainguyenlieu'] = array();
+		@$this->model_core_category->getTree("nguyenlieu",@$this->data['loainguyenlieu']);
 		unset($this->data['loainguyenlieu'][0]);
-		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
+		@$this->data['donvitinh'] = @$this->model_quanlykho_donvitinh->getList();
 		
    	}
 	public function index()
 	{
-		$this->data['bangbaogia'] = $this->url->http('quanlykho/nguyenlieu/bangbaogia');
-		$this->data['insertlist'] = $this->url->http('quanlykho/nguyenlieu/insertlist');
-		$this->data['insert'] = $this->url->http('quanlykho/nguyenlieu/insert');
-		$this->data['delete'] = $this->url->http('quanlykho/nguyenlieu/delete');
+		@$this->data['bangbaogia'] = @$this->url->http('quanlykho/nguyenlieu/bangbaogia');
+		@$this->data['insertlist'] = @$this->url->http('quanlykho/nguyenlieu/insertlist');
+		@$this->data['insert'] = @$this->url->http('quanlykho/nguyenlieu/insert');
+		@$this->data['delete'] = @$this->url->http('quanlykho/nguyenlieu/delete');
 		
-		$this->id='content';
-		$this->template="quanlykho/nguyenlieu_list.tpl";
-		$this->layout="layout/center";
+		@$this->id='content';
+		@$this->template="quanlykho/nguyenlieu_list.tpl";
+		@$this->layout="layout/center";
 		
-		if($this->request->get['opendialog']=='true')
+		if(@$this->request->get['opendialog']=='true')
 		{
-			$this->layout="";
-			$this->data['dialog'] = true;
+			@$this->layout="";
+			@$this->data['dialog'] = true;
 			
 		}
-		$this->render();
+		@$this->render();
 	}
 	
 	public function insert()
 	{
-    	$this->getForm();
+    	@$this->getForm();
 	}
 	public function insertlist()
 	{		
-    	$this->id='content';
-		$this->template='quanlykho/nguyenlieu_form_list.tpl';
-		$this->layout="layout/center";
-		$this->render();
+    	@$this->id='content';
+		@$this->template='quanlykho/nguyenlieu_form_list.tpl';
+		@$this->layout="layout/center";
+		@$this->render();
 	}
 	
 	public function update()
 	{
-		$this->data['haspass'] = false;
-		$this->data['readonly'] = 'readonly="readonly"';
-		$this->getForm();		
+		@$this->data['haspass'] = false;
+		@$this->data['readonly'] = 'readonly="readonly"';
+		@$this->getForm();		
   	}
 	
 	public function dinhluong()
 	{
 		
-		//$this->load->language('quanlykho/nguyenlieu');
-		//$this->data = array_merge($this->data, $this->language->getData());
-		$this->load->model("quanlykho/nhom");
+		//@$this->load->language('quanlykho/nguyenlieu');
+		//@$this->data = array_merge(@$this->data, @$this->language->getData());
+		@$this->load->model("quanlykho/nhom");
 		
-		$this->load->model("quanlykho/donvitinh");
-		$this->data['nhomnguyenlieu'] = $this->model_quanlykho_nhom->getChild("nhomnguyenlieu");
-		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
+		@$this->load->model("quanlykho/donvitinh");
+		@$this->data['nhomnguyenlieu'] = @$this->model_quanlykho_nhom->getChild("nhomnguyenlieu");
+		@$this->data['donvitinh'] = @$this->model_quanlykho_donvitinh->getList();
 		
-		$this->data['haspass'] = false;
-		$this->data['readonly'] = 'readonly="readonly"';
-		$this->data['item'] = $this->model_quanlykho_nguyenlieu->getItem($this->request->get['id']);
+		@$this->data['haspass'] = false;
+		@$this->data['readonly'] = 'readonly="readonly"';
+		@$this->data['item'] = @$this->model_quanlykho_nguyenlieu->getItem(@$this->request->get['id']);
 		
-		$this->data['dinhluong'] = $this->model_quanlykho_nguyenlieu->getItem($this->data['item']['nguyenlieugoc']);
+		@$this->data['dinhluong'] = @$this->model_quanlykho_nguyenlieu->getItem(@$this->data['item']['nguyenlieugoc']);
 			
 			
-			$this->id='content';
-			$this->template='quanlykho/nguyenlieu_dinhluong.tpl';
-			$this->layout="layout/center";
-			$this->render();
+			@$this->id='content';
+			@$this->template='quanlykho/nguyenlieu_dinhluong.tpl';
+			@$this->layout="layout/center";
+			@$this->render();
 		
 		
   	}
 	
 	public function bangbaogia()
 	{		
-		$this->data['insert'] = $this->url->http('quanlykho/nguyenlieu/insertbangbaogia');
-		$this->data['delete'] = $this->url->http('quanlykho/nguyenlieu/deletebangbaogia');
+		@$this->data['insert'] = @$this->url->http('quanlykho/nguyenlieu/insertbangbaogia');
+		@$this->data['delete'] = @$this->url->http('quanlykho/nguyenlieu/deletebangbaogia');
 		
 		$where = " AND loai = 'nguyenlieu'";
-		$rows = $this->model_quanlykho_nguyenlieu->getBangBaoGias($where);
+		$rows = @$this->model_quanlykho_nguyenlieu->getBangBaoGias($where);
 		//Page
-		$page = $this->request->get['page'];		
+		@$page = @$this->request->get['page'];		
 		$x=$page;		
 		$limit = 20;
 		$total = count($rows); 
 		// work out the pager values 
-		$this->data['pager']  = $this->pager->pageLayout($total, $limit, $page); 
+		@$this->data['pager']  = @$this->pager->pageLayout($total, $limit, $page); 
 		
-		$pager  = $this->pager->getPagerData($total, $limit, $page); 
+		$pager  = @$this->pager->getPagerData($total, $limit, $page); 
 		$offset = $pager->offset; 
 		$limit  = $pager->limit; 
 		$page   = $pager->page;
 		
-		$this->data['datas'] = array();
-		for($i=$offset;$i < $offset + $limit && count($rows[$i])>0;$i++)
-		//for($i=0; $i <= count($this->data['datas'])-1 ; $i++)
+		@$this->data['datas'] = array();
+		for($i=$offset;$i < $offset + $limit && @count(@$rows[$i])>0;$i++)
+		//for($i=0; $i <= count(@$this->data['datas'])-1 ; $i++)
 		{
-			$this->data['datas'][$i] = $rows[$i];
-			$this->data['datas'][$i]['link_edit'] = $this->url->http('quanlykho/nguyenlieu/updatebangbaogia&id='.$this->data['datas'][$i]['id']);
-			$this->data['datas'][$i]['text_edit'] = "Sửa";
+			@$this->data['datas'][$i] = $rows[$i];
+			@$this->data['datas'][$i]['link_edit'] = @$this->url->http('quanlykho/nguyenlieu/updatebangbaogia&id='.@$this->data['datas'][$i]['id']);
+			@$this->data['datas'][$i]['text_edit'] = "Sửa";
 			
 		}
 		
 		
-		$this->id='content';
-		$this->template='quanlykho/nguyenlieu_bangbaogia.tpl';
-		$this->layout="layout/center";
-		$this->render();
+		@$this->id='content';
+		@$this->template='quanlykho/nguyenlieu_bangbaogia.tpl';
+		@$this->layout="layout/center";
+		@$this->render();
 	
 		
   	}
 	//Báo giá
 	public function insertbangbaogia()
 	{
-		if(!$this->user->hasPermission($this->getRoute(), "add"))
+		if(!@$this->user->hasPermission(@$this->getRoute(), "add"))
 		{
-			$this->response->redirect("?route=common/permission");
+			@$this->response->redirect("?route=common/permission");
 		}
 		
-    	$this->getFormBangBaoGia();
+    	@$this->getFormBangBaoGia();
 	}
 	
 	public function updatebangbaogia()
 	{	
-		$this->data['haspass'] = false;
-		$this->data['readonly'] = 'readonly="readonly"';	
-		$this->getFormBangBaoGia();
+		@$this->data['haspass'] = false;
+		@$this->data['readonly'] = 'readonly="readonly"';	
+		@$this->getFormBangBaoGia();
 	}
 	
 	private function getFormBangBaoGia()
 	{
 		if ((isset($this->request->get['id'])) ) 
 		{
-      		$this->data['item'] = $this->model_quanlykho_nguyenlieu->getBangBaoGia($this->request->get['id']);
-			$where = " AND mabangbaogia ='".$this->request->get['id']."'";
-			$this->data['chitiet'] = $this->model_quanlykho_nguyenlieu->getCapNhatGias($where);
+      		@$this->data['item'] = @$this->model_quanlykho_nguyenlieu->getBangBaoGia(@$this->request->get['id']);
+			$where = " AND mabangbaogia ='".@$this->request->get['id']."'";
+			@$this->data['chitiet'] = @$this->model_quanlykho_nguyenlieu->getCapNhatGias($where);
 			
     	}
 		
-		$this->id='content';
-		$this->template='quanlykho/nguyenlieu_bangbaogiaform.tpl';
-		$this->layout="layout/center";
+		@$this->id='content';
+		@$this->template='quanlykho/nguyenlieu_bangbaogiaform.tpl';
+		@$this->layout="layout/center";
 		
-		$this->render();
+		@$this->render();
 	}
 	
 	public function capnhatgia()
 	{			
-		$this->load->model("quanlykho/donvitinh");
+		@$this->load->model("quanlykho/donvitinh");
 		
-		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
+		@$this->data['donvitinh'] = @$this->model_quanlykho_donvitinh->getList();
 		
-		$this->data['item'] = $this->model_quanlykho_nguyenlieu->getItem($this->request->get['id']);
-		$donvi = $this->model_quanlykho_donvitinh->getItem($this->data['item']['madonvi']);
-		$this->data['item']['tendonvitinh'] = $donvi['tendonvitinh'];
-		$this->id='content';
-		$this->template='quanlykho/nguyenlieu_capnhatgia.tpl';
-		$this->layout="layout/center";
-		$this->render();
+		@$this->data['item'] = @$this->model_quanlykho_nguyenlieu->getItem(@$this->request->get['id']);
+		$donvi = @$this->model_quanlykho_donvitinh->getItem(@$this->data['item']['madonvi']);
+		@$this->data['item']['tendonvitinh'] = $donvi['tendonvitinh'];
+		@$this->id='content';
+		@$this->template='quanlykho/nguyenlieu_capnhatgia.tpl';
+		@$this->layout="layout/center";
+		@$this->render();
   	}
 	
 	public function savecapnhatgia()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		if(count($data))
 		{
-			$data['ngay'] = $this->date->formatViewDate($data['ngay']);
-			$this->model_quanlykho_nguyenlieu->saveCapNhatGia($data);
+			$data['ngay'] = @$this->date->formatViewDate($data['ngay']);
+			@$this->model_quanlykho_nguyenlieu->saveCapNhatGia($data);
 		}
-		$this->data['output'] = "true";
+		@$this->data['output'] = "true";
 		
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	
 	function xemgia()
 	{
-		if(!$this->user->hasPermission($this->getRoute(), "edit"))
+		if(!@$this->user->hasPermission(@$this->getRoute(), "edit"))
 		{
-			$this->response->redirect("?route=common/permission");
+			@$this->response->redirect("?route=common/permission");
 		}
 		else
 		{
 			
 			
 			
-			$this->data['item'] = $this->model_quanlykho_nguyenlieu->getItem($this->request->get['id']);
+			@$this->data['item'] = @$this->model_quanlykho_nguyenlieu->getItem(@$this->request->get['id']);
 			
-			$where = " AND manguyenlieu ='".$this->request->get['id']."' ORDER BY `ngay` DESC";
-			$this->data['chitiet'] = $this->model_quanlykho_nguyenlieu->getCapNhatGias($where);
+			$where = " AND manguyenlieu ='".@$this->request->get['id']."' ORDER BY `ngay` DESC";
+			@$this->data['chitiet'] = @$this->model_quanlykho_nguyenlieu->getCapNhatGias($where);
 			
-			$this->id='content';
-			$this->template='quanlykho/nguyenlieu_xemgia.tpl';
-			$this->layout="layout/center";
-			$this->render();
+			@$this->id='content';
+			@$this->template='quanlykho/nguyenlieu_xemgia.tpl';
+			@$this->layout="layout/center";
+			@$this->render();
 		}
 	}
 	public function deleteBaoGia()
 	{
-		$listid=$this->request->post['delete'];
+		$listid=@$this->request->post['delete'];
 		//$listmadonvi=$_POST['delete'];
 		
 		if(count($listid))
 		{
-			$this->model_quanlykho_nguyenlieu->deletedBangBaoGia($listid);
-			$this->data['output'] = "Xóa thành công";
+			@$this->model_quanlykho_nguyenlieu->deletedBangBaoGia($listid);
+			@$this->data['output'] = "Xóa thành công";
 		}
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	//End báo gia
 	public function delete() 
 	{
-		$listid=$this->request->post['delete'];
+		$listid=@$this->request->post['delete'];
 		//$listmadonvi=$_POST['delete'];
 		
 		if(count($listid))
 		{
-			$this->model_quanlykho_nguyenlieu->deletedatas($listid);
-			$this->data['output'] = "Xóa thành công";
+			@$this->model_quanlykho_nguyenlieu->deletedatas($listid);
+			@$this->data['output'] = "Xóa thành công";
 		}
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
   	}
 	
 	public function getList() 
 	{
 		
-		$this->data['bangbaogia'] = $this->url->http('quanlykho/nguyenlieu/bangbaogia');
-		$this->data['insertlist'] = $this->url->http('quanlykho/nguyenlieu/insertlist');
-		$this->data['insert'] = $this->url->http('quanlykho/nguyenlieu/insert');
-		$this->data['delete'] = $this->url->http('quanlykho/nguyenlieu/delete');
+		@$this->data['bangbaogia'] = @$this->url->http('quanlykho/nguyenlieu/bangbaogia');
+		@$this->data['insertlist'] = @$this->url->http('quanlykho/nguyenlieu/insertlist');
+		@$this->data['insert'] = @$this->url->http('quanlykho/nguyenlieu/insert');
+		@$this->data['delete'] = @$this->url->http('quanlykho/nguyenlieu/delete');
 		
 		
 		
-		$this->data['datas'] = array();
+		@$this->data['datas'] = array();
 		$where = "";
 		
-		$datasearchlike['manguyenlieu'] = urldecode($this->request->get['manguyenlieu']);
-		$datasearchlike['tennguyenlieu'] = urldecode($this->request->get['tennguyenlieu']);
-		$datasearch['manhom'] = $this->request->get['manhom'];
-		$datasearch['loai'] = $this->request->get['loai'];
-		$datasearch['makho'] = $this->request->get['makho'];
+		$datasearchlike['manguyenlieu'] = urldecode(@$this->request->get['manguyenlieu']);
+		$datasearchlike['tennguyenlieu'] = urldecode(@$this->request->get['tennguyenlieu']);
+		$datasearch['manhom'] = @$this->request->get['manhom'];
+		$datasearch['loai'] = @$this->request->get['loai'];
+		$datasearch['makho'] = @$this->request->get['makho'];
 		
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
@@ -277,140 +277,140 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 			if($item !="")
 				$arr[] = " AND " . $key ." = '".$item."'";
 		}
-		$arrnhom = $this->string->matrixToArray($this->data['loainguyenlieu'],'manhom');
+		$arrnhom = @$this->string->matrixToArray(@$this->data['loainguyenlieu'],'manhom');
 		
 		
 		$where = implode("",$arr);
 		
 		
-		$rows = $this->model_quanlykho_nguyenlieu->getList($where);
+		$rows = @$this->model_quanlykho_nguyenlieu->getList($where);
 		//Page
-		$page = $this->request->get['page'];		
+		@$page = @$this->request->get['page'];		
 		$x=$page;		
 		$limit = 20;
 		$total = count($rows); 
 		// work out the pager values 
-		$this->data['pager']  = $this->pager->pageLayoutAjax($total, $limit, $page,"#listnguyenlieu");
+		@$this->data['pager']  = @$this->pager->pageLayoutAjax($total, $limit, $page,"#listnguyenlieu");
 		
-		$pager  = $this->pager->getPagerData($total, $limit, $page); 
+		$pager  = @$this->pager->getPagerData($total, $limit, $page); 
 		$offset = $pager->offset; 
 		$limit  = $pager->limit; 
 		$page   = $pager->page;
-		for($i=$offset;$i < $offset + $limit && count($rows[$i])>0;$i++)
-		//for($i=0; $i <= count($this->data['datas'])-1 ; $i++)
+		for($i=$offset;$i < $offset + $limit && @count(@$rows[$i])>0;$i++)
+		//for($i=0; $i <= count(@$this->data['datas'])-1 ; $i++)
 		{
-			$this->data['datas'][$i] = $rows[$i];
-			$this->data['datas'][$i]['link_edit'] = $this->url->http('quanlykho/nguyenlieu/update&id='.$this->data['datas'][$i]['id']);
-			$this->data['datas'][$i]['text_edit'] = "Sửa";
-			$this->data['datas'][$i]['link_dinhluong'] = $this->url->http('quanlykho/nguyenlieu/dinhluong&id='.$this->data['datas'][$i]['id']);
-			$this->data['datas'][$i]['text_dinhluong'] = "Định lượng";
-			$this->data['datas'][$i]['link_capnhatgia'] = $this->url->http('quanlykho/nguyenlieu/capnhatgia&id='.$this->data['datas'][$i]['id']);
-			$this->data['datas'][$i]['text_capnhatgia'] = "Cập nhật giá";
+			@$this->data['datas'][$i] = $rows[$i];
+			@$this->data['datas'][$i]['link_edit'] = @$this->url->http('quanlykho/nguyenlieu/update&id='.@$this->data['datas'][$i]['id']);
+			@$this->data['datas'][$i]['text_edit'] = "Sửa";
+			@$this->data['datas'][$i]['link_dinhluong'] = @$this->url->http('quanlykho/nguyenlieu/dinhluong&id='.@$this->data['datas'][$i]['id']);
+			@$this->data['datas'][$i]['text_dinhluong'] = "Định lượng";
+			@$this->data['datas'][$i]['link_capnhatgia'] = @$this->url->http('quanlykho/nguyenlieu/capnhatgia&id='.@$this->data['datas'][$i]['id']);
+			@$this->data['datas'][$i]['text_capnhatgia'] = "Cập nhật giá";
 			
-			$this->data['datas'][$i]['link_xemgia'] = $this->url->http('quanlykho/nguyenlieu/xemgia&id='.$this->data['datas'][$i]['id']);
-			$this->data['datas'][$i]['text_xemgia'] = "Xem giá";
+			@$this->data['datas'][$i]['link_xemgia'] = @$this->url->http('quanlykho/nguyenlieu/xemgia&id='.@$this->data['datas'][$i]['id']);
+			@$this->data['datas'][$i]['text_xemgia'] = "Xem giá";
 			//
 			
 			$imagepreview = "";
-			$this->data['datas'][$i]['soluongton'] = $this->model_quanlykho_nguyenlieu->getInventory($this->data['datas'][$i]['id']);
-			$this->data['datas'][$i]['imagethumbnail'] = HelperImage::resizePNG($this->data['datas'][$i]['imagepath'], 100, 0);
+			@$this->data['datas'][$i]['soluongton'] = @$this->model_quanlykho_nguyenlieu->getInventory(@$this->data['datas'][$i]['id']);
+			@$this->data['datas'][$i]['imagethumbnail'] = HelperImage::resizePNG(@$this->data['datas'][$i]['imagepath'], 100, 0);
 			
 		}
-		$this->data['refres']=$_SERVER['QUERY_STRING'];
-		$this->id='content';
-		$this->template="quanlykho/nguyenlieu_table.tpl";
+		@$this->data['refres']=$_SERVER['QUERY_STRING'];
+		@$this->id='content';
+		@$this->template="quanlykho/nguyenlieu_table.tpl";
 		
-		if($this->request->get['opendialog']=='true')
+		if(@$this->request->get['opendialog']=='true')
 		{
-			$this->layout="";
-			$this->data['dialog'] = true;
+			@$this->layout="";
+			@$this->data['dialog'] = true;
 			
 		}
-		$this->render();
+		@$this->render();
 	}
 	
 	
 	private function getForm()
 	{
-		$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
+		@$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
 		
 		if ((isset($this->request->get['id'])) ) 
 		{
-      		$this->data['item'] = $this->model_quanlykho_nguyenlieu->getItem($this->request->get['id']);
-			$this->data['item']['imagethumbnail'] = HelperImage::resizePNG($this->data['item']['imagepath'], 200, 200);
+      		@$this->data['item'] = @$this->model_quanlykho_nguyenlieu->getItem(@$this->request->get['id']);
+			@$this->data['item']['imagethumbnail'] = HelperImage::resizePNG(@$this->data['item']['imagepath'], 200, 200);
 			
     	}
 		
-		$this->id='content';
-		$this->template='quanlykho/nguyenlieu_form.tpl';
-		$this->layout="layout/center";
+		@$this->id='content';
+		@$this->template='quanlykho/nguyenlieu_form.tpl';
+		@$this->layout="layout/center";
 		
-		$this->render();
+		@$this->render();
 	}
 	
 	public function save()
 	{
-		$data = $this->request->post;
-		if($this->validateForm($data))
+		$data = @$this->request->post;
+		if(@$this->validateForm($data))
 		{
 			
-			$item = $this->model_quanlykho_nguyenlieu->getItem($data['id']);
+			$item = @$this->model_quanlykho_nguyenlieu->getItem($data['id']);
 			if(count($item)==0)
 			{
-				$this->model_quanlykho_nguyenlieu->insert($data);
+				@$this->model_quanlykho_nguyenlieu->insert($data);
 			}
 			else
 			{
-				$this->model_quanlykho_nguyenlieu->update($data);
+				@$this->model_quanlykho_nguyenlieu->update($data);
 			}
-			$this->data['output'] = "true";
+			@$this->data['output'] = "true";
 		}
 		else
 		{
-			foreach($this->error as $item)
+			foreach(@$this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				@$this->data['output'] .= $item."<br>";
 			}
 		}
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	
 	public function savedinhluong()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		
-		if($this->validateDinhLuong($data))
+		if(@$this->validateDinhLuong($data))
 		{
 			
-			//$this->model_quanlykho_nguyenlieu->saveNguyenLieuTrungGian($data);
-			$this->model_quanlykho_nguyenlieu->updateNguyenLieuGoc($data);
-			$this->data['output'] = "true";
+			//@$this->model_quanlykho_nguyenlieu->saveNguyenLieuTrungGian($data);
+			@$this->model_quanlykho_nguyenlieu->updateNguyenLieuGoc($data);
+			@$this->data['output'] = "true";
 		}
 		else
 		{
-			foreach($this->error as $item)
+			foreach(@$this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				@$this->data['output'] .= $item."<br>";
 			}
 		}
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	
 	public function savebangbaogia()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		
-		if($this->validateBangBaoGia($data))
+		if(@$this->validateBangBaoGia($data))
 		{
 			$data['loai'] = "nguyenlieu";
-			$data['ngay'] = $this->date->formatViewDate($data['ngay']);
+			$data['ngay'] = @$this->date->formatViewDate($data['ngay']);
 			
 			//Luu thong tin bang bao gia
-			$mabangbaogia = $this->model_quanlykho_nguyenlieu->saveBangBaoGia($data);
+			$mabangbaogia = @$this->model_quanlykho_nguyenlieu->saveBangBaoGia($data);
 			
 			//Luu chi tiet bang bao gia
 			$arrid = $data['chitiet'];
@@ -424,7 +424,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 				$datagia['manhacungung'] = $data['manhacungung'];
 				$datagia['gia'] = $arrdongia[$key];
 				$datagia['ngay'] = $data['ngay'];
-				$this->model_quanlykho_nguyenlieu->saveCapNhatGia($datagia);
+				@$this->model_quanlykho_nguyenlieu->saveCapNhatGia($datagia);
 			}
 			
 			$list = trim( $data['delchitiet'],",");
@@ -434,22 +434,22 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 			{
 				foreach($arrdel as $val)
 				{
-					$this->model_quanlykho_nguyenlieu->deletedCapNhatGia($val)	;
+					@$this->model_quanlykho_nguyenlieu->deletedCapNhatGia($val)	;
 				}
 			}
 			
-			$this->data['output'] = "true";
+			@$this->data['output'] = "true";
 		}
 		else
 		{
-			foreach($this->error as $item)
+			foreach(@$this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				@$this->data['output'] .= $item."<br>";
 			}
 		}
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	
 	private function validateForm($data)
@@ -458,7 +458,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 		
     	if($data['manguyenlieu'] == "")
 		{
-      		$this->error['manguyenlieu'] = "Mã nguyên liệu không được rỗng";
+      		@$this->error['manguyenlieu'] = "Mã nguyên liệu không được rỗng";
     	}
 		else
 		{
@@ -466,34 +466,34 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 			{
 				
 				$where = " AND manguyenlieu ='".$data['manguyenlieu']."'" ;
-				$item = $this->model_quanlykho_nguyenlieu->getList($where);
+				$item = @$this->model_quanlykho_nguyenlieu->getList($where);
 				if(count($item)>0)
-					$this->error['manguyenlieu'] = "Mã nguyên liệu đã được sử dụng";
+					@$this->error['manguyenlieu'] = "Mã nguyên liệu đã được sử dụng";
 			}
 		}
 		if(strlen($data['manguyenlieu']) > 50)
 		{
-      		$this->error['manguyenlieu'] = "Mã nguyên liệu không được vượt quá 50 ký tự";
+      		@$this->error['manguyenlieu'] = "Mã nguyên liệu không được vượt quá 50 ký tự";
     	}
 		
 		if ($data['tennguyenlieu'] == "") 
 		{
-      		$this->error['tennguyenlieu'] = "Bạn chưa nhập tên nguyên liệu";
+      		@$this->error['tennguyenlieu'] = "Bạn chưa nhập tên nguyên liệu";
     	}
 		
 		
 		
 		if ($data['loai'] == "") 
 		{
-      		$this->error['loai'] = "Bạn chưa chọn loại";
+      		@$this->error['loai'] = "Bạn chưa chọn loại";
     	}
 		
 		if ($data['madonvi'] == "") 
 		{
-      		$this->error['madonvi'] = "Bạn chưa nhập đơn vị tính";
+      		@$this->error['madonvi'] = "Bạn chưa nhập đơn vị tính";
     	}
 
-		if (count($this->error)==0) {
+		if (count(@$this->error)==0) {
 	  		return TRUE;
 		} else {
 	  		return FALSE;
@@ -504,23 +504,23 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	{
 		if ($data['loai'] == "") 
 		{
-      		$this->error['loai'] = "Bạn chưa chọn nhóm";
+      		@$this->error['loai'] = "Bạn chưa chọn nhóm";
     	}
 		
 		if ($data['nguyenlieugoc'] == "") 
 		{
-      		$this->error['nguyenlieugoc'] = "Bạn chưa chọn nguyên liệu gốc";
+      		@$this->error['nguyenlieugoc'] = "Bạn chưa chọn nguyên liệu gốc";
     	}
 		
 		if ($data['nguyenlieugoc'] == $data['manguyenlieu']) 
 		{
-      		$this->error['nguyenlieugoc'] = "Bạn chọn nguyên liệu gốc phải khác với nguyên liêu hiện hành";
+      		@$this->error['nguyenlieugoc'] = "Bạn chọn nguyên liệu gốc phải khác với nguyên liêu hiện hành";
     	}
 		
 		
 		
 
-		if (count($this->error)==0) {
+		if (count(@$this->error)==0) {
 	  		return TRUE;
 		} else {
 	  		return FALSE;
@@ -531,15 +531,15 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	{
 		if ($data['ngay'] == "") 
 		{
-      		$this->error['ngay'] = "Bạn chưa chọn ngày";
+      		@$this->error['ngay'] = "Bạn chưa chọn ngày";
     	}
 		
 		if ($data['manhacungung'] == "") 
 		{
-      		$this->error['manhacungung'] = "Bạn chưa chọn nhà cung cấp";
+      		@$this->error['manhacungung'] = "Bạn chưa chọn nhà cung cấp";
     	}
 		
-		if (count($this->error)==0) {
+		if (count(@$this->error)==0) {
 	  		return TRUE;
 		} else {
 	  		return FALSE;
@@ -548,62 +548,62 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	
 	public function viewinventory()
 	{
-		$id = $this->request->get['id'];
+		$id = @$this->request->get['id'];
 		
 		
-		$this->data['item'] = $this->model_quanlykho_nguyenlieu->getItem($id);
-		$this->data['item']['soluongton'] = $this->model_quanlykho_nguyenlieu->getInventory($id);
+		@$this->data['item'] = @$this->model_quanlykho_nguyenlieu->getItem($id);
+		@$this->data['item']['soluongton'] = @$this->model_quanlykho_nguyenlieu->getInventory($id);
 		$where = " AND 	nguyenlieuid = '".$id."'";
-		$this->data['datact'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
+		@$this->data['datact'] = @$this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatNguyenLieuList($where);
 		
-		$this->id='content';
-		$this->template="quanlykho/nguyenlieu_inventory.tpl";
-		//$this->layout="layout/dialog";
-		$this->data['dialog'] = true;
-		$this->render();
+		@$this->id='content';
+		@$this->template="quanlykho/nguyenlieu_inventory.tpl";
+		//@$this->layout="layout/dialog";
+		@$this->data['dialog'] = true;
+		@$this->render();
 	}
 	public function importNguyenLieu()
 	{
-		$id = $this->request->get['id'];
-		$this->data['item'] = $this->model_quanlykho_nguyenlieu->getItem($id);
-		$this->data['data_nhacungcap'] = $this->model_quanlykho_nhacungcap->getList();
+		$id = @$this->request->get['id'];
+		@$this->data['item'] = @$this->model_quanlykho_nguyenlieu->getItem($id);
+		@$this->data['data_nhacungcap'] = @$this->model_quanlykho_nhacungcap->getList();
 		
-		$this->id='content';
-		$this->template="quanlykho/nguyenlieu_import.tpl";
-		//$this->layout="layout/dialog";
-		$this->data['dialog'] = true;
-		$this->render();
+		@$this->id='content';
+		@$this->template="quanlykho/nguyenlieu_import.tpl";
+		//@$this->layout="layout/dialog";
+		@$this->data['dialog'] = true;
+		@$this->render();
 	}
 	public function saveImport()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		
-		if($this->validateImport($data))
+		if(@$this->validateImport($data))
 		{
-			$data['ngaylap'] = $this->date->getToday();
-			$data['nguoinhap'] = $this->user->getUserName();
-			$this->model_quanlykho_nguyenlieu->saveNguyeLieuXuatNhap($data);
-			$this->data['output'] = "true";
+			$data['ngaylap'] = @$this->date->getToday();
+			$data['nguoinhap'] = @$this->user->getUserName();
+			@$this->model_quanlykho_nguyenlieu->saveNguyeLieuXuatNhap($data);
+			@$this->data['output'] = "true";
 		}
 		else
 		{
-			foreach($this->error as $item)
+			foreach(@$this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				@$this->data['output'] .= $item."<br>";
 			}
 		}
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	private function validateImport($data)
 	{
 		if ($data['soluong'] == "") 
 		{
-      		$this->error['soluong'] = "Bạn chưa nhập số lượng";
+      		@$this->error['soluong'] = "Bạn chưa nhập số lượng";
     	}
 		
-		if (count($this->error)==0) {
+		if (count(@$this->error)==0) {
 	  		return TRUE;
 		} else {
 	  		return FALSE;
@@ -612,47 +612,47 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	
 	public function exportNguyenLieu()
 	{
-		$id = $this->request->get['id'];
-		$this->data['item'] = $this->model_quanlykho_nguyenlieu->getItem($id);
-		$this->data['data_nhacungcap'] = $this->model_quanlykho_nhacungcap->getList();
+		$id = @$this->request->get['id'];
+		@$this->data['item'] = @$this->model_quanlykho_nguyenlieu->getItem($id);
+		@$this->data['data_nhacungcap'] = @$this->model_quanlykho_nhacungcap->getList();
 		
-		$this->id='content';
-		$this->template="quanlykho/nguyenlieu_export.tpl";
-		//$this->layout="layout/dialog";
-		$this->data['dialog'] = true;
-		$this->render();
+		@$this->id='content';
+		@$this->template="quanlykho/nguyenlieu_export.tpl";
+		//@$this->layout="layout/dialog";
+		@$this->data['dialog'] = true;
+		@$this->render();
 	}
 	public function saveExport()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		
-		if($this->validateExport($data))
+		if(@$this->validateExport($data))
 		{
-			$data['ngaylap'] = $this->date->getToday();
-			$data['nguoinhap'] = $this->user->getUserName();
+			$data['ngaylap'] = @$this->date->getToday();
+			$data['nguoinhap'] = @$this->user->getUserName();
 			$data['soluong'] = $data['soluong']*-1;
-			$this->model_quanlykho_nguyenlieu->saveNguyeLieuXuatNhap($data);
-			$this->data['output'] = "true";
+			@$this->model_quanlykho_nguyenlieu->saveNguyeLieuXuatNhap($data);
+			@$this->data['output'] = "true";
 		}
 		else
 		{
-			foreach($this->error as $item)
+			foreach(@$this->error as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				@$this->data['output'] .= $item."<br>";
 			}
 		}
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	private function validateExport($data)
 	{
 		if ($data['soluong'] == "") 
 		{
-      		$this->error['soluong'] = "Bạn chưa nhập số lượng";
+      		@$this->error['soluong'] = "Bạn chưa nhập số lượng";
     	}
 		
-		if (count($this->error)==0) {
+		if (count(@$this->error)==0) {
 	  		return TRUE;
 		} else {
 	  		return FALSE;
@@ -661,9 +661,9 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	//Cac ham xu ly tren form
 	public function getNguyenLieu()
 	{
-		$col = $this->request->get['col'];
-		$val = $this->request->get['val'];
-		$operator = $this->request->get['operator'];
+		$col = @$this->request->get['col'];
+		$val = @$this->request->get['val'];
+		$operator = @$this->request->get['operator'];
 		if($operator == "")
 			$operator = "equal";
 		
@@ -686,27 +686,27 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 		}
 			
 			
-		$datas = $this->model_quanlykho_nguyenlieu->getList($where);
+		$datas = @$this->model_quanlykho_nguyenlieu->getList($where);
 		foreach($datas as $key => $item)
 		{
-			$datas[$key]['tendonvitinh'] = $this->document->getDonViTinh($item['madonvi']);
+			$datas[$key]['tendonvitinh'] = @$this->document->getDonViTinh($item['madonvi']);
 		}
 		
-		$this->data['output'] = json_encode(array('nguyenlieus' => $datas));
-		$this->id="nguyenlieu";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->data['output'] = json_encode(array('nguyenlieus' => $datas));
+		@$this->id="nguyenlieu";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	public function getListDonVi()
 	{
-		$nguyenlieuid = $this->request->get['nguyenlieuid'];
-		$nguyenlieu = $this->model_quanlykho_nguyenlieu->getItem($nguyenlieuid);
-		$data_donvi = $this->model_quanlykho_donvitinh->getDonViQuyDoi($nguyenlieu['madonvi']);
-		$this->data['output'] = json_encode($data_donvi);
+		$nguyenlieuid = @$this->request->get['nguyenlieuid'];
+		$nguyenlieu = @$this->model_quanlykho_nguyenlieu->getItem($nguyenlieuid);
+		$data_donvi = @$this->model_quanlykho_donvitinh->getDonViQuyDoi($nguyenlieu['madonvi']);
+		@$this->data['output'] = json_encode($data_donvi);
 		
-		$this->id="donvi";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="donvi";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 }
 ?>

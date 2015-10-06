@@ -3,7 +3,7 @@
 
     <div class="left text-center" id="weblogo">
         <a href="http://holansolutions.com/">		
-			<?php echo $imagepreview ?>
+			<?php echo @$imagepreview ?>
 		</a>  
     </div>
 
@@ -11,7 +11,7 @@
         
         
         
-        <h2><?php echo $title_system?></h2>
+        <h2><?php echo @$title_system?></h2>
         
 
         <div class="clearer">&nbsp;</div>
@@ -30,7 +30,7 @@
                 <td>
                 	<a href="?route=page/home"><img class="png" src="<?php echo DIR_IMAGE?>home.png" alt="" /></a>
                 </td>
-                <?php if($this->user->checkPermission("core/notification/systemCheck")==true){ ?>
+                <?php if(@$this->user->checkPermission("core/notification/systemCheck")==true){ ?>
                 <td>
                 	<div id="hl-notification">
                     	<div id="notification-number"></div>
@@ -44,12 +44,12 @@
                     
                     <ul class="nicelist">
                         
-                        <li><a href="index.php?route=quanlykho/nhanvien/profile">Logged user: <b><?php echo $username?></b></a></li>
-                        <li><a href="index.php?route=common/changepassword"><?php echo $button_change_password?></a></li>
-                        <?php if($this->user->getUserTypeId() == 'admin'){?>
+                        <li><a href="index.php?route=quanlykho/nhanvien/profile">Logged user: <b><?php echo @$username?></b></a></li>
+                        <li><a href="index.php?route=common/changepassword"><?php echo @$button_change_password?></a></li>
+                        <?php if(@$this->user->getUserTypeId() == 'admin'){?>
                         <li><a href="?route=core/module">Phân quyền</a></li>
                         <?php } ?>
-                        <li><a href="logout.php"><?php echo $button_logout?></a></li>
+                        <li><a href="logout.php"><?php echo @$button_logout?></a></li>
                     </ul>
                 </td>
             </tr>
@@ -59,7 +59,7 @@
     <div class="clearer">&nbsp;</div>
 
 </div>
-<?php if($this->user->checkPermission("core/notification/systemCheck")==true){ ?>
+<?php if(@$this->user->checkPermission("core/notification/systemCheck")==true){ ?>
 <script language="javascript">
 $('#hl-notification').hover(
 	function(e)

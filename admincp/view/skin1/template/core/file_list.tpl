@@ -46,8 +46,8 @@
 </form>
 <script>
 	var imageindex = 0;
-	var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
-	var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
+	var DIR_UPLOADPHOTO = "<?php echo @$DIR_UPLOADPHOTO?>";
+	var DIR_UPLOADATTACHMENT = "<?php echo @$DIR_UPLOADATTACHMENT?>";
 </script>
 <script language="javascript">
 //alert(parent.opener.document.InsertContent.title.value);
@@ -204,7 +204,7 @@ function callbackUploadFile()
 function showResult(url)
 {
 	$("#result").load(url,function(){
-		//intSeleteFile("<?php echo $_GET['type']?>");
+		//intSeleteFile("<?php echo @$_GET['type']?>");
 	});
 }
 callbackUploadFile();

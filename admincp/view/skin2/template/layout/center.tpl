@@ -55,8 +55,8 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php echo $header?>
-		<?php echo $content?>
+        <?php echo @$header?>
+		<?php echo @$content?>
         
         <!-- /#page-wrapper -->
 

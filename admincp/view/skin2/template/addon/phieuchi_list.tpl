@@ -1,16 +1,16 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content">
     	
         <form action="" method="post" id="listitem" name="listitem">
         	
         	<div class="button right">
-            	<?php if($this->user->checkPermission("addon/phieuchi/insert")==true){ ?>
-                <input class="button" type="button" name="btnAdd" value="Thêm" onclick="window.location='<?php echo $insert?>'"/>  
+            	<?php if(@$this->user->checkPermission("addon/phieuchi/insert")==true){ ?>
+                <input class="button" type="button" name="btnAdd" value="Thêm" onclick="window.location='<?php echo @$insert?>'"/>  
                 <?php } ?>
-                <?php if($this->user->checkPermission("addon/phieuchi/delete")==true){ ?>
+                <?php if(@$this->user->checkPermission("addon/phieuchi/delete")==true){ ?>
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteorder()"/>  
                 <?php } ?>
             </div>
@@ -40,7 +40,7 @@
                     <select id="taikhoanthuchi" name="taikhoanthuchi">
                     	<option value=""></option>
                     	<?php foreach($chiphi as $val){?>
-                        <option value="<?php echo $val['categoryid']?>"><?php echo $val['categoryname']?></option>
+                        <option value="<?php echo @$val['categoryid']?>"><?php echo @$val['categoryname']?></option>
                         <?php } ?>
                     </select>
                 
@@ -72,21 +72,21 @@
             {
         ?>
                     <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['maphieu']?>]" value="<?php echo $item['maphieu']?>" ></td>
-                        <td><a onclick="view('<?php echo $item['maphieu']?>')"><?php echo $item['sophieu']?></a></td>
-                        <td><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
-                        <td><?php echo $item['chungtulienquan']?></td>
-                        <td><?php echo $item['nguoithuchien']?></td>
-                        <td><?php echo $item['tenkhachhang']?></td>
+                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo @$item['maphieu']?>]" value="<?php echo @$item['maphieu']?>" ></td>
+                        <td><a onclick="view('<?php echo @$item['maphieu']?>')"><?php echo @$item['sophieu']?></a></td>
+                        <td><?php echo @$this->date->formatMySQLDate($item['ngaylap'])?></td>
+                        <td><?php echo @$item['chungtulienquan']?></td>
+                        <td><?php echo @$item['nguoithuchien']?></td>
+                        <td><?php echo @$item['tenkhachhang']?></td>
                         <td>
-                        	<?php echo $this->document->getCategory($item['taikhoanthuchi'])?>
-                            <?php if($item['lydo']) echo " - ".$item['lydo']?>
+                        	<?php echo @$this->document->getCategory($item['taikhoanthuchi'])?>
+                            <?php if(@$item['lydo']) echo " - ".$item['lydo']?>
                         </td>
                         
-                        <td class="number"><?php echo $this->string->numberFormate($item['sotien'])?></td>
+                        <td class="number"><?php echo @$this->string->numberFormate($item['sotien'])?></td>
                         <td class="link-control">
-                        	<?php if($this->user->checkPermission("addon/phieuchi/update")==true){ ?>
-                            <input type="button" class="button" name="btnEdit" value="Sửa" onClick="window.location='<?php echo $item['link_edit']?>'">
+                        	<?php if(@$this->user->checkPermission("addon/phieuchi/update")==true){ ?>
+                            <input type="button" class="button" name="btnEdit" value="Sửa" onClick="window.location='<?php echo @$item['link_edit']?>'">
                             <?php } ?>
                            
                         </td>
@@ -99,7 +99,7 @@
                 </tbody>
                 </table>
             </div>
-        	<?php echo $pager?>
+        	<?php echo @$pager?>
         
         </form>
         
@@ -176,13 +176,13 @@ function searchForm()
 	window.location = url;
 }
 
-$("#sophieu").val("<?php echo $_GET['sophieu']?>");
-$("#tungay").val("<?php echo $_GET['tungay']?>");
-$("#denngay").val("<?php echo $_GET['denngay']?>");
-$("#tenkhachhang").val("<?php echo $_GET['tenkhachhang']?>");
-$("#nguoithuchien").val("<?php echo $_GET['nguoithuchien']?>");
-$("#taikhoanthuchi").val("<?php echo $_GET['taikhoanthuchi']?>");
-$("#sotientu").val("<?php echo $_GET['sotientu']?>");
-$("#sotienden").val("<?php echo $_GET['sotienden']?>");
+$("#sophieu").val("<?php echo @$_GET['sophieu']?>");
+$("#tungay").val("<?php echo @$_GET['tungay']?>");
+$("#denngay").val("<?php echo @$_GET['denngay']?>");
+$("#tenkhachhang").val("<?php echo @$_GET['tenkhachhang']?>");
+$("#nguoithuchien").val("<?php echo @$_GET['nguoithuchien']?>");
+$("#taikhoanthuchi").val("<?php echo @$_GET['taikhoanthuchi']?>");
+$("#sotientu").val("<?php echo @$_GET['sotientu']?>");
+$("#sotienden").val("<?php echo @$_GET['sotienden']?>");
 
 </script>

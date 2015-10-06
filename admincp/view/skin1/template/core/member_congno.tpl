@@ -1,13 +1,13 @@
 <h3>Thông tin khách hàng</h3>
 <p>
-	<label>Tên khách hàng:</label> <?php echo $user['fullname']?>
-    <label>Số điện thoai:</label> <?php echo $user['phone']?>
+	<label>Tên khách hàng:</label> <?php echo @$user['fullname']?>
+    <label>Số điện thoai:</label> <?php echo @$user['phone']?>
 </p>
 <p>
-    <label>Địa chỉ:</label> <?php echo $user['address']?>
-    <label>Email:</label> <?php echo $user['email']?>
+    <label>Địa chỉ:</label> <?php echo @$user['address']?>
+    <label>Email:</label> <?php echo @$user['email']?>
 </p>
-<?php if($_GET['dialog']!="print"){ ?>
+<?php if(@$_GET['dialog']!="print"){ ?>
 <form id="frm_thanhtoancongno">
 	<p>
     	<label>Số tiền:</label> <input type="text" class="text number" id="thanhtoan" name="thanhtoan"/>
@@ -29,12 +29,12 @@
     </tr>
     <?php foreach($data_phieubanhang as $item){ ?>
     <tr>
-    	<td><a onclick="viewPhieuBanHang(<?php echo $item['id']?>)"><?php echo $item['maphieu']?></a></td>
-        <td align="center"><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
-        <td><?php echo $item['detail']?></td>
-        <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
-        <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
-        <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>
+    	<td><a onclick="viewPhieuBanHang(<?php echo @$item['id']?>)"><?php echo @$item['maphieu']?></a></td>
+        <td align="center"><?php echo @$this->date->formatMySQLDate($item['ngaylap'])?></td>
+        <td><?php echo @$item['detail']?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($item['tongtien'])?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($item['thanhtoan'])?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($item['congno'])?></td>
     </tr>
     <?php } ?>
     <tr>
@@ -43,7 +43,7 @@
         <td></td>
         <td></td>
         <td class="text-right">Tổng công nợ:</td>
-        <td class="number"><?php echo $this->string->numberFormate($tongno)?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($tongno)?></td>
     </tr>
 </table>
 <h3>Dach sách phiếu trả hàng</h3>
@@ -58,12 +58,12 @@
     </tr>
     <?php foreach($data_phieutrahang as $item){ ?>
     <tr>
-    	<td><a onclick="viewPhieuNhapHang(<?php echo $item['id']?>)"><?php echo $item['maphieu']?></a></td>
-        <td align="center"><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
-        <td><?php echo $item['detail']?></td>
-        <td class="number"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
-        <td class="number"><?php echo $this->string->numberFormate($item['thanhtoan'])?></td>
-        <td class="number"><?php echo $this->string->numberFormate($item['congno'])?></td>
+    	<td><a onclick="viewPhieuNhapHang(<?php echo @$item['id']?>)"><?php echo @$item['maphieu']?></a></td>
+        <td align="center"><?php echo @$this->date->formatMySQLDate($item['ngaylap'])?></td>
+        <td><?php echo @$item['detail']?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($item['tongtien'])?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($item['thanhtoan'])?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($item['congno'])?></td>
     </tr>
     <?php } ?>
     <tr>
@@ -72,7 +72,7 @@
         <td></td>
         <td></td>
         <td class="text-right">Tổng công nợ trả hàng:</td>
-        <td class="number"><?php echo $this->string->numberFormate($tongnotrahang)?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($tongnotrahang)?></td>
     </tr>
 </table>
 <h3>Dach sách phiếu thu công nợ</h3>
@@ -85,16 +85,16 @@
     </tr>
     <?php foreach($data_phieuthu as $item){ ?>
     <tr>
-    	<td><a onclick="viewPhieuThu(<?php echo $item['maphieu']?>)"><?php echo $item['sophieu']?></a></td>
-        <td align="center"><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
-        <td><?php echo $item['lydo']?></td>
-        <td class="number"><?php echo $this->string->numberFormate($item['quidoi'])?></td>
+    	<td><a onclick="viewPhieuThu(<?php echo @$item['maphieu']?>)"><?php echo @$item['sophieu']?></a></td>
+        <td align="center"><?php echo @$this->date->formatMySQLDate($item['ngaylap'])?></td>
+        <td><?php echo @$item['lydo']?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($item['quidoi'])?></td>
     </tr>
     <?php } ?>
     <tr>
     	<td></td>
         <td class="text-right">Tổng đã trả:</td>
-        <td class="number"><?php echo $this->string->numberFormate($tongphieuthu)?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($tongphieuthu)?></td>
     </tr>
 </table>
 <h3>Dach sách các khoảng vay</h3>
@@ -107,17 +107,17 @@
     </tr>
     <?php foreach($data_phieuthuvayno as $item){ ?>
     <tr>
-    	<td><a onclick="viewPhieuThu(<?php echo $item['maphieu']?>)"><?php echo $item['sophieu']?></a></td>
-        <td align="center"><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
-        <td><?php echo $item['lydo']?></td>
-        <td class="number"><?php echo $this->string->numberFormate($item['quidoi'])?></td>
+    	<td><a onclick="viewPhieuThu(<?php echo @$item['maphieu']?>)"><?php echo @$item['sophieu']?></a></td>
+        <td align="center"><?php echo @$this->date->formatMySQLDate($item['ngaylap'])?></td>
+        <td><?php echo @$item['lydo']?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($item['quidoi'])?></td>
     </tr>
     <?php } ?>
     <tr>
     	<td></td>
         <td></td>
         <td class="text-right">Tổng vay nợ:</td>
-        <td class="number"><?php echo $this->string->numberFormate($tongvay)?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($tongvay)?></td>
     </tr>
 </table>
 <h3>Dach sách các khoảng trả nợ</h3>
@@ -130,42 +130,42 @@
     </tr>
     <?php foreach($data_phieuchitrano as $item){ ?>
     <tr>
-    	<td><a onclick="viewPhieuThu(<?php echo $item['maphieu']?>)"><?php echo $item['sophieu']?></a></td>
-        <td align="center"><?php echo $this->date->formatMySQLDate($item['ngaylap'])?></td>
-        <td><?php echo $item['lydo']?></td>
-        <td class="number"><?php echo $this->string->numberFormate($item['quidoi'])?></td>
+    	<td><a onclick="viewPhieuThu(<?php echo @$item['maphieu']?>)"><?php echo @$item['sophieu']?></a></td>
+        <td align="center"><?php echo @$this->date->formatMySQLDate($item['ngaylap'])?></td>
+        <td><?php echo @$item['lydo']?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($item['quidoi'])?></td>
     </tr>
     <?php } ?>
     <tr>
     	<td></td>
         <td></td>
         <td class="text-right">Tổng đã trả:</td>
-        <td class="number"><?php echo $this->string->numberFormate($tongtrano)?></td>
+        <td class="number"><?php echo @$this->string->numberFormate($tongtrano)?></td>
     </tr>
 </table>
-<h3>Tổng công nợ: <?php echo $this->string->numberFormate($congno)?></h3>
+<h3>Tổng công nợ: <?php echo @$this->string->numberFormate($congno)?></h3>
 <script language="javascript">
 $(document).ready(function(e) {
     numberReady();
 });
 $('#btnTraHet').click(function(e) {
-    $('#thanhtoan').val("<?php echo $this->string->numberFormate($congno)?>");
+    $('#thanhtoan').val("<?php echo @$this->string->numberFormate($congno)?>");
 });
 $('#btnThanhToan').click(function(e) {
     $.post("?route=addon/phieuthu/save",
 		{
-			chungtulienquan:"<?php echo $item['maphieu']?>",
-			makhachhang:"KH-<?php echo $user['id']?>",
-			tenkhachhang:"<?php echo $user['fullname']?>",
-			dienthoai:"<?php echo $user['phone']?>",
-			email:"<?php echo $user['email']?>",
-			diachi:"<?php echo $user['address']?>",
+			chungtulienquan:"<?php echo @$item['maphieu']?>",
+			makhachhang:"KH-<?php echo @$user['id']?>",
+			tenkhachhang:"<?php echo @$user['fullname']?>",
+			dienthoai:"<?php echo @$user['phone']?>",
+			email:"<?php echo @$user['email']?>",
+			diachi:"<?php echo @$user['address']?>",
 			sotien:$('#thanhtoan').val(),
 			donvi:"VND",
 			taikhoanthuchi:"thuno",
 			hinhthucthanhtoan:"cash",
-			nguoithuchienid:"<?php echo $this->user->nhanvien['id']?>",
-			nguoithuchien:"<?php echo $this->user->nhanvien['hoten']?>",
+			nguoithuchienid:"<?php echo @$this->user->nhanvien['id']?>",
+			nguoithuchien:"<?php echo @$this->user->nhanvien['hoten']?>",
 			lydo:"Thanh toán nợ"
 		},
 		function(data)

@@ -1,6 +1,6 @@
 <form id="frmQuickAddMedia">
-	<input type="hidden" name="imageid" value="<?php echo $item['fileid']?>">
-    <input type="hidden" name="imagepath" value="<?php echo $item['filepath']?>">
+	<input type="hidden" name="imageid" value="<?php echo @$item['fileid']?>">
+    <input type="hidden" name="imagepath" value="<?php echo @$item['filepath']?>">
     <p>
         <label>Tiêu đề</label><br>
         <input class="text" type="text" id="title" name="title" size="60" />
@@ -15,7 +15,7 @@
             
             <option value=""></option>
             <?php foreach($donvitinh as $val){ ?>
-            <option value="<?php echo $val['madonvi']?>"><?php echo $val['tendonvitinh']?></option>
+            <option value="<?php echo @$val['madonvi']?>"><?php echo @$val['tendonvitinh']?></option>
             <?php } ?>
             
         </select>
@@ -23,8 +23,8 @@
     <p>
     	<label>Loại</label><br>
         <select id="mediatype" name="mediatype">
-        	<?php foreach($this->document->mediatypes as $key => $val){ ?>
-            <option value="<?php echo $key?>"><?php echo $val?></option>
+        	<?php foreach(@$this->document->mediatypes as $key => $val){ ?>
+            <option value="<?php echo @$key?>"><?php echo @$val?></option>
             <?php } ?>
         </select>
     </p>

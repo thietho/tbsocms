@@ -341,7 +341,7 @@ function printObject(o) {
 }
 function logout()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	
 	$.get(HTTP_SERVER+"?route=sitebar/login/logout", 
 		function(data){

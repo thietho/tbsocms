@@ -9,7 +9,7 @@ class ControllerCommonPermission extends Controller {
 	
 	public function checkPermission() {
 		if (isset($this->request->get['route'])) {
-			$route = $this->getRoute();
+			$route = @$this->getRoute();
 		  
 			$part = explode('/', $route);
 			
@@ -52,16 +52,16 @@ class ControllerCommonPermission extends Controller {
 				$ModuleID = @$part[0] . '/' . @$part[1];
 				
 				if(isset($this->request->get['formtype'])){
-					$FormType = $this->request->get['formtype'];
+					$FormType = @$this->request->get['formtype'];
 				}
 				
 				if(isset($this->request->post['formtype'])){
-					$FormType = $this->request->post['formtype'];
+					$FormType = @$this->request->post['formtype'];
 				}
 				
-				$SiteMapID = $this->request->get['sitemapid'];
-				if (!$this->user->hasPermission($ModuleID, $FormType, $SiteMapID)) {
-					return $this->forward('error/permission', 'index');
+				$SiteMapID = @$this->request->get['sitemapid'];
+				if (!@$this->user->hasPermission($ModuleID, $FormType, $SiteMapID)) {
+					return @$this->forward('error/permission', 'index');
 				}
 			}
 		}

@@ -4,11 +4,11 @@
 <div id="listfilecontent">
 <?php if(count($folderchild)){ ?>
 	<?php foreach($folderchild as $folder){ ?>
-    <div class="left folderlist folderitem filelist" filepath="<?php echo $folder['folderpath']?>" folderpath="<?php echo $folder['foldername']?>" title="<?php echo $folder['foldername']?>" filename="<?php echo $folder['foldername']?>" style="background:url('<?php echo DIR_IMAGE?>folder.png')  no-repeat center center">
+    <div class="left folderlist folderitem filelist" filepath="<?php echo @$folder['folderpath']?>" folderpath="<?php echo @$folder['foldername']?>" title="<?php echo @$folder['foldername']?>" filename="<?php echo @$folder['foldername']?>" style="background:url('<?php echo DIR_IMAGE?>folder.png')  no-repeat center center">
     	<table>
         	
         	<tr>
-            	<td><?php echo $folder['foldername']?></td>
+            	<td><?php echo @$folder['foldername']?></td>
             </tr>
         </table>
     	
@@ -24,7 +24,7 @@
 	if(count($files))
    		foreach($files as $file){ ?>
 	<div class="left">
-        <div class="filelist fileitem text-center" id="<?php echo $file['fileid']?>" imagethumbnail="<?php echo $file['imagethumbnail']?>" filename="<?php echo $file['filename']?>" filepath="<?php echo str_replace(DIR_FILE,'',$file['filepath'])?>" style="background:url('<?php echo $file['imagethumbnail']?>') no-repeat center center" title="<?php echo $file['filename']?>">
+        <div class="filelist fileitem text-center" id="<?php echo @$file['fileid']?>" imagethumbnail="<?php echo @$file['imagethumbnail']?>" filename="<?php echo @$file['filename']?>" filepath="<?php echo str_replace(DIR_FILE,'',$file['filepath'])?>" style="background:url('<?php echo @$file['imagethumbnail']?>') no-repeat center center" title="<?php echo @$file['filename']?>">
             
             <p class="filename"><?php echo substr($file['filename'],0,20)?></p>
                 

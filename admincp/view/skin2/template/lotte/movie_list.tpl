@@ -1,6 +1,6 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content">
     	
@@ -15,17 +15,17 @@
                 <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="viewAll()"/>
             </div>
         	<div class="button right">
-            	<?php if($dialog==true){ ?>
+            	<?php if(@$dialog==true){ ?>
             	
                 
                 
                 <?php }else{ ?>
                 
                
-                <?php if($this->user->checkPermission("lotte/movie/insert")==true){ ?>
-                <input class="button" value="Thêm" type="button" onclick="window.location='<?php echo $insert?>'">
+                <?php if(@$this->user->checkPermission("lotte/movie/insert")==true){ ?>
+                <input class="button" value="Thêm" type="button" onclick="window.location='<?php echo @$insert?>'">
                 <?php } ?>
-                <?php if($this->user->checkPermission("lotte/movie/delete")==true){ ?>
+                <?php if(@$this->user->checkPermission("lotte/movie/delete")==true){ ?>
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>
                 <?php } ?>
                 <?php } ?>
@@ -75,7 +75,7 @@ $('select').change(function(e) {
 function viewAll()
 {
 	url = "?route=lotte/movie/getList";
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
@@ -92,7 +92,7 @@ function searchForm()
 	
 
 	
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}

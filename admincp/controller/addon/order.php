@@ -5,61 +5,61 @@ class ControllerAddonOrder extends Controller
 	
 	public function index()
 	{
-		$this->load->language('addon/order');
-		$this->data = array_merge($this->data, $this->language->getData());
+		@$this->load->language('addon/order');
+		@$this->data = array_merge(@$this->data, @$this->language->getData());
 		
-		$this->document->title = $this->language->get('heading_title');
+		@$this->document->title = @$this->language->get('heading_title');
 		
-		$this->load->model("addon/order");
-		$this->load->model("quanlykho/donvitinh");
-		$this->getList();
+		@$this->load->model("addon/order");
+		@$this->load->model("quanlykho/donvitinh");
+		@$this->getList();
 	}
 	
 	public function insert()
 	{
-		$this->edit();
+		@$this->edit();
 	}
 	
 	public function edit()
 	{
-		$this->load->language('addon/order');
-		$this->load->model('addon/order');
-		$this->load->model('core/media');
-		$orderid = $this->request->get['orderid'];
-		$this->load->helper('image');
-		$this->data = $this->model_addon_order->getItem($orderid);
+		@$this->load->language('addon/order');
+		@$this->load->model('addon/order');
+		@$this->load->model('core/media');
+		$orderid = @$this->request->get['orderid'];
+		@$this->load->helper('image');
+		@$this->data = @$this->model_addon_order->getItem($orderid);
 		
-		foreach($this->data['detail'] as $key => $item)
+		foreach(@$this->data['detail'] as $key => $item)
 		{
-			$media = $this->model_core_media->getItem($item['mediaid']);
+			$media = @$this->model_core_media->getItem($item['mediaid']);
 			
 			$imagepreview = "<img width=100 src='".HelperImage::resizePNG($media['imagepath'], 180, 180)."' >";
-			$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+			@$this->data['detail'][$key]['imagepreview'] = $imagepreview;
 			foreach($media as $k => $val)
 			{
-				$this->data['detail'][$key][$k] = $val;	
+				@$this->data['detail'][$key][$k] = $val;	
 			}
 			
 			
 		}
 		
-		$this->id='content';
-		$this->template="addon/order_edit.tpl";
-		$this->layout="layout/center";
-		$this->render();
+		@$this->id='content';
+		@$this->template="addon/order_edit.tpl";
+		@$this->layout="layout/center";
+		@$this->render();
 	}
 	public function createphieuxuat()
 	{
-		$this->load->model('addon/order');
-		$this->load->model('core/media');
-		$this->load->model('core/user');
-		$this->load->model('quanlykho/phieunhapxuat');
-		$orderid = $this->request->get['orderid'];
-		$thanhtoan = $this->request->get['thanhtoan'];
-		$order = $this->model_addon_order->getItem($orderid);
-		$nhanvien = $this->user->getNhanVien();
+		@$this->load->model('addon/order');
+		@$this->load->model('core/media');
+		@$this->load->model('core/user');
+		@$this->load->model('quanlykho/phieunhapxuat');
+		$orderid = @$this->request->get['orderid'];
+		$thanhtoan = @$this->request->get['thanhtoan'];
+		$order = @$this->model_addon_order->getItem($orderid);
+		$nhanvien = @$this->user->getNhanVien();
 		if($order['order']['userid'] != "")
-			$member = $this->model_core_user->getItem($order['order']['userid']);
+			$member = @$this->model_core_user->getItem($order['order']['userid']);
 		$tongtien = 0;
 		
 		$data['loaiphieu'] = "PX-PBH";
@@ -79,7 +79,7 @@ class ControllerAddonOrder extends Controller
 		
 		if($order['order']['notes'])
 			$data['ghichu'] .= " - ". $order['order']['notes'];
-		$phieuid = $this->model_quanlykho_phieunhapxuat->save($data);
+		$phieuid = @$this->model_quanlykho_phieunhapxuat->save($data);
 		
 		$data_ct = array();
 		foreach($order['detail'] as $item)
@@ -87,10 +87,10 @@ class ControllerAddonOrder extends Controller
 			$tongtien += $item['subtotal'];
 			$ct['phieuid'] = $phieuid;
 			$ct['mediaid'] = $item['mediaid'];
-			$media =  $this->model_core_media->getItem($item['mediaid']);
+			$media =  @$this->model_core_media->getItem($item['mediaid']);
 			
 			$ct['code'] = $media['code'];
-			$parent = $this->model_core_media->getItem($media['mediaparent']);
+			$parent = @$this->model_core_media->getItem($media['mediaparent']);
 			if(count($parent)==0)
 				$ct['title'] = $media['title'];
 			else
@@ -102,78 +102,78 @@ class ControllerAddonOrder extends Controller
 			$ct['thanhtien'] = $item['subtotal'];
 			$ct['loaiphieu'] = $data['loaiphieu'];
 			
-			$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($ct);
+			@$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($ct);
 			
 		}
-		$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
+		@$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
 		
-		$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien - $thanhtoan);
-		$this->data['output'] = "true";
+		@$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien - $thanhtoan);
+		@$this->data['output'] = "true";
 		
 		
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 		
 	}
 	public function view()
 	{
-		$this->load->language('addon/order');
-		$this->load->model('addon/order');
-		$this->load->model('core/media');
-		$orderid = $this->request->get['orderid'];
-		$this->load->helper('image');
-		$this->data = $this->model_addon_order->getItem($orderid);
+		@$this->load->language('addon/order');
+		@$this->load->model('addon/order');
+		@$this->load->model('core/media');
+		$orderid = @$this->request->get['orderid'];
+		@$this->load->helper('image');
+		@$this->data = @$this->model_addon_order->getItem($orderid);
 		//Neu don hang moi thi cap nha thanh dang xu ly
-		if($this->data['order']['status']=='new')
+		if(@$this->data['order']['status']=='new')
 		{
 			$data['orderid'] = $orderid;
 			$data['status'] = 'wait';
-			$this->model_addon_order->updateStatus($data);
-			$this->data = $this->model_addon_order->getItem($orderid);
+			@$this->model_addon_order->updateStatus($data);
+			@$this->data = @$this->model_addon_order->getItem($orderid);
 		}
-		$this->data = array_merge($this->data, $this->language->getData());
+		@$this->data = array_merge(@$this->data, @$this->language->getData());
 		
 		
 		
-		if($this->data['order']['status']=='')
-			$this->data['order']['text_active'] = "New";
+		if(@$this->data['order']['status']=='')
+			@$this->data['order']['text_active'] = "New";
 		else
-			$this->data['order']['text_active'] = "Checked";
-		foreach($this->data['detail'] as $key => $item)
+			@$this->data['order']['text_active'] = "Checked";
+		foreach(@$this->data['detail'] as $key => $item)
 		{
-			$media = $this->model_core_media->getItem($item['mediaid']);
+			$media = @$this->model_core_media->getItem($item['mediaid']);
 			
 			$imagepreview = "<img width=100 src='".HelperImage::resizePNG($media['imagepath'], 180, 180)."' >";
-			$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+			@$this->data['detail'][$key]['imagepreview'] = $imagepreview;
 			foreach($media as $k => $val)
 			{
-				$this->data['detail'][$key][$k] = $val;	
+				@$this->data['detail'][$key][$k] = $val;	
 			}
 		}
 		
-		$this->id='content';
-		$this->template="addon/order_form.tpl";
-		$this->layout="layout/center";
-		$this->render();
+		@$this->id='content';
+		@$this->template="addon/order_form.tpl";
+		@$this->layout="layout/center";
+		@$this->render();
 	}
 	
 	private function getList() 
 	{
-		$this->data['insert'] = $this->url->http('addon/order/insert');
-		$this->data['delete'] = $this->url->http('addon/order/delete');		
+		@$this->data['insert'] = @$this->url->http('addon/order/insert');
+		@$this->data['delete'] = @$this->url->http('addon/order/delete');		
 
-		$this->data['orders'] = array();
+		@$this->data['orders'] = array();
 		$where = "";
 		
-		$datasearchlike['orderid'] = $this->request->get['orderid'];
-		$datasearchlike['customername'] = $this->request->get['customername'];
-		$datasearchlike['address'] = $this->request->get['address'];
-		$datasearchlike['email'] = $this->request->get['email'];
-		$datasearchlike['phone'] = $this->request->get['phone'];
+		$datasearchlike['orderid'] = @$this->request->get['orderid'];
+		$datasearchlike['customername'] = @$this->request->get['customername'];
+		$datasearchlike['address'] = @$this->request->get['address'];
+		$datasearchlike['email'] = @$this->request->get['email'];
+		$datasearchlike['phone'] = @$this->request->get['phone'];
 		
-		$datasearch['userid'] = $this->request->get['userid'];
-		$datasearch['status'] = $this->request->get['status'];
+		$datasearch['userid'] = @$this->request->get['userid'];
+		$datasearch['status'] = @$this->request->get['status'];
 		
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
@@ -188,8 +188,8 @@ class ControllerAddonOrder extends Controller
 				$arr[] = " AND " . $key ." = '".$item."'";
 		}
 		//Truong hop khac
-		$datasearch['fromdate'] = $this->date->formatViewDate($this->request->get['fromdate']);
-		$datasearch['todate'] = $this->date->formatViewDate($this->request->get['todate']);
+		$datasearch['fromdate'] = @$this->date->formatViewDate(@$this->request->get['fromdate']);
+		$datasearch['todate'] = @$this->date->formatViewDate(@$this->request->get['todate']);
 		
 		if($datasearch['fromdate'] != "")
 			$arr[] = " AND orderdate >= '".$datasearch['fromdate']."'";
@@ -201,87 +201,87 @@ class ControllerAddonOrder extends Controller
 		$where .= implode("",$arr);
 		
 		$where .= " ORDER BY  `order`.`orderdate` DESC ";
-		$this->data['orders'] = $this->model_addon_order->getList($where);
+		@$this->data['orders'] = @$this->model_addon_order->getList($where);
 		
-		$this->data['refres']=$_SERVER['QUERY_STRING'];
-		$this->id='content';
-		$this->template="addon/order_list.tpl";
-		$this->layout="layout/center";
-		$this->render();
+		@$this->data['refres']=$_SERVER['QUERY_STRING'];
+		@$this->id='content';
+		@$this->template="addon/order_list.tpl";
+		@$this->layout="layout/center";
+		@$this->render();
 	}
 	public function viewHistory()
 	{
-		$this->load->language('addon/order');
-		$this->load->model('addon/order');
-		$orderid = $this->request->get['orderid'];
-		$this->data = $this->model_addon_order->getItem($orderid);
+		@$this->load->language('addon/order');
+		@$this->load->model('addon/order');
+		$orderid = @$this->request->get['orderid'];
+		@$this->data = @$this->model_addon_order->getItem($orderid);
 		
 		$where = " AND orderid = '".$orderid."'";
-		$this->data['historys'] = $this->model_addon_order->getOrderHistoryList($where);
+		@$this->data['historys'] = @$this->model_addon_order->getOrderHistoryList($where);
 		
-		$this->id="content";
-		$this->template="addon/order_history.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="addon/order_history.tpl";
+		@$this->render();
 		
 		
 	}
 	public function editDelivery()
 	{
-		$this->id="content";
-		$this->template="addon/order_form_delivery.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="addon/order_form_delivery.tpl";
+		@$this->render();
 	}
 	public function printBill()
 	{
-		$this->load->language('addon/order');
-		$this->load->model('addon/order');
-		$this->load->model('core/media');
-		$orderid = $this->request->get['orderid'];
-		$this->load->helper('image');
-		$this->data = $this->model_addon_order->getItem($orderid);
+		@$this->load->language('addon/order');
+		@$this->load->model('addon/order');
+		@$this->load->model('core/media');
+		$orderid = @$this->request->get['orderid'];
+		@$this->load->helper('image');
+		@$this->data = @$this->model_addon_order->getItem($orderid);
 		
-		foreach($this->data['detail'] as $key => $item)
+		foreach(@$this->data['detail'] as $key => $item)
 		{
-			$media = $this->model_core_media->getItem($item['mediaid']);
+			$media = @$this->model_core_media->getItem($item['mediaid']);
 			
 			$imagepreview = "<img width=100 src='".HelperImage::resizePNG($media['imagepath'], 180, 180)."' >";
-			$this->data['detail'][$key]['imagepreview'] = $imagepreview;
+			@$this->data['detail'][$key]['imagepreview'] = $imagepreview;
 			foreach($media as $k => $val)
 			{
-				$this->data['detail'][$key][$k] = $val;	
+				@$this->data['detail'][$key][$k] = $val;	
 			}
 		}
 		
-		$this->id="content";
-		$this->template="addon/order_bill.tpl";
-		$this->layout="layout/print";
-		$this->render();
+		@$this->id="content";
+		@$this->template="addon/order_bill.tpl";
+		@$this->layout="layout/print";
+		@$this->render();
 	}
 	public function save()
 	{
-		$this->load->model("addon/order");
-		$data = $this->request->post;
+		@$this->load->model("addon/order");
+		$data = @$this->request->post;
 		
 		if($data['orderid'])
 		{
-			$this->model_addon_order->updateCol($data['orderid'],'userid',$data['userid']);
-			$this->model_addon_order->updateCol($data['orderid'],'customername',$data['customername']);
-			$this->model_addon_order->updateCol($data['orderid'],'address',$data['address']);
-			$this->model_addon_order->updateCol($data['orderid'],'email',$data['email']);
-			$this->model_addon_order->updateCol($data['orderid'],'phone',$data['phone']);
-			$this->model_addon_order->updateCol($data['orderid'],'receiver',$data['receiver']);
-			$this->model_addon_order->updateCol($data['orderid'],'receiverphone',$data['receiverphone']);
-			$this->model_addon_order->updateCol($data['orderid'],'shipperat',$data['shipperat']);
-			$this->model_addon_order->updateCol($data['orderid'],'shippdate',$this->date->formatViewDate($data['shippdate']));
-			$this->model_addon_order->updateCol($data['orderid'],'shipper',$data['shipper']);
-			$this->model_addon_order->updateCol($data['orderid'],'shippername',$data['shippername']);
-			$this->model_addon_order->updateCol($data['orderid'],'paymenttype',$data['paymenttype']);
-			$this->model_addon_order->updateCol($data['orderid'],'notes',$data['notes']);
+			@$this->model_addon_order->updateCol($data['orderid'],'userid',$data['userid']);
+			@$this->model_addon_order->updateCol($data['orderid'],'customername',$data['customername']);
+			@$this->model_addon_order->updateCol($data['orderid'],'address',$data['address']);
+			@$this->model_addon_order->updateCol($data['orderid'],'email',$data['email']);
+			@$this->model_addon_order->updateCol($data['orderid'],'phone',$data['phone']);
+			@$this->model_addon_order->updateCol($data['orderid'],'receiver',$data['receiver']);
+			@$this->model_addon_order->updateCol($data['orderid'],'receiverphone',$data['receiverphone']);
+			@$this->model_addon_order->updateCol($data['orderid'],'shipperat',$data['shipperat']);
+			@$this->model_addon_order->updateCol($data['orderid'],'shippdate',@$this->date->formatViewDate($data['shippdate']));
+			@$this->model_addon_order->updateCol($data['orderid'],'shipper',$data['shipper']);
+			@$this->model_addon_order->updateCol($data['orderid'],'shippername',$data['shippername']);
+			@$this->model_addon_order->updateCol($data['orderid'],'paymenttype',$data['paymenttype']);
+			@$this->model_addon_order->updateCol($data['orderid'],'notes',$data['notes']);
 		}
 		else
 		{
-			$data['shippdate'] = $this->date->formatViewDate($data['shippdate']);
-			$data['orderid'] = $this->model_addon_order->insert($data);
+			$data['shippdate'] = @$this->date->formatViewDate($data['shippdate']);
+			$data['orderid'] = @$this->model_addon_order->insert($data);
 		}
 		//Xoa nhung id can xoa
 		@$arrdelid = split(',',$data['delid']);
@@ -289,7 +289,7 @@ class ControllerAddonOrder extends Controller
 		{
 			if($id)
 			{
-				$this->model_addon_order->deleteOrderProduct($id);
+				@$this->model_addon_order->deleteOrderProduct($id);
 			}
 		}
 		
@@ -310,97 +310,97 @@ class ControllerAddonOrder extends Controller
 			$orderpro['price'] = $arr_price[$key];
 			$orderpro['discount'] = $arr_discount[$key];
 			
-			$this->model_addon_order->saveOrderProduct($orderpro);
+			@$this->model_addon_order->saveOrderProduct($orderpro);
 		}
 		
-		$this->data['output'] = "true-".$data['orderid'];
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->data['output'] = "true-".$data['orderid'];
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	
 	public function saveDelivery()
 	{
-		$this->load->model("addon/order");
-		$data = $this->request->post;
+		@$this->load->model("addon/order");
+		$data = @$this->request->post;
 		foreach($data as $col =>$val)
 		{
-			$this->model_addon_order-> updateCol($data['orderid'],$col,$val);
+			@$this->model_addon_order-> updateCol($data['orderid'],$col,$val);
 		}
-		$this->data['output'] = "true";
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->data['output'] = "true";
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	
 	public function updatestatus()
 	{
-		$this->load->model("addon/order");
-		$orderid = $this->request->get['orderid'];
-		$status = $this->request->get['status'];
-		//$this->data = $this->model_addon_order->getItem($orderid);
+		@$this->load->model("addon/order");
+		$orderid = @$this->request->get['orderid'];
+		$status = @$this->request->get['status'];
+		//@$this->data = @$this->model_addon_order->getItem($orderid);
 		$data['orderid'] = $orderid;
 		$data['status'] = $status;
-		$this->model_addon_order->updateStatus($data);
+		@$this->model_addon_order->updateStatus($data);
 		
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	
 	public function delete()
 	{
-		$listid=$this->request->post['delete'];
+		$listid=@$this->request->post['delete'];
 		
-		$this->load->model("addon/order");
+		@$this->load->model("addon/order");
 		if(count($listid))
 		{
 			foreach($listid as $orderid)
 			{
-				$this->model_addon_order->delete($orderid);
+				@$this->model_addon_order->delete($orderid);
 			}
-			$this->data['output'] = "Delete success";
+			@$this->data['output'] = "Delete success";
 		}
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 	
 	public function showProductForm()
 	{
-		$this->load->model("quanlykho/donvitinh");
-		$this->data['donvitinh'] = $this->model_quanlykho_donvitinh->getList();
-		$this->id="content";
-		$this->template="addon/product_form.tpl";
-		$this->render();
+		@$this->load->model("quanlykho/donvitinh");
+		@$this->data['donvitinh'] = @$this->model_quanlykho_donvitinh->getList();
+		@$this->id="content";
+		@$this->template="addon/product_form.tpl";
+		@$this->render();
 	}
 	
 	
 	
 	public function browseProduct()
 	{
-		$this->load->model("core/sitemap");
+		@$this->load->model("core/sitemap");
 		
 		$arrSiteMapTree = array();
-		$this->model_core_sitemap->getTreeSitemap("", $arrSiteMapTree, $this->user->getSiteId());
+		@$this->model_core_sitemap->getTreeSitemap("", $arrSiteMapTree, @$this->user->getSiteId());
 		
 		
-		$this->data['data_danhmuc'] = $arrSiteMapTree;
+		@$this->data['data_danhmuc'] = $arrSiteMapTree;
 		
-		$this->id="content";
-		$this->template="addon/browseproduct.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="addon/browseproduct.tpl";
+		@$this->render();
 	}
 	
 	public function listProduct()
 	{
-		$this->load->model("core/user");
-		$this->load->model("core/media");
-		$this->load->model("core/sitemap");
-		$this->load->helper('image');
+		@$this->load->model("core/user");
+		@$this->load->model("core/media");
+		@$this->load->model("core/sitemap");
+		@$this->load->helper('image');
 		
-		$keyword = urldecode($this->request->get['keyword']);
-		$sitemapid = urldecode($this->request->get['sitemapid']);
+		$keyword = urldecode(@$this->request->get['keyword']);
+		$sitemapid = urldecode(@$this->request->get['sitemapid']);
 		@$arrkey = split(' ', $keyword);
 		$where = " AND mediatype = 'module/product'";
 		if($keyword !="")
@@ -453,17 +453,17 @@ class ControllerAddonOrder extends Controller
 									OR (". implode(" AND ",$arrmaterial). ") 
 							)";
 		}
-		$siteid = $this->user->getSiteId();
+		$siteid = @$this->user->getSiteId();
 		if($sitemapid == "")
 		{
-			$sitemaps = $this->model_core_sitemap->getListByModule("module/product", $siteid);
-			$arrsitemapid = $this->string->matrixToArray($sitemaps,"sitemapid");
+			$sitemaps = @$this->model_core_sitemap->getListByModule("module/product", $siteid);
+			$arrsitemapid = @$this->string->matrixToArray($sitemaps,"sitemapid");
 		}
 		else
 		{
 			$data = array();
-			$sitemaps = $this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);
-			$arrsitemapid = $this->string->matrixToArray($data,"sitemapid");
+			$sitemaps = @$this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);
+			$arrsitemapid = @$this->string->matrixToArray($data,"sitemapid");
 		}
 		$arr = array();
 		
@@ -477,38 +477,38 @@ class ControllerAddonOrder extends Controller
 		
 		
 		$where .= "  Order by position, statusdate DESC";
-		$this->data['medias'] = $this->model_core_media->getList($where);
-		foreach($this->data['medias'] as $i => $media)
+		@$this->data['medias'] = @$this->model_core_media->getList($where);
+		foreach(@$this->data['medias'] as $i => $media)
 		{
-			if($this->data['medias'][$i]['imagepath'])
-				$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG($this->data['medias'][$i]['imagepath'], 100, 100);
+			if(@$this->data['medias'][$i]['imagepath'])
+				@$this->data['medias'][$i]['imagepreview'] = HelperImage::resizePNG(@$this->data['medias'][$i]['imagepath'], 100, 100);
 				
 			
 			
-			$data_child = $this->model_core_media->getListByParent($media['mediaid']," Order by position");
+			$data_child = @$this->model_core_media->getListByParent($media['mediaid']," Order by position");
 			foreach($data_child as $key =>$child)
 			{
 				if($child['imagepath'])
 					$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 				
 			}
-			$this->data['medias'][$i]['child'] = $data_child;
+			@$this->data['medias'][$i]['child'] = $data_child;
 			
 		}
 		
-		$this->id="content";
-		$this->template="addon/listproduct.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="addon/listproduct.tpl";
+		@$this->render();
 	}
 	
 	public function getOrders() 
 	{
-		$col = $this->request->get['col'];
-		$val = $this->request->get['val'];
-		$operator = $this->request->get['operator'];
+		$col = @$this->request->get['col'];
+		$val = @$this->request->get['val'];
+		$operator = @$this->request->get['operator'];
 		if($operator == "")
 			$operator = "equal";
-		$this->load->model("addon/order");
+		@$this->load->model("addon/order");
 		$where = "";
 		switch($operator)
 		{
@@ -528,12 +528,12 @@ class ControllerAddonOrder extends Controller
 		}
 		
 		$where .= " ORDER BY  `order`.`orderdate` DESC ";
-		$datas = $this->model_addon_order->getList($where);
+		$datas = @$this->model_addon_order->getList($where);
 		
-		$this->data['output'] = json_encode(array('orders' => $datas));
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->data['output'] = json_encode(array('orders' => $datas));
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
 	}
 }
 ?>

@@ -15,12 +15,12 @@
             	
             	<p>
                 	<label>Fullname</label>
-					<b><?php echo $userProfile['fullname']?></b>
+					<b><?php echo @$userProfile['fullname']?></b>
                 </p>
                 
                 <p>
                 	<label>Username</label>
-					<b><?php echo $userProfile['username']?></b>
+					<b><?php echo @$userProfile['username']?></b>
                 </p>
                 
                 <p>
@@ -30,37 +30,37 @@
                 
                 <p>
                 	<label>Email</label>
-					<?php echo $userProfile['email']?>
+					<?php echo @$userProfile['email']?>
                 </p>
                 
                 <p>
                 	<label>Personal ID</label>
-					<?php echo $userProfile['personalid']?>
+					<?php echo @$userProfile['personalid']?>
                 </p>
                 
                 <p>
                 	<label>Birthday</label>
-					<?php echo $userProfile['birthday']?>
+					<?php echo @$userProfile['birthday']?>
                 </p>
                 
                 <p>
                 	<label>Phone</label>
-					<?php echo $userProfile['phone']?>
+					<?php echo @$userProfile['phone']?>
                 </p>
                 
                 <p>
                 	<label>Address</label>
-					<?php echo $userProfile['address']?>
+					<?php echo @$userProfile['address']?>
                 </p>
                 
                 <p>
                 	<label>Provine/City</label>
-					<?php echo $userProfile['provincecity']?>
+					<?php echo @$userProfile['provincecity']?>
                 </p>
                 
                 <p>
                 	<label>Country</label>
-					<?php echo $userProfile['country']?>
+					<?php echo @$userProfile['country']?>
                 </p>
                 
             

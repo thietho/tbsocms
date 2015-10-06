@@ -13,7 +13,7 @@ class ModelAddonService extends ModelCoreFile
 							);
 	public function getItem($id)
 	{
-		$query = $this->db->query("Select `service`.* 
+		$query = @$this->db->query("Select `service`.* 
 									from `service` 
 									where id ='".$id."' ");
 		return $query->row;
@@ -32,7 +32,7 @@ class ModelAddonService extends ModelCoreFile
 			$sql .= " Limit ".$from.",".$to;
 		}
 		//echo $sql;
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
@@ -51,12 +51,12 @@ class ModelAddonService extends ModelCoreFile
 					);
 		
 		$where="id = '".$id."'";
-		$this->db->updateData('service',$field,$value,$where);
+		@$this->db->updateData('service',$field,$value,$where);
 	}
 	
 	public function save($data)
 	{
-		$service = $this->getItem($data['id']);
+		$service = @$this->getItem($data['id']);
 		
 		$value = array();
 		if(count($service))
@@ -69,22 +69,22 @@ class ModelAddonService extends ModelCoreFile
 			$data = $service;
 		}
 		
-		foreach($this->arr_col as $col)
+		foreach(@$this->arr_col as $col)
 		{
-			$value[] = $this->db->escape(@$data[$col]);
+			$value[] = @$this->db->escape(@$data[$col]);
 		}
 		
 
-		$field=$this->arr_col;
+		$field=@$this->arr_col;
 		
 		if(count($service) == 0)
 		{
-			$data['id'] = $this->db->insertData("service",$field,$value);
+			$data['id'] = @$this->db->insertData("service",$field,$value);
 		}
 		else
 		{
 			$where="id = '".$data['id']."'";
-			$this->db->updateData("service",$field,$value,$where);
+			@$this->db->updateData("service",$field,$value,$where);
 		}
 		return $data['id'];
 	}
@@ -92,9 +92,9 @@ class ModelAddonService extends ModelCoreFile
 	public function delete($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("service",$where);
+		@$this->db->deleteData("service",$where);
 		$where="serviceid = '".$id."'";
-		$this->db->deleteData("service_detail",$where);
+		@$this->db->deleteData("service_detail",$where);
 	}
 	
 }

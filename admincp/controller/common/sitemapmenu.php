@@ -3,33 +3,33 @@ class ControllerCommonSitemapmenu extends Controller
 {
 	function index()
 	{	
-		$this->load->model("core/sitemap");
-		$this->load->model("core/file");
-		$this->load->model("core/module");	
+		@$this->load->model("core/sitemap");
+		@$this->load->model("core/file");
+		@$this->load->model("core/module");	
 		
-		$this->data = array_merge($this->data, $this->language->getData());
+		@$this->data = array_merge(@$this->data, @$this->language->getData());
 		
-		$this->data['safemode'] = $this->session->data['safemode'];
+		@$this->data['safemode'] = @$this->session->data['safemode'];
 		
-		$this->data['menu'] = $this->getMenu("");
-		$this->data['addon'] = $this->getAddOnMenu("");
+		@$this->data['menu'] = @$this->getMenu("");
+		@$this->data['addon'] = @$this->getAddOnMenu("");
 		
 		
-		$this->id='sitemapmenu';
-		$this->template='common/sitemapmenu.tpl';
-		$this->render();
+		@$this->id='sitemapmenu';
+		@$this->template='common/sitemapmenu.tpl';
+		@$this->render();
 	}
 	
 	public function getMenu($parentid)
 	{
-		$siteid = $this->user->getSiteId();
+		$siteid = @$this->user->getSiteId();
 		$str = "";
 		
-		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid, "Active");
+		$sitemaps = @$this->model_core_sitemap->getListByParent($parentid, $siteid, "Active");
 		
 		foreach($sitemaps as $item)
 		{
-			$childs = $this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid, "Active");
+			$childs = @$this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid, "Active");
 			
 			$link = "<a class='left'>".$item['sitemapname']."</a>";
 			
@@ -66,7 +66,7 @@ class ControllerCommonSitemapmenu extends Controller
 				$str .= "</div>";
 				
 				$str .= "<ul>";
-				$str .= $this->getMenu($item['sitemapid']);
+				$str .= @$this->getMenu($item['sitemapid']);
 				$str .= "</ul>";
 			}
 			else
@@ -84,14 +84,14 @@ class ControllerCommonSitemapmenu extends Controller
 	
 	public function getAddOnMenu($parentid)
 	{
-		$siteid = $this->user->getSiteId();
+		$siteid = @$this->user->getSiteId();
 		$str = "";
 		
-		$sitemaps = $this->model_core_sitemap->getListByParent($parentid, $siteid, "Addon");
+		$sitemaps = @$this->model_core_sitemap->getListByParent($parentid, $siteid, "Addon");
 		
 		foreach($sitemaps as $item)
 		{
-			$childs = $this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid, "Addon");
+			$childs = @$this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid, "Addon");
 			
 			$link = "<a>".$item['sitemapname']."</a>";
 			
@@ -117,7 +117,7 @@ class ControllerCommonSitemapmenu extends Controller
 				$str .= "</div>";
 				
 				$str .= "<ul>";
-				$str .= $this->getAddOnMenu($item['sitemapid']);
+				$str .= @$this->getAddOnMenu($item['sitemapid']);
 				$str .= "</ul>";
 			}
 			else

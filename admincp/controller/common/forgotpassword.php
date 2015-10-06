@@ -3,28 +3,28 @@ class ControllerCommonForgotpassword extends Controller
 {
 	function index()
 	{
-		$this->id='content';
-		$this->template='common/forgotpassword.tpl';
-		$this->layout='layout/login';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/forgotpassword.tpl';
+		@$this->layout='layout/login';
+		@$this->render();
 	}
 	
 	public function resetPassword()
 	{
-		$data = $this->request->post;
-		$err =$this->validate($data);
+		$data = @$this->request->post;
+		$err =@$this->validate($data);
 		if(count($err)==0)
 		{
-			$this->data['output'] = 'true';
-			$this->load->model('core/user');
-			$user = $this->model_core_user->getItemByEmail($data['email']);
+			@$this->data['output'] = 'true';
+			@$this->load->model('core/user');
+			$user = @$this->model_core_user->getItemByEmail($data['email']);
 			
 			//Reset password
-			$newpass = $this->string->generateRandStr(10);
+			$newpass = @$this->string->generateRandStr(10);
 			
 			$user['password'] = md5($newpass);
-			$this->model_core_user->changePassword($user);
-			$this->load->helper('mail');
+			@$this->model_core_user->changePassword($user);
+			@$this->load->helper('mail');
 			//Send mail
 			$to=$data['email'];
 			// subject
@@ -42,7 +42,7 @@ class ControllerCommonForgotpassword extends Controller
 			$headers .= 'From: admin@ben-solution.com';
 								
 			// Mail it
-			//$template = $this->language->get('message_template_recoverypassword');
+			//$template = @$this->language->get('message_template_recoverypassword');
 			$template = "Chào {nguoinhan},<br>
 
 							Đây là thông tin đăng nhập của bạn tại Cổng thông tin du lịch ảnh:<br>
@@ -57,22 +57,22 @@ class ControllerCommonForgotpassword extends Controller
 							'{matkhau}' => $newpass
 							
 							);
-			$message = $this->string->inludeParameterToTemplate($param,$template);
+			$message = @$this->string->inludeParameterToTemplate($param,$template);
 			HelperMail::sendmail($to, $subject, $message, "", "smtp");
 			
 		}
 		else
 		{
-			$this->data['output'] = '';
+			@$this->data['output'] = '';
 			foreach($err as $item)
 			{
-				$this->data['output'] .= $item."<br>";
+				@$this->data['output'] .= $item."<br>";
 			}
 		}
-		$this->id='content';
-		$this->template='common/output.tpl';
+		@$this->id='content';
+		@$this->template='common/output.tpl';
 		
-		$this->render();
+		@$this->render();
 	}
 	
 	private function validate($data) 
@@ -82,8 +82,8 @@ class ControllerCommonForgotpassword extends Controller
 			$err['email'] = "Bạn chưa nhập mật khẩu";
 		else
 		{
-			$this->load->model('core/user');
-				$user = $this->model_core_user->getItemByEmail($data['email']);
+			@$this->load->model('core/user');
+				$user = @$this->model_core_user->getItemByEmail($data['email']);
 			if(count($user)==0)
 				$err['email'] = "Không tồn tại email này";
 		}

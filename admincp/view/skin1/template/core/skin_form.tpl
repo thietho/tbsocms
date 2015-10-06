@@ -1,12 +1,12 @@
 <div class="section" id="sitemaplist">
-	<div class="section-title"><?php echo $header_title?></div>
+	<div class="section-title"><?php echo @$header_title?></div>
     
     <div class="section-content padding1">
     
-    	<form id="frm" name="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form id="frm" name="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         	
             <div class="left">
-            	<h3><?php echo $header_title?></h3>
+            	<h3><?php echo @$header_title?></h3>
             </div>
         	<div class="button right">
             	<a class="button" onclick="save()">Save</a>
@@ -21,7 +21,7 @@
                 	<p>
                         <label>Skin id:</label><br>
                         
-                        <input type="text" class="text" size="40" id="skinid" name="skinid" value="<?php echo $item[skinid]?>"/>(*)
+                        <input type="text" class="text" size="40" id="skinid" name="skinid" value="<?php echo @$item[skinid]?>"/>(*)
                         
                     </p>
                     <p>
@@ -37,7 +37,7 @@
                     <p id="pnImage">
                         <label for="image">Image</label><br />
                         <a id="btnAddImage" class="button">Select photo</a><br />
-                        <img id="preview" src="<?php echo $imagethumbnail?>" />
+                        <img id="preview" src="<?php echo @$imagethumbnail?>" />
                         <input type="hidden" id="imagepath" name="imagepath"  />
                         <input type="hidden" id="imageid" name="imageid"  />
                         <input type="hidden" id="imagethumbnail" name="imagethumbnail"  />
@@ -60,16 +60,16 @@
 <script src='<?php echo DIR_JS?>ajaxupload.js' type='text/javascript' language='javascript'> </script>
 
 <script language="javascript">
-var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
+var DIR_UPLOADPHOTO = "<?php echo @$DIR_UPLOADPHOTO?>";
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
-	$.post("index.php?route=<?php echo $route?>/save", 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
+	$.post("index.php?route=<?php echo @$route?>/save", 
 		   $("#frm").serialize(),
 		   function(data)
 		   {
 				if(data=="true")
-					window.location = '?route=<?php echo $route?>';
+					window.location = '?route=<?php echo @$route?>';
 				else
 				{
 					$(".error").html(data).show('slow');
@@ -84,12 +84,12 @@ function save()
 $(document).ready(function() {
   	if($("#skinid").val()!="")
 	{
-		$("#skinid").val("<?php echo $item['skinid']?>");
-		$("#skinname").val("<?php echo $item['skinname']?>");
-		$("#imagepath").val("<?php echo $item['imagepath']?>");
-		$("#imageid").val("<?php echo $item['imageid']?>");
-		$("#imagethumbnail").val("<?php echo $item['imagethumbnail']?>");
-		$("#preview").attr('src',"<?php echo $item['imagethumbnail']?>")
+		$("#skinid").val("<?php echo @$item['skinid']?>");
+		$("#skinname").val("<?php echo @$item['skinname']?>");
+		$("#imagepath").val("<?php echo @$item['imagepath']?>");
+		$("#imageid").val("<?php echo @$item['imageid']?>");
+		$("#imagethumbnail").val("<?php echo @$item['imagethumbnail']?>");
+		$("#preview").attr('src',"<?php echo @$item['imagethumbnail']?>")
 	}
 });
 </script>

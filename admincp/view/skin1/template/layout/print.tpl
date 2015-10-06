@@ -70,9 +70,9 @@ label
 
 <div class="main">
 <center>
-	<?php echo html_entity_decode($this->document->setup['HeaderBill'])?>
+	<?php echo html_entity_decode(@$this->document->setup['HeaderBill'])?>
 </center>
-<div id="main-content"><?php echo $content?></div>
+<div id="main-content"><?php echo @$content?></div>
 
 <div class="clearer">&nbsp;</div>
 

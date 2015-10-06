@@ -23,15 +23,15 @@
     <div id="site-wrapper">
     
         <div id="header">
-            <?php echo $header?>
+            <?php echo @$header?>
         </div>
     
         <div class="main">
-            <?php echo $content?>
+            <?php echo @$content?>
         </div>
     
         <div id="footer">
-            <?php echo $footer?>
+            <?php echo @$footer?>
         </div>
     
     </div>

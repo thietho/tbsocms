@@ -14,25 +14,25 @@
     <?php 
     if(count($medias))
     	foreach($medias as $key => $media){ ?>
-    <tr class="item" mediaid="<?php echo $media['mediaid']?>">
+    <tr class="item" mediaid="<?php echo @$media['mediaid']?>">
     	
-        <td><?php echo $this->document->productName($media)?></td>
+        <td><?php echo @$this->document->productName($media)?></td>
         
         <td class="number">
-        	<input id="qty<?php echo $media['mediaid']?>" col="qty" type="text" class="text number short ProductList" name="qty[<?php echo $media['mediaid']?>]" value="<?php echo $media['qty']?>" mediaid="<?php echo $media['mediaid']?>"/>
+        	<input id="qty<?php echo @$media['mediaid']?>" col="qty" type="text" class="text number short ProductList" name="qty[<?php echo @$media['mediaid']?>]" value="<?php echo @$media['qty']?>" mediaid="<?php echo @$media['mediaid']?>"/>
         </td>
         <td class="number">
-            <input id="price<?php echo $media['mediaid']?>" col="price" type="text" class="text number short ProductList price" name="price[<?php echo $media['mediaid']?>]" value="<?php echo $media['price']?>" mediaid="<?php echo $media['mediaid']?>"/>
+            <input id="price<?php echo @$media['mediaid']?>" col="price" type="text" class="text number short ProductList price" name="price[<?php echo @$media['mediaid']?>]" value="<?php echo @$media['price']?>" mediaid="<?php echo @$media['mediaid']?>"/>
         </td>
         <td class="number">
-            <input id="discountpercent<?php echo $media['mediaid']?>" col="discountpercent" type="text" class="text number short ProductList discountpercent" name="discountpercent[<?php echo $media['mediaid']?>]" value="<?php echo $media['discountpercent']?>" mediaid="<?php echo $media['mediaid']?>"/>
+            <input id="discountpercent<?php echo @$media['mediaid']?>" col="discountpercent" type="text" class="text number short ProductList discountpercent" name="discountpercent[<?php echo @$media['mediaid']?>]" value="<?php echo @$media['discountpercent']?>" mediaid="<?php echo @$media['mediaid']?>"/>
         </td>
         <td class="number">
-            <input id="pricepromotion<?php echo $media['mediaid']?>" col="pricepromotion" type="text" class="text number short ProductList pricepromotion" name="pricepromotion[<?php echo $media['mediaid']?>]" value="<?php echo $this->string->numberFormate($media['pricepromotion'])?>" mediaid="<?php echo $media['mediaid']?>"/>
+            <input id="pricepromotion<?php echo @$media['mediaid']?>" col="pricepromotion" type="text" class="text number short ProductList pricepromotion" name="pricepromotion[<?php echo @$media['mediaid']?>]" value="<?php echo @$this->string->numberFormate($media['pricepromotion'])?>" mediaid="<?php echo @$media['mediaid']?>"/>
         </td>
         
-        <td><img src="<?php echo $media['imagepreview']?>"></td>
-        <td><input type="button" class="button" value="X" onClick="pro.removeListItem('<?php echo $media['mediaid']?>');"></td>
+        <td><img src="<?php echo @$media['imagepreview']?>"></td>
+        <td><input type="button" class="button" value="X" onClick="pro.removeListItem('<?php echo @$media['mediaid']?>');"></td>
     </tr>
     <?php } ?>
 </table>

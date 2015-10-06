@@ -12,11 +12,11 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-            	<?php echo $this->document->title?>
-                <?php if($this->user->checkPermission("quanlykho/donvitinh/insert")==true){ ?>
-                <input class="btn btn-primary" value="Thêm" type="button"  onclick="window.location = '<?php echo $insert?>'">
+            	<?php echo @$this->document->title?>
+                <?php if(@$this->user->checkPermission("quanlykho/donvitinh/insert")==true){ ?>
+                <input class="btn btn-primary" value="Thêm" type="button"  onclick="window.location = '<?php echo @$insert?>'">
                 <?php } ?>
-                <?php if($this->user->checkPermission("quanlykho/donvitinh/delete")==true){ ?>
+                <?php if(@$this->user->checkPermission("quanlykho/donvitinh/delete")==true){ ?>
                 <input class="btn btn-danger" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>
                 <?php } ?>
             </h1>
@@ -50,19 +50,19 @@
                                     {
                                 ?>
                                 <tr class="odd gradeX">
-                                    <td><input class="inputchk" type="checkbox" name="delete[<?php echo $item['madonvi']?>]" value="<?php echo $item['madonvi']?>" ></td>
-                                    <td><?php echo $item['madonvi']?></td>
-                                    <td><?php echo $item['tendonvitinh']?></td>
-                                    <td><?php echo $this->string->numberFormate($item['quidoi'])?></td>
+                                    <td><input class="inputchk" type="checkbox" name="delete[<?php echo @$item['madonvi']?>]" value="<?php echo @$item['madonvi']?>" ></td>
+                                    <td><?php echo @$item['madonvi']?></td>
+                                    <td><?php echo @$item['tendonvitinh']?></td>
+                                    <td><?php echo @$this->string->numberFormate($item['quidoi'])?></td>
                                     <td class="center">
-                                        <?php echo $this->document->getDonViTinh($item['madonviquydoi'])?>
-                                        <?php if($item['madonviquydoi']!=""){ ?>
-                                        (<?php echo $item['madonviquydoi']?>)
+                                        <?php echo @$this->document->getDonViTinh($item['madonviquydoi'])?>
+                                        <?php if(@$item['madonviquydoi']!=""){ ?>
+                                        (<?php echo @$item['madonviquydoi']?>)
                                         <?php } ?>
                                     </td>
                                     <td class="center">
-                                        <?php if($this->user->checkPermission("quanlykho/donvitinh/update")==true){ ?>
-                                        <a class="btn btn-default" href="<?php echo $item['link_edit']?>" title="<?php echo $item['text_edit']?>"><?php echo $item['text_edit']?></a>
+                                        <?php if(@$this->user->checkPermission("quanlykho/donvitinh/update")==true){ ?>
+                                        <a class="btn btn-default" href="<?php echo @$item['link_edit']?>" title="<?php echo @$item['text_edit']?>"><?php echo @$item['text_edit']?></a>
                                         <?php } ?>
                                     </td>
                                 </tr>

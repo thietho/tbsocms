@@ -1,6 +1,6 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content">
     	
@@ -14,26 +14,26 @@
                 <select id="loai" name="loai">
                     <option value=""></option>
                     <?php foreach($loainhanvien as $val){ ?>
-                    <option value="<?php echo $val['categoryid']?>"><?php echo $val['categoryname']?></option>
+                    <option value="<?php echo @$val['categoryid']?>"><?php echo @$val['categoryname']?></option>
                     <?php } ?>
                 </select>
                 
                
                 <br />
                 <input type="button" class="button" name="btnSearch" value="Tìm" onclick="searchForm()"/>
-                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=quanlykho/nhanvien<?php echo $_GET['opendialog']=='true'?'&opendialog=true':''?>'"/>
+                <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="window.location = '?route=quanlykho/nhanvien<?php echo @$_GET['opendialog']=='true'?'&opendialog=true':''?>'"/>
             </div>
             <!-- end search -->
             
         	<div class="button right">
-                <?php if($dialog==true){ ?>
+                <?php if(@$dialog==true){ ?>
             	
                 <?php } ?>
-                <?php if($dialog!=true){ ?>
-                <?php if($this->user->checkPermission("quanlykho/nhanvien/insert")==true){ ?>
-                <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo $insert?>')">
+                <?php if(@$dialog!=true){ ?>
+                <?php if(@$this->user->checkPermission("quanlykho/nhanvien/insert")==true){ ?>
+                <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo @$insert?>')">
                 <?php } ?>
-                <?php if($this->user->checkPermission("quanlykho/nhanvien/delete")==true){ ?>
+                <?php if(@$this->user->checkPermission("quanlykho/nhanvien/delete")==true){ ?>
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>
                 <?php } ?>
                 <?php } ?>  
@@ -89,7 +89,7 @@ $('#frm_nhanvien select').change(function(e) {
 function viewAll()
 {
 	url = "?route=quanlykho/nhanvien/getList";
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
@@ -110,7 +110,7 @@ function searchForm()
 		url += "&loai="+ encodeURI($("#frm_nhanvien #loai").val());
 
 	
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}

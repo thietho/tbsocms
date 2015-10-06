@@ -1,19 +1,19 @@
 <center>
 	<h2>Phiếu chi</h2>
-	Ngày <?php echo $this->date->getDay($item['ngaylap'])?> tháng <?php echo $this->date->getMonth($item['ngaylap'])?> năm <?php echo $this->date->getYear($item['ngaylap'])?><br />
-	<label>Số:</label> <?php echo $item['sophieu']?>
+	Ngày <?php echo @$this->date->getDay($item['ngaylap'])?> tháng <?php echo @$this->date->getMonth($item['ngaylap'])?> năm <?php echo @$this->date->getYear($item['ngaylap'])?><br />
+	<label>Số:</label> <?php echo @$item['sophieu']?>
 </center>
 <table>
 	<tr>
-    	<td width="50%"><label>Người nhận tiền:</label> <?php echo $item['tenkhachhang']?></td>
-        <td><label>Địa chỉ:</label> <?php echo $item['diachi']?></td>
+    	<td width="50%"><label>Người nhận tiền:</label> <?php echo @$item['tenkhachhang']?></td>
+        <td><label>Địa chỉ:</label> <?php echo @$item['diachi']?></td>
     </tr>
     <tr>
-    	<td colspan="2"><label>Lý do:</label> <?php echo $this->document->getCategory($item['taikhoanthuchi'])?><?php if($item['lydo']) echo " - ".$item['lydo']?></td>
+    	<td colspan="2"><label>Lý do:</label> <?php echo @$this->document->getCategory($item['taikhoanthuchi'])?><?php if(@$item['lydo']) echo " - ".$item['lydo']?></td>
     </tr>
     <tr>
-    	<td colspan="2"><label>Số tiền:</label> <?php echo $this->string->numberFormate($item['quidoi'])?> <?php echo $this->document->tiente['VND']?> 
-    <i>(Số tiền viết bằng chữ)</i> <?php echo $this->string->doc_so($item['quidoi'])?> <?php echo $this->document->tientechu['VND']?></td>
+    	<td colspan="2"><label>Số tiền:</label> <?php echo @$this->string->numberFormate($item['quidoi'])?> <?php echo @$this->document->tiente['VND']?> 
+    <i>(Số tiền viết bằng chữ)</i> <?php echo @$this->string->doc_so($item['quidoi'])?> <?php echo @$this->document->tientechu['VND']?></td>
     </tr>
 </table>
 
@@ -24,7 +24,7 @@
 	
 </p>
 <p>
-	<label>Kèm theo:</label> <?php echo $item['chungtulienquan']?> chứng từ gốc
+	<label>Kèm theo:</label> <?php echo @$item['chungtulienquan']?> chứng từ gốc
 </p>
 <table style="margin:15px 0">
 	<tr>

@@ -4,7 +4,7 @@ class ModelCoreComment extends Model
 	
 	public function getItem($id, $where="")
 	{
-		$query = $this->db->query("Select `comment`.* 
+		$query = @$this->db->query("Select `comment`.* 
 									from `comment` 
 									where id ='".$id."' ".$where);
 		return $query->row;
@@ -21,7 +21,7 @@ class ModelCoreComment extends Model
 			$sql .= " Limit ".$from.",".$to;
 		}
 		
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
@@ -29,7 +29,7 @@ class ModelCoreComment extends Model
 	
 	protected function getnextid()
 	{
-		$id=$this->db->getNextId("comment","id");
+		$id=@$this->db->getNextId("comment","id");
 		return $id;
 	}
 	
@@ -37,15 +37,15 @@ class ModelCoreComment extends Model
 	
 	public function insert($data)
 	{
-		$id=$this->getnextid();
-		$fullname=$this->db->escape(@$data['fullname']);
-		$email=$this->db->escape(@$data['email']);
-		$level=$this->db->escape(@$data['level']);
-		$description=$this->db->escape(@$data['description']);
-		$commentdate = $this->date->getToday();
-		$mediaid=$this->db->escape(@$data['mediaid']);
+		$id=@$this->getnextid();
+		$fullname=@$this->db->escape(@$data['fullname']);
+		$email=@$this->db->escape(@$data['email']);
+		$level=@$this->db->escape(@$data['level']);
+		$description=@$this->db->escape(@$data['description']);
+		$commentdate = @$this->date->getToday();
+		$mediaid=@$this->db->escape(@$data['mediaid']);
 		$status="new";
-		$userid=$this->db->escape(@$data['userid']);
+		$userid=@$this->db->escape(@$data['userid']);
 		
 		$field=array(
 						'id',
@@ -70,16 +70,16 @@ class ModelCoreComment extends Model
 						$userid
 					);
 		
-		$this->db->insertData("comment",$field,$value);
+		@$this->db->insertData("comment",$field,$value);
 		
 		return $id;
 	}
 	
 	public function updateCol($id,$col,$val)
 	{
-		$id= $this->db->escape(@$id);
-		$col= $this->db->escape(@$col);
-		$val= $this->db->escape(@$val);
+		$id= @$this->db->escape(@$id);
+		$col= @$this->db->escape(@$col);
+		$val= @$this->db->escape(@$val);
 		
 		
 		
@@ -91,7 +91,7 @@ class ModelCoreComment extends Model
 					);
 		
 		$where="id = '".$id."'";
-		$this->db->updateData("comment",$field,$value,$where);
+		@$this->db->updateData("comment",$field,$value,$where);
 		
 		
 		
@@ -100,9 +100,9 @@ class ModelCoreComment extends Model
 	
 	public function delete($id)
 	{
-		$id= $this->db->escape(@$id);
+		$id= @$this->db->escape(@$id);
 		$where="id = '".$id."'";
-		$this->db->deleteData("comment",$where);
+		@$this->db->deleteData("comment",$where);
 			
 		
 	}

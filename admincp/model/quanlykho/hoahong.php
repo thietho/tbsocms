@@ -9,7 +9,7 @@ class ModelQuanlykhoHoahong extends Model
 							);
 	public function getItem($id)
 	{
-		$query = $this->db->query("Select `qlkhoahong`.* 
+		$query = @$this->db->query("Select `qlkhoahong`.* 
 									from `qlkhoahong` 
 									where id ='".$id."' ");
 		return $query->row;
@@ -28,7 +28,7 @@ class ModelQuanlykhoHoahong extends Model
 			$sql .= " Limit ".$from.",".$to;
 		}
 		//echo $sql;
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
@@ -47,12 +47,12 @@ class ModelQuanlykhoHoahong extends Model
 					);
 		
 		$where="id = '".$id."'";
-		$this->db->updateData('qlkhoahong',$field,$value,$where);
+		@$this->db->updateData('qlkhoahong',$field,$value,$where);
 	}
 	
 	public function save($data)
 	{
-		$qlkhoahong = $this->getItem($data['id']);
+		$qlkhoahong = @$this->getItem($data['id']);
 		
 		$value = array();
 		if(count($qlkhoahong))
@@ -65,22 +65,22 @@ class ModelQuanlykhoHoahong extends Model
 			$data = $qlkhoahong;
 		}
 		
-		foreach($this->arr_col as $col)
+		foreach(@$this->arr_col as $col)
 		{
-			$value[] = $this->db->escape(@$data[$col]);
+			$value[] = @$this->db->escape(@$data[$col]);
 		}
 		
 
-		$field=$this->arr_col;
+		$field=@$this->arr_col;
 		
 		if(count($qlkhoahong) == 0)
 		{
-			$data['id'] = $this->db->insertData("qlkhoahong",$field,$value);
+			$data['id'] = @$this->db->insertData("qlkhoahong",$field,$value);
 		}
 		else
 		{
 			$where="id = '".$data['id']."'";
-			$this->db->updateData("qlkhoahong",$field,$value,$where);
+			@$this->db->updateData("qlkhoahong",$field,$value,$where);
 		}
 		return $data['id'];
 	}
@@ -88,7 +88,7 @@ class ModelQuanlykhoHoahong extends Model
 	public function delete($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("qlkhoahong",$where);
+		@$this->db->deleteData("qlkhoahong",$where);
 		
 	}
 	

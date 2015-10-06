@@ -15,7 +15,7 @@ function submitForm(value)
 <div class="indent-center">
    <!-- <div class="btncontrol">
         <div class="fleft">
-            <?php echo $btnAdd?>
+            <?php echo @$btnAdd?>
             <input type="hidden" name="type" value="" />
         </div>
         <div class="clear"></div>
@@ -38,12 +38,12 @@ function submitForm(value)
     {
 ?>
 			<tr>
-				<td><?php echo $item['usertypeid']?></td>
-                <td><?php echo $item['Prefix']?><?php echo $item['usertypename']?></td>
-                <td><?php echo $item['UserTypeParent']?></td>
+				<td><?php echo @$item['usertypeid']?></td>
+                <td><?php echo @$item['Prefix']?><?php echo @$item['usertypename']?></td>
+                <td><?php echo @$item['UserTypeParent']?></td>
                 <td align="right">
-                	<?php echo $item['btnAddMember']?>
-                    <?php echo $item['btnEdit']?>
+                	<?php echo @$item['btnAddMember']?>
+                    <?php echo @$item['btnEdit']?>
                     
                     
                 </td>

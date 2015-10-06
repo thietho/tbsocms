@@ -4,12 +4,12 @@
     
     <div class="section-content padding1">
     
-    	<form name="frmmodule" id="frmmodule" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frmmodule" id="frmmodule" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
             	
      	        
-     	        <input type="hidden" id="id" name="id" value="<?php echo $item['id']?>">
+     	        <input type="hidden" id="id" name="id" value="<?php echo @$item['id']?>">
                 
                 
             </div>
@@ -21,7 +21,7 @@
                 
                 <p>
                     <label>Tên module:</label><br />
-                    <?php echo $item['modulename']?>
+                    <?php echo @$item['modulename']?>
                 </p>               
                 
                 <p>
@@ -29,7 +29,7 @@
                     <select id="moduleparent" name="moduleparent">
                         <option value="">Khu vực gốc</option>
                         <?php foreach($modules as $module){ ?>
-                        <option value="<?php echo $module['id']?>"><?php echo $this->string->getPrefix("&nbsp; &nbsp; &nbsp; &nbsp;",$module['level']);?><?php echo $module['modulename']?></option>
+                        <option value="<?php echo @$module['id']?>"><?php echo @$this->string->getPrefix("&nbsp; &nbsp; &nbsp; &nbsp;",$module['level']);?><?php echo @$module['modulename']?></option>
                       <?php }?>
                     </select>
                 </p>
@@ -41,5 +41,5 @@
     
 </div>
 <script language="javascript">
-$('#moduleparent').val("<?php echo $item['moduleparent']?>");
+$('#moduleparent').val("<?php echo @$item['moduleparent']?>");
 </script>

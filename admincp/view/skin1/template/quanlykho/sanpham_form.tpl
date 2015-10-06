@@ -1,15 +1,15 @@
 <div class="section" id="sitemaplist">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content padding1">
     
-    	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
             	<input type="button" value="Lưu" class="button" onClick="save()"/>
      	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/sanpham')"/>   
-     	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
+     	        <input type="hidden" name="id" value="<?php echo @$item['id']?>">
                 <input type="hidden" id="handler" />
              	<input type="hidden" id="outputtype" />
             </div>
@@ -23,19 +23,19 @@
                 <div id="fragment-thongtin">
                     <p>
                         <label>Mã sản phẩm</label><br />
-                        <input type="text" id="masanpham" name="masanpham" value="<?php echo $item['masanpham']?>" class="text" size=60 <?php echo $readonly?>/>
+                        <input type="text" id="masanpham" name="masanpham" value="<?php echo @$item['masanpham']?>" class="text" size=60 <?php echo @$readonly?>/>
                         
                     </p>
                     
                     
                     <p>
                         <label>Tên sản phẩm</label><br />
-                        <input type="text" id="tensanpham" name="tensanpham" value="<?php echo $item['tensanpham']?>" class="text" size=60 />
+                        <input type="text" id="tensanpham" name="tensanpham" value="<?php echo @$item['tensanpham']?>" class="text" size=60 />
                         
                     </p>
                     <p>
                         <label>Tên hiển thị</label><br />
-                        <input type="text" id="tenhienthi" name="tenhienthi" value="<?php echo $item['tenhienthi']?>" class="text" size=60 />
+                        <input type="text" id="tenhienthi" name="tenhienthi" value="<?php echo @$item['tenhienthi']?>" class="text" size=60 />
                         
                     </p>
                   
@@ -43,13 +43,13 @@
                         <label>Loại</label><br />
                         <select id="loai" name="loai">                   		
                             <?php foreach($loaisanpham as $val){ ?>
-                            <option value="<?php echo $val['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;",$val['level']-1)?><?php echo $val['categoryname']?></option>
+                            <option value="<?php echo @$val['categoryid']?>"><?php echo @$this->string->getPrefix("&nbsp;&nbsp;&nbsp;",$val['level']-1)?><?php echo @$val['categoryname']?></option>
                             <?php } ?>
                         </select>
                     </p>
                     <p>
                         <label>Giá bán</label><br />
-                        <input type="text" id="giaban" name="giaban" value="<?php echo $item['giaban']?>" class="text number" size=60 />
+                        <input type="text" id="giaban" name="giaban" value="<?php echo @$item['giaban']?>" class="text number" size=60 />
                     </p>
                     
                     <p>
@@ -57,7 +57,7 @@
                         <select id="madonvi" name="madonvi">
                             <option value=""></option>
                             <?php foreach($donvitinh as $val){ ?>
-                            <option value="<?php echo $val['madonvi']?>"><?php echo $val['tendonvitinh']?></option>
+                            <option value="<?php echo @$val['madonvi']?>"><?php echo @$val['tendonvitinh']?></option>
                             <?php } ?>
                         </select>
                     </p>
@@ -68,10 +68,10 @@
                         <label for="image">Hình</label><br />
                         <a class="button" onclick="browserFileImage()">Chọn hình</a><br />
                         
-                        <img id="preview" src="<?php echo $item['imagethumbnail']?>" />
-                        <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $item['imagepath']?>" />
-                        <input type="hidden" id="imageid" name="imageid" value="<?php echo $item['imageid']?>" />
-                        <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $item['imagethumbnail']?>" />
+                        <img id="preview" src="<?php echo @$item['imagethumbnail']?>" />
+                        <input type="hidden" id="imagepath" name="imagepath" value="<?php echo @$item['imagepath']?>" />
+                        <input type="hidden" id="imageid" name="imageid" value="<?php echo @$item['imageid']?>" />
+                        <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo @$item['imagethumbnail']?>" />
                     </p>
                     
                     
@@ -105,7 +105,7 @@
 	<?php foreach($data_dinhluong as $dl){ ?>
 <script language="javascript">
 $(document).ready(function(e) {
-	objdl.addRow("<?php echo $dl['id']?>","<?php echo $dl['nguyenlieuid']?>","<?php echo $dl['tennguyenlieu']?>","<?php echo $dl['soluong']?>","<?php echo $dl['madonvi']?>");
+	objdl.addRow("<?php echo @$dl['id']?>","<?php echo @$dl['nguyenlieuid']?>","<?php echo @$dl['tennguyenlieu']?>","<?php echo @$dl['soluong']?>","<?php echo @$dl['madonvi']?>");
 });
 </script>
 	<?php } ?>
@@ -271,11 +271,11 @@ function save()
 	);
 }
 
-$("#manhom").val("<?php echo $item['manhom']?>");
-$("#loai").val("<?php echo $item['loai']?>");
+$("#manhom").val("<?php echo @$item['manhom']?>");
+$("#loai").val("<?php echo @$item['loai']?>");
 
-$("#madonvi").val("<?php echo $item['madonvi']?>");
+$("#madonvi").val("<?php echo @$item['madonvi']?>");
 
-var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
+var DIR_UPLOADPHOTO = "<?php echo @$DIR_UPLOADPHOTO?>";
 </script>
 

@@ -1,6 +1,6 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content">
     	
@@ -13,21 +13,21 @@
                 <select id="brand">
                 	<option value="">Tất cả nhản hiệu</option>
                     <?php foreach($nhanhieu as $it){ ?>
-                    <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                    <option value="<?php echo @$it['categoryid']?>"><?php echo @$this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo @$it['categoryname']?></option>                        
                     <?php } ?>
                 </select>
                 <select id="sitemapid">
                 	<option value="">Tất cả danh mục</option>
                     <?php foreach($sitemaps as $sitemap){ ?>
-                    <?php if($sitemap['moduleid'] == 'module/product'){ ?>
-                    <option value="<?php echo $sitemap['sitemapid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$sitemap['level']) ?><?php echo $sitemap['sitemapname']?></option>
+                    <?php if(@$sitemap['moduleid'] == 'module/product'){ ?>
+                    <option value="<?php echo @$sitemap['sitemapid']?>"><?php echo @$this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$sitemap['level']) ?><?php echo @$sitemap['sitemapname']?></option>
                     <?php } ?>
                     <?php } ?>
                 </select>
                 <select id="status">            	
                 	<option value=""></option>
                     <?php foreach($status as $it){ ?>
-                    <option value="<?php echo $it['categoryid']?>"><?php echo $it['categoryname']?></option>
+                    <option value="<?php echo @$it['categoryid']?>"><?php echo @$it['categoryname']?></option>
                     <?php } ?>
                 </select>
                 <input type="button" class="button" id="btnSearch" value="Tìm" />
@@ -36,8 +36,8 @@
                 
             </div>
             <div class="right">
-                <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
-                <a class="button" onclick="showProductForm('','','pro.searchForm()');"><?php echo $button_add?></a>
+                <?php if(@$this->user->checkPermission("module/product/insert")==true){ ?>
+                <a class="button" onclick="showProductForm('','','pro.searchForm()');"><?php echo @$button_add?></a>
                 <a class="button" id="btnImport" onclick="pro.importData()">Import</a>
                 <a class="button" id="btnExport" onclick="pro.exportData()">Export</a>
                
@@ -45,16 +45,16 @@
                 <a class="button" onclick="pro.showDanhMuc()">Danh mục sản phẩm</a>
                 <a class="button" onclick="pro.viewListBaoGia()">Danh sách báo giá</a>
                 <a class="button" onclick="pro.viewListSelect()">Xem danh sách</a>
-                <?php if($this->user->checkPermission("module/product/update")==true){ ?>
+                <?php if(@$this->user->checkPermission("module/product/update")==true){ ?>
                 <a class="button" onclick="pro.updateInventory()">Cập nhật tồn kho</a>
-                <a class="button" onclick="pro.updatePosition()"><?php echo $button_updateposition?></a>
+                <a class="button" onclick="pro.updatePosition()"><?php echo @$button_updateposition?></a>
                 <a class="button" href="?route=module/information&goback=module/product">Biên tập nội dung</a>
                 
                 <?php } ?>
-                <?php if($this->user->checkPermission("module/product/deleted")==true){ ?>
+                <?php if(@$this->user->checkPermission("module/product/deleted")==true){ ?>
                 <a class="button" onclick="pro.deleteProduct()">Xóa</a>&nbsp;
                 <?php } ?>
-                <a class="button" href="index.php"><?php echo $button_cancel?></a>
+                <a class="button" href="index.php"><?php echo @$button_cancel?></a>
             </div>
             <div class="clearer">^&nbsp;</div>
             <form id="postlist" name="postlist" method="post" action="">
@@ -75,7 +75,7 @@ $('#search select').change(function(e) {
 
 function Product()
 {
-	this.open = "<?php echo $this->request->get['open']?>";
+	this.open = "<?php echo @$this->request->get['open']?>";
 	//console.log(this.open);
 	this.url = "?route=module/product/getList";
 	this.page = 0;
@@ -112,7 +112,7 @@ function Product()
 		$.blockUI({ message: "<h1>Please wait...</h1>" }); 
 		$('#showsanpham').load(url,function(){
 			$.unblockUI();
-			<?php echo $this->request->get['callfunc']?>
+			<?php echo @$this->request->get['callfunc']?>
 		});
 	}
 	this.add = function(parent,sitemapid)
@@ -443,7 +443,7 @@ function Product()
 	}
 	this.updatePosition = function()
 	{
-		$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+		$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 		$.post("?route=core/postlist/updatePosition", $("#postlist").serialize(), function(data){
 			pro.searchForm();
 			$.unblockUI();
@@ -564,7 +564,7 @@ function Product()
 	}
 	this.updateInventory = function()
 	{
-		$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+		$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 		$.get("?route=module/product/updateInventory",function(data){
 			$.unblockUI();
 		});	

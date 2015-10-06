@@ -1,16 +1,16 @@
 <div class="section" id="sitemaplist">
 
-	<div class="section-title"><?php echo $header_category ?></div>
+	<div class="section-title"><?php echo @$header_category ?></div>
     
     <div class="section-content padding1">
     
-    	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	 <input type="hidden" id="memberid" name="memberid" value="<?php echo $member['id']?>"/>
-            	<input type="button" value="<?php echo $button_save ?>" class="button" onClick="save()"/>
-     	        <input type="button" value="<?php echo $button_cancel ?>" class="button" onclick="linkto('?route=core/category')"/>   
-     	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
+            	 <input type="hidden" id="memberid" name="memberid" value="<?php echo @$member['id']?>"/>
+            	<input type="button" value="<?php echo @$button_save ?>" class="button" onClick="save()"/>
+     	        <input type="button" value="<?php echo @$button_cancel ?>" class="button" onclick="linkto('?route=core/category')"/>   
+     	        <input type="hidden" name="id" value="<?php echo @$item['id']?>">
             </div>
             <div class="clearer">^&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
@@ -41,7 +41,7 @@
 <script language="javascript">
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	
 	$.post("?route=core/category/save", $("#frm").serialize(),
 		function(data){

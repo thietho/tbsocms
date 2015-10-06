@@ -29,7 +29,7 @@ final class Image {
 		{
       		//exit('Error: Could not load image ' . $file . '!');
 			
-			$arr = split("/",$file);
+			@$arr = split("/",$file);
 			$file1 = DIR_CACHE. implode($arr,"_");
 			if(!file_exists($file1))
 			{
@@ -37,7 +37,7 @@ final class Image {
 				$content = file_get_contents(IMAGE_SERVER."?path=".base64_encode($file));
 				file_put_contents($file1,$content);	
 			}
-			$info = getimagesize($file1);
+			@$info = getimagesize($file1);
 			$this->info = array(
             	'width'  => $info[0],
             	'height' => $info[1],

@@ -1,16 +1,16 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content padding1">
     
-    	<form id="frm_inventorycheck" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form id="frm_inventorycheck" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
             	<input type="button" value="Lưu" class="button" onClick="inven.save()"/>
                 <input type="button" value="Trở về" class="button" onClick="window.location = '?route=quanlykho/inventorycheck';"/>
-     	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
-                <input type="hidden" name="nhanvienid" value="<?php echo $item['nhanvienid']?>">
+     	        <input type="hidden" name="id" value="<?php echo @$item['id']?>">
+                <input type="hidden" name="nhanvienid" value="<?php echo @$item['nhanvienid']?>">
                 
                 
             </div>
@@ -25,7 +25,7 @@
                 	<p>
                         <label>Ngày kiểm</label><br />
                         
-                        <input type="text" class="text"  id="datecheck" name="datecheck" value="<?php echo $this->date->formatMySQLDate($item['datecheck'])?>"/>
+                        <input type="text" class="text"  id="datecheck" name="datecheck" value="<?php echo @$this->date->formatMySQLDate($item['datecheck'])?>"/>
                         <script language="javascript">
                             $(function() {
                                 $("#datecheck").datepicker({
@@ -38,7 +38,7 @@
                     </p>
                     <p>
                         <label>Ghi chú</label><br />
-                        <textarea id="note" name="note"><?php echo $item['note']?></textarea>
+                        <textarea id="note" name="note"><?php echo @$item['note']?></textarea>
                         
                     </p>
                 </div>
@@ -266,6 +266,6 @@ var inven = new Inventory();
 </script>
 <?php foreach($data_detail as $detail){ ?>
 <script language="javascript">
-inven.addRow("<?php echo $detail['id']?>","<?php echo $detail['mediaid']?>","<?php echo $this->document->productName($detail['mediaid'])?>","<?php echo $detail['quantity']?>","<?php echo $detail['unit']?>");
+inven.addRow("<?php echo @$detail['id']?>","<?php echo @$detail['mediaid']?>","<?php echo @$this->document->productName($detail['mediaid'])?>","<?php echo @$detail['quantity']?>","<?php echo @$detail['unit']?>");
 </script>
 <?php } ?>

@@ -4,54 +4,54 @@ class ControllerThongkeThuchi extends Controller
 	private $error = array();
 	function __construct() 
 	{
-		$this->load->model("core/module");
+		@$this->load->model("core/module");
 		$moduleid = $_GET['route'];
-		$this->document->title = $this->model_core_module->getBreadcrumbs($moduleid);
-		if($this->user->checkPermission($moduleid)==false)
+		@$this->document->title = @$this->model_core_module->getBreadcrumbs($moduleid);
+		if(@$this->user->checkPermission($moduleid)==false)
 		{
-			$this->response->redirect('?route=page/home');
+			@$this->response->redirect('?route=page/home');
 		}
-		$this->load->model("quanlykho/donvitinh");
+		@$this->load->model("quanlykho/donvitinh");
 	}
 	public function index()
 	{
 		
-		$this->id='content';
-		$this->template="thongke/thuchi.tpl";
-		$this->layout="layout/center";
-		$this->render();
+		@$this->id='content';
+		@$this->template="thongke/thuchi.tpl";
+		@$this->layout="layout/center";
+		@$this->render();
 	}
 	public function thongke()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		
-		$tungay = $this->date->formatViewDate($data['tungay']);
-		$denngay = $this->date->formatViewDate($data['denngay']);
-		$this->data = $this->xuly($tungay,$denngay);
+		$tungay = @$this->date->formatViewDate($data['tungay']);
+		$denngay = @$this->date->formatViewDate($data['denngay']);
+		@$this->data = @$this->xuly($tungay,$denngay);
 		if($tungay)
 		{
-			$data_kytruoc = $this->xuly("",$this->date->addday($tungay, -1));
-			$this->data['tonkytruoc'] = $data_kytruoc['tontrongky'];
+			$data_kytruoc = @$this->xuly("",@$this->date->addday($tungay, -1));
+			@$this->data['tonkytruoc'] = $data_kytruoc['tontrongky'];
 		}
 		else
 		{
-			$this->data['tonkytruoc'] = 0;
+			@$this->data['tonkytruoc'] = 0;
 		}
 		
-		/*$this->data['data_thuchi'] = $data_trongky['data_thuchi'];
-		$this->data['tongthu'] = $data_trongky['tongthu'];
-		$this->data['tongchi'] = $data_trongky['tongchi'];
-		$this->data['tontrongky'] = $data_trongky['tontrongky'];*/
-		$this->id='content';
-		$this->template="thongke/thuchi_thongke.tpl";
+		/*@$this->data['data_thuchi'] = $data_trongky['data_thuchi'];
+		@$this->data['tongthu'] = $data_trongky['tongthu'];
+		@$this->data['tongchi'] = $data_trongky['tongchi'];
+		@$this->data['tontrongky'] = $data_trongky['tontrongky'];*/
+		@$this->id='content';
+		@$this->template="thongke/thuchi_thongke.tpl";
 		
-		$this->render();
+		@$this->render();
 			
 	}
 	public function xuly($tungay,$denngay)
 	{
-		$this->load->model("quanlykho/phieunhapxuat");
-		$this->load->model("addon/thuchi");
+		@$this->load->model("quanlykho/phieunhapxuat");
+		@$this->load->model("addon/thuchi");
 		
 		$arrdate = array();
 		/*$where = " AND qlkphieunhapxuat.loaiphieu = 'PBH'";
@@ -74,13 +74,13 @@ class ControllerThongkeThuchi extends Controller
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
-		$data_thu = $this->model_addon_thuchi->getList($where);
+		$data_thu = @$this->model_addon_thuchi->getList($where);
 		foreach($data_thu as $item)
 		{
-			$ngaylap = $this->date->getDate($item['ngaylap']);
+			$ngaylap = @$this->date->getDate($item['ngaylap']);
 			if(!in_array($ngaylap,$arrdate))
 			{
-				$arrdate[] = $this->date->getDate($item['ngaylap']);
+				$arrdate[] = @$this->date->getDate($item['ngaylap']);
 			}
 		}
 		
@@ -95,15 +95,15 @@ class ControllerThongkeThuchi extends Controller
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
-		$data_banhang = $this->model_quanlykho_phieunhapxuat->getList($where);
+		$data_banhang = @$this->model_quanlykho_phieunhapxuat->getList($where);
 		
 		
 		foreach($data_banhang as $item)
 		{
-			$ngaylap = $this->date->getDate($item['ngaylap']);
+			$ngaylap = @$this->date->getDate($item['ngaylap']);
 			if(!in_array($ngaylap,$arrdate))
 			{
-				$arrdate[] = $this->date->getDate($item['ngaylap']);
+				$arrdate[] = @$this->date->getDate($item['ngaylap']);
 			}
 		}
 		//End thu
@@ -118,13 +118,13 @@ class ControllerThongkeThuchi extends Controller
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
-		$data_chi = $this->model_addon_thuchi->getList($where);
+		$data_chi = @$this->model_addon_thuchi->getList($where);
 		foreach($data_chi as $item)
 		{
-			$ngaylap = $this->date->getDate($item['ngaylap']);
+			$ngaylap = @$this->date->getDate($item['ngaylap']);
 			if(!in_array($ngaylap,$arrdate))
 			{
-				$arrdate[] = $this->date->getDate($item['ngaylap']);
+				$arrdate[] = @$this->date->getDate($item['ngaylap']);
 			}
 		}
 		//Thong ke pheu nhap hang
@@ -137,14 +137,14 @@ class ControllerThongkeThuchi extends Controller
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
-		$data_nhaphang = $this->model_quanlykho_phieunhapxuat->getList($where);
+		$data_nhaphang = @$this->model_quanlykho_phieunhapxuat->getList($where);
 		//print_r($data_nhaphang);
 		foreach($data_nhaphang as $item)
 		{
-			$ngaylap = $this->date->getDate($item['ngaylap']);
+			$ngaylap = @$this->date->getDate($item['ngaylap']);
 			if(!in_array($ngaylap,$arrdate))
 			{
-				$arrdate[] = $this->date->getDate($item['ngaylap']);
+				$arrdate[] = @$this->date->getDate($item['ngaylap']);
 			}
 		}
 		//End chi
@@ -159,12 +159,12 @@ class ControllerThongkeThuchi extends Controller
 			//Thu
 			foreach($data_thu as $item)
 			{
-				$ngaylap = $this->date->getDate($item['ngaylap']);
+				$ngaylap = @$this->date->getDate($item['ngaylap']);
 				if($ngaylap == $date)
 				{
 					$arr = array(
 								'maphieu' => $item['sophieu'],
-								'loai' => "Phiếu thu - " . $this->document->getCategory($item['taikhoanthuchi'])." - ". $item['tenkhachhang'] ." - ".$item['lydo'],
+								'loai' => "Phiếu thu - " . @$this->document->getCategory($item['taikhoanthuchi'])." - ". $item['tenkhachhang'] ." - ".$item['lydo'],
 								'taikhoanthuchi	' => $item['taikhoanthuchi'],
 								'sotien' => $item['sotien']
 								);
@@ -176,7 +176,7 @@ class ControllerThongkeThuchi extends Controller
 			//Ban hang
 			foreach($data_banhang as $item)
 			{
-				$ngaylap = $this->date->getDate($item['ngaylap']);
+				$ngaylap = @$this->date->getDate($item['ngaylap']);
 				if($ngaylap == $date)
 				{
 					$arr = array(
@@ -195,12 +195,12 @@ class ControllerThongkeThuchi extends Controller
 			//Chi
 			foreach($data_chi as $item)
 			{
-				$ngaylap = $this->date->getDate($item['ngaylap']);
+				$ngaylap = @$this->date->getDate($item['ngaylap']);
 				if($ngaylap == $date)
 				{
 					$arr = array(
 								'maphieu' => $item['sophieu'],
-								'loai' => "Phiếu chi - ". $this->document->getCategory($item['taikhoanthuchi'])." - ". $item['tenkhachhang']." - ".$item['lydo'],
+								'loai' => "Phiếu chi - ". @$this->document->getCategory($item['taikhoanthuchi'])." - ". $item['tenkhachhang']." - ".$item['lydo'],
 								'taikhoanthuchi	' => $item['taikhoanthuchi'],
 								'sotien' => $item['sotien']
 								);
@@ -212,7 +212,7 @@ class ControllerThongkeThuchi extends Controller
 			//Nhap hang
 			foreach($data_nhaphang as $item)
 			{
-				$ngaylap = $this->date->getDate($item['ngaylap']);
+				$ngaylap = @$this->date->getDate($item['ngaylap']);
 				if($ngaylap == $date)
 				{
 					$arr = array(

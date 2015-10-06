@@ -8,7 +8,7 @@ class ModelModuleBaogia extends ModelCoreFile
 	
 	public function getItem($id)
 	{
-		$query = $this->db->query("Select `baogia`.* 
+		$query = @$this->db->query("Select `baogia`.* 
 									from `baogia` 
 									where id ='".$id."'");
 		return $query->row;
@@ -27,13 +27,13 @@ class ModelModuleBaogia extends ModelCoreFile
 			$sql .= " Limit ".$from.",".$to;
 		}
 		//echo $sql;
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
 	public function save($data)
 	{
-		$obj = $this->getItem($data['id']);
+		$obj = @$this->getItem($data['id']);
 		$value = array();
 		if(count($obj))
 		{
@@ -46,22 +46,22 @@ class ModelModuleBaogia extends ModelCoreFile
 		}
 		
 		
-		foreach($this->arr_col as $col)
+		foreach(@$this->arr_col as $col)
 		{
-			$value[] = $this->db->escape(@$data[$col]);
+			$value[] = @$this->db->escape(@$data[$col]);
 		}
 		
 
-		$field=$this->arr_col;
+		$field=@$this->arr_col;
 		
 		if(count($obj) == 0)
 		{
-			$data['id'] = $this->db->insertData("baogia",$field,$value);
+			$data['id'] = @$this->db->insertData("baogia",$field,$value);
 		}
 		else
 		{
 			$where="id = '".$data['id']."'";
-			$this->db->updateData("baogia",$field,$value,$where);
+			@$this->db->updateData("baogia",$field,$value,$where);
 		}
 		
 		return $data['id'];
@@ -69,9 +69,9 @@ class ModelModuleBaogia extends ModelCoreFile
 	public function delete($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("baogia",$where);
+		@$this->db->deleteData("baogia",$where);
 		$where="baogiaid = '".$id."'";
-		$this->db->deleteData("baogia_media",$where);
+		@$this->db->deleteData("baogia_media",$where);
 	}
 	//Detail
 	private $arr_coldetail = array(
@@ -83,7 +83,7 @@ class ModelModuleBaogia extends ModelCoreFile
 							);
 	public function getBaoGiaMedia($id)
 	{
-		$query = $this->db->query("Select `baogia_media`.* 
+		$query = @$this->db->query("Select `baogia_media`.* 
 									from `baogia_media` 
 									where id ='".$id."'");
 		return $query->row;
@@ -102,13 +102,13 @@ class ModelModuleBaogia extends ModelCoreFile
 			$sql .= " Limit ".$from.",".$to;
 		}
 		//echo $sql;
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
 	public function saveBaoGiaMedia($data)
 	{
-		$obj = $this->getBaoGiaMedia($data['id']);
+		$obj = @$this->getBaoGiaMedia($data['id']);
 		$value = array();
 		if(count($obj))
 		{
@@ -121,22 +121,22 @@ class ModelModuleBaogia extends ModelCoreFile
 		}
 		
 		
-		foreach($this->arr_coldetail as $col)
+		foreach(@$this->arr_coldetail as $col)
 		{
-			$value[] = $this->db->escape(@$data[$col]);
+			$value[] = @$this->db->escape(@$data[$col]);
 		}
 		
 
-		$field=$this->arr_coldetail;
+		$field=@$this->arr_coldetail;
 		
 		if(count($obj) == 0)
 		{
-			$data['id'] = $this->db->insertData("baogia_media",$field,$value);
+			$data['id'] = @$this->db->insertData("baogia_media",$field,$value);
 		}
 		else
 		{
 			$where="id = '".$data['id']."'";
-			$this->db->updateData("baogia_media",$field,$value,$where);
+			@$this->db->updateData("baogia_media",$field,$value,$where);
 		}
 		
 		return $data['id'];
@@ -144,7 +144,7 @@ class ModelModuleBaogia extends ModelCoreFile
 	public function deleteBaoGiaMedia($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("baogia_media",$where);
+		@$this->db->deleteData("baogia_media",$where);
 	}
 	
 }

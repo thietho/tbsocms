@@ -54,13 +54,13 @@
     <div id="site-wrapper">
     
         <div id="header">
-            <?php echo $header?>
+            <?php echo @$header?>
         </div>
     
         <div class="main" id="main-two-columns-left">
         	<div class="left sidebar" id="sidebar">
         
-                <?php echo $sidebar?>
+                <?php echo @$sidebar?>
                 
                 <div class="clearer">&nbsp;</div>
                 
@@ -68,7 +68,7 @@
             
             <div class="right" id="main-content">
         
-                <?php echo $content?>
+                <?php echo @$content?>
             
             </div>
             
@@ -78,7 +78,7 @@
         </div>
     
         <div id="footer">
-            <?php echo $footer?>
+            <?php echo @$footer?>
         </div>
     
     </div>

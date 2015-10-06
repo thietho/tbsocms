@@ -8,10 +8,10 @@
         
         	<div class="button right">
                	
-                <?php if($this->user->checkPermission("core/member/insert")==true){ ?>
+                <?php if(@$this->user->checkPermission("core/member/insert")==true){ ?>
                 <input type="button" class="button" value="Thêm" onclick="showMemberForm('','searchForm()')" />
                 <?php } ?>
-                <?php if($this->user->checkPermission("core/member/delete")==true){ ?>
+                <?php if(@$this->user->checkPermission("core/member/delete")==true){ ?>
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteUser()"/>  
                 <?php } ?>
                 
@@ -34,14 +34,14 @@
                     <input type="text" id="email" name="email" class="text"/>
                 
                 	<label>Assign</label>
-					<input type="hidden" id="assignid" name="assignid" value="<?php echo $user['assignid']?>"/>
+					<input type="hidden" id="assignid" name="assignid" value="<?php echo @$user['assignid']?>"/>
                     <input type="text" id="assignname" name="assignname" value="" class="text"/>
                 
                     <label>Tình trạng</label>
                     <select id="status" name="status">
                         <option value=""></option>
-                        <?php foreach($this->document->userstatus as $key => $val){ ?>
-                        <option value="<?php echo $key?>"><?php echo $val?></option>
+                        <?php foreach(@$this->document->userstatus as $key => $val){ ?>
+                        <option value="<?php echo @$key?>"><?php echo @$val?></option>
                         <?php } ?>
                     </select>
                 
@@ -140,7 +140,7 @@ function viewAll()
 	var url = "?route=core/member/getList";
 
 
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
@@ -181,19 +181,19 @@ function searchForm()
 {
 	
 	var url = createParam();
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
 	loadData("?route=core/member/getList"+url);
 }
 
-$("#username").val("<?php echo $_GET['username']?>");
-$("#fullname").val("<?php echo $_GET['fullname']?>");
-$("#phone").val("<?php echo $_GET['phone']?>");
-$("#address").val("<?php echo $_GET['address']?>");
-$("#email").val("<?php echo $_GET['email']?>");
-$("#status").val("<?php echo $_GET['status']?>");
+$("#username").val("<?php echo @$_GET['username']?>");
+$("#fullname").val("<?php echo @$_GET['fullname']?>");
+$("#phone").val("<?php echo @$_GET['phone']?>");
+$("#address").val("<?php echo @$_GET['address']?>");
+$("#email").val("<?php echo @$_GET['email']?>");
+$("#status").val("<?php echo @$_GET['status']?>");
 
 function viewCongNo(id)
 {

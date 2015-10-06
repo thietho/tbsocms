@@ -42,7 +42,7 @@
                 <br />
                 <div id="errorupload" class="error" style="display:none"></div>
                
-                <?php if($_GET['dialog'] == ''){?>
+                <?php if(@$_GET['dialog'] == ''){?>
                 
                 <?php } ?>
                 
@@ -64,8 +64,8 @@
 </div>
 <script>
 	var imageindex = 0;
-	var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
-	var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
+	var DIR_UPLOADPHOTO = "<?php echo @$DIR_UPLOADPHOTO?>";
+	var DIR_UPLOADATTACHMENT = "<?php echo @$DIR_UPLOADATTACHMENT?>";
 var cur = "";
 var posk =0
 
@@ -384,8 +384,8 @@ function ObjFile()
 		$('#pathview').html(file.path.join("/"));
 		$('#result').html(loading);
 		$("#result").load(url,function(){
-			if("<?php echo $_GET['dialog']?>" =='true')
-				intSeleteFile("<?php echo $_GET['type']?>");
+			if("<?php echo @$_GET['dialog']?>" =='true')
+				intSeleteFile("<?php echo @$_GET['type']?>");
 				$('#fileupload').fileupload({
 					// Uncomment the following to send cross-domain cookies:
 					//xhrFields: {withCredentials: true},

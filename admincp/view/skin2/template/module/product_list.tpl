@@ -1,45 +1,45 @@
-			<?php echo $pager?>
+			<?php echo @$pager?>
 			
     <?php foreach($medias as $key => $media) {?>
-    <div class="listitem <?php echo count($media['child'])>0?'group':'mediaitem' ?>" id="<?php echo $media['mediaid']?>" price="<?php echo $this->string->numberFormate($media['price'])?>" >
+    <div class="listitem <?php echo count($media['child'])>0?'group':'mediaitem' ?>" id="<?php echo @$media['mediaid']?>" price="<?php echo @$this->string->numberFormate($media['price'])?>" >
         
         
         <table class="data-table">
             
             <tr class="item">
                 <td width="100px">
-                	<img src="<?php echo $media['imagepreview']?>" /><br />
+                	<img src="<?php echo @$media['imagepreview']?>" /><br />
                     
                     
                     <!--
                     -->
                 </td>
                 <td>
-                	<strong><?php echo $this->document->productName($media)?></strong><br />
-                    Giảm: <?php echo $this->string->numberFormate($media['discountpercent'])?>%<br />
-                    Giá: <?php echo $this->string->numberFormate($media['price'])?><?php if($media['noteprice']) echo "(".$this->document->getCategory($media['noteprice']).")";?><br />
-                    Giá khuyến mãi: <?php echo $this->string->numberFormate($media['pricepromotion'])?><br />
+                	<strong><?php echo @$this->document->productName($media)?></strong><br />
+                    Giảm: <?php echo @$this->string->numberFormate($media['discountpercent'])?>%<br />
+                    Giá: <?php echo @$this->string->numberFormate($media['price'])?><?php if(@$media['noteprice']) echo "(".@$this->document->getCategory($media['noteprice']).")";?><br />
+                    Giá khuyến mãi: <?php echo @$this->string->numberFormate($media['pricepromotion'])?><br />
                     <?php echo ($media['groupkeys']!="")?$media['groupkeys']."<br>":"" ?>
-                    <?php if($media['totalinventorytext']) echo "Tổng tồn: ".$media['totalinventorytext']."<br>"?>
-                    <?php if($media['inventory']) echo "Tồn tại kho: ".$media['inventorytext']?>
-                    <?php if($media['shopinventory']) echo $media['shopinventory']?>
+                    <?php if(@$media['totalinventorytext']) echo "Tổng tồn: ".$media['totalinventorytext']."<br>"?>
+                    <?php if(@$media['inventory']) echo "Tồn tại kho: ".$media['inventorytext']?>
+                    <?php if(@$media['shopinventory']) echo $media['shopinventory']?>
                     <?php if(count($media['child'])==0){ ?>
                             
-                    <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $media['mediaid']?>')"/>
-                    <input type="button" class="button selectProduct" value="Chọn" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $this->document->productName($media)?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>" discountpercent="<?php echo $media['discountpercent']?>" productname="<?php echo $this->document->productName($media)?>" brandname="<?php echo $this->document->getCategory($media['brand'])?>"/>
+                    <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo @$media['mediaid']?>')"/>
+                    <input type="button" class="button selectProduct" value="Chọn" ref="<?php echo @$media['mediaid']?>" image="<?php echo @$media['imagepreview']?>" code="<?php echo @$media['code']?>" unit="<?php echo @$media['unit']?>" title="<?php echo @$this->document->productName($media)?>" price="<?php echo @$media['price']?>" pricepromotion="<?php echo @$media['pricepromotion']?>" discountpercent="<?php echo @$media['discountpercent']?>" productname="<?php echo @$this->document->productName($media)?>" brandname="<?php echo @$this->document->getCategory($media['brand'])?>"/>
                     <?php } ?>
                     <div>
                     	Hiển thị:
-                        <select id="displaytype<?php echo $media['mediaid']?>" mediaid="<?php echo $media['mediaid']?>">
-                        	<?php foreach($this->document->productdisplay as $key => $val){ ?>
-                            <option value="<?php echo $key?>"><?php echo $val?></option>
+                        <select id="displaytype<?php echo @$media['mediaid']?>" mediaid="<?php echo @$media['mediaid']?>">
+                        	<?php foreach(@$this->document->productdisplay as $key => $val){ ?>
+                            <option value="<?php echo @$key?>"><?php echo @$val?></option>
                             <?php } ?>
                         </select>
                     </div>
                     <?php if(count($media['child'])){ ?>
                     <script language="javascript">
-					$("#displaytype<?php echo $media['mediaid']?>").val("<?php echo $media['displaytype']?>");
-					$("#productsize<?php echo $media['mediaid']?>").sortable({
+					$("#displaytype<?php echo @$media['mediaid']?>").val("<?php echo @$media['displaytype']?>");
+					$("#productsize<?php echo @$media['mediaid']?>").sortable({
 						update: function( event, ui )
 						{
 							var arrid = new Array();
@@ -60,43 +60,43 @@
 						}
 					});
 					
-					$("#displaytype<?php echo $media['mediaid']?>").change(function(e) {
+					$("#displaytype<?php echo @$media['mediaid']?>").change(function(e) {
 						
                         $.post("?route=core/media/updateCol",{mediaid:$(this).attr('mediaid'),col:'displaytype',val:this.value});
                     });
 					</script>
                     
-                    <div id="productsize<?php echo $media['mediaid']?>">
+                    <div id="productsize<?php echo @$media['mediaid']?>">
                     <?php foreach($media['child'] as $k => $child){ ?>
                     
-                    <table id="child<?php echo $child['mediaid']?>" mediaid="<?php echo $child['mediaid']?>" position="<?php echo $k?>">
+                    <table id="child<?php echo @$child['mediaid']?>" mediaid="<?php echo @$child['mediaid']?>" position="<?php echo @$k?>">
                     	<tr>
                         	<td>
-                            	<?php echo $child['sizes']?> <?php echo $child['color']?> 
-                                <?php if($child['colorcode']){ ?>
-                                <img class="hl-color-icon" style="background-color:<?php echo $child['colorcode']?>">
+                            	<?php echo @$child['sizes']?> <?php echo @$child['color']?> 
+                                <?php if(@$child['colorcode']){ ?>
+                                <img class="hl-color-icon" style="background-color:<?php echo @$child['colorcode']?>">
                                 <?php } ?>
-                                <?php echo $child['material']?> : <?php echo $this->string->numberFormate($child['price'])?><?php if($child['noteprice']!="") echo "(".$this->document->getCategory($child['noteprice']).")";?><br />
-                                Giảm: <?php echo $this->string->numberFormate($child['discountpercent'])?>%<br />
-                                Giá khuyến mãi: <?php echo $this->string->numberFormate($child['pricepromotion'])?><br />
-                                <?php if($child['totalinventorytext']!='') echo "Tổng tồn: ".$child['totalinventorytext']."<br>"?>
-                                <?php if($child['inventory']) echo "Tồn tại kho: ".$child['inventorytext']?>
-                                <?php if($child['shopinventory']) echo $child['shopinventory']?>
+                                <?php echo @$child['material']?> : <?php echo @$this->string->numberFormate($child['price'])?><?php if(@$child['noteprice']!="") echo "(".@$this->document->getCategory($child['noteprice']).")";?><br />
+                                Giảm: <?php echo @$this->string->numberFormate($child['discountpercent'])?>%<br />
+                                Giá khuyến mãi: <?php echo @$this->string->numberFormate($child['pricepromotion'])?><br />
+                                <?php if(@$child['totalinventorytext']!='') echo "Tổng tồn: ".$child['totalinventorytext']."<br>"?>
+                                <?php if(@$child['inventory']) echo "Tồn tại kho: ".$child['inventorytext']?>
+                                <?php if(@$child['shopinventory']) echo $child['shopinventory']?>
                             </td>
                             <td>
-                            	Barcode: <?php echo $child['barcode']?><br />
-                   	 			Ref: <?php echo $child['ref']?><br />
-                                Trạng thái:<?php echo $this->document->status_media[$child['status']]?><br />
+                            	Barcode: <?php echo @$child['barcode']?><br />
+                   	 			Ref: <?php echo @$child['ref']?><br />
+                                Trạng thái:<?php echo @$this->document->status_media[$child['status']]?><br />
                             </td>
                     		<td>
-                            	<input type="button" class="button" value="Sửa" onclick="showProductForm('<?php echo $child['mediaid']?>','<?php echo $media['mediaid']?>','pro.searchForm()');"/>
-                            	<input type="button" class="button addToList" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $child['mediaid']?>')"/>
-                                <input type="button" class="button" value="Xóa" onclick="pro.delete('<?php echo $child['mediaid']?>')"/>
-                                <input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo $child['mediaid']?>')"/>
-                                <?php if($this->user->checkPermission("module/product/history")==true){ ?>
-                                <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo $child['mediaid']?>')"/>
+                            	<input type="button" class="button" value="Sửa" onclick="showProductForm('<?php echo @$child['mediaid']?>','<?php echo @$media['mediaid']?>','pro.searchForm()');"/>
+                            	<input type="button" class="button addToList" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo @$child['mediaid']?>')"/>
+                                <input type="button" class="button" value="Xóa" onclick="pro.delete('<?php echo @$child['mediaid']?>')"/>
+                                <input type="button" class="button" value="Ra ngoài nhóm" onclick="pro.outGroup('<?php echo @$child['mediaid']?>')"/>
+                                <?php if(@$this->user->checkPermission("module/product/history")==true){ ?>
+                                <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo @$child['mediaid']?>')"/>
                                 <?php } ?>
-                                <input type="button" class="button selectProduct" value="Chọn" ref="<?php echo $child['mediaid']?>" image="<?php echo $child['imagepreview']?>" code="<?php echo $child['code']?>" unit="<?php echo $child['unit']?>" title="<?php echo $this->document->productName($child)?>" price="<?php echo $child['price']?>" pricepromotion="<?php echo $child['pricepromotion']?>" discountpercent="<?php echo $child['discountpercent']?>" productname="<?php echo $this->document->productName($child)?>" brandname="<?php echo $this->document->getCategory($child['brand'])?>"/>
+                                <input type="button" class="button selectProduct" value="Chọn" ref="<?php echo @$child['mediaid']?>" image="<?php echo @$child['imagepreview']?>" code="<?php echo @$child['code']?>" unit="<?php echo @$child['unit']?>" title="<?php echo @$this->document->productName($child)?>" price="<?php echo @$child['price']?>" pricepromotion="<?php echo @$child['pricepromotion']?>" discountpercent="<?php echo @$child['discountpercent']?>" productname="<?php echo @$this->document->productName($child)?>" brandname="<?php echo @$this->document->getCategory($child['brand'])?>"/>
                             </td>
                         
                         
@@ -107,13 +107,13 @@
                     <?php } ?>
                 </td>
                 <td width="150px">
-                	Barcode: <?php echo $media['barcode']?><br />
-                    Ref: <?php echo $media['ref']?>
+                	Barcode: <?php echo @$media['barcode']?><br />
+                    Ref: <?php echo @$media['ref']?>
                 </td>
                 <td width="150px">
-                	Nhãn hiệu: <?php echo $this->document->getCategory($media['brand'])?><br />
-                    Trạng thái:<?php echo $this->document->status_media[$media['status']]?><br />
-                    <?php echo $media['sitemapname']?>
+                	Nhãn hiệu: <?php echo @$this->document->getCategory($media['brand'])?><br />
+                    Trạng thái:<?php echo @$this->document->status_media[$media['status']]?><br />
+                    <?php echo @$media['sitemapname']?>
                 </td>
             </tr>
         </table>
@@ -126,24 +126,24 @@
                     <?php } ?>                	
                 	
             <div class="clearer">^&nbsp;</div>
-            <?php echo $pager?>
+            <?php echo @$pager?>
             <div class="clearer">&nbsp;</div>
  <!--<div class="popupmenu">
-                            <?php if($this->user->checkPermission("module/product/update")==true){ ?>
+                            <?php if(@$this->user->checkPermission("module/product/update")==true){ ?>
                                 
                             
-                            <input type="button" class="button" value="<?php echo $media['text_edit']?>" onclick="showProductForm('<?php echo $media['mediaid']?>','pro.searchForm()')"/>
+                            <input type="button" class="button" value="<?php echo @$media['text_edit']?>" onclick="showProductForm('<?php echo @$media['mediaid']?>','pro.searchForm()')"/>
                             <?php } ?>
-                            <?php if($this->user->checkPermission("module/product/insert")==true){ ?>
+                            <?php if(@$this->user->checkPermission("module/product/insert")==true){ ?>
                             
-                            <input type="button" class="button" value="<?php echo $media['text_addchild']?>" onclick="window.location='<?php echo $media['link_addchild']?>'"/>
-                            <input type="button" class="button enterGroup" value="Đưa vào nhóm" onclick="pro.enterGroup('<?php echo $media['mediaid']?>')"/>
-                            <input type="button" class="button selectGroup" value="Chọn" onclick="pro.selectGroup('<?php echo $media['mediaid']?>')"/>
+                            <input type="button" class="button" value="<?php echo @$media['text_addchild']?>" onclick="window.location='<?php echo @$media['link_addchild']?>'"/>
+                            <input type="button" class="button enterGroup" value="Đưa vào nhóm" onclick="pro.enterGroup('<?php echo @$media['mediaid']?>')"/>
+                            <input type="button" class="button selectGroup" value="Chọn" onclick="pro.selectGroup('<?php echo @$media['mediaid']?>')"/>
                             <?php }?>
-                            <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo $media['mediaid']?>')"/>
+                            <input type="button" class="button" value="Lịch sử" onclick="pro.history('<?php echo @$media['mediaid']?>')"/>
                             <?php if(count($media['child'])==0){ ?>
                             
-                            <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo $media['mediaid']?>')"/>
+                            <input type="button" class="button" value="Đưa vào danh sách" onclick="pro.addToList('<?php echo @$media['mediaid']?>')"/>
                             
                             <?php } ?>
                         </div>-->
@@ -186,17 +186,17 @@ $(function(){
 			}
         },
         items: {
-			<?php if($this->user->checkPermission("module/product/update")==true){ ?>
+			<?php if(@$this->user->checkPermission("module/product/update")==true){ ?>
             "edit": {name: "Sửa"},
 			"enterGroup": {name: "Đưa vào nhóm"},
 			<?php } ?>
-			<?php if($this->user->checkPermission("module/product/insert")==true){ ?>
+			<?php if(@$this->user->checkPermission("module/product/insert")==true){ ?>
             "addSizes": {name: "Thêm qui cách"},
             <?php } ?>
-			<?php if($this->user->checkPermission("module/product/history")==true){ ?>
+			<?php if(@$this->user->checkPermission("module/product/history")==true){ ?>
 			"viewHistory": {name: "Lịch sử"},
 			<?php } ?>
-			<?php if($this->user->checkPermission("module/product/deleted")==true){ ?>
+			<?php if(@$this->user->checkPermission("module/product/deleted")==true){ ?>
 			"del": {name: "Xóa"},
 			<?php } ?>
         }

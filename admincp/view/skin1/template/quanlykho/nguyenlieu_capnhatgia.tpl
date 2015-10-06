@@ -1,32 +1,32 @@
 
 <div class="section" id="sitemaplist">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content padding1">
     
-    	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
             	<input type="button" value="Save" class="button" onClick="save()"/>
      	        <input type="button" value="Cancel" class="button" onclick="linkto('?route=quanlykho/nguyenlieu')"/>   
-     	        <input type="hidden" name="id" value="<?php echo $dinhluong['id']?>">
-                <input type="hidden" name="manguyenlieu" value="<?php echo $item['id']?>">
+     	        <input type="hidden" name="id" value="<?php echo @$dinhluong['id']?>">
+                <input type="hidden" name="manguyenlieu" value="<?php echo @$item['id']?>">
             </div>
             <div class="clearer">^&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
         	<div>
             	<p>
-            		<label>Mã nguyên vật liệu: <?php echo $item['manguyenlieu']?></label>
+            		<label>Mã nguyên vật liệu: <?php echo @$item['manguyenlieu']?></label>
             	</p>
               	
                 
                 <p>
-            		<label>Tên nguyên vật liệu: <?php echo $item['tennguyenlieu']?> (<?php echo $item['tendonvitinh']?>)</label>
+            		<label>Tên nguyên vật liệu: <?php echo @$item['tennguyenlieu']?> (<?php echo @$item['tendonvitinh']?>)</label>
             	</p>
                	<p>
             		<label>Giá</label><br />
-					<input type="text" id="gia" name="gia" value="<?php echo $item['dongia']?>" class="text number" size=60 />
+					<input type="text" id="gia" name="gia" value="<?php echo @$item['dongia']?>" class="text number" size=60 />
             	</p>
                 <p>
                     <label>Ngày</label><br />
@@ -39,7 +39,7 @@
 				});
 		});
  </script>
-                	<input type="text" id="ngay" name="ngay" value="<?php echo $this->date->formatMySQLDate($this->date->getToday())?>" class="text" size=60 />
+                	<input type="text" id="ngay" name="ngay" value="<?php echo @$this->date->formatMySQLDate(@$this->date->getToday())?>" class="text" size=60 />
                 </p>
                	<p>
                 	<label>Nhà cung cấp</label><br>

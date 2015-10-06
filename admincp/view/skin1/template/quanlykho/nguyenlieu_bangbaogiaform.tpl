@@ -1,16 +1,16 @@
 
 <div class="section" id="sitemaplist">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content padding1">
     
-    	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
             	<input type="button" value="Lưu" class="button" onClick="save()"/>
      	        <input type="button" value="Trở về" class="button" onclick="linkto('?route=quanlykho/nguyenlieu/bangbaogia')"/>   
-     	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
+     	        <input type="hidden" name="id" value="<?php echo @$item['id']?>">
             </div>
             <div class="clearer">^&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
@@ -26,15 +26,15 @@
 									});
 							});
 					 </script>
-					<input type="text" id="ngay" name="ngay" value="<?php echo $this->date->formatMySQLDate($item['ngay'])?>" class="text" size=60 <?php echo $readonly?>/>
+					<input type="text" id="ngay" name="ngay" value="<?php echo @$this->date->formatMySQLDate($item['ngay'])?>" class="text" size=60 <?php echo @$readonly?>/>
                     
             	</p>
               	
                 
                 <p>
                 	<label>Nhà cung cấp</label><br>
-                    <input type="hidden" id="manhacungung" name="manhacungung" value="<?php echo $item['manhacungung']?>">
-                    <span id="tennhacungcap"><?php echo $this->document->getNhaCungUng($item['manhacungung'])?></span>
+                    <input type="hidden" id="manhacungung" name="manhacungung" value="<?php echo @$item['manhacungung']?>">
+                    <span id="tennhacungcap"><?php echo @$this->document->getNhaCungUng($item['manhacungung'])?></span>
                     <input type="button" class="button" name="btnChonNhaCungCap" value="Chọn nhà cung cấp" onClick="selcetNhaCungCap()">
                     <input type="button" class="button" name="btnChonNhaCungCap" value="Bỏ chọn" onClick="unSelcetNhaCungCap()">
                 </p>
@@ -150,11 +150,11 @@ function unSelcetNhaCungCap()
 		foreach($chitiet as $val)
 		{ 
 	?>
-			createRow(	"<?php echo $val['id']?>",
-						"<?php echo $val['manguyenlieu']?>",
+			createRow(	"<?php echo @$val['id']?>",
+						"<?php echo @$val['manguyenlieu']?>",
 						
 						
-						"<?php echo $val['gia']?>"
+						"<?php echo @$val['gia']?>"
 						
 					);
 	<?php

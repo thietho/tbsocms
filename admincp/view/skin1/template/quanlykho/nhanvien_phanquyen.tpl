@@ -49,7 +49,7 @@ $(document).ready(function(e) {
 		}
     });
 	
-	$('#usertypeid').val("<?php echo $nhanvien['usertypeid']?>");
+	$('#usertypeid').val("<?php echo @$nhanvien['usertypeid']?>");
 });
 
 function unchecked(obj)
@@ -88,7 +88,7 @@ function save()
 </script>
 <div class="section">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content">
     	<!--<div id="idcur"></div>
@@ -100,27 +100,27 @@ function save()
             	
                 <a class="button save" onclick="save()">Lưu</a>
                 <a class="button cancel" href="?route=quanlykho/nhanvien">Trở về</a>
-                <input type="hidden" name="nhanvienid" value="<?php echo $nhanvien['id']?>">
-                <input type="hidden" name="userid" value="<?php echo $nhanvien['username']?>">
+                <input type="hidden" name="nhanvienid" value="<?php echo @$nhanvien['id']?>">
+                <input type="hidden" name="userid" value="<?php echo @$nhanvien['username']?>">
             </div>
             <div class="clearer">^&nbsp;</div>
             
             <div>
             	<p>
-                	<label>Tên nhân viên</label> <?php echo $nhanvien['hoten']?>
+                	<label>Tên nhân viên</label> <?php echo @$nhanvien['hoten']?>
                 </p>
                 <p>
                 	<label>Loại tài khoản</label>
                     <select id="usertypeid" name="usertypeid">
                     	<?php foreach($usertype as $val){ ?>
-                        <option value="<?php echo $val['usertypeid']?>"><?php echo $val['usertypename']?></option>
+                        <option value="<?php echo @$val['usertypeid']?>"><?php echo @$val['usertypename']?></option>
                         <?php } ?>
                     </select>
                 </p>
                 
 				
                 <ul id="group0" class="filetree">
-                	<?php echo $treemodule?>
+                	<?php echo @$treemodule?>
                 </ul>
             </div>
         	

@@ -18,7 +18,7 @@
             
             <option value=""></option>
             <?php foreach($donvitinh as $val){ ?>
-            <option value="<?php echo $val['madonvi']?>"><?php echo $val['tendonvitinh']?></option>
+            <option value="<?php echo @$val['madonvi']?>"><?php echo @$val['tendonvitinh']?></option>
             <?php } ?>
             
         </select>

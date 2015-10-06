@@ -7,7 +7,7 @@ class ModelQuanlykhoNhanvien extends Model
 		$sql = "Select `qlknhanvien`.*
 									from `qlknhanvien` 
 									where id ='".$id."' ".$where;
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->row;
 	}
 
@@ -16,7 +16,7 @@ class ModelQuanlykhoNhanvien extends Model
 		$sql = "Select `qlknhanvien`.*
 									from `qlknhanvien` 
 									where username ='".$username."' ";
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->row;
 	}
 
@@ -31,47 +31,47 @@ class ModelQuanlykhoNhanvien extends Model
 			$sql .= " Limit ".$from.",".$to;
 		}
 
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 
 	private function nextID()
 	{
-		return $this->db->getNextId('qlknhanvien','id');
+		return @$this->db->getNextId('qlknhanvien','id');
 	}
 
 	public function insert($data)
 	{
-		$id= $this->nextID();
-		$manhanvien=$this->db->escape(@$data['manhanvien']);
-		$hoten=$this->db->escape(@$data['hoten']);
-		$ngaysinh=$this->db->escape(@$data['ngaysinh']);
-		$cmnd=$this->db->escape(@$data['cmnd']);
-		$email=$this->db->escape(@$data['email']);
-		$sodienthoai=$this->db->escape(@$data['sodienthoai']);
-		$gioitinh=$this->db->escape(@$data['gioitinh']);
-		$maphongban= $this->db->escape(@$data['maphongban']);
-		$chucvu= $this->db->escape(@$data['chucvu']);
-		$nhom= $this->db->escape(@$data['nhom']);
-		$loai= $this->db->escape(@$data['loai']);
-		$trinhdovanhoa= $this->db->escape(@$data['trinhdovanhoa']);
-		$quequan= $this->db->escape(@$data['quequan']);
-		$diachithuongtru= $this->db->escape(@$data['diachithuongtru']);
-		$diachitamtru= $this->db->escape(@$data['diachitamtru']);
-		$imageid= $this->db->escape(@$data['imageid']);
-		$imagepath= $this->db->escape(@$data['imagepath']);
-		$chuyenmon=$this->db->escape(@$data['chuyenmon']);
-		$bangcap=$this->db->escape(@$data['bangcap']);
-		$luongcoban=$this->string->toNumber($this->db->escape(@$data['luongcoban']));
-		$ngach=$this->db->escape(@$data['ngach']);
-		$batluong=$this->db->escape(@$data['batluong']);
-		$thang=$this->db->escape(@$data['thang']);
-		$heso=$this->string->toNumber($this->db->escape(@$data['heso']));
-		$ngayvaolam=$this->db->escape(@$data['ngayvaolam']);
-		$ngaykyhopdong=$this->db->escape(@$data['ngaykyhopdong']);
-		$bhxh=$this->db->escape(@$data['bhxh']);
-		$bhyt=$this->db->escape(@$data['bhyt']);
-		//$trangthai=$this->db->escape(@$data['trangthai']);
+		$id= @$this->nextID();
+		$manhanvien=@$this->db->escape(@$data['manhanvien']);
+		$hoten=@$this->db->escape(@$data['hoten']);
+		$ngaysinh=@$this->db->escape(@$data['ngaysinh']);
+		$cmnd=@$this->db->escape(@$data['cmnd']);
+		$email=@$this->db->escape(@$data['email']);
+		$sodienthoai=@$this->db->escape(@$data['sodienthoai']);
+		$gioitinh=@$this->db->escape(@$data['gioitinh']);
+		$maphongban= @$this->db->escape(@$data['maphongban']);
+		$chucvu= @$this->db->escape(@$data['chucvu']);
+		$nhom= @$this->db->escape(@$data['nhom']);
+		$loai= @$this->db->escape(@$data['loai']);
+		$trinhdovanhoa= @$this->db->escape(@$data['trinhdovanhoa']);
+		$quequan= @$this->db->escape(@$data['quequan']);
+		$diachithuongtru= @$this->db->escape(@$data['diachithuongtru']);
+		$diachitamtru= @$this->db->escape(@$data['diachitamtru']);
+		$imageid= @$this->db->escape(@$data['imageid']);
+		$imagepath= @$this->db->escape(@$data['imagepath']);
+		$chuyenmon=@$this->db->escape(@$data['chuyenmon']);
+		$bangcap=@$this->db->escape(@$data['bangcap']);
+		$luongcoban=@$this->string->toNumber(@$this->db->escape(@$data['luongcoban']));
+		$ngach=@$this->db->escape(@$data['ngach']);
+		$batluong=@$this->db->escape(@$data['batluong']);
+		$thang=@$this->db->escape(@$data['thang']);
+		$heso=@$this->string->toNumber(@$this->db->escape(@$data['heso']));
+		$ngayvaolam=@$this->db->escape(@$data['ngayvaolam']);
+		$ngaykyhopdong=@$this->db->escape(@$data['ngaykyhopdong']);
+		$bhxh=@$this->db->escape(@$data['bhxh']);
+		$bhyt=@$this->db->escape(@$data['bhyt']);
+		//$trangthai=@$this->db->escape(@$data['trangthai']);
 
 		$field=array(
 						'manhanvien',
@@ -139,7 +139,7 @@ class ModelQuanlykhoNhanvien extends Model
 						"active",
 						""
 						);
-						$this->db->insertData("qlknhanvien",$field,$value);
+						@$this->db->insertData("qlknhanvien",$field,$value);
 
 						return $id;
 	}
@@ -148,34 +148,34 @@ class ModelQuanlykhoNhanvien extends Model
 	{
 
 		$id= (int)@$data['id'];
-		$manhanvien=$this->db->escape(@$data['manhanvien']);
-		$hoten=$this->db->escape(@$data['hoten']);
-		$ngaysinh=$this->db->escape(@$data['ngaysinh']);
-		$cmnd=$this->db->escape(@$data['cmnd']);
-		$email=$this->db->escape(@$data['email']);
-		$sodienthoai=$this->db->escape(@$data['sodienthoai']);
-		$gioitinh=$this->db->escape(@$data['gioitinh']);
-		$maphongban= $this->db->escape(@$data['maphongban']);
-		$chucvu= $this->db->escape(@$data['chucvu']);
-		$nhom= $this->db->escape(@$data['nhom']);
-		$loai= $this->db->escape(@$data['loai']);
-		$trinhdovanhoa= $this->db->escape(@$data['trinhdovanhoa']);
-		$quequan= $this->db->escape(@$data['quequan']);
-		$diachithuongtru= $this->db->escape(@$data['diachithuongtru']);
-		$diachitamtru= $this->db->escape(@$data['diachitamtru']);
-		$imageid= $this->db->escape(@$data['imageid']);
-		$imagepath= $this->db->escape(@$data['imagepath']);
-		$chuyenmon=$this->db->escape(@$data['chuyenmon']);
-		$bangcap=$this->db->escape(@$data['bangcap']);
-		$luongcoban=$this->string->toNumber($this->db->escape(@$data['luongcoban']));
-		$ngach=$this->db->escape(@$data['ngach']);
-		$batluong=$this->db->escape(@$data['batluong']);
-		$thang=$this->db->escape(@$data['thang']);
-		$heso=$this->string->toNumber($this->db->escape(@$data['heso']));
-		$ngayvaolam=$this->db->escape(@$data['ngayvaolam']);
-		$ngaykyhopdong=$this->db->escape(@$data['ngaykyhopdong']);
-		$bhxh=$this->db->escape(@$data['bhxh']);
-		$bhyt=$this->db->escape(@$data['bhyt']);
+		$manhanvien=@$this->db->escape(@$data['manhanvien']);
+		$hoten=@$this->db->escape(@$data['hoten']);
+		$ngaysinh=@$this->db->escape(@$data['ngaysinh']);
+		$cmnd=@$this->db->escape(@$data['cmnd']);
+		$email=@$this->db->escape(@$data['email']);
+		$sodienthoai=@$this->db->escape(@$data['sodienthoai']);
+		$gioitinh=@$this->db->escape(@$data['gioitinh']);
+		$maphongban= @$this->db->escape(@$data['maphongban']);
+		$chucvu= @$this->db->escape(@$data['chucvu']);
+		$nhom= @$this->db->escape(@$data['nhom']);
+		$loai= @$this->db->escape(@$data['loai']);
+		$trinhdovanhoa= @$this->db->escape(@$data['trinhdovanhoa']);
+		$quequan= @$this->db->escape(@$data['quequan']);
+		$diachithuongtru= @$this->db->escape(@$data['diachithuongtru']);
+		$diachitamtru= @$this->db->escape(@$data['diachitamtru']);
+		$imageid= @$this->db->escape(@$data['imageid']);
+		$imagepath= @$this->db->escape(@$data['imagepath']);
+		$chuyenmon=@$this->db->escape(@$data['chuyenmon']);
+		$bangcap=@$this->db->escape(@$data['bangcap']);
+		$luongcoban=@$this->string->toNumber(@$this->db->escape(@$data['luongcoban']));
+		$ngach=@$this->db->escape(@$data['ngach']);
+		$batluong=@$this->db->escape(@$data['batluong']);
+		$thang=@$this->db->escape(@$data['thang']);
+		$heso=@$this->string->toNumber(@$this->db->escape(@$data['heso']));
+		$ngayvaolam=@$this->db->escape(@$data['ngayvaolam']);
+		$ngaykyhopdong=@$this->db->escape(@$data['ngaykyhopdong']);
+		$bhxh=@$this->db->escape(@$data['bhxh']);
+		$bhyt=@$this->db->escape(@$data['bhyt']);
 
 		$field=array(
 						'manhanvien',
@@ -243,7 +243,7 @@ class ModelQuanlykhoNhanvien extends Model
 						);
 
 						$where="id = '".$id."'";
-						$this->db->updateData("qlknhanvien",$field,$value,$where);
+						@$this->db->updateData("qlknhanvien",$field,$value,$where);
 						return true;
 	}
 
@@ -261,7 +261,7 @@ class ModelQuanlykhoNhanvien extends Model
 						);
 
 						$where="id = '".$id."'";
-						$this->db->updateData("qlknhanvien",$field,$value,$where);
+						@$this->db->updateData("qlknhanvien",$field,$value,$where);
 	}
 
 	public function updateusername($id, $username)
@@ -275,7 +275,7 @@ class ModelQuanlykhoNhanvien extends Model
 						);
 
 						$where="id = '".$id."'";
-						$this->db->updateData("qlknhanvien",$field,$value,$where);
+						@$this->db->updateData("qlknhanvien",$field,$value,$where);
 	}
 
 	public function	updateCol($id,$col,$val)
@@ -288,31 +288,31 @@ class ModelQuanlykhoNhanvien extends Model
 		);
 
 		$where=" id = '".$id."'";
-		$this->db->updateData("qlknhanvien",$field,$value,$where);
+		@$this->db->updateData("qlknhanvien",$field,$value,$where);
 	}
 	
 	public function deletedatas($listid)
 	{
 		foreach($listid as $item)
 		{
-			$this->delete($item);
+			@$this->delete($item);
 		}
 	}
 
 	public function saveuser($data)
 	{
-		$userid=$this->db->escape(@$data['username']);
-		$username=$this->db->escape(@$data['username']);
-		$usertypeid=$this->db->escape(@$data['usertypeid']);
-		$password=$this->db->escape(@$data['password']);
+		$userid=@$this->db->escape(@$data['username']);
+		$username=@$this->db->escape(@$data['username']);
+		$usertypeid=@$this->db->escape(@$data['usertypeid']);
+		$password=@$this->db->escape(@$data['password']);
 		$status="lock";
-		$activedate=$this->date->getToday();
-		$updateddate=$this->date->getToday();
+		$activedate=@$this->date->getToday();
+		$updateddate=@$this->date->getToday();
 		$deleteddate="";
-		$activeby=$this->user->getId();
-		$updatedby=$this->user->getId();
+		$activeby=@$this->user->getId();
+		$updatedby=@$this->user->getId();
 		$deletedby="";
-		$userip=$this->db->escape(@$this->request->server['REMOTE_ADDR']);
+		$userip=@$this->db->escape(@$this->request->server['REMOTE_ADDR']);
 
 		$field=array(
 						'`userid`',
@@ -342,11 +342,11 @@ class ModelQuanlykhoNhanvien extends Model
 						$deletedby,
 						$userip
 						);
-		$this->load->model("core/user");
-		$arr = $this->model_core_user->getItemByUserName($username);
+		@$this->load->model("core/user");
+		$arr = @$this->model_core_user->getItemByUserName($username);
 		if(count($arr)==0)
 		{
-			$this->db->insertData("user",$field,$value);
+			@$this->db->insertData("user",$field,$value);
 			return $userid;
 		}
 		else

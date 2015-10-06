@@ -4,7 +4,7 @@ class ModelAddonNhantin extends Model
 	
 	public function getItem($id, $where="")
 	{
-		$query = $this->db->query("Select `nhantin`.* 
+		$query = @$this->db->query("Select `nhantin`.* 
 									from `nhantin` 
 									where id ='".$id."' ".$where);
 		return $query->row;
@@ -21,7 +21,7 @@ class ModelAddonNhantin extends Model
 			$sql .= " Limit ".$from.",".$to;
 		}
 		
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
@@ -29,7 +29,7 @@ class ModelAddonNhantin extends Model
 	
 	protected function getnextid()
 	{
-		$id=$this->db->getNextId("nhantin","id");
+		$id=@$this->db->getNextId("nhantin","id");
 		return $id;
 	}
 	
@@ -37,10 +37,10 @@ class ModelAddonNhantin extends Model
 	
 	public function insert($data)
 	{
-		$id=$this->getnextid();
-		$hoten=$this->db->escape(@$data['hoten']);
-		$email=$this->db->escape(@$data['email']);
-		$ngaydangky = $this->date->getToday();
+		$id=@$this->getnextid();
+		$hoten=@$this->db->escape(@$data['hoten']);
+		$email=@$this->db->escape(@$data['email']);
+		$ngaydangky = @$this->date->getToday();
 	
 		$field=array(
 						'id',
@@ -55,16 +55,16 @@ class ModelAddonNhantin extends Model
 						$ngaydangky
 					);
 		
-		$this->db->insertData("nhantin",$field,$value);
+		@$this->db->insertData("nhantin",$field,$value);
 		
 		return $id;
 	}
 	
 	public function updateCol($id,$col,$val)
 	{
-		$id= $this->db->escape(@$id);
-		$col= $this->db->escape(@$col);
-		$val= $this->db->escape(@$val);
+		$id= @$this->db->escape(@$id);
+		$col= @$this->db->escape(@$col);
+		$val= @$this->db->escape(@$val);
 		
 		
 		
@@ -76,7 +76,7 @@ class ModelAddonNhantin extends Model
 					);
 		
 		$where="id = '".$id."'";
-		$this->db->updateData("nhantin",$field,$value,$where);
+		@$this->db->updateData("nhantin",$field,$value,$where);
 		
 		
 		
@@ -87,7 +87,7 @@ class ModelAddonNhantin extends Model
 	{
 		
 		$where="id = '".$id."'";
-		$this->db->deleteData("nhantin",$where);
+		@$this->db->deleteData("nhantin",$where);
 			
 		
 	}

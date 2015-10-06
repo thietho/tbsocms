@@ -1,12 +1,12 @@
 <div>
 <form id="frmmap">
-	<input type="hidden" name="mediaid" value="<?php echo $mediaid?>">
+	<input type="hidden" name="mediaid" value="<?php echo @$mediaid?>">
 	<p>
     	<label>Module</label>
         <select id="mapmodule">
         	<option value="">Chọn module</option>
             <?php foreach($modules as $key => $val){ ?>
-            <option value="<?php echo $key?>"><?php echo $val?></option>
+            <option value="<?php echo @$key?>"><?php echo @$val?></option>
             <?php } ?>
         </select>
     </p>
@@ -17,7 +17,7 @@
         </div>
     </p>
     
-    <input type="button" class="button" value="<?php echo $button_save ?>" onClick="save()">
+    <input type="button" class="button" value="<?php echo @$button_save ?>" onClick="save()">
 </form>
 </div>
 <script language="javascript">
@@ -49,7 +49,7 @@ $('#mapmodule').change(function(e) {
 	});
 });
 $(document).ready(function(e) {
-    $('#mapmodule').val('<?php echo $moduleid?>');
+    $('#mapmodule').val('<?php echo @$moduleid?>');
 	$('#mapmodule').change();
 });
 function save()

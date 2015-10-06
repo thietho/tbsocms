@@ -1,13 +1,13 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $heading_title?></div>
+	<div class="section-title"><?php echo @$heading_title?></div>
     
     <div class="section-content">
     	
         <form action="" method="get" id="listitem" name="listitem">
         
         	<div class="button right">
-            	<a class="button" href="<?php echo $insert?>">Add new</a>
+            	<a class="button" href="<?php echo @$insert?>">Add new</a>
                 <a class="button" onclick="deletelist()">Delete</a>
                 
                 <a class="button" href="index.php">Cancel</a>   
@@ -32,14 +32,14 @@
             {
         ?>
                     <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['skinid']?>]" value="<?php echo $item['skinid']?>" ></td>
-                        <td><?php echo $item['skinid']?></td>
-                        <td><?php echo $item['skinname']?></td>
-                        <td><?php echo $item['imagepreview']?></td>
+                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo @$item['skinid']?>]" value="<?php echo @$item['skinid']?>" ></td>
+                        <td><?php echo @$item['skinid']?></td>
+                        <td><?php echo @$item['skinname']?></td>
+                        <td><?php echo @$item['imagepreview']?></td>
                         
                         <td class="link-control">
                             
-                            <a class="button" href="?route=<?php echo $route?>&skinid=<?php echo $item['skinid']?>">Edit</a>
+                            <a class="button" href="?route=<?php echo @$route?>&skinid=<?php echo @$item['skinid']?>">Edit</a>
                             
                             
                         </td>
@@ -51,7 +51,7 @@
                                                     
                 </tbody>
                 </table>
-                <?php echo $pager?>
+                <?php echo @$pager?>
             </div>
         
         
@@ -69,8 +69,8 @@ function deletelist()
 	var ans = confirm("do you want to delete?");
 	if(ans)
 	{
-		$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
-		$.post("index.php?route=<?php echo $route?>/delete", 
+		$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
+		$.post("index.php?route=<?php echo @$route?>/delete", 
 			   $("#listitem").serialize(),
 			   function(data)
 			   {
@@ -83,7 +83,7 @@ function deletelist()
 function updatePosition()
 {
 	
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	$.post("index.php?route=addon/visa/updataPosition", 
 		   $("#listitem").serialize(),
 		   function(data)

@@ -1,6 +1,6 @@
 <div class="section" id="sitemaplist">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content padding1">
     
@@ -30,7 +30,7 @@
                     </thead>
                     <tbody>
                     	<?php for($i=0;$i<25;$i++){ ?>
-                        <form id="frm<?php echo $i?>" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+                        <form id="frm<?php echo @$i?>" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
                     	<tr>
                         	<td><input type="text" class="text" name="manguyenlieu"></td>
                             <td><input type="text" class="text" name="tennguyenlieu"></td>
@@ -38,7 +38,7 @@
                             	<select name="loai">
                                                  		
                                     <?php foreach($loainguyenlieu as $val){ ?>
-                                    <option value="<?php echo $val['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;",$val['level']-1)?><?php echo $val['categoryname']?></option>
+                                    <option value="<?php echo @$val['categoryid']?>"><?php echo @$this->string->getPrefix("&nbsp;&nbsp;&nbsp;",$val['level']-1)?><?php echo @$val['categoryname']?></option>
                                     <?php } ?>
                                 </select>
                                 
@@ -48,7 +48,7 @@
                             	<select name="madonvi">
                                     <option value=""></option>
                                     <?php foreach($donvitinh as $val){ ?>
-                                    <option value="<?php echo $val['madonvi']?>"><?php echo $val['tendonvitinh']?></option>
+                                    <option value="<?php echo @$val['madonvi']?>"><?php echo @$val['tendonvitinh']?></option>
                                     <?php } ?>
                                 </select>
                             </td>
@@ -94,6 +94,6 @@ function save(i)
 
 
 
-var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
+var DIR_UPLOADPHOTO = "<?php echo @$DIR_UPLOADPHOTO?>";
 </script>
 

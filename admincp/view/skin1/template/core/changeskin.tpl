@@ -1,6 +1,6 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $heading_title?></div>
+	<div class="section-title"><?php echo @$heading_title?></div>
     
     <div class="section-content">
     	
@@ -32,14 +32,14 @@
             {
         ?>
                     <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['skinid']?>]" value="<?php echo $item['skinid']?>" ></td>
-                        <td><?php echo $item['skinid']?></td>
-                        <td><?php echo $item['skinname']?></td>
-                        <td><?php echo $item['imagepreview']?></td>
+                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo @$item['skinid']?>]" value="<?php echo @$item['skinid']?>" ></td>
+                        <td><?php echo @$item['skinid']?></td>
+                        <td><?php echo @$item['skinname']?></td>
+                        <td><?php echo @$item['imagepreview']?></td>
                         
                         <td class="link-control">
                             
-                            <input type="radio" name="selectskin" value="<?php echo $item['skinid']?>" <?php if($curentskin == $item['skinid']) echo 'checked="checked"'; ?> />
+                            <input type="radio" name="selectskin" value="<?php echo @$item['skinid']?>" <?php if(@$curentskin == $item['skinid']) echo 'checked="checked"'; ?> />
                             
                         </td>
                     </tr>
@@ -50,7 +50,7 @@
                                                     
                 </tbody>
                 </table>
-                <?php echo $pager?>
+                <?php echo @$pager?>
             </div>
         
         
@@ -65,7 +65,7 @@ $(document).ready(function() {
 function save()
 {
 	
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	$.post("index.php?route=core/changeskin/save", 
 		   $("#listitem").serialize(),
 		   function(data)

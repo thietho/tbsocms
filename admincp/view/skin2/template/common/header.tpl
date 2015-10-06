@@ -240,13 +240,13 @@
                         <?php foreach($group as $key => $item){ ?>
                         <?php if(in_array($item['moduleid'],$allow_modules)){?>
                         <li>
-                            <a href="#"><?php echo $item['modulename']?><span class="fa arrow"></span></a>
+                            <a href="#"><?php echo @$item['modulename']?><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                             <?php foreach($item['module'] as $module ){ ?>
                             <?php if(in_array($module['moduleid'],$allow_modules)){?>
                             
                                 <li>
-                                    <a href="?route=<?php echo $module['moduleid']?>"><?php echo $module['modulename']?></a>
+                                    <a href="?route=<?php echo @$module['moduleid']?>"><?php echo @$module['modulename']?></a>
                                 </li>
                             <?php } ?>
                             <?php } ?>

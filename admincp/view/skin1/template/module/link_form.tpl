@@ -4,15 +4,15 @@
     
     <div class="section-content padding1">
     
-    	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="<?php echo $button_save ?>" class="button" onClick="save()"/>
-     	        <input type="button" value="<?php echo $button_cancel ?>" class="button" onclick="linkto('?route=module/link&sitemapid=<?php echo $sitemap['sitemapid']?>')"/>   
-     	        <input type="hidden" name="mediaid" value="<?php echo $item['mediaid']?>">
-                <input type="hidden" id="status" name="status" value="<?php echo $item['status']?>" />
+            	<input type="button" value="<?php echo @$button_save ?>" class="button" onClick="save()"/>
+     	        <input type="button" value="<?php echo @$button_cancel ?>" class="button" onclick="linkto('?route=module/link&sitemapid=<?php echo @$sitemap['sitemapid']?>')"/>   
+     	        <input type="hidden" name="mediaid" value="<?php echo @$item['mediaid']?>">
+                <input type="hidden" id="status" name="status" value="<?php echo @$item['status']?>" />
              	<input type="hidden" id="mediatype" name="mediatype" value="module/link" />
-             	<input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $item['refersitemap']?>" />
+             	<input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo @$item['refersitemap']?>" />
                 
                 <input type="hidden" id="handler" />
              	<input type="hidden" id="outputtype" />
@@ -22,21 +22,21 @@
         	<div id="error" class="error" style="display:none"></div>
         	<div>        
                 <p>
-            		<label><?php echo $text_title?></label><br />
-					<input type="text" name="title" value="<?php echo $item['title']?>" class="text" size=60 />
+            		<label><?php echo @$text_title?></label><br />
+					<input type="text" name="title" value="<?php echo @$item['title']?>" class="text" size=60 />
             	</p>
                	<p>
                     <label>Link</label><br />
-                    <textarea name="Link"><?php echo $item['Link']?></textarea>
+                    <textarea name="Link"><?php echo @$item['Link']?></textarea>
                 </p>
                 <p id="pnImage">
                     <label for="image">Image</label><br />
                     <a class="button"  onclick="browserFileImage()">Select photo</a><br />
                     
-                    <img id="imagepreview" src="<?php echo $item['imagethumbnail']?>" />
-                    <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $item['imagepath']?>" />
-                    <input type="hidden" id="imageid" name="imageid" value="<?php echo $item['imageid']?>" />
-                    <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $item['imagethumbnail']?>" />
+                    <img id="imagepreview" src="<?php echo @$item['imagethumbnail']?>" />
+                    <input type="hidden" id="imagepath" name="imagepath" value="<?php echo @$item['imagepath']?>" />
+                    <input type="hidden" id="imageid" name="imageid" value="<?php echo @$item['imageid']?>" />
+                    <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo @$item['imagethumbnail']?>" />
                 </p>
                 
                 
@@ -52,17 +52,17 @@
 </div>
 
 <script language="javascript">
-var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
+var DIR_UPLOADPHOTO = "<?php echo @$DIR_UPLOADPHOTO?>";
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	
 	$.post("?route=module/link/save", $("#frm").serialize(),
 		function(data){
 			if(data == "true")
 			{
-				<?php if($sitemap['sitemapid']){ ?>
-				window.location = "?route=module/link&sitemapid=<?php echo $sitemap['sitemapid']?>";
+				<?php if(@$sitemap['sitemapid']){ ?>
+				window.location = "?route=module/link&sitemapid=<?php echo @$sitemap['sitemapid']?>";
 				<?php }else{ ?>
 				window.location = "?route=core/media";
 				<?php } ?>

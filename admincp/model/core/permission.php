@@ -3,20 +3,20 @@
 	{
 		public function getPermissions()
 		{
-			$query = $this->db->query("Select * form `permission`");
+			$query = @$this->db->query("Select * form `permission`");
 			return $query->rows;
 		}
 		
 		public function getPermission($PermissionID)
 		{
-			$query = $this->db->query("Select * form `permission` where PermissionID=".$PermissionID);
+			$query = @$this->db->query("Select * form `permission` where PermissionID=".$PermissionID);
 			return $query->rows;
 		}
 		
 		public function insertLanguage($data)
 		{
 			$PermissionID=(int)@$data['PermissionID'];
-			$PermissionName=$this->db->escape(@$data['PermissionName']);
+			$PermissionName=@$this->db->escape(@$data['PermissionName']);
 			
 			$field=array(
 							'PermissionID',
@@ -26,7 +26,7 @@
 							$PermissionID,
 							$PermissionName
 						);
-			$this->db->insertData("permission",$field,$value);
+			@$this->db->insertData("permission",$field,$value);
 		}
 			
 		
@@ -34,7 +34,7 @@
 		
 		public function insertLanguage($data)
 		{$PermissionID=(int)@$data['PermissionID'];
-			$PermissionName=$this->db->escape(@$data['PermissionName']);
+			$PermissionName=@$this->db->escape(@$data['PermissionName']);
 			
 			$field=array(
 							'PermissionID',
@@ -45,7 +45,7 @@
 							$PermissionName
 						);
 			$where = "PermissionID = ".$PermissionID;
-			$this->db->updateData("permission",$field,$value,$where);
+			@$this->db->updateData("permission",$field,$value,$where);
 		}
 		
 		

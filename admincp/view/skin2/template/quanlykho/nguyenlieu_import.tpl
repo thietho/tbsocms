@@ -1,15 +1,15 @@
 <div id="error" class="error" style="display:none"></div>
 <form id="frm_import">
-	<input type="hidden" name="nguyenlieuid" value="<?php echo $item['id']?>">
+	<input type="hidden" name="nguyenlieuid" value="<?php echo @$item['id']?>">
 	<div>
     	<p>
             <label>Mã nguyên vật liệu:</label>
-            <?php echo $item['manguyenlieu']?>
+            <?php echo @$item['manguyenlieu']?>
             
         </p>
         <p>
             <label>Tên nguyên vật liệu:</label>
-            <?php echo $item['tennguyenlieu']?>(<?php echo $this->document->getDonViTinh($item['madonvi'])?>)
+            <?php echo @$item['tennguyenlieu']?>(<?php echo @$this->document->getDonViTinh($item['madonvi'])?>)
         </p>
         <p>
             <label>Số lượng nhập</label><br />
@@ -29,7 +29,7 @@
             <select id="nhacungcapid" name="nhacungcapid">
             	<option value="0"></option>
             	<?php foreach($data_nhacungcap as $nhacungcap){ ?>
-                <option value="<?php echo $nhacungcap['id']?>"><?php echo $nhacungcap['tennhacungcap']?></option>
+                <option value="<?php echo @$nhacungcap['id']?>"><?php echo @$nhacungcap['tennhacungcap']?></option>
                 <?php } ?>
             </select>
         </p>

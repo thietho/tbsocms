@@ -6,7 +6,7 @@
             	<select id="brand">
                     <option value="">Tất cả nhản hiệu</option>
                     <?php foreach($nhanhieu as $it){ ?>
-                    <option value="<?php echo $it['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo $it['categoryname']?></option>                        
+                    <option value="<?php echo @$it['categoryid']?>"><?php echo @$this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$it['level']) ?><?php echo @$it['categoryname']?></option>                        
                     <?php } ?>
                 </select>
             </td>
@@ -14,8 +14,8 @@
             	<select id="sitemapid">
                     <option value="">Tất cả danh mục</option>
                     <?php foreach($sitemaps as $sitemap){ ?>
-                    <?php if($sitemap['moduleid'] == 'module/product'){ ?>
-                    <option value="<?php echo $sitemap['sitemapid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$sitemap['level']) ?><?php echo $sitemap['sitemapname']?></option>
+                    <?php if(@$sitemap['moduleid'] == 'module/product'){ ?>
+                    <option value="<?php echo @$sitemap['sitemapid']?>"><?php echo @$this->string->getPrefix("&nbsp;&nbsp;&nbsp;&nbsp;",$sitemap['level']) ?><?php echo @$sitemap['sitemapname']?></option>
                     <?php } ?>
                     <?php } ?>
                 </select>

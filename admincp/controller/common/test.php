@@ -11,13 +11,13 @@ class ControllerCommonTest extends Controller
 		$mail['subject'] =  "Test send mail";
 		
 		$mail['body'] = "Test send mail";
-		$this->mailsmtp->sendMail($mail);
+		@$this->mailsmtp->sendMail($mail);
 		
 		
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->layout="layout/center";
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->layout="layout/center";
+		@$this->render();
 	}
 	
 	

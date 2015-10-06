@@ -116,7 +116,7 @@ function Commission(memberid)
 		}
 	}
 }
-var comm = new Commission("<?php echo $member['id']?>");
+var comm = new Commission("<?php echo @$member['id']?>");
 
 $(document).ready(function(e) {
     comm.getList();
@@ -125,12 +125,12 @@ $(document).ready(function(e) {
 </script>
 <div class="section">
 
-	<div class="section-title"><?php echo $member['fullname']?></div>
+	<div class="section-title"><?php echo @$member['fullname']?></div>
     
     <div class="section-content">
     	<form id="frmHoaHong">
      			<input type="hidden" id="id" name="id" value=""/>
-                <input type="hidden" id="memberid" name="memberid" value="<?php echo $member['id']?>"/>
+                <input type="hidden" id="memberid" name="memberid" value="<?php echo @$member['id']?>"/>
                 <label>Ngày tinh hoa hồng</label>
                 <input type="text" class="text date" id="ngaytinhhoahong" name="ngaytinhhoahong" />
                 <script language="javascript">
@@ -145,7 +145,7 @@ $(document).ready(function(e) {
                 <label>Cách tính</label>
                 <select id="cachtinh" name="cachtinh">
                 	<?php foreach($commissionway as $val){ ?>
-                    <option value="<?php echo $val['categoryid']?>"><?php echo $val['categoryname']?></option>
+                    <option value="<?php echo @$val['categoryid']?>"><?php echo @$val['categoryname']?></option>
                     <?php } ?>
                 </select>
                 <input type="button" id="btnAdd" class="button" value="Thêm kỳ" onClick="comm.save()"/>

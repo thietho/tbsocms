@@ -3,32 +3,32 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-            	<?php echo $this->document->title?>
+            	<?php echo @$this->document->title?>
             </h1>
-            <form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+            <form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
                 
-                <input type="hidden" name="id" value="<?php echo $item['madonvi']?>"/>
+                <input type="hidden" name="id" value="<?php echo @$item['madonvi']?>"/>
                 <div id="error" class="error" style="display:none"></div>
                 <div>
                 	<div class="form-group">
                         <label>Mã đơn vị tính</label>
-                        <input type="text" name="madonvi" value="<?php echo $item['madonvi']?>" class="form-control" <?php echo $readonly?>/>
+                        <input type="text" name="madonvi" value="<?php echo @$item['madonvi']?>" class="form-control" <?php echo @$readonly?>/>
                     </div>
                     <div class="form-group">
                         <label>Tên đơn vị tính</label>
-                        <input type="text" name="tendonvitinh" value="<?php echo $item['tendonvitinh']?>" class="form-control"/>
+                        <input type="text" name="tendonvitinh" value="<?php echo @$item['tendonvitinh']?>" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label>Quy đổi</label>
-                        <input type="text" name="quidoi" value="<?php echo $item['quidoi']?>" class="form-control number"/>
+                        <input type="text" name="quidoi" value="<?php echo @$item['quidoi']?>" class="form-control number"/>
                     </div>
                    <div class="form-group">
                         <label>Đơn vị qui đổi</label>
                         <select id="madonviquydoi" name="madonviquydoi" class="form-control">
                             <option value=""></option>
                             <?php foreach($listdonvitinh as $it){ ?>
-                            <option value="<?php echo $it['madonvi']?>"><?php echo $it['tendonvitinh']?></option>
+                            <option value="<?php echo @$it['madonvi']?>"><?php echo @$it['tendonvitinh']?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -70,5 +70,5 @@ function save()
 	);
 }
 
-$("#madonviquydoi").val("<?php echo $item['madonviquydoi']?>");
+$("#madonviquydoi").val("<?php echo @$item['madonviquydoi']?>");
 </script>

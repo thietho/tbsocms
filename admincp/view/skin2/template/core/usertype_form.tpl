@@ -4,27 +4,27 @@
     
     <div class="section-content padding1">
     
-    	<form id="frm" name="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form id="frm" name="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="<?php echo $button_save ?>" class="button" onclick="save()"/>
-     	        <input type="button" value="<?php echo $button_cancel ?>" class="button" onclick="linkto('?route=core/usertype')"/>   
-     	        <input type="hidden" name="usertypeid" value="<?php echo $usertype['usertypeid']?>" />
-                <input type="hidden" id="permission" name="permission" value="<?php echo $usertype['permission']?>"/>
+            	<input type="button" value="<?php echo @$button_save ?>" class="button" onclick="save()"/>
+     	        <input type="button" value="<?php echo @$button_cancel ?>" class="button" onclick="linkto('?route=core/usertype')"/>   
+     	        <input type="hidden" name="usertypeid" value="<?php echo @$usertype['usertypeid']?>" />
+                <input type="hidden" id="permission" name="permission" value="<?php echo @$usertype['permission']?>"/>
             </div>
             <div class="clearer">^&nbsp;</div>
         	<input type="checkbox"  class="checkbox" onclick="$('input').attr('checked', this.checked);" value=""/> All
         	<div>
-            	<h1><?php echo $usertype['usertypename']?></h1>
+            	<h1><?php echo @$usertype['usertypename']?></h1>
                 <h2>Modules sitemap</h2>
 				<?php foreach($sitemaps as $item){ ?>
                 <p>
-                	<label><?php echo $item['prefix']?><?php echo $item['sitemapname']?></label><br />
+                	<label><?php echo @$item['prefix']?><?php echo @$item['sitemapname']?></label><br />
                     <?php foreach($listPermission as $key => $val){ ?>
                     	<?php 
                         	
                         ?>
-                    <input type="checkbox" class="<?php echo $item['sitemapid']?> checkbox"  name="<?php echo $item['sitemapid']?>[<?php echo $key?>]" value="<?php echo $item['sitemapid']?>-<?php echo $key?>"/> <?php echo $val?>
+                    <input type="checkbox" class="<?php echo @$item['sitemapid']?> checkbox"  name="<?php echo @$item['sitemapid']?>[<?php echo @$key?>]" value="<?php echo @$item['sitemapid']?>-<?php echo @$key?>"/> <?php echo @$val?>
                     <?php } ?>
                 </p>
                 <?php } ?>
@@ -34,9 +34,9 @@
                 		$cls = str_replace("/","",$k);
                 ?>
                 <p>
-                	<label><?php echo $item?></label> <br />
+                	<label><?php echo @$item?></label> <br />
                     <?php foreach($listPermission as $key => $val){ ?>
-                    <input type="checkbox" class="module<?php echo $cls?> checkbox" name="<?php echo $k?>[<?php echo $key?>]" value="<?php echo $k?>-<?php echo $key?>"/> <?php echo $val?>
+                    <input type="checkbox" class="module<?php echo @$cls?> checkbox" name="<?php echo @$k?>[<?php echo @$key?>]" value="<?php echo @$k?>-<?php echo @$key?>"/> <?php echo @$val?>
                     <?php } ?>
                 </p>
                 <?php } ?>
@@ -64,7 +64,7 @@ $(".checkbox").click(function(){
 
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	$.post("?route=core/usertype/save", 
 		   $("#frm").serialize(),
 		   function(data)

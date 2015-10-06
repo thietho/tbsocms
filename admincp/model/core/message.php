@@ -1,5 +1,5 @@
 <?php
-$this->load->model("core/file");
+@$this->load->model("core/file");
 class ModelCoreMessage extends ModelCoreFile
 { 
 	public function getItem($messageid, $where="")
@@ -7,7 +7,7 @@ class ModelCoreMessage extends ModelCoreFile
 		$sql="Select `message`.* 
 									from `message` 
 									where messageid ='".$messageid."' ".$where;
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->row;
 	}
 	
@@ -22,26 +22,26 @@ class ModelCoreMessage extends ModelCoreFile
 			$sql .= " Limit ".$from.",".$to;
 		}
 		
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
 	public function insert($data)
 	{
 		$messageid=time();
-		$userid=$this->db->escape(@$data['userid']);
-		$from=$this->db->escape(@$data['from']);
-		$to=$this->db->escape(@$data['to']);
-		$title=$this->db->escape(@$data['title']);
-		$description=$this->db->escape(@$data['description']);
-		$title=$this->db->escape(@$data['title']);
-		$summary=$this->db->escape(@$data['summary']);
-		$description=$this->db->escape(@$data['description']);
-		$attachment=$this->db->escape(@$data['attachment']);
-		$status=$this->db->escape(@$data['status']);
-		$folder=$this->db->escape(@$data['folder']);
-		$senddate=$this->date->getToday();
-		$replyfrom=$this->db->escape(@$data['replyfrom']);
+		$userid=@$this->db->escape(@$data['userid']);
+		$from=@$this->db->escape(@$data['from']);
+		$to=@$this->db->escape(@$data['to']);
+		$title=@$this->db->escape(@$data['title']);
+		$description=@$this->db->escape(@$data['description']);
+		$title=@$this->db->escape(@$data['title']);
+		$summary=@$this->db->escape(@$data['summary']);
+		$description=@$this->db->escape(@$data['description']);
+		$attachment=@$this->db->escape(@$data['attachment']);
+		$status=@$this->db->escape(@$data['status']);
+		$folder=@$this->db->escape(@$data['folder']);
+		$senddate=@$this->date->getToday();
+		$replyfrom=@$this->db->escape(@$data['replyfrom']);
 		
 		$field=array(
 						'`messageid`',
@@ -70,30 +70,30 @@ class ModelCoreMessage extends ModelCoreFile
 						$senddate,
 						$replyfrom,
 					);
-		$this->db->insertData("message",$field,$value);
+		@$this->db->insertData("message",$field,$value);
 		$data['messageid']=$messageid;
 		if($attachment!="")
 		{	
 			@$listfile = split(",",$attachment);
-			$this->updateListFileTemp($listfile);
-			$this->model_core_message->clearTemp();
+			@$this->updateListFileTemp($listfile);
+			@$this->model_core_message->clearTemp();
 		}
 		
 		//echo "test";
 		//Lay danh sach gui message
-		$datasend = $this->getTarget($to);
+		$datasend = @$this->getTarget($to);
 		//print_r($datasend);
 		//Gui message den tung user trong list
 		foreach($datasend['listuser'] as $item)
 		{
 			$data['username'] = $item;
-			$this->sendMessage($data);
+			@$this->sendMessage($data);
 		}
 		//Gui message de tung e mail trong list
 		foreach($datasend['listemail'] as $item)
 		{
 			$data['email'] = $item;
-			$this->sendEmail($data);
+			@$this->sendEmail($data);
 		}
 		return $messageid;
 	}
@@ -102,28 +102,28 @@ class ModelCoreMessage extends ModelCoreFile
 	
 	public function delete($messageid)
 	{
-		$messageid=$this->db->escape(@$messageid);
+		$messageid=@$this->db->escape(@$messageid);
 		//Xoa nhung file dinh kem
-		/*$message = $this->getItem($messageid);
+		/*$message = @$this->getItem($messageid);
 		if($message['attachment']!="")
 		{
 			@$list = split(",",$message['attachment']);
 			foreach($list as $item)
-				$this->deleteFile($item);
+				@$this->deleteFile($item);
 		}*/
 		//Xoa tin nhan
 		if($messageid != "")
 		{
 			$sql = "Update `message` set status='delete' where messageid = '".$messageid."'";
-			$this->db->query($sql);
+			@$this->db->query($sql);
 		}
 	}
 	
 	private function sendMessage($data)
 	{
-		$messageid=$this->db->escape(@$data['messageid']);
-		$username=$this->db->escape(@$data['username']);
-		$senddate=$this->date->getToday();
+		$messageid=@$this->db->escape(@$data['messageid']);
+		$username=@$this->db->escape(@$data['username']);
+		$senddate=@$this->date->getToday();
 		$field=array(
 						'messageid',
 						'username',
@@ -138,7 +138,7 @@ class ModelCoreMessage extends ModelCoreFile
 						"inbox",
 						$senddate
 					);
-		$this->db->insertData("messagesend",$field,$value);
+		@$this->db->insertData("messagesend",$field,$value);
 	}
 	
 	public function sendEmail($data)
@@ -174,12 +174,12 @@ class ModelCoreMessage extends ModelCoreFile
 			if ($pos === false) 
 			{
 				//Not found
-				$listuser[]=$this->processString($item);
+				$listuser[]=@$this->processString($item);
 			} 
 			else 
 			{
 				//found
-				$listemail[]=$this->processString($item);
+				$listemail[]=@$this->processString($item);
 			}
 		}
 		$data['listuser'] = $listuser;
@@ -196,7 +196,7 @@ class ModelCoreMessage extends ModelCoreFile
 		}
 		else
 		{
-			$s = $this->string->getSubString($str,'&lt;','&gt;');
+			$s = @$this->string->getSubString($str,'&lt;','&gt;');
 			$s = str_replace('&','',$s);
 			return trim($s);
 		}
@@ -213,14 +213,14 @@ class ModelCoreMessage extends ModelCoreFile
 			$sql .= " Limit ".$from.",".$to;
 		}
 		
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
 	public function updateStatus($messageid,$status)
 	{
-		$messageid=$this->db->escape(@$messageid);
-		$status=$this->db->escape(@$status);
+		$messageid=@$this->db->escape(@$messageid);
+		$status=@$this->db->escape(@$status);
 		$field=array(
 						'messageid',
 						'status',
@@ -230,13 +230,13 @@ class ModelCoreMessage extends ModelCoreFile
 						$status
 					);
 		$where="messageid = '".$messageid."'";
-		$this->db->updateData('messagesend',$field,$value,$where);
+		@$this->db->updateData('messagesend',$field,$value,$where);
 	}
 	
 	public function updateFolder($messageid,$folder)
 	{
-		$messageid=$this->db->escape(@$messageid);
-		$folder=$this->db->escape(@$folder);
+		$messageid=@$this->db->escape(@$messageid);
+		$folder=@$this->db->escape(@$folder);
 		$field=array(
 						'messageid',
 						'folder',
@@ -246,12 +246,12 @@ class ModelCoreMessage extends ModelCoreFile
 						$folder
 					);
 		$where="messageid = '".$messageid."'";
-		$this->db->updateData('messagesend',$field,$value,$where);
+		@$this->db->updateData('messagesend',$field,$value,$where);
 	}
 	
 	public function delectMessage($messageid)
 	{
 		$where="messageid = '".$messageid."'";
-		$this->db->deleteData('messagesend',$where);
+		@$this->db->deleteData('messagesend',$where);
 	}
 }

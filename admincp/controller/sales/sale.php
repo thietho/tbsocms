@@ -4,66 +4,66 @@ class ControllerSalesSale extends Controller
 	private $error = array();
 	function __construct()
 	{
-		$this->load->model("core/module");
+		@$this->load->model("core/module");
 		$moduleid = $_GET['route'];
-		$this->document->title = $this->model_core_module->getBreadcrumbs($moduleid);
-		if($this->user->checkPermission($moduleid)==false)
+		@$this->document->title = @$this->model_core_module->getBreadcrumbs($moduleid);
+		if(@$this->user->checkPermission($moduleid)==false)
 		{
-			$this->response->redirect('?route=page/home');
+			@$this->response->redirect('?route=page/home');
 		}
 		
-		$this->data['loaiphieu'] = array(
+		@$this->data['loaiphieu'] = array(
 											'NK-CH' => 'Trả hàng về kho',
 											'CH-BH' => 'Phiếu bán hàng'
 										);
 		
-		$this->load->model("sales/shop");
-		$this->load->model("quanlykho/nhanvien");
-		$this->load->model("core/media");
-		$this->load->model("core/category");
-		$this->load->model("core/sitemap");
-		$this->load->model("quanlykho/phieunhapxuat");
-		$this->load->helper('image');
+		@$this->load->model("sales/shop");
+		@$this->load->model("quanlykho/nhanvien");
+		@$this->load->model("core/media");
+		@$this->load->model("core/category");
+		@$this->load->model("core/sitemap");
+		@$this->load->model("quanlykho/phieunhapxuat");
+		@$this->load->helper('image');
 		
 		$where = " ORDER BY shopname";
-		$this->data['data_shop'] = $this->model_sales_shop->getList($where);
+		@$this->data['data_shop'] = @$this->model_sales_shop->getList($where);
 		
-		$this->data['nhanhieu'] = array();
-		$this->model_core_category->getTree("nhanhieu",$this->data['nhanhieu']);
+		@$this->data['nhanhieu'] = array();
+		@$this->model_core_category->getTree("nhanhieu",@$this->data['nhanhieu']);
 		unset($this->data['nhanhieu'][0]);
 		
-		$this->data['status'] = array();
-		$this->model_core_category->getTree("status",$this->data['status']);
+		@$this->data['status'] = array();
+		@$this->model_core_category->getTree("status",@$this->data['status']);
 		unset($this->data['status'][0]);
 		
-		$this->data['orderstatus'] = array();
-		$this->model_core_category->getTree("orderstatus",$this->data['orderstatus']);
+		@$this->data['orderstatus'] = array();
+		@$this->model_core_category->getTree("orderstatus",@$this->data['orderstatus']);
 		unset($this->data['orderstatus'][0]);
 		
-		$this->data['sitemaps'] = array();
-		$this->model_core_sitemap->getTreeSitemap("", $this->data['sitemaps']);
+		@$this->data['sitemaps'] = array();
+		@$this->model_core_sitemap->getTreeSitemap("", @$this->data['sitemaps']);
 		
 	}
 	public function index()
 	{
-		$nhanvien = $this->user->getNhanVien();
-		$staffshop = $this->model_sales_shop->getShopStaff($nhanvien['id']);
-		$this->data['shopid'] = $staffshop['shopid'];
-		$this->id='content';
-		$this->template="sales/sale.tpl";
-		$this->layout="layout/center";
-		$this->render();
+		$nhanvien = @$this->user->getNhanVien();
+		$staffshop = @$this->model_sales_shop->getShopStaff($nhanvien['id']);
+		@$this->data['shopid'] = $staffshop['shopid'];
+		@$this->id='content';
+		@$this->template="sales/sale.tpl";
+		@$this->layout="layout/center";
+		@$this->render();
 	}
 	public function listOrder()
 	{
-		$shopid = $this->request->get['shopid'];
+		$shopid = @$this->request->get['shopid'];
 		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai  <> 'paid'";
-		$data = $this->model_quanlykho_phieunhapxuat->getList($where);
+		$data = @$this->model_quanlykho_phieunhapxuat->getList($where);
 		$arrdate = array();
 		$data_order = array();
 		foreach($data as $key => $item)
 		{
-			$ngaylap = $this->date->getDate($item['ngaylap']);
+			$ngaylap = @$this->date->getDate($item['ngaylap']);
 			if(!in_array($ngaylap,$arrdate))
 			{
 				$arrdate[] = $ngaylap;
@@ -74,7 +74,7 @@ class ControllerSalesSale extends Controller
 		{
 			foreach($data as $item)
 			{
-				$ngaylap = $this->date->getDate($item['ngaylap']);
+				$ngaylap = @$this->date->getDate($item['ngaylap']);
 				if($ngaylap == $date)
 				{
 					$data_order[$date][] = $item;
@@ -84,28 +84,28 @@ class ControllerSalesSale extends Controller
 			
 				
 		}
-		$this->data['output'] = json_encode($data_order);
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->data['output'] = json_encode($data_order);
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 		
 	}
 	public function listOrderComplete()
 	{
-		$shopid = $this->request->get['shopid'];
+		$shopid = @$this->request->get['shopid'];
 		
-		$this->id='content';
-		$this->template='sales/sale_order.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='sales/sale_order.tpl';
+		@$this->render();
 		
 	}
 	public function listOrderCompleteData()
 	{
-		$shopid = $this->request->get['shopid'];
-		$datasearchlike['maphieu'] = urldecode($this->request->get['maphieu']);
-		$datasearchlike['tenkhachhang'] = urldecode($this->request->get['tenkhachhang']);
-		$datasearchlike['dienthoai'] = urldecode($this->request->get['dienthoai']);
-		$datasearchlike['diachi'] = urldecode($this->request->get['diachi']);
+		$shopid = @$this->request->get['shopid'];
+		$datasearchlike['maphieu'] = urldecode(@$this->request->get['maphieu']);
+		$datasearchlike['tenkhachhang'] = urldecode(@$this->request->get['tenkhachhang']);
+		$datasearchlike['dienthoai'] = urldecode(@$this->request->get['dienthoai']);
+		$datasearchlike['diachi'] = urldecode(@$this->request->get['diachi']);
 		$where = " AND shopid = '".$shopid."' AND `loaiphieu` = 'CH-BH' AND trangthai like 'paid'";
 		
 		$arr = array();
@@ -116,63 +116,63 @@ class ControllerSalesSale extends Controller
 		}
 		
 		$where .= implode("",$arr);
-		$tungay = $this->date->formatViewDate(urldecode($this->request->get['tungay']));
+		$tungay = @$this->date->formatViewDate(urldecode(@$this->request->get['tungay']));
 		if($tungay !="")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
-		$denngay = $this->date->formatViewDate(urldecode($this->request->get['denngay']));
+		$denngay = @$this->date->formatViewDate(urldecode(@$this->request->get['denngay']));
 		if($denngay !="")
 		{
 			$where .= " AND ngaylap <= '".$denngay." 23:59:59'";
 		}
 		
-		$this->data['data_order'] = $this->model_quanlykho_phieunhapxuat->getList($where);
-		$this->id='content';
-		$this->template='sales/sale_order_data.tpl';
-		$this->render();
+		@$this->data['data_order'] = @$this->model_quanlykho_phieunhapxuat->getList($where);
+		@$this->id='content';
+		@$this->template='sales/sale_order_data.tpl';
+		@$this->render();
 	}
 	public function delOrder() 
 	{
-		$id=$this->request->get['id'];
-		$this->model_quanlykho_phieunhapxuat->destroy($id);
-		$this->data['output'] = "Xóa thành công";
+		$id=@$this->request->get['id'];
+		@$this->model_quanlykho_phieunhapxuat->destroy($id);
+		@$this->data['output'] = "Xóa thành công";
 		
-		$this->id="content";
-		$this->template="common/output.tpl";
-		$this->render();
+		@$this->id="content";
+		@$this->template="common/output.tpl";
+		@$this->render();
   	}
 	public function getOrder()
 	{
-		$id = $this->request->get['id'];
-		$data = $this->model_quanlykho_phieunhapxuat->getItem($id);
-		$data['ngaylap'] = $this->date->formatMySQLDate($data['ngaylap']);
+		$id = @$this->request->get['id'];
+		$data = @$this->model_quanlykho_phieunhapxuat->getItem($id);
+		$data['ngaylap'] = @$this->date->formatMySQLDate($data['ngaylap']);
 		//Lap chi tiet
 		$where = " AND phieuid = '".$id."' ORDER BY `vitri` ASC";
-		$data['detail'] = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+		$data['detail'] = @$this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 		
-		$this->data['output'] = json_encode($data);
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->data['output'] = json_encode($data);
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	public function listProduct()
 	{
-		$shopid = $this->request->get['shopid'];
+		$shopid = @$this->request->get['shopid'];
 		//Lay cac san pham co nhap cho shop
 		$where = " AND shopid = '".$shopid."' Group by mediaid ";
-		$data_nhapxuatmedia = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
-		$arr_mediaid = $this->string->matrixToArray($data_nhapxuatmedia,'mediaid');
+		$data_nhapxuatmedia = @$this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+		$arr_mediaid = @$this->string->matrixToArray($data_nhapxuatmedia,'mediaid');
 		
 		$where = " AND mediatype = 'module/product' AND mediaid in ('".implode("','",$arr_mediaid)."')";
-		$sitemapid = urldecode($this->request->get['sitemapid']);
-		$this->data['sitemapid'] = $sitemapid;
-		$siteid = $this->user->getSiteId();
+		$sitemapid = urldecode(@$this->request->get['sitemapid']);
+		@$this->data['sitemapid'] = $sitemapid;
+		$siteid = @$this->user->getSiteId();
 		if($sitemapid != "")
 		{
 			$data = array();
-			$sitemaps = $this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);
-			$arrsitemapid = $this->string->matrixToArray($data,"sitemapid");
+			$sitemaps = @$this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);
+			$arrsitemapid = @$this->string->matrixToArray($data,"sitemapid");
 		}
 		$arr = array();
 		if($sitemapid)
@@ -183,7 +183,7 @@ class ControllerSalesSale extends Controller
 		if(count($arr))
 			$where .= "AND (". implode($arr," OR ").")";
 		
-		$keyword = urldecode($this->request->get['keyword']);
+		$keyword = urldecode(@$this->request->get['keyword']);
 		@$arrkey = split(' ', $keyword);
 		
 		if($keyword !="")
@@ -234,20 +234,20 @@ class ControllerSalesSale extends Controller
 							)";
 			
 		}
-		$brand = urldecode($this->request->get['brand']);
+		$brand = urldecode(@$this->request->get['brand']);
 		if($brand !="")
 		{
 			$where .= " AND brand like '".$brand."'";
 		}
-		$page = urldecode($this->request->get['page']);
-		$limt = urldecode($this->request->get['limt']);
-		$data_product = $this->model_core_media->getList($where." Order by `title` LIMIT ".$page * $limt. ", ".$limt);
-		$this->data['data_product'] = array();
+		$page = urldecode(@$this->request->get['page']);
+		$limt = urldecode(@$this->request->get['limt']);
+		$data_product = @$this->model_core_media->getList($where." Order by `title` LIMIT ".$page * $limt. ", ".$limt);
+		@$this->data['data_product'] = array();
 		foreach($data_product as $i => $media)
 		{
-			$media['Inventory'] = $this->model_core_media->getShopInventory($shopid,$media['mediaid']);
+			$media['Inventory'] = @$this->model_core_media->getShopInventory($shopid,$media['mediaid']);
 			$media['icon'] = HelperImage::resizePNG($media['imagepath'], 100, 100);		
-			$this->data['data_product'][]=$media;
+			@$this->data['data_product'][]=$media;
 		}
 		
 		$arr_brand = array();
@@ -255,38 +255,38 @@ class ControllerSalesSale extends Controller
 		
 		foreach($data_product as $i => $media)
 		{
-			$media['Inventory'] = $this->model_core_media->getShopInventory($shopid,$media['mediaid']);
+			$media['Inventory'] = @$this->model_core_media->getShopInventory($shopid,$media['mediaid']);
 			$media['icon'] = HelperImage::resizePNG($media['imagepath'], 100, 100);		
-			$this->data['data_product'][$media['brand']][]=$media;
+			@$this->data['data_product'][$media['brand']][]=$media;
 		}
 		
 		$cat = array(
 					'categoryid'=>'',
 					'categoryname' => 'Chưa có nhãn hiệu'
 					);
-		$this->data['nhanhieu'][] = $cat;*/
+		@$this->data['nhanhieu'][] = $cat;*/
 		
-		$this->id='content';
-		$this->template="sales/sale_product.tpl";
-		$this->render();	
+		@$this->id='content';
+		@$this->template="sales/sale_product.tpl";
+		@$this->render();	
 	}
 	public function save()
 	{
-		$data = $this->request->post;
+		$data = @$this->request->post;
 		
-		if($this->validateForm($data))
+		if(@$this->validateForm($data))
 		{
-			$nhanvien = $this->user->getNhanVien();
-			$data['ngaylap'] = $this->date->formatViewDate($data['ngaylap']);
-			$data['ngaythanhtoan'] = $this->date->formatViewDate($data['ngaythanhtoan']);
+			$nhanvien = @$this->user->getNhanVien();
+			$data['ngaylap'] = @$this->date->formatViewDate($data['ngaylap']);
+			$data['ngaythanhtoan'] = @$this->date->formatViewDate($data['ngaythanhtoan']);
 			if($data['nguoithuchien']=="")
 			{
 				$data['nguoithuchienid'] = $nhanvien['id'];
 				$data['nguoithuchien'] = $nhanvien['hoten'];
 			}
-			//$data['loaiphieu'] = $this->loaiphieu;
-			$data['id'] = $this->model_quanlykho_phieunhapxuat->save($data);
-			$phieu = $this->model_quanlykho_phieunhapxuat->getItem($data['id']);
+			//$data['loaiphieu'] = @$this->loaiphieu;
+			$data['id'] = @$this->model_quanlykho_phieunhapxuat->save($data);
+			$phieu = @$this->model_quanlykho_phieunhapxuat->getItem($data['id']);
 			
 			//Xoa dinh luong
 			$delnhapkho = $data['delnhapkho'];
@@ -299,7 +299,7 @@ class ControllerSalesSale extends Controller
 					foreach($arr_nhapkhoid as $nhapkhoid)
 					{
 						
-						$this->model_quanlykho_phieunhapxuat->deletePhieuNhapXuatMedia($nhapkhoid);
+						@$this->model_quanlykho_phieunhapxuat->deletePhieuNhapXuatMedia($nhapkhoid);
 						
 						
 					}
@@ -347,18 +347,18 @@ class ControllerSalesSale extends Controller
 				$dl['nguoinhanid'] = $phieu['nguoinhanid'];
 				$dl['nguoinhan'] = $phieu['nguoinhan'];
 				$dl['vitri'] = $index;
-				$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
-				$tongtien += $this->string->toNumber($dl['soluong'])*$this->string->toNumber($dl['giatien']);
+				@$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($dl);
+				$tongtien += @$this->string->toNumber($dl['soluong'])*@$this->string->toNumber($dl['giatien']);
 				$index++;
 				//Cap nhat ton kho
-				$inventory = $this->model_core_media->getInventory($mediaid);
-				$this->model_core_media->updateCol($mediaid,'inventory',$inventory);
+				$inventory = @$this->model_core_media->getInventory($mediaid);
+				@$this->model_core_media->updateCol($mediaid,'inventory',$inventory);
 				
 			}
-			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
-			//$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien- $this->string->toNumber($data['thanhtoan']));
+			//@$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'tongtien',$tongtien);
+			//@$this->model_quanlykho_phieunhapxuat->updateCol($phieuid,'congno',$tongtien- @$this->string->toNumber($data['thanhtoan']));
 			$phieu['error'] ='';
-			$this->data['output'] = json_encode($phieu);
+			@$this->data['output'] = json_encode($phieu);
 			if(isset($_SESSION['productlist']))
 			{
 				unset($_SESSION['productlist']);	
@@ -367,24 +367,24 @@ class ControllerSalesSale extends Controller
 		else
 		{
 			$phieu['error'] ='';
-			foreach($this->error as $item)
+			foreach(@$this->error as $item)
 			{
 				$phieu['error'] .= $item."<br>";
 			}
-			$this->data['output'] = json_encode($phieu);
+			@$this->data['output'] = json_encode($phieu);
 		}
-		$this->id='content';
-		$this->template='common/output.tpl';
-		$this->render();
+		@$this->id='content';
+		@$this->template='common/output.tpl';
+		@$this->render();
 	}
 	
 	private function validateForm($data)
 	{
 		/*if($data['congno']!=0 && $data['trangthai'] == 'delivered')
 		{
-			$this->error['trangthai'] = 'Đơn hàng chưa thanh toán!';
+			@$this->error['trangthai'] = 'Đơn hàng chưa thanh toán!';
 		}*/
-		if (count($this->error)==0) {
+		if (count(@$this->error)==0) {
 	  		return TRUE;
 		} else {
 	  		return FALSE;
@@ -392,32 +392,32 @@ class ControllerSalesSale extends Controller
 	}
 	public function history()
 	{
-		$shopid = $this->request->get['shopid'];
-		$mediaid = $this->request->get['mediaid'];
+		$shopid = @$this->request->get['shopid'];
+		$mediaid = @$this->request->get['mediaid'];
 		//Nhap
 		$where = " AND shopid = '".$shopid."' AND mediaid = '".$mediaid."' AND loaiphieu in ('PX-XCH','CH-NK') ORDER BY `ngaylap` DESC";
-		$data_nhap = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+		$data_nhap = @$this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 		//Xuat
 		
 		$where = " AND shopid = '".$shopid."' AND mediaid = '".$mediaid."' AND loaiphieu in ('CH-BH','NK-CH') ORDER BY `ngaylap` DESC";
-		$data_xuat = $this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
+		$data_xuat = @$this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 		
 		
 		$arrdate = array();
 		foreach($data_nhap as $item)
 		{
-			$ngaylap = $this->date->getDate($item['ngaylap']);
+			$ngaylap = @$this->date->getDate($item['ngaylap']);
 			if(!in_array($ngaylap,$arrdate))
 			{
-				$arrdate[] = $this->date->getDate($item['ngaylap']);
+				$arrdate[] = @$this->date->getDate($item['ngaylap']);
 			}
 		}
 		foreach($data_xuat as $item)
 		{
-			$ngaylap = $this->date->getDate($item['ngaylap']);
+			$ngaylap = @$this->date->getDate($item['ngaylap']);
 			if(!in_array($ngaylap,$arrdate))
 			{
-				$arrdate[] = $this->date->getDate($item['ngaylap']);
+				$arrdate[] = @$this->date->getDate($item['ngaylap']);
 			}
 		}
 		
@@ -426,32 +426,32 @@ class ControllerSalesSale extends Controller
 		{
 			foreach($data_nhap as $item)
 			{
-				$ngaylap = $this->date->getDate($item['ngaylap']);
+				$ngaylap = @$this->date->getDate($item['ngaylap']);
 				if($ngaylap == $date)
 				{
-					$this->data['nhapxuat'][$date]['nhap'][] = $item;
+					@$this->data['nhapxuat'][$date]['nhap'][] = $item;
 				}
 			}
 			foreach($data_xuat as $item)
 			{
-				$ngaylap = $this->date->getDate($item['ngaylap']);
+				$ngaylap = @$this->date->getDate($item['ngaylap']);
 				if($ngaylap == $date)
 				{
-					$this->data['nhapxuat'][$date]['xuat'][] = $item;
+					@$this->data['nhapxuat'][$date]['xuat'][] = $item;
 				}
 			}
 			
 		}
-		//print_r($this->data['nhapxuat']);
-		$this->id='content';
-		$this->template="sales/sale_product_history.tpl";
-		$this->render();
+		//print_r(@$this->data['nhapxuat']);
+		@$this->id='content';
+		@$this->template="sales/sale_product_history.tpl";
+		@$this->render();
 	}
 	public function productShop()
 	{
-		$this->id='content';
-		$this->template="sales/sale_product_shop.tpl";
-		$this->render();
+		@$this->id='content';
+		@$this->template="sales/sale_product_shop.tpl";
+		@$this->render();
 	}
 }
 ?>

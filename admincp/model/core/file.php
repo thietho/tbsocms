@@ -4,52 +4,52 @@ class ModelCoreFile extends Model
 	public function getFile($id)
 	{
 		$id=(int)@$id;
-		$query = $this->db->query('Select * from `file` where fileid ='.$id);
+		$query = @$this->db->query('Select * from `file` where fileid ='.$id);
 		return $query->row;
 	}
 	
 	public function getFiles($where = "")
 	{
-		$query = $this->db->query('Select * from `file` WHERE 1=1 ' .$where);
+		$query = @$this->db->query('Select * from `file` WHERE 1=1 ' .$where);
 		return $query->rows;
 	}
 	
 	public function getImageBy($where)
 	{
 		$sql="Select * from `file` WHERE extension in ('jpg','png','gif') ".$where;
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
 	public function getFileChild($parent)
 	{
-		$query = $this->db->query('Select * from `file` where fileparent ='.$parent.' Order by fileid');
+		$query = @$this->db->query('Select * from `file` where fileparent ='.$parent.' Order by fileid');
 		return $query->rows;
 	}
 	
 	private function nextID()
 	{
-		return $this->db->getNextId("file","fileid");
+		return @$this->db->getNextId("file","fileid");
 	}
 	
 	public function insertFile($data)
 	{
 		$fileid=(int)@$data['fileid'];
-		$filename=$this->db->escape(@$data['filename']);
-		$filepath=$this->db->escape(@$data['filepath']);
+		$filename=@$this->db->escape(@$data['filename']);
+		$filepath=@$this->db->escape(@$data['filepath']);
 		$fileparent=(int)@$data['fileparent'];
 		$width=(int)@$data['width'];
 		$height=(int)@$data['height'];
-		$tagkeyword=$this->db->escape(@$data['tagkeyword']);
-		$activedate=$this->db->escape(@$data['activedate']);
-		$updateddate=$this->db->escape(@$data['updateddate']);
-		//$deleteddate=$this->db->escape(@$data['deleteddate']);
-		$activeby=$this->db->escape(@$data['activeby']);
-		$updatedby=$this->db->escape(@$data['updatedby']);
-		//$deletedby=$this->db->escape(@$data['deletedby']);
+		$tagkeyword=@$this->db->escape(@$data['tagkeyword']);
+		$activedate=@$this->db->escape(@$data['activedate']);
+		$updateddate=@$this->db->escape(@$data['updateddate']);
+		//$deleteddate=@$this->db->escape(@$data['deleteddate']);
+		$activeby=@$this->db->escape(@$data['activeby']);
+		$updatedby=@$this->db->escape(@$data['updatedby']);
+		//$deletedby=@$this->db->escape(@$data['deletedby']);
 		$filesize=(float)@$data['filesize'];
-		$extension=$this->db->escape(@$data['extension']);
-		$filetypeid=$this->db->escape(@$data['filetypeid']);
+		$extension=@$this->db->escape(@$data['extension']);
+		$filetypeid=@$this->db->escape(@$data['filetypeid']);
 		$field=array(
 						"fileid",
 						"filename",
@@ -82,14 +82,14 @@ class ModelCoreFile extends Model
 						$extension,
 						$filetypeid
 					);
-		$this->db->insertData("file",$field,$value);
-		return $this->db->getLastId();
+		@$this->db->insertData("file",$field,$value);
+		return @$this->db->getLastId();
 	}
 	
 	public function updateTagKeyword($fileid, $keyword)
 	{
 		$sql = "Update `file` set `tagkeyword` = '".$keyword."' where `fileid` = '".$fileid."'";
-		$this->db->query($sql);
+		@$this->db->query($sql);
 		
 	}
 	
@@ -98,7 +98,7 @@ class ModelCoreFile extends Model
 		if($imageid != "")
 		{
 			$sql = "Update `file` set tagkeyword='' where fileid = '".$imageid."'";
-			$this->db->query($sql);
+			@$this->db->query($sql);
 		}
 	}
 	
@@ -108,7 +108,7 @@ class ModelCoreFile extends Model
 		{
 			$list = implode("','",$listimageid);
 			$sql = "Update `file` set tagkeyword='' where fileid in ('".$list."')";
-			$this->db->query($sql);
+			@$this->db->query($sql);
 		}
 		
 	}
@@ -116,10 +116,10 @@ class ModelCoreFile extends Model
 	public function clearTemp()
 	{
 		$sql="Select * from `file` WHERE `tagkeyword` = 'temp'";
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		foreach( $query->rows as $item)
 		{
-			$this->deleteFile($item['fileid']);
+			@$this->deleteFile($item['fileid']);
 		}
 		
 	}
@@ -127,21 +127,21 @@ class ModelCoreFile extends Model
 	public function updateFile($data, $languageid)
 	{
 		$fileid=(int)@$data['fileid'];
-		$filename=$this->db->escape(@$data['filename']);
-		$filepath=$this->db->escape(@$data['filepath']);
+		$filename=@$this->db->escape(@$data['filename']);
+		$filepath=@$this->db->escape(@$data['filepath']);
 		$fileparent=(int)@$data['fileparent'];
 		$width=(int)@$data['width'];
 		$height=(int)@$data['height'];
-		$tagkeyword=$this->db->escape(@$data['tagkeyword']);
-		//$activedate=$this->db->escape(@$data['activedate']);
-		$updateddate=$this->db->escape(@$data['updateddate']);
-		$deleteddate=$this->db->escape(@$data['deleteddate']);
-		//$activeby=$this->db->escape(@$data['activeby']);
-		$updatedby=$this->db->escape(@$data['updatedby']);
-		$deletedby=$this->db->escape(@$data['deletedby']);
+		$tagkeyword=@$this->db->escape(@$data['tagkeyword']);
+		//$activedate=@$this->db->escape(@$data['activedate']);
+		$updateddate=@$this->db->escape(@$data['updateddate']);
+		$deleteddate=@$this->db->escape(@$data['deleteddate']);
+		//$activeby=@$this->db->escape(@$data['activeby']);
+		$updatedby=@$this->db->escape(@$data['updatedby']);
+		$deletedby=@$this->db->escape(@$data['deletedby']);
 		$filesize=(float)@$data['filesize'];
-		$extension=$this->db->escape(@$data['extension']);
-		$filetypeid=$this->db->escape(@$data['filetypeid']);
+		$extension=@$this->db->escape(@$data['extension']);
+		$filetypeid=@$this->db->escape(@$data['filetypeid']);
 		$field=array(
 						"fileid",
 						"filename",
@@ -175,10 +175,10 @@ class ModelCoreFile extends Model
 						$filetypeid
 					);
 		$where="fileid = ".$fileid;
-		$this->db->updateData('file',$field,$value,$where);
+		@$this->db->updateData('file',$field,$value,$where);
 		
 		$languageid=(int)@$languageid;
-		$Title = $this->db->escape(@$data['Title']);
+		$Title = @$this->db->escape(@$data['Title']);
 		$field=array(
 						"fileid",
 						"languageid",
@@ -190,12 +190,12 @@ class ModelCoreFile extends Model
 						$Title
 					);
 		$where="fileid = ".$fileid." and languageid = ".$languageid;
-		$this->db->updateData('file_description',$field,$value,$where);
+		@$this->db->updateData('file_description',$field,$value,$where);
 	}
 	
 	public function deleteFile($id)
 	{
-		$file=$this->getFile($id);
+		$file=@$this->getFile($id);
 		@$arr = split("\.",$file['filename']);
 		
 		
@@ -204,21 +204,21 @@ class ModelCoreFile extends Model
 		
 		$fileid=(int)@$id;
 		$where="fileid = ".$fileid;
-		$this->db->deleteData('file',$where);
+		@$this->db->deleteData('file',$where);
 		//Xoa catch
-		$this->cache->delete($arr[0]);
+		@$this->cache->delete($arr[0]);
 		
 	}
 	
 	public function checkExtension($ext, $filetypeid="any")
 	{
-		$this->load->model("core/filetype");
+		@$this->load->model("core/filetype");
 		if($filetypeid=="any" || $filetypeid="")
 			return true;
 		
 		$flag=false;		
 		$ext;
-		$result=$this->model_core_filetype->getFiletype($filetypeid);
+		$result=@$this->model_core_filetype->getFiletype($filetypeid);
 		@$list=split(",", $result[0]['ListExtension']);
 		for($i=0;$i<count($list);$i++)
 		{
@@ -237,7 +237,7 @@ class ModelCoreFile extends Model
 		@$arfile = split('\.', $file['name'] );
 		$extension = strtolower($arfile[1]);
 		
-		$path = DIR_FILE."user/".$this->user->getId()."/";
+		$path = DIR_FILE."user/".@$this->user->getId()."/";
 
 		if (! is_dir($path))
 			mkdir( $path , 0777 );
@@ -248,12 +248,12 @@ class ModelCoreFile extends Model
 	
 	function setUserThemeFile($value)
 	{
-		$path = DIR_FILE."user/".$this->user->getId()."/";
+		$path = DIR_FILE."user/".@$this->user->getId()."/";
 
 		if (! is_dir($path))
 			mkdir( $path , 0777 );
 			
-		$file = DIR_FILE."user/".$this->user->getId()."/".$this->user->getId().".data";
+		$file = DIR_FILE."user/".@$this->user->getId()."/".@$this->user->getId().".data";
     	
 		$handle = fopen($file, 'w');
 
@@ -268,13 +268,13 @@ class ModelCoreFile extends Model
 		@$arfile = split('\.', $file['name'] );
 		$datafile = array();
 		//Filename
-		$filename = $this->string->chuyenvekodau($arfile[0]);
+		$filename = @$this->string->chuyenvekodau($arfile[0]);
 		
 		$extension = strtolower($arfile[count($arfile)-1]);
 		//convert byte sang KB
 		$filesize=($file['size'])/1024;
 
-		if($this->validateExtension($extension,$filesize,$filetypeid))
+		if(@$this->validateExtension($extension,$filesize,$filetypeid))
 		{
 			//get width + height cua file image
 			$width=0;//default = 0
@@ -321,7 +321,7 @@ class ModelCoreFile extends Model
 				
 				$datafile['filepath'].=$datafile['filename'];
 				
-				$datafile['fileid']=$this->model_core_file->nextID();
+				$datafile['fileid']=@$this->model_core_file->nextID();
 				$datafile['fileparent']="";
 				$datafile['width']=$width;	
 				$datafile['height']=$height;	
@@ -329,11 +329,11 @@ class ModelCoreFile extends Model
 				$datafile['filesize']=$filesize;
 				$datafile['extension']=$extension;
 				$datafile['filetypeid']=$filetypeid;
-				$datafile['activedate']=$this->date->getToday();
-				$datafile['updateddate']=$this->date->getToday();
-				$datafile['activeby']=$this->user->getId();
-				$datafile['updatedby']=$this->user->getId();
-				$this->insertFile($datafile);
+				$datafile['activedate']=@$this->date->getToday();
+				$datafile['updateddate']=@$this->date->getToday();
+				$datafile['activeby']=@$this->user->getId();
+				$datafile['updatedby']=@$this->user->getId();
+				@$this->insertFile($datafile);
 				move_uploaded_file($file['tmp_name'],$uploadDir.$datafile['filename']);
 			}
 			$fileID = $datafile['fileid'];
@@ -370,7 +370,7 @@ class ModelCoreFile extends Model
 	 	$ext = $arfile[count($arfile)-1];
 		$ext=strtolower($ext);
 		$total=substr_count($data['filetypeid'], ',')+1;
-		if($this->checkExtension($ext, $data['filetypeid']))
+		if(@$this->checkExtension($ext, $data['filetypeid']))
 		{
 			//convert byte sang MB
 			$file['size']=($file['size'])/1048576;
@@ -413,7 +413,7 @@ class ModelCoreFile extends Model
 				$datafile['filepath'].=$datafile['filename'];
 				if($data['fileid']=="" || $data['fileid']==0)
 				{
-					$datafile['fileid']=$this->model_core_file->nextID();
+					$datafile['fileid']=@$this->model_core_file->nextID();
 					
 					$datafile['fileparent']=$data['fileparent'];
 					$datafile['width']=$width;	
@@ -428,14 +428,14 @@ class ModelCoreFile extends Model
 					$datafile['updatedby']=$data['updatedby'];
 					$datafile['languageid']=$data['languageid'];
 					$datafile['Title']=$data['Title'];
-					$this->insertFile($datafile, $data['languageid']);
+					@$this->insertFile($datafile, $data['languageid']);
 					rename($file['tmp_name'],$uploadDir.$datafile['filename']);	
 					//move_uploaded_file($file['tmp_name'],$uploadDir.$datafile['filename']);
 				}
 				else
 				{
 					$datafile['fileid']=$data['fileid'];
-					$da=$this->getFile($data['fileid']);
+					$da=@$this->getFile($data['fileid']);
 					if(file_exists($da[0]['filename']))
 						unlink($da[0]['filename']);
 					$datafile['fileparent']=$data['fileparent'];
@@ -451,7 +451,7 @@ class ModelCoreFile extends Model
 					$datafile['deletedby']=$data['deletedby'];
 					$datafile['languageid']=$data['languageid'];
 					$datafile['Title']=$data['Title'];
-					$this->updateFile($datafile, $data['languageid']);
+					@$this->updateFile($datafile, $data['languageid']);
 					rename($file['tmp_name'],$uploadDir.$datafile['filename']);
 					//move_uploaded_file($file['tmp_name'],$uploadDir.$datafile['filename']);
 				}	
@@ -474,7 +474,7 @@ class ModelCoreFile extends Model
 		);
 
 		$where=" fileid = '".$fileid."'";
-		$this->db->updateData("file",$field,$value,$where);
+		@$this->db->updateData("file",$field,$value,$where);
 	}
 	public function insertDefaultAvatar()
 	{
@@ -486,12 +486,12 @@ class ModelCoreFile extends Model
 		$width=48;
 		$height=48;
 		$tagkeyword='user avatar default';
-		$activedate=$this->date->getToday();
-		$updateddate=$this->date->getToday();
-		//$deleteddate=$this->db->escape(@$data['deleteddate']);
+		$activedate=@$this->date->getToday();
+		$updateddate=@$this->date->getToday();
+		//$deleteddate=@$this->db->escape(@$data['deleteddate']);
 		$activeby='';
 		$updatedby='';
-		//$deletedby=$this->db->escape(@$data['deletedby']);
+		//$deletedby=@$this->db->escape(@$data['deletedby']);
 		$filesize='0.00442028045654';
 		$extension='png';
 		$filetypeid='1';
@@ -527,7 +527,7 @@ class ModelCoreFile extends Model
 						$extension,
 						$filetypeid
 					);
-		$this->db->insertData("file",$field,$value);
+		@$this->db->insertData("file",$field,$value);
 		
 		//$languageid=(int)@$languageid;
 		$Title = 'user avatar default';
@@ -541,7 +541,7 @@ class ModelCoreFile extends Model
 						$languageid,
 						$Title
 					);
-		$this->db->insertData("file_description",$field,$value);
+		@$this->db->insertData("file_description",$field,$value);
 		return $fileid;
 	}
 	
@@ -549,19 +549,19 @@ class ModelCoreFile extends Model
 	public function getFolder($folderid)
 	{
 		$folderid=(int)@$folderid;
-		$query = $this->db->query('Select * from `folder` where folderid ='.$folderid);
+		$query = @$this->db->query('Select * from `folder` where folderid ='.$folderid);
 		return $query->row;
 	}
 	
 	public function getFolders($where = "")
 	{
-		$query = $this->db->query('Select * from `folder` WHERE 1=1 ' .$where);
+		$query = @$this->db->query('Select * from `folder` WHERE 1=1 ' .$where);
 		return $query->rows;
 	}
 	
 	public function getFolderChild($parent)
 	{
-		$query = $this->db->query('Select * from `folder` where folderparent ='.$parent.' Order by foldername');
+		$query = @$this->db->query('Select * from `folder` where folderparent ='.$parent.' Order by foldername');
 		return $query->rows;
 	}
 	public function getPath($folderid)
@@ -569,21 +569,21 @@ class ModelCoreFile extends Model
 		$data = array();
 		while($folderid!=0)
 		{
-			$folder = $this->getFolder($folderid);
+			$folder = @$this->getFolder($folderid);
 			array_push($data,$folder);
 			$folderid = $folder['folderparent'];
 			
 		}
-		$data = $this->string->swapArray($data);
+		$data = @$this->string->swapArray($data);
 		return $data;
 	}
 	public function saveFolder($data)
 	{
 		$obj = array();
 		
-		$obj['folderid'] = $this->db->escape(@$data['folderid']);
-		$obj['foldername'] = $this->db->escape(@$data['foldername']);
-		$obj['folderparent'] = $this->db->escape(@$data['folderparent']);
+		$obj['folderid'] = @$this->db->escape(@$data['folderid']);
+		$obj['foldername'] = @$this->db->escape(@$data['foldername']);
+		$obj['folderparent'] = @$this->db->escape(@$data['folderparent']);
 		
 		
 		foreach($obj as $key => $val)
@@ -591,34 +591,34 @@ class ModelCoreFile extends Model
 			if(isset($val))
 			{
 				$field[] = $key;
-				$value[] = $this->db->escape($val);	
+				$value[] = @$this->db->escape($val);	
 			}
 		}		
 		
 		if((int)$data['folderid']==0)
 		{
 			
-			$data['folderid']=$this->db->insertData("folder",$field,$value);
+			$data['folderid']=@$this->db->insertData("folder",$field,$value);
 			
 		}
 		else
 		{			
 			$where="folderid = '".$data['folderid']."'";
-			$this->db->updateData('folder',$field,$value,$where);
+			@$this->db->updateData('folder',$field,$value,$where);
 		}
 	}
 	
 	public function delFolder($folderid)
 	{
 		$where="folderid = '".$folderid."'";
-		$this->db->deleteData("folder",$where);
+		@$this->db->deleteData("folder",$where);
 	}
 	function getTreeFolder($id, &$data,$notid=-1, $level=-1, $path="", $parentpath="")
 	{
 		
-		$arr=$this->getFolder($id);
+		$arr=@$this->getFolder($id);
 		
-		$rows = $this->getFolderChild($id);
+		$rows = @$this->getFolderChild($id);
 		
 		$arr['countchild'] = count(rows);
 		
@@ -640,7 +640,7 @@ class ModelCoreFile extends Model
 		if(count($rows) && $id !=$notid)
 			foreach($rows as $row)
 			{
-				$this->getTreeFolder($row['folderid'],$data,$notid, $level, $path, $parentpath);
+				@$this->getTreeFolder($row['folderid'],$data,$notid, $level, $path, $parentpath);
 			}
 		
 	}

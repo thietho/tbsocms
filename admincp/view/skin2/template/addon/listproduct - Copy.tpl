@@ -9,29 +9,29 @@
                 <th>Giá</th>
                 <th>Khuyến mãi</th>
             </tr>
-            <?php if($media['price']){ ?>
-            <tr class="price-item" ref="<?php echo $media['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $media['code']?>" unit="<?php echo $media['unit']?>" title="<?php echo $media['title']?>" price="<?php echo $media['price']?>" pricepromotion="<?php echo $media['pricepromotion']?>">
+            <?php if(@$media['price']){ ?>
+            <tr class="price-item" ref="<?php echo @$media['mediaid']?>" image="<?php echo @$media['imagepreview']?>" code="<?php echo @$media['code']?>" unit="<?php echo @$media['unit']?>" title="<?php echo @$media['title']?>" price="<?php echo @$media['price']?>" pricepromotion="<?php echo @$media['pricepromotion']?>">
             	<td>
-            		<?php echo $media['title']?>
+            		<?php echo @$media['title']?>
             	</td>
                 <td class="number">
-            		<?php echo $this->string->numberFormate($media['price'])?>
+            		<?php echo @$this->string->numberFormate($media['price'])?>
             	</td>
                 <td class="number">
-            		<?php echo $this->string->numberFormate($media['pricepromotion'])?>
+            		<?php echo @$this->string->numberFormate($media['pricepromotion'])?>
             	</td>
             </tr>
             <?php } ?>
         	<?php foreach($media['productprice'] as $item){ ?>
-            <tr class="price-item" ref="<?php echo $item['mediaid']?>" image="<?php echo $media['imagepreview']?>" code="<?php echo $item['code']?>" unit="<?php echo $item['unit']?>" title="<?php echo $media['title']?> - <?php echo $item['title']?>" price="<?php echo $item['price']?>" pricepromotion="<?php echo $item['pricepromotion']?>">
+            <tr class="price-item" ref="<?php echo @$item['mediaid']?>" image="<?php echo @$media['imagepreview']?>" code="<?php echo @$item['code']?>" unit="<?php echo @$item['unit']?>" title="<?php echo @$media['title']?> - <?php echo @$item['title']?>" price="<?php echo @$item['price']?>" pricepromotion="<?php echo @$item['pricepromotion']?>">
             	<td>
-            		<?php echo $media['title']?> - <?php echo $item['title']?>
+            		<?php echo @$media['title']?> - <?php echo @$item['title']?>
             	</td>
                 <td class="number">
-            		<?php echo $this->string->numberFormate($item['price'])?>
+            		<?php echo @$this->string->numberFormate($item['price'])?>
             	</td>
                 <td class="number">
-            		<?php echo $this->string->numberFormate($item['pricepromotion'])?>
+            		<?php echo @$this->string->numberFormate($item['pricepromotion'])?>
             	</td>
             </tr>
             <?php } ?>
@@ -39,16 +39,16 @@
     	
     </div>
     
-    <input type="hidden" class="listid" value="<?php echo $media['mediaid']?>">
+    <input type="hidden" class="listid" value="<?php echo @$media['mediaid']?>">
 	<table>
     	<tr>
         	<td width="100px" height="100px" align="center">
-            	<img src="<?php echo $media['imagepreview']?>">
+            	<img src="<?php echo @$media['imagepreview']?>">
             </td>
         </tr>
         <tr>
         	<td align="center">
-            	<?php echo $media['title']?><br>
+            	<?php echo @$media['title']?><br>
                 
             </td>
         </tr>

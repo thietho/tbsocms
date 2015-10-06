@@ -1,14 +1,14 @@
 <div class="section" id="sitemaplist">
 
-	<div class="section-title"><?php echo $heading_title?></div>
+	<div class="section-title"><?php echo @$heading_title?></div>
     
     <div class="section-content padding1">
     
-    	<form id="frmOrder" name="frmOrder" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form id="frmOrder" name="frmOrder" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input class="button" type="button" value="<?php echo $button_save?>" onclick="save()"/>
-     	        <a class="button" href="index.php?route=addon/order/view&orderid=<?php echo $order['orderid']?>"><?php echo $button_cancel?></a>
+            	<input class="button" type="button" value="<?php echo @$button_save?>" onclick="save()"/>
+     	        <a class="button" href="index.php?route=addon/order/view&orderid=<?php echo @$order['orderid']?>"><?php echo @$button_cancel?></a>
                 
             </div>
             <div class="clearer">^&nbsp;</div>
@@ -20,36 +20,36 @@
                 <div id="fragment-thongtin">
                		<div class="left" style="width:50%;">
                         <h3>Thông tin khách hàng</h3>
-                        <?php if($order['orderid']){ ?>
+                        <?php if(@$order['orderid']){ ?>
                         <p>
                             <label>Order id</label><br />
-                            <?php echo $order['orderid']?>
+                            <?php echo @$order['orderid']?>
                             
                         </p>
                         <?php } ?>
-                        <input type="hidden" id="orderid" name="orderid" value="<?php echo $order['orderid']?>"/>
+                        <input type="hidden" id="orderid" name="orderid" value="<?php echo @$order['orderid']?>"/>
                         <p>
-                            <label><?php echo $entry_customername?></label><br />
-                            <input type="text" class="text" id="customername" name="customername" value="<?php echo $order['customername']?>" size="40">
-                            <input type="hidden" id="userid" name="userid" value="<?php echo $order['userid']?>"/>
+                            <label><?php echo @$entry_customername?></label><br />
+                            <input type="text" class="text" id="customername" name="customername" value="<?php echo @$order['customername']?>" size="40">
+                            <input type="hidden" id="userid" name="userid" value="<?php echo @$order['userid']?>"/>
                             <input type="button" class="button" id="btnSelectKhachHang" value="Chọn khách hàng"/>
                         </p>
                         <p>
-                            <label><?php echo $entry_email?></label><br />
-                            <input type="text" class="text" id="email" name="email" value="<?php echo $order['email']?>" size="40">
+                            <label><?php echo @$entry_email?></label><br />
+                            <input type="text" class="text" id="email" name="email" value="<?php echo @$order['email']?>" size="40">
                             
                         </p><p>
-                            <label><?php echo $entry_address?></label><br />
-                            <input type="text" class="text" id="address" name="address" value="<?php echo $order['address']?>" size="40">
+                            <label><?php echo @$entry_address?></label><br />
+                            <input type="text" class="text" id="address" name="address" value="<?php echo @$order['address']?>" size="40">
                         </p>
                         <p>
-                            <label><?php echo $entry_phone?></label><br />
-                            <input type="text" class="text" id="phone" name="phone" value="<?php echo $order['phone']?>" size="40">
+                            <label><?php echo @$entry_phone?></label><br />
+                            <input type="text" class="text" id="phone" name="phone" value="<?php echo @$order['phone']?>" size="40">
                         </p>
-                        <?php if($order['orderid']){ ?>
+                        <?php if(@$order['orderid']){ ?>
                         <p>
-                            <label><?php echo $entry_orderdate?></label><br />
-                            <?php echo $this->date->formatMySQLDate($order['orderdate'])?>
+                            <label><?php echo @$entry_orderdate?></label><br />
+                            <?php echo @$this->date->formatMySQLDate($order['orderdate'])?>
                         </p>
                         <?php } ?>
                     </div>
@@ -59,34 +59,34 @@
                         <h3>Thông tin giao hàng</h3>
                         <p>
                             <label>Người nhận hàng</label><br />
-                            <input type="text" class="text" id="receiver" name="receiver" value="<?php echo $order['receiver']?>" size="40">
+                            <input type="text" class="text" id="receiver" name="receiver" value="<?php echo @$order['receiver']?>" size="40">
                             <input type="button" class="button" id="btnKhachHangNhan" value="Khách hàng nhận hàng" />
                         </p>
                         <p>
                             <label>Số điện thoại</label><br />
-                            <input type="text" class="text" id="receiverphone" name="receiverphone" value="<?php echo $order['receiverphone']?>" size="40">
+                            <input type="text" class="text" id="receiverphone" name="receiverphone" value="<?php echo @$order['receiverphone']?>" size="40">
                         </p>
                         <p>
                             <label>Địa chỉ nhận</label><br />
-                            <input type="text" class="text" id="shipperat" name="shipperat" value="<?php echo $order['shipperat']?>" size="40">
+                            <input type="text" class="text" id="shipperat" name="shipperat" value="<?php echo @$order['shipperat']?>" size="40">
                         </p>
                         <p>
                             <label>Phương thức thanh toán</label><br />
                             <select id="paymenttype" name="paymenttype">
-                                <?php foreach($this->document->paymenttype as $key => $val){ ?>
-                                <option value="<?php echo $key?>"><?php echo $val?></option>
+                                <?php foreach(@$this->document->paymenttype as $key => $val){ ?>
+                                <option value="<?php echo @$key?>"><?php echo @$val?></option>
                                 <?php } ?>
                             </select>
                         </p>
                         <p>
                             <label>Người giao hàng</label><br />
-                            <input type="text" class="text" id="shippername" name="shippername" value="<?php echo $order['shippername']?>" size="40">
-                            <input type="hidden" id="shipper" name="shipper" value="<?php echo $order['shipper']?>">
+                            <input type="text" class="text" id="shippername" name="shippername" value="<?php echo @$order['shippername']?>" size="40">
+                            <input type="hidden" id="shipper" name="shipper" value="<?php echo @$order['shipper']?>">
                             <input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên"/>
                         </p>
                         <p>
                             <label>Ngày giao</label><br />
-                            <input type="text" class="text" id="shippdate" name="shippdate" value="<?php echo $this->date->formatMySQLDate($order['shippdate'])?>" size="40">
+                            <input type="text" class="text" id="shippdate" name="shippdate" value="<?php echo @$this->date->formatMySQLDate($order['shippdate'])?>" size="40">
                             <script language="javascript">
                                 $(function() {
                                     $("#shippdate").datepicker({
@@ -100,20 +100,20 @@
                         </p>
                         <p>
                             <label>Ghi nhớ</label><br />
-                            <textarea id="notes" name="notes"><?php echo $order['notes']?></textarea>
+                            <textarea id="notes" name="notes"><?php echo @$order['notes']?></textarea>
                         </p>
                         <!--
                         <p>
-                            <label><?php echo $entry_status?></label><br />
-                            <select id="status<?php echo $order['orderid']?>" onchange="order.updateStatus('<?php echo $order['orderid']?>',this.value)">
-                                <?php foreach($this->document->status as $key => $val) { ?>
-                                <option value="<?php echo $key?>" <?php echo ($order['status'] == $key)?'selected="selected"':''?>><?php echo $val?></option>
+                            <label><?php echo @$entry_status?></label><br />
+                            <select id="status<?php echo @$order['orderid']?>" onchange="order.updateStatus('<?php echo @$order['orderid']?>',this.value)">
+                                <?php foreach(@$this->document->status as $key => $val) { ?>
+                                <option value="<?php echo @$key?>" <?php echo ($order['status'] == $key)?'selected="selected"':''?>><?php echo @$val?></option>
                                 <?php } ?>
                             </select>
                         </p>
                         <p>
-                            <label><?php echo $entry_message?></label><br />
-                            <?php echo $order['comment']?>
+                            <label><?php echo @$entry_message?></label><br />
+                            <?php echo @$order['comment']?>
                         </p>-->
                     </div>
             	</div>
@@ -146,9 +146,9 @@
                                 <td></td>
                                 <td>
                                 	
-                                    <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo $item['lydothu']?>"/>
+                                    <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo @$item['lydothu']?>"/>
                                 </td>
-                                <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo $this->string->numberFormate($item['thuphi'])?>"/></td>
+                                <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo @$this->string->numberFormate($item['thuphi'])?>"/></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -160,9 +160,9 @@
                                 <td></td>
                                 <td class="number">
                                 	Tổng cộng
-                                    <input type="hidden" id="tongtien" name="tongtien" value="<?php echo $item['tongtien']?>"/>
+                                    <input type="hidden" id="tongtien" name="tongtien" value="<?php echo @$item['tongtien']?>"/>
                                 </td>
-                                <td class="number" id="tongcong"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+                                <td class="number" id="tongcong"><?php echo @$this->string->numberFormate($item['tongtien'])?></td>
                                 <td></td>
                             </tr>
                             
@@ -184,12 +184,12 @@
 $(document).ready(function(e) {
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
     <?php foreach($detail as $item){?>
-	//var row = order.addRow("<?php echo $item['id']?>","<?php echo $item['mediaid']?>","<?php echo $item['title']?>","<?php echo $item['imagepreview']?>","<?php echo $item['quantity']?>","<?php echo $item['unit']?>","<?php echo $item['price']?>");
+	//var row = order.addRow("<?php echo @$item['id']?>","<?php echo @$item['mediaid']?>","<?php echo @$item['title']?>","<?php echo @$item['imagepreview']?>","<?php echo @$item['quantity']?>","<?php echo @$item['unit']?>","<?php echo @$item['price']?>");
 	
-	objdl.addRow("<?php echo $item['id']?>","<?php echo $item['mediaid']?>","<?php echo $item['code']?>","<?php echo $item['title']?>","<?php echo $item['quantity']?>","<?php echo $item['unit']?>","<?php echo $item['price']?>","<?php echo $item['discount']?>","<?php echo $item['discountpercent']?>");
+	objdl.addRow("<?php echo @$item['id']?>","<?php echo @$item['mediaid']?>","<?php echo @$item['code']?>","<?php echo @$item['title']?>","<?php echo @$item['quantity']?>","<?php echo @$item['unit']?>","<?php echo @$item['price']?>","<?php echo @$item['discount']?>","<?php echo @$item['discountpercent']?>");
 	<?php } ?>
 	numberReady();
-	$('#paymenttype').val("<?php echo $order['paymenttype']?>");
+	$('#paymenttype').val("<?php echo @$order['paymenttype']?>");
 });
 $('#btnKhachHangNhan').click(function(e) {
     $('#receiver').val($('#customername').val());
@@ -272,7 +272,7 @@ $('#btnAddRow').click(function(e) {
 });
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	
 	$.post("?route=addon/order/save", $("#frmOrder").serialize(),
 		function(data){

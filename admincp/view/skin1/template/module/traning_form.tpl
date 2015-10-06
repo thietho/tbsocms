@@ -5,15 +5,15 @@
     
     <div class="section-content padding1">
     
-    	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="<?php echo $button_save ?>" class="button" onClick="save()"/>
-     	        <input type="button" value="<?php echo $button_cancel ?>" class="button" onclick="linkto('?route=module/traning&sitemapid=<?php echo $sitemap['sitemapid']?>')"/>   
-     	        <input type="hidden" name="mediaid" value="<?php echo $item['mediaid']?>">
-                <input type="hidden" id="status" name="status" value="<?php echo $item['status']?>" />
+            	<input type="button" value="<?php echo @$button_save ?>" class="button" onClick="save()"/>
+     	        <input type="button" value="<?php echo @$button_cancel ?>" class="button" onclick="linkto('?route=module/traning&sitemapid=<?php echo @$sitemap['sitemapid']?>')"/>   
+     	        <input type="hidden" name="mediaid" value="<?php echo @$item['mediaid']?>">
+                <input type="hidden" id="status" name="status" value="<?php echo @$item['status']?>" />
              	<input type="hidden" id="mediatype" name="mediatype" value="traning" />
-             	<input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $item['refersitemap']?>" />
+             	<input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo @$item['refersitemap']?>" />
             </div>
             <div class="clearer">^&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
@@ -32,15 +32,15 @@
                             
                             
                             <p>
-                                <label><?php echo $text_title?></label><br>
-                                <input class="text" type="text" name="title" value="<?php echo $item['title']?>" size="60" />
+                                <label><?php echo @$text_title?></label><br>
+                                <input class="text" type="text" name="title" value="<?php echo @$item['title']?>" size="60" />
                             </p>
                             
                             
                             
                             <p>
                                 <label>Summary</label><br>
-                                <textarea class="text" rows="3" cols="70" name="summary"><?php echo $item['summary']?></textarea>
+                                <textarea class="text" rows="3" cols="70" name="summary"><?php echo @$item['summary']?></textarea>
                             </p>
                             
                             <p>
@@ -54,7 +54,7 @@
 										});
 								 </script>
                                 <label>Start date</label><br>
-                                <input class="text" type="text" id="startdate" name="startdate" value="<?php echo $this->date->formatMySQLDate($item['startdate'])?>" size="60" />
+                                <input class="text" type="text" id="startdate" name="startdate" value="<?php echo @$this->date->formatMySQLDate($item['startdate'])?>" size="60" />
                             </p>
                             
                             <p>
@@ -68,7 +68,7 @@
 										});
 								 </script>
                                 <label>End date</label><br>
-                                <input class="text" type="text" id="enddate" name="enddate" value="<?php echo $this->date->formatMySQLDate($item['enddate'])?>" size="60" />
+                                <input class="text" type="text" id="enddate" name="enddate" value="<?php echo @$this->date->formatMySQLDate($item['enddate'])?>" size="60" />
                             </p>
                             
                         </div>
@@ -78,10 +78,10 @@
                             <p id="pnImage">
                                 <label for="image">Image</label><br />
                                 <a id="btnAddImage" class="button">Select photo</a><br />
-                                <img id="preview" src="<?php echo $item['imagethumbnail']?>" />
-                                <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $item['imagepath']?>" />
-                                <input type="hidden" id="imageid" name="imageid" value="<?php echo $item['imageid']?>" />
-                                <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $item['imagethumbnail']?>" />
+                                <img id="preview" src="<?php echo @$item['imagethumbnail']?>" />
+                                <input type="hidden" id="imagepath" name="imagepath" value="<?php echo @$item['imagepath']?>" />
+                                <input type="hidden" id="imageid" name="imageid" value="<?php echo @$item['imageid']?>" />
+                                <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo @$item['imagethumbnail']?>" />
                             </p>
                             
                             
@@ -108,7 +108,7 @@
                 if(count($item))
                 {
     ?>
-                $('#attachment').append(creatAttachmentRow("<?php echo $item['fileid']?>","<?php echo $item['filename']?>","<?php echo $item['imagethumbnail']?>"));
+                $('#attachment').append(creatAttachmentRow("<?php echo @$item['fileid']?>","<?php echo @$item['filename']?>","<?php echo @$item['imagethumbnail']?>"));
     <?php
                 }
             }
@@ -136,7 +136,7 @@
                     <input type="hidden" id="listselectfile" name="listselectfile" />
                     <div>
                         <p>
-                            <textarea name="description" id="description" cols="80" rows="10"><?php echo $item['description']?></textarea>
+                            <textarea name="description" id="description" cols="80" rows="10"><?php echo @$item['description']?></textarea>
                         </p>
                     </div>
                 </div>
@@ -150,8 +150,8 @@
 </div>
 <script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
 <script language="javascript">
-var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
-var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
+var DIR_UPLOADPHOTO = "<?php echo @$DIR_UPLOADPHOTO?>";
+var DIR_UPLOADATTACHMENT = "<?php echo @$DIR_UPLOADATTACHMENT?>";
 
 $(document).ready(function() { 
 	setCKEditorType('description',0);
@@ -162,7 +162,7 @@ $(document).ready(function() {
 
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	
 	var oEditor = CKEDITOR.instances['description'] ;
 	var pageValue = oEditor.getData();
@@ -172,7 +172,7 @@ function save()
 		function(data){
 			if(data == "true")
 			{
-				window.location = "?route=module/traning&sitemapid=<?php echo $sitemap['sitemapid']?>";
+				window.location = "?route=module/traning&sitemapid=<?php echo @$sitemap['sitemapid']?>";
 			}
 			else
 			{

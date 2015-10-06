@@ -106,7 +106,7 @@ abstract class Controller {
 			$class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $this->layout);
 			
 			if (file_exists($file)) {
-				require_once($file);
+				@require_once($file);
 				
 				$controller = new $class();
 				

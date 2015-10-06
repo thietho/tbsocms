@@ -3,9 +3,9 @@
 
 var pos = 0;
 var flagedit=false;
-var x = parseFloat("<?php echo $location['x']?>");
-var y = parseFloat("<?php echo $location['y']?>");
-var zoom = parseInt("<?php echo $location['zoom']?>");
+var x = parseFloat("<?php echo @$location['x']?>");
+var y = parseFloat("<?php echo @$location['y']?>");
+var zoom = parseInt("<?php echo @$location['zoom']?>");
 	
 
 
@@ -160,7 +160,7 @@ function drawpath()
 	for($i=0;$i<count($listpoint);$i++)
 	{
 ?>
-	var latlng = new google.maps.LatLng(<?php echo $listpoint[$i]['x']?>, <?php echo $listpoint[$i]['y']?>);
+	var latlng = new google.maps.LatLng(<?php echo @$listpoint[$i]['x']?>, <?php echo @$listpoint[$i]['y']?>);
 	arr.push(latlng);
 <?php 
 	}
@@ -282,26 +282,26 @@ function editPathEnable()
     
     <div class="section-content padding1">
     
-    	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="<?php echo $button_save ?>" class="button" onClick="save()"/>
-     	        <input type="button" value="<?php echo $button_cancel ?>" class="button" onclick="linkto('?route=module/link&sitemapid=<?php echo $sitemap['sitemapid']?>')"/>   
-     	        <input type="hidden" name="mediaid" value="<?php echo $item['mediaid']?>">
-                <input type="hidden" id="status" name="status" value="<?php echo $item['status']?>" />
-             	<input type="hidden" id="mediatype" name="mediatype" value="<?php echo $item['mediatype']?>" />
-             	<input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $item['refersitemap']?>" />
+            	<input type="button" value="<?php echo @$button_save ?>" class="button" onClick="save()"/>
+     	        <input type="button" value="<?php echo @$button_cancel ?>" class="button" onclick="linkto('?route=module/link&sitemapid=<?php echo @$sitemap['sitemapid']?>')"/>   
+     	        <input type="hidden" name="mediaid" value="<?php echo @$item['mediaid']?>">
+                <input type="hidden" id="status" name="status" value="<?php echo @$item['status']?>" />
+             	<input type="hidden" id="mediatype" name="mediatype" value="<?php echo @$item['mediatype']?>" />
+             	<input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo @$item['refersitemap']?>" />
             </div>
             <div class="clearer">^&nbsp;</div>
         	<div id="error" class="error" style="display:none"></div>
         	<div>        
                 <p>
             		<label>Tiêu đề</label><br />
-					<input type="text" name="title" value="<?php echo $item['title']?>" class="text" size=60 />
+					<input type="text" name="title" value="<?php echo @$item['title']?>" class="text" size=60 />
             	</p>
                 <p>
                     <label>Mô tả</label><br>
-                    <textarea name="description" id="editor1" cols="80" rows="10"><?php echo $item['description']?></textarea>
+                    <textarea name="description" id="editor1" cols="80" rows="10"><?php echo @$item['description']?></textarea>
                 </p>
                	<p>
                     <label>Map</label><br />
@@ -314,16 +314,16 @@ function editPathEnable()
                     
                 <p>
                     <label>Point</label>
-                    X:<input type="text" name="x" value="<?php echo $location['x']?>"  class="text"/> Y:<input type="text" name="y" value="<?php echo $location['y']?>"  class="text" onchange="loadPosition()"/>
-                    <input type="hidden" name="pointid" value="<?php echo $location['pointid']?>" onchange="loadPosition()"/>
+                    X:<input type="text" name="x" value="<?php echo @$location['x']?>"  class="text"/> Y:<input type="text" name="y" value="<?php echo @$location['y']?>"  class="text" onchange="loadPosition()"/>
+                    <input type="hidden" name="pointid" value="<?php echo @$location['pointid']?>" onchange="loadPosition()"/>
                     
-                    <input type="hidden" name="position" value="<?php echo $location['position']?>"  />
+                    <input type="hidden" name="position" value="<?php echo @$location['position']?>"  />
                     <div id="listpath">
                     </div>
                 </p>
                 <p>
                     <label>Zoom</label><br />
-                    <input type="text" name="zoom" value="<?php echo $location['zoom']?>" class="text" size=60 readonly="readonly"/>
+                    <input type="text" name="zoom" value="<?php echo @$location['zoom']?>" class="text" size=60 readonly="readonly"/>
                 </p> 
             </div>
             
@@ -333,8 +333,8 @@ function editPathEnable()
     
 </div>
 <script type="text/javascript" charset="utf-8">
-var DIR_UPLOADPHOTO = "<?php echo $DIR_UPLOADPHOTO?>";
-var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
+var DIR_UPLOADPHOTO = "<?php echo @$DIR_UPLOADPHOTO?>";
+var DIR_UPLOADATTACHMENT = "<?php echo @$DIR_UPLOADATTACHMENT?>";
 $(document).ready(function() { 
 	setCKEditorType('editor1',0);
 	
@@ -345,7 +345,7 @@ $(document).ready(function() {
 <script language="javascript">
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	var oEditor = CKEDITOR.instances['editor1'] ;
 	var pageValue = oEditor.getData();
 	$('textarea#editor1').val(pageValue);

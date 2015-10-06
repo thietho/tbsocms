@@ -7,7 +7,7 @@ class ModelCoreBackup extends Model
 		{
 			$tables = array();
 			
-			$query = $this->db->query('SHOW TABLES');
+			$query = @$this->db->query('SHOW TABLES');
 			foreach( $query->rows as $row)
 			{
 				foreach($row as $table)
@@ -25,11 +25,11 @@ class ModelCoreBackup extends Model
 		{
 			$sql = "SELECT * FROM `".$table."`";	
 			$create = "SHOW CREATE TABLE `".$table."`";
-			$query = $this->db->query($create);
+			$query = @$this->db->query($create);
 			$txt_create = $query->row['Create Table'];
 			//$txt_sql.=$txt_create.";";
 			fwrite($handle,$txt_create.";");
-			$query = $this->db->query($sql);
+			$query = @$this->db->query($sql);
 			foreach($query->rows as $item)
 			{
 					
@@ -56,7 +56,7 @@ class ModelCoreBackup extends Model
 	}
 	public function backup()
 	{
-		//$str = $this->db->backupData();
+		//$str = @$this->db->backupData();
 	}
 }
 

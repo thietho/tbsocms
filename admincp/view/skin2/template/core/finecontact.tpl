@@ -11,15 +11,15 @@
     {
 ?>
 			<tr>
-                <td><input type="checkbox" class="usertype" onclick="$('input[name*=\'<?php echo $val['usertypeid']?>\']').attr('checked', this.checked);"/><strong><?php echo $val['usertypename']?></strong></td>
+                <td><input type="checkbox" class="usertype" onclick="$('input[name*=\'<?php echo @$val['usertypeid']?>\']').attr('checked', this.checked);"/><strong><?php echo @$val['usertypename']?></strong></td>
             </tr>
 <?php
-		$us = $this->string->array_Filter($user,"usertypeid",$val['usertypeid']);
+		$us = @$this->string->array_Filter($user,"usertypeid",$val['usertypeid']);
         foreach($us as $item)
         {
 ?>
 			<tr>
-            	<td>&nbsp;&nbsp;&nbsp;<input type="checkbox" class="user" name="user[<?php echo $val['usertypeid']?>]" value="<?php echo $item['userid']?>"/><?php echo $item['fullname']?></td>
+            	<td>&nbsp;&nbsp;&nbsp;<input type="checkbox" class="user" name="user[<?php echo @$val['usertypeid']?>]" value="<?php echo @$item['userid']?>"/><?php echo @$item['fullname']?></td>
             </tr>
 <?php
         }

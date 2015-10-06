@@ -1,7 +1,7 @@
 <div class="section">
 
 	<div class="section-title">
-    	<?php echo $heading_send_title?>
+    	<?php echo @$heading_send_title?>
     </div>
     
     <div class="section-content padding1">
@@ -9,8 +9,8 @@
     	<form id="fromMessage" name="InsertContent"  action="" method="post" enctype="multipart/form-data">
         
     	<div class="right">
-            <input class="button" type="button" value="<?php echo $button_send?>" onclick="sendMessage()" />
-            <a class="button" href="index.php?route=core/message"><?php echo $button_cancel?></a>
+            <input class="button" type="button" value="<?php echo @$button_send?>" onclick="sendMessage()" />
+            <a class="button" href="index.php?route=core/message"><?php echo @$button_cancel?></a>
         </div>
         <div class="clearer">&nbsp;</div>
         
@@ -25,16 +25,16 @@
             
             <div id="fragment-1">
             	<div id="error" class="error" style="display:none"></div>
-                <div style="<?php echo $displaynews?>">
+                <div style="<?php echo @$displaynews?>">
         			
                     <div>
                         <p>
-                            <label onclick="openDialog('?route=core/message/findContact',300,500)"><?php echo $entry_to?></label><br>
-                            <input class="text" type="text" name="to" value='<?php echo $message['from']?>' size="100%" />
+                            <label onclick="openDialog('?route=core/message/findContact',300,500)"><?php echo @$entry_to?></label><br>
+                            <input class="text" type="text" name="to" value='<?php echo @$message['from']?>' size="100%" />
                         </p>
                         <p>
-                            <label><?php echo $entry_subject?></label><br>
-                            <textarea class="text" rows="3" cols="70" name="title"><?php echo $title?></textarea>
+                            <label><?php echo @$entry_subject?></label><br>
+                            <textarea class="text" rows="3" cols="70" name="title"><?php echo @$title?></textarea>
                         </p>
                     </div>
                     
@@ -44,7 +44,7 @@
                         
                         <div class="loadingimage" style="display:none"></div>
                         <p>
-                        	<a id="btnAddAttachment" class="button"><?php echo $button_attachment?></a><br />
+                        	<a id="btnAddAttachment" class="button"><?php echo @$button_attachment?></a><br />
                         </p>
                         <p id="attachment">
                         </p>
@@ -58,7 +58,7 @@
                 
                 <div>
                     <p>
-                        <textarea name="description" id="description" cols="80" rows="10"><?php echo $description?></textarea>
+                        <textarea name="description" id="description" cols="80" rows="10"><?php echo @$description?></textarea>
                     </p>  
                 </div>
                 
@@ -75,7 +75,7 @@
 <script src="<?php echo DIR_JS?>jquery.tabs.pack.js" type="text/javascript"></script>
 
 <script type="text/javascript" charset="utf-8">
-var DIR_UPLOADATTACHMENT = "<?php echo $DIR_UPLOADATTACHMENT?>";
+var DIR_UPLOADATTACHMENT = "<?php echo @$DIR_UPLOADATTACHMENT?>";
 $(document).ready(function() { 
 	setCKEditorType('description',0);
 	$('#container').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'slow' });
@@ -86,7 +86,7 @@ function sendMessage()
 	var oEditor = CKEDITOR.instances['description'] ;
 	var pageValue = oEditor.getData();
 	$('textarea#description').val(pageValue);
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	$.post("?route=core/message/sendMessage", $("#fromMessage").serialize(),
 		function(data){
 			if(data == "true")

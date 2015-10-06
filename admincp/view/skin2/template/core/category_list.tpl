@@ -5,11 +5,11 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-            	<?php echo $this->document->title?>
-                <?php if($this->user->checkPermission("quanlykho/donvitinh/insert")==true){ ?>
-                <input class="btn btn-primary" value="Thêm" type="button"  onclick="window.location = '<?php echo $insert?>'">
+            	<?php echo @$this->document->title?>
+                <?php if(@$this->user->checkPermission("quanlykho/donvitinh/insert")==true){ ?>
+                <input class="btn btn-primary" value="Thêm" type="button"  onclick="window.location = '<?php echo @$insert?>'">
                 <?php } ?>
-                <?php if($this->user->checkPermission("quanlykho/donvitinh/update")==true){ ?>
+                <?php if(@$this->user->checkPermission("quanlykho/donvitinh/update")==true){ ?>
                 <input class="btn btn-primary" type="button" id="btnEditPosition" name="btnEditPosition" value="Sắp sếp thứ tự"/>
                 <input class="btn btn-primary" type="button" id="btnUpdateTree" name="btnUpdateTree" value="Lưu" onclick="updateTree()" style="display:none"/>
                 <?php } ?>
@@ -29,7 +29,7 @@
                     	<form action="" method="post" id="listitem" name="listitem">
                             <div class="dd" id="nestable">
                                 <ol class="dd-list">
-                            	<?php echo $tree?>
+                            	<?php echo @$tree?>
                                 </ol>
                             </div>
                         </form>
@@ -113,7 +113,7 @@ $('#btnEditPosition').click(function(e) {
 });
 function deleteitem()
 {
-	var answer = confirm("<?php echo $announ_del ?>")
+	var answer = confirm("<?php echo @$announ_del ?>")
 	if (answer)
 	{
 		$.post("?route=core/category/delete", 
@@ -132,7 +132,7 @@ function deleteitem()
 
 function updateTree()
 {
-	$.blockUI({ message: "<div class='hl-message'><?php echo $announ_infor ?></div>" });
+	$.blockUI({ message: "<div class='hl-message'><?php echo @$announ_infor ?></div>" });
 	
 	$.post("?route=core/category/updateTree", 
 			{data:encodeURI($('#nestable-output').val())}, 

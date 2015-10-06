@@ -1,15 +1,15 @@
 <div id="error" class="error" style="display:none"></div>
 <form id="frm_import">
-	<input type="hidden" name="nguyenlieuid" value="<?php echo $item['id']?>">
+	<input type="hidden" name="nguyenlieuid" value="<?php echo @$item['id']?>">
 	<div>
     	<p>
             <label>Mã nguyên vật liệu:</label>
-            <?php echo $item['manguyenlieu']?>
+            <?php echo @$item['manguyenlieu']?>
             
         </p>
         <p>
             <label>Tên nguyên vật liệu:</label>
-            <?php echo $item['tennguyenlieu']?>(<?php echo $this->document->getDonViTinh($item['madonvi'])?>)
+            <?php echo @$item['tennguyenlieu']?>(<?php echo @$this->document->getDonViTinh($item['madonvi'])?>)
         </p>
         <p>
             <label>Số lượng xuất</label><br />

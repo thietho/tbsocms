@@ -1,10 +1,10 @@
 <div>
 	<p>
-        <label>Mã nhân viên: <?php echo $nhanvien['manhanvien']?></label>
+        <label>Mã nhân viên: <?php echo @$nhanvien['manhanvien']?></label>
         
     </p>
     <p>
-    	<label>Tên nhân viên: <?php echo $nhanvien['hoten']?></label>
+    	<label>Tên nhân viên: <?php echo @$nhanvien['hoten']?></label>
     </p>
     <p>
     	<label>Mật khẩu mới:</label>

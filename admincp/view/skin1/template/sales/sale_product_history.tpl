@@ -1,4 +1,4 @@
-<h3><?php echo $this->document->productName($media)?></h3>
+<h3><?php echo @$this->document->productName($media)?></h3>
 
 
 <table class="data-table">
@@ -28,16 +28,15 @@
     <tbody>
     	<?php foreach($nhapxuat as $date => $item){?>
         <tr>
-        	<td colspan="8"><strong><?php echo $this->date->formatMySQLDate($date)?></strong></td>
+        	<td colspan="8"><strong><?php echo @$this->date->formatMySQLDate($date)?></strong></td>
         </tr>
     		<?php $max = max(count($item['nhap']),count($item['xuat']))?>
         	<?php for($i=0;$i < $max;$i++){ ?>
         <tr class="item">
-        	<td><a onclick="objdl.viewPX(<?php echo $item['nhap'][$i]['phieuid']?>,'')"><?php echo $item['nhap'][$i]['maphieu']?></a></td>
+        	<td><a onclick="objdl.viewPX(<?php echo @$item['nhap'][$i]['phieuid']?>,'')"><?php echo @$item['nhap'][$i]['maphieu']?></a></td>
             <td>
-            	<?php echo $this->document->getCategory($item['nhap'][$i]['loaiphieu'])?>:
-                <?php 
-                    if($item['nhap'][$i]['tenkhachhang'])
+            	<?php echo @$this->document->getCategory($item['nhap'][$i]['loaiphieu'])?>:
+                <?php if(@$item['nhap'][$i]['tenkhachhang'])
                     {
                         echo $item['nhap'][$i]['tenkhachhang'];
                         echo ($item['nhap'][$i]['dienthoai'] != '') ?' - '.$item['nhap'][$i]['dienthoai']:'';
@@ -45,7 +44,7 @@
                     }
                     if($item['nhap'][$i]['shopid'])
                     {
-                        echo $this->document->getShop($item['nhap'][$i]['shopid']);
+                        echo @$this->document->getShop($item['nhap'][$i]['shopid']);
                     }
                     if($item['nhap'][$i]['nhacungcapid'])
                     {
@@ -53,23 +52,21 @@
                     }
                 ?>
             </td>
-            <td><?php echo $item['nhap'][$i]['soluong']?></td>
-            <td><?php echo $this->document->getDonViTinh($item['nhap'][$i]['madonvi'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['nhap'][$i]['giatien'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['nhap'][$i]['phantramgiamgia'])?>%</td>
-            <td class="number"><?php echo $this->string->numberFormate($item['nhap'][$i]['thanhtien'])?></td>
-            <td><a onclick="objdl.viewPX(<?php echo $item['xuat'][$i]['phieuid']?>,'')"><?php echo $item['xuat'][$i]['maphieu']?></a></td>
+            <td><?php echo @$item['nhap'][$i]['soluong']?></td>
+            <td><?php echo @$this->document->getDonViTinh($item['nhap'][$i]['madonvi'])?></td>
+            <td class="number"><?php echo @$this->string->numberFormate($item['nhap'][$i]['giatien'])?></td>
+            <td class="number"><?php echo @$this->string->numberFormate($item['nhap'][$i]['phantramgiamgia'])?>%</td>
+            <td class="number"><?php echo @$this->string->numberFormate($item['nhap'][$i]['thanhtien'])?></td>
+            <td><a onclick="objdl.viewPX(<?php echo @$item['xuat'][$i]['phieuid']?>,'')"><?php echo @$item['xuat'][$i]['maphieu']?></a></td>
             <td>
             	
-            	<?php 
-                	if($item['xuat'][$i]['shopid'])
+            	<?php if(@$item['xuat'][$i]['shopid'])
                     {
-                        echo $this->document->getShop($item['xuat'][$i]['shopid'])." ";
+                        echo @$this->document->getShop($item['xuat'][$i]['shopid'])." ";
                     }
                 	echo $loaiphieu[$item['xuat'][$i]['loaiphieu']];
                 ?>
-                <?php 
-                    if($item['xuat'][$i]['tenkhachhang'])
+                <?php if(@$item['xuat'][$i]['tenkhachhang'])
                     {
                         echo $item['xuat'][$i]['tenkhachhang'];
                         echo ($item['xuat'][$i]['dienthoai'] != '') ?' - '.$item['xuat'][$i]['dienthoai']:'';
@@ -86,11 +83,11 @@
                     }
                 ?>
             </td>
-            <td><?php echo $item['xuat'][$i]['soluong']?></td>
-            <td><?php echo $this->document->getDonViTinh($item['xuat'][$i]['madonvi'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['xuat'][$i]['giatien'])?></td>
-            <td class="number"><?php echo $this->string->numberFormate($item['xuat'][$i]['phantramgiamgia'])?>%</td>
-            <td class="number"><?php echo $this->string->numberFormate($item['xuat'][$i]['thanhtien'])?></td>
+            <td><?php echo @$item['xuat'][$i]['soluong']?></td>
+            <td><?php echo @$this->document->getDonViTinh($item['xuat'][$i]['madonvi'])?></td>
+            <td class="number"><?php echo @$this->string->numberFormate($item['xuat'][$i]['giatien'])?></td>
+            <td class="number"><?php echo @$this->string->numberFormate($item['xuat'][$i]['phantramgiamgia'])?>%</td>
+            <td class="number"><?php echo @$this->string->numberFormate($item['xuat'][$i]['thanhtien'])?></td>
         </tr>
             <?php } ?>
         <?php } ?>

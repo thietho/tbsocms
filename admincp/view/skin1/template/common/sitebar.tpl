@@ -4,12 +4,12 @@
     
     <div class="section-content padding1">
     
-    	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
-            	<input type="button" value="<?php echo $button_save ?>" class="button" onClick="save()"/>
-     	        <input type="button" value="<?php echo $button_cancel ?>" class="button" onclick="linkto('?route=module/link&sitemapid=<?php echo $sitemap['sitemapid']?>')"/>   
-     	        <input type="hidden" name="mediaid" value="<?php echo $item['mediaid']?>">
+            	<input type="button" value="<?php echo @$button_save ?>" class="button" onClick="save()"/>
+     	        <input type="button" value="<?php echo @$button_cancel ?>" class="button" onclick="linkto('?route=module/link&sitemapid=<?php echo @$sitemap['sitemapid']?>')"/>   
+     	        <input type="hidden" name="mediaid" value="<?php echo @$item['mediaid']?>">
                 
             </div>
             <div class="clearer">^&nbsp;</div>
@@ -19,12 +19,12 @@
             	<h3>Cài đặt nhản hiệu ở bên phải</h3>
                 <?php foreach($menu as $key => $val){ ?>
                 <p>
-                	<label><?php echo $this->document->getSiteMap($key,$this->user->getSiteId())?></label>
+                	<label><?php echo @$this->document->getSiteMap($key,@$this->user->getSiteId())?></label>
                    	
                     <div>
                     	<?php foreach($val as $it){ ?>
                     	<div class="left" style="width:200px;">
-                        	<input type="checkbox" name="<?php echo $key?>[<?php echo $it?>]" value="<?php echo $it?>" <?php echo (in_array($it,$sitebar[$key]))?'checked="checked"':'';?>/> <?php echo $this->document->getCategory($it)?>
+                        	<input type="checkbox" name="<?php echo @$key?>[<?php echo @$it?>]" value="<?php echo @$it?>" <?php echo (in_array($it,$sitebar[$key]))?'checked="checked"':'';?>/> <?php echo @$this->document->getCategory($it)?>
                         </div>
                         <?php } ?>
                         <div class="clearer">^&nbsp;</div>
@@ -42,7 +42,7 @@
 <script language="javascript">
 function save()
 {
-	$.blockUI({ message: "<h1><?php echo $announ_infor ?></h1>" }); 
+	$.blockUI({ message: "<h1><?php echo @$announ_infor ?></h1>" }); 
 	/*var oEditor = CKEDITOR.instances['editor1'] ;
 	var pageValue = oEditor.getData();
 	$('textarea#editor1').val(pageValue);*/

@@ -1,13 +1,13 @@
 <link rel="stylesheet" type="text/css" href="<?php echo DIR_CSS?>sale.css">
 <div class="section">
-	<div class="section-title"><?php echo $this->document->title?></div>	
+	<div class="section-title"><?php echo @$this->document->title?></div>	
     <div class="section-content">					
         
         <div id="saleorder" class="left">
             <form id="frmSaleOrder">
                 <h3><center>Phiếu Bán Hàng</center></h3>
-                <input type="hidden" id="shopid" name="shopid" value="<?php echo $shopid?>">
-                <input type="hidden" id="id" name="id" value="<?php echo $item['id']?>">
+                <input type="hidden" id="shopid" name="shopid" value="<?php echo @$shopid?>">
+                <input type="hidden" id="id" name="id" value="<?php echo @$item['id']?>">
                 <input type="hidden" id="khachhangid" name="khachhangid">
                 <input type="hidden" id="loaiphieu" name="loaiphieu" value="CH-BH">
                 <div id="error" class="error"></div>
@@ -17,7 +17,7 @@
                     <tr>
                         <td><label>Ngày nhập</label></td>
                         <td>
-                            <input type="text" class="text"  id="ngaylap" name="ngaylap" value="<?php echo $this->date->formatMySQLDate($item['ngaylap'])?>"/>
+                            <input type="text" class="text"  id="ngaylap" name="ngaylap" value="<?php echo @$this->date->formatMySQLDate($item['ngaylap'])?>"/>
                             <script language="javascript">
                                 $(function() {
                                     $("#ngaylap").datepicker({
@@ -46,11 +46,11 @@
                         <td>
                             <select id="trangthai" name="trangthai">
                             	<?php foreach($orderstatus as $it){ ?>
-                                <option value="<?php echo $it['categoryid']?>"><?php echo $it['categoryname']?></option>
+                                <option value="<?php echo @$it['categoryid']?>"><?php echo @$it['categoryname']?></option>
                                 <?php } ?>
                                 
                             </select>
-                            <?php if($this->user->getUserTypeId()=='admin'){ ?>
+                            <?php if(@$this->user->getUserTypeId()=='admin'){ ?>
                             <a class="button" id="btnSelectKhachHang" >Chọn khách hàng</a>
                             <?php } ?>
                         </td>
@@ -113,7 +113,7 @@
                                 Tổng cộng
                                 <input type="hidden" id="tongtien" name="tongtien"/>
                             </td>
-                            <td class="number" id="tongcong"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+                            <td class="number" id="tongcong"><?php echo @$this->string->numberFormate($item['tongtien'])?></td>
                             <td></td>
                         </tr>
                         
@@ -126,7 +126,7 @@
                             <td></td>
                             <td><input type="button" class="button" id="btnTrahet" value="Trả hết"/></td>
                             <td class="number">Thanh toán</td>
-                            <td class="number"><input type="text" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo $this->string->numberFormate($item['thanhtoan'])?>"/></td>
+                            <td class="number"><input type="text" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo @$this->string->numberFormate($item['thanhtoan'])?>"/></td>
                             <td></td>
                         </tr>
                         
@@ -140,9 +140,9 @@
                             <td></td>
                             <td class="number">
                                 Công nợ
-                                <input type="hidden" id="congno" name="congno" value="<?php echo $item['congno']?>"/>
+                                <input type="hidden" id="congno" name="congno" value="<?php echo @$item['congno']?>"/>
                             </td>
-                            <td class="number" id="lbl-congno"><?php echo $this->string->numberFormate($item['congno'])?></td>
+                            <td class="number" id="lbl-congno"><?php echo @$this->string->numberFormate($item['congno'])?></td>
                             <td></td>
                         </tr>
                         

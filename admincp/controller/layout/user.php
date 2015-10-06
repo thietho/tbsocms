@@ -3,14 +3,14 @@
 	{
 		public function index()
 		{
-			$this->template="layout/user.tpl";
-			$this->children=array(
+			@$this->template="layout/user.tpl";
+			@$this->children=array(
 				'common/header',
 				'common/footer',
 				'user/leftsidebar',
 				'common/permission'
 			);
-			$this->render();
+			@$this->render();
 		}
 	}
 ?>

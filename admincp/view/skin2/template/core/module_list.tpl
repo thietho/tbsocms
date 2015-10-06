@@ -74,7 +74,7 @@ $(document).ready(function(e) {
             
             <div>
                 <ul id="group0" class="filetree">
-                	<?php echo $treemodule?>
+                	<?php echo @$treemodule?>
                 </ul>
             </div>
         	

@@ -1,6 +1,6 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content">
     	
@@ -25,18 +25,18 @@
                 <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="viewAll()"/>
             </div>
         	<div class="button right">
-            	<?php if($dialog==true){ ?>
-            	<?php if($this->user->checkPermission("quanlykho/nhacungcap/insert")==true){ ?>
+            	<?php if(@$dialog==true){ ?>
+            	<?php if(@$this->user->checkPermission("quanlykho/nhacungcap/insert")==true){ ?>
                 <input class="button" value="Thêm" type="button" onclick="showNhaCungCapForm('','searchForm()')">
                 <?php } ?>
                 
                 <?php }else{ ?>
                 
                
-                <?php if($this->user->checkPermission("quanlykho/nhacungcap/insert")==true){ ?>
+                <?php if(@$this->user->checkPermission("quanlykho/nhacungcap/insert")==true){ ?>
                 <input class="button" value="Thêm" type="button" onclick="showNhaCungCapForm('','searchForm()')">
                 <?php } ?>
-                <?php if($this->user->checkPermission("quanlykho/nhacungcap/delete")==true){ ?>
+                <?php if(@$this->user->checkPermission("quanlykho/nhacungcap/delete")==true){ ?>
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>
                 <?php } ?>
                 <?php } ?>
@@ -86,7 +86,7 @@ $('select').change(function(e) {
 function viewAll()
 {
 	url = "?route=quanlykho/nhacungcap/getList";
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
@@ -113,7 +113,7 @@ function searchForm()
 		url += "&sodienthoainguoilienhe="+ encodeURI($("#frm_nhacungcap #sodienthoainguoilienhe").val());
 
 	
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}

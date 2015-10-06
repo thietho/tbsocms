@@ -1,7 +1,7 @@
 <div class="section">
 
 	<div class="section-title">
-    	<?php echo $breadcrumb?>
+    	<?php echo @$breadcrumb?>
     </div>
     
     <div class="section-content padding1">
@@ -10,17 +10,17 @@
     
     	<div class="left">
             
-            <h3><?php echo $heading_title?></h3>
+            <h3><?php echo @$heading_title?></h3>
         
         </div>
         
     	<div class="right">
-        	<input class="button" type="submit" value="<?php echo $button_save ?>" />
-            <a class="button" href="<?php echo $DIR_CANCEL?>"><?php echo $button_cancel?></a>
-             <input type="hidden" id="status" name="status" value="<?php echo $post['status']?>" />
-             <input type="hidden" id="mediaid" name="mediaid" value="<?php echo $post['mediaid']?>" />
-             <input type="hidden" id="mediatype" name="mediatype" value="<?php echo $post['mediatype']?>" />
-             <input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo $post['refersitemap']?>" />
+        	<input class="button" type="submit" value="<?php echo @$button_save ?>" />
+            <a class="button" href="<?php echo @$DIR_CANCEL?>"><?php echo @$button_cancel?></a>
+             <input type="hidden" id="status" name="status" value="<?php echo @$post['status']?>" />
+             <input type="hidden" id="mediaid" name="mediaid" value="<?php echo @$post['mediaid']?>" />
+             <input type="hidden" id="mediatype" name="mediatype" value="<?php echo @$post['mediatype']?>" />
+             <input type="hidden" id="refersitemap" name="refersitemap" value="<?php echo @$post['refersitemap']?>" />
         </div>
         <div class="clearer">&nbsp;</div>
         
@@ -39,21 +39,21 @@
             
             <div id="fragment-content">
             	
-                <div style="<?php echo $displaynews?>">
+                <div style="<?php echo @$displaynews?>">
         			
                     <div class="col2 left">
                     	
                        
                         <p>
                             <label>Title</label><br>
-                            <input class="text" type="text" name="title" value="<?php echo $post['title']?>" size="60" />
+                            <input class="text" type="text" name="title" value="<?php echo @$post['title']?>" size="60" />
                         </p>
                         
                         
                         
                         <p>
                             <label>Summary</label><br>
-                            <textarea class="text" rows="3" cols="70" name="summary"><?php echo $post['summary']?></textarea>
+                            <textarea class="text" rows="3" cols="70" name="summary"><?php echo @$post['summary']?></textarea>
                         </p>
                         
                     	
@@ -62,12 +62,12 @@
                     <div class="col2 right">
                     	
                     	<p id="pnImage">
-                            <label for="image"><?php echo $entry_image?></label><br />
+                            <label for="image"><?php echo @$entry_image?></label><br />
                             <a  class="button" onclick="browserFileImage()">Chọn hình</a><br />
-                            <img id="imagepreview" src="<?php echo $imagethumbnail?>" onclick="showFile($('#imageid').val())"/>
-                            <input type="hidden" id="imagepath" name="imagepath" value="<?php echo $post['imagepath']?>" />
-                            <input type="hidden" id="imageid" name="imageid" value="<?php echo $post['imageid']?>" />
-                            <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo $post['imagethumbnail']?>" />
+                            <img id="imagepreview" src="<?php echo @$imagethumbnail?>" onclick="showFile($('#imageid').val())"/>
+                            <input type="hidden" id="imagepath" name="imagepath" value="<?php echo @$post['imagepath']?>" />
+                            <input type="hidden" id="imageid" name="imageid" value="<?php echo @$post['imageid']?>" />
+                            <input type="hidden" id="imagethumbnail" name="imagethumbnail" value="<?php echo @$post['imagethumbnail']?>" />
                         </p>
                         
                         
@@ -95,7 +95,7 @@
 			if(count($item))
 			{
 ?>
-			$('#attachment').append(creatAttachmentRow("<?php echo $item['fileid']?>","<?php echo $item['filename']?>","<?php echo $item['imagethumbnail']?>"));
+			$('#attachment').append(creatAttachmentRow("<?php echo @$item['fileid']?>","<?php echo @$item['filename']?>","<?php echo @$item['imagethumbnail']?>"));
 <?php
 			}
 		}
@@ -116,7 +116,7 @@
                 <input type="hidden" id="listselectfile" name="listselectfile" />
             	<div>
                 	<p>
-                        <textarea name="description" id="editor1" cols="80" rows="10"><?php echo $description?></textarea>
+                        <textarea name="description" id="editor1" cols="80" rows="10"><?php echo @$description?></textarea>
                     </p>
                 </div>
             </div>

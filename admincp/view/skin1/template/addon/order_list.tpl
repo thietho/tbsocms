@@ -1,7 +1,7 @@
 
 <div class="section">
 
-	<div class="section-title"><?php echo $heading_title?></div>
+	<div class="section-title"><?php echo @$heading_title?></div>
     
     <div class="section-content">
     	
@@ -22,8 +22,8 @@
                 <label>Status</label>
                 <select id="status" name="status">
                 	<option value=""></option>
-                    <?php foreach($this->document->status as $key => $val) { ?>
-                    <option value="<?php echo $key?>" ><?php echo $val?></option>
+                    <?php foreach(@$this->document->status as $key => $val) { ?>
+                    <option value="<?php echo @$key?>" ><?php echo @$val?></option>
                     <?php } ?>
                 </select>
                 <br />
@@ -55,10 +55,10 @@
                 <input type="button" class="button" name="btnSearch" value="View all" onclick="window.location = '?route=addon/order'"/>
             </div>
         	<div class="button right">
-            	<?php if($this->user->checkPermission("addon/order/insert")==true){ ?>
-                <input class="button" type="button" name="btnAdd" value="Thêm" onclick="window.location='<?php echo $insert?>'"/>  
+            	<?php if(@$this->user->checkPermission("addon/order/insert")==true){ ?>
+                <input class="button" type="button" name="btnAdd" value="Thêm" onclick="window.location='<?php echo @$insert?>'"/>  
                 <?php } ?>
-            	<input class="button" type="button" name="delete_all" value="<?php echo $button_delete ?>" onclick="deleteorder()"/>  
+            	<input class="button" type="button" name="delete_all" value="<?php echo @$button_delete ?>" onclick="deleteorder()"/>  
             </div>
             <div class="clearer">&nbsp;</div>
             
@@ -68,11 +68,11 @@
                     <tr class="tr-head">
                         <th width="1%"><input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);"></th>
                         <th>ID</th>
-                        <th width="25%"><?php echo $column_customername?></th>
-                        <th width="35%"><?php echo $column_address?></th>
-                        <th width="15%"><?php echo $column_phone?></th>
-                        <th width="15%"><?php echo $column_orderdate?></th>                    
-                        <th width="10%"><?php echo $column_orderstatus?></th>                                  
+                        <th width="25%"><?php echo @$column_customername?></th>
+                        <th width="35%"><?php echo @$column_address?></th>
+                        <th width="15%"><?php echo @$column_phone?></th>
+                        <th width="15%"><?php echo @$column_orderdate?></th>                    
+                        <th width="10%"><?php echo @$column_orderstatus?></th>                                  
                     </tr>
         
         
@@ -81,19 +81,19 @@
             {
         ?>
                     <tr>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $order['orderid']?>]" value="<?php echo $order['orderid']?>" ></td>
-                        <td><a href="?route=addon/order/view&orderid=<?php echo $order['orderid']?>"><?php echo $order['orderid']?></a></td>
-                        <td><?php echo $order['customername']?></td>
-                        <td><?php echo $order['address']?></td>
-                		<td><?php echo $order['email']?></td>
-                        <td><?php echo $this->date->formatMySQLDate($order['orderdate'])?> <?php echo $this->date->getTime($order['orderdate'])?></td>
-                        <td class="link-control order-<?php echo $order['status']?>">
-                            <!--<select id="status<?php echo $order['orderid']?>" onchange="order.updateStatus('<?php echo $order['orderid']?>',this.value)">
-                            	<?php foreach($this->document->status as $key => $val) { ?>
-                                <option value="<?php echo $key?>" <?php echo ($order['status'] == $key)?'selected="selected"':''?>><?php echo $val?></option>
+                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo @$order['orderid']?>]" value="<?php echo @$order['orderid']?>" ></td>
+                        <td><a href="?route=addon/order/view&orderid=<?php echo @$order['orderid']?>"><?php echo @$order['orderid']?></a></td>
+                        <td><?php echo @$order['customername']?></td>
+                        <td><?php echo @$order['address']?></td>
+                		<td><?php echo @$order['email']?></td>
+                        <td><?php echo @$this->date->formatMySQLDate($order['orderdate'])?> <?php echo @$this->date->getTime($order['orderdate'])?></td>
+                        <td class="link-control order-<?php echo @$order['status']?>">
+                            <!--<select id="status<?php echo @$order['orderid']?>" onchange="order.updateStatus('<?php echo @$order['orderid']?>',this.value)">
+                            	<?php foreach(@$this->document->status as $key => $val) { ?>
+                                <option value="<?php echo @$key?>" <?php echo ($order['status'] == $key)?'selected="selected"':''?>><?php echo @$val?></option>
                                 <?php } ?>
                             </select>-->
-                            <a onclick="order.viewHistory('<?php echo $order['orderid']?>')"><?php echo $this->document->status[$order['status']]?></a>
+                            <a onclick="order.viewHistory('<?php echo @$order['orderid']?>')"><?php echo @$this->document->status[$order['status']]?></a>
                         </td>
                     </tr>
         <?php
@@ -157,13 +157,13 @@ function searchForm()
 	window.location = url;
 }
 
-$("#orderid").val("<?php echo $_GET['orderid']?>");
-$("#userid").val("<?php echo $_GET['userid']?>");
-$("#customername").val("<?php echo $_GET['customername']?>");
-$("#address").val("<?php echo $_GET['address']?>");
-$("#email").val("<?php echo $_GET['email']?>");
-$("#phone").val("<?php echo $_GET['phone']?>");
-$("#status").val("<?php echo $_GET['status']?>");
-$("#fromdate").val("<?php echo $_GET['fromdate']?>");
-$("#todate").val("<?php echo $_GET['todate']?>");
+$("#orderid").val("<?php echo @$_GET['orderid']?>");
+$("#userid").val("<?php echo @$_GET['userid']?>");
+$("#customername").val("<?php echo @$_GET['customername']?>");
+$("#address").val("<?php echo @$_GET['address']?>");
+$("#email").val("<?php echo @$_GET['email']?>");
+$("#phone").val("<?php echo @$_GET['phone']?>");
+$("#status").val("<?php echo @$_GET['status']?>");
+$("#fromdate").val("<?php echo @$_GET['fromdate']?>");
+$("#todate").val("<?php echo @$_GET['todate']?>");
 </script>

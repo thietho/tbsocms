@@ -27,9 +27,9 @@
                     <tr>
                        
                         
-                        <td><?php echo $item['hoten']?></td>
-                        <td><?php echo $item['email']?></td>
-                		<td><?php echo $this->date->formatMySQLDate($item['ngaydangky'],'longdate')?></td>
+                        <td><?php echo @$item['hoten']?></td>
+                        <td><?php echo @$item['email']?></td>
+                		<td><?php echo @$this->date->formatMySQLDate($item['ngaydangky'],'longdate')?></td>
                         
                     </tr>
         <?php
@@ -40,7 +40,7 @@
                 </tbody>
                 </table>
             </div>
-        	<?php echo $pager?>
+        	<?php echo @$pager?>
         
         </form>
         

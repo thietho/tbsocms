@@ -1,17 +1,17 @@
 
 <div class="section" id="sitemaplist">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content padding1">
     
-    	<form name="frm" id="frm" action="<?php echo $action?>" method="post" enctype="multipart/form-data">
+    	<form name="frm" id="frm" action="<?php echo @$action?>" method="post" enctype="multipart/form-data">
         
         	<div class="button right">
             	<input type="button" value="Lưu" class="button" onClick="savephieu('')"/>
                 <input type="button" value="Lưu & In" class="button" onClick="savephieu('print')"/>
      	        <input type="button" value="Bỏ qua" class="button" onclick="linkto('?route=quanlykho/phieuxuat')"/>   
-     	        <input type="hidden" name="id" value="<?php echo $item['id']?>">
+     	        <input type="hidden" name="id" value="<?php echo @$item['id']?>">
                 
                 <input type="hidden" name="loaiphieu" value="XCH">
                 
@@ -29,7 +29,7 @@
                     <p>
                     	<label>Ngày nhập</label><br />
                         
-                        <input type="text" class="text"  id="ngaylap" name="ngaylap" value="<?php echo $this->date->formatMySQLDate($item['ngaylap'])?>"/>
+                        <input type="text" class="text"  id="ngaylap" name="ngaylap" value="<?php echo @$this->date->formatMySQLDate($item['ngaylap'])?>"/>
 						<script language="javascript">
                             $(function() {
                                 $("#ngaylap").datepicker({
@@ -43,16 +43,16 @@
                     
                     <p>
                         <label>Cửa hàng</label><br />
-                        <input type="hidden" name="shopid" value="<?php echo $item['shopid']?>">
-                        <?php echo $item['shopname']?>
+                        <input type="hidden" name="shopid" value="<?php echo @$item['shopid']?>">
+                        <?php echo @$item['shopname']?>
                         
                     </p>
                     
                     
                     <p>
                         <label>Người xuất</label><br />
-                        <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo $item['nguoithuchienid']?>" value="<?php echo $item['nguoithuchienid']?>">
-                        <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo $item['nguoithuchien']?>" class="text" size=60 <?php echo $readonly?>/>
+                        <input type="hidden" id="nguoithuchienid" name="nguoithuchienid" value="<?php echo @$item['nguoithuchienid']?>" value="<?php echo @$item['nguoithuchienid']?>">
+                        <input type="text" id="nguoithuchien" name="nguoithuchien" value="<?php echo @$item['nguoithuchien']?>" class="text" size=60 <?php echo @$readonly?>/>
                         <input type="button" class="button" id="btnSelectNhanVien" value="Chọn nhân viên" />
                     </p>
                     
@@ -60,17 +60,17 @@
                     <p>
                     	<label>Tình trạng</label><br />
                         <select id="trangthai" name="trangthai">
-                        	<?php foreach($this->document->status_phieunhapxuat as $key => $val){?>
-                            <option value="<?php echo $key?>"><?php echo $val?></option>
+                        	<?php foreach(@$this->document->status_phieunhapxuat as $key => $val){?>
+                            <option value="<?php echo @$key?>"><?php echo @$val?></option>
                             <?php } ?>
                         </select>
                         <script language="javascript">
-                        $('#trangthai').val("<?php echo $item['trangthai']?>");
+                        $('#trangthai').val("<?php echo @$item['trangthai']?>");
                         </script>
                     </p>
                     <p>
                         <label>Ghi chú</label><br />
-                        <textarea id="ghichu" name="ghichu"><?php echo $item['ghichu']?></textarea>
+                        <textarea id="ghichu" name="ghichu"><?php echo @$item['ghichu']?></textarea>
                         
                     </p>
                    
@@ -110,9 +110,9 @@
                                 <td></td>
                                 <td>
                                 	
-                                    <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo $item['lydothu']?>"/>
+                                    <input type="text" id="lydothu" name="lydothu" class="text" value="<?php echo @$item['lydothu']?>"/>
                                 </td>
-                                <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo $this->string->numberFormate($item['thuphi'])?>"/></td>
+                                <td class="number"><input type="text" class="text number"  id="thuphi" name="thuphi" value="<?php echo @$this->string->numberFormate($item['thuphi'])?>"/></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -124,9 +124,9 @@
                                 <td></td>
                                 <td class="number">
                                 	Tổng cộng
-                                    <input type="hidden" id="tongtien" name="tongtien" value="<?php echo $item['tongtien']?>"/>
+                                    <input type="hidden" id="tongtien" name="tongtien" value="<?php echo @$item['tongtien']?>"/>
                                 </td>
-                                <td class="number" id="tongcong"><?php echo $this->string->numberFormate($item['tongtien'])?></td>
+                                <td class="number" id="tongcong"><?php echo @$this->string->numberFormate($item['tongtien'])?></td>
                                 <td></td>
                             </tr>
                             
@@ -138,7 +138,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="number">Thanh toán</td>
-                                <td class="number"><input type="text" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo $this->string->numberFormate($item['thanhtoan'])?>"/></td>
+                                <td class="number"><input type="text" class="text number"  id="thanhtoan" name="thanhtoan" value="<?php echo @$this->string->numberFormate($item['thanhtoan'])?>"/></td>
                                 <td><input type="button" class="button" id="btnTrahet" value="Trả hết"/></td>
                             </tr>
                             <tr>
@@ -150,7 +150,7 @@
                                 <td></td>
                                 <td class="number">Ngày thanh toán</td>
                                 <td class="number">
-                                	<input type="text" class="text"  id="ngaythanhtoan" name="ngaythanhtoan" value="<?php echo $this->date->formatMySQLDate($item['ngaythanhtoan'])?>"/>
+                                	<input type="text" class="text"  id="ngaythanhtoan" name="ngaythanhtoan" value="<?php echo @$this->date->formatMySQLDate($item['ngaythanhtoan'])?>"/>
                                     <script language="javascript">
 										$(function() {
 											$("#ngaythanhtoan").datepicker({
@@ -172,9 +172,9 @@
                                 <td></td>
                                 <td class="number">
                                 	Công nợ
-                                	<input type="hidden" id="congno" name="congno" value="<?php echo $item['congno']?>"/>
+                                	<input type="hidden" id="congno" name="congno" value="<?php echo @$item['congno']?>"/>
                                 </td>
-                                <td class="number" id="lbl-congno"><?php echo $this->string->numberFormate($item['congno'])?></td>
+                                <td class="number" id="lbl-congno"><?php echo @$this->string->numberFormate($item['congno'])?></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -185,7 +185,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="number">Số ngày công nợ</td>
-                                <td class="number"><input type="text" class="text number"  id="songaycongno" name="songaycongno" value="<?php echo $this->string->numberFormate($item['songaycongno'])?>"/></td>
+                                <td class="number"><input type="text" class="text number"  id="songaycongno" name="songaycongno" value="<?php echo @$this->string->numberFormate($item['songaycongno'])?>"/></td>
                                 <td>Ngày</td>
                             </tr>
                         </tfoot>
@@ -204,7 +204,7 @@
 	<?php foreach($data_nhapkho as $dl){ ?>
 <script language="javascript">
 $(document).ready(function(e) {
-	objdl.addRow("<?php echo $dl['id']?>","<?php echo $dl['mediaid']?>","<?php echo $dl['code']?>","<?php echo $this->document->productName($dl['mediaid'])?>","<?php echo $dl['soluong']?>","<?php echo $dl['madonvi']?>","<?php echo $dl['giatien']?>","<?php echo $dl['giamgia']?>","<?php echo $dl['phantramgiamgia']?>");
+	objdl.addRow("<?php echo @$dl['id']?>","<?php echo @$dl['mediaid']?>","<?php echo @$dl['code']?>","<?php echo @$this->document->productName($dl['mediaid'])?>","<?php echo @$dl['soluong']?>","<?php echo @$dl['madonvi']?>","<?php echo @$dl['giatien']?>","<?php echo @$dl['giamgia']?>","<?php echo @$dl['phantramgiamgia']?>");
 });
 	//objdl.tinhtong(0);
 </script>
@@ -420,7 +420,7 @@ function savephieu(type)
 		}
 	);
 }
-$('#loaiphieu').val("<?php echo $item['loaiphieu']?>")
+$('#loaiphieu').val("<?php echo @$item['loaiphieu']?>")
 $('#loaiphieu').change(function(e) {
 	$('.nhapxuat').hide();
     $('#f-'+$('#loaiphieu').val()).show();

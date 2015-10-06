@@ -3,12 +3,12 @@
 	{
 		public function index()
 		{
-			$this->template="layout/login.tpl";
-			$this->children=array(
+			@$this->template="layout/login.tpl";
+			@$this->children=array(
 				'common/header',
 				'common/footer'
 			);
-			$this->render();
+			@$this->render();
 		}
 	}
 ?>

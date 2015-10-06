@@ -50,16 +50,16 @@ var loading = '<center><img src="<?php echo DIR_IMAGE?>loading.gif"></center>';
 var HTTP_IMAGE = '<?php echo HTTP_IMAGE?>';
 </script>
 <body>
-<div id="header"><?php echo $header?></div>
+<div id="header"><?php echo @$header?></div>
 <div id="site-wrapper">
 
 
 
 <div class="main" >
-	<div id="main-content"><?php echo $content?></div>
+	<div id="main-content"><?php echo @$content?></div>
 </div>
 
-<div id="footer"><?php echo $footer?></div>
+<div id="footer"><?php echo @$footer?></div>
 	<input type="hidden" id="handler" />
 	<input type="hidden" id="outputtype" />
 </div>

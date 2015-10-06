@@ -9,7 +9,7 @@ class ModelQuanlykhoInventory extends Model
 	
 	public function getItem($id)
 	{
-		$query = $this->db->query("Select `inventory`.* 
+		$query = @$this->db->query("Select `inventory`.* 
 									from `inventory` 
 									where id ='".$id."'");
 		return $query->row;
@@ -28,13 +28,13 @@ class ModelQuanlykhoInventory extends Model
 			$sql .= " Limit ".$from.",".$to;
 		}
 		//echo $sql;
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
 	public function save($data)
 	{
-		$obj = $this->getItem($data['id']);
+		$obj = @$this->getItem($data['id']);
 		$value = array();
 		if(count($obj))
 		{
@@ -47,22 +47,22 @@ class ModelQuanlykhoInventory extends Model
 		}
 		
 		
-		foreach($this->arr_col as $col)
+		foreach(@$this->arr_col as $col)
 		{
-			$value[] = $this->db->escape(@$data[$col]);
+			$value[] = @$this->db->escape(@$data[$col]);
 		}
 		
 
-		$field=$this->arr_col;
+		$field=@$this->arr_col;
 		
 		if(count($obj) == 0)
 		{
-			$data['id'] = $this->db->insertData("inventory",$field,$value);
+			$data['id'] = @$this->db->insertData("inventory",$field,$value);
 		}
 		else
 		{
 			$where="id = '".$data['id']."'";
-			$this->db->updateData("inventory",$field,$value,$where);
+			@$this->db->updateData("inventory",$field,$value,$where);
 		}
 		
 		return $data;
@@ -70,9 +70,9 @@ class ModelQuanlykhoInventory extends Model
 	public function delete($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("inventory",$where);
+		@$this->db->deleteData("inventory",$where);
 		$where="inventoryid = '".$id."'";
-		$this->db->deleteData("inventory_detail",$where);
+		@$this->db->deleteData("inventory_detail",$where);
 	}
 	//Detail
 	private $arr_coldetail = array(
@@ -85,7 +85,7 @@ class ModelQuanlykhoInventory extends Model
 							);
 	public function getInventoryDetail($id)
 	{
-		$query = $this->db->query("Select `inventory_detail`.* 
+		$query = @$this->db->query("Select `inventory_detail`.* 
 									from `inventory_detail` 
 									where id ='".$id."'");
 		return $query->row;
@@ -104,13 +104,13 @@ class ModelQuanlykhoInventory extends Model
 			$sql .= " Limit ".$from.",".$to;
 		}
 		//echo $sql;
-		$query = $this->db->query($sql);
+		$query = @$this->db->query($sql);
 		return $query->rows;
 	}
 	
 	public function saveInventoryDetail($data)
 	{
-		$obj = $this->getInventoryDetail($data['id']);
+		$obj = @$this->getInventoryDetail($data['id']);
 		$value = array();
 		if(count($obj))
 		{
@@ -123,22 +123,22 @@ class ModelQuanlykhoInventory extends Model
 		}
 		
 		
-		foreach($this->arr_coldetail as $col)
+		foreach(@$this->arr_coldetail as $col)
 		{
-			$value[] = $this->db->escape(@$data[$col]);
+			$value[] = @$this->db->escape(@$data[$col]);
 		}
 		
 
-		$field=$this->arr_coldetail;
+		$field=@$this->arr_coldetail;
 		
 		if(count($obj) == 0)
 		{
-			$data['id'] = $this->db->insertData("inventory_detail",$field,$value);
+			$data['id'] = @$this->db->insertData("inventory_detail",$field,$value);
 		}
 		else
 		{
 			$where="id = '".$data['id']."'";
-			$this->db->updateData("inventory_detail",$field,$value,$where);
+			@$this->db->updateData("inventory_detail",$field,$value,$where);
 		}
 		
 		return $data;
@@ -146,7 +146,7 @@ class ModelQuanlykhoInventory extends Model
 	public function deleteInventoryDetail($id)
 	{
 		$where="id = '".$id."'";
-		$this->db->deleteData("inventory_detail",$where);
+		@$this->db->deleteData("inventory_detail",$where);
 	}
 	
 }

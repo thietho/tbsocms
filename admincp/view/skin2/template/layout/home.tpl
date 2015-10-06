@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="<?php echo $direction; ?>" lang="<?php echo $language; ?>" xml:lang="<?php echo $language; ?>">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="<?php echo @$direction; ?>" lang="<?php echo @$language; ?>" xml:lang="<?php echo @$language; ?>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="robots" content="INDEX,FOLLOW" />
 <meta http-equiv="REFRESH" content="5400" />
-<meta name="description" content="<?php echo $meta_description?>" />
-<meta name="keywords" content="<?php echo $meta_keyword?>" />		
-<title><?php echo $title ?></title>
+<meta name="description" content="<?php echo @$meta_description?>" />
+<meta name="keywords" content="<?php echo @$meta_keyword?>" />		
+<title><?php echo @$title ?></title>
 
 </head>
 
@@ -33,24 +33,24 @@
 <body onload="new ElementMaxHeight();">
 <div id="main">
     <!----------------------------- header ------------------------------------->
-    <?php echo $header?>		
+    <?php echo @$header?>		
    	<!--header end-->
     <div id="content"> 
-    <?php echo $menu?>
+    <?php echo @$menu?>
     <!------------------------- content wrapper ---------------------------->
     <div class="wrapper-content">
     	<div class="aside maxheight">
-        	<?php echo $dashboard?>
+        	<?php echo @$dashboard?>
         </div>
         <div class="content">
-        	<?php echo $content?>
+        	<?php echo @$content?>
             <!-- main content end -->
         </div>
         <div class="clear"></div>
     </div>    
 	<!------------------------ content wrapper end ------------------------>	
     </div>
-    <?php echo $footer?>
+    <?php echo @$footer?>
 </div>
 
 </body>

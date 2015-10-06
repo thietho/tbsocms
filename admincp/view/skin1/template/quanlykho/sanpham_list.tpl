@@ -1,6 +1,6 @@
 <div class="section">
 
-	<div class="section-title"><?php echo $this->document->title?></div>
+	<div class="section-title"><?php echo @$this->document->title?></div>
     
     <div class="section-content">
     	
@@ -15,7 +15,7 @@
                 <select id="loai" name="loai">
                     <option value=""></option>
                     <?php foreach($loainguyenlieu as $val){ ?>
-                    <option value="<?php echo $val['categoryid']?>"><?php echo $this->string->getPrefix("&nbsp;&nbsp;&nbsp;",$val['level']-1)?><?php echo $val['categoryname']?></option>
+                    <option value="<?php echo @$val['categoryid']?>"><?php echo @$this->string->getPrefix("&nbsp;&nbsp;&nbsp;",$val['level']-1)?><?php echo @$val['categoryname']?></option>
                     <?php } ?>
                 </select>
                 
@@ -24,17 +24,17 @@
                 <input type="button" class="button" name="btnSearch" value="Xem tất cả" onclick="viewAll()"/>
             </div>
         	<div class="button right">
-            	<?php if($dialog==true){ ?>
+            	<?php if(@$dialog==true){ ?>
             	
                 <?php }else{ ?>
                 
-                <?php if($this->user->checkPermission("quanlykho/sanpham/insertlist")==true){ ?>
-                <input class="button" value="Thêm nhiều sản phẩm" type="button" onclick="linkto('<?php echo $insertlist?>')">
+                <?php if(@$this->user->checkPermission("quanlykho/sanpham/insertlist")==true){ ?>
+                <input class="button" value="Thêm nhiều sản phẩm" type="button" onclick="linkto('<?php echo @$insertlist?>')">
                 <?php } ?>
-                <?php if($this->user->checkPermission("quanlykho/sanpham/insert")==true){ ?>
-                <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo $insert?>')">
+                <?php if(@$this->user->checkPermission("quanlykho/sanpham/insert")==true){ ?>
+                <input class="button" value="Thêm" type="button" onclick="linkto('<?php echo @$insert?>')">
                 <?php } ?>
-                <?php if($this->user->checkPermission("quanlykho/sanpham/delete")==true){ ?>
+                <?php if(@$this->user->checkPermission("quanlykho/sanpham/delete")==true){ ?>
             	<input class="button" type="button" name="delete_all" value="Xóa" onclick="deleteitem()"/>
                 <?php } ?>
                 <?php } ?>
@@ -84,7 +84,7 @@ $('select').change(function(e) {
 function viewAll()
 {
 	url = "?route=quanlykho/sanpham/getList";
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}
@@ -105,7 +105,7 @@ function searchForm()
 		url += "&loai="+ encodeURI($("#frm_sanpham #loai").val());
 
 	
-	if("<?php echo $_GET['opendialog']?>" == "true")
+	if("<?php echo @$_GET['opendialog']?>" == "true")
 	{
 		url += "&opendialog=true";
 	}

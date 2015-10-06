@@ -1,5 +1,5 @@
 <div class="section">
-	<?php if($ispopup == ''){ ?>
+	<?php if(@$ispopup == ''){ ?>
 	<div class="section-title">Quản lý đánh giá</div>
     <?php } ?>
     <div class="section-content">
@@ -7,13 +7,13 @@
         <form action="" method="post" id="listitem" name="listitem">
         	
         	<div class="button right">
-            	<?php if($ispopup == ''){ ?>
+            	<?php if(@$ispopup == ''){ ?>
             	<input type="button" class="button" value="Tất cả" onclick="window.location='?route=core/comment'">
             	<input type="button" class="button" value="Mới" onclick="window.location='?route=core/comment&status=new'">
             	<input type="button" class="button" value="Đã duyệt" onclick="window.location='?route=core/comment&status=published'">
                 <input type="button" class="button" value="Không duyệt" onclick="window.location='?route=core/comment&status=denial'">
                 <?php } ?>
-            	<input class="button" type="button" name="delete_all" value="<?php echo $button_delete ?>" onclick="deleteitem()"/>
+            	<input class="button" type="button" name="delete_all" value="<?php echo @$button_delete ?>" onclick="deleteitem()"/>
                 
                 	
             </div>
@@ -24,7 +24,7 @@
                 <thead>
                     <tr class="tr-head">
                         <th width="1%">
-                        	<?php if($dialog!=true){ ?>
+                        	<?php if(@$dialog!=true){ ?>
                         	<input class="inputchk" type="checkbox" onclick="$('input[name*=\'delete\']').attr('checked', this.checked);">
                             <?php } ?>
                         </th>
@@ -37,8 +37,8 @@
                         
                         
                         
-                        <?php if($dialog!=true){ ?>
-                        <th><?php echo $text_control ?></th>     
+                        <?php if(@$dialog!=true){ ?>
+                        <th><?php echo @$text_control ?></th>     
                         <?php } ?>
                     </tr>
                 </thead>
@@ -50,25 +50,25 @@
             {
         ?>
                     <tr <?php echo ($item['status']=='new')?'class="new"':''?>>
-                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo $item['id']?>]" value="<?php echo $item['id']?>" ></td>
+                        <td class="check-column"><input class="inputchk" type="checkbox" name="delete[<?php echo @$item['id']?>]" value="<?php echo @$item['id']?>" ></td>
                         
                         
                         <td>
-                        	<?php echo $item['fullname']?>
+                        	<?php echo @$item['fullname']?>
                         </td>
-                        <td><?php echo $item['email']?></td>
-                        <td><?php echo $item['level']?> sao</td>
-                        <td><?php echo $this->document->getMedia($item['mediaid'])?></td>
-                       	<td><?php echo $this->date->formatMySQLDate($item['commentdate'],'longdate')?></td> 
-                        <td><?php echo $item['description']?></td>
+                        <td><?php echo @$item['email']?></td>
+                        <td><?php echo @$item['level']?> sao</td>
+                        <td><?php echo @$this->document->getMedia($item['mediaid'])?></td>
+                       	<td><?php echo @$this->date->formatMySQLDate($item['commentdate'],'longdate')?></td> 
+                        <td><?php echo @$item['description']?></td>
                         
                         
                         <td class="link-control">
-                        	<?php if($item['status'] == 'published'){ ?>
+                        	<?php if(@$item['status'] == 'published'){ ?>
                            	
-                            <input type="button" class="button" value="Không duyệt" onclick="kiemduyet(<?php echo $item['id']?>,'denial')">
+                            <input type="button" class="button" value="Không duyệt" onclick="kiemduyet(<?php echo @$item['id']?>,'denial')">
                             <?php }else{ ?>
-               				<input type="button" class="button" value="Duyệt" onclick="kiemduyet(<?php echo $item['id']?>,'published')">	             
+               				<input type="button" class="button" value="Duyệt" onclick="kiemduyet(<?php echo @$item['id']?>,'published')">	             
                             <?php } ?>
                             
                         </td>
@@ -82,7 +82,7 @@
                 </tbody>
                 </table>
             </div>
-        	<?php echo $pager?>
+        	<?php echo @$pager?>
         
         </form>
         
@@ -93,7 +93,7 @@
 
 function deleteitem()
 {
-	var answer = confirm("<?php echo $announ_del ?>")
+	var answer = confirm("<?php echo @$announ_del ?>")
 	if (answer)
 	{
 		$.post("?route=core/comment/delete", 
@@ -102,7 +102,7 @@ function deleteitem()
 				{
 					if(data!="")
 					{
-						<?php if($ispopup == ''){ ?>
+						<?php if(@$ispopup == ''){ ?>
 						alert(data)
 						window.location.reload();
 						<?php } else{ ?>
@@ -127,7 +127,7 @@ function kiemduyet(id,status)
 			{
 				if(data=="true")
 				{
-					<?php if($ispopup == ''){ ?>
+					<?php if(@$ispopup == ''){ ?>
 					window.location.reload();
 					<?php } else{ ?>
 					callbackLoadCommnet();
