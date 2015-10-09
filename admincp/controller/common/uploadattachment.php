@@ -11,7 +11,7 @@ class ControllerCommonUploadattachment extends Controller
 		//print_r($_FILES['files']['name']);
 		foreach($_FILES['files']['name'] as $key => $item)
 		{
-			if($_FILES['files']['name'][$key] != "")
+			if(@$_FILES['files']['name'][$key] != "")
 			{
 				$ftemp['name'] = $_FILES['files']['name'][$key];
 				$ftemp['type'] = $_FILES['files']['type'][$key];
@@ -22,7 +22,7 @@ class ControllerCommonUploadattachment extends Controller
 				$filepath = "upload/";
 				$data['image'] = @$this->model_core_file->saveFile($ftemp,$filepath,"any","");
 				@$this->model_core_file->updateFileCol($data['image']['fileid'],'folderid',$folderid);
-				/*if($data['image']['fileid'] == '')
+				/*if(@$data['image']['fileid'] == '')
 				{
 					$arr = array(
 						'error' => 'Your upload image is wrong or size of this image more than 2MB!'

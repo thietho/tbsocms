@@ -17,13 +17,13 @@ class ModelQuanlykhoSanpham extends ModelCoreFile
 		$sql = "Select `qlksanpham`.*
 									from `qlksanpham` 
 									where trangthai <> 'deleted' " . $where;
-		if($order=="")
+		if(@$order=="")
 		{
 			$order = " Order by tensanpham";
 			
 		}
 		$sql.=$order;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

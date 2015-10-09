@@ -109,18 +109,18 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		$where .= implode("",$arr);
 		$tungay = @$this->date->formatViewDate(urldecode(@$this->request->get['tungay']));
-		if($tungay !="")
+		if(@$tungay !="")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
 		$denngay = @$this->date->formatViewDate(urldecode(@$this->request->get['denngay']));
-		if($denngay !="")
+		if(@$denngay !="")
 		{
 			$where .= " AND ngaylap <= '".$denngay." 24:00:00'";
 		}
@@ -162,7 +162,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	public function view()
 	{
 		$id = @$this->request->get['id'];
-		if($id) 
+		if(@$id) 
 		{
       		@$this->data['item'] = @$this->model_quanlykho_phieunhapxuat->getItem($id);
 			
@@ -174,9 +174,9 @@ class ControllerQuanlykhoPhieunhap extends Controller
 		
 		@$this->id='content';
 		@$this->template='quanlykho/phieunhap_view.tpl';
-		if($_GET['show']=="giamgia")
+		if(@$_GET['show']=="giamgia")
 			@$this->template='quanlykho/phieuxuat_view1.tpl';
-		if($_GET['opendialog'] == 'print')
+		if(@$_GET['opendialog'] == 'print')
 			@$this->layout="layout/print";
 		@$this->render();
 	}
@@ -184,7 +184,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	private function getForm()
 	{
 		$id = @$this->request->get['id'];
-		if($id) 
+		if(@$id) 
 		{
       		@$this->data['item'] = @$this->model_quanlykho_phieunhapxuat->getItem($id);
 			
@@ -204,12 +204,12 @@ class ControllerQuanlykhoPhieunhap extends Controller
 					@$this->data['data_nhapkho'][$i]['mediaid']=$media['mediaid'];
 					@$this->data['data_nhapkho'][$i]['code']=$media['code'];
 					@$this->data['data_nhapkho'][$i]['title']=$media['title'];
-					if($media['color'])
+					if(@$media['color'])
 						@$this->data['data_nhapkho'][$i]['title'].= " - ".$media['color'];
 					@$this->data['data_nhapkho'][$i]['soluong']=$media['qty'];
 					@$this->data['data_nhapkho'][$i]['madonvi']=$media['unit'];
 					$price = $media['price'];
-					/*if($media['pricepromotion'])
+					/*if(@$media['pricepromotion'])
 						$price = $media['pricepromotion'];*/
 					@$this->data['data_nhapkho'][$i]['giatien']=$price;
 					$i++;
@@ -232,7 +232,7 @@ class ControllerQuanlykhoPhieunhap extends Controller
 			$nhanvien = @$this->user->getNhanVien();
 			$data['ngaylap'] = @$this->date->formatViewDate($data['ngaylap']);
 			$data['ngaythanhtoan'] = @$this->date->formatViewDate($data['ngaythanhtoan']);
-			if($data['nguoithuchien']=="")
+			if(@$data['nguoithuchien']=="")
 			{
 				$data['nguoithuchienid'] = $nhanvien['id'];
 				$data['nguoithuchien'] = $nhanvien['hoten'];
@@ -268,16 +268,16 @@ class ControllerQuanlykhoPhieunhap extends Controller
 	{
 		
 		
-    	/*if($data['nguoithuchien'] == "")
+    	/*if(@$data['nguoithuchien'] == "")
 		{
       		@$this->error['nguoithuchien'] = "Bạn chưa nhập người nhập";
     	}*/
 		
-		/*if ($data['nguoigiao'] == "") 
+		/*if(@$data['nguoigiao'] == "") 
 		{
       		@$this->error['nguoigiao'] = "Bạn chưa nhập tên người giao";
     	}*/
-		/*if ($data['nguoinhan'] == "") 
+		/*if(@$data['nguoinhan'] == "") 
 		{
       		@$this->error['nguoinhan'] = "Bạn chưa nhập tên người nhận";
     	}*/

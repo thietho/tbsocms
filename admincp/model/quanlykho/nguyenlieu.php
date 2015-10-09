@@ -17,13 +17,13 @@ class ModelQuanlykhoNguyenlieu extends ModelCoreFile
 		$sql = "Select `qlknguyenlieu`.*
 									from `qlknguyenlieu` 
 									where trangthai <> 'deleted' " . $where;
-		if($order=="")
+		if(@$order=="")
 		{
 			$order = " Order by tennguyenlieu";
 			
 		}
 		$sql.=$order;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -251,7 +251,7 @@ class ModelQuanlykhoNguyenlieu extends ModelCoreFile
 		$sql = "Select `qlknguyenlieu_nhapxuat`.*
 									from `qlknguyenlieu_nhapxuat` 
 									where 1=1 " . $where . " ORDER BY `ngaylap` DESC";
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

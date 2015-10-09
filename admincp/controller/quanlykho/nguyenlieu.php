@@ -268,13 +268,13 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '".$item."%'";
 		}
 		
 		foreach($datasearch as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." = '".$item."'";
 		}
 		$arrnhom = @$this->string->matrixToArray(@$this->data['loainguyenlieu'],'manhom');
@@ -456,13 +456,13 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	{
 		
 		
-    	if($data['manguyenlieu'] == "")
+    	if(@$data['manguyenlieu'] == "")
 		{
       		@$this->error['manguyenlieu'] = "Mã nguyên liệu không được rỗng";
     	}
 		else
 		{
-			if($data['id'] == "")
+			if(@$data['id'] == "")
 			{
 				
 				$where = " AND manguyenlieu ='".$data['manguyenlieu']."'" ;
@@ -476,19 +476,19 @@ class ControllerQuanlykhoNguyenlieu extends Controller
       		@$this->error['manguyenlieu'] = "Mã nguyên liệu không được vượt quá 50 ký tự";
     	}
 		
-		if ($data['tennguyenlieu'] == "") 
+		if(@$data['tennguyenlieu'] == "") 
 		{
       		@$this->error['tennguyenlieu'] = "Bạn chưa nhập tên nguyên liệu";
     	}
 		
 		
 		
-		if ($data['loai'] == "") 
+		if(@$data['loai'] == "") 
 		{
       		@$this->error['loai'] = "Bạn chưa chọn loại";
     	}
 		
-		if ($data['madonvi'] == "") 
+		if(@$data['madonvi'] == "") 
 		{
       		@$this->error['madonvi'] = "Bạn chưa nhập đơn vị tính";
     	}
@@ -502,17 +502,17 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	
 	private function validateDinhLuong($data)
 	{
-		if ($data['loai'] == "") 
+		if(@$data['loai'] == "") 
 		{
       		@$this->error['loai'] = "Bạn chưa chọn nhóm";
     	}
 		
-		if ($data['nguyenlieugoc'] == "") 
+		if(@$data['nguyenlieugoc'] == "") 
 		{
       		@$this->error['nguyenlieugoc'] = "Bạn chưa chọn nguyên liệu gốc";
     	}
 		
-		if ($data['nguyenlieugoc'] == $data['manguyenlieu']) 
+		if(@$data['nguyenlieugoc'] == $data['manguyenlieu']) 
 		{
       		@$this->error['nguyenlieugoc'] = "Bạn chọn nguyên liệu gốc phải khác với nguyên liêu hiện hành";
     	}
@@ -529,12 +529,12 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	
 	private function validateBangBaoGia($data)
 	{
-		if ($data['ngay'] == "") 
+		if(@$data['ngay'] == "") 
 		{
       		@$this->error['ngay'] = "Bạn chưa chọn ngày";
     	}
 		
-		if ($data['manhacungung'] == "") 
+		if(@$data['manhacungung'] == "") 
 		{
       		@$this->error['manhacungung'] = "Bạn chưa chọn nhà cung cấp";
     	}
@@ -598,7 +598,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	}
 	private function validateImport($data)
 	{
-		if ($data['soluong'] == "") 
+		if(@$data['soluong'] == "") 
 		{
       		@$this->error['soluong'] = "Bạn chưa nhập số lượng";
     	}
@@ -647,7 +647,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 	}
 	private function validateExport($data)
 	{
-		if ($data['soluong'] == "") 
+		if(@$data['soluong'] == "") 
 		{
       		@$this->error['soluong'] = "Bạn chưa nhập số lượng";
     	}
@@ -664,7 +664,7 @@ class ControllerQuanlykhoNguyenlieu extends Controller
 		$col = @$this->request->get['col'];
 		$val = @$this->request->get['val'];
 		$operator = @$this->request->get['operator'];
-		if($operator == "")
+		if(@$operator == "")
 			$operator = "equal";
 		
 		$where = "";

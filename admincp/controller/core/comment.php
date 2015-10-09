@@ -42,9 +42,9 @@ class ControllerCoreComment extends Controller
 		$where = "";
 		$status = @$this->request->get['status'];
 		$mediaid = @$this->request->get['mediaid'];
-		if($status)
+		if(@$status)
 			$where = " AND status = '".$status."'";
-		if($mediaid)
+		if(@$mediaid)
 			$where = " AND mediaid = '".$mediaid."'";			
 				
 		$where.=" ORDER BY `commentdate` DESC";

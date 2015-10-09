@@ -66,7 +66,7 @@ class ControllerCoreChangeskin extends Controller
 		{
 			@$this->data['skins'][$i] = $rows[$i];
 			$imagepreview = "";
-			if($rows[$i]['imagepath'] != "")
+			if(@$rows[$i]['imagepath'] != "")
 			{
 				$imagepreview = "<img width=100 src='".HelperImage::resizePNG($rows[$i]['imagepath'], 180, 180)."' >";
 			}

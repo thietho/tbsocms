@@ -78,7 +78,7 @@ class ControllerCommonForgotpassword extends Controller
 	private function validate($data) 
 	{
 		$err = array();
-		if($data['email']=="")
+		if(@$data['email']=="")
 			$err['email'] = "Bạn chưa nhập mật khẩu";
 		else
 		{

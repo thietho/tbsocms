@@ -147,7 +147,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 		//Xoa dinh luong
 		$data = @$this->request->post;
 		$delid = $data['delinventoryid'];
-		if($delid)
+		if(@$delid)
 		{
 			@$arr_id = split(",",$delid);
 			print_r($arr_id);
@@ -156,7 +156,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 				
 				foreach($arr_id as $id)
 				{
-					if($id)
+					if(@$id)
 						@$this->model_quanlykho_inventory->deleteInventoryDetail($id);
 				}
 				
@@ -170,7 +170,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 	{
 		//Save chi tiet phieu nhap
 		$data = @$this->request->post;
-		if($data['mediaid'])
+		if(@$data['mediaid'])
 		{
 			$data['quantity'] = @$this->string->toNumber($data['quantity']);
 			$data = @$this->model_quanlykho_inventory->saveInventoryDetail($data);
@@ -189,7 +189,7 @@ class ControllerQuanlykhoInventorycheck extends Controller
 	{
     	
 		
-		if ($data['datecheck'] == "") 
+		if(@$data['datecheck'] == "") 
 		{
       		@$this->error['datecheck'] = "Bạn chưa chọn ngày";
     	}
@@ -226,18 +226,18 @@ class ControllerQuanlykhoInventorycheck extends Controller
 			foreach(@$this->data['data_detail'] as $detail)
 			{
 				//Cac san pham trong list khiem kho ma so luong ton khong khop
-				if($media['mediaid'] == $detail['mediaid'] && $media['inventory']!=$detail['quantity'])
+				if(@$media['mediaid'] == $detail['mediaid'] && $media['inventory']!=$detail['quantity'])
 				{
 					@$this->data['inlist'][$key] = $media;
 					@$this->data['inlist'][$key]['quantity'] = $detail['quantity'];
 					@$this->data['inlist'][$key]['unitdetail'] = $detail['unit'];
 				}
-				if($media['mediaid'] == $detail['mediaid'])
+				if(@$media['mediaid'] == $detail['mediaid'])
 					$flag = true;
 			}
 			//Cac san pham co ton ma ko co trong list kiem kho
 			
-			if($flag == false)
+			if(@$flag == false)
 			{
 				@$this->data['outlist'][$key] = $media;	
 			}

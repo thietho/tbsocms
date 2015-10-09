@@ -22,7 +22,7 @@ class ModelAddonOrder extends Model
 		$sql = "Select `order`.* 
 									from `order` 
 									where 1=1 " . $where;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -180,7 +180,7 @@ class ModelAddonOrder extends Model
 		$statusdate = @$this->date->getToday();
 		$statusby=@$this->user->getId();
 		
-		if($orderid != "")
+		if(@$orderid != "")
 		{
 			$sql = "Update `order` set status='".$status."' where orderid = '".$orderid."'";
 			@$this->db->query($sql);

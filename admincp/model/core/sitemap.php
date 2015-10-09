@@ -94,7 +94,7 @@ class ModelCoreSitemap extends Model
 	public function getListByParent($parentid, $siteid, $status = "")
 	{
 		$where = " AND sitemapparent = '".$parentid."' ";
-		if($status != "")
+		if(@$status != "")
 		{
 			$where .= " AND `sitemap`.status = '".$status."' ";
 		}
@@ -123,10 +123,10 @@ class ModelCoreSitemap extends Model
 	
 	function getTreeSitemapEdit($id, $hidenid, &$data, $siteid)
 	{
-		if($id!=$hidenid)
+		if(@$id!=$hidenid)
 		{
 			$arr=@$this->getItem($id, $siteid);
-			if($id!="")
+			if(@$id!="")
 				array_push($data,$arr);
 				
 			$rows = @$this->getListByParent($id, $siteid);
@@ -172,7 +172,7 @@ class ModelCoreSitemap extends Model
 		for($i=count($data)-1;$i>=$end;$i--)
 		{
 			@$link='<a href="?route='.$data[$i]['moduleid']."&sitemapid=".$data[$i]['sitemapid'].'" title="[Detail]">'.$data[$i]['sitemapname'].'</a>';
-			if($i<count($data)-1)
+			if(@$i<count($data)-1)
 				$strBreadcrumb .= " >> ".$link; 
 			else
 				$strBreadcrumb .= $link;
@@ -194,7 +194,7 @@ class ModelCoreSitemap extends Model
 		while(count($arr))
 		{
 			$position=array_pop($arr);
-			if($position!="")
+			if(@$position!="")
 				$path.="-".$position;
 		}
 		//echo $path."<br>";
@@ -339,7 +339,7 @@ class ModelCoreSitemap extends Model
 		
 		if(@$arr['sitemapparent'] != "") $parentpath .= "-".$arr['sitemapparent'];
 		
-		if($id!="")
+		if(@$id!="")
 		{
 			$level += 1;
 			$path .= "-".$id;
@@ -367,9 +367,9 @@ class ModelCoreSitemap extends Model
 		
 		$arr['countchild'] = count(rows);
 		
-		if($arr['sitemapparent'] != "") $parentpath .= "-".$arr['sitemapparent'];
+		if(@$arr['sitemapparent'] != "") $parentpath .= "-".$arr['sitemapparent'];
 		
-		if($id!="" && $arr['status'] != 'Hide')
+		if(@$id!="" && $arr['status'] != 'Hide')
 		{
 			$level += 1;
 			$path .= "-".$id;
@@ -392,7 +392,7 @@ class ModelCoreSitemap extends Model
 	public function getTreeAll($id,&$data,$status="")
 	{
 		$where = "";
-		if($status != "")
+		if(@$status != "")
 			$where = " AND sitemap.status = '".$status."'";
 		$arr=@$this->getItem($id, @$this->user->getSiteId(),$where);
 		
@@ -427,7 +427,7 @@ class ModelCoreSitemap extends Model
 			$sitemapid = "[".$item['sitemapid']."]";
 			
 			
-			if($item['moduleid']=="group" || $item['moduleid']=="homepage")
+			if(@$item['moduleid']=="group" || $item['moduleid']=="homepage")
 				$name ='<label><input name="listrefersitemap['.$item['sitemapid'].']" type="checkbox" value="'.$item['sitemapid'].'" '.$checked.' disabled="disabled" /> '.$item['sitemapname'].'</label>';
 			else
 				$name ='<label> <input class="checkbox" name="listrefersitemap['.$item['sitemapid'].']" type="checkbox" value="'.$item['sitemapid'].'" '.$checked.' />'.$item['sitemapname'].'</label>';

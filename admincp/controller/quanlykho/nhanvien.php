@@ -91,13 +91,13 @@ class ControllerQuanlykhoNhanVien extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		foreach($datasearch as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." = '".$item."'";
 		}
 		
@@ -138,13 +138,13 @@ class ControllerQuanlykhoNhanVien extends Controller
 				@$this->data['datas'][$i]['text_phanquyen'] = "Phân quyền";
 				@$this->data['datas'][$i]['text_resetpass'] = "Reset password";	
 			
-				if($user['status'] == "lock")	
+				if(@$user['status'] == "lock")	
 				{
 					@$this->data['datas'][$i]['link_taikhoan'] = @$this->url->http("quanlykho/nhanvien/motaikhoan&username=".@$this->data['datas'][$i]['username']);
 					@$this->data['datas'][$i]['text_taikhoan'] = "Mở tài khoản";
 				}
 				
-				if($user['status'] == "active")	
+				if(@$user['status'] == "active")	
 				{
 					@$this->data['datas'][$i]['link_taikhoan'] = @$this->url->http("quanlykho/nhanvien/khoataikhoan&username=".@$this->data['datas'][$i]['username']);
 					@$this->data['datas'][$i]['text_taikhoan'] = "Khóa tài khoản";
@@ -225,13 +225,13 @@ class ControllerQuanlykhoNhanVien extends Controller
 	
 	private function validateForm($data)
 	{
-    	if($data['manhanvien'] == "")
+    	if(@$data['manhanvien'] == "")
 		{
       		@$this->error['manhanvien'] = "Mã nhân viên không được rỗng";
     	}
 		else
 		{
-			if($data['id'] == "")
+			if(@$data['id'] == "")
 			{
 				@$this->load->model("quanlykho/nhanvien");
 				$where = " AND manhanvien ='".$data['manhanvien']."'" ;
@@ -245,34 +245,34 @@ class ControllerQuanlykhoNhanVien extends Controller
       		@$this->error['manhanvien'] = "Mã nhà nhân viên không được vượt quá 50 ký tự";
     	}
 		
-		if ($data['hoten'] == "") 
+		if(@$data['hoten'] == "") 
 		{
       		@$this->error['hoten'] = "Bạn chưa nhập tên nhân viên";
     	}
 		
 		
 		
-		if ($data['gioitinh'] == "") 
+		if(@$data['gioitinh'] == "") 
 		{
       		@$this->error['gioitinh'] = "Bạn chưa chọn giới tính";
     	}
 		
-		/*if ($data['maphongban'] == "") 
+		/*if(@$data['maphongban'] == "") 
 		{
       		@$this->error['maphongban'] = "Bạn chưa chọn phòng ban";
     	}*/
 		
-		if ($data['loai'] == "") 
+		if(@$data['loai'] == "") 
 		{
       		@$this->error['loai'] = "Bạn chưa chọn loại";
     	}
 		
-		/*if ($data['nhom'] == "") 
+		/*if(@$data['nhom'] == "") 
 		{
       		@$this->error['nhom'] = "Bạn chưa chọn nhóm";
     	}*/
 		
-		/*if ($data['chucvu'] == "") 
+		/*if(@$data['chucvu'] == "") 
 		{
       		@$this->error['chucvu'] = "Bạn chưa chọn chức vụ";
     	}*/
@@ -291,7 +291,7 @@ class ControllerQuanlykhoNhanVien extends Controller
 		$col = @$this->request->get['col'];
 		$val = @$this->request->get['val'];
 		$operator = @$this->request->get['operator'];
-		if($operator == "")
+		if(@$operator == "")
 			$operator = "equal";
 		@$this->load->model("quanlykho/nhanvien");
 		$where = "";
@@ -565,7 +565,7 @@ class ControllerQuanlykhoNhanVien extends Controller
 		$keyword = urldecode(@$this->request->get['term']);
 		$where = "";
 		@$arrkey = split(' ', $keyword);
-		if($keyword)
+		if(@$keyword)
 		{
 			$arr = array();
 			foreach($arrkey as $key)

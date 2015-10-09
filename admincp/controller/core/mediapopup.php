@@ -72,7 +72,7 @@ class ControllerCoreMediapopup extends Controller
 			$index += 1;
 			
 			$imagepreview = "";
-			if($media['imagepath'] != "")
+			if(@$media['imagepath'] != "")
 			{
 				$imagepreview = "<img width=100 src='".HelperImage::resizePNG($media['imagepath'], 180, 180)."' >";
 			}

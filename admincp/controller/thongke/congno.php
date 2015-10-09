@@ -26,7 +26,7 @@ class ControllerThongkeCongno extends Controller
 			
 			$arr = array($row['id']);
 			$congno = @$this->loadModule("core/member","getCongNo",$arr);
-			if($congno!="0")
+			if(@$congno!="0")
 			{
 				@$this->data['users'][$i] = $row;
 				@$this->data['users'][$i]['congno'] = $congno;
@@ -42,7 +42,7 @@ class ControllerThongkeCongno extends Controller
 			$arr = array($row['id']);
 			
 			$congno = @$this->loadModule("quanlykho/nhacungcap","getCongNo",$arr);
-			if($congno!="0")
+			if(@$congno!="0")
 			{
 				@$this->data['nhacungcap'][$i]=$row;
 				@$this->data['nhacungcap'][$i]['congno'] = $congno;

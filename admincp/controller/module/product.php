@@ -54,7 +54,7 @@ class ControllerModuleProduct extends Controller
 		@$sitemapid = urldecode(@$this->request->get['sitemapid']);
 		@$this->data['sitemapid'] = $sitemapid;
 		$siteid = @$this->user->getSiteId();
-		if($sitemapid != "")
+		if(@$sitemapid != "")
 		{
 			$data = array();
 			$sitemaps = @$this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);
@@ -62,7 +62,7 @@ class ControllerModuleProduct extends Controller
 		}
 		$arr = array();
 		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
-		if($sitemapid)
+		if(@$sitemapid)
 			foreach($arrsitemapid as $sitemapid)
 			{
 				$arr[] = " refersitemap like '%[".$sitemapid."]%'";
@@ -73,7 +73,7 @@ class ControllerModuleProduct extends Controller
 		@$keyword = urldecode(@$this->request->get['keyword']);
 		@$arrkey = split(' ', $keyword);
 		
-		if($keyword !="")
+		if(@$keyword !="")
 		{
 			$arr = array();
 			$arrid = array();
@@ -131,12 +131,12 @@ class ControllerModuleProduct extends Controller
 			
 		}
 		@$brand = urldecode(@$this->request->get['brand']);
-		if($brand !="")
+		if(@$brand !="")
 		{
 			$where .= " AND brand like '".$brand."'";
 		}
 		@$status = urldecode(@$this->request->get['status']);
-		if($status !="")
+		if(@$status !="")
 		{
 			$where .= " AND groupkeys like '%[".$status."]%'";
 		}
@@ -212,7 +212,7 @@ class ControllerModuleProduct extends Controller
 			{
 				foreach($arr as $status)
 				{	
-					if($status)
+					if(@$status)
 						$arrstatus[] = @$this->document->getCategory($status);
 				}
 			}
@@ -227,7 +227,7 @@ class ControllerModuleProduct extends Controller
 				$shopinventory = @$this->model_core_media->getShopInventory($shop['id'],$mediaid);
 				$str = '';
 				$suminvetoryshop += $shopinventory;
-				if($shopinventory)
+				if(@$shopinventory)
 				{
 					$arr_ton = @$this->model_quanlykho_donvitinh->toDonVi($shopinventory,@$this->data['medias'][$i]['unit']);
 					$inventorytext = @$this->model_quanlykho_donvitinh->toText($arr_ton);
@@ -253,7 +253,7 @@ class ControllerModuleProduct extends Controller
 					$shopinventory = @$this->model_core_media->getShopInventory($shop['id'],$child['mediaid']);
 					$str = '';
 					$suminvetoryshop += $shopinventory;
-					if($shopinventory)
+					if(@$shopinventory)
 					{
 						$arr_ton = @$this->model_quanlykho_donvitinh->toDonVi($shopinventory,$data_child[$key]['unit']);
 						$inventorytext = @$this->model_quanlykho_donvitinh->toText($arr_ton);
@@ -270,9 +270,9 @@ class ControllerModuleProduct extends Controller
 			}
 			@$this->data['medias'][$i]['child'] = $data_child;
 			$parapage = "";
-			if($page)
+			if(@$page)
 				$parapage = "&page=".$page;
-			if($page)
+			if(@$page)
 				
 			@$this->data['medias'][$i]['link_edit'] = @$this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.@$this->data['medias'][$i]['mediaid'].$parapage);
 			@$this->data['medias'][$i]['text_edit'] = "Edit";
@@ -298,7 +298,7 @@ class ControllerModuleProduct extends Controller
 		$sitemapid = urldecode(@$this->request->get['sitemapid']);
 		@$this->data['sitemapid'] = $sitemapid;
 		$siteid = @$this->user->getSiteId();
-		if($sitemapid == "")
+		if(@$sitemapid == "")
 		{
 			
 		}
@@ -310,7 +310,7 @@ class ControllerModuleProduct extends Controller
 		}
 		$arr = array();
 		$where = " AND mediaparent = '' AND mediatype = 'module/product' AND status = 'active' AND imagepath <> ''";
-		if($sitemapid)
+		if(@$sitemapid)
 			foreach($arrsitemapid as $sitemapid)
 			{
 				$arr[] = " refersitemap like '%[".$sitemapid."]%'";
@@ -323,12 +323,12 @@ class ControllerModuleProduct extends Controller
 		
 		
 		$brand = urldecode(@$this->request->get['brand']);
-		if($brand !="")
+		if(@$brand !="")
 		{
 			$where .= " AND brand like '".$brand."'";
 		}
 		$status = urldecode(@$this->request->get['status']);
-		if($status !="")
+		if(@$status !="")
 		{
 			$where .= " AND groupkeys like '%[".$status."]%'";
 		}
@@ -399,9 +399,9 @@ class ControllerModuleProduct extends Controller
 			}
 			@$this->data['medias'][$i]['child'] = $data_child;
 			$parapage = "";
-			if($page)
+			if(@$page)
 				$parapage = "&page=".$page;
-			if($page)
+			if(@$page)
 				
 			@$this->data['medias'][$i]['link_edit'] = @$this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.@$this->data['medias'][$i]['mediaid'].$parapage);
 			@$this->data['medias'][$i]['text_edit'] = "Edit";
@@ -481,12 +481,12 @@ class ControllerModuleProduct extends Controller
 		
 		foreach($sitemaps as $item)
 		{
-			//if($item['moduleid'] == "module/product")
+			//if(@$item['moduleid'] == "module/product")
 			{
 				$childs = @$this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid);
 				
 				$link = "<a>".$item['sitemapname']."</a> ";
-				if($item['moduleid'] == "module/product")
+				if(@$item['moduleid'] == "module/product")
 				{
 					$link = "<a href='?route=".$item['moduleid']."&sitemapid=".$item['sitemapid']."'>".$item['sitemapname']."</a> ";
 					if(@$this->user->checkPermission("module/product/addcat")==true)
@@ -652,7 +652,7 @@ class ControllerModuleProduct extends Controller
 			foreach($data_nhapkho as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					@$this->data['nhapxuat'][$date]['nhapkho'][] = $item;
 				}
@@ -660,7 +660,7 @@ class ControllerModuleProduct extends Controller
 			foreach($data_xuatkho as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					@$this->data['nhapxuat'][$date]['xuatkho'][] = $item;
 				}
@@ -688,7 +688,7 @@ class ControllerModuleProduct extends Controller
 		//$inputFileName = 'GuiHangChoHo_20131002.xls';
 		
 		$inputFileName = $_FILES['fileimport']['tmp_name'];
-		if($ext =='xls')
+		if(@$ext =='xls')
 			$objReader = new PHPExcel_Reader_Excel5();
 		else
 			$objReader = new PHPExcel_Reader_Excel2007();
@@ -768,7 +768,7 @@ class ControllerModuleProduct extends Controller
 			$arrsitemapname = array();
 			foreach($arrsitemapid as $sitemapid)
 			{
-				if($sitemapid)
+				if(@$sitemapid)
 					$arrsitemapname[] = @$this->document->getSiteMap($sitemapid,@$this->user->getSiteId());
 			}
 			$danhmuc = "";
@@ -829,7 +829,7 @@ class ControllerModuleProduct extends Controller
 	public function baogiaForm()
 	{
 		$id = @$this->request->get['baogiaid'];
-		if($id)
+		if(@$id)
 		{
 			@$this->data['item'] =@$this->model_module_baogia->getItem($id);
 			$where = " AND baogiaid = '".$id."'";
@@ -840,7 +840,7 @@ class ControllerModuleProduct extends Controller
 				$media = @$this->model_core_media->getItem($item['mediaid']);	
 				foreach($media as $key => $val)
 				{
-					if($key !="id")
+					if(@$key !="id")
 						@$this->data['detail'][$i][$key] = $val;
 				}
 			}
@@ -865,7 +865,7 @@ class ControllerModuleProduct extends Controller
 			@$arrdelid = split(",",$data['delid']);
 			foreach($arrdelid as $id)
 			{
-				if($id)
+				if(@$id)
 					@$this->model_module_baogia->deleteBaoGiaMedia($id);
 			}
 			$data['ngaybaogia'] = @$this->date->formatViewDate($data['ngaybaogia']);
@@ -899,7 +899,7 @@ class ControllerModuleProduct extends Controller
 	}
 	private function validateBaoGia($data)
 	{
-		if ($data['ngaybaogia'] == "") 
+		if(@$data['ngaybaogia'] == "") 
 		{
       		@$this->error['ngaybaogia'] = "Bạn chưa nhập ngày báo giá";
     	}
@@ -944,7 +944,7 @@ class ControllerModuleProduct extends Controller
 			$media = @$this->model_core_media->getItem($item['mediaid']);
 			$sitemap = @$this->string->referSiteMapToArray($media['refersitemap']);
 			
-			if($sitemap[0]=="")
+			if(@$sitemap[0]=="")
 			{
 				$parent = @$this->model_core_media->getItem($media['mediaparent']);
 				$sitemap = @$this->string->referSiteMapToArray($parent['refersitemap']);
@@ -959,7 +959,7 @@ class ControllerModuleProduct extends Controller
 		//print_r(@$this->data['baogiadetail']);
 		@$this->id='content';
 		@$this->template='module/product_baogia_view.tpl';
-		if($_GET['opendialog'] == 'print')
+		if(@$_GET['opendialog'] == 'print')
 			@$this->layout="layout/print";
 		@$this->render();
 	}

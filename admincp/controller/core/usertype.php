@@ -11,7 +11,7 @@
 			
 			$user=@$this->model_core_user->getItem(@$this->user->getId());
 			//echo $user[0]['usertypeid'];
-			/*if($user[0]['usertypeid']!=1)
+			/*if(@$user[0]['usertypeid']!=1)
 				@$this->response->redirect("index.php?route=error/permission");*/
 			//echo @$this->user->getId();
 			if ( strcasecmp( @ $_SERVER['REQUEST_METHOD'], 'POST' ) == 0 )
@@ -137,7 +137,7 @@
 				$deep=@$this->model_core_usertype->getDeep($resutl['usertypeid']);
 				$parent=@$this->model_core_usertype->getUserType($resutl['UserTypeParent']);
 				
-				if($parent[0]['usertypename'] == "")
+				if(@$parent[0]['usertypename'] == "")
 				{
 					$btnAddMember = @$this->model_common_control->getControlAddMember("btnAddMember","btnAddMember","[Add more user type]","?route=core/usertype&formtype=add&id=".$resutl['usertypeid']);
 				}
@@ -208,13 +208,13 @@
 		{	
 			$usertypename = @$this->request->post['usertypename'];
 			//require
-			if($usertypename=='')
+			if(@$usertypename=='')
 				@$this->data['require']='Bạn chưa nhập tên loại người dùng';
 			//unique usertypename
 			$results=@$this->model_core_usertype->getAllUsertype();
 			foreach($results as $result)
 			{
-				if($usertypename==$result['usertypename'])
+				if(@$usertypename==$result['usertypename'])
 				{
 					@$this->data['unique']='Tên loại người dùng này đã tồn tại';
 					break;
@@ -232,7 +232,7 @@
 			$results=@$this->model_core_usertype->getUsertypeNoRelation($usertypeid);
 			foreach($results as $result)
 			{
-				if($usertypeid==$result['usertypeid'])
+				if(@$usertypeid==$result['usertypeid'])
 				{
 					$flag=true;
 					break;

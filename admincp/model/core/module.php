@@ -168,10 +168,10 @@ class ModelCoreModule extends Model
 		
 		$arr['countchild'] = count($rows);
 		
-		if($arr['moduleparent'] != 0 && $id!=$root) 
+		if(@$arr['moduleparent'] != 0 && $id!=$root) 
 			$parentpath .= "-".$arr['moduleparent'];
 		
-		if($id!=0 && $id!=$notid)
+		if(@$id!=0 && $id!=$notid)
 		{
 			$level += 1;
 			$path .= "-".$id;

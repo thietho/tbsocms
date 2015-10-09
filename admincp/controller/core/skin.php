@@ -12,7 +12,7 @@ class ControllerCoreSkin extends Controller
 	public function index()
 	{
 		$skinid = @$this->request->get['skinid'];
-		if($skinid=="")
+		if(@$skinid=="")
 			@$this->getList();
 		else
 			@$this->getForm();
@@ -42,7 +42,7 @@ class ControllerCoreSkin extends Controller
 		{
 			@$this->data['skins'][$i] = $rows[$i];
 			$imagepreview = "";
-			if($rows[$i]['imagepath'] != "")
+			if(@$rows[$i]['imagepath'] != "")
 			{
 				$imagepreview = "<img width=100 src='".HelperImage::resizePNG($rows[$i]['imagepath'], 180, 180)."' >";
 			}
@@ -83,7 +83,7 @@ class ControllerCoreSkin extends Controller
 	{
 		$skinid = @$this->request->get['skinid'];
 		 @$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
-		if($skinid)
+		if(@$skinid)
 		{
 			@$this->data['item']=@$this->model_core_skin->getItem($skinid);	
 			@$this->data['item']['imagethumbnail']=HelperImage::resizePNG(@$this->data['item']['imagepath'], 180, 180);
@@ -122,9 +122,9 @@ class ControllerCoreSkin extends Controller
 	function validate($data)
 	{
 		$err = array();
-		if($data['skinid']=="")
+		if(@$data['skinid']=="")
 			$err['skinid'] ="Skin id not null!";
-		if($data['skinname']=="")
+		if(@$data['skinname']=="")
 			$err['skinname'] ="Skin name not null!";
 		
 		return $err;

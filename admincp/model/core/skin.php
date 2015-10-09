@@ -60,7 +60,7 @@ class ModelCoreSkin extends ModelCoreFile
 	{
 		foreach(@$this->data as $key=>$item)
 		{
-			if($skinid == $item['skinid'])
+			if(@$skinid == $item['skinid'])
 			{
 				return $item;
 			}
@@ -84,7 +84,7 @@ class ModelCoreSkin extends ModelCoreFile
 		if(count(@$this->data))
 			foreach(@$this->data as $key=>$item)
 			{
-				if($data['skinid'] == $item['skinid'])
+				if(@$data['skinid'] == $item['skinid'])
 				{
 					@$this->data[$key]['skinid'] = $data['skinid'];
 					@$this->data[$key]['skinname'] = $data['skinname'];
@@ -101,7 +101,7 @@ class ModelCoreSkin extends ModelCoreFile
 	public function save($data)
 	{
 		$pos = @$this->update($data);
-		if($pos == -1)
+		if(@$pos == -1)
 			@$this->insert($data);
 	}
 	
@@ -109,7 +109,7 @@ class ModelCoreSkin extends ModelCoreFile
 	{
 		foreach(@$this->data as $key=>$item)
 		{
-			if($skinid == $item['skinid'])
+			if(@$skinid == $item['skinid'])
 			{
 				unset($this->data[$key]);
 			}

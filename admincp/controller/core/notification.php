@@ -28,7 +28,7 @@ class ControllerCoreNotification extends Controller
 			$data = array();
 			$data['productName'] = $media['productName'];
 			$data['inventory'] = $media['inventory'];
-			if($media['noteprice'] == 'minisize')
+			if(@$media['noteprice'] == 'minisize')
 			{
 				//Cac san pham minisize co ton ma bi an			
 				
@@ -59,7 +59,7 @@ class ControllerCoreNotification extends Controller
 				$data_war['productprice'][]=$data;
 			}
 			//Cac san pham dang active ma chua cap nhat hinh
-			if($media['status'] == 'active' && $media['imagepath'] == '')
+			if(@$media['status'] == 'active' && $media['imagepath'] == '')
 			{
 				$data_war['productimage'][]=$data;
 			}
@@ -85,7 +85,7 @@ class ControllerCoreNotification extends Controller
 			
 			$data['productName'] = $media['productName'];
 			$data['inventory'] = $media['inventory'];
-			if($media['noteprice'] == 'minisize')
+			if(@$media['noteprice'] == 'minisize')
 			{
 				//Cac san pham minisize co ton ma bi an			
 				

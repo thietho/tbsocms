@@ -107,13 +107,13 @@ class ControllerModuleFreedownload extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		foreach($datasearch as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." = '".$item."'";
 		}
 		
@@ -223,7 +223,7 @@ class ControllerModuleFreedownload extends Controller
 	private function validateForm($data)
 	{
     	
-		if($data['title'] == "")
+		if(@$data['title'] == "")
 		{
       		@$this->error['title'] = "Bạn chưa nhập tiêu dề";
     	}

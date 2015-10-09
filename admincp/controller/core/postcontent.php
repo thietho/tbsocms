@@ -131,7 +131,7 @@ class ControllerCorePostcontent extends Controller
 				@$this->data['properties'] = @$this->string->referSiteMapToArray(@$this->data['post']['groupkeys']);
 				//print_r(@$this->data['properties']);
 				@$this->data['post']['mediatype'] = $route;
-				if($mediaid == "")
+				if(@$mediaid == "")
 				{
 					//@$this->data['post']['mediaid'] = @$this->model_core_media->insert($data);
 					@$this->data['post']['mediaparent'] = @$this->request->get['mediaparent'];
@@ -190,20 +190,20 @@ class ControllerCorePostcontent extends Controller
 		@$this->data['hasTabDocuments'] = false;
 		//Event
 		@$this->data['hasEvent'] = false;
-		if($route == "module/event")
+		if(@$route == "module/event")
 		{
 			@$this->data['hasEvent'] = true;
 			@$this->data['hasSource'] = false;
 		}
 		
-		if($route == "module/download")
+		if(@$route == "module/download")
 		{
 			@$this->data['hasSource'] = false;
 		}
 		
 		
 		
-		if($route == "module/product")
+		if(@$route == "module/product")
 		{
 			@$this->data['hasId'] = true;
 			@$this->data['hasCode'] = true;
@@ -214,19 +214,19 @@ class ControllerCorePostcontent extends Controller
 			@$this->data['hasSource'] = false;
 			@$this->data['hasTabComment'] = true;
 		}
-		if($route == "module/video")
+		if(@$route == "module/video")
 		{
 			@$this->data['hasVideo'] = true;
 		}
-		if($route == "module/audio")
+		if(@$route == "module/audio")
 		{
 			@$this->data['hasAudio'] = true;
 		}
-		if($route == "module/banner")
+		if(@$route == "module/banner")
 		{
 			@$this->data['hasSource'] = false;
 		}
-		if($route == "module/gallery")
+		if(@$route == "module/gallery")
 		{
 			@$this->data['hasSource'] = false;
 			@$this->data['hasAttachment'] = false;
@@ -235,11 +235,11 @@ class ControllerCorePostcontent extends Controller
 			@$this->data['hasTabVideos'] = true;
 			@$this->data['hasTabDocuments'] = true;
 		}
-		/*if($mediaid == "")
+		/*if(@$mediaid == "")
 		{
 			@$this->data['hasSubInfor'] = false;
 		}*/
-		if($route == "module/information")
+		if(@$route == "module/information")
 		{
 			
 			//@$this->data['displaynews'] = "display:none";
@@ -252,14 +252,14 @@ class ControllerCorePostcontent extends Controller
 			@$this->data['hasSubInfor'] = false;
 			//@$this->data['post']['title'] = $sitemap['sitemapname'];
 			@$this->data['DIR_CANCEL'] = HTTP_SERVER."?route=core/content";
-			if($goback!="")
+			if(@$goback!="")
 			{
 				
 				@$this->data['DIR_CANCEL'] = HTTP_SERVER."?route=".$goback."&sitemapid=".$sitemapid;
 			}
 			
 		}
-		if($route == "module/register")
+		if(@$route == "module/register")
 		{
 			@$this->data['heading_title'] = $sitemap['sitemapname'];
 			@$this->data['hasTabMap'] = false;
@@ -269,7 +269,7 @@ class ControllerCorePostcontent extends Controller
 			@$this->data['hasSource'] = false;
 			@$this->data['hasSubInfor'] = false;
 		}
-		elseif($route == "module/contact")
+		elseif(@$route == "module/contact")
 		{
 			@$this->data['heading_title'] = $sitemap['sitemapname'];
 			@$this->data['hasTabMap'] = false;
@@ -304,7 +304,7 @@ class ControllerCorePostcontent extends Controller
 		
 		$listfile = @$this->model_core_media->getInformation($mediaid, "attachment");
 		$listfileid=array();
-		if($listfile)
+		if(@$listfile)
 			@$listfileid=split(",",$listfile);
 		@$this->data['attachment']=array();
 		foreach($listfileid as $key => $item)
@@ -339,7 +339,7 @@ class ControllerCorePostcontent extends Controller
 		
 		@$this->data['listReferSiteMap'] = @$this->showTreeSiteMap('');
 		
-		if($route=="module/contact")
+		if(@$route=="module/contact")
 		{
 			@$this->data['email1'] = @$this->data['post']['email1'];
 			@$this->data['email2'] = @$this->data['post']['email2'];
@@ -350,13 +350,13 @@ class ControllerCorePostcontent extends Controller
 	private function validate($data)
 	{
 		//print_r($data);
-		if($data['mediaid']!="")
+		if(@$data['mediaid']!="")
 		{
 			if(@$this->validation->_isId(trim($data['mediaid'])) == false)
 			{
 				@$this->error['mediaid'] ="ID không hợp lệ";	
 			}
-			if($data['id']=="" && $data['mediatype'] == "module/product")
+			if(@$data['id']=="" && $data['mediatype'] == "module/product")
 			{
 				$media = @$this->model_core_media->getItem($data['mediaid']);
 				
@@ -364,7 +364,7 @@ class ControllerCorePostcontent extends Controller
 					@$this->error['mediaid'] ="ID đã được sử dụng";	
 			}
 		}
-		/*if($data['title'] == "")
+		/*if(@$data['title'] == "")
 		{
 			@$this->error['title'] ="Bạn chưa nhập tiêu đề";
 		}*/
@@ -418,7 +418,7 @@ class ControllerCorePostcontent extends Controller
 				$data['retail'] = json_encode($data['retail']);
 			}
 			
-			if($data['price'] == "")
+			if(@$data['price'] == "")
 				$data['price'] = @$this->data['post']['mainprice'];
 			
 			$data['groupkeys'] = @$this->getProperties(@$this->data['post']);
@@ -445,7 +445,7 @@ class ControllerCorePostcontent extends Controller
 			$data['imagepath'] = str_replace(DIR_FILE,"",$data['imagepath']);
 			@$this->model_core_media->save($data);
 			@$this->model_core_media->updateInforChild($data['mediaid']);
-			if($data['mediaparent']!="")
+			if(@$data['mediaparent']!="")
 				@$this->model_core_media->updateInforChild($data['mediaparent']);
 			//$listAttachment=@$this->data['post']['attimageid'];
 			if(count(@$this->data['post']['attimageid']))
@@ -457,7 +457,7 @@ class ControllerCorePostcontent extends Controller
 				foreach($listdelfile as $item)
 					@$this->model_core_file->deleteFile($item);
 			@$this->model_core_media->clearTempFile();*/
-			/*if($route=="module/contact")
+			/*if(@$route=="module/contact")
 			{
 				@$this->model_core_media->saveInformation($data['mediaid'], "email1", @$this->data['post']['email1']);
 				@$this->model_core_media->saveInformation($data['mediaid'], "email2", @$this->data['post']['email2']);
@@ -511,10 +511,10 @@ class ControllerCorePostcontent extends Controller
 		
 		foreach($sitemaps as $item)
 		{
-			//if($item['moduleid'] == $route)
+			//if(@$item['moduleid'] == $route)
 			{
 				$childs = @$this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid);
-				if($item['moduleid'] == $route)
+				if(@$item['moduleid'] == $route)
 					$link = '<input id="refersitemap-'.$item['sitemapid'].'" name="listrefersitemap['.$item['sitemapid'].']" type="checkbox" value="'.$item['sitemapid'].'" />'.$item['sitemapname'];
 				else
 					$link = $item['sitemapname'];
@@ -558,7 +558,7 @@ class ControllerCorePostcontent extends Controller
 			$sitemapid = "[".$item['sitemapid']."]";
 			
 			$pos = strrpos($strReferSitemap, $sitemapid);
-			if ($pos === false) {
+			if(@$pos === false) {
 				$checked = "";
 			}else{
 				$checked = "checked=checked";

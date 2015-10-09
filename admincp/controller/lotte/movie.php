@@ -81,7 +81,7 @@ class ControllerLotteMovie extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '".$item."%'";
 		}
 		
@@ -143,7 +143,7 @@ class ControllerLotteMovie extends Controller
 	{
 		
 		$sanphamid = @$this->request->get['id'];
-		if($sanphamid) 
+		if(@$sanphamid) 
 		{
       		@$this->data['item'] = @$this->model_lotte_movie->getItem(@$this->request->get['id']);
 			$file = @$this->model_core_file->getFile(@$this->data['item']['icone']);
@@ -194,7 +194,7 @@ class ControllerLotteMovie extends Controller
 	
 	private function validateForm($data)
 	{
-    	if($data['moviename'] == "")
+    	if(@$data['moviename'] == "")
 		{
       		@$this->error['moviename'] = "Bạn chưa nhập tên film";
     	}

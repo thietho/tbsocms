@@ -54,7 +54,7 @@ class ModelAddonThuchi extends Model
 	
 	public function insert($data)
 	{
-		if($data['prefix'] == "")
+		if(@$data['prefix'] == "")
 			$data['sophieu']=@$this->db->escape(@$data['sophieu']);
 		else
 			$data['sophieu']=@$this->createSoPhieu($data['prefix']);
@@ -67,7 +67,7 @@ class ModelAddonThuchi extends Model
 		
 		foreach(@$this->columns as $val)
 		{
-			if($val!="")
+			if(@$val!="")
 			{
 				$field[] = $val;
 				$value[] = @$this->db->escape($data[$val]);				
@@ -85,7 +85,7 @@ class ModelAddonThuchi extends Model
 		$data['sotien']=@$this->string->toNumber($data['sotien']);
 		foreach(@$this->columns as $val)
 		{
-			if($val!="")
+			if(@$val!="")
 			{
 				$field[] = $val;
 				$value[] = @$this->db->escape($data[$val]);	

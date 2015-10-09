@@ -116,13 +116,13 @@ class ControllerModuleTraning extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		foreach($datasearch as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." = '".$item."'";
 		}
 		
@@ -183,7 +183,7 @@ class ControllerModuleTraning extends Controller
 		else
 		{
 			@$this->data['item']['refersitemap'] = "[".$sitemapid."]";
-			if($mediaid == "")
+			if(@$mediaid == "")
 			{
 				@$this->data['item']['mediaid'] = @$this->model_core_media->insert($data);
 			}
@@ -238,7 +238,7 @@ class ControllerModuleTraning extends Controller
 	private function validateForm($data)
 	{
     	
-		if($data['title'] == "")
+		if(@$data['title'] == "")
 		{
       		@$this->error['title'] = "Bạn chưa nhập tiêu dề";
     	}

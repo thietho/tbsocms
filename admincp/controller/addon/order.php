@@ -58,7 +58,7 @@ class ControllerAddonOrder extends Controller
 		$thanhtoan = @$this->request->get['thanhtoan'];
 		$order = @$this->model_addon_order->getItem($orderid);
 		$nhanvien = @$this->user->getNhanVien();
-		if($order['order']['userid'] != "")
+		if(@$order['order']['userid'] != "")
 			$member = @$this->model_core_user->getItem($order['order']['userid']);
 		$tongtien = 0;
 		
@@ -72,12 +72,12 @@ class ControllerAddonOrder extends Controller
 		$data['tenkhachhang'] = $order['order']['customername'];
 		$data['diachi'] = $order['order']['address'];
 		$data['dienthoai'] = $order['order']['phone'];
-		if($order['order']['receiver']!="" && $order['order']['customername'] != $order['order']['receiver'])
+		if(@$order['order']['receiver']!="" && $order['order']['customername'] != $order['order']['receiver'])
 			$data['nguoinhan'] .= " - người nhận: ".$order['order']['receiver'];
 		$data['tongtien'] = $tongtien;
 		$data['thanhtoan'] = $thanhtoan;
 		
-		if($order['order']['notes'])
+		if(@$order['order']['notes'])
 			$data['ghichu'] .= " - ". $order['order']['notes'];
 		$phieuid = @$this->model_quanlykho_phieunhapxuat->save($data);
 		
@@ -178,23 +178,23 @@ class ControllerAddonOrder extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		foreach($datasearch as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." = '".$item."'";
 		}
 		//Truong hop khac
 		$datasearch['fromdate'] = @$this->date->formatViewDate(@$this->request->get['fromdate']);
 		$datasearch['todate'] = @$this->date->formatViewDate(@$this->request->get['todate']);
 		
-		if($datasearch['fromdate'] != "")
+		if(@$datasearch['fromdate'] != "")
 			$arr[] = " AND orderdate >= '".$datasearch['fromdate']."'";
 		
-		if($datasearch['todate'] != "")
+		if(@$datasearch['todate'] != "")
 			$arr[] = " AND orderdate <= '".$datasearch['todate']."'";
 		
 		
@@ -262,7 +262,7 @@ class ControllerAddonOrder extends Controller
 		@$this->load->model("addon/order");
 		$data = @$this->request->post;
 		
-		if($data['orderid'])
+		if(@$data['orderid'])
 		{
 			@$this->model_addon_order->updateCol($data['orderid'],'userid',$data['userid']);
 			@$this->model_addon_order->updateCol($data['orderid'],'customername',$data['customername']);
@@ -287,7 +287,7 @@ class ControllerAddonOrder extends Controller
 		@$arrdelid = split(',',$data['delid']);
 		foreach($arrdelid as $id)
 		{
-			if($id)
+			if(@$id)
 			{
 				@$this->model_addon_order->deleteOrderProduct($id);
 			}
@@ -403,7 +403,7 @@ class ControllerAddonOrder extends Controller
 		$sitemapid = urldecode(@$this->request->get['sitemapid']);
 		@$arrkey = split(' ', $keyword);
 		$where = " AND mediatype = 'module/product'";
-		if($keyword !="")
+		if(@$keyword !="")
 		{
 			$arr = array();
 			$arrcode = array();
@@ -454,7 +454,7 @@ class ControllerAddonOrder extends Controller
 							)";
 		}
 		$siteid = @$this->user->getSiteId();
-		if($sitemapid == "")
+		if(@$sitemapid == "")
 		{
 			$sitemaps = @$this->model_core_sitemap->getListByModule("module/product", $siteid);
 			$arrsitemapid = @$this->string->matrixToArray($sitemaps,"sitemapid");
@@ -467,7 +467,7 @@ class ControllerAddonOrder extends Controller
 		}
 		$arr = array();
 		
-		if($sitemapid)
+		if(@$sitemapid)
 			foreach($arrsitemapid as $sitemapid)
 			{
 				$arr[] = " refersitemap like '%[".$sitemapid."]%'";
@@ -488,7 +488,7 @@ class ControllerAddonOrder extends Controller
 			$data_child = @$this->model_core_media->getListByParent($media['mediaid']," Order by position");
 			foreach($data_child as $key =>$child)
 			{
-				if($child['imagepath'])
+				if(@$child['imagepath'])
 					$data_child[$key]['imagepreview'] = HelperImage::resizePNG($child['imagepath'], 100, 100);
 				
 			}
@@ -506,7 +506,7 @@ class ControllerAddonOrder extends Controller
 		$col = @$this->request->get['col'];
 		$val = @$this->request->get['val'];
 		$operator = @$this->request->get['operator'];
-		if($operator == "")
+		if(@$operator == "")
 			$operator = "equal";
 		@$this->load->model("addon/order");
 		$where = "";

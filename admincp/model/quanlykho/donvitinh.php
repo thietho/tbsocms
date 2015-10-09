@@ -15,7 +15,7 @@ class ModelQuanlykhoDonvitinh extends Model
 		$sql = "Select `qlkdonvitinh`.*
 									from `qlkdonvitinh` 
 									where 1=1 " . $where . " Order by madonvi";
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -115,7 +115,7 @@ class ModelQuanlykhoDonvitinh extends Model
 		{
 			foreach($arr as $val)
 			{
-				if($val['madonvi'] == $donvitinh['madonvi'])
+				if(@$val['madonvi'] == $donvitinh['madonvi'])
 				{
 					$data_donvitinh[$i]['soluong'] = $val['soluong'];
 				}
@@ -148,7 +148,7 @@ class ModelQuanlykhoDonvitinh extends Model
 			$hs = 1;
 			for($j = $i;$j<count($data_donvi);$j++)
 			{
-				if($data_donvi[$j]['quidoi']!=0)
+				if(@$data_donvi[$j]['quidoi']!=0)
 				{
 					$hs *= $data_donvi[$j]['quidoi'];
 				}
@@ -168,7 +168,7 @@ class ModelQuanlykhoDonvitinh extends Model
 			$hs = 1;
 			for($j = $i;$j<count($data_donvitinh);$j++)
 			{
-				if($data_donvitinh[$j]['quidoi']!=0)
+				if(@$data_donvitinh[$j]['quidoi']!=0)
 				{
 					$hs *= $data_donvitinh[$j]['quidoi'];
 				}
@@ -184,7 +184,7 @@ class ModelQuanlykhoDonvitinh extends Model
 		
 		foreach($data_donvitinh as $donvitinh)
 		{
-			if($donvitinh['soluong'])
+			if(@$donvitinh['soluong'])
 				$arr[] = $donvitinh['soluong']." ".$donvitinh['tendonvitinh'];
 		}
 		

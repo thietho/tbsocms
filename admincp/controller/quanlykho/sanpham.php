@@ -94,13 +94,13 @@ class ControllerQuanlykhoSanpham extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '".$item."%'";
 		}
 		
 		foreach($datasearch as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." = '".$item."'";
 		}
 		
@@ -151,7 +151,7 @@ class ControllerQuanlykhoSanpham extends Controller
 	{
 		@$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
 		$sanphamid = @$this->request->get['id'];
-		if($sanphamid) 
+		if(@$sanphamid) 
 		{
 			
       		@$this->data['item'] = @$this->model_quanlykho_sanpham->getItem(@$this->request->get['id']);
@@ -230,13 +230,13 @@ class ControllerQuanlykhoSanpham extends Controller
 	{
 		
 		
-    	if($data['masanpham'] == "")
+    	if(@$data['masanpham'] == "")
 		{
       		@$this->error['masanpham'] = "Mã nguyên liệu không được rỗng";
     	}
 		else
 		{
-			if($data['id'] == "")
+			if(@$data['id'] == "")
 			{
 				
 				$where = " AND masanpham ='".$data['masanpham']."'" ;
@@ -250,19 +250,19 @@ class ControllerQuanlykhoSanpham extends Controller
       		@$this->error['masanpham'] = "Mã nguyên liệu không được vượt quá 50 ký tự";
     	}
 		
-		if ($data['tensanpham'] == "") 
+		if(@$data['tensanpham'] == "") 
 		{
       		@$this->error['tensanpham'] = "Bạn chưa nhập tên nguyên liệu";
     	}
 		
 		
 		
-		if ($data['loai'] == "") 
+		if(@$data['loai'] == "") 
 		{
       		@$this->error['loai'] = "Bạn chưa chọn loại";
     	}
 		
-		if ($data['madonvi'] == "") 
+		if(@$data['madonvi'] == "") 
 		{
       		@$this->error['madonvi'] = "Bạn chưa nhập đơn vị tính";
     	}

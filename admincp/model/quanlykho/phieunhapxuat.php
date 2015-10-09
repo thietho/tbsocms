@@ -18,13 +18,13 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$sql = "Select `qlkphieunhapxuat`.*
 									from `qlkphieunhapxuat` 
 									where trangthai <> 'deleted' " . $where;
-		if($order=="")
+		if(@$order=="")
 		{
 			$order = " Order by id DESC";
 			
 		}
 		$sql.=$order;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -49,7 +49,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 		$loaiphieu=@$this->db->escape(@$data['loaiphieu']);
 		$maphieu=@$this->createMaPhieu($loaiphieu.$year.@$this->date->numberFormate($month));
 		$nguoilap=@$this->user->getUserName();
-		/*if($id==0)
+		/*if(@$id==0)
 			$ngaylap=@$this->date->getToday();
 		else
 			$ngaylap=@$this->db->escape(@$data['ngaylap']);*/
@@ -339,7 +339,7 @@ class ModelQuanlykhoPhieunhapxuat extends Model
 			$sumsoluong += $item['soluong'];
 			$sumthanhtien += $item['thanhtien'];
 		}
-		if($sumsoluong ==0)
+		if(@$sumsoluong ==0)
 			return 0;
 		else
 			return $sumthanhtien/$sumsoluong;

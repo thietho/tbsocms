@@ -31,7 +31,7 @@ class ControllerCommonChangepassword extends Controller
 				@$this->data['Error']['checkpass']="You entered the wrong password";
 				
 			// So sanh newpassword va confirmpassword bat buoc trung
-			if( $newpass != $confirmpass)
+			if(@$newpass != $confirmpass)
 				@$this->data['Error']['confirmpassword']="Confirm password is incorrect";
 		}
 	}

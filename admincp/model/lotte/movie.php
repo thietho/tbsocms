@@ -29,7 +29,7 @@ class ModelLotteMovie extends Model
 		$sql = "Select `lottemovies`.* 
 									from `lottemovies` 
 									where 1=1 " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

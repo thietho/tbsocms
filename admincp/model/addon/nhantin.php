@@ -16,7 +16,7 @@ class ModelAddonNhantin extends Model
 		$sql = "Select `nhantin`.* 
 									from `nhantin` 
 									where 1=1 " . $where . $order;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

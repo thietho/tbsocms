@@ -167,7 +167,7 @@ class ControllerAddonPhieuthu extends Controller
 		
 		@$this->id='content';
 		@$this->template='addon/phieuthu_view.tpl';
-		if($_GET['dialog']=='print')
+		if(@$_GET['dialog']=='print')
 		{
 			@$this->layout='layout/print';
 		}
@@ -196,7 +196,7 @@ class ControllerAddonPhieuthu extends Controller
 			$month = @$this->date->getMonth($now);
 			$data['prefix'] = $month.$year."PT";
 			$data['quidoi'] = @$this->document->toVND(@$this->string->toNumber($data['sotien']),$data['donvi']);
-			if($data['maphieu']=="")
+			if(@$data['maphieu']=="")
 			{
 				$data['maphieu'] = @$this->model_addon_thuchi->insert($data);	
 			}

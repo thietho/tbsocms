@@ -100,7 +100,7 @@ class ControllerCorePostlist extends Controller
 		
 		$sitemap = @$this->model_core_sitemap->getItem($sitemapid, $siteid);
 		@$this->data['sitemap'] = $sitemap;
-		if($sitemapid != "")
+		if(@$sitemapid != "")
 			$sitemapid = @$this->request->get['sitemapid'];
 		else
 			@$this->response->redirect("?route=core/media");
@@ -138,11 +138,11 @@ class ControllerCorePostlist extends Controller
 		@$this->data = array_merge(@$this->data, @$this->language->getData());
 		//Get list
 		$where = " AND refersitemap like '%[".$sitemapid."]%'";
-		if($code)
+		if(@$code)
 			$where .= " AND code like '".$code."%'";
-		if($sizes)
+		if(@$sizes)
 			$where .= " AND sizes like '%".$sizes."%'";
-		if($title)
+		if(@$title)
 			$where .= " AND title like '%".$title."%'";
 		$where .= " Order by position, statusdate DESC";
 		$rows = @$this->model_core_media->getList($where);

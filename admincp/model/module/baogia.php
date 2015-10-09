@@ -22,7 +22,7 @@ class ModelModuleBaogia extends ModelCoreFile
 		$sql = "Select `baogia`.* 
 									from `baogia` 
 									where 1=1 " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -97,7 +97,7 @@ class ModelModuleBaogia extends ModelCoreFile
 		$sql = "Select `baogia_media`.* 
 									from `baogia_media` 
 									where 1=1 " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

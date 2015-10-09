@@ -168,7 +168,7 @@ class ControllerAddonPhieuchi extends Controller
 		
 		@$this->id='content';
 		@$this->template='addon/phieuchi_view.tpl';
-		if($_GET['dialog']=='print')
+		if(@$_GET['dialog']=='print')
 		{
 			@$this->layout='layout/print';
 		}
@@ -200,7 +200,7 @@ class ControllerAddonPhieuchi extends Controller
 
 			
 			$data['quidoi'] = @$this->document->toVND(@$this->string->toNumber($data['sotien']),$data['donvi']);
-			if($data['maphieu']=="")
+			if(@$data['maphieu']=="")
 			{
 				$data['maphieu'] = @$this->model_addon_thuchi->insert($data);	
 			}

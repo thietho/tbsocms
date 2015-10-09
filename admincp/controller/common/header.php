@@ -10,7 +10,7 @@ class ControllerCommonHeader extends Controller
 		@$this->data['language'] = @$this->getLanguageCBX();
 		$imagepath = @$this->model_core_media->getInformation("setting","brochure");
 		@$this->loadGroup();
-		if($imagepath != "")
+		if(@$imagepath != "")
 		{
 			@$this->data['imagepreview'] = "<img class='png' src='".HelperImage::resizePNG($imagepath, 150, 70)."' >";
 		}

@@ -23,7 +23,7 @@ class ModelQuanlykhoHoahong extends Model
 		$sql = "Select `qlkhoahong`.* 
 									from `qlkhoahong` 
 									where 1=1 " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

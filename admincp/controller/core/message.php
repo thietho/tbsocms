@@ -29,7 +29,7 @@ class ControllerCoreMessage extends Controller
 		
 		@$this->data['message'] = @$this->model_core_message->getItem($messageid);
 		
-		if($messageid)
+		if(@$messageid)
 			@$this->data['title'] = "Re: ".@$this->data['message']['title'];
     
     	@$this->getForm();
@@ -235,17 +235,17 @@ class ControllerCoreMessage extends Controller
 	private function validateForm($data)
 	{
     	$error = array();
-		if($data['to']=="")
+		if(@$data['to']=="")
 		{
 			$error['to'] = "Bạn chưa nhập thông tin gửi đến";
 		}
 		
-		if($data['title'] =="")
+		if(@$data['title'] =="")
 		{
 			$error['title'] = "Bạn chưa nhập tiêu đề";
 		}
 		
-		if($data['description']=="")
+		if(@$data['description']=="")
 		{
 			$error['description'] = "Bạn chưa nhập nội dung";
 		}

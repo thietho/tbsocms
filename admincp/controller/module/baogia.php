@@ -49,7 +49,7 @@ class ControllerModuleProduct extends Controller
 		$sitemapid = urldecode(@$this->request->get['sitemapid']);
 		@$this->data['sitemapid'] = $sitemapid;
 		$siteid = @$this->user->getSiteId();
-		if($sitemapid == "")
+		if(@$sitemapid == "")
 		{
 			
 		}
@@ -61,7 +61,7 @@ class ControllerModuleProduct extends Controller
 		}
 		$arr = array();
 		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
-		if($sitemapid)
+		if(@$sitemapid)
 			foreach($arrsitemapid as $sitemapid)
 			{
 				$arr[] = " refersitemap like '%[".$sitemapid."]%'";
@@ -72,7 +72,7 @@ class ControllerModuleProduct extends Controller
 		$keyword = urldecode(@$this->request->get['keyword']);
 		@$arrkey = split(' ', $keyword);
 		
-		if($keyword !="")
+		if(@$keyword !="")
 		{
 			$arr = array();
 			$arrcode = array();
@@ -124,12 +124,12 @@ class ControllerModuleProduct extends Controller
 			
 		}
 		$brand = urldecode(@$this->request->get['brand']);
-		if($brand !="")
+		if(@$brand !="")
 		{
 			$where .= " AND brand like '".$brand."'";
 		}
 		$status = urldecode(@$this->request->get['status']);
-		if($status !="")
+		if(@$status !="")
 		{
 			$where .= " AND groupkeys like '%[".$status."]%'";
 		}
@@ -202,7 +202,7 @@ class ControllerModuleProduct extends Controller
 			{
 				foreach($arr as $status)
 				{	
-					if($status)
+					if(@$status)
 						$arrstatus[] = @$this->document->getCategory($status);
 				}
 			}
@@ -221,9 +221,9 @@ class ControllerModuleProduct extends Controller
 			}
 			@$this->data['medias'][$i]['child'] = $data_child;
 			$parapage = "";
-			if($page)
+			if(@$page)
 				$parapage = "&page=".$page;
-			if($page)
+			if(@$page)
 				
 			@$this->data['medias'][$i]['link_edit'] = @$this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.@$this->data['medias'][$i]['mediaid'].$parapage);
 			@$this->data['medias'][$i]['text_edit'] = "Edit";
@@ -249,7 +249,7 @@ class ControllerModuleProduct extends Controller
 		$sitemapid = urldecode(@$this->request->get['sitemapid']);
 		@$this->data['sitemapid'] = $sitemapid;
 		$siteid = @$this->user->getSiteId();
-		if($sitemapid == "")
+		if(@$sitemapid == "")
 		{
 			
 		}
@@ -261,7 +261,7 @@ class ControllerModuleProduct extends Controller
 		}
 		$arr = array();
 		$where = " AND mediaparent = '' AND mediatype = 'module/product' ";
-		if($sitemapid)
+		if(@$sitemapid)
 			foreach($arrsitemapid as $sitemapid)
 			{
 				$arr[] = " refersitemap like '%[".$sitemapid."]%'";
@@ -274,12 +274,12 @@ class ControllerModuleProduct extends Controller
 		
 		
 		$brand = urldecode(@$this->request->get['brand']);
-		if($brand !="")
+		if(@$brand !="")
 		{
 			$where .= " AND brand like '".$brand."'";
 		}
 		$status = urldecode(@$this->request->get['status']);
-		if($status !="")
+		if(@$status !="")
 		{
 			$where .= " AND groupkeys like '%[".$status."]%'";
 		}
@@ -350,9 +350,9 @@ class ControllerModuleProduct extends Controller
 			}
 			@$this->data['medias'][$i]['child'] = $data_child;
 			$parapage = "";
-			if($page)
+			if(@$page)
 				$parapage = "&page=".$page;
-			if($page)
+			if(@$page)
 				
 			@$this->data['medias'][$i]['link_edit'] = @$this->url->http('module/product/update&sitemapid='.$sitemap['sitemapid'].'&mediaid='.@$this->data['medias'][$i]['mediaid'].$parapage);
 			@$this->data['medias'][$i]['text_edit'] = "Edit";
@@ -432,12 +432,12 @@ class ControllerModuleProduct extends Controller
 		
 		foreach($sitemaps as $item)
 		{
-			//if($item['moduleid'] == "module/product")
+			//if(@$item['moduleid'] == "module/product")
 			{
 				$childs = @$this->model_core_sitemap->getListByParent($item['sitemapid'], $siteid);
 				
 				$link = "<a>".$item['sitemapname']."</a> ";
-				if($item['moduleid'] == "module/product")
+				if(@$item['moduleid'] == "module/product")
 				{
 					$link = "<a href='?route=".$item['moduleid']."&sitemapid=".$item['sitemapid']."'>".$item['sitemapname']."</a> ";
 					if(@$this->user->checkPermission("module/product/addcat")==true)
@@ -587,7 +587,7 @@ class ControllerModuleProduct extends Controller
 			foreach($data_nhapkho as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					@$this->data['nhapxuat'][$date]['nhapkho'][] = $item;
 				}
@@ -595,7 +595,7 @@ class ControllerModuleProduct extends Controller
 			foreach($data_xuatkho as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					@$this->data['nhapxuat'][$date]['xuatkho'][] = $item;
 				}
@@ -623,7 +623,7 @@ class ControllerModuleProduct extends Controller
 		//$inputFileName = 'GuiHangChoHo_20131002.xls';
 		
 		$inputFileName = $_FILES['fileimport']['tmp_name'];
-		if($ext =='xls')
+		if(@$ext =='xls')
 			$objReader = new PHPExcel_Reader_Excel5();
 		else
 			$objReader = new PHPExcel_Reader_Excel2007();
@@ -701,7 +701,7 @@ class ControllerModuleProduct extends Controller
 			$arrsitemapname = array();
 			foreach($arrsitemapid as $sitemapid)
 			{
-				if($sitemapid)
+				if(@$sitemapid)
 					$arrsitemapname[] = @$this->document->getSiteMap($sitemapid,@$this->user->getSiteId());
 			}
 			$danhmuc = "";

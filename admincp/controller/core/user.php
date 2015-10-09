@@ -92,14 +92,14 @@ class ControllerCoreUser extends Controller
 		
 		$data['userid'] = $userid;
 		$user=@$this->model_core_user->getItem($userid);
-		if($user['status'] == "lock")
+		if(@$user['status'] == "lock")
 			$data['status'] = "active";
 		else
 			$data['status'] = "lock";
 		@$this->model_core_user->updatestatus($data);
-		if($data['status'] == "active")
+		if(@$data['status'] == "active")
 			@$this->data['output']= @$this->data['announ_active'];
-		if($data['status'] == "lock")
+		if(@$data['status'] == "lock")
 			@$this->data['output']= @$this->data['announ_lock'];
 		@$this->id="content";
 		@$this->template="common/output.tpl";

@@ -236,7 +236,7 @@ class ControllerCoreCategory extends Controller
 				$tab="<span class='tab'></span>";
 		
 			$class="";
-			if($item['parentpath']!="")
+			if(@$item['parentpath']!="")
 				$class=$eclass.$item['parentpath'];
 				
 			@$this->data["datas"][]=array(
@@ -312,7 +312,7 @@ class ControllerCoreCategory extends Controller
 	
 	private function validateForm($data)
 	{
-		if($data['id'] == "")
+		if(@$data['id'] == "")
 		{
 			if(@$this->validation->_isId(trim($data['categoryid'])) == false)
 			{

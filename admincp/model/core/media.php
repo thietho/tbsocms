@@ -68,7 +68,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$sql = "Select `media`.* 
 									from `media` 
 									where status not like 'delete' AND temp not like 'temp'  " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -82,7 +82,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$sql = "Select `media`.* 
 									from `media` 
 									where status not like 'delete' " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -115,7 +115,7 @@ class ModelCoreMedia extends ModelCoreFile
 				$where .= " AND mediaparent ='".$item."'";
 			}
 		}
-		elseif($mediaparent != "%")
+		elseif(@$mediaparent != "%")
 		{
 			$where .= " AND mediaparent ='".$mediaparent."'";
 		}
@@ -128,13 +128,13 @@ class ModelCoreMedia extends ModelCoreFile
 				$where .= " AND mediatype ='".$item."'";
 			}
 		}
-		elseif($mediatype != "%")
+		elseif(@$mediatype != "%")
 		{
 			$where .= " AND mediatype ='".$mediatype."'";
 		}
 		
 		//Date
-		if($month != "" && $day != "" && $year != "")
+		if(@$month != "" && $day != "" && $year != "")
 		{
 			$php_start_time = mktime(0,0,0, $month, $day, $year);
 			$php_end_time = $php_start_time + (24 * 60 * 60); // Add 1 day to start date.
@@ -154,7 +154,7 @@ class ModelCoreMedia extends ModelCoreFile
 			
 			$where .= "AND (". implode($arr," OR ").")";
 		}
-		elseif($refersitemap != "%")
+		elseif(@$refersitemap != "%")
 		{
 			$where .= " AND refersitemap like '%[".$refersitemap."]%'";
 		}
@@ -292,7 +292,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$date = getdate();
 		
 		$mediaid = @$this->db->escape(@$data['mediaid']);
-		if($mediaid == "")
+		if(@$mediaid == "")
 			$mediaid = @$this->nextID($date['year'].@$this->date->numberFormate($date['mon']));
 		$code = @$this->db->escape(@$data['code']);
 		$sizes = @$this->db->escape(@$data['sizes']);
@@ -511,7 +511,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$media = @$this->getItem($data['mediaid']);
 		
 		$date = getdate();
-		if($data['mediaid'] == "")
+		if(@$data['mediaid'] == "")
 				$data['mediaid'] = @$this->nextID($date['year'].@$this->date->numberFormate($date['mon']));
 		$data['price']=@$this->db->escape(@$this->string->toNumber($data['price']));
 		$data['discountpercent']=@$this->db->escape(@$this->string->toNumber($data['discountpercent']));
@@ -638,7 +638,7 @@ class ModelCoreMedia extends ModelCoreFile
 		$statusdate = @$this->date->getToday();
 		$statusby=@$this->user->getId();
 		
-		if($mediaid != "")
+		if(@$mediaid != "")
 		{
 			$sql = "Update `media` set status='".$status."', statusdate='".$statusdate."', statusby='".$statusby."' where mediaid = '".$mediaid."'";
 			@$this->db->query($sql);
@@ -647,7 +647,7 @@ class ModelCoreMedia extends ModelCoreFile
 	
 	public function removeSitemap($mediaid, $sitemapid)
 	{	
-		if($mediaid != "")
+		if(@$mediaid != "")
 		{
 			$media = @$this->getItem($mediaid);
 			$refersitemap = @$this->getReferSitemapString($sitemapid, $media['refersitemap'], "delete");
@@ -667,11 +667,11 @@ class ModelCoreMedia extends ModelCoreFile
 	{
 		$sitemapid = "[".$sitemapid."]";
 		$pos = strrpos($oldReferSitemap, $sitemapid);
-		if ($pos === false) {
-			if($type=="add"){ 
+		if(@$pos === false) {
+			if(@$type=="add"){ 
 				$oldReferSitemap .= $sitemapid;
 			}
-		}elseif($type=="delete")
+		}elseif(@$type=="delete")
 		{
 			$oldReferSitemap = str_replace($sitemapid, "", $oldReferSitemap);
 		}
@@ -683,7 +683,7 @@ class ModelCoreMedia extends ModelCoreFile
 	{
 		$step = (int)$step;
 		$result = array();
-		if($index > -1)
+		if(@$index > -1)
 		{
 			$alink = "";
 			$newstep = $step + 1;

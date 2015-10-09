@@ -95,7 +95,7 @@ class ModelCoreFile extends Model
 	
 	public function updateFileTemp($imageid)
 	{
-		if($imageid != "")
+		if(@$imageid != "")
 		{
 			$sql = "Update `file` set tagkeyword='' where fileid = '".$imageid."'";
 			@$this->db->query($sql);
@@ -213,7 +213,7 @@ class ModelCoreFile extends Model
 	public function checkExtension($ext, $filetypeid="any")
 	{
 		@$this->load->model("core/filetype");
-		if($filetypeid=="any" || $filetypeid="")
+		if(@$filetypeid=="any" || $filetypeid="")
 			return true;
 		
 		$flag=false;		
@@ -279,7 +279,7 @@ class ModelCoreFile extends Model
 			//get width + height cua file image
 			$width=0;//default = 0
 			$height=0;
-			if($filetypeid=="image")
+			if(@$filetypeid=="image")
 			{
 				$size = getimagesize($file['tmp_name']);
 				$width=$size[0];
@@ -300,7 +300,7 @@ class ModelCoreFile extends Model
 				foreach($listdir as $dir)
 				{
 					
-					if($dir!="")
+					if(@$dir!="")
 					{
 						$path.=$dir."/";
 						if (! is_dir($path))
@@ -350,11 +350,11 @@ class ModelCoreFile extends Model
 		switch($filetypeid)
 		{
 			case "image":
-				if($extension != "jpg" && $extension != "png" && $extension != "gif" && $extension != "bmp" && $extension != "jpeg")
+				if(@$extension != "jpg" && $extension != "png" && $extension != "gif" && $extension != "bmp" && $extension != "jpeg")
 				{
 					return false;
 				}
-				elseif($filesize > 2048)
+				elseif(@$filesize > 2048)
 				{
 					return false;
 				}
@@ -378,7 +378,7 @@ class ModelCoreFile extends Model
 			//get width + height cua file image
 			$width=0;//default = 0
 			$height=0;
-			if($data['filetypeid']==1)
+			if(@$data['filetypeid']==1)
 			{
 				$size = getimagesize($file['tmp_name']);
 				$width=$size[0];
@@ -393,7 +393,7 @@ class ModelCoreFile extends Model
 				foreach($listdir as $dir)
 				{
 					
-					if($dir!="")
+					if(@$dir!="")
 					{
 						$path.=$dir."/";
 						if (! is_dir($path))
@@ -411,7 +411,7 @@ class ModelCoreFile extends Model
 					$count++;
 				}
 				$datafile['filepath'].=$datafile['filename'];
-				if($data['fileid']=="" || $data['fileid']==0)
+				if(@$data['fileid']=="" || $data['fileid']==0)
 				{
 					$datafile['fileid']=@$this->model_core_file->nextID();
 					
@@ -622,9 +622,9 @@ class ModelCoreFile extends Model
 		
 		$arr['countchild'] = count(rows);
 		
-		if($arr['folderparent'] != 0) $parentpath .= "-".$arr['folderparent'];
+		if(@$arr['folderparent'] != 0) $parentpath .= "-".$arr['folderparent'];
 		
-		if($id!=0 && $id !=$notid)
+		if(@$id!=0 && $id !=$notid)
 		{
 			$level += 1;
 			$path .= "-".$id;

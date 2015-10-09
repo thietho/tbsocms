@@ -101,7 +101,7 @@ class ControllerCommonSitemapmenu extends Controller
 			}
 			
 			
-			if($item['moduleid'] != "group" && $item['moduleid'] != "homepage")
+			if(@$item['moduleid'] != "group" && $item['moduleid'] != "homepage")
 			{
 				$link='<a href="?route='.$item['moduleid']."&sitemapid=".$item['sitemapid'].'" title="[Detail]">'.$item['sitemapname'].'</a>';
 			}

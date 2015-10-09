@@ -29,13 +29,13 @@ class ModelQuanlykhoNhacungcap extends Model
 		$sql = "Select `qlknhacungcap`.*
 									from `qlknhacungcap` 
 									where 1=1 " . $where;
-		if($order=="")
+		if(@$order=="")
 		{
 			$order = " Order by tennhacungcap";
 			
 		}
 		$sql.=$order;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

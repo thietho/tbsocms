@@ -55,7 +55,7 @@ class ControllerCoreMedia extends Controller
 		$tungay = urldecode(@$this->request->get['tungay']);
 		$denngay = urldecode(@$this->request->get['denngay']);
 		
-		/*if($keyword != '')
+		/*if(@$keyword != '')
 		{
 			$where .= "AND ( 
 							title like '%".$keyword."%' 
@@ -65,7 +65,7 @@ class ControllerCoreMedia extends Controller
 		}*/
 		@$arrkey = split(' ', $keyword);
 		$where = "";
-		if($keyword !="")
+		if(@$keyword !="")
 		{
 			$arr = array();
 			foreach($arrkey as $key)
@@ -76,7 +76,7 @@ class ControllerCoreMedia extends Controller
 			//$where .= " AND ( title like '%".$keyword."%' OR summary like '%".$keyword."%' OR description like '%".$keyword."%')";
 		}
 		
-		if($type!="")
+		if(@$type!="")
 		{
 			$arr = array();
 			$sitemaps = @$this->model_core_sitemap->getListByModule($type,@$this->user->getSiteId());
@@ -86,19 +86,19 @@ class ControllerCoreMedia extends Controller
 			}
 			$where .= "AND (". implode($arr," OR ").")";
 		}
-		if($sitemapid!="")
+		if(@$sitemapid!="")
 		{
 			$where .= " AND refersitemap like '%[".$sitemapid."]%'";	
 		}
-		if($userid!="")
+		if(@$userid!="")
 		{
 			$where .= " AND userid = '".$userid."'";	
 		}
-		if($tungay!="")
+		if(@$tungay!="")
 		{
 			$where .= " AND statusdate >= '".@$this->date->formatViewDate($tungay)."'";	
 		}
-		if($denngay!="")
+		if(@$denngay!="")
 		{
 			$where .= " AND statusdate < '".@$this->date->formatViewDate($denngay)." 24:00:00'";	
 		}
@@ -139,7 +139,7 @@ class ControllerCoreMedia extends Controller
 			@$this->data['medias'][$i]['typename'] = @$this->model_core_sitemap->getModuleName($sitemap['moduleid']);
 			
 			
-			if($sitemap['moduleid']!="")
+			if(@$sitemap['moduleid']!="")
 			{
 				$listsitemapname = array();
 				foreach($arr as $item)
@@ -218,7 +218,7 @@ class ControllerCoreMedia extends Controller
 		{
 			//Lay lai danh muc
 			$refersitemap = $data['refersitemap'];
-			if($refersitemap!="")
+			if(@$refersitemap!="")
 			{
 				@$arrsitemapname = split(',',$refersitemap);
 				$arrsitemapid = array();
@@ -234,7 +234,7 @@ class ControllerCoreMedia extends Controller
 			$data['refersitemap'] = $refersitemap;
 			//Lay nhan hieu
 			$brand = $data['brand'];
-			if($brand!="")
+			if(@$brand!="")
 			{
 				$where = " AND categoryname = '".$brand."'";
 				$data_ca = @$this->model_core_category->getList($where);
@@ -243,7 +243,7 @@ class ControllerCoreMedia extends Controller
 			$data['brand'] = $brand;
 			//Don vi
 			$unit = $data['unit'];
-			if($unit!="")
+			if(@$unit!="")
 			{
 				$where = " AND tendonvitinh	 = '".$unit."'";
 				$data_unit = @$this->model_quanlykho_donvitinh->getList($where);
@@ -253,13 +253,13 @@ class ControllerCoreMedia extends Controller
 			//Sale price
 			$saleprice = $data['saleprice'];
 			$arrsaleprice = array();
-			if($saleprice!="")
+			if(@$saleprice!="")
 			{
 				@$arr = split(',',$saleprice);
 				
 				foreach($arr as $val)
 				{
-					if($val!="")
+					if(@$val!="")
 					{
 						@$ar = split('-',$val);
 						
@@ -309,7 +309,7 @@ class ControllerCoreMedia extends Controller
 	}
 	private function validateImportProduct($data)
 	{
-		if ($data['title'] == "")
+		if(@$data['title'] == "")
 		{
 			@$this->error['title'] = "Bạn chưa nhập tên sản phẩm";
 		}
@@ -321,11 +321,11 @@ class ControllerCoreMedia extends Controller
 	}
 	function validateAddProductQuick($data)
 	{
-		if ($data['title'] == "")
+		if(@$data['title'] == "")
 		{
 			@$this->error['title'] = "Bạn chưa nhập tên sản phẩm";
 		}
-		if ($data['unit'] == "")
+		if(@$data['unit'] == "")
 		{
 			@$this->error['unit'] = "Bạn chưa chọn đơn vị tính";
 		}
@@ -440,7 +440,7 @@ class ControllerCoreMedia extends Controller
 		@$col = urldecode(@$this->request->get['col']);
 		@$val = urldecode(@$this->request->get['val']);
 		@$operator = @$this->request->get['operator'];
-		if($operator == "")
+		if(@$operator == "")
 			$operator = "equal";
 		
 		$where = "";
@@ -479,7 +479,7 @@ class ControllerCoreMedia extends Controller
 		$keyword = urldecode(@$this->request->get['term']);
 		@$arrkey = split(' ', $keyword);
 		$where = " AND mediatype = 'module/product' ";
-		if($keyword !="")
+		if(@$keyword !="")
 		{
 			$arr = array();
 			$arrid = array();

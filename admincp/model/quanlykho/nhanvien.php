@@ -26,7 +26,7 @@ class ModelQuanlykhoNhanvien extends Model
 		$sql = "Select `qlknhanvien`.*
 									from `qlknhanvien` 
 									where trangthai <> 'deleted' " . $where . " Order by id";
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

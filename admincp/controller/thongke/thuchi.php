@@ -28,7 +28,7 @@ class ControllerThongkeThuchi extends Controller
 		$tungay = @$this->date->formatViewDate($data['tungay']);
 		$denngay = @$this->date->formatViewDate($data['denngay']);
 		@$this->data = @$this->xuly($tungay,$denngay);
-		if($tungay)
+		if(@$tungay)
 		{
 			$data_kytruoc = @$this->xuly("",@$this->date->addday($tungay, -1));
 			@$this->data['tonkytruoc'] = $data_kytruoc['tontrongky'];
@@ -55,22 +55,22 @@ class ControllerThongkeThuchi extends Controller
 		
 		$arrdate = array();
 		/*$where = " AND qlkphieunhapxuat.loaiphieu = 'PBH'";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}*/
 		//Thu
 		//Thong ke phieu thu
 		$where = " AND loaithuchi = 'thu'";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -87,11 +87,11 @@ class ControllerThongkeThuchi extends Controller
 		
 		//Thong ke phieu ban hang
 		$where = " AND loaiphieu = 'PBH'";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -110,11 +110,11 @@ class ControllerThongkeThuchi extends Controller
 		//Chi
 		//Thong ke phieu chi
 		$where = " AND loaithuchi = 'chi'";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -129,11 +129,11 @@ class ControllerThongkeThuchi extends Controller
 		}
 		//Thong ke pheu nhap hang
 		$where = " AND loaiphieu in ('NK','NK-KHTL')";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -160,7 +160,7 @@ class ControllerThongkeThuchi extends Controller
 			foreach($data_thu as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					$arr = array(
 								'maphieu' => $item['sophieu'],
@@ -177,7 +177,7 @@ class ControllerThongkeThuchi extends Controller
 			foreach($data_banhang as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					$arr = array(
 								'maphieu' => '<a onclick="objdl.viewPX('.$item['id'].')">'.$item['maphieu'].'</a>',
@@ -196,7 +196,7 @@ class ControllerThongkeThuchi extends Controller
 			foreach($data_chi as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					$arr = array(
 								'maphieu' => $item['sophieu'],
@@ -213,7 +213,7 @@ class ControllerThongkeThuchi extends Controller
 			foreach($data_nhaphang as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					$arr = array(
 								'maphieu' => '<a onclick="objdl.viewPN('.$item['id'].')">'.$item['maphieu'].'</a>',

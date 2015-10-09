@@ -18,7 +18,7 @@ class ControllerCommonApi extends Controller
 			$temp = $alias.'-'.$index;
 			$media = @$this->model_core_media->getByAlias($temp);
 		}	
-		if($index)
+		if(@$index)
 			@$this->data['output'] = $alias.'-'.$index;
 		else
 			@$this->data['output'] = $alias;
@@ -46,7 +46,7 @@ class ControllerCommonApi extends Controller
 			$where = " AND sitemapid = '".$temp."'";
 			$data_sitemap = @$this->model_core_sitemap->getList(@$this->user->getSiteId(),$where);
 		}	
-		if($index)
+		if(@$index)
 			@$this->data['output'] = $alias.'-'.$index;
 		else
 			@$this->data['output'] = $alias;

@@ -127,18 +127,18 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		$where .= implode("",$arr);
 		$tungay = @$this->date->formatViewDate(urldecode(@$this->request->get['tungay']));
-		if($tungay !="")
+		if(@$tungay !="")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
 		$denngay = @$this->date->formatViewDate(urldecode(@$this->request->get['denngay']));
-		if($denngay !="")
+		if(@$denngay !="")
 		{
 			$where .= " AND ngaylap <= '".$denngay." 23:59:59'";
 		}
@@ -186,9 +186,9 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	}
 	public function view($id ="")
 	{
-		if($id =="")
+		if(@$id =="")
 			$id = @$this->request->get['id'];
-		if($id) 
+		if(@$id) 
 		{
       		@$this->data['item'] = @$this->model_quanlykho_phieunhapxuat->getItem($id);
 			
@@ -197,7 +197,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$data = @$this->model_quanlykho_phieunhapxuat->getPhieuNhapXuatMediaList($where);
 			foreach($data as $key => $item)
 			{
-				if($item['xuattu'] == '')
+				if(@$item['xuattu'] == '')
 				{
 					@$this->data['data_nhapkho'][]=$item;
 					unset($data[$key]);
@@ -210,7 +210,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 					
 					foreach($data as $k =>$da)
 					{
-						if($da['mediaid'] == $item['mediaid'] && $da['giatien'] == $item['giatien'])
+						if(@$da['mediaid'] == $item['mediaid'] && $da['giatien'] == $item['giatien'])
 						{
 							@$this->data['data_nhapkho'][$key]['soluong'] += $da['soluong'];
 							@$this->data['data_nhapkho'][$key]['thanhtien'] += $da['thanhtien'];
@@ -229,9 +229,9 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		
 		@$this->id='content';
 		@$this->template='quanlykho/phieuxuat_view.tpl';
-		if($_GET['show']=="giamgia")
+		if(@$_GET['show']=="giamgia")
 			@$this->template='quanlykho/phieuxuat_view1.tpl';
-		if($_GET['opendialog'] == 'print')
+		if(@$_GET['opendialog'] == 'print')
 			@$this->layout="layout/print";
 		@$this->render();
 	}
@@ -244,7 +244,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		{
 			$arr = array($id);
 			@$this->data['output'].= @$this->loadModule('quanlykho/phieuxuat','view',$arr);
-			//if($key < count($arrid) - 1)
+			//if(@$key < count($arrid) - 1)
 				//@$this->data['output'] .= '<div style="page-break-after:always">&nbsp;</div>';
 		}
 		@$this->id='content';
@@ -255,7 +255,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	{
 		$id = @$this->request->get['id'];
 		
-		if($id) 
+		if(@$id) 
 		{
       		@$this->data['item'] = @$this->model_quanlykho_phieunhapxuat->getItem($id);
 			//@$this->data['item']['imagethumbnail'] = HelperImage::resizePNG(@$this->data['item']['imagepath'], 200, 200);
@@ -275,12 +275,12 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 					@$this->data['data_nhapkho'][$i]['mediaid']=$media['mediaid'];
 					@$this->data['data_nhapkho'][$i]['code']=$media['code'];
 					@$this->data['data_nhapkho'][$i]['title']=$media['title'];
-					if($media['color'])
+					if(@$media['color'])
 						@$this->data['data_nhapkho'][$i]['title'].= " - ".$media['color'];
 					@$this->data['data_nhapkho'][$i]['soluong']=$media['qty'];
 					@$this->data['data_nhapkho'][$i]['madonvi']=$media['unit'];
 					
-					/*if($media['pricepromotion'])
+					/*if(@$media['pricepromotion'])
 						$price = $media['pricepromotion'];*/
 					@$this->data['data_nhapkho'][$i]['giatien']=$media['price'];
 					@$this->data['data_nhapkho'][$i]['giamgia']=$media['pricepromotion'];
@@ -306,7 +306,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 			$nhanvien = @$this->user->getNhanVien();
 			$data['ngaylap'] = @$this->date->formatViewDate($data['ngaylap']);
 			$data['ngaythanhtoan'] = @$this->date->formatViewDate($data['ngaythanhtoan']);
-			if($data['nguoithuchien']=="")
+			if(@$data['nguoithuchien']=="")
 			{
 				$data['nguoithuchienid'] = $nhanvien['id'];
 				$data['nguoithuchien'] = $nhanvien['hoten'];
@@ -351,7 +351,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 		//Xoa dinh luong
 		$data = @$this->request->post;
 		$delnhapkho = $data['delnhapkho'];
-		if($delnhapkho)
+		if(@$delnhapkho)
 		{
 			@$arr_nhapkhoid = split(",",$delnhapkho);
 			if(count($arr_nhapkhoid))
@@ -375,7 +375,7 @@ class ControllerQuanlykhoPhieuxuat extends Controller
 	{
 		//Save chi tiet phieu nhap
 		$data = @$this->request->post;
-		if($data['mediaid'])
+		if(@$data['mediaid'])
 		{
 			
 			$data['id'] = @$this->model_quanlykho_phieunhapxuat->savePhieuNhapXuatMedia($data);

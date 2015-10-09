@@ -174,7 +174,7 @@ class ModelCoreCategory extends Model
 		
 		$rows = $this->getChild($id);
 		
-		@$arr['countchild'] = count(rows);
+		@$arr['countchild'] = count($rows);
 		
 		if($arr['parent'] != "") 
 			$parentpath .= "-".$arr['parent'];

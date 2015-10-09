@@ -75,7 +75,7 @@ class ControllerSalesSale extends Controller
 			foreach($data as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					$data_order[$date][] = $item;
 				}
@@ -111,18 +111,18 @@ class ControllerSalesSale extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
 		$where .= implode("",$arr);
 		$tungay = @$this->date->formatViewDate(urldecode(@$this->request->get['tungay']));
-		if($tungay !="")
+		if(@$tungay !="")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
 		$denngay = @$this->date->formatViewDate(urldecode(@$this->request->get['denngay']));
-		if($denngay !="")
+		if(@$denngay !="")
 		{
 			$where .= " AND ngaylap <= '".$denngay." 23:59:59'";
 		}
@@ -168,14 +168,14 @@ class ControllerSalesSale extends Controller
 		$sitemapid = urldecode(@$this->request->get['sitemapid']);
 		@$this->data['sitemapid'] = $sitemapid;
 		$siteid = @$this->user->getSiteId();
-		if($sitemapid != "")
+		if(@$sitemapid != "")
 		{
 			$data = array();
 			$sitemaps = @$this->model_core_sitemap->getTreeSitemap($sitemapid,$data,$siteid);
 			$arrsitemapid = @$this->string->matrixToArray($data,"sitemapid");
 		}
 		$arr = array();
-		if($sitemapid)
+		if(@$sitemapid)
 			foreach($arrsitemapid as $sitemapid)
 			{
 				$arr[] = " refersitemap like '%[".$sitemapid."]%'";
@@ -186,7 +186,7 @@ class ControllerSalesSale extends Controller
 		$keyword = urldecode(@$this->request->get['keyword']);
 		@$arrkey = split(' ', $keyword);
 		
-		if($keyword !="")
+		if(@$keyword !="")
 		{
 			$arr = array();
 			$arrcode = array();
@@ -235,7 +235,7 @@ class ControllerSalesSale extends Controller
 			
 		}
 		$brand = urldecode(@$this->request->get['brand']);
-		if($brand !="")
+		if(@$brand !="")
 		{
 			$where .= " AND brand like '".$brand."'";
 		}
@@ -279,7 +279,7 @@ class ControllerSalesSale extends Controller
 			$nhanvien = @$this->user->getNhanVien();
 			$data['ngaylap'] = @$this->date->formatViewDate($data['ngaylap']);
 			$data['ngaythanhtoan'] = @$this->date->formatViewDate($data['ngaythanhtoan']);
-			if($data['nguoithuchien']=="")
+			if(@$data['nguoithuchien']=="")
 			{
 				$data['nguoithuchienid'] = $nhanvien['id'];
 				$data['nguoithuchien'] = $nhanvien['hoten'];
@@ -290,7 +290,7 @@ class ControllerSalesSale extends Controller
 			
 			//Xoa dinh luong
 			$delnhapkho = $data['delnhapkho'];
-			if($delnhapkho)
+			if(@$delnhapkho)
 			{
 				@$arr_nhapkhoid = split(",",$delnhapkho);
 				if(count($arr_nhapkhoid))
@@ -380,7 +380,7 @@ class ControllerSalesSale extends Controller
 	
 	private function validateForm($data)
 	{
-		/*if($data['congno']!=0 && $data['trangthai'] == 'delivered')
+		/*if(@$data['congno']!=0 && $data['trangthai'] == 'delivered')
 		{
 			@$this->error['trangthai'] = 'Đơn hàng chưa thanh toán!';
 		}*/
@@ -427,7 +427,7 @@ class ControllerSalesSale extends Controller
 			foreach($data_nhap as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					@$this->data['nhapxuat'][$date]['nhap'][] = $item;
 				}
@@ -435,7 +435,7 @@ class ControllerSalesSale extends Controller
 			foreach($data_xuat as $item)
 			{
 				$ngaylap = @$this->date->getDate($item['ngaylap']);
-				if($ngaylap == $date)
+				if(@$ngaylap == $date)
 				{
 					@$this->data['nhapxuat'][$date]['xuat'][] = $item;
 				}

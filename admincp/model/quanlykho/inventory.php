@@ -23,7 +23,7 @@ class ModelQuanlykhoInventory extends Model
 		$sql = "Select `inventory`.* 
 									from `inventory` 
 									where 1=1 " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -99,7 +99,7 @@ class ModelQuanlykhoInventory extends Model
 		$sql = "Select `inventory_detail`.* 
 									from `inventory_detail` 
 									where 1=1 " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

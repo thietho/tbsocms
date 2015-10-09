@@ -30,7 +30,7 @@ class ModelCoreCategory extends Model
 		$sql = "Select `category`.* 
 									from `category` 
 									where 1=1 " . $where . $order;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -192,10 +192,10 @@ class ModelCoreCategory extends Model
 		
 		@$arr['countchild'] = count($rows);
 		
-		if($arr['parent'] != "") 
+		if(@$arr['parent'] != "") 
 			$parentpath .= "-".$arr['parent'];
 		
-		if($id!="" )
+		if(@$id!="" )
 		{
 			$level += 1;
 			$path .= "-".$id;

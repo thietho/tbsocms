@@ -91,7 +91,7 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '".$item."%'";
 		}
 		
@@ -143,7 +143,7 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 	
 	public function getCongNo($id='')
 	{
-		if($id=="")
+		if(@$id=="")
 			$id=@$this->request->get['nhacungcapid'];
 		
 		@$this->data['nhacungcap'] = @$this->model_quanlykho_nhacungcap->getItem($id);
@@ -186,7 +186,7 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 			@$this->data['congno'] = $congno;
 			@$this->id='content';
 			@$this->template="quanlykho/nhacungcap_congno.tpl";
-			if($_GET['dialog']=='print')
+			if(@$_GET['dialog']=='print')
 			{
 				@$this->layout='layout/print';
 			}
@@ -206,7 +206,7 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 	{
 		@$this->data['DIR_UPLOADPHOTO'] = HTTP_SERVER."index.php?route=common/uploadpreview";
 		$sanphamid = @$this->request->get['id'];
-		if($sanphamid) 
+		if(@$sanphamid) 
 		{
 			
       		@$this->data['item'] = @$this->model_quanlykho_nhacungcap->getItem(@$this->request->get['id']);
@@ -248,18 +248,18 @@ class ControllerQuanlykhoNhaCungcap extends Controller
 	
 	private function validateForm($data)
 	{
-    	if($data['tennhacungcap'] == "")
+    	if(@$data['tennhacungcap'] == "")
 		{
       		@$this->error['tennhacungcap'] = "Bạn chưa nhập tên nhà cung cấp";
     	}
-		if($data['email'])
+		if(@$data['email'])
 		{
 			if (@$this->validation->_checkEmail(@$this->request->post['email']) == false ) 
 			{
 				@$this->error['email'] = "Email khong đúng định dạng";
 			}
 		}
-		if($data['emailnguoilienhe'])
+		if(@$data['emailnguoilienhe'])
 		{
 			if (@$this->validation->_checkEmail(@$this->request->post['emailnguoilienhe']) == false ) 
 			{

@@ -19,7 +19,7 @@ class ControllerCommonCountry extends Controller
 		foreach($zones as $item)
 		{
 			$sel="";
-			if($selectzone == $item['zoneid'])
+			if(@$selectzone == $item['zoneid'])
 				$sel='selected="selected"';
 			@$this->data['output'].="<option value='".$item['zoneid']."' ".$sel.">".$item['zonename']."</option>";
 		}

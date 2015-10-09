@@ -81,14 +81,14 @@ class ControllerCoreMember extends Controller
 		
 		$data['id'] = $id;
 		$user=@$this->model_core_user->getId($id);
-		if($user['status'] == "lock")
+		if(@$user['status'] == "lock")
 			$data['status'] = "active";
 		else
 			$data['status'] = "lock";
 		@$this->model_core_user->updateCol($id,'status',$data['status']);
-		if($data['status'] == "active")
+		if(@$data['status'] == "active")
 			@$this->data['output']="Kích hoạt thành công";
-		if($data['status'] == "lock")
+		if(@$data['status'] == "lock")
 			@$this->data['output']="User đã bị khóa";
 		@$this->id="content";
 		@$this->template="common/output.tpl";
@@ -200,21 +200,21 @@ class ControllerCoreMember extends Controller
 	
 	public function getCongNo($id='',$tungay='',$denngay='')
 	{
-		if($id=="")
+		if(@$id=="")
 			$id=@$this->request->get['khachhangid'];
-		if($tungay=="")
+		if(@$tungay=="")
 			$tungay=@$this->request->get['tungay'];
-		if($denngay=="")
+		if(@$denngay=="")
 			$dennngay=@$this->request->get['dennngay'];
 		
 		@$this->data['user'] = @$this->model_core_user->getId($id);
 		//Lay tat ca phieu thu cong no
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'thuno'";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap > '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -227,11 +227,11 @@ class ControllerCoreMember extends Controller
 		}
 		//Lay tat ca phieu thu vay no
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'thu' AND taikhoanthuchi = 'credit'";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap > '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -243,11 +243,11 @@ class ControllerCoreMember extends Controller
 		}
 		//Lay tat ca phieu chi tra no
 		$where = " AND makhachhang = 'KH-".$id."' AND loaithuchi = 'chi' AND taikhoanthuchi = 'paycredit'";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap > '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -260,11 +260,11 @@ class ControllerCoreMember extends Controller
 		
 		//Lay tat ca phieu ban hang
 		$where = " AND loaiphieu in ('PX-PBH','CH-BH') AND khachhangid = '".$id."'";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap > '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -284,11 +284,11 @@ class ControllerCoreMember extends Controller
 		}
 		//Lay tat ca phieu tra hang
 		$where = " AND loaiphieu = 'NK-KHTL' AND khachhangid = '".$id."'";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap > '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -322,7 +322,7 @@ class ControllerCoreMember extends Controller
 			@$this->data['congno'] = $congno;
 			@$this->id='content';
 			@$this->template="core/member_congno.tpl";
-			if($_GET['dialog']=='print')
+			if(@$_GET['dialog']=='print')
 			{
 				@$this->layout='layout/print';
 			}
@@ -372,7 +372,7 @@ class ControllerCoreMember extends Controller
 			
 			$data['birthday'] = @$this->date->formatViewDate($data['birthday']);
 			$data['commissions'] = json_encode($data['commissions']);
-			if($data['id']=="")
+			if(@$data['id']=="")
 			{
 				@$this->model_core_user->insertUser($data);	
 			}
@@ -459,11 +459,11 @@ class ControllerCoreMember extends Controller
 		//print_r($arr_member);
 		$where = " AND loaiphieu = 'PBH'";
 		//$where .= " AND khachhangid in ('". implode("','",$arr_member) ."')";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap > '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -514,11 +514,11 @@ class ControllerCoreMember extends Controller
 		//print_r($arr_member);
 		$where = " AND loaiphieu = 'PBH'";
 		//$where .= " AND khachhangid in ('". implode("','",$arr_member) ."')";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap > '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -551,7 +551,7 @@ class ControllerCoreMember extends Controller
 		$keyword = urldecode(@$this->request->get['term']);
 		$where = "AND usertypeid = 'member'";
 		@$arrkey = split(' ', $keyword);
-		if($keyword)
+		if(@$keyword)
 		{
 			$arr = array();
 			foreach($arrkey as $key)
@@ -565,9 +565,9 @@ class ControllerCoreMember extends Controller
 		foreach($members as $member)
 		{
 			$label = $member['fullname'];
-			if($member['phone'])
+			if(@$member['phone'])
 				$label .= " - ".$member['phone'];
-			if($member['address'])
+			if(@$member['address'])
 				$label .= " - ".$member['address'];
 			$arr = array(
 						"id" => $member['id'],

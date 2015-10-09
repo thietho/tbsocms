@@ -17,7 +17,7 @@ class ModelCoreMessage extends ModelCoreFile
 		$sql = "Select `message`.* 
 									from `message` 
 									where status <> 'delete' " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}
@@ -72,7 +72,7 @@ class ModelCoreMessage extends ModelCoreFile
 					);
 		@$this->db->insertData("message",$field,$value);
 		$data['messageid']=$messageid;
-		if($attachment!="")
+		if(@$attachment!="")
 		{	
 			@$listfile = split(",",$attachment);
 			@$this->updateListFileTemp($listfile);
@@ -105,14 +105,14 @@ class ModelCoreMessage extends ModelCoreFile
 		$messageid=@$this->db->escape(@$messageid);
 		//Xoa nhung file dinh kem
 		/*$message = @$this->getItem($messageid);
-		if($message['attachment']!="")
+		if(@$message['attachment']!="")
 		{
 			@$list = split(",",$message['attachment']);
 			foreach($list as $item)
 				@$this->deleteFile($item);
 		}*/
 		//Xoa tin nhan
-		if($messageid != "")
+		if(@$messageid != "")
 		{
 			$sql = "Update `message` set status='delete' where messageid = '".$messageid."'";
 			@$this->db->query($sql);
@@ -171,7 +171,7 @@ class ModelCoreMessage extends ModelCoreFile
 			$mystring = trim($item);
 			$findme   = '@';
 			$pos = strpos($mystring, $findme);
-			if ($pos === false) 
+			if(@$pos === false) 
 			{
 				//Not found
 				$listuser[]=@$this->processString($item);
@@ -190,7 +190,7 @@ class ModelCoreMessage extends ModelCoreFile
 	private function processString($str)
 	{
 		$pos = strpos($str,'&lt;');
-		if ($pos === false) 
+		if(@$pos === false) 
 		{
 			return trim($str);
 		}
@@ -208,7 +208,7 @@ class ModelCoreMessage extends ModelCoreFile
 		$sql = "Select `messagesend`.*
 									from `messagesend` 
 									where 1=1 " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

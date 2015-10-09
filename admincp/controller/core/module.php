@@ -229,7 +229,7 @@ class ControllerCoreModule extends Controller
 		{
 			
 			
-			if($data['id']==0)
+			if(@$data['id']==0)
 			{
 				$data['id'] = @$this->model_core_module->insert($data);	
 			}

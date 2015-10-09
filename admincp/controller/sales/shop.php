@@ -86,7 +86,7 @@ class ControllerSalesShop extends Controller
 		$arr = array();
 		foreach($datasearchlike as $key => $item)
 		{
-			if($item !="")
+			if(@$item !="")
 				$arr[] = " AND " . $key ." like '%".$item."%'";
 		}
 		
@@ -160,7 +160,7 @@ class ControllerSalesShop extends Controller
 		if(@$this->validateForm($data))
 		{
 			
-			if($data['id']=="")
+			if(@$data['id']=="")
 			{
 				$data['id']=@$this->model_sales_shop->insert($data);
 			}
@@ -187,7 +187,7 @@ class ControllerSalesShop extends Controller
 	{
     	
 		
-		if ($data['shopname'] == "") 
+		if(@$data['shopname'] == "") 
 		{
       		@$this->error['shopname'] = "Bạn chưa nhập tên của hàng";
     	}

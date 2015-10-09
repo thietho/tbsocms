@@ -91,7 +91,7 @@ class ControllerModuleLocation extends Controller
 	private function validateForm($data)
 	{
     	
-		if($data['title'] == "")
+		if(@$data['title'] == "")
 		{
       		@$this->error['title'] = "Bạn chưa nhập tiêu dề";
     	}

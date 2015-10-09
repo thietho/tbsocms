@@ -11,7 +11,7 @@
 			{	
 				if(isset($this->request->post['save']))
 				{
-					if($_FILES['image']['tmp_name']!="")
+					if(@$_FILES['image']['tmp_name']!="")
 						@$this->updateUserAvatar();
 					if(@$this->request->post['Title']!=""&&@$this->request->post['Detail']!="")
 						@$this->sendRequest();
@@ -64,7 +64,7 @@
 		
 		function updateUserAvatar()
 		{
-			if($_FILES['image']['tmp_name']!='')
+			if(@$_FILES['image']['tmp_name']!='')
 			{
 				if(@$this->request->post['FileID']=='0'||@$this->request->post['FileID']==null)
 				{

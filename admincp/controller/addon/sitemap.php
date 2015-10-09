@@ -50,7 +50,7 @@ class ControllerAddonSitemap extends Controller
 				$tab="<span class='tab'></span>";
 		
 			$class="";
-			if($item['parentpath']!="")
+			if(@$item['parentpath']!="")
 				$class=$eclass.$item['parentpath'];
 			
 			
@@ -149,7 +149,7 @@ class ControllerAddonSitemap extends Controller
 		{
 			@$this->load->model("core/sitemap");
 			$data['siteid'] = @$this->user->getSiteId();
-			if($data['id']=="")
+			if(@$data['id']=="")
 			{
 				$data['position'] = @$this->model_core_sitemap->nextPosition($data['sitemapparent']);
 				@$this->model_core_sitemap->insertSiteMap($data);
@@ -302,7 +302,7 @@ class ControllerAddonSitemap extends Controller
 			@$this->load->model('core/file');
 			foreach($position as $key=>$val)
 			{
-				if($arr[$key]=="1")
+				if(@$arr[$key]=="1")
 				{
 					$id=$key;
 					$data=@$this->model_core_sitemap->getItem($id, @$this->user->getSiteId());

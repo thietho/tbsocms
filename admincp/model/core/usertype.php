@@ -59,7 +59,7 @@ class ModelCoreUsertype extends Model
 	function getTreeUserType($id,&$data)
 	{
 		$arr=@$this->getUserType($id);
-		if($id!="")
+		if(@$id!="")
 			array_push($data,$arr);
 		$rows = @$this->getUserTypeChild($id);
 		

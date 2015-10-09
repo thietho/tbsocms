@@ -30,11 +30,11 @@ class ControllerThongkeSales extends Controller
 		$tungay = @$this->date->formatViewDate($data['tungay']);
 		$denngay = @$this->date->formatViewDate($data['denngay']);
 		$where = "";
-		if($tungay != "")
+		if(@$tungay != "")
 		{
 			$where .= " AND ngaylap >= '".$tungay."'";
 		}
-		if($denngay != "")
+		if(@$denngay != "")
 		{
 			$where .= " AND ngaylap < '".$denngay." 24:00:00'";
 		}
@@ -55,7 +55,7 @@ class ControllerThongkeSales extends Controller
 				@$this->data['data_banhang'][$date] = array();
 				foreach($data_banhang as $item)
 				{
-					if($item['date']==$date)
+					if(@$item['date']==$date)
 					{
 						@$this->data['data_banhang'][$date][] = $item;
 					}

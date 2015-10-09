@@ -16,7 +16,7 @@ class ModelCoreComment extends Model
 		$sql = "Select `comment`.* 
 									from `comment` 
 									where status not like 'delete' " . $where ;
-		if($to > 0)
+		if(@$to > 0)
 		{
 			$sql .= " Limit ".$from.",".$to;
 		}

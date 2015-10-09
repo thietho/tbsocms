@@ -23,7 +23,7 @@ class ControllerCoreFile extends Controller
 		@$this->data['DIR_UPLOADATTACHMENT'] = HTTP_SERVER."index.php?route=common/uploadattachment";
 		@$this->id='content';
 		@$this->template="core/file.tpl";
-		if($_GET['dialog'] == '')
+		if(@$_GET['dialog'] == '')
 		{
 			//@$this->template="core/file_list.tpl";
 			@$this->layout="layout/center";
@@ -40,7 +40,7 @@ class ControllerCoreFile extends Controller
 		@$this->data['folderchild'] = array();
 		@$this->data['files'] = array();
 		$folder = urldecode(@$this->request->get['folder']);
-		if($folder=="")
+		if(@$folder=="")
 			$files = glob(DIR_FILE.'upload/*');
 		else
 		{
@@ -106,13 +106,13 @@ class ControllerCoreFile extends Controller
 		@$this->load->model("core/sitemap");
 		@$this->load->helper('image');
 		$where="";
-		if($list!="")
+		if(@$list!="")
 			$where.=" AND fileid in (".$list.")";
-		if($keyword!="")
+		if(@$keyword!="")
 		{
 			$where .= " AND filename like '%".$keyword."%'";	
 		}
-		if($folderid!="")
+		if(@$folderid!="")
 			$where .= " AND folderid = ".$folderid;
 		$rows = @$this->model_core_media->getFiles($where." ORDER BY `file`.`fileid` DESC");
 		//Page
@@ -240,7 +240,7 @@ class ControllerCoreFile extends Controller
         $result=false; 
         
         if (is_file($source)) { 
-            if ($dest[strlen($dest)-1]=='/') { 
+            if(@$dest[strlen($dest)-1]=='/') { 
                 if (!file_exists($dest)) { 
                     cmfcDirectory::makeAll($dest,$options['folderPermission'],true); 
                 } 
@@ -252,8 +252,8 @@ class ControllerCoreFile extends Controller
             chmod($__dest,$options['filePermission']); 
             
         } elseif(is_dir($source)) { 
-            if ($dest[strlen($dest)-1]=='/') { 
-                if ($source[strlen($source)-1]=='/') { 
+            if(@$dest[strlen($dest)-1]=='/') { 
+                if(@$source[strlen($source)-1]=='/') { 
                     //Copy only contents 
                 } else { 
                     //Change parent itself and its contents 
@@ -262,7 +262,7 @@ class ControllerCoreFile extends Controller
                     chmod($dest,$options['filePermission']); 
                 } 
             } else { 
-                if ($source[strlen($source)-1]=='/') { 
+                if(@$source[strlen($source)-1]=='/') { 
                     //Copy parent directory with new name and all its content 
                     @mkdir($dest,$options['folderPermission']); 
                     chmod($dest,$options['filePermission']); 
@@ -276,7 +276,7 @@ class ControllerCoreFile extends Controller
             $dirHandle=opendir($source); 
             while($file=readdir($dirHandle)) 
             { 
-                if($file!="." && $file!="..") 
+                if(@$file!="." && $file!="..") 
                 { 
                      if(!is_dir($source."/".$file)) { 
                         $__dest=$dest."/".$file; 
@@ -320,7 +320,7 @@ class ControllerCoreFile extends Controller
 			$objects = scandir($dir); 
 			foreach ($objects as $object) 
 			{ 
-				if ($object != "." && $object != "..") 
+				if(@$object != "." && $object != "..") 
 				{ 
 					if (filetype($dir."/".$object) == "dir") 
 						@$this->rrmdir($dir."/".$object); 
@@ -372,10 +372,10 @@ class ControllerCoreFile extends Controller
 		@$this->load->model("core/file");
 		
 		$folderid = @$this->request->get['folderid'];
-		if($folderid =="")
+		if(@$folderid =="")
 			$folderid = -1;
 		$folderparent = @$this->request->get['folderparent'];
-		if($folderid!= -1)
+		if(@$folderid!= -1)
 			@$this->data['item'] = @$this->model_core_file->getFolder($folderid);
 		else
 		{
@@ -414,7 +414,7 @@ class ControllerCoreFile extends Controller
 	
 	private function validateFolderForm($data)
 	{
-		if ($data['foldername'] == "") 
+		if(@$data['foldername'] == "") 
 		{
       		@$this->error['foldername'] = "Bạn chưa nhập tên thư mục";
     	}
